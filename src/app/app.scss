@@ -14,3 +14,51 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+chart {
+        display: block;
+}
+
+
+// fixes issue with beach selection losing first item, not sure what else it impacts yet
+.scroll-content {
+ //  padding: 0px !important;
+}
+
+ // in app.scsss for it to work
+
+ion-app.md [padding], ion-app.md [padding] .scroll-content {
+    padding: 0px !important;
+}
+ion-app.ios [padding], ion-app.ios [padding] .scroll-content {
+    padding: 0px !important;
+}
+
+.popover-ios .popover-content {
+    width: 70%;
+    min-width: 70%;
+    min-height: 0;
+    max-height: 90%;
+    border-radius: 10px;
+    color: #000;
+    background: #fff;
+}
+
+
+.label-ios {
+    // font-size: 1.3rem;
+}
+.toolbar-background {
+    background: color($colors, primary);
+    }
+
+.toolbar-title {
+    color: color($colors, primary-text-light);
+}
+
+.bar-button-default, .bar-button-clear-default, .bar-button-default {
+  color: color($colors, primary-text-light);
+}
+
+.button-effect  {
+  background-color: color($colors, secondary-text);
+}

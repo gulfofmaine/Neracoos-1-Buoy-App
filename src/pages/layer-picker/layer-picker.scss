@@ -1,0 +1,54 @@
+page-layer-picker {
+ion-grid {
+//  height: 100%;
+
+ion-row {
+ //   height: 70px;
+  }
+}
+
+.item-ios {
+  font-size: 1.4rem;
+}
+
+.listtitle {
+  background-color: color($colors, divider);
+  color: color($colors, primary-text-light);
+}
+.toggle-md .toggle-icon {
+    position: relative;
+    display: block;
+    width: 60%;
+    max-height: 30%;
+    border-radius: 14px;
+    background-color: #dedede;
+    transition: background-color 300ms;
+    pointer-events: none;
+}
+
+.toggle-md {
+    position: relative;
+    // padding: 0px;
+    width: 36px;
+    height: 14px;
+    box-sizing: content-box;
+    contain: strict;
+}
+
+.range-md {
+    padding: 8px 8px;
+    margin-top: -20px;
+}
+
+ion-app.md [padding], ion-app.md [padding] .scroll-content {
+    padding: 1px;
+}
+
+.popover-md .popover-content {
+
+    max-height: 100%;
+}
+
+
+
+}

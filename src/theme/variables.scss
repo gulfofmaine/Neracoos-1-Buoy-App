@@ -33,13 +33,58 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+
+
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  primary: #3F51B5, //royal blue
+  primary-dark: #303F9F,
+  primary-light: #C5CAE9,
+  primary-text-light: #FFFFFF,
+  primary-text-dark: #212121,
+  secondary-text: #757575,
+  divider: #BDBDBD,
+  secondary:  #FFC107, //yellow, also accent
+  danger:     #f53d3d, //bright red
+  light:      #C5CAE9, // white
+  dark:       #212121 //black
 );
+
+
+.logo {
+  float: left;
+  width: 250px;
+  @media screen and (max-width: 320px) {
+    width: 100px;
+  }
+  @media screen and (min-width: 1200px) {
+    float: none;
+  }
+}
+
+$mobile-width: 320px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin mobile {
+  @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+
+
 
 
 // App iOS Variables

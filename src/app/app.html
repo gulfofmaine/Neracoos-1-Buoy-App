@@ -1,7 +1,7 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" side="left">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title>Choose your Interest</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -13,6 +13,57 @@
     </ion-list>
   </ion-content>
 
+</ion-menu>
+
+<ion-menu *ngIf="getPageName() == 'WaveGraphPage'" [content]="content" side="right">
+  <ion-content padding class="has-header">
+      <ion-navbar>
+        <ion-title *ngIf="getPageName() == 'WaveGraphPage'">Choose a Platform</ion-title>
+        <ion-title *ngIf="filter_type == 'tides'">Choose a Station</ion-title>
+        <ion-title *ngIf="filter_type == 'wavessource'">Choose a Wave Model</ion-title>
+      </ion-navbar>
+        <div >
+          <ion-list *ngIf="getPageName() == 'WaveGraphPage'">
+            <button ion-item *ngFor="let item of waveService.wave_locations"
+                        (click)="platformTapped($event, item)">
+              {{item.properties.name}}
+            </button>
+          </ion-list>
+          <ion-list *ngIf="filter_type == 'tides'">
+            <button ion-item *ngFor="let item of waterlevelService.getOfficialTideLocations()"
+                        (click)="tideTapped($event, item)">
+              {{item.monitoringlocationname}}
+            </button>
+          </ion-list>
+        </div>
+  </ion-content>
+</ion-menu>
+
+<ion-menu *ngIf="getPageName() == 'BuoydataMapPage'" [content]="content" side="right">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Options</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+  <ion-list>
+   <ion-item class="listtitle">Toggle Stations on/off</ion-item>
+    <ion-item *ngFor="let layer of labeled_options_display">
+      <ion-label> {{layer.displayName}}   </ion-label>
+      <ion-toggle [checked]="layer.visibility" (ionChange)="updateVisibility(layer)"></ion-toggle>
+    </ion-item>
+
+    <ion-item class="listtitle">Select Base Layer</ion-item>
+    <ion-item *ngFor="let layer of base_options_display">
+      <ion-label>{{layer.displayName}}</ion-label>
+      <ion-toggle [checked]="layer.visibility" (ionChange)="updateVisibility(layer)"></ion-toggle>
+      <ion-range min="0" max="100" step="5" [(ngModel)]="layer.opacity"
+                    (ionChange)="updateOpacity(layer)"></ion-range>
+
+    </ion-item>
+  </ion-list>
+  </ion-content>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
