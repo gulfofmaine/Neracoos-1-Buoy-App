@@ -26,7 +26,8 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
     this.show_labels = show_labels ;
     this.isLabeledLayer = true ;
 
-    this.URL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson";
+    // this.URL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson";
+    this.URL = "http://local.drupal7.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
 
     this.legendArray['caption'] = 'Buoy Platforms' ;
     this.legendArray['showinlegend'] = '1' ;
@@ -293,6 +294,7 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
     let icon_img : string = this.legendArray['symbol'] ;
     switch ( program ) {
       case 'NERACOOS':
+      case 'UMO':
         icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
         break;
       case 'NOAA':
@@ -316,6 +318,9 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
         break;
       case 'COOA':
       case 'GoMOOS':
+        icon_img = this.icon_path + "/img/symbols/symbol_gomoos.gif" ;
+        break;
+      case 'CINAR':
         icon_img = this.icon_path + "/img/symbols/symbol_gomoos.gif" ;
         break;
       case 'Bowdoin':

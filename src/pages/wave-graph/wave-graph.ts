@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
@@ -28,11 +28,22 @@ export class WaveGraphPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
           public appConfig: AppConfig,
           public waveService: WaveProvider,
-          public popoverCtrl: PopoverController ) {
+          public popoverCtrl: PopoverController,
+          public menuCtrl: MenuController,
+          public events: Events ) {
     Highcharts.setOptions({
       global: {
           useUTC: false
           // timezoneOffset: 5 * 60
+      }
+    });
+    // subscribe to the page loading event
+    events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
+      if ( this.waveService.isInitialized()  ) {
+        // if a choice has been made and there was not previous error go directly to the page
+        if ( this.appConfig.getPlatformName() != undefined && this.appConfig.waveDisplayedErrorMessage == false ) {
+            this.waveService.getWaveData(false);
+        }
       }
     });
   }
@@ -52,7 +63,7 @@ export class WaveGraphPage {
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.waveDisplayedErrorMessage == false ) {
           this.waveService.getWaveData(false);
       } else {
-          // this.displayChoices();
+          this.menuCtrl.open('right');
       }
     } else {
       this.waveService.waveProvUpdates().subscribe( event_obj => {
@@ -62,7 +73,7 @@ export class WaveGraphPage {
             if ( this.appConfig.getPlatformName() != undefined ) {
                 this.waveService.getWaveData(false);
             } else {
-                //this.displayChoices();
+                this.menuCtrl.open('right');
             }
             break;
           case "forecast_data_error":

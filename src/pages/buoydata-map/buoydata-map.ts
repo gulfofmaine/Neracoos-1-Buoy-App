@@ -15,6 +15,7 @@ import {GMRIStationLayer} from "../../gmri/mapping/gmriStationMap";
 import {ESRIOceanTopoBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
 import {ESRIOceanReferenceBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
 import {MaritimeChartServerBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
+import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 
 
 declare var require: any;

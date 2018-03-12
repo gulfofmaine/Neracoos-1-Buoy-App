@@ -28,12 +28,6 @@
       {{message}}
       </div>
     </div>
-    <div *ngIf="waveService.isForecastReady()">
-    <button ion-button icon-end mode="md" (click)="showSelection();">
-             Location: {{waveService.appConfig.platform_name}}
-              <ion-icon name="arrow-dropdown"></ion-icon>
-            </button>
-    </div>
 
   <chart type="StockChart" [options]="waveService.waveChart"></chart>
 </ion-content>

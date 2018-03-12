@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform, Events, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -40,7 +40,8 @@ export class MyApp {
               public waveService: WaveProvider,
               public waterlevelService: WaterlevelProvider,
               public mapService: MappingProvider,
-              public events: Events) {
+              public events: Events,
+              public menuCtrl: MenuController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -143,14 +144,18 @@ export class MyApp {
   // filters platform, station
   platformTapped(event, item) {
     this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
+    this.events.publish('platformTapped:rightmenu', item.properties.name);
+    this.menuCtrl.close();
   }
 
   tideTapped(event, item) {
     this.appConfig.setTideSelected(this.waterlevelService, item.monitoringlocationidentifier);
+    this.menuCtrl.close();
   }
 
   waveTapped(event, item) {
     this.appConfig.setWaveModelSelected(item.model_id);
+    this.menuCtrl.close();
   }
   // end filters platform, station
 }

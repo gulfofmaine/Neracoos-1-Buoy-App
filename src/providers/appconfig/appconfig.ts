@@ -6,8 +6,11 @@ import 'rxjs/add/operator/map';
 import { DatePipe } from '@angular/common';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/map';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 
 /*
   Generated class for the Config provider.
@@ -109,6 +112,7 @@ export class AppConfig {
   waveServices: any = [] ;
   wave_model_selected: string = 'WW3GLOBAL' ;
   wave_model_used: string = 'WW3GLOBAL' ;
+  neracoosErddap:any ;
 
 
   // I admit I am flailing here. retrieving data from localstorge is
@@ -153,7 +157,8 @@ export class AppConfig {
     // retrieve the date range of available data
     // If you ask outside of the range erdap errors out.
     // http://www.neracoos.org/erddap/griddap/WW3_GulfOfMaine_latest.json?time[]
-    let path: string = '/erddap/griddap/WW3_GulfOfMaine_latest.json?time[]' ;
+    // 2-26-2018 new 72 hour forecast is available swp is now fp (wave peak frequency, s-1)
+    let path: string = '/erddap/griddap/WW3_72_GulfOfMaine_latest.json?time[]' ;
     let encQS: string =  encodeURIComponent(path);
     this.dateRangeWW3URL = this.getNeracoosHostPrefix() + '/proxy2?ajax=1&url=http://www.neracoos.org' + encQS ;
     // NWW3_Global also has a date range issue.
@@ -173,12 +178,15 @@ export class AppConfig {
     this.deepWaterWaveURL = 'http://' + this.getNJSProxyCbassHostPrefix() + path ;
     // wave locations
     // http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson
-    this.waveLocationURL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson";
+    // this.waveLocationURL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson";
+    this.waveLocationURL = "http://local.drupal7.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
     // Eric's erddap metadata
     path = '/lgnc/ERDHighStock/EDInfoDump/erdap_info_all_aws.json' ;
     encQS =  encodeURIComponent(path);
     this.erddapMetadataURL = this.getNeracoosHostPrefix() + '/proxy2?ajax=1&url=http://www.neracoos.org' + encQS ;
 
+    // intialize erddaap and perhaps other things in the future?
+    this.initializeAppData(true);
 
     this.offsetTweaks['pwl'] =  {} ;
     this.offsetTweaks['pwl'].value = 0  ;
@@ -296,6 +304,93 @@ export class AppConfig {
     this.waveServices.push( ww3GlobalService );
     this.waveServices.push( necofsService );
 
+  }
+  // mimic Eric's load of erddap data. It's either use an already json structure
+  // of data OR go to the ERDDAP source and build that structure. Building takes quite awhile
+  initializeAppData(use_cache_file) {
+    let dataGETs: any = [];
+    let dataTypesLoaded: any = [];
+
+    if(use_cache_file){  // modulename can be null as well as path
+      // Eric writes out a magic file on awsgmri for this.
+      let ERDDAPMetadataURL: string = this.getErddapMetadataURL();
+      let erddapMetadata = this.http.get(ERDDAPMetadataURL).map(res => res.json());
+      dataGETs.push(erddapMetadata);
+      dataTypesLoaded.push('pre_built_erddap_metadata');
+    } else {
+      this.neracoosErddap = new GMRIErddap(null);
+      let erddap_metadata_get = this.http.get(this.neracoosErddap.erddap_url).map(res => res.json());
+      dataGETs.push(erddap_metadata_get);
+      dataTypesLoaded.push('build_erddap_metadata');
+    }
+
+    Observable.forkJoin(dataGETs).subscribe(
+          results => this.initialAppDataReady("initial_app_data", results, dataTypesLoaded),
+          error => this.initialAppDataError( "Initial App data Failed to Load", error, dataTypesLoaded ),
+          () => this.initialAppDataComplete( "Initial App Data Complete", dataTypesLoaded ));
+  }
+  initialAppDataReady(data_queried, results, types_array){
+      // data_queried is a little useless  here
+      if ( data_queried == "initial_app_data" ) {
+        for ( var dKey in types_array ) {
+          switch ( types_array[dKey] ) {
+            case 'pre_built_erddap_metadata':
+              this.neracoosErddap = new GMRIErddap(results);
+              break;
+            case 'build_erddap_metadata':
+              /* Ian is too lazy. This involves multiple web services reads to implement
+              ** and is very slow anyway so we'll never use it probably.
+              cnt = this.erddap_metadata_createERDTables(results, null);
+              if(cnt == 0){
+                return (false);
+              }
+              let tab_index:any;
+              for(tab_index in this.erddap_metadata.erdTables){
+                // This remotely hosted Coastwatch dataset, needs special handling vs. NERACOOS assets
+                // do setVariables first since setTimes() relies on the global attribute time_zone.
+                ret = this.erddap_metadata.erdTables[tab_index].setVariables();
+                if(!ret){
+                  this.ERROR .=  this.erddap_metadata.erdTables[tab_index].getError();
+                }
+
+                if( this.erddap_metadata.erdTables[tab_index].DatasetID  != 'cwwcNDBCMet'){
+                  // will not work for NDBC until we add a list of stations?
+                  ret = this.erddap_metadata.erdTables[tab_index].setTimes();
+                  if(!ret){
+                    this.ERROR .=  this.erddap_metadata.erdTables[tab_index].getError();
+                  }
+                  ret = this.erddap_metadata.erdTables[tab_index].setDepths();
+                  if(!ret){
+                    this.ERROR .=  this.erddap_metadata.erdTables[tab_index].getError();
+                  }
+                }
+              } // end foreach tab
+              */
+              break;
+            default:
+              break;
+          }
+        }
+      // send out an event object
+      let event_obj: any = { name: "initial_app_data_available" };
+      if ( this.configObserver != undefined ) {
+        this.configObserver.next(event_obj);
+      }
+    }
+  }
+  initialAppDataError( data_queried, error, types_array) {
+    // send out an event object
+    let event_obj: any = { name: "initial_app_data_error" };
+    if ( this.configObserver != undefined ) {
+      this.configObserver.next(event_obj);
+    }
+  }
+  initialAppDataComplete(data_queried, types_array) {
+    // send out an event object
+    let event_obj: any = { name: "initial_app_data_complete" };
+    if ( this.configObserver != undefined ) {
+      this.configObserver.next(event_obj);
+    }
   }
   setWaveModelSelected( selected ) {
     this.wave_model_selected = selected ;

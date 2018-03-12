@@ -35,7 +35,8 @@ export class WaveProvider {
   forecast_ready: boolean = false ;
   notReadyText: string ;
   requested_forecast: boolean = false ;
-  neracoosErddap: any ;
+  // moved to appConfig
+  // neracoosErddap: any ;
 
   constructor(public appConfig:AppConfig,
               public menuCtrl: MenuController,
@@ -159,14 +160,20 @@ export class WaveProvider {
       let drrWW3GlobalURL: string = this.appConfig.getDateRangeWW3GlobalURL();
       let dateRangeWW3Global = this.http.get(drrWW3GlobalURL).map(res => res.json());
 
-      let ERDDAPMetadataURL: string = this.appConfig.getErddapMetadataURL();
-      let erddapMetadata = this.http.get(ERDDAPMetadataURL).map(res => res.json());
+      // moved to appConfig
+      // let ERDDAPMetadataURL: string = this.appConfig.getErddapMetadataURL();
+      // let erddapMetadata = this.http.get(ERDDAPMetadataURL).map(res => res.json());
 
       let obj_text: string = '';
 
-      Observable.forkJoin([waveLocation, dateRangeWW3, erddapMetadata, dateRangeWW3Global]).subscribe(results => {
+      Observable.forkJoin([waveLocation, dateRangeWW3, dateRangeWW3Global]).subscribe(results => {
         // set up wave locations
+        // replaced with erddap_wave_monitoring_locations_setup
+        // NOPE I changed the web service to use erddap
         this.wave_monitoring_locations_setup( results[0] ) ;
+        // where should I put this!
+        // this.erddap_wave_monitoring_locations_setup();
+
         // set these in appConfig for anyone to use
         // this is the bedford ww3 start and end range
         this.appConfig.dww_end_date_index = results[1].table.rows.length - 1 ;
@@ -177,13 +184,14 @@ export class WaveProvider {
           console.log("Deep Water Wave Response Date response received:" + obj_text);
         }
         // create a NeracoosErddap object to encaplulate the neracoos erddap service
-        this.neracoosErddap = new NeracoosErddap(results[2] ) ;
+        // moved to app config
+        // this.neracoosErddap = new NeracoosErddap(results[2] ) ;
         // this is the coastwatch ww3 global start and end range
-        this.appConfig.dww_global_end_date_index = results[3].table.rows.length - 1 ;
-        this.appConfig.dww_global_start_date = results[3].table.rows[0] ;
-        this.appConfig.dww_global_end_date = results[3].table.rows[this.appConfig.dww_global_end_date_index];
+        this.appConfig.dww_global_end_date_index = results[2].table.rows.length - 1 ;
+        this.appConfig.dww_global_start_date = results[2].table.rows[0] ;
+        this.appConfig.dww_global_end_date = results[2].table.rows[this.appConfig.dww_global_end_date_index];
         if ( this.appConfig.debug_dww ) {
-          obj_text = JSON.stringify(results[3], null, 4);
+          obj_text = JSON.stringify(results[2], null, 4);
           console.log("Coastwatch Deep Water Wave Response Date response received:" + obj_text);
         }
         // send out an event object
@@ -195,14 +203,49 @@ export class WaveProvider {
       error => console.log(error));
     }
   }
-  // setup erddap metadata
+  // use erddap data for wave monitoring locations
+  // try to mimic properties found in this geojson web service
+  // http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson
+  erddap_wave_monitoring_locations_setup() {
+    this.wave_locations = [];
+    let platform_object: any ;
+    // first neracoos
+    for(let rKey in this.appConfig.neracoosErddap.raw_data[0].erdTables){
+      if ( this.appConfig.neracoosErddap.raw_data[0].erdTables[rKey].neracoos_data_provider &&
+            this.appConfig.neracoosErddap.raw_data[0].erdTables[rKey].neracoos_data_provider == 'UMO') {
+        let bFound = false ;
+        for ( let wKey in this.wave_locations) {
+          if ( this.wave_locations[wKey].properties.name ==
+                    this.appConfig.neracoosErddap.raw_data[0].erdTables[rKey].platform) {
+            bFound =  true ;
+            break;
+          }
+        }
+        if ( !bFound ) {
+          // mimic the other data format
+          platform_object = {};
+          platform_object.properties = {} ;
+          platform_object.properties.name = this.appConfig.neracoosErddap.raw_data[0].erdTables[rKey].platform ;
+          this.wave_locations.push(platform_object) ;
+        }
+      }
+    }
+  }
   // wave monitoring locations.
   wave_monitoring_locations_setup( json_data) {
     this.wave_locations = [];
     for (var wave_ml_key in json_data.features) {
       var wave_ml_data = json_data.features[wave_ml_key] ;
-      if ( wave_ml_data.properties.data_depths != undefined &&
-        wave_ml_data.properties.data_depths.significant_height_of_wind_and_swell_waves != undefined ) {
+      // 3-7-2018 Old check using geojson service based on database
+      // if ( wave_ml_data.properties.data_depths != undefined &&
+      //   wave_ml_data.properties.data_depths.significant_height_of_wind_and_swell_waves != undefined ) {
+      //   // do these individually as the pages get loaded for specific sites.
+      //   // var wave_ml = new waveObject($http, $q, wave_ml_data);
+      //   this.wave_locations.push(wave_ml_data);
+      //   }
+      // New check based on Erddap geojson service
+      if ( wave_ml_data.properties.data_types != undefined &&
+        wave_ml_data.properties.data_types.significant_wave_height != undefined ) {
         // do these individually as the pages get loaded for specific sites.
         // var wave_ml = new waveObject($http, $q, wave_ml_data);
         this.wave_locations.push(wave_ml_data);
@@ -329,7 +372,7 @@ export class WaveProvider {
         // check for availability of wave data
         let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
                                       "dominant_wave_period", "dominant_wave_period_qc"];
-        let return_erddap: any = this.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
+        let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
         if ( return_erddap['datasetID'] != null ) {
           let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
           this.dataGetUrls.push(getErdWaveObsURL) ;
@@ -585,106 +628,7 @@ export class WaveProvider {
     //}
   }
 }
-class NeracoosErddap {
-  raw_data: any ;
-  platforms: any = [] ;
 
-  constructor( rawData: any ) {
-    this.raw_data = rawData ;
-  }
-  // create a display worthy subset of data
-  getPlatformsMetadata(only_active) {
-    // let platforms: any = [] ;
-    for(let rKey in this.raw_data.erdTables){
-      if ( (only_active && this.raw_data.erdTables[rKey].active) ||
-          !only_active ) {
-        if(this.raw_data.erdTables[rKey].platform){
-          let platform_name : any = this.raw_data.erdTables[rKey].platform ;
-          if ( this.platforms[platform_name] == undefined ) {
-            let platform: any = {}
-            this.platforms[platform_name] = platform;
-          }
-          this.platforms[platform_name].project = this.raw_data.erdTables[rKey].project ;
-          this.platforms[platform_name].Title = this.raw_data.erdTables[rKey].Title;
-          this.platforms[platform_name].Institution = this.raw_data.erdTables[rKey].Info;
-          this.platforms[platform_name].mooring_site_desc = this.raw_data.erdTables[rKey].mooring_site_desc;
-          this.platforms[platform_name].latitude = this.raw_data.erdTables[rKey].latitude;
-          this.platforms[platform_name].longitude = this.raw_data.erdTables[rKey].longitude;
-          this.platforms[platform_name].active = this.raw_data.erdTables[rKey].active;
-        }
-      }
-    }
-  }
-  // return true if all the datatypes exist in the all_varaibles array.
-  // records are organized by datasetId so many are searched.
-  // This returns the dataset id for the types found. This implies a certain
-  // amount of user responsibility to ask for data_types that are known to be
-  // in a dataset.
-  // I've been checking the end time of the observations against
-  // the end time of the forecast I want. That's no good!
-  // I need to adjust the end time. If Erddap gets stale
-  // that's too much to ask to debug. So set the end time to
-  // the Dataset's end time ( return it along with the dataset id.
-
-  getDatasetID( appConfig, platform_name, data_type_array ) {
-    var date_range = appConfig.getERDDAPDateRange(null) ;
-    let date_start_msse: number = date_range['date_start_msse'];
-    // var date_end_msse = date_range['date_end_msse'];
-    let datasetID: any;
-    let ret_array : any = [] ;
-    let ret_date_start_msee: number;
-    let ret_date_end_msee: number;
-    // initialize the results to false
-    let dataTypeFound: any = [] ;
-    for ( let dKey in data_type_array ) {
-      dataTypeFound[dKey] = false ;
-    }
-    for(let rKey in this.raw_data.erdTables){
-      if ( this.raw_data.erdTables[rKey].platform &&
-            this.raw_data.erdTables[rKey].platform == platform_name) {
-        for ( let dKey in data_type_array ) {
-          for ( let vKey in this.raw_data.erdTables[rKey].all_variables ) {
-            // check for starting within the requested range.
-            if ( this.raw_data.erdTables[rKey].all_variables[vKey] == data_type_array[dKey] &&
-                (date_start_msse >= this.raw_data.erdTables[rKey].start_time_msse &&
-                date_start_msse <= this.raw_data.erdTables[rKey].end_time_msse ) ) {
-              dataTypeFound[dKey] = true ;
-              datasetID = this.raw_data.erdTables[rKey].DatasetID ;
-              ret_date_start_msee = this.raw_data.erdTables[rKey].start_time_msse;
-              ret_date_end_msee = this.raw_data.erdTables[rKey].end_time_msse ;
-            }
-          }
-        }
-      }
-    }
-    for ( let dKey in data_type_array ) {
-      if ( dataTypeFound[dKey] == false ) {
-        datasetID = null ;
-      }
-    }
-    ret_array['datasetID'] = datasetID ;
-    ret_array['start_time_msse'] = ret_date_start_msee ;
-    ret_array['end_time_msse'] = ret_date_end_msee ;
-    return ( ret_array );
-  }
-  // this is somewhat useless at the moment. Platforms occur multiple
-  // times in the raw data because the raw data is organized by DatasetID!
-  getPlatform( platform_name) {
-    let platform_data : any ;
-    for(let rKey in this.raw_data.erdTables){
-      if ( this.raw_data.erdTables[rKey].platform ) {
-        platform_data = this.raw_data.erdTables[rKey] ;
-        break;
-      }
-    }
-    return(platform_data) ;
-  }
-  getParameter( platform_name, parameter_name ) {
-    let platform_data = this.getPlatform( platform_name ) ;
-    let parameter: any = platform_data[parameter_name];
-    return (parameter);
-  }
-}
 class WaveObject {
 
   name: string ;
@@ -786,7 +730,8 @@ class WaveObject {
   }
   getWW3URL( appConfig ) {
     // get the predicted wave data from ERDDAP
-    var path = '/erddap/griddap/WW3_GulfOfMaine_latest.json?' ;
+    // 2-26-2018 new 72 hour forecast is available swp is now fp (wave peak frequency, s-1)
+    var path = '/erddap/griddap/WW3_72_GulfOfMaine_latest.json?' ;
     // format is start step stop for both time and position.
     // data types are
     // hs significant wave height, m
@@ -796,7 +741,7 @@ class WaveObject {
     path += 'hs[(' + this.dww_start_date + '):1:(' + this.dww_end_date + ']' ;
     path += '[(' + this.geo_array['lat'] + '):1:(' +this.geo_array['lat'] + ')][(' + this.geo_array['lon'] + '):1:(' + this.geo_array['lon'] + ')]' ;
     // ,swp[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
-    path += ',swp[(' + this.dww_start_date + '):1:(' + this.dww_end_date + ']' ;
+    path += ',fp[(' + this.dww_start_date + '):1:(' + this.dww_end_date + ']' ;
     path += '[(' + this.geo_array['lat'] + '):1:(' +this.geo_array['lat'] + ')][(' + this.geo_array['lon'] + '):1:(' + this.geo_array['lon'] + ')]' ;
     // ,dir[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
     path += ',dir[(' + this.dww_start_date + '):1:(' + this.dww_end_date + ']' ;
@@ -1641,7 +1586,8 @@ class DWWObject {
 
   geoGetDataURL(dww_start_date, dww_end_date, geo_array, appConfig) {
     // http://www.neracoos.org/erddap/griddap/WW3_GulfOfMaine_latest.json?hs[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)],swp[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)],dir[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
-    var path = '/erddap/griddap/WW3_GulfOfMaine_latest.json?' ;
+    // 2-26-2018 new 72 hour forecast is available swp is now fp (wave peak frequency, s-1)
+    var path = '/erddap/griddap/WW3_72_GulfOfMaine_latest.json?' ;
     // format is start step stop for both time and position.
     // data types are
     // hs significant wave height, m
@@ -1651,7 +1597,7 @@ class DWWObject {
     path += 'hs[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
     path += '[(' + geo_array['lat'] + '):1:(' +geo_array['lat'] + ')][(' + geo_array['lon'] + '):1:(' + geo_array['lon'] + ')]' ;
     // ,swp[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
-    path += ',swp[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
+    path += ',fp[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
     path += '[(' + geo_array['lat'] + '):1:(' +geo_array['lat'] + ')][(' + geo_array['lon'] + '):1:(' + geo_array['lon'] + ')]' ;
     // ,dir[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
     path += ',dir[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
@@ -1666,7 +1612,8 @@ class DWWObject {
   getDataURL(dww_start_date, dww_end_date, geo_array, appConfig) {
 
     // http://www.neracoos.org/erddap/griddap/WW3_GulfOfMaine_latest.json?hs[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)],swp[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)],dir[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
-    var path = '/erddap/griddap/WW3_GulfOfMaine_latest.json?' ;
+    // 2-26-2018 new 72 hour forecast is available swp is now fp (wave peak frequency, s-1)
+    var path = '/erddap/griddap/WW3_72_GulfOfMaine_latest.json?' ;
     // format is start step stop for both time and position.
     // data types are
     // hs significant wave height, m
@@ -1676,7 +1623,7 @@ class DWWObject {
     path += 'hs[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
     path += '[(' + geo_array['lat'] + '):1:(' +geo_array['lat'] + ')][(' + geo_array['lon'] + '):1:(' + geo_array['lon'] + ')]' ;
     // ,swp[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
-    path += ',swp[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
+    path += ',fp[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
     path += '[(' + geo_array['lat'] + '):1:(' +geo_array['lat'] + ')][(' + geo_array['lon'] + '):1:(' + geo_array['lon'] + ')]' ;
     // ,dir[(2016-04-01T00:00:00Z):1:(2016-04-01T00:00:00Z)][(46.05):1:(40.05)][(-72.05):1:(-63.05)]
     path += ',dir[(' + dww_start_date + '):1:(' + dww_end_date + ']' ;
