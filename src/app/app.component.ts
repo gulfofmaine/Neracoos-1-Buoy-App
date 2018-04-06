@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map' ;
+import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs' ;
 import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
 import { AppConfig } from '../providers/appconfig/appconfig';
 import { WaveProvider } from '../providers/wave/wave';
@@ -48,6 +49,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Buoy Map', component: BuoydataMapPage },
+      { title: 'Platforms', component: PlatformTabsPage },
       { title: 'Waves', component: WaveGraphPage },
       { title: 'List', component: ListPage }
     ];

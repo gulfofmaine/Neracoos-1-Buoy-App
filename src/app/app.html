@@ -15,6 +15,22 @@
 
 </ion-menu>
 
+<ion-menu *ngIf="getPageName() == 'PlatformTabsPage'" [content]="content" side="right">
+  <ion-content padding class="has-header">
+      <ion-navbar>
+        <ion-title *ngIf="getPageName() == 'PlatformTabsPage'">Choose a Platform</ion-title>
+      </ion-navbar>
+        <div >
+          <ion-list *ngIf="getPageName() == 'PlatformTabsPage'">
+            <button ion-item *ngFor="let item of waveService.wave_locations"
+                        (click)="platformTapped($event, item)">
+              {{item.properties.name}}
+            </button>
+          </ion-list>
+        </div>
+  </ion-content>
+</ion-menu>
+
 <ion-menu *ngIf="getPageName() == 'WaveGraphPage'" [content]="content" side="right">
   <ion-content padding class="has-header">
       <ion-navbar>

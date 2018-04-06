@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import {GMRIErddap} from "../../gmri/data/gmri-erddap";
+import {GMRIUnits} from "../../gmri/data/gmri-units";
 
 /*
   Generated class for the Config provider.
@@ -108,11 +109,13 @@ export class AppConfig {
 
   allow_persona_select: boolean = false ;
   waveDisplayedErrorMessage: boolean = false ;
+  displayedErrorMessage: boolean = false ;
   bumpedEndDate: boolean = false ;
   waveServices: any = [] ;
   wave_model_selected: string = 'WW3GLOBAL' ;
   wave_model_used: string = 'WW3GLOBAL' ;
   neracoosErddap:any ;
+  monitoring_locations: any = [] ;
 
 
   // I admit I am flailing here. retrieving data from localstorge is
@@ -179,7 +182,8 @@ export class AppConfig {
     // wave locations
     // http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson
     // this.waveLocationURL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson";
-    this.waveLocationURL = "http://local.drupal7.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
+   //  this.waveLocationURL = "http://local.drupal7.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
+    this.waveLocationURL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
     // Eric's erddap metadata
     path = '/lgnc/ERDHighStock/EDInfoDump/erdap_info_all_aws.json' ;
     encQS =  encodeURIComponent(path);
@@ -323,6 +327,12 @@ export class AppConfig {
       dataGETs.push(erddap_metadata_get);
       dataTypesLoaded.push('build_erddap_metadata');
     }
+    // the above pre_built_erddap_metadata loads eric's metadata as is
+    // this loads a buoy centric version of that data coming from neracoos.org
+    let platformLocationURL: string = this.getWaveLocationURL();
+    let platformLocation = this.http.get(platformLocationURL).map(res => res.json());
+    dataGETs.push(platformLocation);
+    dataTypesLoaded.push('platform_metadata');
 
     Observable.forkJoin(dataGETs).subscribe(
           results => this.initialAppDataReady("initial_app_data", results, dataTypesLoaded),
@@ -335,7 +345,10 @@ export class AppConfig {
         for ( var dKey in types_array ) {
           switch ( types_array[dKey] ) {
             case 'pre_built_erddap_metadata':
-              this.neracoosErddap = new GMRIErddap(results);
+              this.neracoosErddap = new GMRIErddap(results[dKey]);
+              break;
+            case 'platform_metadata':
+              this.monitoring_locations_setup( results[dKey] ) ;
               break;
             case 'build_erddap_metadata':
               /* Ian is too lazy. This involves multiple web services reads to implement
@@ -657,7 +670,7 @@ export class AppConfig {
     // see if the user has set any preference previously
     var visible = this.getUserPreferenceParameterVisibility( parameter ) ;
     if ( visible == undefined ) {
-      var parameters = parent.get_chart_display_parameters(this);
+      var parameters = parent.get_chart_display_parameters(this.interface_level);
       visible = false ;
       for ( var vKey in parameters ) {
         if ( parameters[vKey].toLowerCase() == parameter.toLowerCase() ) {
@@ -934,29 +947,6 @@ export class AppConfig {
   getVariousPrompts (prompt_id) {
     return this.various_prompts[prompt_id] ;
   }
-  getTideDateRange ( ) {
-    // pretty simple, today and tomorrow.
-    // 20160510
-    var date_range = [] ;
-    var date_now = new Date(this.getStartDate());
-    var date_last = new Date(this.getStartDate());
-    // minutes between here and GMT.
-    var toff = date_now.getTimezoneOffset();
-    toff += 60 * 1000;
-    // for the moment don't use GMT. I'm asking for lst/ldt (local savings time...)
-    // date_now.setTime(date_last.getTime() + toff);
-    date_last.setTime(date_last.getTime() + (this.getDaysForward()*24*60*60*1000));
-    // date_now.setHours(date_now.getHours() - hours_back);
-    // var date_start = date_now.toString("yyyy-MM-ddTHH:mm:ssO");
-    date_range['date_start'] = this.datePipe.transform(date_now, "yMMdd");
-    date_range['date_end'] = this.datePipe.transform(date_last, "yMMdd");
-    date_range['display_date_start'] = this.datePipe.transform(date_now, "y/MM/dd");
-    date_range['display_date_end'] = this.datePipe.transform(date_last, "y/MM/dd");
-
-    // var date_start = this.datePipe.transform(date_now, 'yMMdd');
-
-    return ( date_range );
-  }
   getEtofsDateRange() {
     var date_range = [] ;
     var date_now = this.getStartDate();
@@ -1056,58 +1046,6 @@ export class AppConfig {
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
   }
-  dataTypeFormatString (data_type) {
-    var ret_val = '%s';
-    switch ( data_type )
-      {
-      case 'air_temperature' :
-      case 'sea_water_temperature' :
-        ret_val = '%.1f' ;
-        break;
-      case 'water_level':
-      case 'significant_height_of_wind_and_swell_waves' :
-        ret_val = '%.2f' ;
-        break;
-      case 'location':
-        ret_val = '%.3f' ;
-        break;
-      case 'depth':
-      case 'sea_water_speed' :
-      case 'wind_speed' :
-      case 'wind_gust' :
-      case 'dissolved_oxygen' :
-      case 'turbidity' :
-      case 'visibility_in_air' :
-        ret_val = '%.1f' ;
-        break;
-      case 'solar_zenith_angle':
-      case 'dominant_wave_period' :
-      case 'wind_from_direction' :
-      case 'direction_of_sea_water_velocity' :
-      case 'percent_oxygen_saturation' :
-      case 'percent_sun':
-      case 'sea_water_salinity' :
-      case 'sea_water_pressure' :
-      case 'sea_level_pressure' :
-      case 'sea_water_density' :
-      case 'percent_oxygen_saturation' :
-      case 'chlorophyll' :
-      case 'Ed_PAR' :
-      case 'surface_partial_pressure_of_carbon_dioxide_in_air':
-      case 'surface_partial_pressure_of_carbon_dioxide_in_sea_water':
-      case 'transmissivity' :
-      case 'attenuation' :
-      case 'sound_velocity':
-        ret_val = '%0.2f' ;
-        break;
-      case 'pressure_tendency' :
-        ret_val = '%+0.2f' ;
-        break;
-      default:
-        break;
-      }
-    return(ret_val);
-  }
   // calculate wave length from wave period and wave height
   // http://www.ehow.com/how_7404178_calculate-wavelength-water-wave.html
   calculatedWaveLength( wavePeriod, waveHeightM ) {
@@ -1146,143 +1084,84 @@ export class AppConfig {
     }
     use_this_time = true ;
     return(use_this_time);
-  }
-}
-
-///////////////////////
-// GMRI Javascript Common Unit conversions
-//////////////////////////
-export class GMRIUnits {
-  SCALE_POUNDS_TO_KILOS: number = 0.4536;
-
-  constructor() {
-  }
-  conv_celsius_to_farenheit(in_put) { return ( in_put * 1.8 ) + 32.0; };
-  conv_fahrenheit_to_celsius(in_put) { return ( in_put - 32.0 ) / 1.8; };
-  conv_fathoms_to_meters(in_put) { return in_put * 1.8288 };
-  conv_meters_to_fathoms(in_put) { return in_put / 1.8288 };
-  conv_meters_to_feet(in_put) { return in_put / 0.3048 };
-  conv_feet_to_meters(in_put) { return in_put * 0.3048 };
-  conv_meters_to_miles(in_put) { return in_put / 1609.344 };
-  conv_meters_to_nautical_miles(in_put) { return in_put / 1853.184 };
-  conv_mps_to_knots(in_put) { return in_put / 0.5144444 };
-  conv_mps_to_kph(in_put) { return in_put / 0.2777778 };
-  conv_mps_to_mph(in_put) { return in_put / 0.44704 };
-  conv_mph_to_knots(in_put) { return ( in_put / 0.44704 ) * 0.5144444 };
-  conv_knots_to_mph(in_put) { return ( in_put / 0.5144444 ) * 0.44704 };
-  conv_radian_to_degrees(in_put) { return in_put * (180 / 3.14159) };
-
-  conv_degrees_to_compass(degrees) {
-    var compass = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-    degrees = ( degrees + 22.5 ) / 22.5;
-    degrees -= .5;
-    // Note: Units.pm relied on integer truncation
-    var quad = degrees % 16;
-    return compass[quad];
-  }
-  roundNumber(num, dec) {
-   var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
-   return result;
-  }
-
-  // utc_str must look like GLOS SLR WMS times "2012-05-23 10:00:00"
-  // gets converted to users browser local time
-  conv_UTC_to_local(utc_str){
-    if(!utc_str){
-        return '';
+  }  // This is a copy of what was in the wave provider. It's suppose to be
+  // the generic platform metadata
+  // monitoring locations.
+  monitoring_locations_setup( json_data) {
+    this.monitoring_locations = [];
+    for (var ml_key in json_data.features) {
+      var ml_data = json_data.features[ml_key] ;
+      // 3-7-2018 Old check using geojson service based on database
+      // if ( ml_data.properties.data_depths != undefined &&
+      //   ml_data.properties.data_depths.significant_height_of_wind_and_swell_waves != undefined ) {
+      //   // do these individually as the pages get loaded for specific sites.
+      //   // var ml = new waveObject($http, $q, ml_data);
+      //   this.monitoring_locations.push(ml_data);
+      //   }
+      // New check based on Erddap geojson service
+      if ( ml_data.properties.data_types != undefined &&
+        ml_data.properties.data_types.significant_wave_height != undefined ) {
+        // do these individually as the pages get loaded for specific sites.
+        // var ml = new waveObject($http, $q, ml_data);
+        this.monitoring_locations.push(ml_data);
+        }
     }
-    var tz_offset_ms = 0;
-    tz_offset_ms = new Date().getTimezoneOffset() * 60000 * -1;
-    var tmp = utc_str.split(' ');
-    var tmp2 = tmp[0].split('-');
-    var tmp3 = tmp[1].split(':');
-    var y = tmp2[0];
-    var m = tmp2[1] - 1;
-    var d = tmp2[2];
-
-    var h = tmp3[0];
-
-    var epoch = Date.UTC(y,m,d,h,0,0,0);
-    epoch += tz_offset_ms;
-
-    var local_dt = new Date(epoch);
-    var ly = local_dt.getUTCFullYear();
-    var lm = local_dt.getUTCMonth() + 1;
-    var ld = local_dt.getUTCDate();
-    var lh = local_dt.getUTCHours();
-    return (this.formatGLOSDate(ly, lm, ld, lh));
+  this.sortMonitoringLocations();
   }
-
-  // utc_str must look like GLOS SLR WMS times "2012-05-23 10:00:00"
-  // tz_offset is in seconds, usually negative for US
-  // gets converted to arbitrary tz_offset (gotten via PHP DateTime object on the server
-  conv_UTC_to_tz(utc_str, tz_offset) {
-    if(!utc_str || !tz_offset){
-        return '';
+  sortMonitoringLocations() {
+    // ye old bubble sort
+    let changed: boolean = true ;
+    let sKey: any ;
+    while ( changed ) {
+      changed = false ;
+      for ( sKey in this.monitoring_locations ) {
+        let nKey : number = parseInt(sKey);
+        if ( nKey < this.monitoring_locations.length - 1 ) {
+          let nKeyTwo : string = (nKey + 1).toString() ;
+          if ( this.monitoring_locations[sKey].properties.name > this.monitoring_locations[nKeyTwo].properties.name ){
+            // copy this one
+            let temp: any = this.monitoring_locations[sKey];
+            // replace it with the next one
+            this.monitoring_locations[sKey] = this.monitoring_locations[nKeyTwo];
+            // and make this one the next one.
+            this.monitoring_locations[nKeyTwo] = temp
+            // flag a change
+            changed = true ;
+          }
+        }
+      }
     }
-    var tz_offset_ms = 0;
-    var tmp = utc_str.split(' ');
-    var tmp2 = tmp[0].split('-');
-    var tmp3 = tmp[1].split(':');
-    var y = tmp2[0];
-    var m = tmp2[1] - 1;
-    var d = tmp2[2];
-    var h = tmp3[0];
-
-    var epoch = Date.UTC(y,m,d,h,0,0,0);
-    tz_offset_ms = tz_offset * 1000;
-    epoch += tz_offset_ms;
-
-    var local_dt = new Date(epoch);
-    var ly = local_dt.getUTCFullYear();
-    var lm = local_dt.getUTCMonth() + 1;
-    var ld = local_dt.getUTCDate();
-    var lh = local_dt.getUTCHours();
-    return (this.formatGLOSDate(ly, lm, ld, lh));
+    // ye old bubble sort now numbers last
+    changed = true ;
+    while ( changed ) {
+      changed = false ;
+      for ( sKey in this.monitoring_locations ) {
+        let nKey : number = parseInt(sKey);
+        if ( nKey < this.monitoring_locations.length - 1 ) {
+          let nKeyTwo : string = (nKey + 1).toString() ;
+          // If the first is a number and the second isn't then swap them
+          if ( !isNaN(this.monitoring_locations[sKey].properties.name) && isNaN(this.monitoring_locations[nKeyTwo].properties.name )){
+            // copy this one
+            let temp: any = this.monitoring_locations[sKey];
+            // replace it with the next one
+            this.monitoring_locations[sKey] = this.monitoring_locations[nKeyTwo];
+            // and make this one the next one.
+            this.monitoring_locations[nKeyTwo] = temp
+            // flag a change
+            changed = true ;
+          }
+        }
+      }
+    }
   }
-
-  formatGLOSDate(year, mon, day, hour) {
-    var date_string = year + '-';
-    if(mon < 10){
-        date_string += "0" + mon;
-    }else{
-        date_string += mon;
-    }
-    date_string += '-';
-    if(day < 10){
-        date_string += "0" + day;
-    }else{
-        date_string += day;
-    }
-
-    // This is the time format the GLOS WMS needs
-    // ' 07:00:00';
-    date_string += ' ';
-
-    if(hour < 10){
-        date_string += "0" + hour;
-    }else{
-        date_string += hour;
-    }
-
-    date_string += ':00';
-    return date_string;
-  }
-  // drill into the yAxis object returned by an event
-  visibleValue( series, series_name ) {
-    var series_index = this.seriesIndex( series, series_name );
-    var visible = series[series_index].visible ;
-    return(visible) ;
-  }
-  // drill into the yAxis object returned by an event
-  // to get an index pointing to a series.
-  seriesIndex( series, series_name ) {
-    var series_key;
-    for ( series_key in series ) {
-      if ( series[series_key].name.indexOf(series_name ) > -1 ){
+  getMonitoringLocationMetadata( location_name ) {
+    let ret_val:any ;
+    for ( var mlKey in this.monitoring_locations ) {
+      if ( this.monitoring_locations[mlKey].properties.name == location_name ) {
+        ret_val = this.monitoring_locations[mlKey] ;
         break;
       }
     }
-    return(series_key) ;
+  return(ret_val);
   }
 }

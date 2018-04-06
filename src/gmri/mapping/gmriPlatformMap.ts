@@ -27,7 +27,8 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
     this.isLabeledLayer = true ;
 
     // this.URL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=geojson";
-    this.URL = "http://local.drupal7.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
+    // this.URL = "http://local.drupal7.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
+    this.URL = "http://www.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson";
 
     this.legendArray['caption'] = 'Buoy Platforms' ;
     this.legendArray['showinlegend'] = '1' ;

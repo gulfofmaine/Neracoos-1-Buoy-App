@@ -8,7 +8,7 @@ import { Http } from '@angular/http';
 import { Jsonp } from '@angular/http';
 
 import { AppConfig } from '../appconfig/appconfig';
-import { GMRIUnits } from '../appconfig/appconfig';
+import { GMRIUnits } from "../../gmri/data/gmri-units";
 import {sprintf} from "sprintf-js";
 /*
   Generated class for the WaveProvider provider.
@@ -684,8 +684,8 @@ class WaveObject {
     this.geo_array['lat'] = wave_ml_data.geometry.coordinates[1];
     this.geo_array['lon'] = wave_ml_data.geometry.coordinates[0];
 
-    this.dt_wave_format = waveService.appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves');
-    this.dt_location_format = waveService.appConfig.dataTypeFormatString('location');
+    this.dt_wave_format = waveService.appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves');
+    this.dt_location_format = waveService.appConfig.gmriUnits.dataTypeFormatString('location');
 
     this.geo_display_array = [] ;
     this.geo_display_array['lat'] = parseFloat(sprintf(this.dt_location_format,wave_ml_data.geometry.coordinates[1])) ;
@@ -885,8 +885,8 @@ class WaveObject {
       //new_vs.valueSuffix = " feet" ;
       necofs_vs.pointFormatter = function () {
         return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-         ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-          parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+         ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+          parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
            'm)</b><br/>')
       }
       var series_name =  appConfig.getVariousPrompts('NECOFS_WAVES') ;
@@ -966,7 +966,7 @@ class WaveObject {
           }
 
           waveHeight = gmriUnitsHelp.conv_meters_to_feet(waveHeightM) ;
-          waveHeightD = parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),waveHeight)) ;
+          waveHeightD = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),waveHeight)) ;
 
           param_time_series[param_ts_key].data[0].reading_array.push([point_date_ms,waveHeightD]);
           addThisSeries = true;
@@ -983,8 +983,8 @@ class WaveObject {
       if ( wave_percent_increase_prompt.length > 0 ) {
           necofs_vs.pointFormatter = function () {
             return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-             ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-             parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+             ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+             parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
               'm)</b>' +  wave_percent_increase_prompt + '<br/>')
           }
         necofs_series_object.name += wave_percent_increase_prompt ;
@@ -1004,8 +1004,8 @@ class WaveObject {
       //new_vs.valueSuffix = " feet" ;
       WW3_vs.pointFormatter = function () {
         return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-         ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-          parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+         ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+          parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
            'm)</b><br/>')
       }
       series_name =  appConfig.getVariousPrompts('ERDDAP_PREDICTED_WAVE_HEIGHT') ;
@@ -1095,7 +1095,7 @@ class WaveObject {
           }
 
           waveHeight = gmriUnitsHelp.conv_meters_to_feet(waveHeightM) ;
-          waveHeightD = parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),waveHeight)) ;
+          waveHeightD = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),waveHeight)) ;
 
           param_time_series[param_ts_key].data[0].reading_array.push([resultdatems,waveHeightD]);
           addThisSeries = true ;
@@ -1112,8 +1112,8 @@ class WaveObject {
       if ( wave_percent_increase_prompt.length > 0 ) {
           WW3_vs.pointFormatter = function () {
             return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-             ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-             parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+             ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+             parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
               'm)</b>' +  wave_percent_increase_prompt + '<br/>')
           }
         WW3_series_object.name += wave_percent_increase_prompt ;
@@ -1132,8 +1132,8 @@ class WaveObject {
       //new_vs.valueSuffix = " feet" ;
       WW3_vs.pointFormatter = function () {
         return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-         ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-          parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+         ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+          parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
            'm)</b><br/>')
       }
       series_name =  appConfig.getVariousPrompts('ERDDAP_WW3GLOBAL_PREDICTED_WAVE_HEIGHT') ;
@@ -1223,7 +1223,7 @@ class WaveObject {
           }
 
           waveHeight = gmriUnitsHelp.conv_meters_to_feet(waveHeightM) ;
-          waveHeightD = parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),waveHeight)) ;
+          waveHeightD = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),waveHeight)) ;
 
           param_time_series[param_ts_key].data[0].reading_array.push([resultdatems,waveHeightD]);
           addThisSeries = true ;
@@ -1240,8 +1240,8 @@ class WaveObject {
       if ( wave_percent_increase_prompt.length > 0 ) {
           WW3_vs.pointFormatter = function () {
             return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-             ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-             parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+             ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+             parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
               'm)</b>' +  wave_percent_increase_prompt + '<br/>')
           }
         WW3_series_object.name += wave_percent_increase_prompt ;
@@ -1260,8 +1260,8 @@ class WaveObject {
     //new_vs.valueSuffix = " feet" ;
     buoy_vs.pointFormatter = function () {
       return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-       ': <b>' + parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
-       parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
+       ': <b>' + parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),this.y)) + 'f (' +
+       parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),gmriUnitsHelp.conv_feet_to_meters(this.y))) +
         'm)</b><br/>')
     }
     series_name =  appConfig.getVariousPrompts('BUOY_OBS_WAVE_HEIGHT') ;
@@ -1328,7 +1328,7 @@ class WaveObject {
           {
           obsWaveHeightM = this.erddapWaveHeightObservationData.table.rows[dww_key][hs_index];
           obsWaveHeight = gmriUnitsHelp.conv_meters_to_feet(obsWaveHeightM);
-          obsWaveHeightD = parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),obsWaveHeight)) ;
+          obsWaveHeightD = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),obsWaveHeight)) ;
           param_time_series[param_ts_key].data[0].reading_array.push([resultdatems,obsWaveHeightD]);
           addThisSeries = true ;
           if ( obsWaveHeight > max_tp ) {
@@ -1367,7 +1367,7 @@ class WaveObject {
             {
             obsWaveHeightM = signification_height_of_wind_and_swell_waves[bd_key][0].reading;
             obsWaveHeight = gmriUnitsHelp.conv_meters_to_feet(obsWaveHeightM);
-            obsWaveHeightD = parseFloat(sprintf(appConfig.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),obsWaveHeight)) ;
+            obsWaveHeightD = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString('significant_height_of_wind_and_swell_waves'),obsWaveHeight)) ;
             param_time_series[param_ts_key].data[0].reading_array.push([resultdatems,obsWaveHeightD]);
             addThisSeries = true ;
             if ( obsWaveHeight > max_tp ) {

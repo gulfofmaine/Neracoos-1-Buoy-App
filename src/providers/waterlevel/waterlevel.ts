@@ -7,7 +7,7 @@ import { Http } from '@angular/http';
 import { DatePipe } from '@angular/common';
 
 import { AppConfig } from '../appconfig/appconfig';
-import { GMRIUnits } from '../appconfig/appconfig';
+import {GMRIUnits} from "../../gmri/data/gmri-units";
 // import {sprintf} from "sprintf-js";
 import {USGSTidalObject} from "../../gmri/waterlevel/water-level";
 import {ESTOFSObject} from "../../gmri/waterlevel/water-level";
