@@ -26,11 +26,14 @@ export class MetProvider {
   windChart: any;
   airTempChart: any;
   visibilityChart: any;
+  waterTempChart: any;
+  salinityChart: any;
   barometricPressure: any;
 
   loadedMLArray: any = [] ;
   dataTypeLoaded: any = [] ;
   dataGetUrls: any = [] ;
+  dataGETs: any = [] ;
   requestedData: boolean = false ;
   datasetObjects: any = [];
 
@@ -57,69 +60,69 @@ export class MetProvider {
     }
   return( ret_val ) ;
   }
-  getMetData(force_refresh) {
-    // block redundant calls
-    if ( !this.requestedData ) {
-      // providing an array of urls
-      // because some may have loaded ok previously
-      this.dataTypeLoaded = [] ;
-      let dataGETs: any = [] ;
-      // buoy dates
-      // var date_now = new Date();
-      // var datems = Date.parse(date_start).getTime();
-      // var buoy_date_start = this.appConfig.getStartDate()
-      // var datems = buoy_date_start.getTime();
-      // var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
-      let location_name: string = this.appConfig.platform_name ;
-      // look for some sample data types to see if we already have this dataset
-      let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
-                                      "wind_speed", "wind_speed_qc"];
-      let datsetKey = this.getDatasetKey(location_name, erdDataTypeOfInterest, this.appConfig)
-      // getDatasetKey generates a dataset if none was found.
-      if ( !this.gmriDatasets[datsetKey].initialized || force_refresh ) {
-        // setup the prameteter Visibility
-        let visible_parameters: any = ['air_temperature', 'barometric_pressure',
-                          'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
-        this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(0, visible_parameters);
-        this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(1, visible_parameters);
-        this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(2, visible_parameters);
-        this.requestedData = true ;
-        // first use the meta data already initialized
-        let mlMetaData = this.appConfig.getMonitoringLocationMetadata( location_name);
-        this.gmriDatasets[datsetKey].initialize_dataset_object( mlMetaData, this.appConfig ) ;
-        // Erddap data.
-        // getDatasetID only returns and id if ALL the variable exist in a single
-        // dataset!
-        // I need to get these from Eric's metadata eventually
-        // ok use a single datatype to retrieve a datasetid then get all the variables
-        // from that dataset, then ask for all the data. What if that datatype isn't there?
-        // for example the sensor has broken.
-        let return_erddap_dtoiID: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-                                        this.gmriDatasets[datsetKey].ml_name, erdDataTypeOfInterest );
-        if ( return_erddap_dtoiID['datasetID'] != null ) {
-          // key value pairs
-          this.gmriDatasets[datsetKey].data_variables = this.appConfig.neracoosErddap.getDatasetVariables(
-                                        this.appConfig, return_erddap_dtoiID['datasetID']  ) ;
-          // returns a straight up array
-          let erdDataTypes: any = this.gmriDatasets[datsetKey].getDataVariables() ;
-          let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.gmriDatasets[datsetKey].ml_name, erdDataTypes );
-          if ( return_erddap['datasetID'] != null ) {
-            let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
-            this.dataGetUrls.push(getErdObsURL) ;
-            let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());
-            // 9/11/2017 get erddap to use jsonp.
-            dataGETs.push( getBuoyErdObservations);
-            this.dataTypeLoaded.push("ERDDAP_OBSERVATIONS");
-          }
+  resetDataGet() {
+    // because some may have loaded ok previously
+    this.dataTypeLoaded = [] ;
+    this.dataGETs = [] ;
+  }
+  setUpData(force_refresh, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey) {
+    // providing an array of urls
+    // buoy dates
+    // var date_now = new Date();
+    // var datems = Date.parse(date_start).getTime();
+    // var buoy_date_start = this.appConfig.getStartDate()
+    // var datems = buoy_date_start.getTime();
+    // var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
+    let location_name: string = this.appConfig.platform_name ;
+    // look for some sample data types to see if we already have this dataset
+    let datsetKey = this.getDatasetKey(location_name, erdDataTypeOfInterest, this.appConfig);
+    // getDatasetKey generates a dataset if none was found.
+    if ( !this.gmriDatasets[datsetKey].initialized || force_refresh ) {
+      // setup the prameteter Visibility
+      this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(0, visible_parameters);
+      this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(1, visible_parameters);
+      this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(2, visible_parameters);
+      // first use the meta data already initialized
+      let mlMetaData = this.appConfig.getMonitoringLocationMetadata( location_name);
+      this.gmriDatasets[datsetKey].initialize_dataset_object( mlMetaData, this.appConfig ) ;
+      // Erddap data.
+      // getDatasetID only returns and id if ALL the variable exist in a single
+      // dataset!
+      // I need to get these from Eric's metadata eventually
+      // ok use a single datatype to retrieve a datasetid then get all the variables
+      // from that dataset, then ask for all the data. What if that datatype isn't there?
+      // for example the sensor has broken.
+      let return_erddap_dtoiID: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
+                                      this.gmriDatasets[datsetKey].ml_name, erdDataTypeOfInterest );
+      if ( return_erddap_dtoiID['datasetID'] != null ) {
+        // key value pairs
+        this.gmriDatasets[datsetKey].data_variables = this.appConfig.neracoosErddap.getDatasetVariables(
+                                      this.appConfig, return_erddap_dtoiID['datasetID']  ) ;
+        // returns a straight up array
+        let erdDataTypes: any = this.gmriDatasets[datsetKey].getDataVariables() ;
+        let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.gmriDatasets[datsetKey].ml_name, erdDataTypes );
+        if ( return_erddap['datasetID'] != null ) {
+          let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
+          this.dataGetUrls.push(getErdObsURL) ;
+          let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());
+          // 9/11/2017 get erddap to use jsonp.
+          this.dataGETs.push( getBuoyErdObservations);
+          this.dataTypeLoaded.push(dataTypeMagicKey);
         }
       }
+    }
+  }
+  getData() {
+    // block redundant calls
+    if ( !this.requestedData ) {
+      this.requestedData = true ;
       // have the http get's go get the data.
       // this is still subject to problems. I'm utilizing the dataTypeLoaded array
       // to keep track of the url's that are being accessed. But  what if this is hit
       // again before the observable has come back? It won't happen now but
       // it's a model that needs work to be safe.
-      if ( dataGETs.length > 0 ) {
-        Observable.forkJoin(dataGETs).subscribe(
+      if ( this.dataGETs.length > 0 ) {
+        Observable.forkJoin(this.dataGETs).subscribe(
           results => this.obsDataReady( results, this.dataTypeLoaded),
           error => this.obsDataError( "ERDDAP data Failed to Load", error, this.dataGetUrls ),
           () => this.obsDataComplete( "ERDDAP Data Complete", this.dataGetUrls ));
@@ -142,15 +145,20 @@ export class MetProvider {
       let parameters: any;
       let chart_results: any;
       let measurement_system = 'nautical';
+      let ml_location_name: string;
+      let erdDataTypeOfInterest  : any ;
+      let mlKey : any ;
+
       for ( var dKey in types_array ) {
+        // switch on the magic key
         switch ( types_array[dKey] ) {
-          case 'ERDDAP_OBSERVATIONS':
+          case 'ERDDAP_MET_OBSERVATIONS':
             // get the object for this location
-            let ml_location_name: string = this.appConfig.platform_name ;
+            ml_location_name  = this.appConfig.platform_name ;
             // look for some sample data types to see if we already have this dataset
-            let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
+            erdDataTypeOfInterest = [ "air_temperature", "air_temperature_qc",
                                       "wind_speed", "wind_speed_qc"];
-            let mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+            mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
             this.gmriDatasets[mlKey].observationData = results[dKey] ;
 
             parameters = ['wind_speed', 'wind_gust', 'wind_direction']
@@ -168,6 +176,23 @@ export class MetProvider {
             parameters = ['barometric_pressure']
             chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
             this.barometricPressure = chart_results['chartConfig'];
+            break;
+          case 'ERDDAP_SBE16_OBSERVATIONS':
+            // get the object for this location
+            ml_location_name= this.appConfig.platform_name ;
+            // look for some sample data types to see if we already have this dataset
+            erdDataTypeOfInterest = [ "temperature", "temperature_qc",
+                                    "salinity", "salinity_qc"];
+            mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+            this.gmriDatasets[mlKey].observationData = results[dKey] ;
+
+            parameters = ['temperature']
+            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+            this.waterTempChart = chart_results['chartConfig'];
+
+            parameters = ['salinity']
+            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+            this.salinityChart = chart_results['chartConfig'];
             break;
           default:
             break;

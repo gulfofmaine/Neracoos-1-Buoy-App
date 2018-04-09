@@ -36,13 +36,6 @@ export class GMRIMetDataset  extends GMRIDataset {
     super(ml_identifier, appConfig);
     this.ml_identifier = ml_identifier ;
     this.appConfig = appConfig ;
-    this.erddapDatasetNames['MET'] = '_met_all' ;
-    this.datasetParameters.push('air_temperature');
-    this.datasetParameters.push('barometric_pressure');
-    this.datasetParameters.push('wind_gust');
-    this.datasetParameters.push('wind_speed');
-    this.datasetParameters.push('wind_direction');
-    this.datasetParameters.push('visibility');
   }
 
   initialize_dataset_object( ml_data, appConfig ) {

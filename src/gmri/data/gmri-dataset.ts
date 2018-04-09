@@ -152,142 +152,175 @@ export class GMRIDataset {
     let point_count: number = 0 ;
     let windbarb_point: any ;
     let use_windbarb: boolean = false ;
-
+    let depths: any = [] ;
+    // check for depths
+    let depth_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'depth' );
+    let depth: number ;
+    let dKey: any ;
+    let plotPoint: boolean = false ;
+    if ( depth_index != '' ) {
+      for (row_index in this.observationData.table.rows) {
+        depth = this.observationData.table.rows[row_index][depth_index] ;
+        if ( depths.indexOf(depth) == -1 ) {
+          depths.push(depth) ;
+        }
+      }
+      depths.sort(function(a, b){return a-b});
+    }
+    if ( depths.length == 0 ) {
+      depths.push(99999) ;
+    }
     for ( pKey in parameters ) {
       if ( this.observationData != undefined ) {
-        parameter = parameters[pKey];
-        parameter_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, parameter );
-        qc_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, parameter + "_qc" );
-        parameter_units = this.observationData.table.columnUnits[parameter_index] ;
-        displayed_units = appConfig.gmriUnits.convert_unit_label(parameter_units, measurement_system);
-        series_object = {} ;
-        switch ( parameter ) {
-          case 'wind_direction':
-            series_object.type = 'windbarb';
-            series_object.showInLegend = false;
-            break;
-          default:
-            series_object.type = 'spline';
-            break;
-        }
-        var series_name =  appConfig.gmriUnits.data_type_desc[parameter] ;
-        series_object.name = series_name ;
-        series_object.parameter = parameter;
-        series_object.units = displayed_units ;
-        series_object.color = appConfig.gmriUnits.getPlotColor(parameter);
-        // visible = appConfig.getUserPreferenceParameterVisibility('NECOFS_WAVES');
-        series_object.visible = appConfig.getInterfaceLevelParameterVisibilty(this, parameter) ;
+        for ( dKey in depths ) {
+          depth = depths[dKey];
+          parameter = parameters[pKey];
+          parameter_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, parameter );
+          qc_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, parameter + "_qc" );
+          parameter_units = this.observationData.table.columnUnits[parameter_index] ;
+          displayed_units = appConfig.gmriUnits.convert_unit_label(parameter_units, measurement_system);
+          series_object = {} ;
+          switch ( parameter ) {
+            case 'wind_direction':
+              series_object.type = 'windbarb';
+              series_object.showInLegend = false;
+              break;
+            default:
+              series_object.type = 'spline';
+              break;
+          }
+          var series_name =  appConfig.gmriUnits.data_type_desc[parameter] ;
+          series_object.name = series_name ;
+          if ( depth != 99999 ) {
+            series_object.name += " " + depth + "m";
+          }
+          series_object.parameter = parameter;
+          series_object.units = displayed_units ;
+          series_object.color = appConfig.gmriUnits.getPlotColor(parameter, depth, dKey);
+          // visible = appConfig.getUserPreferenceParameterVisibility('NECOFS_WAVES');
+          series_object.visible = appConfig.getInterfaceLevelParameterVisibilty(this, parameter) ;
 
-        // value suffix object
-        value_suffix_object = {shared: true, crosshairs: true};
-        value_suffix_object.xDateFormat = '%A %m-%d-%Y %I:%M %p' ;
-        //new_vs.valueSuffix = " feet" ;
-        value_suffix_object.pointFormatter = function () {
-          return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-           ': <b>' + appConfig.gmriUnits.getDisplayString( this.series.name, this.series.options.units,
-                      this.y, measurement_system)+ '</b><br/>')
-        }
-        series_object.tooltip = value_suffix_object;
-        series_object.events = {
-            legendItemClick: function(event) {
-              // we're toggling from this value
-              // I could have used the event here too it seems.
-              // ios issues two events touchstart and click. Highcharts toggles
-              // the visibility on both events. for example Press see, release don't see.
-              // Click is the only event in the browser So on click register the change of state
-              // and on touchstart undo the change.
-              if ( event.browserEvent.type == "touchstart" ) {
-                event.target.visible = !event.target.visible ;
+          // value suffix object
+          value_suffix_object = {shared: true, crosshairs: true};
+          value_suffix_object.xDateFormat = '%A %m-%d-%Y %I:%M %p' ;
+          //new_vs.valueSuffix = " feet" ;
+          value_suffix_object.pointFormatter = function () {
+            return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
+             ': <b>' + appConfig.gmriUnits.getDisplayString( this.series.name, this.series.options.units,
+                        this.y, measurement_system)+ '</b><br/>')
+          }
+          series_object.tooltip = value_suffix_object;
+          series_object.events = {
+              legendItemClick: function(event) {
+                // we're toggling from this value
+                // I could have used the event here too it seems.
+                // ios issues two events touchstart and click. Highcharts toggles
+                // the visibility on both events. for example Press see, release don't see.
+                // Click is the only event in the browser So on click register the change of state
+                // and on touchstart undo the change.
+                if ( event.browserEvent.type == "touchstart" ) {
+                  event.target.visible = !event.target.visible ;
+                }
+                if ( event.browserEvent.type == "click" ) {
+                  var visible_value = appConfig.gmriUnits.visibleValue(this.yAxis.series, appConfig.getVariousPrompts('NECOFS_WAVES') ) ;
+                  if(visible_value) {
+                      appConfig.setUserPreferenceParameterVisibility('NECOFS_WAVES', false) ;
+                    } else {
+                      appConfig.setUserPreferenceParameterVisibility('NECOFS_WAVES', true) ;
+                    }
+                }
               }
-              if ( event.browserEvent.type == "click" ) {
-                var visible_value = appConfig.gmriUnits.visibleValue(this.yAxis.series, appConfig.getVariousPrompts('NECOFS_WAVES') ) ;
-                if(visible_value) {
-                    appConfig.setUserPreferenceParameterVisibility('NECOFS_WAVES', false) ;
-                  } else {
-                    appConfig.setUserPreferenceParameterVisibility('NECOFS_WAVES', true) ;
-                  }
+          } ;
+
+          // get the series data
+          // hs sea_surface_wave_significant_height
+          // swp sea_surface_wave_frequency
+          var time_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'time' );
+          if ( parameters.indexOf('wind_direction') != -1 && parameters.indexOf('wind_speed') != -1 ) {
+            wind_speed_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'wind_speed' );
+          }
+          readings_array = [];
+          for (row_index in this.observationData.table.rows) {
+            plotPoint = false ;
+            if ( depth != 99999 ) {
+              if ( this.observationData.table.rows[row_index][depth_index] == depth ) {
+                plotPoint = true ;
               }
+            } else {
+              plotPoint = true ;
             }
-        } ;
+            if ( plotPoint ) {
+              // check the qc first
+              // or not. I'm getting values of 0 and 39 for buoy b
+              // if ( this.observationData.table.rows[row_index][qc_index] == 0 ) {
+                let resultdatetext: any = this.observationData.table.rows[row_index][time_index];
+                // Date.parse("2016-03-31T13:00:00Z")
+                rdt_temp = resultdatetext.substr(0,4) + "/" + resultdatetext.substr(5,2) +
+                                "/" + resultdatetext.substr(8,2) + " " +
+                                resultdatetext.substr(11, 8) + " GMT" ;
+                resultdatems = Date.parse(rdt_temp);
 
-        // get the series data
-        // hs sea_surface_wave_significant_height
-        // swp sea_surface_wave_frequency
-        var time_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'time' );
-        if ( parameters.indexOf('wind_direction') != -1 && parameters.indexOf('wind_speed') != -1 ) {
-          wind_speed_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'wind_speed' );
-        }
-        readings_array = [];
-        for (row_index in this.observationData.table.rows) {
-          // check the qc first
-          // or not. I'm getting values of 0 and 39 for buoy b
-          // if ( this.observationData.table.rows[row_index][qc_index] == 0 ) {
-            let resultdatetext: any = this.observationData.table.rows[row_index][time_index];
-            // Date.parse("2016-03-31T13:00:00Z")
-            rdt_temp = resultdatetext.substr(0,4) + "/" + resultdatetext.substr(5,2) +
-                            "/" + resultdatetext.substr(8,2) + " " +
-                            resultdatetext.substr(11, 8) + " GMT" ;
-            resultdatems = Date.parse(rdt_temp);
+                // 1443600000000
+                // limit the display to the same window as I'm limiting necofs.
+                if ( resultdatems > this.start_date_ms && resultdatems < this.end_date_ms )
+                  {
+                  measurement = appConfig.gmriUnits.convert( this.observationData.table.rows[row_index][parameter_index],
+                                                                  parameter_units, measurement_system);
 
-            // 1443600000000
-            // limit the display to the same window as I'm limiting necofs.
-            if ( resultdatems > this.start_date_ms && resultdatems < this.end_date_ms )
-              {
-              measurement = appConfig.gmriUnits.convert( this.observationData.table.rows[row_index][parameter_index],
-                                                              parameter_units, measurement_system);
-
-              meausrement_formatted = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString(parameter),measurement)) ;
-              switch ( parameter ) {
-                case 'wind_direction':
-                  windbarb_point = {
-                    x: resultdatems,
-                    value: this.observationData.table.rows[row_index][wind_speed_index],
-                    direction: meausrement_formatted
+                  meausrement_formatted = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString(parameter),measurement)) ;
+                  switch ( parameter ) {
+                    case 'wind_direction':
+                      windbarb_point = {
+                        x: resultdatems,
+                        value: this.observationData.table.rows[row_index][wind_speed_index],
+                        direction: meausrement_formatted
+                      }
+                      readings_array.push(windbarb_point) ;
+                      // readings_array.push([resultdatems,
+                      //          this.observationData.table.rows[row_index][wind_speed_index],
+                      //          meausrement_formatted]);
+                      break;
+                    default:
+                      readings_array.push([resultdatems,meausrement_formatted]);
+                      break;
                   }
-                  readings_array.push(windbarb_point) ;
-                  // readings_array.push([resultdatems,
-                  //          this.observationData.table.rows[row_index][wind_speed_index],
-                  //          meausrement_formatted]);
-                  break;
-                default:
-                  readings_array.push([resultdatems,meausrement_formatted]);
-                  break;
-              }
-              addThisSeries = true ;
+                  addThisSeries = true ;
+                }
+                point_count ++;
             }
-            point_count ++;
-          //} // end of qc check
-        } // end of looping
-        // end of get the series data
-        // set up the yaxis labeling and so forth for wave
-        // necofs_series_object.yAxis = 0;
-        // hope springs eternal. leave out yAxis for windbarb
-        switch ( parameter ) {
-          case 'wind_direction':
-            if ( use_windbarb ) {
+            //} // end of qc check
+          } // end of looping
+          // end of get the series data
+          // set up the yaxis labeling and so forth for wave
+          // necofs_series_object.yAxis = 0;
+          // hope springs eternal. leave out yAxis for windbarb
+          switch ( parameter ) {
+            case 'wind_direction':
+              if ( use_windbarb ) {
+                series_object.data = readings_array;
+                new_series.push( series_object );
+              }
+              break;
+            default:
+              yaxis_array[seriesCount] = {};
+
+              let new_label: any = {} ;
+              new_label.format = '{value} ' + seriesCount  ;
+
+              let new_title: any = {} ;
+              new_title.text = appConfig.gmriUnits.convert_unit_label(parameter_units, measurement_system) ;
+
+              yaxis_array[seriesCount].labels = new_label;
+              yaxis_array[seriesCount].title = new_title;
+              yaxis_array[seriesCount].opposite = toggle_opposite;
+              yaxis_array[seriesCount].gridlinewidth = 0;
+              toggle_opposite = !toggle_opposite;
               series_object.data = readings_array;
               new_series.push( series_object );
-            }
-            break;
-          default:
-            yaxis_array[seriesCount] = {};
+              break;
+          }
 
-            let new_label: any = {} ;
-            new_label.format = '{value} ' + seriesCount  ;
-
-            let new_title: any = {} ;
-            new_title.text = appConfig.gmriUnits.convert_unit_label(parameter_units, measurement_system) ;
-
-            yaxis_array[seriesCount].labels = new_label;
-            yaxis_array[seriesCount].title = new_title;
-            yaxis_array[seriesCount].opposite = toggle_opposite;
-            yaxis_array[seriesCount].gridlinewidth = 0;
-            toggle_opposite = !toggle_opposite;
-            series_object.data = readings_array;
-            new_series.push( series_object );
-            break;
         }
-
         seriesCount++;
         }
     }
@@ -302,7 +335,7 @@ export class GMRIDataset {
     let chart_title: string = '';
     for ( pKey in parameters ) {
       if ( chart_title.length == 0 ) {
-        chart_title = appConfig.gmriUnits.data_type_desc[parameters[pKey]] ;
+        chart_title = appConfig.platform_name + " - " + appConfig.gmriUnits.data_type_desc[parameters[pKey]] ;
       } else {
         chart_title += ", " + appConfig.gmriUnits.data_type_desc[parameters[pKey]] ;
       }

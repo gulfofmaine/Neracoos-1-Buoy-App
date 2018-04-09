@@ -52,7 +52,23 @@ export class PlatformGraphPage {
       if ( this.metService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-            this.metService.getMetData(false);
+          // meterological data
+          let visible_parameters: any = ['air_temperature', 'barometric_pressure',
+                        'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
+          let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
+                                    "wind_speed", "wind_speed_qc"];
+          let dataTypeMagicKey: string = "ERDDAP_MET_OBSERVATIONS" ;
+          this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
+          // SBE16 Oxygen and more
+          visible_parameters = ['temperature', 'salinity',
+                        'dissolved_oxygen', 'oxygen_saturation', 'percent_oxygen_saturation',
+                        'conductivity', 'sigma_t'] ;
+          erdDataTypeOfInterest = [ "temperature", "temperature_qc",
+                                    "salinity", "salinity_qc"];
+          dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
+          this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
+          // make the request
+          this.metService.getData();
         }
       }
     });

@@ -12,15 +12,29 @@ export class GMRIUnits {
   data_type_desc_short: any;
   colors: any = [] ;
   data_type_color: any = [] ;
+  depth_colors: any = [];
 
   constructor() {
     // add some color to this.
     this.colors[1] = '#000000';
-    this.colors[2] = '#0000ff'
-    this.colors[3] = '#00ff00'
-    this.colors[4] = '#ff0000'
-    this.colors[5] = '#00ffff'
-    this.colors[7] = '#ffff00'
+    this.colors[2] = '#0000ff';
+    this.colors[3] = '#00ff00';
+    this.colors[4] = '#ff0000';
+    this.colors[5] = '#00ffff';
+    this.colors[7] = '#ffff00';
+
+    this.depth_colors[1] = '#000000';
+    this.depth_colors[2] = '#0000ff';
+    this.depth_colors[3] = '#00ff00';
+    this.depth_colors[4] = '#ff0000';
+    this.depth_colors[5] = '#00ffff';
+    this.depth_colors[7] = '#ffff00';
+    this.depth_colors[8] = '#000000';
+    this.depth_colors[9] = '#0000ff';
+    this.depth_colors[10] = '#00ff00';
+    this.depth_colors[11] = '#ff0000';
+    this.depth_colors[12] = '#00ffff';
+    this.depth_colors[13] = '#ffff00';
 
     this.data_type_color['air_temperature']= 1;
     this.data_type_color['sea_level_pressure']= 2 ;
@@ -33,9 +47,11 @@ export class GMRIUnits {
     this.data_type_color['oxygen_saturation']= 1;
     this.data_type_color['Ed_PAR']= 1;
     this.data_type_color['sea_water_salinity']= 1;
+    this.data_type_color['salinity']= 1;
     this.data_type_color['turbidity']= 1;
     this.data_type_color['visibility_in_air']= 1;
     this.data_type_color['sea_water_temperature']= 1;
+    this.data_type_color['temperature']= 1;
     this.data_type_color['significant_height_of_wind_and_swell_waves']= 1;
     this.data_type_color['dominant_wave_period']= 1;
     this.data_type_color['wind_from_direction']= 1;
@@ -116,6 +132,7 @@ export class GMRIUnits {
     this.data_type_units['oxygen_saturation']='19';
     this.data_type_units['Ed_PAR']='16';
     this.data_type_units['sea_water_salinity']='11';
+    this.data_type_units['sea_water_salinity']='11';
     this.data_type_units['turbidity']='20';
     this.data_type_units['visibility_in_air']='7,8';
     this.data_type_units['sea_water_temperature']='1,2';
@@ -163,9 +180,11 @@ export class GMRIUnits {
         barometric_pressure: 'Atmospheric pressure',
         pressure_tendency: 'Pressure tendency',
         sea_water_temperature: 'Water temperature',
+        temperature: 'Water temperature',
         direction_of_sea_water_velocity: 'Current direction',
         sea_water_speed: 'Current speed',
         sea_water_salinity: 'Salinity',
+        salinity: 'Salinity',
         sea_water_density: 'Density',
         sea_water_electrical_conductivity: 'Sea Water Electrical Conductivity',
         turbidity: 'Turbidity',
@@ -561,10 +580,10 @@ export class GMRIUnits {
         break;
       case 'miles':
         if ( measurement_system == 'nautical' ) {
-          ret_val = this.conv_mps_to_knots(in_put) ;
+          ret_val = 'nm' ;
         }
         if ( measurement_system == 'metric') {
-          ret_val = this.conv_mps_to_kph(in_put);
+          ret_val = 'km';
         }
         break;
       case 'nm':
@@ -597,8 +616,14 @@ export class GMRIUnits {
     }
     return(ret_val);
   }
-  getPlotColor(parameter) {
-    return( this.colors[this.data_type_color[parameter]]);
+  getPlotColor(parameter, depth, dKey) {
+    let color : any ;
+    if ( depth != 99999 ) {
+      color = this.depth_colors[dKey] ;
+    } else {
+      color = this.colors[this.data_type_color[parameter]] ;
+    }
+    return( color );
   }
   // format a display string containing the various conversions.
   getDisplayString( parameter, units, measurement, measurement_system) {
@@ -636,6 +661,7 @@ export class GMRIUnits {
         break;
       case 'air temperature' :
       case 'air_temperature' :
+      case 'temperature':
         ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
         switch ( measurement_system ) {
           case 'english':
@@ -677,6 +703,7 @@ export class GMRIUnits {
       case 'sea_water_temperature' :
       case 'celsius':
       case 'fahrenheit':
+      case 'psu':
         ret_val = '%.1f' ;
         break;
       case 'water_level':
