@@ -172,6 +172,68 @@ export class GMRIErddap {
     ret_array['end_time_msse'] = ret_date_end_msee ;
     return ( ret_array );
   }
+  // we actually know the dataset and just want to mimic the return
+  // of getDatasetId above.
+  getDatasetDateRange( appConfig, platform_name, datasetID ) {
+    var date_range = appConfig.getERDDAPDateRange(null) ;
+    let date_start_msse: number = date_range['date_start_msse'];
+    let date_end_msse: number = date_range['date_end_msse'];
+    // var date_end_msse = date_range['date_end_msse'];
+    let ret_array : any = [] ;
+    let ret_date_start_msee: number;
+    let ret_date_end_msee: number;
+    let bFound: boolean = false ;
+
+    for(let rKey in this.raw_data.erdTables){
+      if ( this.raw_data.erdTables[rKey].platform &&
+        this.raw_data.erdTables[rKey].platform == platform_name &&
+        this.raw_data.erdTables[rKey].DatasetID == datasetID ) {
+        // check for starting before the end time
+        if ( this.raw_data.erdTables[rKey].end_time_msse == undefined ) {
+          // some datasets have no end time
+          // if there's no end time then just use the desired end time
+          // who knows what trouble this will cause?
+          // I know. Erddap will blow up. Eventually get this from somewhere?
+          ret_date_end_msee = date_end_msse ;
+          if ( this.raw_data.erdTables[rKey].start_time_msse != undefined ) {
+            // if the desired time is after the datasets start time then use it.
+            if ( date_start_msse >= this.raw_data.erdTables[rKey].start_time_msse ) {
+              ret_date_start_msee = date_start_msse;
+            } else {
+              // otherwise start when the dataset does
+              ret_date_start_msee = this.raw_data.erdTables[rKey].start_time_msse;
+            }
+          } else {
+            ret_date_start_msee = date_start_msse ;
+          }
+          bFound = true ;
+        } else {
+          // there is an end time and assuming there's a start time
+          // if desired start time is before the dataset end time
+          if ( date_start_msse <= this.raw_data.erdTables[rKey].end_time_msse ) {
+            if ( this.raw_data.erdTables[rKey].start_time_msse != undefined ) {
+              // if the desired time is after the datasets start time then use it.
+              if ( date_start_msse >= this.raw_data.erdTables[rKey].start_time_msse ) {
+                ret_date_start_msee = date_start_msse;
+              } else {
+                // otherwise start when the dataset does
+                ret_date_start_msee = this.raw_data.erdTables[rKey].start_time_msse;
+              }
+            }
+            ret_date_end_msee = this.raw_data.erdTables[rKey].end_time_msse ;
+          }
+          bFound = true ;
+        }
+        if ( bFound ) {
+          ret_array['datasetID'] = datasetID ;
+          ret_array['start_time_msse'] = ret_date_start_msee ;
+          ret_array['end_time_msse'] = ret_date_end_msee ;
+          break;
+        }
+      }
+    }
+    return ( ret_array );
+  }
   // given a dataset id get it's variables. A01_met_all contains the wind_speed
   // I know I want wind speed and I might as well get all the other varaibles
   // maybe I don't know yet but it seems worth doing.
@@ -181,6 +243,17 @@ export class GMRIErddap {
       if ( this.raw_data.erdTables[rKey].DatasetID &&
             this.raw_data.erdTables[rKey].DatasetID == datasetID) {
         ret = this.raw_data.erdTables[rKey].data_variables ;
+        break;
+      }
+    }
+    return(ret);
+  }
+  // given a platform id get it's datasets.
+  getDatasetIds( appConfig, platform_name ) {
+    let ret: any ;
+    for(let rKey in this.raw_data.erdTables){
+      if ( this.raw_data.erdTables[rKey].platform == platform_name ) {
+        ret = ( this.raw_data.erdTables[rKey].dataset_ids) ;
         break;
       }
     }

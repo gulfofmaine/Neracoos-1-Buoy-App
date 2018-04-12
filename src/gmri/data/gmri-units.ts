@@ -23,6 +23,7 @@ export class GMRIUnits {
     this.colors[5] = '#00ffff';
     this.colors[7] = '#ffff00';
 
+    this.depth_colors[0] = '#ff0000';
     this.depth_colors[1] = '#000000';
     this.depth_colors[2] = '#0000ff';
     this.depth_colors[3] = '#00ff00';
@@ -40,6 +41,7 @@ export class GMRIUnits {
     this.data_type_color['sea_level_pressure']= 2 ;
     this.data_type_color['chlorophyll']= 3 ;
     this.data_type_color['direction_of_sea_water_velocity']= 4 ;
+    this.data_type_color['current_direction']= 4 ;
     this.data_type_color['sea_water_speed']= 5 ;
     this.data_type_color['sea_water_density']= 6 ;
     this.data_type_color['dissolved_oxygen']= 7 ;
@@ -132,7 +134,7 @@ export class GMRIUnits {
     this.data_type_units['oxygen_saturation']='19';
     this.data_type_units['Ed_PAR']='16';
     this.data_type_units['sea_water_salinity']='11';
-    this.data_type_units['sea_water_salinity']='11';
+    this.data_type_units['salinity']='11';
     this.data_type_units['turbidity']='20';
     this.data_type_units['visibility_in_air']='7,8';
     this.data_type_units['sea_water_temperature']='1,2';
@@ -146,6 +148,8 @@ export class GMRIUnits {
     this.data_type_units['transmissivity']='19';
     this.data_type_units['sea_water_alkalinity_expressed_as_mole_equivalent']='31';
     this.data_type_units['sea_water_pH_reported_on_total_scale']='32';
+    this.data_type_units['conductivity']='30';
+    this.data_type_units['sigma_t']='10';
 
 
 
@@ -167,6 +171,7 @@ export class GMRIUnits {
         wind_from_direction: 'Wind direction',
         wind_direction: 'Wind direction',
         significant_height_of_wind_and_swell_waves: 'Wave height',
+        significant_wave_height: 'Wave height',
         dominant_wave_period: 'Dominant wave period',
         max_wave_height: 'Maximum Wave Height',
         wave_direction_spread: 'Wave Direction Spread',
@@ -182,11 +187,16 @@ export class GMRIUnits {
         sea_water_temperature: 'Water temperature',
         temperature: 'Water temperature',
         direction_of_sea_water_velocity: 'Current direction',
+        current_direction: 'Current direction',
+        current_u: 'Current Easterly',
+        current_v: 'Current Northerly',
         sea_water_speed: 'Current speed',
+        current_speed: 'Current speed',
         sea_water_salinity: 'Salinity',
         salinity: 'Salinity',
         sea_water_density: 'Density',
         sea_water_electrical_conductivity: 'Sea Water Electrical Conductivity',
+        conductivity: 'Sea Water Electrical Conductivity',
         turbidity: 'Turbidity',
         chlorophyll: 'Chlorophyll concentration',
         dissolved_oxygen: 'Dissolved oxygen',
@@ -202,7 +212,9 @@ export class GMRIUnits {
         surface_partial_pressure_of_carbon_dioxide_in_air: 'Surface Partial Pressure CO2 in Air',
         surface_partial_pressure_of_carbon_dioxide_in_sea_water: 'Surface Partial Pressure CO2 in Sea Water',
         sea_water_alkalinity_expressed_as_mole_equivalent: 'Sea Water Alkalinity Expressed as Mole Equivalent',
-        sea_water_pH_reported_on_total_scale: 'Sea Water PH reported on Total Scale'
+        sea_water_pH_reported_on_total_scale: 'Sea Water PH reported on Total Scale',
+        sigma_t: 'sigma_t',
+        nitrate: 'Nitrate'
         };
 
    	 this.data_type_desc_short = {
@@ -227,6 +239,7 @@ export class GMRIUnits {
         sea_water_salinity: 'Salinity',
         sea_water_density: 'Density',
         sea_water_electrical_conductivity: 'Electrical Conductivity',
+        conductivity: 'Electrical Conductivity',
         turbidity: 'Turbidity',
         chlorophyll: 'Chlorophyll concentration',
         dissolved_oxygen: 'Dissolved oxygen',
@@ -276,12 +289,17 @@ export class GMRIUnits {
   conv_radian_to_degrees(in_put) { return in_put * (180 / 3.14159); };
 
   conv_degrees_to_compass(degrees) {
+    var val = Math.floor((degrees / 22.5) + 0.5);
+    var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    return arr[(val % 16)];
+    /*
     let compass: any =  ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     degrees = ( degrees + 22.5 ) / 22.5;
     degrees -= .5;
     // Note: Units.pm relied on integer truncation
     var quad = degrees % 16;
     return compass[quad];
+    */
   }
   roundNumber(num, dec) {
    var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
@@ -395,27 +413,51 @@ export class GMRIUnits {
     switch ( units ) {
       case 'm':
       case 'meters':
-        if ( measurement_system == 'english') {
-          ret_val = this.conv_meters_to_miles(in_put);
-        }
-        if ( measurement_system == 'nautical') {
-          ret_val = this.conv_meters_to_nm(in_put);
-        }
-        if ( measurement_system == 'metric') {
-          ret_val = this.conv_meters_to_km(in_put);
+        if ( in_put > 100 ) {
+          if ( measurement_system == 'english') {
+            ret_val = this.conv_meters_to_miles(in_put);
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = this.conv_meters_to_nm(in_put);
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = this.conv_meters_to_km(in_put);
+          }
+        } else {
+          if ( measurement_system == 'english') {
+            ret_val = this.conv_meters_to_feet(in_put);
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = this.conv_meters_to_feet(in_put);
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = in_put;
+          }
         }
         break;
       case 'f':
       case 'feet':
       case 'ft':
-        if ( measurement_system == 'english') {
-          ret_val = this.conv_feet_to_miles(in_put);
-        }
-        if ( measurement_system == 'nautical') {
-          ret_val = this.conv_feet_to_nm(in_put);
-        }
-        if ( measurement_system == 'metric') {
-          ret_val = this.conv_feet_to_km(in_put);
+        if ( in_put > 300 ) {
+          if ( measurement_system == 'english') {
+            ret_val = this.conv_feet_to_miles(in_put);
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = this.conv_feet_to_nm(in_put);
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = this.conv_feet_to_km(in_put);
+          }
+        } else {
+          if ( measurement_system == 'english') {
+            ret_val = in_put;
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = in_put;
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = this.conv_feet_to_meters(in_put);
+          }
         }
         break;
       case 'm/s':
@@ -447,14 +489,14 @@ export class GMRIUnits {
         }
         break;
       case 'fahrenheit':
-      case '° F':
+      case '°F':
         if ( measurement_system == 'metric' ) {
           ret_val = this.conv_fahrenheit_to_celsius(in_put) ;
         }
         break;
       case 'celsius':
       case 'centigrade':
-      case '° C':
+      case '°C':
         if ( measurement_system == 'english' || measurement_system == 'nautical') {
           ret_val = this.conv_celsius_to_farenheit(in_put);
         }
@@ -485,6 +527,14 @@ export class GMRIUnits {
           ret_val = this.conv_km_to_nm(in_put) ;
         }
         break;
+      case 'angular_degrees' :
+      case 'deg':
+          if ( measurement_system == 'compass') {
+            ret_val = this.conv_degrees_to_compass(in_put) ;
+          } else {
+            ret_val = in_put;
+          }
+        break;
       default:
         ret_val = in_put;
         break;
@@ -493,32 +543,56 @@ export class GMRIUnits {
   }
   // given units return an appropriate unit for a
   // measurement system.
-  convert_unit_label( units, measurement_system) {
+  convert_unit_label( measurement, units, measurement_system) {
     let ret_val: any = units;
     switch ( units ) {
       case 'm':
       case 'meters':
-        if ( measurement_system == 'english') {
-          ret_val = 'miles';
-        }
-        if ( measurement_system == 'nautical') {
-          ret_val = 'nm';
-        }
-        if ( measurement_system == 'metric') {
-          ret_val = 'km';
+        if ( measurement > 100 ) {
+          if ( measurement_system == 'english') {
+            ret_val = 'miles';
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = 'nm';
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = 'km';
+          }
+        } else {
+          if ( measurement_system == 'english') {
+            ret_val = 'feet';
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = 'feet';
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = 'm';
+          }
         }
         break;
       case 'f':
       case 'feet':
       case 'ft':
-        if ( measurement_system == 'english') {
-          ret_val = 'miles';
-        }
-        if ( measurement_system == 'nautical') {
-          ret_val = 'nm';
-        }
-        if ( measurement_system == 'metric') {
-          ret_val = 'km' ;
+        if ( measurement > 300 ) {
+          if ( measurement_system == 'english') {
+            ret_val = 'miles';
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = 'nm';
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = 'km' ;
+          }
+        } else {
+          if ( measurement_system == 'english') {
+            ret_val = 'feet';
+          }
+          if ( measurement_system == 'nautical') {
+            ret_val = 'feet';
+          }
+          if ( measurement_system == 'metric') {
+            ret_val = 'm' ;
+          }
         }
         break;
       case 'm/s':
@@ -552,15 +626,15 @@ export class GMRIUnits {
       case 'c':
       case 'celsius':
       case 'centigrade':
-      case '° C':
+      case '°C':
         if ( measurement_system == 'english' || measurement_system == 'nautical') {
-          ret_val = '° F';
+          ret_val = '°F';
         }
         break;
       case 'fahrenheit':
-      case '° F':
+      case '°F':
         if ( measurement_system == 'metric' ) {
-          ret_val = '° C' ;
+          ret_val = '°C' ;
         }
         break;
       case 'millibars':
@@ -610,15 +684,32 @@ export class GMRIUnits {
           ret_val = 'km' ;
         }
         break;
+      case 'percent':
+        ret_val = "%";
+        break;
+      case 'angular_degrees':
+        ret_val = "deg";
+        break;
       default:
         ret_val = units;
         break;
     }
     return(ret_val);
   }
-  getPlotColor(parameter, depth, dKey) {
+  // wrap this in a function to catch unknown data types
+  getDataTypeDescription(parameter) {
+    let ret_val: string = "unk data type description for " + parameter ;
+    if ( this.data_type_desc[parameter] != undefined ) {
+      ret_val = this.data_type_desc[parameter] ;
+    }
+    return( ret_val ) ;
+  }
+  // I'm trying to use a color ramp for readings below the surface
+  // which in the oceanographic world is positive.
+  getPlotColor(parameter, depth, dKey, depths) {
     let color : any ;
-    if ( depth != 99999 ) {
+    // if there is more than a single depth then use the depths color ramp
+    if ( depth != -99999 && depth > 0 && depths.length > 1 ) {
       color = this.depth_colors[dKey] ;
     } else {
       color = this.colors[this.data_type_color[parameter]] ;
@@ -633,10 +724,10 @@ export class GMRIUnits {
     let english_measurement: number = this.convert(measurement, units, 'english');
     let metric_measurement: number = this.convert(measurement, units, 'metric');
     let nautical_measurement: number = this.convert(measurement, units, 'nautical');
-    let desired_units: string = this.convert_unit_label( units, measurement_system );
-    let english_units: string = this.convert_unit_label( units, 'english' );
-    let metric_units: string = this.convert_unit_label( units, 'metric' );
-    let nautical_units: string = this.convert_unit_label( units, 'nautical' );
+    let desired_units: string = this.convert_unit_label( measurement, units, measurement_system );
+    let english_units: string = this.convert_unit_label( measurement, units, 'english' );
+    let metric_units: string = this.convert_unit_label( measurement, units, 'metric' );
+    let nautical_units: string = this.convert_unit_label( measurement, units, 'nautical' );
     let fs: string = this.dataTypeFormatString(par_lwr);
     switch ( par_lwr ) {
       case 'wind speed' :
@@ -646,15 +737,15 @@ export class GMRIUnits {
         ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
         switch ( measurement_system ) {
           case 'english':
-            ret_val += sprintf( "("+ fs + " %s, " + fs + " %s)", metric_measurement, metric_units,
+            ret_val += sprintf( " ("+ fs + " %s, " + fs + " %s)", metric_measurement, metric_units,
                                       nautical_measurement, nautical_units) ;
             break;
           case 'nautical':
-            ret_val += sprintf( "("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
+            ret_val += sprintf( " ("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
                                       metric_measurement, metric_units) ;
             break;
           case 'metric':
-            ret_val += sprintf( "("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
+            ret_val += sprintf( " ("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
                                       nautical_measurement, nautical_units) ;
             break;
         }
@@ -666,7 +757,7 @@ export class GMRIUnits {
         switch ( measurement_system ) {
           case 'english':
           case 'nautical':
-            ret_val += sprintf( "("+ fs + " %s)", metric_measurement, metric_units) ;
+            ret_val += sprintf( " ("+ fs + " %s)", metric_measurement, metric_units) ;
             break;
         }
         break;
@@ -675,18 +766,26 @@ export class GMRIUnits {
           ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
           switch ( measurement_system ) {
             case 'english':
-              ret_val += sprintf( "("+ fs + " %s, " + fs + " %s)", metric_measurement, metric_units,
+              ret_val += sprintf( " ("+ fs + " %s, " + fs + " %s)", metric_measurement, metric_units,
                                         nautical_measurement, nautical_units) ;
               break;
             case 'nautical':
-              ret_val += sprintf( "("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
+              ret_val += sprintf( " ("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
                                         metric_measurement, metric_units) ;
               break;
             case 'metric':
-              ret_val += sprintf( "("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
+              ret_val += sprintf( " ("+ fs + " %s, " + fs + " %s)", english_measurement, english_units,
                                         nautical_measurement, nautical_units) ;
               break;
           }
+        break;
+      case 'deg':
+      case 'current_direction':
+        if ( measurement_system == 'compass') {
+          ret_val = sprintf( "%s", desired_measurement) ;
+        } else {
+          ret_val = sprintf( fs + "%s", desired_measurement, desired_units) ;
+        }
         break;
       default:
         ret_val = sprintf( fs + "%s", desired_measurement, desired_units) ;
@@ -698,16 +797,16 @@ export class GMRIUnits {
     var ret_val = '%s';
     switch ( data_type )
       {
-      case 'air_temperature' :
-      case 'air temperature' :
-      case 'sea_water_temperature' :
       case 'celsius':
       case 'fahrenheit':
       case 'psu':
+      case 'msiemens/cm':
+      case 'kg/m^3':
         ret_val = '%.1f' ;
         break;
       case 'water_level':
       case 'significant_height_of_wind_and_swell_waves' :
+      case 'significant_wave_height' :
         ret_val = '%.2f' ;
         break;
       case 'location':
@@ -715,16 +814,24 @@ export class GMRIUnits {
         break;
       case 'depth':
       case 'sea_water_speed' :
+      case 'current_speed' :
+      case 'current_u' :
+      case 'current_v' :
       case 'wind_speed' :
       case 'wind_gust' :
       case 'dissolved_oxygen' :
       case 'turbidity' :
       case 'visibility_in_air' :
       case 'visibility':
+      case 'air_temperature' :
+      case 'air temperature' :
+      case 'sea_water_temperature' :
+      case 'temperature' :
         ret_val = '%.1f' ;
         break;
       case 'wind speed':
       case 'wind gust':
+      case 'percent':
         ret_val = '%.0f' ;
         break;
       case 'solar_zenith_angle':
@@ -748,6 +855,9 @@ export class GMRIUnits {
       case 'millibars':
       case 'barometric_pressure':
       case 'mb':
+      case 'conductivity':
+      case 'sigma_t':
+      case 'salinity':
         ret_val = '%0.2f' ;
         break;
       case 'pressure_tendency' :

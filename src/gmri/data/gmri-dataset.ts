@@ -28,6 +28,7 @@ export class GMRIDataset {
   datasetParameters: any = [] ;
   data_variables: any ;   // the object coming from Eric's special file
   interfaceLevelParamVisibility: any = [] ;
+  datasetId: string;
 
 
   constructor( ml_identifier: string, appConfig: AppConfig) {
@@ -115,17 +116,20 @@ export class GMRIDataset {
     // which parameters to graph.
     return( this.interfaceLevelParamVisibility[interface_level]) ;
   }
-  drawChart(appConfig, parameters, measurement_system) {
-    var ret_array = [] ;
-    var new_series = [];
-    var yaxis_array = [];
+  drawChart(appConfig, parameters, measurement_system, dataset_type) {
+    let ret_array: any = [] ;
+    let new_series: any = [];
+    let yaxis_array: any = [];
+    // keep track of parameters for the yAxis
+    let current_parameter: string = '';
     // var count = 0 ;
     var toggle_opposite = false ;
 
     var addThisSeries = false ; // don't add series with no points is disabled
     // having multiple yAxis isn't desireable or necessary. We're comparing
     // wave heights and want a single yAxis.
-    var seriesCount = 0 ; // add a y-axis for each series.
+    var seriesCount = 0 ;
+    var yAxisCount = 0 ; // add a y-axis for each parameter.
 
     // re-initialize this. It may have changed.
     this.end_date_ms = appConfig.getEndDate().getTime();
@@ -134,7 +138,7 @@ export class GMRIDataset {
     let resultdatems:number;
     let rdt_temp:string;
     let measurement: any ;
-    let meausrement_formatted: number;
+    let measurement_formatted: number;
     let readings_array: any = [] ;
     /////////////////////
     // loop through the requested parameters creating a line for each one.
@@ -148,6 +152,7 @@ export class GMRIDataset {
     let qc_index: any ;
     let wind_speed_index: any ;
     let parameter_units: any ;
+    let yAxisParameterUnits: any;
     let displayed_units: any ;
     let point_count: number = 0 ;
     let windbarb_point: any ;
@@ -158,6 +163,9 @@ export class GMRIDataset {
     let depth: number ;
     let dKey: any ;
     let plotPoint: boolean = false ;
+    let yAxisMin: number = 99999 ;
+    let yAxisMax: number = -99999;
+
     if ( depth_index != '' ) {
       for (row_index in this.observationData.table.rows) {
         depth = this.observationData.table.rows[row_index][depth_index] ;
@@ -176,17 +184,66 @@ export class GMRIDataset {
           depth = depths[dKey];
           parameter = parameters[pKey];
           parameter_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, parameter );
+          // if it's the first or new parameter then reset the min max
+          // and save the units of this parameter
+          if ( current_parameter.length == 0 || current_parameter != parameter ) {
+            // if it's not the first one then we're moving to the next and
+            // need to save the first. Hows that for confusing?
+            if ( current_parameter.length > 0 ) {
+              let new_title: any = {} ;
+              // miles vs feet
+              switch ( current_parameter ) {
+                case 'significant_wave_height':
+                  new_title.text = appConfig.gmriUnits.convert_unit_label(10,
+                                                yAxisParameterUnits, measurement_system) ;
+                  break;
+                default:
+                  new_title.text = appConfig.gmriUnits.convert_unit_label(1000,
+                                                yAxisParameterUnits, measurement_system) ;
+                  break;
+              }
+
+              yaxis_array[yAxisCount] = {};
+              yaxis_array[yAxisCount].min = yAxisMin;
+              yaxis_array[yAxisCount].max = yAxisMax;
+
+              let new_label: any = {} ;
+              new_label.format = '{value} ' + yAxisCount  ;
+
+              yaxis_array[yAxisCount].labels = new_label;
+              yaxis_array[yAxisCount].title = new_title;
+              yaxis_array[yAxisCount].opposite = toggle_opposite;
+              yaxis_array[yAxisCount].gridlinewidth = 0;
+              yAxisCount++;
+            }
+            current_parameter = parameter;
+            yAxisMin = 99999 ;
+            yAxisMax = -99999;
+            yAxisParameterUnits = this.observationData.table.columnUnits[parameter_index] ;
+          }
           qc_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, parameter + "_qc" );
           parameter_units = this.observationData.table.columnUnits[parameter_index] ;
-          displayed_units = appConfig.gmriUnits.convert_unit_label(parameter_units, measurement_system);
           series_object = {} ;
           switch ( parameter ) {
             case 'wind_direction':
               series_object.type = 'windbarb';
               series_object.showInLegend = false;
+              series_object.measurement_system = measurement_system;
+              break;
+            case 'current_direction' :
+              series_object.type = 'spline';
+              series_object.measurement_system = 'compass';
+              displayed_units = appConfig.gmriUnits.convert_unit_label(1000, parameter_units, 'measurement_system');
+              break;
+            case 'significant_wave_height' :
+              series_object.type = 'spline';
+              series_object.measurement_system = measurement_system;
+              displayed_units = appConfig.gmriUnits.convert_unit_label(10, parameter_units, measurement_system);
               break;
             default:
               series_object.type = 'spline';
+              series_object.measurement_system = measurement_system;
+              displayed_units = appConfig.gmriUnits.convert_unit_label(1000, parameter_units, measurement_system);
               break;
           }
           var series_name =  appConfig.gmriUnits.data_type_desc[parameter] ;
@@ -196,7 +253,7 @@ export class GMRIDataset {
           }
           series_object.parameter = parameter;
           series_object.units = displayed_units ;
-          series_object.color = appConfig.gmriUnits.getPlotColor(parameter, depth, dKey);
+          series_object.color = appConfig.gmriUnits.getPlotColor(parameter, depth, dKey, depths);
           // visible = appConfig.getUserPreferenceParameterVisibility('NECOFS_WAVES');
           series_object.visible = appConfig.getInterfaceLevelParameterVisibilty(this, parameter) ;
 
@@ -206,8 +263,8 @@ export class GMRIDataset {
           //new_vs.valueSuffix = " feet" ;
           value_suffix_object.pointFormatter = function () {
             return ('<span style="color:' + this.color + '">\u25CF</span> ' + this.series.name +
-             ': <b>' + appConfig.gmriUnits.getDisplayString( this.series.name, this.series.options.units,
-                        this.y, measurement_system)+ '</b><br/>')
+             ': <b>' + appConfig.gmriUnits.getDisplayString( this.series.options.parameter, this.series.options.units,
+                        this.y, this.series.options.measurement_system)+ '</b><br/>')
           }
           series_object.tooltip = value_suffix_object;
           series_object.events = {
@@ -267,21 +324,26 @@ export class GMRIDataset {
                   measurement = appConfig.gmriUnits.convert( this.observationData.table.rows[row_index][parameter_index],
                                                                   parameter_units, measurement_system);
 
-                  meausrement_formatted = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString(parameter),measurement)) ;
+                  measurement_formatted = parseFloat(sprintf(appConfig.gmriUnits.dataTypeFormatString(parameter),measurement)) ;
+                  if ( measurement_formatted > yAxisMax ) {
+                    yAxisMax = measurement_formatted ;
+                  }                  if ( measurement_formatted < yAxisMin ) {
+                    yAxisMin = measurement_formatted ;
+                  }
                   switch ( parameter ) {
                     case 'wind_direction':
                       windbarb_point = {
                         x: resultdatems,
                         value: this.observationData.table.rows[row_index][wind_speed_index],
-                        direction: meausrement_formatted
+                        direction: measurement_formatted
                       }
                       readings_array.push(windbarb_point) ;
                       // readings_array.push([resultdatems,
                       //          this.observationData.table.rows[row_index][wind_speed_index],
-                      //          meausrement_formatted]);
+                      //          measurement_formatted]);
                       break;
                     default:
-                      readings_array.push([resultdatems,meausrement_formatted]);
+                      readings_array.push([resultdatems,measurement_formatted]);
                       break;
                   }
                   addThisSeries = true ;
@@ -302,20 +364,12 @@ export class GMRIDataset {
               }
               break;
             default:
-              yaxis_array[seriesCount] = {};
-
-              let new_label: any = {} ;
-              new_label.format = '{value} ' + seriesCount  ;
-
-              let new_title: any = {} ;
-              new_title.text = appConfig.gmriUnits.convert_unit_label(parameter_units, measurement_system) ;
-
-              yaxis_array[seriesCount].labels = new_label;
-              yaxis_array[seriesCount].title = new_title;
-              yaxis_array[seriesCount].opposite = toggle_opposite;
-              yaxis_array[seriesCount].gridlinewidth = 0;
+              // if we have a new paremeter then set up the previous parameter's yAxis
+              if ( parameter != current_parameter ) {
+              }
               toggle_opposite = !toggle_opposite;
               series_object.data = readings_array;
+              series_object.yAxis = yAxisCount ;
               new_series.push( series_object );
               break;
           }
@@ -325,6 +379,46 @@ export class GMRIDataset {
         }
     }
 
+      // end of the series. Set up the last yAxis
+      // the switch is for handing wind direction and getting the correct label (feet vs miles)
+      let new_title: any = {} ;
+      let new_label: any = {} ;
+      switch ( parameter ) {
+        case 'wind_direction':
+          new_title.text = appConfig.gmriUnits.convert_unit_label(1000, yAxisParameterUnits, measurement_system) ;
+          break;
+        case 'significant_wave_height' :
+          new_title.text = appConfig.gmriUnits.convert_unit_label(10, yAxisParameterUnits, measurement_system) ;
+          // Always 1 behind so setup previous parameter's yAxis
+          yaxis_array[yAxisCount] = {};
+          yaxis_array[yAxisCount].min = yAxisMin;
+          yaxis_array[yAxisCount].max = yAxisMax;
+
+          new_label.format = '{value} ' + yAxisCount  ;
+
+          yaxis_array[yAxisCount].labels = new_label;
+          yaxis_array[yAxisCount].title = new_title;
+          yaxis_array[yAxisCount].opposite = toggle_opposite;
+          yaxis_array[yAxisCount].gridlinewidth = 0;
+          yAxisCount++;
+          break;
+        default:
+          new_title.text = appConfig.gmriUnits.convert_unit_label(1000, yAxisParameterUnits, measurement_system) ;
+
+          // Always 1 behind so setup previous parameter's yAxis
+          yaxis_array[yAxisCount] = {};
+          yaxis_array[yAxisCount].min = yAxisMin;
+          yaxis_array[yAxisCount].max = yAxisMax;
+
+          new_label.format = '{value} ' + yAxisCount  ;
+
+          yaxis_array[yAxisCount].labels = new_label;
+          yaxis_array[yAxisCount].title = new_title;
+          yaxis_array[yAxisCount].opposite = toggle_opposite;
+          yaxis_array[yAxisCount].gridlinewidth = 0;
+          yAxisCount++;
+          break;
+      }
 
     if ( point_count > 3 ) {
       ret_array['success'] = 'yes' ;
@@ -333,11 +427,18 @@ export class GMRIDataset {
     }
     // var chart_title = "MLLW of " + sf.waveMLLW;
     let chart_title: string = '';
+    let chart_sub_title: string = '' ;
+    if ( chart_title.length == 0 ) {
+      chart_title = appConfig.platform_name ;
+      if ( dataset_type != undefined ) {
+        chart_title += " - " + dataset_type ;
+      }
+    }
     for ( pKey in parameters ) {
-      if ( chart_title.length == 0 ) {
-        chart_title = appConfig.platform_name + " - " + appConfig.gmriUnits.data_type_desc[parameters[pKey]] ;
+      if ( chart_sub_title.length == 0 ) {
+        chart_sub_title = appConfig.gmriUnits.getDataTypeDescription(parameters[pKey]) ;
       } else {
-        chart_title += ", " + appConfig.gmriUnits.data_type_desc[parameters[pKey]] ;
+        chart_sub_title += ", " + appConfig.gmriUnits.getDataTypeDescription(parameters[pKey]) ;
       }
     }
     // create an array without the keys
@@ -386,7 +487,7 @@ export class GMRIDataset {
           x: -20 //center
       },
       subtitle: {
-          text: "", // "from " + date_range['date_start'] + " to " + date_range['date_end'],
+          text: chart_sub_title, // "from " + date_range['date_start'] + " to " + date_range['date_end'],
           x: -20
       },
       xAxis: {

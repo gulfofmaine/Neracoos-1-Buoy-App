@@ -7,7 +7,7 @@ import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
 import Highcharts from 'highcharts/highstock';
 /**
- * Generated class for the PlatformGraphPage page.
+ * Generated class for the PlatformDatasetsGraphPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -17,10 +17,10 @@ require('highcharts-windbarb');
 
 @IonicPage()
 @Component({
-  selector: 'page-platform-graph',
-  templateUrl: 'platform-graph.html',
+  selector: 'page-platform-datasets-graph',
+  templateUrl: 'platform-datasets-graph.html',
 })
-export class PlatformGraphPage {
+export class PlatformDatasetsGraphPage {
   // refresh timer
   private timer;
   // Subscription object
@@ -68,21 +68,35 @@ export class PlatformGraphPage {
             "latitude",
             "depth"] ;
 
-          // meterological data
-          let visible_parameters: any = ['air_temperature', 'barometric_pressure',
-                        'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
-          let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
-                                    "wind_speed", "wind_speed_qc"];
-          let dataTypeMagicKey: string = "ERDDAP_MET_OBSERVATIONS" ;
-          this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
-          // SBE16 Oxygen and more
-          visible_parameters = ['temperature', 'salinity',
-                        'dissolved_oxygen', 'oxygen_saturation', 'percent_oxygen_saturation',
-                        'conductivity', 'sigma_t'] ;
-          erdDataTypeOfInterest = [ "temperature", "temperature_qc",
-                                    "salinity", "salinity_qc"];
-          dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
-          this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
+          let location_name: string = this.appConfig.platform_name ;
+          let mlMetaData = this.appConfig.getMonitoringLocationMetadata( location_name);
+          //for ( erddapDatasetId in this.appConfig.neracoosErddap.getDatasetIds( appConfig,
+          //                     this.appConfig.getPlatformName() )) {
+          for ( erddapDatasetKey in mlMetaData.properties.dataset_ids) {
+            erddapDatasetId = mlMetaData.properties.dataset_ids[erddapDatasetKey] ;
+            // for now hard code aanderra_hist and so forth to do the plots
+            // when the data is available.
+            // A01_aanderaa_hist"
+            let dataTypeMagicKey: string = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
+            this.metService.setUpDataset(false, skip_plotting_parameters, erddapDatasetId, dataTypeMagicKey);
+          }
+          if ( 0 ) {
+            // meterological data
+            let visible_parameters: any = ['air_temperature', 'barometric_pressure',
+                          'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
+            let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
+                                      "wind_speed", "wind_speed_qc"];
+            let dataTypeMagicKey: string = "ERDDAP_MET_OBSERVATIONS" ;
+            this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
+            // SBE16 Oxygen and more
+            visible_parameters = ['temperature', 'salinity',
+                          'dissolved_oxygen', 'oxygen_saturation', 'percent_oxygen_saturation',
+                          'conductivity', 'sigma_t'] ;
+            erdDataTypeOfInterest = [ "temperature", "temperature_qc",
+                                      "salinity", "salinity_qc"];
+            dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
+            this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
+          }
           // make the request
           this.metService.getData(skip_plotting_parameters);
         }
@@ -91,7 +105,7 @@ export class PlatformGraphPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WaveGraphPage');
+    console.log('ionViewDidLoad PlatformDatasetsGraphPage');
     // After 15 minutes refresh and do it every 15 minutes after that.
     this.timer = Observable.timer(15 * 60 * 1000, 15 * 60 * 1000);
     // subscribing to a observable returns a subscription object

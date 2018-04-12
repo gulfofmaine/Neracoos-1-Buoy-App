@@ -9,6 +9,9 @@ import { WaveProvider } from '../../providers/wave/wave';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+ declare var require;
+ require('highcharts-windbarb');
+
 
 @IonicPage()
 @Component({
@@ -20,6 +23,7 @@ export class PlatformTabsPage {
 
   tab1Root = "PlatformDataPage";
   tab2Root = "PlatformGraphPage";
+  tab3Root = "PlatformDatasetsGraphPage";
   error_msg_array:any = [] ;
   error_message: string ;
 
