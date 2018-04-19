@@ -24,6 +24,7 @@ export class PlatformTabsPage {
   tab1Root = "PlatformDataPage";
   tab2Root = "PlatformGraphPage";
   tab3Root = "PlatformDatasetsGraphPage";
+  tab4Root = "PlatformDesignerGraphPage";
   error_msg_array:any = [] ;
   error_message: string ;
 

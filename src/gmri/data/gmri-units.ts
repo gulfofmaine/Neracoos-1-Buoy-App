@@ -13,8 +13,21 @@ export class GMRIUnits {
   colors: any = [] ;
   data_type_color: any = [] ;
   depth_colors: any = [];
+  skip_plotting_parameters: any = [] ;
 
   constructor() {
+     this.skip_plotting_parameters = [
+            "station",
+            "time",
+            "mooring_site_desc",
+            "water_depth",
+            "index",
+            "offset_time",
+            "time_created",
+            "time_modified",
+            "longitude",
+            "latitude",
+            "depth"] ;
     // add some color to this.
     this.colors[1] = '#000000';
     this.colors[2] = '#0000ff';
@@ -172,12 +185,25 @@ export class GMRIUnits {
         wind_direction: 'Wind direction',
         significant_height_of_wind_and_swell_waves: 'Wave height',
         significant_wave_height: 'Wave height',
+        significant_wave_height_3: 'Wave height 3',
+        maximum_wave_height_3: 'Wave height 3',
+        swell_wave_height_3: 'Swell wave height 3',
+        wind_wave_height_3: 'Wind wave height 3',
         dominant_wave_period: 'Dominant wave period',
+        dominant_wave_period_3: 'Dominant wave period 3',
+        swell_wave_period_3: 'Swell wave period',
+        swell_and_wind_wave_separation_frequency_3: 'Swell and wind wave separation frequency 3',
+        wave_steepness_3: 'Wave steepness 3',
+        wind_wave_period_3: 'Wind wave period',
         max_wave_height: 'Maximum Wave Height',
         wave_direction_spread: 'Wave Direction Spread',
         dew_point_temperature: 'Dew Point Temperature',
         average_wave_period: 'Average wave period',
         mean_wave_direction: 'Mean wave direction',
+        mean_wave_direction_3: 'Mean wave direction 3',
+        mean_wave_direction_spread_3: 'Mean wave direction spread',
+        principal_wave_direction_3: 'Principal wave direction 3',
+        principal_wave_direction_spread_3: 'Principal wave direction spread',
         air_temperature: 'Air temperature',
         visibility_in_air: 'Visibility',
         visibility: 'Visibility',

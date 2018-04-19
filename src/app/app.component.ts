@@ -11,6 +11,7 @@ import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
 import { AppConfig } from '../providers/appconfig/appconfig';
 import { WaveProvider } from '../providers/wave/wave';
 import { WaterlevelProvider } from '../providers/waterlevel/waterlevel';
+import { MetProvider } from '../providers/met/met';
 // import { PopoverController } from 'ionic-angular';
 import { MappingProvider } from '../providers/mapping/mapping';
 
@@ -21,7 +22,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // rootPage: any = BuoydataMapPage;
-  rootPage: any = WaveGraphPage;
+  rootPage: any = PlatformTabsPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -42,7 +43,8 @@ export class MyApp {
               public waterlevelService: WaterlevelProvider,
               public mapService: MappingProvider,
               public events: Events,
-              public menuCtrl: MenuController) {
+              public menuCtrl: MenuController,
+              public metService: MetProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -66,7 +68,19 @@ export class MyApp {
     events.subscribe('buoyMapPage:loaded', (page) => {
       this.buoyMapPage = page ;
     });
+    // subscribe to the wave service loading
+    this.waveService.waveProvUpdates().subscribe( event_obj => {
+        console.log( event_obj.name ) ;
+        switch (event_obj.name) {
+          case "initial_platform_data_loaded":
+            this.metService.setBuoySelectionList(this.waveService);
+            this.metService.setPlatformParameterList();
+            break;
+        }
+      });
   }
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -95,7 +109,17 @@ export class MyApp {
     }
     return( pagename) ;
   }
-
+  getPlatformParameterList() {
+    return(this.metService.getPlatformParameterList());
+  }
+  updateParameterVisibility(item) {
+    this.metService.updateParameterVisibility( item.description, !item.selected);
+  }
+  updateBuoySelected(item) {
+    this.metService.updateBuoySelected( item.name, !item.selected);
+    this.metService.setPlatformParameterList();
+    this.events.publish('buoySelectionChanged:rightmenu', item.name);
+  }
   // layer picker
   getOptionsDisplay(layer_type) {
     let options: any = []
@@ -143,6 +167,14 @@ export class MyApp {
     olLayer.setOpacity(opacity);
   }
   // end layer picker
+  comparisonTapped(event, item) {
+    this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
+    this.metService.setPlatformParameterList();
+    this.events.publish('comparisonTapped:rightmenu', item.properties.name);
+  }
+  comparisonMenuClosed() {
+    this.events.publish('comparisonMenuClosed:rightmenu');
+  }
   // filters platform, station
   platformTapped(event, item) {
     this.appConfig.setPlatformSelected(this.waveService, item.properties.name);

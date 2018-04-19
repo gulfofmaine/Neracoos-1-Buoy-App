@@ -57,6 +57,7 @@ export class WaveGraphPage {
     this.appConfig.setTabSelected("graph");
   }
   ionViewDidEnter() {
+    this.appConfig.enableMenu('wave_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page

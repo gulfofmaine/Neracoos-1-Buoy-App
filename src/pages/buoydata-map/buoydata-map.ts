@@ -110,6 +110,7 @@ export class BuoydataMapPage {
     this.events.publish('buoyMapPage:loaded', this);
   }
   ionViewDidEnter() {
+    this.appConfig.enableMenu('buoy_menu') ;
     console.log('ionViewDidEnter BuoydataMapPage');
     let everybodyReady: boolean = true ;
     if ( !this.waveService.isInitialized() ) {

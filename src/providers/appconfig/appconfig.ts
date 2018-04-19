@@ -12,6 +12,8 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 import {GMRIUnits} from "../../gmri/data/gmri-units";
+import { MenuController } from 'ionic-angular';
+
 
 /*
   Generated class for the Config provider.
@@ -143,7 +145,8 @@ export class AppConfig {
   constructor( public datePipe: DatePipe,
                 public storage: Storage,
                 public http: Http,
-                public httpClient: HttpClient ) {
+                public httpClient: HttpClient,
+                public menuCtrl: MenuController ) {
     console.log('Hello AppConfig Provider');
 
     this.configObservable = Observable.create(observer => {
@@ -308,6 +311,23 @@ export class AppConfig {
     this.waveServices.push( ww3GlobalService );
     this.waveServices.push( necofsService );
 
+  }
+  enableMenu( menuId ) {
+    let menus: any = [
+      'graph_menu',
+      'wave_menu',
+      'buoy_menu',
+      'platform_menu',
+      'comparison_menu'
+      ];
+    let mKey : any ;
+    for ( mKey in menus ) {
+      if ( menus[mKey] == menuId ) {
+        this.menuCtrl.enable(true, menuId) ;
+      } else {
+        this.menuCtrl.enable(false, menus[mKey]) ;
+      }
+    }
   }
   // mimic Eric's load of erddap data. It's either use an already json structure
   // of data OR go to the ERDDAP source and build that structure. Building takes quite awhile

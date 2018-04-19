@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AppConfig } from '../../providers/appconfig/appconfig';
 /**
  * Generated class for the PlatformDataPage page.
  *
@@ -15,11 +16,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PlatformDataPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+                public appConfig: AppConfig) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlatformDataPage');
+  }
+  ionViewDidEnter() {
+    this.appConfig.enableMenu('platform_menu') ;
+    console.log('ionViewDidEnter PlatformDataPage');
   }
 
 }

@@ -43,8 +43,6 @@ export class PlatformGraphPage {
     });
     // subscribe to the page loading event
     events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
-      let erddapDatasetId: any;
-      let erddapDatasetKey: any ;
       if ( this.waveService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
@@ -54,20 +52,6 @@ export class PlatformGraphPage {
       if ( this.metService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-          // don't plot these
-          let skip_plotting_parameters: any = [
-            "station",
-            "time",
-            "mooring_site_desc",
-            "water_depth",
-            "index",
-            "offset_time",
-            "time_created",
-            "time_modified",
-            "longitude",
-            "latitude",
-            "depth"] ;
-
           // meterological data
           let visible_parameters: any = ['air_temperature', 'barometric_pressure',
                         'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
@@ -84,7 +68,10 @@ export class PlatformGraphPage {
           dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
           this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey);
           // make the request
-          this.metService.getData(skip_plotting_parameters);
+          let graph_instructions: any = {
+            graph_type: 'custom_observations'
+          }
+          this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
         }
       }
     });
@@ -99,6 +86,7 @@ export class PlatformGraphPage {
     this.appConfig.setTabSelected("graph");
   }
   ionViewDidEnter() {
+    this.appConfig.enableMenu('graph_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page

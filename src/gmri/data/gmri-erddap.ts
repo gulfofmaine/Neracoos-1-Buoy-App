@@ -131,45 +131,78 @@ export class GMRIErddap {
   // I need to adjust the end time. If Erddap gets stale
   // that's too much to ask to debug. So set the end time to
   // the Dataset's end time ( return it along with the dataset id.
+  // More embellishment. I want to return the dataset id and variables
+  // for the best match (most variables I guess)
   getDatasetID( appConfig, platform_name, data_type_array ) {
     var date_range = appConfig.getERDDAPDateRange(null) ;
     let date_start_msse: number = date_range['date_start_msse'];
-    // var date_end_msse = date_range['date_end_msse'];
-    let datasetID: any;
+    let date_end_msse: number = date_range['date_end_msse'];
+    let dKey: any;
+    let rKey: any;
     let ret_array : any = [] ;
-    let ret_date_start_msee: number;
-    let ret_date_end_msee: number;
     // initialize the results to false
-    let dataTypeFound: any = [] ;
-    for ( let dKey in data_type_array ) {
-      dataTypeFound[dKey] = false ;
-    }
-    for(let rKey in this.raw_data.erdTables){
+    let dataTypesFound: any = [] ;
+    let dataTypesNotFound: any = [] ;
+    let datasetMatch : any ;
+    let datasetMatches: any = [] ;
+    let matchCount: any = 0 ;
+    let maxDataset: any ;
+    let dr_array: any = [];
+
+    for(rKey in this.raw_data.erdTables){
       if ( this.raw_data.erdTables[rKey].platform &&
             this.raw_data.erdTables[rKey].platform == platform_name) {
-        for ( let dKey in data_type_array ) {
-          for ( let vKey in this.raw_data.erdTables[rKey].all_variables ) {
-            // check for starting within the requested range.
-            if ( this.raw_data.erdTables[rKey].all_variables[vKey] == data_type_array[dKey] &&
-                (date_start_msse >= this.raw_data.erdTables[rKey].start_time_msse &&
-                date_start_msse <= this.raw_data.erdTables[rKey].end_time_msse ) ) {
-              dataTypeFound[dKey] = true ;
-              datasetID = this.raw_data.erdTables[rKey].DatasetID ;
-              ret_date_start_msee = this.raw_data.erdTables[rKey].start_time_msse;
-              ret_date_end_msee = this.raw_data.erdTables[rKey].end_time_msse ;
+        dataTypesFound = [] ;
+        // save the data types found in this dataset match object
+        datasetMatch = {} ;
+        for ( dKey in data_type_array ) {
+          if (data_type_array[dKey].selected) {
+            for ( let vKey in this.raw_data.erdTables[rKey].all_variables ) {
+              // if the dataset contains the requested parameter
+              if ( this.raw_data.erdTables[rKey].all_variables[vKey] == data_type_array[dKey].erddap_data_type ) {
+                // check for starting within the requested range.
+                dr_array = this.getOptimumDateRange( date_start_msse, date_end_msse,
+                      this.raw_data.erdTables[rKey].start_time_msse,
+                      this.raw_data.erdTables[rKey].end_time_msse ) ;
+                if ( dr_array.start_time_msse != undefined && dr_array.end_time_msse != undefined) {
+                  dataTypesFound.push(data_type_array[dKey].erddap_data_type);
+                  datasetMatch.ret_date_start_msse = dr_array.start_time_msse ;
+                  datasetMatch.ret_date_end_msse = dr_array.end_time_msse ;
+                  datasetMatch.datasetID = this.raw_data.erdTables[rKey].DatasetID  ;
+                }
+              }
             }
           }
         }
+        if ( dataTypesFound.length > 0 ) {
+          // save the results for this dataset
+          datasetMatch.dataTypesFound = dataTypesFound ;
+          datasetMatches.push( datasetMatch) ;
+        }
       }
     }
-    for ( let dKey in data_type_array ) {
-      if ( dataTypeFound[dKey] == false ) {
-        datasetID = null ;
+    // look for the match with the greatest number from all the matches found.
+    matchCount = 0 ;
+    for ( rKey in datasetMatches ) {
+      if ( datasetMatches[rKey].dataTypesFound.length > matchCount ) {
+        matchCount = datasetMatches[rKey].dataTypesFound.length ;
+        maxDataset = rKey ;
       }
     }
-    ret_array['datasetID'] = datasetID ;
-    ret_array['start_time_msse'] = ret_date_start_msee ;
-    ret_array['end_time_msse'] = ret_date_end_msee ;
+    if ( matchCount > 0 ) {
+      // also return the not matched.
+      // for everything we were looking for
+      for ( dKey in data_type_array ) {
+        if ( data_type_array[dKey].selected ) {
+          // is it not in the dataset with the most things found
+          if (datasetMatches[maxDataset].dataTypesFound.indexOf(data_type_array[dKey].erddap_data_type) == -1 ){
+            dataTypesNotFound.push(data_type_array[dKey]);
+          }
+        }
+      }
+      ret_array['dataTypesNotFound'] = dataTypesNotFound ;
+      ret_array['datasetMatched'] = datasetMatches[maxDataset] ;
+    }
     return ( ret_array );
   }
   // we actually know the dataset and just want to mimic the return
@@ -180,57 +213,80 @@ export class GMRIErddap {
     let date_end_msse: number = date_range['date_end_msse'];
     // var date_end_msse = date_range['date_end_msse'];
     let ret_array : any = [] ;
+    let dr_array: any = [] ;
+
+    for(let rKey in this.raw_data.erdTables) {
+      if ( this.raw_data.erdTables[rKey].platform &&
+        this.raw_data.erdTables[rKey].platform == platform_name &&
+        this.raw_data.erdTables[rKey].DatasetID == datasetID ) {
+        dr_array = this.getOptimumDateRange( date_start_msse, date_end_msse,
+                      this.raw_data.erdTables[rKey].start_time_msse,
+                      this.raw_data.erdTables[rKey].end_time_msse ) ;
+        ret_array['datasetID'] = datasetID ;
+        ret_array['start_time_msse'] = dr_array['start_time_msse'] ;
+        ret_array['end_time_msse'] = dr_array['end_time_msse'] ;
+        break;
+      }
+    }
+    return ( ret_array );
+  }
+  getOptimumDateRange( date_start_msse, date_end_msse, dataset_start_msse, dataset_end_msse ) {
+    let ret_array:any = [] ;
     let ret_date_start_msee: number;
     let ret_date_end_msee: number;
     let bFound: boolean = false ;
 
-    for(let rKey in this.raw_data.erdTables){
-      if ( this.raw_data.erdTables[rKey].platform &&
-        this.raw_data.erdTables[rKey].platform == platform_name &&
-        this.raw_data.erdTables[rKey].DatasetID == datasetID ) {
-        // check for starting before the end time
-        if ( this.raw_data.erdTables[rKey].end_time_msse == undefined ) {
-          // some datasets have no end time
-          // if there's no end time then just use the desired end time
-          // who knows what trouble this will cause?
-          // I know. Erddap will blow up. Eventually get this from somewhere?
-          ret_date_end_msee = date_end_msse ;
-          if ( this.raw_data.erdTables[rKey].start_time_msse != undefined ) {
-            // if the desired time is after the datasets start time then use it.
-            if ( date_start_msse >= this.raw_data.erdTables[rKey].start_time_msse ) {
-              ret_date_start_msee = date_start_msse;
-            } else {
-              // otherwise start when the dataset does
-              ret_date_start_msee = this.raw_data.erdTables[rKey].start_time_msse;
-            }
-          } else {
-            ret_date_start_msee = date_start_msse ;
-          }
-          bFound = true ;
+    // check for starting before the end time
+    if ( dataset_end_msse == undefined ) {
+      // some datasets have no end time
+      // if there's no end time then just use the desired end time
+      // who knows what trouble this will cause?
+      // I know. Erddap will blow up. Eventually get this from somewhere?
+      ret_date_end_msee = date_end_msse ;
+      if ( dataset_start_msse != undefined ) {
+        // if the desired time is after the datasets start time then use it.
+        if ( date_start_msse >= dataset_start_msse ) {
+          ret_date_start_msee = date_start_msse;
         } else {
-          // there is an end time and assuming there's a start time
-          // if desired start time is before the dataset end time
-          if ( date_start_msse <= this.raw_data.erdTables[rKey].end_time_msse ) {
-            if ( this.raw_data.erdTables[rKey].start_time_msse != undefined ) {
-              // if the desired time is after the datasets start time then use it.
-              if ( date_start_msse >= this.raw_data.erdTables[rKey].start_time_msse ) {
-                ret_date_start_msee = date_start_msse;
-              } else {
-                // otherwise start when the dataset does
-                ret_date_start_msee = this.raw_data.erdTables[rKey].start_time_msse;
-              }
-            }
-            ret_date_end_msee = this.raw_data.erdTables[rKey].end_time_msse ;
-          }
-          bFound = true ;
+          // otherwise start when the dataset does
+          ret_date_start_msee = dataset_start_msse;
         }
-        if ( bFound ) {
-          ret_array['datasetID'] = datasetID ;
-          ret_array['start_time_msse'] = ret_date_start_msee ;
-          ret_array['end_time_msse'] = ret_date_end_msee ;
-          break;
+      } else {
+        // if the desired time is after the datasets start time then use it.
+        if ( date_start_msse >= dataset_start_msse ) {
+          ret_date_start_msee = date_start_msse;
+        } else {
+          // otherwise start when the dataset does
+          ret_date_start_msee = dataset_start_msse;
         }
       }
+      bFound = true ;
+    } else {
+      // there is an end time and assuming there's a start time
+      // if desired start time is before the dataset end time
+      if ( date_start_msse <= dataset_end_msse ) {
+        if ( dataset_start_msse != undefined ) {
+          // if the desired time is after the datasets start time then use it.
+          if ( date_start_msse >= dataset_start_msse ) {
+            ret_date_start_msee = date_start_msse;
+          } else {
+            // otherwise start when the dataset does
+            ret_date_start_msee = dataset_start_msse;
+          }
+        }
+        // if the datasets end date is less than the  desired end date use it.
+        // otherwise use the desired end date.
+        if ( dataset_end_msse <= date_end_msse ) {
+          ret_date_end_msee = dataset_end_msse ;
+        } else {
+          ret_date_end_msee = date_end_msse ;
+        }
+      }
+      bFound = true ;
+    }
+    if ( bFound ) {
+      ret_array['start_time_msse'] = ret_date_start_msee ;
+      ret_array['end_time_msse'] = ret_date_end_msee ;
     }
     return ( ret_array );
   }

@@ -7,7 +7,7 @@ import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
 import Highcharts from 'highcharts/highstock';
 /**
- * Generated class for the PlatformDatasetsGraphPage page.
+ * Generated class for the PlatformGraphPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -17,10 +17,10 @@ require('highcharts-windbarb');
 
 @IonicPage()
 @Component({
-  selector: 'page-platform-datasets-graph',
-  templateUrl: 'platform-datasets-graph.html',
+  selector: 'page-platform-designer-graph',
+  templateUrl: 'platform-designer-graph.html',
 })
-export class PlatformDatasetsGraphPage {
+export class PlatformDesignerGraphPage {
   // refresh timer
   private timer;
   // Subscription object
@@ -41,46 +41,74 @@ export class PlatformDatasetsGraphPage {
           // timezoneOffset: 5 * 60
       }
     });
-    // subscribe to the page loading event
-    events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
+    // subscribe to selection changed event
+    events.subscribe('buoySelectionChanged:rightmenu', () => {
+      this.appConfig.enableMenu('comparison_menu') ;
+    });
+    // handle the menu closing
+    events.subscribe('comparisonMenuClosed:rightmenu', () => {
       let erddapDatasetId: any;
       let erddapDatasetKey: any ;
-      if ( this.waveService.isInitialized()  ) {
-        // if a choice has been made and there was not previous error go directly to the page
-        if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-            this.waveService.getWaveData(false);
-        }
-      }
+      let bKey: any ;
+      let bList: any = this.metService.getBuoySelectionList();
+      let pList: any = this.metService.getPlatformParameterList();
+      let bContinue: boolean = true ;
+      let location_name: string ;
+      let erddapDatasetReturnArray: any ;
+      let datasetsMatched: any = [] ;
+      let dataTypesNotFound: any = [] ;
+      let visible_parameters :any = [];
+      let dataTypeMagicKey: string ;
+
       if ( this.metService.isInitialized()  ) {
-        // if a choice has been made and there was not previous error go directly to the page
-        if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-          let location_name: string = this.appConfig.platform_name ;
-          let mlMetaData = this.appConfig.getMonitoringLocationMetadata( location_name);
-          //for ( erddapDatasetId in this.appConfig.neracoosErddap.getDatasetIds( appConfig,
-          //                     this.appConfig.getPlatformName() )) {
-          for ( erddapDatasetKey in mlMetaData.properties.dataset_ids) {
-            erddapDatasetId = mlMetaData.properties.dataset_ids[erddapDatasetKey] ;
-            // for now hard code aanderra_hist and so forth to do the plots
-            // when the data is available.
-            // A01_aanderaa_hist"
-            let dataTypeMagicKey: string = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
-            // a blank array is a signal to use them all.
-            let visible_parameters: any = [] ;
-            this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
-                    erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name);
+        // at this point in theory we have a list of platforms and a list of parameters
+        // we'd like to graph from them. The plan is to walk the platforms and look for
+        // datasets with the parameters of interest in them assembling a list of dataset id's
+        // once we have the dataset ids we can create requests
+        // the names, as always, are confusing.
+        for ( bKey in bList ) {
+          if ( bList[bKey].selected) {
+            bContinue = true ;
+            location_name = bList[bKey].name;
+            // start by looking for them all
+            // loop until you stop finding data
+            dataTypesNotFound = pList ;
+            // now go get a dataset id and other stuff.
+            while ( bContinue ) {
+              erddapDatasetReturnArray = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
+                                              location_name, dataTypesNotFound );
+              if ( erddapDatasetReturnArray['datasetMatched'] != undefined ) {
+                datasetsMatched.push(erddapDatasetReturnArray['datasetMatched']) ;
+                dataTypesNotFound = erddapDatasetReturnArray['dataTypesNotFound'];
+                if ( dataTypesNotFound.length == 0 ) {
+                  bContinue = false ;
+                }
+              } else {
+                // we didn't find anything this time. we're all done.
+                bContinue = false ;
+              }
+            }
+            for ( erddapDatasetKey in datasetsMatched) {
+              erddapDatasetId = datasetsMatched[erddapDatasetKey].datasetID ;
+              visible_parameters = datasetsMatched[erddapDatasetKey].dataTypesFound ;
+              dataTypeMagicKey = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
+              this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
+                               erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name);
+            }
           }
-          // make the request
-          let graph_instructions: any = {
-            graph_type: 'single_dataset'
-          }
-          this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
         }
+        let graph_instructions: any = {
+          graph_type: 'multiple_dataset',
+          parameter_list: pList,
+          platform_list: bList
+        }
+        this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
       }
     });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PlatformDatasetsGraphPage');
+    console.log('ionViewDidLoad PlatformDesignerGraphPage');
     // After 15 minutes refresh and do it every 15 minutes after that.
     this.timer = Observable.timer(15 * 60 * 1000, 15 * 60 * 1000);
     // subscribing to a observable returns a subscription object
@@ -88,7 +116,7 @@ export class PlatformDatasetsGraphPage {
     this.appConfig.setTabSelected("graph");
   }
   ionViewDidEnter() {
-    this.appConfig.enableMenu('platform_menu') ;
+    this.appConfig.enableMenu('comparison_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
@@ -102,11 +130,9 @@ export class PlatformDatasetsGraphPage {
         console.log( event_obj.name ) ;
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
-            if ( this.appConfig.getPlatformName() != undefined ) {
-                this.waveService.getWaveData(false);
-            } else {
-                this.menuCtrl.open('right');
-            }
+            this.metService.setBuoySelectionList(this.waveService);
+            this.metService.setPlatformParameterList();
+            this.menuCtrl.open('right');
             break;
           case "forecast_data_error":
             this.appConfig.setErrorMessage(event_obj.error_msg);

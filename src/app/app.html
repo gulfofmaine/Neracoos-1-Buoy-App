@@ -15,7 +15,47 @@
 
 </ion-menu>
 
-<ion-menu *ngIf="getPageName() == 'PlatformTabsPage'" [content]="content" side="right">
+<ion-menu id='comparison_menu' [content]="content" side="right"
+        (ionClose)="comparisonMenuClosed()">
+  <ion-content padding class="has-header">
+      <ion-navbar>
+        <ion-title>Choose stuff</ion-title>
+      </ion-navbar>
+        <div>
+         <ion-item class="listtitle">Toggle Buoy</ion-item>
+          <ion-item *ngFor="let item of metService.getBuoySelectionList()">
+            <ion-label> {{item.name}}   </ion-label>
+            <ion-toggle [checked]="item.selected" (ionChange)="updateBuoySelected(item)"></ion-toggle>
+          </ion-item>
+        </div>
+        <br/>
+        <div>
+         <ion-item class="listtitle">Toggle Parameter</ion-item>
+          <ion-item *ngFor="let parameter of getPlatformParameterList()">
+            <ion-label> {{parameter.description}}   </ion-label>
+            <ion-toggle [checked]="parameter.selected" (ionChange)="updateParameterVisibility(parameter)"></ion-toggle>
+          </ion-item>
+        </div>
+  </ion-content>
+</ion-menu>
+
+<ion-menu id='graph_menu' [content]="content" side="right">
+  <ion-content padding class="has-header">
+      <ion-navbar>
+        <ion-title>Choose a Location</ion-title>
+      </ion-navbar>
+        <div >
+          <ion-list *ngIf="getPageName() == 'PlatformTabsPage'">
+            <button ion-item *ngFor="let item of waveService.wave_locations"
+                        (click)="platformTapped($event, item)">
+              {{item.properties.name}}
+            </button>
+          </ion-list>
+        </div>
+  </ion-content>
+</ion-menu>
+
+<ion-menu id='platform_menu' *ngIf="getPageName() == 'PlatformTabsPage'" [content]="content" side="right">
   <ion-content padding class="has-header">
       <ion-navbar>
         <ion-title *ngIf="getPageName() == 'PlatformTabsPage'">Choose a Platform</ion-title>
@@ -31,7 +71,7 @@
   </ion-content>
 </ion-menu>
 
-<ion-menu *ngIf="getPageName() == 'WaveGraphPage'" [content]="content" side="right">
+<ion-menu id='wave_menu' *ngIf="getPageName() == 'WaveGraphPage'" [content]="content" side="right">
   <ion-content padding class="has-header">
       <ion-navbar>
         <ion-title *ngIf="getPageName() == 'WaveGraphPage'">Choose a Platform</ion-title>
@@ -55,7 +95,7 @@
   </ion-content>
 </ion-menu>
 
-<ion-menu *ngIf="getPageName() == 'BuoydataMapPage'" [content]="content" side="right">
+<ion-menu id='buoy_menu' *ngIf="getPageName() == 'BuoydataMapPage'" [content]="content" side="right">
   <ion-header>
     <ion-toolbar>
       <ion-title>Options</ion-title>

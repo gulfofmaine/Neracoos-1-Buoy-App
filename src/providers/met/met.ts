@@ -9,7 +9,6 @@ import { Jsonp } from '@angular/http';
 
 import { AppConfig } from '../appconfig/appconfig';
 import {GMRIMetDataset} from "../../gmri/data/gmri-met-dataset";
-import { GMRIUnits } from "../../gmri/data/gmri-units";
 
 /*
   Generated class for the MetProvider provider.
@@ -30,6 +29,7 @@ export class MetProvider {
   salinityChart: any;
   barometricPressure: any;
   conductivitySigmaTChart: any;
+  designerChart: any ;
 
   met_all: any;
   sbe16_all: any;
@@ -57,11 +57,12 @@ export class MetProvider {
   dataGETs: any = [] ;
   requestedData: boolean = false ;
   datasetObjects: any = [];
+  platformParameterList: any = [] ;
+  buoySelectedList: any = [] ;
 
   constructor(public httpClient: HttpClient,
               public appConfig:AppConfig,
               public menuCtrl: MenuController,
-              public gmriUnits:GMRIUnits,
               public http: Http,
               public jsonp: Jsonp) {
     console.log('Hello MetProvider Provider');
@@ -86,10 +87,104 @@ export class MetProvider {
     this.dataTypeLoaded = [] ;
     this.dataGETs = [] ;
   }
+  setPlatformParameterList() {
+    let data_type: any = {} ;
+    let parameterObject: any ;
+    let mlMetaData : any ;
+    let bKey: any ;
+    // remember the currently selected parameters
+    let existingSelectionList = this.platformParameterList ;
+    this.platformParameterList = [] ;
+    for ( bKey in this.buoySelectedList) {
+      mlMetaData = this.appConfig.getMonitoringLocationMetadata( this.buoySelectedList[bKey].name);
+      if ( this.buoySelectedList[bKey].selected ) {
+        for ( data_type in mlMetaData.properties.data_types ) {
+          if ( this.appConfig.gmriUnits.skip_plotting_parameters.indexOf(data_type) == -1 &&
+                data_type.indexOf('_qc') == -1 ) {
+            parameterObject = {} ;
+            parameterObject.erddap_data_type = data_type ;
+            parameterObject.cf_data_type = mlMetaData.properties.data_types[data_type] ;
+            parameterObject.description = this.appConfig.gmriUnits.getDataTypeDescription(data_type);
+            if ( this.getParameterSelect( existingSelectionList, parameterObject.description) ) {
+              parameterObject.selected = true ;
+            } else {
+              parameterObject.selected = false ;
+            }
+            if ( !this.isParameterInList(parameterObject.description)) {
+              this.platformParameterList.push(parameterObject);
+            }
+          }
+        }
+      }
+    }
+  }
+  // check for an existing parameter in the list
+  isParameterInList( parameter) {
+    let pKey: any ;
+    let ret_val: boolean = false ;
+    for ( pKey in this.platformParameterList ) {
+      if (this.platformParameterList[pKey].description == parameter ) {
+        ret_val = true;
+        break;
+      }
+    }
+    return( ret_val) ;
+  }
+  // return the selected status of a parameter in a list
+  // this is for moving from one list to a new list with
+  // potentially different parametrs
+  getParameterSelect( platformParameterList, parameter) {
+    let pKey: any ;
+    let ret_val: boolean = false ;
+    for ( pKey in platformParameterList ) {
+      if (platformParameterList[pKey].description == parameter &&
+        platformParameterList[pKey].selected) {
+        ret_val = true;
+        break;
+      }
+    }
+    return( ret_val) ;
+  }
+  getPlatformParameterList() {
+    return( this.platformParameterList);
+  }
+  updateParameterVisibility(parameter, visibility) {
+    let pKey: any ;
+    for ( pKey in this.platformParameterList ) {
+      if ( this.platformParameterList[pKey].description == parameter ) {
+        this.platformParameterList[pKey].selected = visibility ;
+        break;
+      }
+    }
+  }
+  setBuoySelectionList(waveService) {
+    let lKey: any;
+    let buoyObject: any ;
+    this.buoySelectedList = [] ;
+
+    for ( lKey in waveService.wave_locations ) {
+      buoyObject = {} ;
+      buoyObject.name = waveService.wave_locations[lKey].properties.name;
+      buoyObject.selected = false ;
+      this.buoySelectedList.push(buoyObject);
+    }
+  }
+  getBuoySelectionList() {
+    return( this.buoySelectedList);
+  }
+  updateBuoySelected(name, visibility) {
+    let pKey: any ;
+    for ( pKey in this.buoySelectedList ) {
+      if ( this.buoySelectedList[pKey].name == name ) {
+        this.buoySelectedList[pKey].selected = visibility ;
+        break;
+      }
+    }
+  }
   // setup a single dataset and all it's variables for a dataget
   // it's just a little different than setUpData below.
-  setUpDataset(force_refresh, skip_plotting_parameters, erddapDatasetId, dataTypeMagicKey) {
-    let visible_parameters: any = [] ;
+  setUpDataset(force_refresh, skip_plotting_parameters, erddapDatasetId,
+            dataTypeMagicKey, visible_parameters, location_name) {
     let dataType: any ;
     // providing an array of urls
     // buoy dates
@@ -98,7 +193,6 @@ export class MetProvider {
     // var buoy_date_start = this.appConfig.getStartDate()
     // var datems = buoy_date_start.getTime();
     // var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
-    let location_name: string = this.appConfig.platform_name ;
     let datsetKey = this.getDatasetKeyFromDatasetId(location_name, erddapDatasetId, this.appConfig)
     // getDatasetKey generates a dataset if none was found.
     if ( !this.gmriDatasets[datsetKey].initialized || force_refresh ) {
@@ -112,16 +206,21 @@ export class MetProvider {
                                     this.appConfig, erddapDatasetId  ) ;
       // returns a straight up array
       let erdDataTypes: any = this.gmriDatasets[datsetKey].getDataVariables() ;
-      // setup the prameteter Visibility. Anything not having _qc in it.
-      for ( dataType in erdDataTypes ) {
-        if ( erdDataTypes[dataType].indexOf("_qc") == -1 &&
-              skip_plotting_parameters.indexOf(erdDataTypes[dataType]) == -1 ) {
-          visible_parameters.push(erdDataTypes[dataType]);
+      // setup the prameteter Visibility if none have been passed in.
+      // Anything not having _qc in it.
+      if ( visible_parameters.length == 0 ) {
+        for ( dataType in erdDataTypes ) {
+          if ( erdDataTypes[dataType].indexOf("_qc") == -1 &&
+                skip_plotting_parameters.indexOf(erdDataTypes[dataType]) == -1 ) {
+            visible_parameters.push(erdDataTypes[dataType]);
+          }
         }
       }
       this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(0, visible_parameters);
       this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(1, visible_parameters);
       this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(2, visible_parameters);
+      // save these for drawing the graph.
+      this.gmriDatasets[datsetKey].plottedParameters = visible_parameters ;
       let return_erddap: any = this.appConfig.neracoosErddap.getDatasetDateRange(this.appConfig, this.gmriDatasets[datsetKey].ml_name, erddapDatasetId );
       if ( return_erddap['datasetID'] != null &&
             return_erddap['start_time_msse'] != undefined &&
@@ -184,7 +283,7 @@ export class MetProvider {
       }
     }
   }
-  getData( skipPlottingParameters) {
+  getData( skipPlottingParameters, graph_instructions ){
     // block redundant calls
     if ( !this.requestedData ) {
       this.requestedData = true ;
@@ -195,9 +294,9 @@ export class MetProvider {
       // it's a model that needs work to be safe.
       if ( this.dataGETs.length > 0 ) {
         Observable.forkJoin(this.dataGETs).subscribe(
-          results => this.obsDataReady( results, this.dataTypeLoaded,skipPlottingParameters),
-          error => this.obsDataError( "ERDDAP data Failed to Load", error, this.dataGetUrls ),
-          () => this.obsDataComplete( "ERDDAP Data Complete", this.dataGetUrls ));
+          results => this.obsDataReady( results, this.dataTypeLoaded,skipPlottingParameters,graph_instructions),
+          error => this.obsDataError( "ERDDAP data Failed to Load", error, this.dataGetUrls, graph_instructions ),
+          () => this.obsDataComplete( "ERDDAP Data Complete", this.dataGetUrls, graph_instructions));
       } else {
         // the data was already loaded
         this.requestedData = false ;
@@ -212,7 +311,7 @@ export class MetProvider {
       }
     }
   }
-  obsDataReady(results, types_array, skipPlottingParameters){
+  obsDataReady(results, types_array, skipPlottingParameters,graph_instructions){
       // data_queried is a little useless  here
       let parameters: any;
       let chart_results: any;
@@ -220,98 +319,194 @@ export class MetProvider {
       let ml_location_name: string;
       let erdDataTypeOfInterest  : any = [] ;
       let mlKey : any ;
+      let dKey : any ;
       let columnNameKey: any ;
 
-      for ( var dKey in types_array ) {
-        // switch on the magic key
-        switch ( types_array[dKey] ) {
-          case 'met_all' :
-          case 'sbe37_all':
-          case 'sbe16_all':
-          case 'sbe16_disox_all':
-          case 'sbe16_trans_all':
-          case 'accelerometer_all' :
-          case '_e_waves_mstrain_all' :
-          case 'aanderaa_all' :
-          case 'aanderaa_o2_all' :
-          case 'aanderaa_hist' :
-          case 'optics_hist':
-          case 'optics_s':
-          case 'optode_all':
-          case 'suna_all':
-          case 'DSG_MA101_met' :
-          case 'DSG_MA101_sbe37' :
-          case 'DSG_MA101_echorange' :
-          case 'DSG_MA101_waves' :
-            // get the object for this location
-            ml_location_name  = this.appConfig.platform_name ;
-            // reset this
-            erdDataTypeOfInterest = [] ;
-            for (columnNameKey in results[dKey].table.columnNames ) {
-              // plot it if it's not in the list to skip and it's not a qc name.
-              if ( skipPlottingParameters.indexOf(results[dKey].table.columnNames[columnNameKey]) == -1 &&
-                    results[dKey].table.columnNames[columnNameKey].indexOf("_qc") == -1 ) {
-                erdDataTypeOfInterest.push(results[dKey].table.columnNames[columnNameKey]) ;
+
+      switch ( graph_instructions.graph_type ) {
+        case 'single_dataset':
+            for ( dKey in types_array ) {
+              // get the object for this location
+              ml_location_name  = this.appConfig.platform_name ;
+              // reset this
+              erdDataTypeOfInterest = [] ;
+              for (columnNameKey in results[dKey].table.columnNames ) {
+                // plot it if it's not in the list to skip and it's not a qc name.
+                if ( skipPlottingParameters.indexOf(results[dKey].table.columnNames[columnNameKey]) == -1 &&
+                      results[dKey].table.columnNames[columnNameKey].indexOf("_qc") == -1 ) {
+                  erdDataTypeOfInterest.push(results[dKey].table.columnNames[columnNameKey]) ;
+                }
+              }
+              // look for some sample data types to see if we already have this dataset
+              mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+              this.gmriDatasets[mlKey].observationData = results[dKey] ;
+
+              chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, erdDataTypeOfInterest,
+                                              measurement_system, types_array[dKey]);
+              this[types_array[dKey]] = chart_results['chartConfig'];
+              }
+            break;
+          case 'multiple_dataset':
+            // there are 2 sets of parameters here.
+            // 1) erdDataTypeOfInterest is gleaned from the results and used to find the dataset
+            // 2) plottedParemeters was determined previously after searching for datasets
+            for ( dKey in types_array ) {
+              // reset this
+              erdDataTypeOfInterest = [] ;
+              for (columnNameKey in results[dKey].table.columnNames ) {
+                // grab the station name as it goes by
+                if ( results[dKey].table.columnNames[columnNameKey] == 'station') {
+                  ml_location_name = results[dKey].table.rows[0][columnNameKey] ;
+                }
+                // plot it if it's not in the list to skip and it's not a qc name.
+                if ( skipPlottingParameters.indexOf(results[dKey].table.columnNames[columnNameKey]) == -1 &&
+                      results[dKey].table.columnNames[columnNameKey].indexOf("_qc") == -1 ) {
+                  erdDataTypeOfInterest.push(results[dKey].table.columnNames[columnNameKey]) ;
+                }
+              }
+              // look for some sample data types to see if we already have this dataset
+              mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+              this.gmriDatasets[mlKey].observationData = results[dKey] ;
+              this.gmriDatasets[mlKey].creatChartComponents(this.appConfig,
+                                            this.gmriDatasets[mlKey].plottedParameters,
+                                            measurement_system, types_array[dKey],
+                                            ml_location_name);
+            }
+            let newSeries:any ;
+            let seriesKey: any ;
+            let seriesArray: any = [] ;
+            let myAxisArray: any = [] ;
+            let intKeyAxisArray: any = [] ;
+            let missingyAxisKeysArray: any = [] ;
+            let myAxisKey: any ;
+            let missingKey: any ;
+            let chartTitle: string = "";
+            let chartSubTitle:string = '';
+            let savedFirstDatasetKey: any ;
+            let bOpposite: boolean = false ;
+
+            for ( dKey in types_array ) {
+              // same rigamoroll to get the datasets
+              erdDataTypeOfInterest = [] ;
+              for (columnNameKey in results[dKey].table.columnNames ) {
+                // grab the station name as it goes by
+                if ( results[dKey].table.columnNames[columnNameKey] == 'station') {
+                  ml_location_name = results[dKey].table.rows[0][columnNameKey] ;
+                }
+                // plot it if it's not in the list to skip and it's not a qc name.
+                if ( skipPlottingParameters.indexOf(results[dKey].table.columnNames[columnNameKey]) == -1 &&
+                      results[dKey].table.columnNames[columnNameKey].indexOf("_qc") == -1 ) {
+                  erdDataTypeOfInterest.push(results[dKey].table.columnNames[columnNameKey]) ;
+                }
+              }
+              // look for some sample data types to see if we already have this dataset
+              mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+              // first dataset just take all it's yAxis entries
+              // they are unique by units
+              if ( myAxisArray.length == 0 ) {
+                myAxisArray = this.gmriDatasets[mlKey].chartComponents.yAxisArray ;
+              } else {
+                // update any existing entries min max values with this datasaets.
+                myAxisArray = this.gmriDatasets[mlKey].updateAxisMinMax(myAxisArray) ;
+                // then get any missing entries and add them.
+                missingyAxisKeysArray = this.gmriDatasets[mlKey].getMissingyAxisKeys(myAxisArray ) ;
+                for ( missingKey in missingyAxisKeysArray ) {
+                  myAxisArray.push(this.gmriDatasets[mlKey].chartComponents.yAxisArray[missingyAxisKeysArray[missingKey]]) ;
+                }
+              }
+              // give them integer keys
+              intKeyAxisArray = [] ;
+              bOpposite = false ;
+              for ( myAxisKey in myAxisArray ) {
+                intKeyAxisArray.push(myAxisArray[myAxisKey]);
+                intKeyAxisArray[intKeyAxisArray.length-1].opposite = bOpposite ;
+                bOpposite = !bOpposite ;
+              }
+              // As long as we're here in the loop. Any yAxis that have been accumulated
+              // will cover this dataset so get the series and add an index to the yAxis to it.
+              for ( seriesKey in this.gmriDatasets[mlKey].chartComponents.seriesArray) {
+                newSeries = this.gmriDatasets[mlKey].chartComponents.seriesArray[seriesKey];
+                newSeries.yAxis = this.gmriDatasets[mlKey].getyAxisKeyByUnit(intKeyAxisArray,
+                    this.gmriDatasets[mlKey].chartComponents.seriesArray[seriesKey].parameter_units);
+                seriesArray.push(newSeries);
+              }
+              // accumulate the title and sub title
+              if ( chartTitle.length == 0 ){
+                chartTitle += this.gmriDatasets[mlKey].chartComponents.chart_title ;
+              } else {
+                chartTitle += " : " + this.gmriDatasets[mlKey].chartComponents.chart_title ;
+              }
+              if ( chartSubTitle.length == 0 ){
+                chartSubTitle += this.gmriDatasets[mlKey].chartComponents.chart_sub_title ;
+              } else {
+                chartSubTitle += " : " + this.gmriDatasets[mlKey].chartComponents.chart_sub_title ;
+              }
+              if ( dKey == 0 ) {
+                savedFirstDatasetKey = mlKey ;
               }
             }
-            // look for some sample data types to see if we already have this dataset
-            mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
-            this.gmriDatasets[mlKey].observationData = results[dKey] ;
-
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, erdDataTypeOfInterest,
-                                            measurement_system, types_array[dKey]);
-            this[types_array[dKey]] = chart_results['chartConfig'];
+            chart_results = this.gmriDatasets[savedFirstDatasetKey].assembleChart( chartTitle, chartSubTitle,
+                                  myAxisArray, seriesArray,this.appConfig) ;
+            this.designerChart = chart_results['chartConfig'];
             break;
-          case 'ERDDAP_MET_OBSERVATIONS':
-            // get the object for this location
-            ml_location_name  = this.appConfig.platform_name ;
-            // look for some sample data types to see if we already have this dataset
-            erdDataTypeOfInterest = [ "air_temperature", "air_temperature_qc",
-                                      "wind_speed", "wind_speed_qc"];
-            mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
-            this.gmriDatasets[mlKey].observationData = results[dKey] ;
+          case 'custom_observations':
+            for ( dKey in types_array ) {
+              // switch on the magic key
+              switch ( types_array[dKey] ) {
+                case 'ERDDAP_MET_OBSERVATIONS':
+                  // get the object for this location
+                  ml_location_name  = this.appConfig.platform_name ;
+                  // look for some sample data types to see if we already have this dataset
+                  erdDataTypeOfInterest = [ "air_temperature", "air_temperature_qc",
+                                            "wind_speed", "wind_speed_qc"];
+                  mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+                  this.gmriDatasets[mlKey].observationData = results[dKey] ;
 
-            parameters = ['wind_speed', 'wind_gust', 'wind_direction']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.windChart = chart_results['chartConfig'];
+                  parameters = ['wind_speed', 'wind_gust', 'wind_direction']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.windChart = chart_results['chartConfig'];
 
-            parameters = ['air_temperature']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.airTempChart = chart_results['chartConfig'];
+                  parameters = ['air_temperature']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.airTempChart = chart_results['chartConfig'];
 
-            parameters = ['visibility']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.visibilityChart = chart_results['chartConfig'];
+                  parameters = ['visibility']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.visibilityChart = chart_results['chartConfig'];
 
-            parameters = ['barometric_pressure']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.barometricPressure = chart_results['chartConfig'];
-            break;
-          case 'ERDDAP_SBE16_OBSERVATIONS':
-            // get the object for this location
-            ml_location_name= this.appConfig.platform_name ;
-            // look for some sample data types to see if we already have this dataset
-            erdDataTypeOfInterest = [ "temperature", "temperature_qc",
-                                    "salinity", "salinity_qc"];
-            mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
-            this.gmriDatasets[mlKey].observationData = results[dKey] ;
+                  parameters = ['barometric_pressure']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.barometricPressure = chart_results['chartConfig'];
+                  break;
+                case 'ERDDAP_SBE16_OBSERVATIONS':
+                  // get the object for this location
+                  ml_location_name= this.appConfig.platform_name ;
+                  // look for some sample data types to see if we already have this dataset
+                  erdDataTypeOfInterest = [ "temperature", "temperature_qc",
+                                          "salinity", "salinity_qc"];
+                  mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
+                  this.gmriDatasets[mlKey].observationData = results[dKey] ;
 
-            parameters = ['temperature']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.waterTempChart = chart_results['chartConfig'];
+                  parameters = ['temperature']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.waterTempChart = chart_results['chartConfig'];
 
-            parameters = ['salinity']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.salinityChart = chart_results['chartConfig'];
+                  parameters = ['salinity']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.salinityChart = chart_results['chartConfig'];
 
-            parameters = ['conductivity', 'sigma_t']
-            chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-            this.conductivitySigmaTChart = chart_results['chartConfig'];
+                  parameters = ['conductivity', 'sigma_t']
+                  chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  this.conductivitySigmaTChart = chart_results['chartConfig'];
+                  break;
+                default:
+                  break;
+              } // end of switch on types_array values
+            } // end on walking types_array
             break;
           default:
             break;
-        }
-      }
+        } // end on switch for graph_type
       this.requestedData = false ;
       // send out an event object
       let event_obj: any = { name: "erddap_data_available" };
@@ -319,7 +514,7 @@ export class MetProvider {
         this.metProvObserver.next(event_obj);
       }
   }
-  obsDataError( data_queried, error, types_array) {
+  obsDataError( data_queried, error, types_array,graph_instructions) {
     this.requestedData = false ;
     // send out an event object
     let event_obj: any = { name: "initial_app_data_error" };
@@ -327,7 +522,7 @@ export class MetProvider {
       this.metProvObserver.next(event_obj);
     }
   }
-  obsDataComplete(data_queried, types_array) {
+  obsDataComplete(data_queried, types_array,graph_instructions) {
     // send out an event object
     this.requestedData = false ;
     let event_obj: any = { name: "initial_app_data_complete" };
