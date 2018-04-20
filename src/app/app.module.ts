@@ -8,6 +8,10 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map';
 import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs';
+import { PlatformDataPage } from '../pages/platform-data/platform-data';
+import { PlatformGraphPage } from '../pages/platform-graph/platform-graph';
+import { PlatformDatasetsGraphPage } from '../pages/platform-datasets-graph/platform-datasets-graph';
+import { PlatformDesignerGraphPage } from '../pages/platform-designer-graph/platform-designer-graph';
 import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -32,6 +36,10 @@ declare var require: any;
     HomePage,
     BuoydataMapPage,
     PlatformTabsPage,
+    PlatformDataPage,
+    PlatformGraphPage,
+    PlatformDatasetsGraphPage,
+    PlatformDesignerGraphPage,
     ListPage,
     WaveGraphPage
   ],
@@ -53,6 +61,10 @@ declare var require: any;
     HomePage,
     BuoydataMapPage,
     PlatformTabsPage,
+    PlatformDataPage,
+    PlatformGraphPage,
+    PlatformDatasetsGraphPage,
+    PlatformDesignerGraphPage,
     ListPage,
     WaveGraphPage
   ],

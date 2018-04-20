@@ -77,7 +77,7 @@ export class GMRIDataset {
 
     // json p version
     // http://coastwatch.pfeg.noaa.gov/erddap/tabledap/documentation.html
-    var path_jsonp = '/erddap/tabledap/' + erddap_array['datasetID'] + '.json?station,time,mooring_site_desc' ;
+    var path_jsonp = '/erddap/tabledap/' + erddap_array.datasetMatched['datasetID'] + '.json?station,time,mooring_site_desc' ;
     for( mpKey in parameters ) {
       path_jsonp += "," + parameters[mpKey] ;
     }
@@ -86,7 +86,7 @@ export class GMRIDataset {
     // path_jsonp += "&time<=" + date_end_iso + "&.jsonp=__ng_jsonp__.__req1.finished" ;
 
     // json version
-    var path = '/erddap/tabledap/' + erddap_array['datasetID'] + '.json?station,time,mooring_site_desc' ;
+    var path = '/erddap/tabledap/' + erddap_array.datasetMatched['datasetID'] + '.json?station,time,mooring_site_desc' ;
     for( mpKey in parameters ) {
       path += "," + parameters[mpKey] ;
     }
@@ -196,6 +196,7 @@ export class GMRIDataset {
               // miles vs feet
               switch ( current_parameter ) {
                 case 'significant_wave_height':
+                case 'wave_height':
                   new_title.text = appConfig.gmriUnits.convert_unit_label(10,
                                                 yAxisParameterUnits, measurement_system) ;
                   break;
@@ -238,6 +239,7 @@ export class GMRIDataset {
               displayed_units = appConfig.gmriUnits.convert_unit_label(1000, parameter_units, 'measurement_system');
               break;
             case 'significant_wave_height' :
+            case 'wave_height':
               series_object.type = 'spline';
               series_object.measurement_system = measurement_system;
               displayed_units = appConfig.gmriUnits.convert_unit_label(10, parameter_units, measurement_system);
@@ -250,7 +252,8 @@ export class GMRIDataset {
           }
           var series_name =  appConfig.gmriUnits.data_type_desc[parameter] ;
           series_object.name = series_name ;
-          if ( depth != 99999 ) {
+          // show only the positive (below sea level)
+          if ( depth != 99999 && depth != -99999 && depth > 0 ) {
             series_object.name += " " + depth + "m";
           }
           series_object.parameter = parameter;
@@ -390,6 +393,7 @@ export class GMRIDataset {
           new_title.text = appConfig.gmriUnits.convert_unit_label(1000, yAxisParameterUnits, measurement_system) ;
           break;
         case 'significant_wave_height' :
+        case 'wave_height':
           new_title.text = appConfig.gmriUnits.convert_unit_label(10, yAxisParameterUnits, measurement_system) ;
           // Always 1 behind so setup previous parameter's yAxis
           yaxis_array[yAxisCount] = {};
@@ -598,6 +602,7 @@ export class GMRIDataset {
               // miles vs feet
               switch ( current_parameter ) {
                 case 'significant_wave_height':
+                case 'wave_height':
                   new_title.text = appConfig.gmriUnits.convert_unit_label(10,
                                                 yAxisParameterUnits, measurement_system) ;
                   break;
@@ -641,6 +646,7 @@ export class GMRIDataset {
               displayed_units = appConfig.gmriUnits.convert_unit_label(1000, parameter_units, 'measurement_system');
               break;
             case 'significant_wave_height' :
+            case 'wave_height':
               series_object.type = 'spline';
               series_object.measurement_system = measurement_system;
               displayed_units = appConfig.gmriUnits.convert_unit_label(10, parameter_units, measurement_system);
@@ -653,7 +659,8 @@ export class GMRIDataset {
           }
           var series_name =  appConfig.gmriUnits.data_type_desc[parameter] ;
           series_object.name = platform_name + ":" + series_name ;
-          if ( depth != 99999 ) {
+          // show only the positive (below sea level)
+          if ( depth != 99999 && depth != -99999 && depth > 0 ) {
             series_object.name += " " + depth + "m";
           }
           series_object.parameter = parameter;

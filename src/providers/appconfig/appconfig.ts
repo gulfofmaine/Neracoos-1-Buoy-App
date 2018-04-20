@@ -1010,8 +1010,8 @@ export class AppConfig {
     var date_start = this.getStartDate();
     var date_last = this.getEndDate();
     if ( erddap_array != undefined ) {
-      var erd_date_start = new Date(erddap_array['start_time_msse']) ;
-      var erd_date_end = new Date(erddap_array['end_time_msse']) ;
+      var erd_date_start = new Date(erddap_array.datasetMatched.['start_time_msse']) ;
+      var erd_date_end = new Date(erddap_array.datasetMatched.['end_time_msse']) ;
       // if we don't go back far enough
       if ( erd_date_start > date_start ) {
         date_start = erd_date_start ;

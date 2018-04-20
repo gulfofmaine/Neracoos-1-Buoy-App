@@ -148,6 +148,22 @@ export class GMRIErddap {
     let matchCount: any = 0 ;
     let maxDataset: any ;
     let dr_array: any = [];
+    let dtObject: any ;
+    let reworked_dt_array: any = [];
+
+    // multi parameter plots added some complexity to this.
+    // allow for just an array of strings by doing the substitution
+    if ( typeof data_type_array[0] == 'string' ) {
+      for ( dKey in data_type_array ) {
+        dtObject = {} ;
+        dtObject.cf_data_type = data_type_array[dKey] ;
+        dtObject.description = appConfig.gmriUnits.getDataTypeDescription(data_type_array[dKey]) ;
+        dtObject.erddap_data_type = data_type_array[dKey] ;
+        dtObject.selected = true ;
+        reworked_dt_array.push(dtObject) ;
+      }
+      data_type_array = reworked_dt_array ;
+    }
 
     for(rKey in this.raw_data.erdTables){
       if ( this.raw_data.erdTables[rKey].platform &&

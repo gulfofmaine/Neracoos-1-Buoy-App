@@ -22,7 +22,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // rootPage: any = BuoydataMapPage;
-  rootPage: any = PlatformTabsPage;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 

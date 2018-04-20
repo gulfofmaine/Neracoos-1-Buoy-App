@@ -265,14 +265,14 @@ export class MetProvider {
       // for example the sensor has broken.
       let return_erddap_dtoiID: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
                                       this.gmriDatasets[datsetKey].ml_name, erdDataTypeOfInterest );
-      if ( return_erddap_dtoiID['datasetID'] != null ) {
+      if ( return_erddap_dtoiID.datasetMatched['datasetID'] != null ) {
         // key value pairs
         this.gmriDatasets[datsetKey].data_variables = this.appConfig.neracoosErddap.getDatasetVariables(
-                                      this.appConfig, return_erddap_dtoiID['datasetID']  ) ;
+                                      this.appConfig, return_erddap_dtoiID.datasetMatched['datasetID']  ) ;
         // returns a straight up array
         let erdDataTypes: any = this.gmriDatasets[datsetKey].getDataVariables() ;
         let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.gmriDatasets[datsetKey].ml_name, erdDataTypes );
-        if ( return_erddap['datasetID'] != null ) {
+        if ( return_erddap.datasetMatched['datasetID'] != null ) {
           let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
           this.dataGetUrls.push(getErdObsURL) ;
           let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());

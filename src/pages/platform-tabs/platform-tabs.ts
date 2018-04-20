@@ -1,8 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs, MenuController } from 'ionic-angular';
+import { NavController, NavParams, Tabs, MenuController } from 'ionic-angular';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
+import { PlatformDataPage } from '../platform-data/platform-data';
+import { PlatformGraphPage } from '../platform-graph/platform-graph';
+import { PlatformDatasetsGraphPage } from '../platform-datasets-graph/platform-datasets-graph';
+import { PlatformDesignerGraphPage } from '../platform-designer-graph/platform-designer-graph';
 /**
  * Generated class for the PlatformTabsPage page.
  *
@@ -12,8 +16,6 @@ import { WaveProvider } from '../../providers/wave/wave';
  declare var require;
  require('highcharts-windbarb');
 
-
-@IonicPage()
 @Component({
   selector: 'page-platform-tabs',
   templateUrl: 'platform-tabs.html',
@@ -21,12 +23,13 @@ import { WaveProvider } from '../../providers/wave/wave';
 export class PlatformTabsPage {
   @ViewChild("pageTabs") pageTabs: Tabs;
 
-  tab1Root = "PlatformDataPage";
-  tab2Root = "PlatformGraphPage";
-  tab3Root = "PlatformDatasetsGraphPage";
-  tab4Root = "PlatformDesignerGraphPage";
+  tab1Root = PlatformDataPage;
+  tab2Root = PlatformGraphPage;
+  tab3Root = PlatformDatasetsGraphPage;
+  tab4Root = PlatformDesignerGraphPage;
   error_msg_array:any = [] ;
   error_message: string ;
+  tabsIndex: number = 0 ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
           public appConfig: AppConfig,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
@@ -15,7 +15,6 @@ import Highcharts from 'highcharts/highstock';
 declare var require;
 require('highcharts-windbarb');
 
-@IonicPage()
 @Component({
   selector: 'page-platform-datasets-graph',
   templateUrl: 'platform-datasets-graph.html',

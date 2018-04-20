@@ -373,8 +373,9 @@ export class WaveProvider {
         let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
                                       "dominant_wave_period", "dominant_wave_period_qc"];
         let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
-        if ( return_erddap['datasetID'] != null ) {
-          let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
+        if ( return_erddap.datasetMatched.datasetID != null ) {
+          let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig,
+                                          erdDataTypes, return_erddap) ;
           this.dataGetUrls.push(getErdWaveObsURL) ;
           let getBuoyErdWaveObservations = this.jsonp.request(getErdWaveObsURL).map(res => res.json());
           // 9/11/2017 get erddap to use jsonp.
@@ -798,7 +799,7 @@ class WaveObject {
 
     // json p version
     // http://coastwatch.pfeg.noaa.gov/erddap/tabledap/documentation.html
-    var path_jsonp = '/erddap/tabledap/' + erddap_array['datasetID'] + '.json?station,time,mooring_site_desc' ;
+    var path_jsonp = '/erddap/tabledap/' + erddap_array.datasetMatched['datasetID'] + '.json?station,time,mooring_site_desc' ;
     for( mpKey in parameters ) {
       path_jsonp += "," + parameters[mpKey] ;
     }
@@ -807,7 +808,7 @@ class WaveObject {
     // path_jsonp += "&time<=" + date_end_iso + "&.jsonp=__ng_jsonp__.__req1.finished" ;
 
     // json version
-    var path = '/erddap/tabledap/' + erddap_array['datasetID'] + '.json?station,time,mooring_site_desc' ;
+    var path = '/erddap/tabledap/' + erddap_array.datasetMatched['datasetID'] + '.json?station,time,mooring_site_desc' ;
     for( mpKey in parameters ) {
       path += "," + parameters[mpKey] ;
     }

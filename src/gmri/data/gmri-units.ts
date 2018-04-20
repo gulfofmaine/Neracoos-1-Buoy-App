@@ -779,6 +779,9 @@ export class GMRIUnits {
       case 'air temperature' :
       case 'air_temperature' :
       case 'temperature':
+      case 'wave_height':
+      case 'significant_wave_height':
+      case 'significant_height_of_wind_and_swell_waves':
         ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
         switch ( measurement_system ) {
           case 'english':

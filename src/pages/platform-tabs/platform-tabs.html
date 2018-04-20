@@ -6,8 +6,8 @@
 -->
 
 <ion-tabs #pageTabs [selectedIndex]="tabsIndex" preloadTabs="false">
-  <ion-tab [root]="tab1Root" tabTitle="Data" tabIcon="analytics"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Graph" tabIcon="analytics"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Datasets Graph" tabIcon="analytics"></ion-tab>
-  <ion-tab [root]="tab4Root" tabTitle="Comparison Graph" tabIcon="analytics"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="Data" tabIcon="analytics" [tabUrlPath]="'data'"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Graph" tabIcon="analytics" [tabUrlPath]="'graph'"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Datasets Graph" tabIcon="analytics" [tabUrlPath]="'datasets'"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Comparison Graph" tabIcon="analytics" [tabUrlPath]="'comparison'"></ion-tab>
 </ion-tabs>
