@@ -13,6 +13,7 @@ export class GMRIUnits {
   colors: any = [] ;
   data_type_color: any = [] ;
   depth_colors: any = [];
+  compare_color_ramps: any = [] ;
   skip_plotting_parameters: any = [] ;
 
   constructor() {
@@ -28,6 +29,46 @@ export class GMRIUnits {
             "longitude",
             "latitude",
             "depth"] ;
+    let color_ramp: any = [
+      '#ff0000',
+      '#ef0000',
+      '#df0000',
+      '#cf0000',
+      '#bf0000',
+      '#af0000',
+      '#9f0000',
+      '#8f0000',
+      '#7f0000',
+      '#6f0000'
+    ];
+    this.compare_color_ramps.push(color_ramp) ;
+    color_ramp = [
+      '#00ff00',
+      '#00ef00',
+      '#00df00',
+      '#00cf00',
+      '#00bf00',
+      '#00af00',
+      '#009f00',
+      '#008f00',
+      '#007f00',
+      '#006f00'
+    ];
+    this.compare_color_ramps.push(color_ramp) ;
+    color_ramp = [
+      '#0000ff',
+      '#0000ef',
+      '#0000df',
+      '#0000cf',
+      '#0000bf',
+      '#0000af',
+      '#00009f',
+      '#00008f',
+      '#00007f',
+      '#00006f'
+    ];
+    this.compare_color_ramps.push(color_ramp) ;
+
     // add some color to this.
     this.colors[1] = '#000000';
     this.colors[2] = '#0000ff';
@@ -782,6 +823,11 @@ export class GMRIUnits {
       case 'wave_height':
       case 'significant_wave_height':
       case 'significant_height_of_wind_and_swell_waves':
+      case 'wave_height':
+      case 'significant_wave_height_3' :
+      case 'wave_height_3':
+      case 'maximum_wave_height_3':
+      case 'swell_wave_height_3':
         ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
         switch ( measurement_system ) {
           case 'english':
@@ -836,6 +882,11 @@ export class GMRIUnits {
       case 'water_level':
       case 'significant_height_of_wind_and_swell_waves' :
       case 'significant_wave_height' :
+      case 'wave_height':
+      case 'significant_wave_height_3' :
+      case 'wave_height_3':
+      case 'maximum_wave_height_3':
+      case 'swell_wave_height_3':
         ret_val = '%.2f' ;
         break;
       case 'location':
@@ -848,7 +899,6 @@ export class GMRIUnits {
       case 'current_v' :
       case 'wind_speed' :
       case 'wind_gust' :
-      case 'dissolved_oxygen' :
       case 'turbidity' :
       case 'visibility_in_air' :
       case 'visibility':
@@ -867,7 +917,9 @@ export class GMRIUnits {
       case 'dominant_wave_period' :
       case 'wind_from_direction' :
       case 'direction_of_sea_water_velocity' :
+      case 'dissolved_oxygen':
       case 'percent_oxygen_saturation' :
+      case 'oxygen_saturation':
       case 'percent_sun':
       case 'sea_water_salinity' :
       case 'sea_water_pressure' :
@@ -887,6 +939,7 @@ export class GMRIUnits {
       case 'conductivity':
       case 'sigma_t':
       case 'salinity':
+      case 'ml/l':
         ret_val = '%0.2f' ;
         break;
       case 'pressure_tendency' :

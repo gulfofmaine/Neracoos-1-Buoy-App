@@ -59,8 +59,18 @@ export class PlatformDesignerGraphPage {
       let dataTypesNotFound: any = [] ;
       let visible_parameters :any = [];
       let dataTypeMagicKey: string ;
+      let erddapGraphDatasets: any = [] ;
+      let erddapGraphDatasetIds: any = [] ;
+      let erddapRequestDatasets: any = [] ;
+      let dataset_available: boolean;
+      let bAtLeastSomething : boolean = false ;
+      let colorRampIndex: number = 0 ;
+      let maxColorRampIndex: number = 2 ;
+      let colorRampArray: any = [];
 
       if ( this.metService.isInitialized()  ) {
+        // first set the metServices bookkeeping array for web services to empty
+        this.metService.resetDataGet();
         // at this point in theory we have a list of platforms and a list of parameters
         // we'd like to graph from them. The plan is to walk the platforms and look for
         // datasets with the parameters of interest in them assembling a list of dataset id's
@@ -70,6 +80,8 @@ export class PlatformDesignerGraphPage {
           if ( bList[bKey].selected) {
             bContinue = true ;
             location_name = bList[bKey].name;
+            // matched per buoy
+            datasetsMatched = [];
             // start by looking for them all
             // loop until you stop finding data
             dataTypesNotFound = pList ;
@@ -92,17 +104,38 @@ export class PlatformDesignerGraphPage {
               erddapDatasetId = datasetsMatched[erddapDatasetKey].datasetID ;
               visible_parameters = datasetsMatched[erddapDatasetKey].dataTypesFound ;
               dataTypeMagicKey = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
-              this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
-                               erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name);
+              dataset_available = this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
+                               erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
+                               'multiple_dataset');
+              // Data may or may not have already been requested.
+              if ( dataset_available['dataAvailable'] ) {
+                erddapGraphDatasets.push(dataTypeMagicKey);
+                erddapGraphDatasetIds.push(erddapDatasetId);
+                colorRampArray.push(colorRampIndex) ;
+                colorRampIndex++ ;
+                if ( colorRampIndex > maxColorRampIndex ) {
+                  colorRampIndex = 0 ;
+                }
+                bAtLeastSomething = true ;
+                if ( !dataset_available['dataLoaded']) {
+                  erddapRequestDatasets.push(erddapDatasetId);
+                }
+              }
             }
           }
         }
         let graph_instructions: any = {
           graph_type: 'multiple_dataset',
           parameter_list: pList,
-          platform_list: bList
+          platform_list: bList,
+          graph_datasets: erddapGraphDatasets,
+          graph_dataset_ids: erddapGraphDatasetIds,
+          request_dataset_ids: erddapRequestDatasets,
+          colorRampArray: colorRampArray
         }
-        this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
+        if ( bAtLeastSomething ) {
+          this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
+        }
       }
     });
   }
@@ -120,10 +153,20 @@ export class PlatformDesignerGraphPage {
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
-      if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
+      if ( this.metService.designerChart != undefined && this.appConfig.displayedErrorMessage == false ) {
           this.waveService.getWaveData(false);
       } else {
-          this.menuCtrl.open('right');
+        this.menuCtrl.open('right');
+        this.metService.metProvUpdates().subscribe( event_obj => {
+          console.log( event_obj.name ) ;
+          switch (event_obj.name) {
+            case "chart_available":
+              if ( this.metService.designerChart != undefined ) {
+                event_obj.name = event_obj.name ;
+              }
+              break;
+          }
+        });
       }
     } else {
       this.waveService.waveProvUpdates().subscribe( event_obj => {

@@ -29,33 +29,24 @@
       </div>
     </div>
 
-  <chart type="StockChart" [options]="waveService.waveChart"></chart>
-  <chart type="StockChart" [options]="metService.windChart"></chart>
-  <chart type="StockChart" [options]="metService.airTempChart"></chart>
-  <chart type="StockChart" [options]="metService.barometricPressure"></chart>
-  <chart type="StockChart" [options]="metService.visibilityChart"></chart>
-  <chart type="StockChart" [options]="metService.waterTempChart"></chart>
-  <chart type="StockChart" [options]="metService.salinityChart"></chart>
-  <chart type="StockChart" [options]="metService.conductivitySigmaTChart"></chart>
+  <chart *ngIf="metService.met_all" type="StockChart" [options]="metService.met_all"></chart>
+  <chart *ngIf="metService.sbe16_all" type="StockChart" [options]="metService.sbe16_all"></chart>
+  <chart *ngIf="metService.sbe16_disox_all" type="StockChart" [options]="metService.sbe16_disox_all"></chart>
+  <chart *ngIf="metService.sbe16_trans_all" type="StockChart" [options]="metService.sbe16_trans_all"></chart>
+  <chart *ngIf="metService.sbe37_all" type="StockChart" [options]="metService.sbe37_all"></chart>
+  <chart *ngIf="metService.accelerometer_all" type="StockChart" [options]="metService.accelerometer_all"></chart>
+  <chart *ngIf="metService.e_waves_mstrain_all" type="StockChart" [options]="metService.e_waves_mstrain_all"></chart>
+  <chart *ngIf="metService.optics_hist" type="StockChart" [options]="metService.optics_hist"></chart>
+  <chart *ngIf="metService.optics_s" type="StockChart" [options]="metService.optics_s"></chart>
+  <chart *ngIf="metService.optode_all" type="StockChart" [options]="metService.optode_all"></chart>
+  <chart *ngIf="metService.aanderaa_all" type="StockChart" [options]="metService.aanderaa_all"></chart>
+  <chart *ngIf="metService.aanderaa_o2_all" type="StockChart" [options]="metService.aanderaa_o2_all"></chart>
+  <chart *ngIf="metService.aanderaa_hist" type="StockChart" [options]="metService.aanderaa_hist"></chart>
 
-  <chart type="StockChart" [options]="metService.met_all"></chart>
-  <chart type="StockChart" [options]="metService.sbe16_all"></chart>
-  <chart type="StockChart" [options]="metService.sbe16_disox_all"></chart>
-  <chart type="StockChart" [options]="metService.sbe16_trans_all"></chart>
-  <chart type="StockChart" [options]="metService.sbe37_all"></chart>
-  <chart type="StockChart" [options]="metService.accelerometer_all"></chart>
-  <chart type="StockChart" [options]="metService._e_waves_mstrain_all"></chart>
-  <chart type="StockChart" [options]="metService.optics_hist"></chart>
-  <chart type="StockChart" [options]="metService.optics_s"></chart>
-  <chart type="StockChart" [options]="metService.optode_all"></chart>
-  <chart type="StockChart" [options]="metService.aanderaa_all"></chart>
-  <chart type="StockChart" [options]="metService.aanderaa_o2_all"></chart>
-  <chart type="StockChart" [options]="metService.aanderaa_hist"></chart>
-
-  <chart type="StockChart" [options]="metService.suna_all"></chart>
-  <chart type="StockChart" [options]="metService.DSG_MA101_met"></chart>
-  <chart type="StockChart" [options]="metService.DSG_MA101_sbe37"></chart>
-  <chart type="StockChart" [options]="metService.DSG_MA101_echorange"></chart>
-  <chart type="StockChart" [options]="metService.DSG_MA101_waves"></chart>
+  <chart *ngIf="metService.suna_all" type="StockChart" [options]="metService.suna_all"></chart>
+  <chart *ngIf="metService.DSG_MA101_met" type="StockChart" [options]="metService.DSG_MA101_met"></chart>
+  <chart *ngIf="metService.DSG_MA101_sbe37" type="StockChart" [options]="metService.DSG_MA101_sbe37"></chart>
+  <chart *ngIf="metService.DSG_MA101_echorange" type="StockChart" [options]="metService.DSG_MA101_echorange"></chart>
+  <chart *ngIf="metService.DSG_MA101_waves" type="StockChart" [options]="metService.DSG_MA101_waves"></chart>
 
 </ion-content>

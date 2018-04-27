@@ -228,9 +228,10 @@ export class GMRIErddap {
     let date_start_msse: number = date_range['date_start_msse'];
     let date_end_msse: number = date_range['date_end_msse'];
     // var date_end_msse = date_range['date_end_msse'];
-    let ret_array : any = [] ;
+    let ret_array : any = {} ;
     let dr_array: any = [] ;
 
+    ret_array.datasetMatched = {};
     for(let rKey in this.raw_data.erdTables) {
       if ( this.raw_data.erdTables[rKey].platform &&
         this.raw_data.erdTables[rKey].platform == platform_name &&
@@ -238,9 +239,9 @@ export class GMRIErddap {
         dr_array = this.getOptimumDateRange( date_start_msse, date_end_msse,
                       this.raw_data.erdTables[rKey].start_time_msse,
                       this.raw_data.erdTables[rKey].end_time_msse ) ;
-        ret_array['datasetID'] = datasetID ;
-        ret_array['start_time_msse'] = dr_array['start_time_msse'] ;
-        ret_array['end_time_msse'] = dr_array['end_time_msse'] ;
+        ret_array.datasetMatched['datasetID'] = datasetID ;
+        ret_array.datasetMatched['start_time_msse'] = dr_array['start_time_msse'] ;
+        ret_array.datasetMatched['end_time_msse'] = dr_array['end_time_msse'] ;
         break;
       }
     }
