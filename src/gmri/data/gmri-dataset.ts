@@ -31,6 +31,8 @@ export class GMRIDataset {
   datasetId: string;
   chartComponents: any ;
   plottedParameters: any = [] ;
+  start_time_msse : number = 0 ;
+  end_time_msse : number = 0 ;
 
 
   constructor( ml_identifier: string, appConfig: AppConfig) {
@@ -41,10 +43,36 @@ export class GMRIDataset {
   setDatasetId( datasetId ) {
     this.datasetId = datasetId ;
   }
-  isInitialized() {
+  // Set the date range for the data actually retrieved
+  // and in this objects observationData
+  setDatasetRetrievedDateRange(start_time_msse, end_time_msse ) {
+    this.start_time_msse = start_time_msse ;
+    this.end_time_msse = end_time_msse ;
+  }
+  // check if this dataset has already acquired the data it would need
+  // for the date range
+  isDataAcquired(appConfig) {
+    let ret_val: boolean = false ;
+    let date_range: any = appConfig.getERDDAPDateRange(null) ;
+    let date_start_msse: number = date_range['date_start_msse'];
+    let date_end_msse: number = date_range['date_end_msse'];
+    // if the requested start time is between the data already acquireds start and end
+    // data AND the requested end time is also between those AND the observationData
+    // is set then in theory we have the data necessary already.
+    if ( date_start_msse >= this.start_time_msse && date_start_msse < this.end_time_msse &&
+            date_end_msse > this.start_time_msse && date_end_msse <= this.end_time_msse &&
+            this.observationData != null && this.observationData != undefined  ) {
+      ret_val = true ;
+    }
+
+    return(ret_val);
+  }
+  // redundant I know but at some point we may need to have an even more involved
+  // definition of initialized.
+  isInitialized(appConfig) {
     let ret_val: boolean = false ;
     if ( this.observationData != null && this.observationData != undefined ) {
-      ret_val = true ;
+      ret_val = this.isDataAcquired(appConfig) ;
     }
     return(ret_val);
   }
@@ -131,6 +159,7 @@ export class GMRIDataset {
 
   // set's up chart components such as series, yAxis's and titles
   // to be used together in a single chart
+  //  a color ram index of -1 is a flag to use the parameter coloring scheme.
   creatChartComponents(appConfig, parameters, measurement_system, dataset_type,
           platform_name, colorRampIndex) {
     let ret_array: any = [] ;
@@ -296,10 +325,13 @@ export class GMRIDataset {
               break;
           }
           var series_name =  appConfig.gmriUnits.data_type_desc[parameter] ;
+          // save an alternate for data only
+          series_object.data_type_description = series_name ;
           series_object.name = platform_name + ":" + series_name ;
           // show only the positive (below sea level)
           if ( depth != 99999 && depth != -99999 && depth > 0 ) {
             series_object.name += " " + depth + "m";
+            series_object.data_type_description += " " + depth + "m";
           }
           series_object.parameter = parameter;
           series_object.parameter_units = parameter_units;
@@ -581,11 +613,11 @@ export class GMRIDataset {
         selected: 4
       },
       scrollbar: {
-        enabled: false
+        enabled: true
       },
       navigator: {
       //adaptToUpdatedData: false,
-      enabled: false
+      enabled: true
       },
       title: {
           text: chartTitle,
@@ -650,10 +682,10 @@ export class GMRIDataset {
       for ( mKey in yAxisArray ) {
         if ( this.chartComponents.yAxisArray[yKey].yAxisParameterUnits ==
                yAxisArray[mKey].yAxisParameterUnits   ) {
-          if ( yAxisArray[mKey].min < this.chartComponents.yAxisArray[yKey].min ) {
+          if ( this.chartComponents.yAxisArray[yKey].min < yAxisArray[mKey].min ) {
             yAxisArray[mKey].min = this.chartComponents.yAxisArray[yKey].min ;
           }
-          if ( yAxisArray[mKey].max > this.chartComponents.yAxisArray[yKey].max ) {
+          if ( this.chartComponents.yAxisArray[yKey].max  > yAxisArray[mKey].max ) {
             yAxisArray[mKey].max = this.chartComponents.yAxisArray[yKey].max ;
           }
         }
@@ -677,6 +709,10 @@ export class GMRIDataset {
   // chart components allow the same series creation code to be used
   // across multiple datasets. This consolidates the creation
   // for charts which are from a single dataset
+  // 4-30-2018 I'm second guessing whether this is necessary but leaving
+  // well enough alone. This appears to just transform the yAxis array
+  // to a zero based array and nothing more? That could be done in
+  // the chartComponentCreation.
   componentToChart() {
     let ret_val: any = [] ;
     let myAxisKey: any ;
@@ -725,5 +761,48 @@ export class GMRIDataset {
                       component_results['intKeyAxisArray'],
                       component_results['seriesArray'],appConfig) ;
     return(chart_results);
+  }
+  // creates data variables for a single dataset.
+  createData(appConfig, plottedParameters, measurement_system, dataset_type, location_name) {
+    let data_results:any = [] ;
+    let component_results:any = [] ;
+    let colorRampIndex: number = -1 ;
+
+    this.creatChartComponents(appConfig, plottedParameters, measurement_system,
+                              dataset_type, location_name, colorRampIndex);
+    // For the case of multi dataset graphs these items Titles, yAxis and Series
+    // are done by chart component and then "assembled"
+    component_results = this.componentToChart() ;
+
+    data_results = this.assembleData( component_results['chartTitle'],
+                     component_results['chartSubTitle'],
+                      component_results['intKeyAxisArray'],
+                      component_results['seriesArray'],appConfig) ;
+    return(data_results);
+  }
+  // assemble possibly multiple datasets into some semblance of order.
+  // this might not really be necessary.
+  assembleData( dataTitle, dataSubTitle, yAxisArray, seriesArray, appConfig) {
+    let ret_array: any = [] ;
+    let seriesNew: any ;
+    let sKey: any ;
+    let dataConfig: any = {
+      title: dataTitle,
+      subtitle: dataSubTitle,
+      yAxis: yAxisArray
+    };
+    dataConfig.seriesArray = [] ;
+    for ( sKey in seriesArray ) {
+      seriesNew = [] ;
+      seriesNew.seriesGraph = seriesArray[sKey];
+      // this relies on having asked for up to the minute data
+      seriesNew.latestValue = seriesArray[sKey].data[seriesArray[sKey].data.length-1];
+      seriesNew.displayValue = appConfig.gmriUnits.getDisplayString( seriesArray[sKey].parameter,
+                        seriesArray[sKey].units,
+                        seriesNew.latestValue[1], seriesArray[sKey].measurement_system );
+      dataConfig.seriesArray.push(seriesNew);
+    }
+    ret_array['dataConfig'] = dataConfig;
+    return( ret_array ) ;
   }
 }

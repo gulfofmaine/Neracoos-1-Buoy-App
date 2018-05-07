@@ -247,6 +247,8 @@ export class GMRIErddap {
     }
     return ( ret_array );
   }
+  // since we have to ask for perfect date ranges from erddap this looks at
+  // the desired and acutal date ranges available and returns the perfect (I hope) one.
   getOptimumDateRange( date_start_msse, date_end_msse, dataset_start_msse, dataset_end_msse ) {
     let ret_array:any = [] ;
     let ret_date_start_msee: number;

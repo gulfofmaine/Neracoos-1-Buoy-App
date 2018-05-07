@@ -42,13 +42,14 @@ export class PlatformTabsPage {
   }
 
   ionViewDidEnter() {
+    this.appConfig.enableMenu('platform_data_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.waveDisplayedErrorMessage == false ) {
           this.waveService.getWaveData(false);
       } else {
-          this.menuCtrl.open('right');
+          // this.menuCtrl.open('right');
       }
     } else {
       this.waveService.waveProvUpdates().subscribe( event_obj => {
@@ -58,7 +59,7 @@ export class PlatformTabsPage {
             if ( this.appConfig.getPlatformName() != undefined ) {
                 this.waveService.getWaveData(false);
             } else {
-                this.menuCtrl.open('right');
+                // this.menuCtrl.open('right');
             }
             break;
           case "forecast_data_error":

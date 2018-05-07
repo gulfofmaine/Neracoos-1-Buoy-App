@@ -41,7 +41,9 @@ export class PlatformDatasetsGraphPage {
       }
     });
     // subscribe to the page loading event
-    events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
+    // now that the tap is handled in this class add _disabled
+    // so I'm not really subscribed.
+    events.subscribe('platformTapped_disabled:rightmenu', (monitoringlocation) => {
       if ( this.waveService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
@@ -61,7 +63,7 @@ export class PlatformDatasetsGraphPage {
     this.appConfig.setTabSelected("graph");
   }
   ionViewDidEnter() {
-    this.appConfig.enableMenu('platform_menu') ;
+    this.appConfig.enableMenu('platform_dataset_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
@@ -227,6 +229,16 @@ export class PlatformDatasetsGraphPage {
       popover.present({
       });
     }
+  }
+  // filters platform, station
+  platformTapped(event, item) {
+    if ( item.properties.name != undefined ) {
+      this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
+      // this.events.publish('platformTapped:rightmenu', item.properties.name);
+      this.appConfig.setDateFromInterface();
+      this.drawDatasetsGraph() ;
+    }
+    this.menuCtrl.close();
   }
 
 }

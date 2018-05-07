@@ -19,6 +19,32 @@
 </ion-header>
 
 
+<ion-menu id='platform_graph_menu'  [content]="platform_graph_menu" side="right">
+  <ion-content padding class="has-header">
+    <ion-navbar>
+      <ion-title>Choose the Platform</ion-title>
+    </ion-navbar>
+      <div>
+        <ion-item>
+          <ion-label>Start Date</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY H" min="2016" [max]="appConfig.max_interface_start_date"  [(ngModel)]="appConfig.interface_start_date">
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>End Date</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY H" min="2016" [max]="appConfig.max_interface_end_date"  [(ngModel)]="appConfig.interface_end_date">
+          </ion-datetime>
+        </ion-item>
+      </div>
+    <ion-list>
+      <button ion-item *ngFor="let item of waveService.wave_locations"
+                  (click)="platformTapped($event, item)">
+        {{item.properties.name}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-content padding>
     <div *ngIf="appConfig.waveDisplayedErrorMessage">
     There was an error building a graph for {{waveService.appConfig.platform_name}}
@@ -40,3 +66,4 @@
 
 
 </ion-content>
+<ion-nav [root]="PlatformGraphPage" #platform_graph_menu swipeBackEnabled="false" ></ion-nav>

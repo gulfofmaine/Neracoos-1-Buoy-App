@@ -13,6 +13,7 @@ import 'intl/locale-data/jsonp/en';
 import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 import {GMRIUnits} from "../../gmri/data/gmri-units";
 import { MenuController } from 'ionic-angular';
+import moment from 'moment';
 
 
 /*
@@ -72,11 +73,16 @@ export class AppConfig {
   waveLocationURL: string ;
   erddapMetadataURL: string ;
 
+  interface_start_date: string ;
+  interface_end_date: string ;
+  max_interface_start_date: string ;
+  max_interface_end_date: string ;
   start_date: any = new Date();
   end_date: any = new Date();
   min_date_allowed: any ;
   max_date_allowed: any ;
   days_forward: any = 3.0;
+  date_changed: boolean = false ;
 
   datum: string = 'MSL';
   tideRequestedDatum : string = 'MSL';
@@ -139,7 +145,7 @@ export class AppConfig {
 
   // drupal based content
   // contentURLOne: string = 'http://contentservice.gmri.org/api/node/16.jsonp?callback=JSONP_CALLBACK' ;
-  drupalURLOne: string = 'http://neracoos.org/proxy2?ajax=1&url=http://contentservice.gmri.org/rest/neracoos_buoy_pwa_content';
+  drupalURLOne: string = 'http://neracoos.org/proxy2?ajax=1&url=http://contentservice.gmri.org/rest/neracoos_buoy_pwa_content?_format=json';
   drupalContent: any  ;
 
   constructor( public datePipe: DatePipe,
@@ -318,7 +324,12 @@ export class AppConfig {
       'wave_menu',
       'buoy_menu',
       'platform_menu',
-      'comparison_menu'
+      'comparison_menu',
+      'page_comparison_menu',
+      'page_comparison_menu',
+      'platform_data_menu',
+      'platform_dataset_menu',
+      'platform_graph_menu'
       ];
     let mKey : any ;
     for ( mKey in menus ) {
@@ -468,6 +479,11 @@ export class AppConfig {
     this.min_date_allowed = new Date(timeMinusThreeDays);
     this.max_date_allowed = new Date(timeMinusThreeDays);
     this.start_date.setHours(0,0,0,0) ;
+
+    this.interface_start_date = moment(this.start_date).format() ;
+    this.interface_end_date = moment(this.end_date).format() ;
+    this.max_interface_start_date = moment(this.start_date).format('YYYY-MM-DD') ;
+    this.max_interface_end_date = moment(this.end_date).format('YYYY-MM-DD') ;
   }
   // drupal data
   getContentOne() {
@@ -843,7 +859,19 @@ export class AppConfig {
   getEndDate() {
     // var msforward = this.days_forward * 24 * 60 * 60 * 1000 ;
     // var end_date = new Date(this.start_date.getTime() + msforward) ;
-    return( this.end_date ) ;
+    var clonedDate = new Date(this.end_date.getTime()) ;
+    return(clonedDate);
+  }
+  setEndDate(new_end_date) {
+    this.end_date.setTime(new_end_date.getTime());
+    // start_date = new Date(new_start_date.getTime()) ;
+  }
+  setDateFromInterface() {
+    let momentStartDate: any = moment(this.interface_start_date) ;
+    let momentEndDate: any = moment(this.interface_end_date) ;
+    this.setStartDate(momentStartDate.toDate()) ;
+    this.setEndDate(momentEndDate.toDate()) ;
+    this.date_changed = true ;
   }
   bumpEndDate(msEndDate) {
     let new_end: any = new Date(msEndDate);

@@ -43,45 +43,7 @@ export class PlatformGraphPage {
     });
     // subscribe to the page loading event
     events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
-      if ( this.waveService.isInitialized()  ) {
-        // if a choice has been made and there was not previous error go directly to the page
-        if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-            this.waveService.getWaveData(false);
-        }
-      }
-      if ( this.metService.isInitialized()  ) {
-        let erddapGraphDatasets : any = [] ;
-        // if a choice has been made and there was not previous error go directly to the page
-        if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-          // first set the metServices bookkeeping array for web services to empty
-          this.metService.resetDataGet();
-          // meterological data
-          let visible_parameters: any = ['air_temperature', 'barometric_pressure',
-                        'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
-          let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
-                                    "wind_speed", "wind_speed_qc"];
-          let dataTypeMagicKey: string = "ERDDAP_MET_OBSERVATIONS" ;
-          erddapGraphDatasets.push(dataTypeMagicKey) ;
-          this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
-                      'custom_observations');
-          // SBE16 Oxygen and more
-          visible_parameters = ['temperature', 'salinity',
-                        'dissolved_oxygen', 'oxygen_saturation', 'percent_oxygen_saturation',
-                        'conductivity', 'sigma_t'] ;
-          erdDataTypeOfInterest = [ "temperature", "temperature_qc",
-                                    "salinity", "salinity_qc"];
-          dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
-          erddapGraphDatasets.push(dataTypeMagicKey) ;
-          this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
-                      'custom_observations');
-          // make the request
-          let graph_instructions: any = {
-            graph_type: 'custom_observations',
-            graph_datasets: erddapGraphDatasets
-          }
-          this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
-        }
-      }
+      this.drawPlatformGraphs();
     });
   }
 
@@ -94,12 +56,13 @@ export class PlatformGraphPage {
     this.appConfig.setTabSelected("graph");
   }
   ionViewDidEnter() {
-    this.appConfig.enableMenu('graph_menu') ;
+    this.appConfig.enableMenu('platform_graph_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
           this.waveService.getWaveData(false);
+          this.drawPlatformGraphs();
       } else {
           this.menuCtrl.open('right');
       }
@@ -206,6 +169,57 @@ export class PlatformGraphPage {
       });
       popover.present({
       });
+    }
+  }
+  // filters platform, station
+  platformTapped(event, item) {
+    if ( item.properties.name != undefined ) {
+      this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
+      this.appConfig.setDateFromInterface();
+      this.metService.resetDataGet();
+      this.drawPlatformGraphs() ;
+    }
+    this.menuCtrl.close();
+  }
+  drawPlatformGraphs() {
+    if ( this.waveService.isInitialized()  ) {
+      // if a choice has been made and there was not previous error go directly to the page
+      if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
+          this.waveService.getWaveData(false);
+      }
+    }
+    if ( this.metService.isInitialized()  ) {
+      let erddapGraphDatasets : any = [] ;
+      // if a choice has been made and there was not previous error go directly to the page
+      if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
+        // first set the metServices bookkeeping array for web services to empty
+        this.metService.resetDataGet();
+        // meterological data
+        let visible_parameters: any = ['air_temperature', 'barometric_pressure',
+                      'wind_gust', 'wind_speed', 'wind_direction', 'visibility'] ;
+        let erdDataTypeOfInterest  : any = [ "air_temperature", "air_temperature_qc",
+                                  "wind_speed", "wind_speed_qc"];
+        let dataTypeMagicKey: string = "ERDDAP_MET_OBSERVATIONS" ;
+        erddapGraphDatasets.push(dataTypeMagicKey) ;
+        this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
+                    'custom_observations');
+        // SBE16 Oxygen and more
+        visible_parameters = ['temperature', 'salinity',
+                      'dissolved_oxygen', 'oxygen_saturation', 'percent_oxygen_saturation',
+                      'conductivity', 'sigma_t'] ;
+        erdDataTypeOfInterest = [ "temperature", "temperature_qc",
+                                  "salinity", "salinity_qc"];
+        dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
+        erddapGraphDatasets.push(dataTypeMagicKey) ;
+        this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
+                    'custom_observations');
+        // make the request
+        let graph_instructions: any = {
+          graph_type: 'custom_observations',
+          graph_datasets: erddapGraphDatasets
+        }
+        this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
+      }
     }
   }
 

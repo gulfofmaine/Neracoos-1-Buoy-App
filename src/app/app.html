@@ -11,11 +11,20 @@
         {{p.title}}
       </button>
     </ion-list>
+    {{getPageName()}}
   </ion-content>
 
 </ion-menu>
 
-<ion-menu id='comparison_menu' [content]="content" side="right"
+<ion-menu id='user_interface_menu' *ngIf="getPageName() == 'HomePage'"   [content]="content" side="right">
+  <ion-content padding class="has-header">
+      <ion-navbar>
+        <ion-title>Choose a persona</ion-title>
+      </ion-navbar>
+  </ion-content>
+</ion-menu>
+<!--
+<ion-menu id='comparison_menu' *ngIf="getPageName() == 'PlatformDesignerGraphPage'"   [content]="content" side="right"
         (ionClose)="comparisonMenuClosed()">
   <ion-content padding class="has-header">
       <ion-navbar>
@@ -39,7 +48,7 @@
   </ion-content>
 </ion-menu>
 
-<ion-menu id='graph_menu' [content]="content" side="right">
+<ion-menu id='graph_menu' *ngIf="getPageName() == 'PlatformGraphPage'"  [content]="content" side="right">
   <ion-content padding class="has-header">
       <ion-navbar>
         <ion-title>Choose a Location</ion-title>
@@ -55,7 +64,8 @@
   </ion-content>
 </ion-menu>
 
-<ion-menu id='platform_menu' *ngIf="getPageName() == 'PlatformTabsPage'" [content]="content" side="right">
+<ion-menu id='platform_menu' *ngIf="getPageName() == 'PlatformTabsPage' ||
+                  getPageName() == 'PlatformDataPage'" [content]="content" side="right">
   <ion-content padding class="has-header">
       <ion-navbar>
         <ion-title *ngIf="getPageName() == 'PlatformTabsPage'">Choose a Platform</ion-title>
@@ -121,6 +131,6 @@
   </ion-list>
   </ion-content>
 </ion-menu>
-
+-->
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false" ></ion-nav>

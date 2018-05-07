@@ -27,6 +27,10 @@ export class PlatformDesignerGraphPage {
   private sub: Subscription;
   error_message:string = "";
   error_msg_array: any = [] ;
+  // post graph timer
+  private post_graph_timer;
+  // Subscription object
+  private post_graph_sub: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
           public appConfig: AppConfig,
@@ -43,7 +47,13 @@ export class PlatformDesignerGraphPage {
     });
     // subscribe to selection changed event
     events.subscribe('buoySelectionChanged:rightmenu', () => {
-      this.appConfig.enableMenu('comparison_menu') ;
+      this.appConfig.enableMenu('page_comparison_menu') ;
+    });
+    // subscribe to graph drawn event
+    events.subscribe('graphingFinished', (graph_type) => {
+      this.post_graph_timer = Observable.timer(1000);
+      // subscribing to a observable returns a subscription object
+      this.post_graph_sub = this.post_graph_timer.subscribe(t => this.postGraphFunc(t));
     });
     // handle the menu closing
     events.subscribe('comparisonMenuClosed:rightmenu', () => {
@@ -65,7 +75,7 @@ export class PlatformDesignerGraphPage {
       let dataset_available: boolean;
       let bAtLeastSomething : boolean = false ;
       let colorRampIndex: number = 0 ;
-      let maxColorRampIndex: number = 2 ;
+      let maxColorRampIndex: number = this.appConfig.gmriUnits.compare_color_ramps.length ;
       let colorRampArray: any = [];
 
       if ( this.metService.isInitialized()  ) {
@@ -104,7 +114,8 @@ export class PlatformDesignerGraphPage {
               erddapDatasetId = datasetsMatched[erddapDatasetKey].datasetID ;
               visible_parameters = datasetsMatched[erddapDatasetKey].dataTypesFound ;
               dataTypeMagicKey = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
-              dataset_available = this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
+              dataset_available = this.metService.setUpDataset(this.appConfig.date_changed,
+                                this.appConfig.gmriUnits.skip_plotting_parameters,
                                erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
                                'multiple_dataset');
               // Data may or may not have already been requested.
@@ -124,6 +135,7 @@ export class PlatformDesignerGraphPage {
             }
           }
         }
+        this.appConfig.date_changed = false ;
         let graph_instructions: any = {
           graph_type: 'multiple_dataset',
           parameter_list: pList,
@@ -139,6 +151,9 @@ export class PlatformDesignerGraphPage {
       }
     });
   }
+  postGraphFunc(tick){
+    this.appConfig.enableMenu('page_comparison_menu') ;
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlatformDesignerGraphPage');
@@ -149,12 +164,13 @@ export class PlatformDesignerGraphPage {
     this.appConfig.setTabSelected("graph");
   }
   ionViewDidEnter() {
-    this.appConfig.enableMenu('comparison_menu') ;
+    this.appConfig.enableMenu('page_comparison_menu') ;
     this.appConfig.setTabSelected("graph");
-    if ( this.waveService.isInitialized()  ) {
+    if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.metService.designerChart != undefined && this.appConfig.displayedErrorMessage == false ) {
-          this.waveService.getWaveData(false);
+        let temp: string = 'temp';
+        temp = 'temp';
       } else {
         this.menuCtrl.open('right');
         this.metService.metProvUpdates().subscribe( event_obj => {
@@ -162,6 +178,8 @@ export class PlatformDesignerGraphPage {
           switch (event_obj.name) {
             case "chart_available":
               if ( this.metService.designerChart != undefined ) {
+                // attempting to force a page reload.
+                this.navCtrl.setRoot(this.navCtrl.getActive().component);
                 event_obj.name = event_obj.name ;
               }
               break;
@@ -169,6 +187,7 @@ export class PlatformDesignerGraphPage {
         });
       }
     } else {
+      // Not really relevant except for timing, maybe? Ugh.
       this.waveService.waveProvUpdates().subscribe( event_obj => {
         console.log( event_obj.name ) ;
         switch (event_obj.name) {
@@ -193,20 +212,6 @@ export class PlatformDesignerGraphPage {
               this.error_msg_array.push(event_obj.fetch_urls[uKey]) ;
             }
             this.error_message = msg;
-            /* giving up on this.
-            // this.navCtrl.popToRoot();
-            // this.navCtrl.pop();
-            if ( this.navCtrl != undefined ) {
-              // let navLen : number = this.navCtrl.length();
-              // if ( navLen > 0 ) {
-              if ( this.navCtrl.canGoBack() ) {
-                this.navCtrl.popToRoot();
-              }
-              // this.navCtrl.push("ErrorPage");
-              this.navCtrl.setRoot('ErrorPage');
-            } else {
-            }
-            */
             // set a flag to tell us to display the choices next time.
             this.appConfig.displayedErrorMessage = true;
             break;
@@ -270,6 +275,26 @@ export class PlatformDesignerGraphPage {
       popover.present({
       });
     }
+  }
+  comparisonTapped(event, item) {
+    this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
+    this.metService.setPlatformParameterList();
+    this.events.publish('comparisonTapped:rightmenu', item.properties.name);
+  }
+  comparisonMenuClosed() {
+    this.appConfig.setDateFromInterface();
+    this.events.publish('comparisonMenuClosed:rightmenu');
+  }
+  getPlatformParameterList() {
+    return(this.metService.getPlatformParameterList());
+  }
+  updateParameterVisibility(item) {
+    this.metService.updateParameterVisibility( item.description, !item.selected);
+  }
+  updateBuoySelected(item) {
+    this.metService.updateBuoySelected( item.name, !item.selected);
+    this.metService.setPlatformParameterList();
+    this.events.publish('buoySelectionChanged:rightmenu', item.name);
   }
 
 }

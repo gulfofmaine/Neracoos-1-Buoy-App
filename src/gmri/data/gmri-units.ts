@@ -69,6 +69,46 @@ export class GMRIUnits {
     ];
     this.compare_color_ramps.push(color_ramp) ;
 
+    color_ramp = [
+      '#ffff00',
+      '#efef00',
+      '#dfdf00',
+      '#cfcf00',
+      '#bfbf00',
+      '#afaf00',
+      '#9f9f00',
+      '#8f8f00',
+      '#7f7f00',
+      '#6f6f00'
+    ];
+    this.compare_color_ramps.push(color_ramp) ;
+    color_ramp = [
+      '#00ffff',
+      '#00efef',
+      '#00dfdf',
+      '#00cfcf',
+      '#00bfbf',
+      '#00afaf',
+      '#009f9f',
+      '#008f8f',
+      '#007f7f',
+      '#006f6f'
+    ];
+    this.compare_color_ramps.push(color_ramp) ;
+    color_ramp = [
+      '#ff00ff',
+      '#ef00ef',
+      '#df00df',
+      '#cf00cf',
+      '#bf00bf',
+      '#af00af',
+      '#9f009f',
+      '#8f008f',
+      '#7f007f',
+      '#6f006f'
+    ];
+    this.compare_color_ramps.push(color_ramp) ;
+
     // add some color to this.
     this.colors[1] = '#000000';
     this.colors[2] = '#0000ff';
@@ -857,13 +897,13 @@ export class GMRIUnits {
       case 'deg':
       case 'current_direction':
         if ( measurement_system == 'compass') {
-          ret_val = sprintf( "%s", desired_measurement) ;
+          ret_val = sprintf( " %s", desired_measurement) ;
         } else {
-          ret_val = sprintf( fs + "%s", desired_measurement, desired_units) ;
+          ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
         }
         break;
       default:
-        ret_val = sprintf( fs + "%s", desired_measurement, desired_units) ;
+        ret_val = sprintf( fs + " %s", desired_measurement, desired_units) ;
         break;
     }
     return(ret_val);
