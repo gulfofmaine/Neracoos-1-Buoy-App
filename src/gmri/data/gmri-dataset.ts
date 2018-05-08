@@ -581,7 +581,10 @@ export class GMRIDataset {
     this.chartComponents.chart_sub_title = chart_sub_title ;
     return;
   }
-  assembleChart( chartTitle, chartSubTitle, yAxisArray, seriesArray, appConfig) {
+  assembleChart( chartTitle, chartSubTitle, yAxisArray, seriesArray, appConfig,
+      scroll_bar_min, scroll_bar_max ) {
+      // let scroll_bar_min: number = appConfig.getScrollbarStartDate().getTime() ;
+      // let scroll_bar_max: number = appConfig.getScrollbarEndDate().getTime() ;
       let ret_array: any = [] ;
       let chartConfig: any = {
       options: {
@@ -609,10 +612,12 @@ export class GMRIDataset {
           // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
       },
       rangeSelector: {
-        enabled: false,
+        enabled: true,
         selected: 4
       },
       scrollbar: {
+        min: scroll_bar_min,
+        max: scroll_bar_max,
         enabled: true
       },
       navigator: {
@@ -636,12 +641,29 @@ export class GMRIDataset {
             },
             rotation: -45
         },
-        min: appConfig.getStartDate().getTime(),
-        max: appConfig.getEndDate().getTime(),
+        // min: appConfig.getStartDate().getTime(),
+        // max: appConfig.getEndDate().getTime(),
+        // min: appConfig.getScrollbarStartDate().getTime(),
+        // max: appConfig.getScrollbarEndDate().getTime(),
+        min: scroll_bar_min,
+        //max: scroll_bar_max,
         tickInterval: appConfig.getChartTickIntervalsInMinutes() * 60 * 1000,
         allowDecimals: true,
         minTickInterval: appConfig.getChartTickIntervalsInMinutes() * 60 * 1000,
-        ordinal: false
+        ordinal: false,
+        events: {
+          setExtremes: function(e) {
+              if(typeof(e.rangeSelectorButton)!== 'undefined') {
+                this.min= scroll_bar_min;
+                this.max= scroll_bar_max;
+              }
+          }
+        }
+      },
+      events: {
+        load: function() {
+          this.xAxis[0].setExtremes( scroll_bar_min, scroll_bar_max);
+        }
       },
       yAxis: yAxisArray,
       series: seriesArray
@@ -745,7 +767,8 @@ export class GMRIDataset {
     return(ret_val);
   }
   // creates a chart for a single dataset.
-  createChart(appConfig, plottedParameters, measurement_system, dataset_type, location_name) {
+  createChart(appConfig, plottedParameters, measurement_system, dataset_type,
+              location_name, scroll_bar_min, scroll_bar_max) {
     let chart_results:any = [] ;
     let component_results:any = [] ;
     let colorRampIndex: number = -1 ;
@@ -759,7 +782,7 @@ export class GMRIDataset {
     chart_results = this.assembleChart( component_results['chartTitle'],
                      component_results['chartSubTitle'],
                       component_results['intKeyAxisArray'],
-                      component_results['seriesArray'],appConfig) ;
+                      component_results['seriesArray'],appConfig, scroll_bar_min, scroll_bar_max) ;
     return(chart_results);
   }
   // creates data variables for a single dataset.

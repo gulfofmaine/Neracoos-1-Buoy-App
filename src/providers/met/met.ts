@@ -574,6 +574,8 @@ export class MetProvider {
       let cKey: any ;
       let colorRampIndex: number = -1 ;
       let titleArray: any = [] ;
+      let subTitleArray: any = [] ;
+      let parameterDescription: string ;
 
 
       switch ( graph_instructions.graph_type ) {
@@ -601,13 +603,15 @@ export class MetProvider {
                     erdDataTypeOfInterest.push(erdDataTypes[dataType]);
                   }
                 }
+      let scroll_bar_min: number = this.appConfig.getScrollbarStartDate().getTime() ;
+      let scroll_bar_max: number = this.appConfig.getScrollbarEndDate().getTime() ;
                 // get the variables from this dataset
                 // chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, erdDataTypeOfInterest,
                 //                                 measurement_system, graph_instructions.graph_datasets[dKey]);
                 chart_results = this.gmriDatasets[mlKey].createChart(this.appConfig,
                                             this.gmriDatasets[mlKey].plottedParameters[graph_instructions.graph_type],
                                             measurement_system, graph_instructions.graph_datasets[dKey],
-                                            ml_location_name);
+                                            ml_location_name, scroll_bar_min, scroll_bar_max);
                 // using the not so standard dataset names as the variable name too!
                 this[graph_instructions.graph_datasets[dKey]] = chart_results['chartConfig'];
               }
@@ -690,9 +694,11 @@ export class MetProvider {
                   titleArray.push(this.gmriDatasets[mlKey].chartComponents.platforms[cKey]) ;
                 }
               }
-              // punt here. The parameters should be the same for all components
-              if ( chartSubTitle.length == 0 ){
-                chartSubTitle += this.gmriDatasets[mlKey].chartComponents.chart_sub_title ;
+              for ( cKey in  this.gmriDatasets[mlKey].chartComponents.parameters ) {
+                parameterDescription = this.appConfig.gmriUnits.getDataTypeDescription(this.gmriDatasets[mlKey].chartComponents.parameters[cKey]);
+                if ( subTitleArray.indexOf(parameterDescription) == -1 ) {
+                  subTitleArray.push(parameterDescription) ;
+                }
               }
               if ( dKey == 0 ) {
                 savedFirstDatasetKey = mlKey ;
@@ -705,8 +711,18 @@ export class MetProvider {
                 chartTitle += " : " + titleArray[cKey] ;
               }
             }
+            for ( cKey in subTitleArray ) {
+              if ( chartSubTitle.length == 0 ){
+                chartSubTitle += subTitleArray[cKey] ;
+              } else {
+                chartSubTitle += " : " + subTitleArray[cKey] ;
+              }
+            }
+
+      let scroll_bar_min: number = this.appConfig.getScrollbarStartDate().getTime() ;
+      let scroll_bar_max: number = this.appConfig.getScrollbarEndDate().getTime() ;
             chart_results = this.gmriDatasets[savedFirstDatasetKey].assembleChart( chartTitle, chartSubTitle,
-                                  myAxisArray, seriesArray,this.appConfig) ;
+                                  myAxisArray, seriesArray,this.appConfig, scroll_bar_min, scroll_bar_max) ;
             this.designerChart = chart_results['chartConfig'];
 
             this.events.publish('graphingFinished', 'multiple_dataset');

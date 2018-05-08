@@ -81,8 +81,10 @@ export class AppConfig {
   end_date: any = new Date();
   min_date_allowed: any ;
   max_date_allowed: any ;
-  days_forward: any = 3.0;
+  days_forward: any = 0.0;
   date_changed: boolean = false ;
+  scrollbar_start_date : any;
+  scrollbar_end_date : any;
 
   datum: string = 'MSL';
   tideRequestedDatum : string = 'MSL';
@@ -469,11 +471,18 @@ export class AppConfig {
     this.end_date = new Date(this.start_date.getTime() + msforward) ;
     // it seems that having minutes down set to 0 is crucial to the web services working!
     this.end_date.setMinutes(0,0,0);
+    this.scrollbar_end_date = new Date(this.end_date.getTime());
+    this.scrollbar_start_date = new Date(this.end_date.getTime());
     // the NOAA page starts yesterday.
     // but Ian finds that too far back.
-    let before_now: number = 12*60*60*1000
+    // now using a year for the erddap app
+    let before_now: number = 365*24*60*60*1000;
     let timeMinusBeforeNow: any = this.start_date.getTime() - before_now ;
     this.start_date.setTime(timeMinusBeforeNow);
+    // now the scrollbar
+    before_now = 30*24*60*60*1000;
+    let timeMinusBeforeNow: any = this.scrollbar_start_date.getTime() - before_now ;
+    this.scrollbar_start_date.setTime(timeMinusBeforeNow);
     // try setting a minimum date
     let timeMinusThreeDays:any = this.start_date.getTime() - (72*60*60*1000) ;
     this.min_date_allowed = new Date(timeMinusThreeDays);
@@ -840,6 +849,22 @@ export class AppConfig {
   setStartDate(new_start_date) {
     this.start_date.setTime(new_start_date.getTime());
     // start_date = new Date(new_start_date.getTime()) ;
+  }
+  // scroll bar highstocks
+  getScrollbarStartDate() {
+    var clonedDate = new Date(this.scrollbar_start_date.getTime()) ;
+    return(clonedDate);
+  }
+  setScrollbarStartDate(new_start_date) {
+    this.scrollbar_start_date.setTime(new_start_date.getTime());
+  }
+  // scroll bar highstocks
+  getScrollbarEndDate() {
+    var clonedDate = new Date(this.scrollbar_end_date.getTime()) ;
+    return(clonedDate);
+  }
+  setScrollbarEndDate(new_end_date) {
+    this.scrollbar_end_date.setTime(new_end_date.getTime());
   }
   // Days forward
   getDaysForward() {
