@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map' ;
 import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs' ;
 import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
+import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs' ;
+
 import { AppConfig } from '../providers/appconfig/appconfig';
 import { WaveProvider } from '../providers/wave/wave';
 import { WaterlevelProvider } from '../providers/waterlevel/waterlevel';
@@ -47,14 +49,6 @@ export class MyApp {
               public metService: MetProvider) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Buoy Map', component: BuoydataMapPage },
-      { title: 'Platforms', component: PlatformTabsPage },
-      { title: 'Waves', component: WaveGraphPage },
-      { title: 'List', component: ListPage }
-    ];
     // layer picker
     // subscribe to the initialdata loaded event
     this.mapService.mapProvUpdates().subscribe( event_obj => {
@@ -83,6 +77,7 @@ export class MyApp {
 
 
   initializeApp() {
+    this.setUpMenuPages();
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -94,12 +89,48 @@ export class MyApp {
       this.waterlevelService.initializeData(true);
     });
   }
+  // 5-15-2018 I've no idea why this worked but it seems to have
+  // First the problem was the left menu buttons not working after
+  // drawing a chart. This happened when the menus were defined in this
+  // file
+  // I was going to try putting the left menu in other pages and
+  // added this code to make those menus available from appConfig.
+  // I did this because import HomePage etc. didn't work when I
+  // did them in appConfig. But it does work here.
+  // Just making that change and the menu now works. It's magic
+  setUpMenuPages() {
+    let defaultMenu: Array<{title: string, component: any}>;
+    defaultMenu = [
+          { title: 'Home', component: HomePage },
+          { title: 'Buoy Map', component: BuoydataMapPage },
+          { title: 'Platforms', component: PlatformTabsPage },
+          { title: 'Waves', component: WaveGraphPage },
+          { title: 'List', component: ListPage }
+    ];
+    let defaultMenuItem: any = {name: 'default', pages: defaultMenu };
+    this.appConfig.addMenu(defaultMenuItem) ;
+
+    let neracoosMenu: Array<{title: string, component: any}>;
+    neracoosMenu = [
+          { title: 'Home', component: HomePage },
+          { title: 'Buoy Map', component: BuoydataMapPage },
+          { title: 'Platforms', component: NeracoosTabsPage }
+    ];
+    let NeracoosMenuItem: any = {name: 'neracoos', pages: neracoosMenu };
+    this.appConfig.addMenu(NeracoosMenuItem) ;
+    let NeracoosGMRIMenuItem: any = {name: 'neracoos_gmri', pages: neracoosMenu };
+    this.appConfig.addMenu(NeracoosGMRIMenuItem) ;
+  }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
     this.events.publish('pageChosen:leftmenu', page);
+  }
+  selectedInterface(item) {
+    this.appConfig.setSelectedInterface( item.name ) ;
+    this.menuCtrl.close();
   }
 
   getPageName() {

@@ -19,7 +19,8 @@
 </ion-header>
 
 
-<ion-menu id='platform_graph_menu'  [content]="platform_graph_menu" side="right">
+<ion-menu id='platform_graph_menu'  [content]="platform_graph_menu" side="right"
+        (ionClose)="graphMenuClosed()">
   <ion-content padding class="has-header">
     <ion-navbar>
       <ion-title>Choose the Platform</ion-title>
@@ -66,4 +67,4 @@
 
 
 </ion-content>
-<ion-nav [root]="PlatformGraphPage" #platform_graph_menu swipeBackEnabled="false" ></ion-nav>
+<ion-nav [root]="PlatformGraphPage" #platform_graph_menu #page_menu swipeBackEnabled="false" ></ion-nav>

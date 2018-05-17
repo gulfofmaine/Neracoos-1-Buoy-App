@@ -15,7 +15,6 @@ import {GMRIUnits} from "../../gmri/data/gmri-units";
 import { MenuController } from 'ionic-angular';
 import moment from 'moment';
 
-
 /*
   Generated class for the Config provider.
 
@@ -126,6 +125,8 @@ export class AppConfig {
   wave_model_used: string = 'WW3GLOBAL' ;
   neracoosErddap:any ;
   monitoring_locations: any = [] ;
+  interface_choices: any = [] ;
+  selected_interface: string = 'intrepid_erddap' ;
 
 
   // I admit I am flailing here. retrieving data from localstorge is
@@ -149,6 +150,10 @@ export class AppConfig {
   // contentURLOne: string = 'http://contentservice.gmri.org/api/node/16.jsonp?callback=JSONP_CALLBACK' ;
   drupalURLOne: string = 'http://neracoos.org/proxy2?ajax=1&url=http://contentservice.gmri.org/rest/neracoos_buoy_pwa_content?_format=json';
   drupalContent: any  ;
+  pages: Array<{title: string, component: any}> = [];
+  menus: Array<{title: string, pages: any}> = [];
+  neracoos_platform_names: any = ['A01','B01','E01', 'F01','I01','M01', 'J02',
+                              'N01'];
 
   constructor( public datePipe: DatePipe,
                 public storage: Storage,
@@ -163,6 +168,7 @@ export class AppConfig {
     // get the drupal content
     this.getContentOne();
     this.initializeDateRange();
+    this.initializeInterfaceChoices();
     // the url for inundation locations
     let mlConfigPath:string = '/code/cbassobjectjson?object_type=projmls&organizationidentifier=GMRI&projectidentifier=INUNDATION' ;
     // let mlConfigURLEncQS:string =  encodeURIComponent(mlConfigPath);
@@ -203,6 +209,7 @@ export class AppConfig {
     // intialize erddaap and perhaps other things in the future?
     this.initializeAppData(true);
 
+    // much of this is just cut and paste fron the inundation app and not really necessary.
     this.offsetTweaks['pwl'] =  {} ;
     this.offsetTweaks['pwl'].value = 0  ;
     this.offsetTweaks['pwl'].prompt = 'ESTOFS Tide & Surge' ;
@@ -319,6 +326,115 @@ export class AppConfig {
     this.waveServices.push( ww3GlobalService );
     this.waveServices.push( necofsService );
 
+  }
+  // try to get around the inability to import HomePage, PlatformDataPage etc
+  // buy setting them from app.config.ts.
+  addMenu( menuObject) {
+    this.menus.push(menuObject) ;
+  }
+  getMenu( menuName ) {
+    let mKey : any ;
+    let ret_val: any ;
+    for ( mKey in this.menus ) {
+      if ( this.menus[mKey].name == menuName ) {
+        ret_val = this.menus[mKey].pages ;
+        break;
+      }
+    }
+    return( ret_val ) ;
+  }
+  // the left menu of the application
+  getMenuPages() {
+    // return(this.pages) ;
+    let pages:any ;
+    switch ( this.selected_interface ) {
+      case 'neracoos':
+      case 'neracoos_gmri':
+        pages = this.getMenu(this.selected_interface) ;
+        break;
+      default:
+        pages = this.getMenu('default') ;
+        break;
+    }
+    return(pages) ;
+  }
+  // NOTE: interface level is for future potential / perhaps debugging
+  initializeInterfaceChoices() {
+    let intrepid_erddap: any = {
+        displayName : "Intrepid ERDDAP",
+        name : "intrepid_erddap",
+        interface_level: 5
+    } ;
+    let mariner: any = {
+        displayName : "Mariner",
+        name : "mariner",
+        interface_level: 0
+    } ;
+    let neracoos: any = {
+        displayName : "NERACOOS",
+        name : "neracoos",
+        interface_level: 0
+    } ;
+    let neracoos_gmri: any = {
+        displayName : "NERACOOS GMRI",
+        name : "neracoos_gmri",
+        interface_level: 0
+    } ;
+    this.interface_choices.push(intrepid_erddap) ;
+    this.interface_choices.push(mariner) ;
+    this.interface_choices.push(neracoos) ;
+    this.interface_choices.push(neracoos_gmri) ;
+
+  }
+  getCurrentInterface() {
+    return (this.getInterfaceByName(this.selected_interface)) ;
+  }
+  getInterfaceByName(name) {
+    let iKey: any ;
+    let ret_val : any ;
+    for( iKey in this.interface_choices ) {
+      if ( this.interface_choices[iKey].name == name ) {
+        ret_val = this.interface_choices[iKey] ;
+        break;
+      }
+    }
+    return(ret_val) ;
+  }
+  setSelectedInterface( selected ) {
+    this.selected_interface = selected ;
+  }
+  getInterfaceLocations() {
+    let locations:any = [] ;
+    let lKey:any ;
+    switch ( this.selected_interface ) {
+      case 'neracoos':
+      case 'neracoos_gmri':
+        for ( lKey in this.monitoring_locations ) {
+          if ( this.neracoos_platform_names.indexOf(this.monitoring_locations[lKey].properties.name) != -1 ) {
+            locations.push(this.monitoring_locations[lKey]);
+          }
+        }
+        break;
+      default:
+        locations = this.monitoring_locations ;
+        break;
+    }
+    return(locations) ;
+  }
+  getPlatformDisplay( platform_name ) {
+    let display:boolean = false ;
+    switch ( this.selected_interface ) {
+      case 'neracoos':
+      case 'neracoos_gmri':
+        if ( this.neracoos_platform_names.indexOf(platform_name ) != -1 ) {
+          display = true ;
+        }
+        break;
+      default:
+        display = true ;
+        break;
+    }
+    return(display) ;
   }
   enableMenu( menuId ) {
     let menus: any = [
@@ -481,7 +597,7 @@ export class AppConfig {
     this.start_date.setTime(timeMinusBeforeNow);
     // now the scrollbar
     before_now = 30*24*60*60*1000;
-    let timeMinusBeforeNow: any = this.scrollbar_start_date.getTime() - before_now ;
+    timeMinusBeforeNow = this.scrollbar_start_date.getTime() - before_now ;
     this.scrollbar_start_date.setTime(timeMinusBeforeNow);
     // try setting a minimum date
     let timeMinusThreeDays:any = this.start_date.getTime() - (72*60*60*1000) ;
@@ -1172,8 +1288,7 @@ export class AppConfig {
       //   this.monitoring_locations.push(ml_data);
       //   }
       // New check based on Erddap geojson service
-      if ( ml_data.properties.data_types != undefined &&
-        ml_data.properties.data_types.significant_wave_height != undefined ) {
+      if ( ml_data.properties.data_types != undefined  ) {
         // do these individually as the pages get loaded for specific sites.
         // var ml = new waveObject($http, $q, ml_data);
         this.monitoring_locations.push(ml_data);

@@ -26,6 +26,10 @@ export class PlatformDatasetsGraphPage {
   private sub: Subscription;
   error_message:string = "";
   error_msg_array: any = [] ;
+  // post graph timer
+  private post_graph_timer;
+  // Subscription object
+  private post_graph_sub: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
           public appConfig: AppConfig,
@@ -52,6 +56,15 @@ export class PlatformDatasetsGraphPage {
       }
       this.drawDatasetsGraph() ;
     });
+    // subscribe to graph drawn event
+    events.subscribe('graphingFinished', (graph_type) => {
+      this.post_graph_timer = Observable.timer(1000);
+      // subscribing to a observable returns a subscription object
+      this.post_graph_sub = this.post_graph_timer.subscribe(t => this.postGraphFunc(t));
+    });
+  }
+  postGraphFunc(tick){
+    this.appConfig.enableMenu('platform_dataset_menu') ;
   }
 
   ionViewDidLoad() {
@@ -127,6 +140,7 @@ export class PlatformDatasetsGraphPage {
     let erddapGraphDatasets: any = [] ;
     let erddapRequestDatasets: any = [] ;
     let erddapGraphDatasetIds: any = [] ;
+    let platform_names: any = [] ;
     let dataset_available: boolean;
     if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
@@ -154,6 +168,7 @@ export class PlatformDatasetsGraphPage {
           if ( dataset_available['dataAvailable'] ) {
             erddapGraphDatasets.push(dataTypeMagicKey);
             erddapGraphDatasetIds.push(erddapDatasetId);
+            platform_names.push(location_name);   // for handling B01 vs B01-/ UGH.
             // flag for loading if it's not already
             if ( !dataset_available['dataLoaded']) {
               erddapRequestDatasets.push(erddapDatasetId);
@@ -165,7 +180,8 @@ export class PlatformDatasetsGraphPage {
           graph_type: 'single_dataset',
           graph_datasets: erddapGraphDatasets,
           graph_dataset_ids: erddapGraphDatasetIds,
-          request_dataset_ids: erddapRequestDatasets
+          request_dataset_ids: erddapRequestDatasets,
+          platform_names: platform_names
         }
         // anticipating success null the existing graphs
         this.metService.resetDatasetsGraphs();
@@ -239,6 +255,10 @@ export class PlatformDatasetsGraphPage {
       this.drawDatasetsGraph() ;
     }
     this.menuCtrl.close();
+  }
+  datasetMenuClosed() {
+    this.appConfig.setDateFromInterface();
+    this.drawDatasetsGraph() ;
   }
 
 }

@@ -593,6 +593,7 @@ export class GMRIDataset {
       //will be overriden by values specified below.
       chart: {
           type: 'spline',
+          zoomType: "x",
           // Adding this line causes a Highcharts not defined error.
           // animation: Highcharts.svg, // don't animate in old IE
          //  marginRight: 100, // hide margin because chart display: block is in app.scss
@@ -613,11 +614,11 @@ export class GMRIDataset {
       },
       rangeSelector: {
         enabled: true,
-        selected: 4
+        selected: 0
       },
       scrollbar: {
-        min: scroll_bar_min,
-        max: scroll_bar_max,
+        // min: scroll_bar_min,
+        // max: scroll_bar_max,
         enabled: true
       },
       navigator: {
@@ -645,7 +646,7 @@ export class GMRIDataset {
         // max: appConfig.getEndDate().getTime(),
         // min: appConfig.getScrollbarStartDate().getTime(),
         // max: appConfig.getScrollbarEndDate().getTime(),
-        min: scroll_bar_min,
+        // min: scroll_bar_min,
         //max: scroll_bar_max,
         tickInterval: appConfig.getChartTickIntervalsInMinutes() * 60 * 1000,
         allowDecimals: true,

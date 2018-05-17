@@ -17,6 +17,9 @@ import {ESRIOceanReferenceBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
 import {MaritimeChartServerBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
 // import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 
+import { PlatformTabsPage } from '../platform-tabs/platform-tabs' ;
+// import { WaveGraphPage } from '../wave-graph/wave-graph';
+// import { NeracoosTabsPage } from '../neracoos-tabs/neracoos-tabs' ;
 
 declare var require: any;
 declare var ol: any;
@@ -183,7 +186,7 @@ export class BuoydataMapPage {
       ESRIOceanReferenceLayer.olLayer = ESRIOceanReferenceLayer.initializeLayer();
       this.mapService.layer_metadata.push( ESRIOceanReferenceLayer ) ;
 
-      let platformLayer: any = new GMRIPlatformLayer("PLATFORM", true);
+      let platformLayer: any = new GMRIPlatformLayer("PLATFORM", true, this.appConfig);
       platformLayer.olLayer = platformLayer.initializeLayer(icon_path, this.platform, false);
       this.mapService.layer_metadata.push( platformLayer ) ;
 
@@ -293,6 +296,12 @@ export class BuoydataMapPage {
     this.selectedFeatureHTML = null ;
     this.selectedFeature = null ;
   }
+  // Don't let this function fool you. In this ionic app
+  // the featureElement aka <div id=popup is what draws
+  // the text. not gethovertextforfeature unless you use it
+  // in the html.
+  // This is What you have to play with
+  // http://www.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson
   displayFeatureInfo( e, feature, layer, map ) {
     if ( this.mapService.featureOverlay != undefined ) {
       map.removeOverlay(this.mapService.featureOverlay) ;
@@ -303,7 +312,9 @@ export class BuoydataMapPage {
     this.selectedFeature = feature;
     this.mapService.featurePopup = new ol.Overlay({
       element: this.mapService.featureElement,
-      positioning: 'bottom-center',
+      // positioning: 'bottom-center',
+      // positioning: 'center',
+      positioning: 'center-right',
       stopEvent: false
     });
     this.mapService.featurePopup.setPosition( e.coordinate ) ;
@@ -401,9 +412,10 @@ export class BuoydataMapPage {
             break;
           case 'NOAA':
           case 'NERACOOS':
+          case 'UMO':
             this.appConfig.setPlatformSelected(this.waveService, location);
             this.navCtrl.popToRoot();
-            this.navCtrl.push("WaveTabsPage");
+            this.navCtrl.push(PlatformTabsPage);
             break;
         }
         break;

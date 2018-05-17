@@ -18,7 +18,8 @@
 
 </ion-header>
 
-<ion-menu id='platform_data_menu'  [content]="platform_menu" side="right">
+<ion-menu id='platform_data_menu'  [content]="platform_menu" side="right"
+        (ionClose)="dataMenuClosed()">
   <ion-content padding class="has-header">
     <ion-navbar>
       <ion-title>Choose your Platform</ion-title>
@@ -36,7 +37,7 @@
         </ion-item>
       </div>
     <ion-list>
-      <button ion-item *ngFor="let item of waveService.wave_locations"
+      <button ion-item *ngFor="let item of appConfig.getInterfaceLocations()"
                   (click)="platformTapped($event, item)">
         {{item.properties.name}}
       </button>

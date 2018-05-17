@@ -34,11 +34,24 @@
         </div>
       </div>
       <!-- NERACOOS buoy data -->
+      <!--http://www.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson -->
       <div *ngIf="selectedFeature != undefined &&
                     selectedFeature.get('mooring_site_desc') != undefined">
-          {{selectedFeature.get('name')}}<br/>
-          {{selectedFeature.get('program')}}<br/>
-          <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
+
+          <div [ngSwitch]="selectedFeature.get('project')">
+            <div *ngSwitchCase="'NERACOOS'">
+              {{selectedFeature.get('name')}}<br/>
+              Program: {{selectedFeature.get('program')}}<br/>
+              {{selectedFeature.get('mooring_site_desc')}}<br/>
+              <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
+            </div>
+            <div *ngSwitchCase="'LOBO NERACOOS'">
+              {{selectedFeature.get('name')}}<br/>
+              Project: {{selectedFeature.get('project')}}<br/>
+              {{selectedFeature.get('mooring_site_desc')}}<br/>
+              <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
+            </div>
+          </div>
       </div>
       <!-- NOAA NOS/CO-OPS tide data -->
       <div *ngIf="selectedFeature != undefined &&

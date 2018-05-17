@@ -459,6 +459,7 @@ export class MetProvider {
       let dKey : any ;
       let columnNameKey: any ;
 
+      // types_array is empty when we get here! WTF?
 
       switch ( graph_instructions.graph_type ) {
         case 'single_dataset':
@@ -491,9 +492,9 @@ export class MetProvider {
 
             break;
           case 'custom_observations':
-            for ( dKey in types_array ) {
+            for ( dKey in graph_instructions.graph_datasets ) {
               // switch on the magic key
-              switch ( types_array[dKey] ) {
+              switch ( graph_instructions.graph_datasets[dKey] ) {
                 case 'ERDDAP_MET_OBSERVATIONS':
                   // get the object for this location
                   ml_location_name  = this.appConfig.platform_name ;
@@ -576,6 +577,7 @@ export class MetProvider {
       let titleArray: any = [] ;
       let subTitleArray: any = [] ;
       let parameterDescription: string ;
+      let extraBuoyMark: number;
 
 
       switch ( graph_instructions.graph_type ) {
@@ -589,7 +591,14 @@ export class MetProvider {
                 seriesArray = [] ;
                 // dataset id is a combination of the platoform name and the dataset type.
                 // magic stuff.
-                datasetID = ml_location_name + "_" + graph_instructions.graph_datasets[dKey] ;
+                // B01-/ has datasets B01_...
+                extraBuoyMark = ml_location_name.indexOf("-/") ;
+                if ( extraBuoyMark > 0 ) {
+                  datasetID = ml_location_name.substr(0, ml_location_name.length - (extraBuoyMark-1)) +
+                            "_" + graph_instructions.graph_datasets[dKey] ;
+                } else {
+                  datasetID = ml_location_name + "_" + graph_instructions.graph_datasets[dKey] ;
+                }
                 mlKey = this.getDatasetKeyFromDatasetId(ml_location_name, datasetID, this.appConfig) ;
                 // key value pairs
                 this.gmriDatasets[mlKey].data_variables = this.appConfig.neracoosErddap.getDatasetVariables(
@@ -615,6 +624,7 @@ export class MetProvider {
                 // using the not so standard dataset names as the variable name too!
                 this[graph_instructions.graph_datasets[dKey]] = chart_results['chartConfig'];
               }
+            this.events.publish('graphingFinished', graph_instructions.graph_type);
             break;
           case 'multiple_dataset':
             // there are 2 sets of parameters here.
@@ -725,7 +735,7 @@ export class MetProvider {
                                   myAxisArray, seriesArray,this.appConfig, scroll_bar_min, scroll_bar_max) ;
             this.designerChart = chart_results['chartConfig'];
 
-            this.events.publish('graphingFinished', 'multiple_dataset');
+            this.events.publish('graphingFinished', graph_instructions.graph_type);
             break;
           case 'custom_observations':
             for ( dKey in graph_instructions.graph_datasets ) {
@@ -807,6 +817,7 @@ export class MetProvider {
                   break;
               } // end of switch on graph_instructions.graph_datasets values
             } // end on walking graph_instructions.graph_datasets
+            this.events.publish('graphingFinished', graph_instructions.graph_type);
             break;
           default:
             break;
@@ -849,6 +860,7 @@ export class MetProvider {
       let bOpposite: boolean = false ;
       let cKey: any ;
       let titleArray: any = [] ;
+      let extraBuoyMark: number ;
 
 
       switch ( graph_instructions.graph_type ) {
@@ -865,7 +877,14 @@ export class MetProvider {
                 seriesArray = [] ;
                 // dataset id is a combination of the platoform name and the dataset type.
                 // magic stuff.
-                datasetID = ml_location_name + "_" + graph_instructions.graph_datasets[dKey] ;
+                // B01-/ has datasets B01_...
+                extraBuoyMark = ml_location_name.indexOf("-/") ;
+                if ( extraBuoyMark > 0 ) {
+                  datasetID = ml_location_name.substr(0, ml_location_name.length - (extraBuoyMark-1)) +
+                            "_" + graph_instructions.graph_datasets[dKey] ;
+                } else {
+                  datasetID = ml_location_name + "_" + graph_instructions.graph_datasets[dKey] ;
+                }
                 mlKey = this.getDatasetKeyFromDatasetId(ml_location_name, datasetID, this.appConfig) ;
                 // key value pairs
                 this.gmriDatasets[mlKey].data_variables = this.appConfig.neracoosErddap.getDatasetVariables(
@@ -887,8 +906,12 @@ export class MetProvider {
 
               }               // walk the datasets again concatenating the results saved in them.
               for ( dKey in graph_instructions.graph_dataset_ids ) {
-                ml_location_name = graph_instructions.graph_dataset_ids[dKey].substr(0,
+                if ( graph_instructions.platform_names != undefined ) {
+                  ml_location_name = graph_instructions.platform_names[dKey] ;
+                } else {
+                  ml_location_name = graph_instructions.graph_dataset_ids[dKey].substr(0,
                         graph_instructions.graph_dataset_ids[dKey].indexOf("_") ) ;
+                }
                 mlKey = this.getDatasetKeyFromDatasetId(ml_location_name,
                       graph_instructions.graph_dataset_ids[dKey], this.appConfig) ;
                 // same rigamoroll to get the datasets

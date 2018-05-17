@@ -61,7 +61,7 @@ export class PlatformDataPage {
     }
   }
   ionViewDidLoad() {
-    this.menuCtrl.open('right');
+    // this.menuCtrl.open('right');
     console.log('ionViewDidLoad PlatformDataPage');
     // this.appConfig.enableMenu('platform_menu') ;
     this.timer = Observable.timer(1000);
@@ -101,47 +101,52 @@ export class PlatformDataPage {
     let erddapGraphDatasets: any = [] ;
     let erddapRequestDatasets: any = [] ;
     let erddapGraphDatasetIds: any = [] ;
+    let platform_names: any = [] ;
     let dataset_available: boolean;
     if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
         let location_name: string = this.appConfig.platform_name ;
         let mlMetaData = this.appConfig.getMonitoringLocationMetadata( location_name);
-        //for ( erddapDatasetId in this.appConfig.neracoosErddap.getDatasetIds( appConfig,
-        //                     this.appConfig.getPlatformName() )) {
-        // first set the metServices bookkeeping array for web services to empty
-        this.metService.resetDataGet();
+        if ( mlMetaData != undefined ) {
+          //for ( erddapDatasetId in this.appConfig.neracoosErddap.getDatasetIds( appConfig,
+          //                     this.appConfig.getPlatformName() )) {
+          // first set the metServices bookkeeping array for web services to empty
+          this.metService.resetDataGet();
 
-        for ( erddapDatasetKey in mlMetaData.properties.dataset_ids) {
-          erddapDatasetId = mlMetaData.properties.dataset_ids[erddapDatasetKey] ;
-          // for now hard code aanderra_hist and so forth to do the plots
-          // when the data is available.
-          // A01_aanderaa_hist"
-          let dataTypeMagicKey: string = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
-          // a blank array is a signal to use them all.
-          let visible_parameters: any = [] ;
-          dataset_available = this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
-                  erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
-                  'no_graph_single_dataset');
-          // Data may or may not have already been requested.
-          // only add if the data is available
-          if ( dataset_available['dataAvailable'] ) {
-            erddapGraphDatasets.push(dataTypeMagicKey);
-            erddapGraphDatasetIds.push(erddapDatasetId);
-            // flag for loading if it's not already
-            if ( !dataset_available['dataLoaded']) {
-              erddapRequestDatasets.push(erddapDatasetId);
+          for ( erddapDatasetKey in mlMetaData.properties.dataset_ids) {
+            erddapDatasetId = mlMetaData.properties.dataset_ids[erddapDatasetKey] ;
+            // for now hard code aanderra_hist and so forth to do the plots
+            // when the data is available.
+            // A01_aanderaa_hist"
+            let dataTypeMagicKey: string = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
+            // a blank array is a signal to use them all.
+            let visible_parameters: any = [] ;
+            dataset_available = this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
+                    erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
+                    'no_graph_single_dataset');
+            // Data may or may not have already been requested.
+            // only add if the data is available
+            if ( dataset_available['dataAvailable'] ) {
+              erddapGraphDatasets.push(dataTypeMagicKey);
+              erddapGraphDatasetIds.push(erddapDatasetId);
+              platform_names.push(location_name);   // for handling B01 vs B01-/ UGH.
+              // flag for loading if it's not already
+              if ( !dataset_available['dataLoaded']) {
+                erddapRequestDatasets.push(erddapDatasetId);
+              }
             }
           }
+          // make the request
+          let graph_instructions: any = {
+            graph_type: 'no_graph_single_dataset',
+            graph_datasets: erddapGraphDatasets,
+            graph_dataset_ids: erddapGraphDatasetIds,
+            request_dataset_ids: erddapRequestDatasets,
+            platform_names: platform_names
+          }
+          this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
         }
-        // make the request
-        let graph_instructions: any = {
-          graph_type: 'no_graph_single_dataset',
-          graph_datasets: erddapGraphDatasets,
-          graph_dataset_ids: erddapGraphDatasetIds,
-          request_dataset_ids: erddapRequestDatasets
-        }
-        this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
       }
     }
   }
@@ -154,6 +159,11 @@ export class PlatformDataPage {
       this.getDatasetsData() ;
     }
     this.menuCtrl.close();
+  }
+  dataMenuClosed() {
+    this.appConfig.setDateFromInterface();
+    this.metService.resetDataGet();
+    this.getDatasetsData() ;
   }
 
 }

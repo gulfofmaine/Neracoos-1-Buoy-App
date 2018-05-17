@@ -18,7 +18,8 @@
 </ion-header>
 
 
-<ion-menu id='platform_dataset_menu' [content]="platform_menu" side="right">
+<ion-menu id='platform_dataset_menu' [content]="platform_menu" side="right"
+        (ionClose)="datasetMenuClosed()">
   <ion-content padding class="has-header">
     <ion-navbar>
       <ion-title>Choose a Platform</ion-title>

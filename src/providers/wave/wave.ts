@@ -38,8 +38,8 @@ export class WaveProvider {
   // moved to appConfig
   // neracoosErddap: any ;
 
-  constructor(public appConfig:AppConfig,
-              public menuCtrl: MenuController,
+  constructor(public menuCtrl: MenuController,
+              public appConfig:AppConfig,
               public gmriUnits:GMRIUnits,
               public http: Http,
               public httpClient: HttpClient,
@@ -315,7 +315,7 @@ export class WaveProvider {
       // providing an array of urls
       // because some may have loaded ok previously
       var date_range = this.appConfig.getEtofsDateRange() ;
-      var date_start = date_range['date_start'];
+      // var date_start = date_range['date_start'];
       this.dataTypeLoaded = [] ;
       this.necofsDataTypeLoaded = [] ;
       let dataGETs: any = [] ;
@@ -325,7 +325,7 @@ export class WaveProvider {
       // var datems = Date.parse(date_start).getTime();
       var buoy_date_start = this.appConfig.getStartDate()
       var datems = buoy_date_start.getTime();
-      var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
+      // var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
       // assemble all the necessary urls to get a full set of data
       // account for some perhaps having been previously loaded.
       // this is using classes to encapsulate the data
@@ -335,113 +335,122 @@ export class WaveProvider {
       // let wave_location : any = this.getMonitoringLocationMetadata(this.appConfig.platform_name);
       let waveKey = this.getWaveObjectKey(wave_location_name, this.appConfig);
       if ( !this.waveObjects[waveKey].initialized || force_refresh ) {
-        this.requested_forecast = true ;
         // first use the meta data already initialized
         let waveMetaData = this.getMonitoringLocationMetadata( wave_location_name);
-        this.waveObjects[waveKey].initialize_wave_object( waveMetaData, this ) ;
-        // multiple data streams here
-        // metadata from cbass
-        let getWW3URL: string = this.waveObjects[waveKey].getWW3URL(this.appConfig) ;
-        this.dataGetUrls.push(getWW3URL) ;
-        let getWW3  = this.http.get(getWW3URL).map(res => res.json());
-        dataGETs.push( getWW3);
-        this.dataTypeLoaded.push("WW3");
+        if ( waveMetaData != undefined ) {
+          this.requested_forecast = true ;
+          this.waveObjects[waveKey].initialize_wave_object( waveMetaData, this ) ;
+          // multiple data streams here
+          // metadata from cbass
+          let getWW3URL: string = this.waveObjects[waveKey].getWW3URL(this.appConfig) ;
+          this.dataGetUrls.push(getWW3URL) ;
+          let getWW3  = this.http.get(getWW3URL).map(res => res.json());
+          dataGETs.push( getWW3);
+          this.dataTypeLoaded.push("WW3");
 
-        // ww3 global data
-        // NOTE: not ussing dww_start_date and dww_end_date because the global doesn't have those constraints
-        let ww3StartDate: string = this.appConfig.getStartDate().toISOString();
-        // now coastwatchs erddap is unpredictable so use a value gleaned from them on start up
-        // as the end date.
-        // let ww3EndDate: string = this.appConfig.getEndDate().toISOString();
-        let ww3EndDate: string = this.appConfig.dww_global_end_date;
-        let dwwGlobalURL: string = this.waveObjects[waveKey].getWW3CoastwatchGlobalDataURL(ww3StartDate,
-                    ww3EndDate, this.waveObjects[waveKey].geo_array, this.appConfig );
-        this.dataGetUrls.push( dwwGlobalURL);
-        let getGlobalDWW  = this.http.get(dwwGlobalURL).map(res => res.json());
-        dataGETs.push( getGlobalDWW);
-        this.dataTypeLoaded.push("WW3GLOBAL");
+          // ww3 global data
+          // NOTE: not ussing dww_start_date and dww_end_date because the global doesn't have those constraints
+          let ww3StartDate: string = this.appConfig.getStartDate().toISOString();
+          // now coastwatchs erddap is unpredictable so use a value gleaned from them on start up
+          // as the end date.
+          // let ww3EndDate: string = this.appConfig.getEndDate().toISOString();
+          let ww3EndDate: string = this.appConfig.dww_global_end_date;
+          let dwwGlobalURL: string = this.waveObjects[waveKey].getWW3CoastwatchGlobalDataURL(ww3StartDate,
+                      ww3EndDate, this.waveObjects[waveKey].geo_array, this.appConfig );
+          this.dataGetUrls.push( dwwGlobalURL);
+          let getGlobalDWW  = this.http.get(dwwGlobalURL).map(res => res.json());
+          dataGETs.push( getGlobalDWW);
+          this.dataTypeLoaded.push("WW3GLOBAL");
 
-        let getBuoyURL : string = this.waveObjects[waveKey].getBuoyObservationURL(this.appConfig) ;
-        this.dataGetUrls.push(getBuoyURL) ;
-        let getBuoyObservations  = this.http.get(getBuoyURL).map(res => res.json());
-        dataGETs.push( getBuoyObservations);
-        this.dataTypeLoaded.push("WAVE_OBSERVATIONS");
-        // Erddap data.
-        // right now too big a can of worms. We don't know exactly what data is available
-        // eric has that in a metadata service that eventually will be great.
-        // check for availability of wave data
-        let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
-                                      "dominant_wave_period", "dominant_wave_period_qc"];
-        let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
-        if ( return_erddap.datasetMatched.datasetID != null ) {
-          let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig,
-                                          erdDataTypes, return_erddap) ;
-          this.dataGetUrls.push(getErdWaveObsURL) ;
-          let getBuoyErdWaveObservations = this.jsonp.request(getErdWaveObsURL).map(res => res.json());
-          // 9/11/2017 get erddap to use jsonp.
-          dataGETs.push( getBuoyErdWaveObservations);
-          this.dataTypeLoaded.push("ERDDAP_WAVE_OBSERVATIONS");
+          let getBuoyURL : string = this.waveObjects[waveKey].getBuoyObservationURL(this.appConfig) ;
+          this.dataGetUrls.push(getBuoyURL) ;
+          // let getBuoyObservations  = this.http.get(getBuoyURL).map(res => res.json());
+          // what happens if I skip getting this?
+          // 5-11-2018 Removing the legacy calls for buoyrecentdata
+          // they take forever compared to erddap
+          // dataGETs.push( getBuoyObservations);
+          // this.dataTypeLoaded.push("WAVE_OBSERVATIONS");
+          // Erddap data.
+          // right now too big a can of worms. We don't know exactly what data is available
+          // eric has that in a metadata service that eventually will be great.
+          // check for availability of wave data
+          let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
+                                        "dominant_wave_period", "dominant_wave_period_qc"];
+          let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
+          if ( return_erddap.datasetMatched.datasetID != null ) {
+            let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig,
+                                            erdDataTypes, return_erddap) ;
+            this.dataGetUrls.push(getErdWaveObsURL) ;
+            let getBuoyErdWaveObservations = this.jsonp.request(getErdWaveObsURL).map(res => res.json());
+            // 9/11/2017 get erddap to use jsonp.
+            dataGETs.push( getBuoyErdWaveObservations);
+            this.dataTypeLoaded.push("ERDDAP_WAVE_OBSERVATIONS");
+          }
+          if ( 0 ) {
+          // if ( wave_location.properties.program == 'NERACOOS' ) {
+
+            // change to your favorite types. This doesn't handle multiple sensor packages.
+            // let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
+            //                             "dominant_wave_period", "dominant_wave_period_qc"];
+            // let return_erddap: any = this.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
+            // let datasetID: any = this.waveObjects[waveKey].ml_name + this.waveObjects[waveKey].erddapDatasetNames[dataset] ;
+            // let getMetObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig, this.waveObjects[waveKey].meterologyParameters, datasetID) ;
+            // this.dataGetUrls.push(getMetObsURL) ;
+            // let getBuoyMetObservations = this.jsonp.request(getMetObsURL).map(res => res.json());
+            // 9/11/2017 get erddap to use jsonp.
+            // dataGETs.push( getBuoyMetObservations);
+            this.dataTypeLoaded.push("MET_OBSERVATIONS");
+          }
+
+          let getNECOFSWavePredictionsURL: string = this.waveObjects[waveKey].getNECOFSWaveURL()
+          this.dataGetNecofsUrls.push(getNECOFSWavePredictionsURL) ;
+          let getNECOFSWavePredictions  = this.http.get(getNECOFSWavePredictionsURL).map(res => res.json());
+          dataGetNecofs.push( getNECOFSWavePredictions);
+          this.necofsDataTypeLoaded.push("NECOFS_WAVE_PREDICTIONS");
+
+          let getNECOFSWaveLengthPredictionsURL: string = this.waveObjects[waveKey].getNECOFSWaveLengthURL() ;
+          this.dataGetNecofsUrls.push(getNECOFSWaveLengthPredictionsURL) ;
+          let getNECOFSWaveLengthPredictions  = this.http.get(getNECOFSWaveLengthPredictionsURL).map(res => res.json());
+          dataGetNecofs.push( getNECOFSWaveLengthPredictions);
+          this.necofsDataTypeLoaded.push("NECOFS_WAVE_LENGTH_PREDICTIONS");
+
+          let buoyDataObject = this.getBuoyObject(wave_location_name);
+          if ( !buoyDataObject.initialized || force_refresh ) {
+            this.requested_forecast = true ;
+            // let getBuoyURL: string = buoyDataObject.getDataURL(date_start, hours_back, wave_location_name, this.appConfig) ;
+            // 5-11-2018 Removing the legacy calls for buoyrecentdata
+            // they take forever compared to erddap
+            // this.dataGetUrls.push( getBuoyURL);
+            // let getBuoy  = this.http.get(getBuoyURL).map(res => res.json());
+            // dataGETs.push( getBuoy);
+            // this.dataTypeLoaded.push("BUOY");
+          }
+          let dwwDataObject = this.getDWWObject(wave_location_name);
+          if ( !dwwDataObject.initialized || force_refresh ) {
+            this.requested_forecast = true ;
+            // Erddap ww3 data
+            let dwwURL: string = dwwDataObject.geoGetDataURL(this.appConfig.dww_start_date,
+                        this.appConfig.dww_end_date, this.waveObjects[waveKey].geo_array, this.appConfig );
+            this.dataGetUrls.push( dwwURL);
+            let getDWW  = this.http.get(dwwURL).map(res => res.json());
+            dataGETs.push( getDWW);
+            this.dataTypeLoaded.push("DWW");
+            // NECOFS data
+            // Wave height
+            let dwwNECOFSWavePredictionsURL: string = dwwDataObject.getNECOFSWaveURL(this.waveObjects[waveKey].geo_array );
+            this.dataGetNecofsUrls.push(dwwNECOFSWavePredictionsURL) ;
+            let getDWWNECOFSWavePredictions  = this.http.get(dwwNECOFSWavePredictionsURL).map(res => res.json());
+            dataGetNecofs.push( getDWWNECOFSWavePredictions);
+            this.necofsDataTypeLoaded.push("NECOFS_DWW_WAVE_PREDICTIONS");
+            // Wave Length
+            let dwwNECOFSWavelengthPredictionsURL: string = dwwDataObject.getNECOFSWaveLengthURL(this.waveObjects[waveKey].geo_array );
+             this.dataGetNecofsUrls.push(dwwNECOFSWavelengthPredictionsURL) ;
+            let getDWWNECOFSWavelengthPredictions  = this.http.get(dwwNECOFSWavelengthPredictionsURL).map(res => res.json());
+            dataGetNecofs.push( getDWWNECOFSWavelengthPredictions);
+            this.necofsDataTypeLoaded.push("NECOFS_DWW_WAVE_LENGTH_PREDICTIONS");
+          }
+
         }
-        if ( 0 ) {
-        // if ( wave_location.properties.program == 'NERACOOS' ) {
-
-          // change to your favorite types. This doesn't handle multiple sensor packages.
-          // let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
-          //                             "dominant_wave_period", "dominant_wave_period_qc"];
-          // let return_erddap: any = this.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
-          // let datasetID: any = this.waveObjects[waveKey].ml_name + this.waveObjects[waveKey].erddapDatasetNames[dataset] ;
-          // let getMetObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig, this.waveObjects[waveKey].meterologyParameters, datasetID) ;
-          // this.dataGetUrls.push(getMetObsURL) ;
-          // let getBuoyMetObservations = this.jsonp.request(getMetObsURL).map(res => res.json());
-          // 9/11/2017 get erddap to use jsonp.
-          // dataGETs.push( getBuoyMetObservations);
-          this.dataTypeLoaded.push("MET_OBSERVATIONS");
-        }
-
-        let getNECOFSWavePredictionsURL: string = this.waveObjects[waveKey].getNECOFSWaveURL()
-        this.dataGetNecofsUrls.push(getNECOFSWavePredictionsURL) ;
-        let getNECOFSWavePredictions  = this.http.get(getNECOFSWavePredictionsURL).map(res => res.json());
-        dataGetNecofs.push( getNECOFSWavePredictions);
-        this.necofsDataTypeLoaded.push("NECOFS_WAVE_PREDICTIONS");
-
-        let getNECOFSWaveLengthPredictionsURL: string = this.waveObjects[waveKey].getNECOFSWaveLengthURL() ;
-        this.dataGetNecofsUrls.push(getNECOFSWaveLengthPredictionsURL) ;
-        let getNECOFSWaveLengthPredictions  = this.http.get(getNECOFSWaveLengthPredictionsURL).map(res => res.json());
-        dataGetNecofs.push( getNECOFSWaveLengthPredictions);
-        this.necofsDataTypeLoaded.push("NECOFS_WAVE_LENGTH_PREDICTIONS");
-      }
-      let buoyDataObject = this.getBuoyObject(wave_location_name);
-      if ( !buoyDataObject.initialized || force_refresh ) {
-        this.requested_forecast = true ;
-        let getBuoyURL: string = buoyDataObject.getDataURL(date_start, hours_back, wave_location_name, this.appConfig) ;
-        this.dataGetUrls.push( getBuoyURL);
-        let getBuoy  = this.http.get(getBuoyURL).map(res => res.json());
-        dataGETs.push( getBuoy);
-        this.dataTypeLoaded.push("BUOY");
-      }
-      let dwwDataObject = this.getDWWObject(wave_location_name);
-      if ( !dwwDataObject.initialized || force_refresh ) {
-        this.requested_forecast = true ;
-        // Erddap ww3 data
-        let dwwURL: string = dwwDataObject.geoGetDataURL(this.appConfig.dww_start_date,
-                    this.appConfig.dww_end_date, this.waveObjects[waveKey].geo_array, this.appConfig );
-        this.dataGetUrls.push( dwwURL);
-        let getDWW  = this.http.get(dwwURL).map(res => res.json());
-        dataGETs.push( getDWW);
-        this.dataTypeLoaded.push("DWW");
-        // NECOFS data
-        // Wave height
-        let dwwNECOFSWavePredictionsURL: string = dwwDataObject.getNECOFSWaveURL(this.waveObjects[waveKey].geo_array );
-        this.dataGetNecofsUrls.push(dwwNECOFSWavePredictionsURL) ;
-        let getDWWNECOFSWavePredictions  = this.http.get(dwwNECOFSWavePredictionsURL).map(res => res.json());
-        dataGetNecofs.push( getDWWNECOFSWavePredictions);
-        this.necofsDataTypeLoaded.push("NECOFS_DWW_WAVE_PREDICTIONS");
-        // Wave Length
-        let dwwNECOFSWavelengthPredictionsURL: string = dwwDataObject.getNECOFSWaveLengthURL(this.waveObjects[waveKey].geo_array );
-         this.dataGetNecofsUrls.push(dwwNECOFSWavelengthPredictionsURL) ;
-        let getDWWNECOFSWavelengthPredictions  = this.http.get(dwwNECOFSWavelengthPredictionsURL).map(res => res.json());
-        dataGetNecofs.push( getDWWNECOFSWavelengthPredictions);
-        this.necofsDataTypeLoaded.push("NECOFS_DWW_WAVE_LENGTH_PREDICTIONS");
       }
       // use a separate observable for necofs
       if ( dataGetNecofs.length > 0 ) {
@@ -1440,15 +1449,15 @@ class WaveObject {
           // backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
       },
       rangeSelector: {
-        enabled: false,
-        selected: 4
+        enabled: true,
+        selected: 0
       },
       scrollbar: {
-        enabled: false
+        enabled: true
       },
       navigator: {
-      //adaptToUpdatedData: false,
-      enabled: false
+        //adaptToUpdatedData: false,
+        enabled: true
       },
       title: {
           text: chart_title,

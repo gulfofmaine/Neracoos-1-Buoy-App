@@ -13,6 +13,7 @@ import { PlatformGraphPage } from '../pages/platform-graph/platform-graph';
 import { PlatformDatasetsGraphPage } from '../pages/platform-datasets-graph/platform-datasets-graph';
 import { PlatformDesignerGraphPage } from '../pages/platform-designer-graph/platform-designer-graph';
 import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
+import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,7 +42,8 @@ declare var require: any;
     PlatformDatasetsGraphPage,
     PlatformDesignerGraphPage,
     ListPage,
-    WaveGraphPage
+    WaveGraphPage,
+    NeracoosTabsPage
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ declare var require: any;
     PlatformDatasetsGraphPage,
     PlatformDesignerGraphPage,
     ListPage,
-    WaveGraphPage
+    WaveGraphPage,
+    NeracoosTabsPage
   ],
   providers: [
     StatusBar,

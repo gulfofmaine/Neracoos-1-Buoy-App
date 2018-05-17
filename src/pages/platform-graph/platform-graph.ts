@@ -27,6 +27,10 @@ export class PlatformGraphPage {
   private sub: Subscription;
   error_message:string = "";
   error_msg_array: any = [] ;
+  // post graph timer
+  private post_graph_timer;
+  // Subscription object
+  private post_graph_sub: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
           public appConfig: AppConfig,
@@ -45,6 +49,16 @@ export class PlatformGraphPage {
     events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
       this.drawPlatformGraphs();
     });
+    // subscribe to graph drawn event
+    events.subscribe('graphingFinished', (graph_type) => {
+      this.post_graph_timer = Observable.timer(15000);
+      // subscribing to a observable returns a subscription object
+      this.post_graph_sub = this.post_graph_timer.subscribe(t => this.postGraphFunc(t));
+    });
+  }
+  postGraphFunc(tick){
+    this.appConfig.enableMenu('platform_graph_menu') ;
+    this.menuCtrl.enable(true, 'page_menu') ;
   }
 
   ionViewDidLoad() {
@@ -180,6 +194,11 @@ export class PlatformGraphPage {
       this.drawPlatformGraphs() ;
     }
     this.menuCtrl.close();
+  }
+  graphMenuClosed() {
+    this.appConfig.setDateFromInterface();
+    this.metService.resetDataGet();
+    this.drawPlatformGraphs() ;
   }
   drawPlatformGraphs() {
     if ( this.waveService.isInitialized()  ) {

@@ -3,11 +3,13 @@ declare var require: any;
 declare var ol: any ;
 
 export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
+  appConfig: any ;
 
-  constructor( name: string, visibility: boolean) {
+  constructor( name: string, visibility: boolean, appConfig: any) {
     super(name, visibility);
     this.initializMyDom();
     ol = require('openlayers/dist/ol-debug');
+    this.appConfig = appConfig ;
   }
 
   initializeLayer(icon_path, platform, show_labels) {
@@ -99,12 +101,10 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
   createPointLineStyleFunction(parent, platform) {
     return function(feature, resolution) {
       // check for buoy having wave height. That's what we're interested in.
-      var data_depths = feature.get('data_depths') ;
+      var data_depths = feature.get('depths') ;
       // if there weren't any data depths at all (not a buoy layer) or
       // no waves were found if we did have them then don't show anything.
-      if ( data_depths == undefined ||
-              data_depths.significant_height_of_wind_and_swell_waves != undefined )
-        {
+      if ( parent.appConfig.getPlatformDisplay(feature.get('platform') ) ) {
         var styled = parent.featureStyling(feature,parent ) ;
         var scaled = styled['scale'];
         var img_icon = styled['img_icon'];
@@ -202,7 +202,7 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
         layerName = 'NERACOOS_BUOY';
         hover_text = feature.get('name')  + " - " +
                       feature.get('mooring_site_desc')  + " - "  +
-                      feature.get('program') ;
+                      " Program: " + feature.get('program') ;
       }
     } else {
         hover_text = feature.get('hover_text');
@@ -292,62 +292,71 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
   // Points
   iconImageFunction(feature) {
     let program: string = feature.get('program') ;
+    let project: string = feature.get('project') ;
     let icon_img : string = this.legendArray['symbol'] ;
-    switch ( program ) {
+    switch (project ) {
       case 'NERACOOS':
-      case 'UMO':
-        icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
-        break;
-      case 'NOAA':
-      case 'noaa_buoy':
-        icon_img = this.icon_path + "/img/symbols/symbol_noaa.png" ;
-        break;
-      case 'NERACOOS Long Is. Sound':
-      case 'lisicos_boy':
-        icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
-        break;
-      case 'UNH Buoy':
-      case 'CDIP':
-        icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
-        break;
-      case 'NERRS':
-        icon_img = this.icon_path + "/img/symbols/symbol_nerrs.gif" ;
-        break;
-      case 'CMAN':
-      case 'noaa_cman':
-        icon_img = this.icon_path + "/img/symbols/symbol_cman.gif" ;
-        break;
-      case 'COOA':
-      case 'GoMOOS':
-        icon_img = this.icon_path + "/img/symbols/symbol_gomoos.gif" ;
-        break;
-      case 'CINAR':
-        icon_img = this.icon_path + "/img/symbols/symbol_gomoos.gif" ;
-        break;
-      case 'Bowdoin':
-      case 'BOWDOIN':
-        icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
-        break;
-      case 'SmartBay':
-      case 'SmartAtlantic':
-      case 'env_can':
-        icon_img = this.icon_path + "/img/symbols/symbol_EC.gif" ;
-        break;
-      case 'URI':
-      case 'MVCO':
-        icon_img = this.icon_path + "/img/symbols/symbol_mvco.gif" ;
-        break;
-      case 'NOS':
-        icon_img = this.icon_path + "/img/symbols/symbol_tide.gif" ;
-        break;
-      case 'USGS':
-        icon_img = this.icon_path + "/img/symbols/symbol_tide_white.gif" ;
-        break;
-      case 'NWS':
-        icon_img = this.icon_path + "/img/symbols/symbol_tide_orange.gif" ;
-        break;
+        switch ( program ) {
+          case 'NERACOOS':
+          case 'UMO':
+            icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
+            break;
+          case 'NOAA':
+          case 'noaa_buoy':
+            icon_img = this.icon_path + "/img/symbols/symbol_noaa.png" ;
+            break;
+          case 'NERACOOS Long Is. Sound':
+          case 'lisicos_boy':
+            icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
+            break;
+          case 'UNH Buoy':
+          case 'CDIP':
+            icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
+            break;
+          case 'NERRS':
+            icon_img = this.icon_path + "/img/symbols/symbol_nerrs.gif" ;
+            break;
+          case 'CMAN':
+          case 'noaa_cman':
+            icon_img = this.icon_path + "/img/symbols/symbol_cman.gif" ;
+            break;
+          case 'COOA':
+          case 'GoMOOS':
+            icon_img = this.icon_path + "/img/symbols/symbol_gomoos.gif" ;
+            break;
+          case 'CINAR':
+            icon_img = this.icon_path + "/img/symbols/symbol_gomoos.gif" ;
+            break;
+          case 'Bowdoin':
+          case 'BOWDOIN':
+            icon_img = this.icon_path + "/img/symbols/symbol_neracoos.png" ;
+            break;
+          case 'SmartBay':
+          case 'SmartAtlantic':
+          case 'env_can':
+            icon_img = this.icon_path + "/img/symbols/symbol_EC.gif" ;
+            break;
+          case 'URI':
+          case 'MVCO':
+            icon_img = this.icon_path + "/img/symbols/symbol_mvco.gif" ;
+            break;
+          case 'NOS':
+            icon_img = this.icon_path + "/img/symbols/symbol_tide.gif" ;
+            break;
+          case 'USGS':
+            icon_img = this.icon_path + "/img/symbols/symbol_tide_white.gif" ;
+            break;
+          case 'NWS':
+            icon_img = this.icon_path + "/img/symbols/symbol_tide_orange.gif" ;
+            break;
+          default:
+            icon_img = this.legendArray['symbol'] ;
+            break;
+        }
+        break; // end of project NERACOOS
+      case 'LOBO NERACOOS':
       default:
-        icon_img = this.legendArray['symbol'] ;
+        icon_img = this.icon_path + "/img/symbols/halibut_upload_orange.gif" ;
         break;
     }
     return (icon_img);

@@ -1,4 +1,4 @@
-<ion-menu [content]="content" side="left">
+<ion-menu id='page_menu' [content]="page_menu" side="left">
   <ion-header>
     <ion-toolbar>
       <ion-title>Choose your Interest</ion-title>
@@ -7,20 +7,25 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button menuClose="page_menu" ion-item *ngFor="let p of appConfig.getMenuPages()" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>
-    {{getPageName()}}
   </ion-content>
 
 </ion-menu>
 
-<ion-menu id='user_interface_menu' *ngIf="getPageName() == 'HomePage'"   [content]="content" side="right">
+<ion-menu id='user_interface_menu' *ngIf="getPageName() == 'HomePage'"   [content]="interface_menu" side="right">
   <ion-content padding class="has-header">
       <ion-navbar>
-        <ion-title>Choose a persona</ion-title>
+        <ion-title>Choose an Application</ion-title>
       </ion-navbar>
+    <ion-list>
+      <button menuClose="user_interface_menu" ion-item *ngFor="let item of appConfig.interface_choices"
+                (click)="selectedInterface(item)">
+        {{item.displayName}}
+      </button>
+    </ion-list>
   </ion-content>
 </ion-menu>
 <!--
@@ -133,4 +138,4 @@
 </ion-menu>
 -->
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false" ></ion-nav>
+<ion-nav [root]="rootPage" #interface_menu #page_menu swipeBackEnabled="false" ></ion-nav>

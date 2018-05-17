@@ -174,7 +174,7 @@ export class GMRIStationLayer extends GMRIOpenlayers1Layer {
         layerName = 'NERACOOS_BUOY';
         hover_text = feature.get('name')  + " - " +
                       feature.get('mooring_site_desc')  + " - "  +
-                      feature.get('program') ;
+                      "Program: " + feature.get('program') ;
       }
     } else {
         hover_text = feature.get('hover_text');
