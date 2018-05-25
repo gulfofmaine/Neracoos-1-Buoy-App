@@ -216,9 +216,6 @@ export class GMRIErddap {
           }
         }
       }
-      // save the results for this dataset
-      datasetMatch.dataTypesFound = dataTypesFound ;
-      datasetMatches.push( datasetMatch) ;
       ret_array['dataTypesNotFound'] = dataTypesNotFound ;
       ret_array['allDatasestMatched'] = datasetMatches ;
     } else {
