@@ -38,7 +38,7 @@
         </div>
         <div>
          <ion-item class="listtitle">Toggle Buoy</ion-item>
-          <ion-item *ngFor="let item of metService.getBuoySelectionList()">
+          <ion-item *ngFor="let item of appConfig.getBuoySelectionList()">
             <ion-label> {{item.name}}   </ion-label>
             <ion-toggle [checked]="item.selected" (ionChange)="updateBuoySelected(item)"></ion-toggle>
           </ion-item>
@@ -46,7 +46,7 @@
         <br/>
         <div>
          <ion-item class="listtitle">Toggle Parameter</ion-item>
-          <ion-item *ngFor="let parameter of getPlatformParameterList()">
+          <ion-item *ngFor="let parameter of appConfig.getPlatformParameterList()">
             <ion-label> {{parameter.description}}   </ion-label>
             <ion-toggle [checked]="parameter.selected" (ionChange)="updateParameterVisibility(parameter)"></ion-toggle>
           </ion-item>

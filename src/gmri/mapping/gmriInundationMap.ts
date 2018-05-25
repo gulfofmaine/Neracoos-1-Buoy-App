@@ -6,8 +6,8 @@ declare var ol: any;
 ol = require('openlayers/dist/ol-debug');
 export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
 
-  constructor( name: string, visibility: boolean) {
-    super(name, visibility);
+  constructor( name: string, visibility: boolean, appConfig: any) {
+    super(name, visibility, appConfig);
     this.initializMyDom();
   }
 

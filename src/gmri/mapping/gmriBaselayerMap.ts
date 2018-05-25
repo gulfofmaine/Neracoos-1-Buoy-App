@@ -6,8 +6,8 @@ declare var ol: any;
 ol = require('openlayers/dist/ol-debug');
 export class ESRIOceanTopoBaseLayer extends GMRIOpenlayers1Layer {
 
-  constructor( name: string, visibility: boolean) {
-    super(name, visibility);
+  constructor( name: string, visibility: boolean, appConfig: any) {
+    super(name, visibility, appConfig);
   }
 
   initializeLayer() {
@@ -44,8 +44,8 @@ export class ESRIOceanTopoBaseLayer extends GMRIOpenlayers1Layer {
 }
 export class ESRIOceanReferenceBaseLayer extends GMRIOpenlayers1Layer {
 
-  constructor( name: string, visibility: boolean) {
-    super(name, visibility);
+  constructor( name: string, visibility: boolean, appConfig: any) {
+    super(name, visibility, appConfig);
   }
 
   initializeLayer() {
@@ -81,8 +81,8 @@ export class ESRIOceanReferenceBaseLayer extends GMRIOpenlayers1Layer {
 }
 export class MaritimeChartServerBaseLayer extends GMRIOpenlayers1Layer {
 
-  constructor( name: string, visibility: boolean) {
-    super(name, visibility);
+  constructor( name: string, visibility: boolean, appConfig: any) {
+    super(name, visibility, appConfig);
   }
 
   initializeLayer() {

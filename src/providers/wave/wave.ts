@@ -314,17 +314,17 @@ export class WaveProvider {
     if ( !this.requested_forecast ) {
       // providing an array of urls
       // because some may have loaded ok previously
-      var date_range = this.appConfig.getEtofsDateRange() ;
+      // var date_range = this.appConfig.getEtofsDateRange() ;
       // var date_start = date_range['date_start'];
       this.dataTypeLoaded = [] ;
       this.necofsDataTypeLoaded = [] ;
       let dataGETs: any = [] ;
       let dataGetNecofs: any = [] ;
       // buoy dates
-      var date_now = new Date();
+      // var date_now = new Date();
       // var datems = Date.parse(date_start).getTime();
-      var buoy_date_start = this.appConfig.getStartDate()
-      var datems = buoy_date_start.getTime();
+      // var buoy_date_start = this.appConfig.getStartDate()
+      // var datems = buoy_date_start.getTime();
       // var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
       // assemble all the necessary urls to get a full set of data
       // account for some perhaps having been previously loaded.

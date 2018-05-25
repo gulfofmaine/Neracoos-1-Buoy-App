@@ -5,8 +5,8 @@ declare var ol: any;
 
 export class GMRIStationLayer extends GMRIOpenlayers1Layer {
 
-  constructor( name: string, visibility: boolean) {
-    super(name, visibility);
+  constructor( name: string, visibility: boolean, appConfig: any) {
+    super(name, visibility, appConfig);
     this.initializMyDom();
     ol = require('openlayers/dist/ol-debug');
   }

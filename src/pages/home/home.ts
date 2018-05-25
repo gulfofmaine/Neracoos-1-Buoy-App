@@ -24,6 +24,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    // why does this seem impossible to debug
     console.log('ionViewDidLoad HomePage');
     // There are two situations where a page might be loaded.
     // on start up where it will need to be subscribed to the content loading
@@ -34,9 +35,35 @@ export class HomePage {
     }
     this.appConfig.configUpdates().subscribe( event_obj => {
       console.log( event_obj.name ) ;
-      if ( event_obj.name == "drupal_content_available" ) {
-        // the drupal service has returned with the data
-        this.initializeDrupalContent();
+      let event_name: string = event_obj.name ;
+      if (event_obj.name == 'updated_preference' ) {
+        if ( event_obj.preference == 'SELECTED_INTERFACE_NAME') {
+          this.appConfig.setSelectedInterface(event_obj.val);
+        }
+      }
+      switch( event_name ) {
+        case 'drupal_content_available':
+          // the drupal service has returned with the data
+          this.initializeDrupalContent();
+          break;
+        case 'updated_preference':
+          if ( event_obj.preference == 'SELECTED_INTERFACE_NAME') {
+            this.appConfig.setSelectedInterface(event_obj.value);
+          }
+          break;
+        case 'updated_preference':
+          if ( event_obj.preference == 'BUOY_SELECTED_LIST') {
+            this.appConfig.setBuoySelectionList(event_obj.value);
+          }
+          break;
+        case 'updated_preference':
+          if ( event_obj.preference == 'PLATFORM_PARAMETER_LIST') {
+            this.appConfig.setPlatformParameterList(event_obj.value);
+          }
+          break;
+        default:
+          console.log('unhandled event HomePage' + event_obj.name);
+          break;
       }
     });
   }

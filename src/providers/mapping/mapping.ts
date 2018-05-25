@@ -10,6 +10,7 @@ import { Platform } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { WaveProvider } from '../wave/wave';
+import { AppConfig } from '../../providers/appconfig/appconfig';
 /*
   Generated class for the MapProvider provider.
 
@@ -41,9 +42,10 @@ export class MappingProvider {
 
   constructor(public http: HttpClient,
               public platform: Platform,
-              public waveService: WaveProvider) {
+              public waveService: WaveProvider,
+              public appConfig: AppConfig) {
 
-    this.inundationLayer = new GMRIInundationLayer("INUNDATION", true);
+    this.inundationLayer = new GMRIInundationLayer("INUNDATION", true, this.appConfig);
     this.mapProv = Observable.create(observer => {
       this.mapProvObserver = observer;
     });

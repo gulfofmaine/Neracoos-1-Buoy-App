@@ -138,7 +138,8 @@ export class AppConfig {
                 'INUNDATION_MODEL_PREDICTED_WAVE_HEIGHT',
                 'NECOFS_PREDICTED_WAVE_HEIGHT',
                 'BUOY_OBS_WAVE_HEIGHT','TIDE_OBS_WATER_LEVEL','R2','INTERFACE_LEVEL',
-                'DATUM', 'TAB_SELECTED', 'LOCATION_SELECTED'] ;
+                'DATUM', 'TAB_SELECTED', 'LOCATION_SELECTED',
+                'SELECTED_INTERFACE_NAME', 'BUOY_SELECTED_LIST', 'PLATFORM_PARAMETER_LIST'] ;
   userPreferences: any = [] ;
 
   configObservable: any;
@@ -151,7 +152,7 @@ export class AppConfig {
   drupalURLOne: string = 'http://neracoos.org/proxy2?ajax=1&url=http://contentservice.gmri.org/rest/neracoos_buoy_pwa_content?_format=json';
   drupalContent: any  ;
   pages: Array<{title: string, component: any}> = [];
-  menus: Array<{title: string, pages: any}> = [];
+  menus: Array<{name: string, pages: any}> = [];
   neracoos_platform_names: any = ['A01','B01','E01', 'F01','I01','M01', 'J02',
                               'N01'];
 
@@ -380,10 +381,16 @@ export class AppConfig {
         name : "neracoos_gmri",
         interface_level: 0
     } ;
+    let reset_menu: any = {
+        displayName : "RESET",
+        name : "reset",
+        interface_level: 5
+    } ;
     this.interface_choices.push(intrepid_erddap) ;
     this.interface_choices.push(mariner) ;
     this.interface_choices.push(neracoos) ;
     this.interface_choices.push(neracoos_gmri) ;
+    this.interface_choices.push(reset_menu) ;
 
   }
   getCurrentInterface() {
@@ -400,8 +407,14 @@ export class AppConfig {
     }
     return(ret_val) ;
   }
-  setSelectedInterface( selected ) {
+  setSelectedInterface( selected, reset ) {
     this.selected_interface = selected ;
+    // a special case
+    if ( reset ) {
+      this.resetUserPreferences();
+    }
+    this.userPreferences['SELECTED_INTERFACE_NAME'] = selected;
+    this.storage.set('SELECTED_INTERFACE_NAME', selected);
   }
   getInterfaceLocations() {
     let locations:any = [] ;
@@ -435,6 +448,96 @@ export class AppConfig {
         break;
     }
     return(display) ;
+  }
+  // initialize the list. Right now from the user's saved preferences
+  setBuoySelectionList( selected_list) {
+    this.userPreferences['BUOY_SELECTED_LIST'] = selected_list;
+    this.storage.set('BUOY_SELECTED_LIST', selected_list);
+  }
+  getBuoySelectionList() {
+    return ( this.userPreferences['BUOY_SELECTED_LIST'] );
+  }
+  // initialize the list. Right now from the user's saved preferences
+  setPlatformParameterList( selected_list) {
+    this.userPreferences['PLATFORM_PARAMETER_LIST'] = selected_list;
+    this.storage.set('PLATFORM_PARAMETER_LIST', selected_list);
+  }
+  getPlatformParameterList() {
+    return( this.userPreferences['PLATFORM_PARAMETER_LIST']);
+  }
+  updateBuoySelected(name, visibility) {
+    let pKey: any ;
+    let bList: any = this.userPreferences['BUOY_SELECTED_LIST'] ;
+    for ( pKey in bList ) {
+      if ( bList[pKey].name == name ) {
+        bList[pKey].selected = visibility ;
+        break;
+      }
+    }
+    this.setBuoySelectionList(bList) ;
+  }
+  // return the selected status of a parameter in a list
+  // this is for moving from one list to a new list with
+  // potentially different parametrs
+  getParameterSelect( platformParameterList, parameter) {
+    let pKey: any ;
+    let ret_val: boolean = false ;
+    let pList: any = this.getPlatformParameterList() ;
+    for ( pKey in pList ) {
+      if (pList[pKey].description == parameter) {
+        ret_val =  pList[pKey].selected;
+        break;
+      }
+    }
+    return( ret_val) ;
+  }
+  // check for an existing parameter in the list
+  isParameterInList( parameter, pList) {
+    let pKey: any ;
+    let ret_val: boolean = false ;
+    for ( pKey in pList ) {
+      if (pList[pKey].description == parameter ) {
+        ret_val = true;
+        break;
+      }
+    }
+    return( ret_val) ;
+  }
+  // Rebuilding the list from scratch
+  initializePlatformParameterList() {
+    let data_type: any = {} ;
+    let parameterObject: any ;
+    let mlMetaData : any ;
+    let bKey: any ;
+    // remember the currently selected parameters
+    let existingSelectionList = this.getPlatformParameterList() ;
+    let newPlatformParameterList = [] ;
+    let bList: any = this.getBuoySelectionList() ;
+    for ( bKey in bList) {
+      mlMetaData = this.getMonitoringLocationMetadata( bList[bKey].name);
+      if ( bList[bKey].selected ) {
+        for ( data_type in mlMetaData.properties.data_types ) {
+          if ( this.gmriUnits.skip_plotting_parameters.indexOf(data_type) == -1 &&
+                data_type.indexOf('_qc') == -1 ) {
+            parameterObject = {} ;
+            parameterObject.erddap_data_type = data_type ;
+            parameterObject.cf_data_type = mlMetaData.properties.data_types[data_type] ;
+            parameterObject.description = this.gmriUnits.getDataTypeDescription(data_type);
+            // check for an existing selection
+            if ( this.getParameterSelect( existingSelectionList, parameterObject.description) ) {
+              parameterObject.selected = true ;
+            } else {
+              parameterObject.selected = false ;
+            }
+            // if it's not already in the list then add it.
+            if ( !this.isParameterInList(parameterObject.description, newPlatformParameterList)) {
+              newPlatformParameterList.push(parameterObject);
+            }
+          }
+        }
+      }
+    }
+    this.setPlatformParameterList(newPlatformParameterList);
   }
   enableMenu( menuId ) {
     let menus: any = [
@@ -824,6 +927,12 @@ export class AppConfig {
         }
       });
     // } // end of for loop that didn't work
+  }
+  resetUserPreferences() {
+    let upKey: any ;
+    for ( upKey in this.userPreferenceChoices ) {
+      this.storage.remove( this.userPreferenceChoices[upKey]) ;
+    }
   }
   // an alternative interface visibility based on interface level
   // that's set elsewhere.

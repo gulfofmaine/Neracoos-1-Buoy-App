@@ -63,7 +63,6 @@ export class MetProvider {
   requestedData: boolean = false ;
   datasetObjects: any = [];
   platformParameterList: any = [] ;
-  buoySelectedList: any = [] ;
 
   constructor(public httpClient: HttpClient,
               public appConfig:AppConfig,
@@ -118,99 +117,43 @@ export class MetProvider {
     this.DSG_MA101_echorange = null ;
     this.DSG_MA101_waves = null ;
   }
-  setPlatformParameterList() {
-    let data_type: any = {} ;
-    let parameterObject: any ;
-    let mlMetaData : any ;
-    let bKey: any ;
-    // remember the currently selected parameters
-    let existingSelectionList = this.platformParameterList ;
-    this.platformParameterList = [] ;
-    for ( bKey in this.buoySelectedList) {
-      mlMetaData = this.appConfig.getMonitoringLocationMetadata( this.buoySelectedList[bKey].name);
-      if ( this.buoySelectedList[bKey].selected ) {
-        for ( data_type in mlMetaData.properties.data_types ) {
-          if ( this.appConfig.gmriUnits.skip_plotting_parameters.indexOf(data_type) == -1 &&
-                data_type.indexOf('_qc') == -1 ) {
-            parameterObject = {} ;
-            parameterObject.erddap_data_type = data_type ;
-            parameterObject.cf_data_type = mlMetaData.properties.data_types[data_type] ;
-            parameterObject.description = this.appConfig.gmriUnits.getDataTypeDescription(data_type);
-            if ( this.getParameterSelect( existingSelectionList, parameterObject.description) ) {
-              parameterObject.selected = true ;
-            } else {
-              parameterObject.selected = false ;
-            }
-            if ( !this.isParameterInList(parameterObject.description)) {
-              this.platformParameterList.push(parameterObject);
-            }
-          }
-        }
-      }
-    }
-  }
-  // check for an existing parameter in the list
-  isParameterInList( parameter) {
-    let pKey: any ;
-    let ret_val: boolean = false ;
-    for ( pKey in this.platformParameterList ) {
-      if (this.platformParameterList[pKey].description == parameter ) {
-        ret_val = true;
-        break;
-      }
-    }
-    return( ret_val) ;
-  }
-  // return the selected status of a parameter in a list
-  // this is for moving from one list to a new list with
-  // potentially different parametrs
-  getParameterSelect( platformParameterList, parameter) {
-    let pKey: any ;
-    let ret_val: boolean = false ;
-    for ( pKey in platformParameterList ) {
-      if (platformParameterList[pKey].description == parameter &&
-        platformParameterList[pKey].selected) {
-        ret_val = true;
-        break;
-      }
-    }
-    return( ret_val) ;
-  }
-  getPlatformParameterList() {
-    return( this.platformParameterList);
-  }
   updateParameterVisibility(parameter, visibility) {
     let pKey: any ;
-    for ( pKey in this.platformParameterList ) {
-      if ( this.platformParameterList[pKey].description == parameter ) {
-        this.platformParameterList[pKey].selected = visibility ;
+    let pList: any = this.appConfig.getPlatformParameterList() ;
+    for ( pKey in pList ) {
+      if ( pList[pKey].description == parameter ) {
+        pList[pKey].selected = visibility ;
         break;
       }
     }
+    this.appConfig.setPlatformParameterList(pList) ;
   }
-  setBuoySelectionList(waveService) {
+  // preserve the current selections
+  setBuoySelectionList() {
     let lKey: any;
     let buoyObject: any ;
-    this.buoySelectedList = [] ;
+    let newBuoySelectedList: any = [] ;
+    // if the interface/app changed the pool of bouys could change.
+    let locations: any = this.appConfig.getInterfaceLocations() ;
 
-    for ( lKey in waveService.wave_locations ) {
+    for ( lKey in locations ) {
       buoyObject = {} ;
-      buoyObject.name = waveService.wave_locations[lKey].properties.name;
-      buoyObject.selected = false ;
-      this.buoySelectedList.push(buoyObject);
+      buoyObject.name = locations[lKey].properties.name;
+      buoyObject.selected = this.isBuoySelected(buoyObject.name) ;
+      newBuoySelectedList.push(buoyObject);
     }
+    this.appConfig.setBuoySelectionList(newBuoySelectedList);
   }
-  getBuoySelectionList() {
-    return( this.buoySelectedList);
-  }
-  updateBuoySelected(name, visibility) {
-    let pKey: any ;
-    for ( pKey in this.buoySelectedList ) {
-      if ( this.buoySelectedList[pKey].name == name ) {
-        this.buoySelectedList[pKey].selected = visibility ;
-        break;
+  isBuoySelected( name ) {
+    let selected: boolean = false ;
+    let bKey: any ;
+    let bList: any = this.appConfig.getBuoySelectionList();
+    for ( bKey in bList ) {
+      if ( bList[bKey].name == name ) {
+        selected = bList[bKey].selected ;
       }
     }
+    return(selected) ;
   }
   // setup a single dataset and all it's variables for a dataget
   // it's just a little different than setUpData below.

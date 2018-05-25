@@ -3,13 +3,11 @@ declare var require: any;
 declare var ol: any ;
 
 export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
-  appConfig: any ;
 
   constructor( name: string, visibility: boolean, appConfig: any) {
-    super(name, visibility);
+    super(name, visibility, appConfig);
     this.initializMyDom();
     ol = require('openlayers/dist/ol-debug');
-    this.appConfig = appConfig ;
   }
 
   initializeLayer(icon_path, platform, show_labels) {
@@ -101,7 +99,7 @@ export class GMRIPlatformLayer extends GMRIOpenlayers1Layer {
   createPointLineStyleFunction(parent, platform) {
     return function(feature, resolution) {
       // check for buoy having wave height. That's what we're interested in.
-      var data_depths = feature.get('depths') ;
+      // var data_depths = feature.get('depths') ;
       // if there weren't any data depths at all (not a buoy layer) or
       // no waves were found if we did have them then don't show anything.
       if ( parent.appConfig.getPlatformDisplay(feature.get('platform') ) ) {

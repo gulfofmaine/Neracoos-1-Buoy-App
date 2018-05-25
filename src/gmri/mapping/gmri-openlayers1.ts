@@ -26,11 +26,13 @@ export class GMRIOpenlayers1Layer {
   show_labels: boolean = false ;
   isLabeledLayer: boolean = false ;
   isBaseLayer: boolean = false ;
+  appConfig: any ;
 
 
-  constructor( name: string, visibility: boolean) {
+  constructor( name: string, visibility: boolean, appConfig: any) {
     this.name = name ;
     this.visibility = visibility ;
+    this.appConfig = appConfig ;
   }
 
 

@@ -67,8 +67,8 @@ export class MyApp {
         console.log( event_obj.name ) ;
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
-            this.metService.setBuoySelectionList(this.waveService);
-            this.metService.setPlatformParameterList();
+            this.metService.setBuoySelectionList();
+            this.appConfig.initializePlatformParameterList();
             break;
         }
       });
@@ -89,6 +89,7 @@ export class MyApp {
       this.waterlevelService.initializeData(true);
     });
   }
+  // 5-23-2018 remember to add new things to appConfig.initializeInterfaceChoices().
   // 5-15-2018 I've no idea why this worked but it seems to have
   // First the problem was the left menu buttons not working after
   // drawing a chart. This happened when the menus were defined in this
@@ -120,6 +121,10 @@ export class MyApp {
     this.appConfig.addMenu(NeracoosMenuItem) ;
     let NeracoosGMRIMenuItem: any = {name: 'neracoos_gmri', pages: neracoosMenu };
     this.appConfig.addMenu(NeracoosGMRIMenuItem) ;
+    // a special item to reset the storage and then enable
+    // the IntrepidErddap (default) menu
+    let resetMenuItem: any = {name: 'RESET', pages: defaultMenu };
+    this.appConfig.addMenu(resetMenuItem) ;
   }
 
   openPage(page) {
@@ -129,7 +134,11 @@ export class MyApp {
     this.events.publish('pageChosen:leftmenu', page);
   }
   selectedInterface(item) {
-    this.appConfig.setSelectedInterface( item.name ) ;
+    if ( item.name == 'RESET') {
+      this.appConfig.setSelectedInterface( 'default', true ) ;
+    } else {
+      this.appConfig.setSelectedInterface( item.name, false ) ;
+    }
     this.menuCtrl.close();
   }
 
@@ -142,14 +151,14 @@ export class MyApp {
     return( pagename) ;
   }
   getPlatformParameterList() {
-    return(this.metService.getPlatformParameterList());
+    return(this.appConfig.getPlatformParameterList());
   }
   updateParameterVisibility(item) {
     this.metService.updateParameterVisibility( item.description, !item.selected);
   }
   updateBuoySelected(item) {
-    this.metService.updateBuoySelected( item.name, !item.selected);
-    this.metService.setPlatformParameterList();
+    this.appConfig.updateBuoySelected( item.name, !item.selected);
+    this.appConfig.initializePlatformParameterList();
     this.events.publish('buoySelectionChanged:rightmenu', item.name);
   }
   // layer picker
@@ -201,7 +210,7 @@ export class MyApp {
   // end layer picker
   comparisonTapped(event, item) {
     this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
-    this.metService.setPlatformParameterList();
+    this.appConfig.initializePlatformParameterList();
     this.events.publish('comparisonTapped:rightmenu', item.properties.name);
   }
   comparisonMenuClosed() {

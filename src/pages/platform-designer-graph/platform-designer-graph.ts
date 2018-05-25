@@ -60,8 +60,8 @@ export class PlatformDesignerGraphPage {
       let erddapDatasetId: any;
       let erddapDatasetKey: any ;
       let bKey: any ;
-      let bList: any = this.metService.getBuoySelectionList();
-      let pList: any = this.metService.getPlatformParameterList();
+      let bList: any = this.appConfig.getBuoySelectionList();
+      let pList: any = this.appConfig.getPlatformParameterList();
       let bContinue: boolean = true ;
       let location_name: string ;
       let erddapDatasetReturnArray: any ;
@@ -162,11 +162,32 @@ export class PlatformDesignerGraphPage {
     // subscribing to a observable returns a subscription object
     this.sub = this.timer.subscribe(t => this.tickerFunc(t));
     this.appConfig.setTabSelected("graph");
+    // This probably will never get received. The event occurs
+    // before this page loads. I put these in the home page too.
+    this.appConfig.configUpdates().subscribe( event_obj => {
+      console.log( event_obj.name ) ;
+      switch( event_obj.name ) {
+        case 'updated_preference':
+          if ( event_obj.preference == 'BUOY_SELECTED_LIST') {
+            this.appConfig.setBuoySelectionList(event_obj.value);
+          }
+          break;
+        case 'updated_preference':
+          if ( event_obj.preference == 'PLATFORM_PARAMETER_LIST') {
+            this.appConfig.setPlatformParameterList(event_obj.value);
+          }
+          break;
+        default:
+          break;
+      }
+    });
   }
   ionViewDidEnter() {
     this.appConfig.enableMenu('page_comparison_menu') ;
     this.appConfig.setTabSelected("graph");
     if ( this.metService.isInitialized()  ) {
+      this.metService.setBuoySelectionList();
+      this.appConfig.initializePlatformParameterList();
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.metService.designerChart != undefined && this.appConfig.displayedErrorMessage == false ) {
         let temp: string = 'temp';
@@ -192,8 +213,8 @@ export class PlatformDesignerGraphPage {
         console.log( event_obj.name ) ;
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
-            this.metService.setBuoySelectionList(this.waveService);
-            this.metService.setPlatformParameterList();
+            this.metService.setBuoySelectionList();
+            this.appConfig.initializePlatformParameterList();
             this.menuCtrl.open('right');
             break;
           case "forecast_data_error":
@@ -278,22 +299,19 @@ export class PlatformDesignerGraphPage {
   }
   comparisonTapped(event, item) {
     this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
-    this.metService.setPlatformParameterList();
+    this.appConfig.initializePlatformParameterList();
     this.events.publish('comparisonTapped:rightmenu', item.properties.name);
   }
   comparisonMenuClosed() {
     this.appConfig.setDateFromInterface();
     this.events.publish('comparisonMenuClosed:rightmenu');
   }
-  getPlatformParameterList() {
-    return(this.metService.getPlatformParameterList());
-  }
   updateParameterVisibility(item) {
     this.metService.updateParameterVisibility( item.description, !item.selected);
   }
   updateBuoySelected(item) {
-    this.metService.updateBuoySelected( item.name, !item.selected);
-    this.metService.setPlatformParameterList();
+    this.appConfig.updateBuoySelected( item.name, !item.selected);
+    this.appConfig.initializePlatformParameterList();
     this.events.publish('buoySelectionChanged:rightmenu', item.name);
   }
 

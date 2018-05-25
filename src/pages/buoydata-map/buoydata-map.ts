@@ -174,15 +174,15 @@ export class BuoydataMapPage {
       let icon_path: string = this.location.path();
       // separate out the layer creation so I can
       // add the inundation layer on it's own.
-      let MCSLayer: any = new MaritimeChartServerBaseLayer("MaritimeChartServer", false);
+      let MCSLayer: any = new MaritimeChartServerBaseLayer("MaritimeChartServer", false, this.appConfig);
       MCSLayer.olLayer = MCSLayer.initializeLayer();
       this.mapService.layer_metadata.push( MCSLayer ) ;
 
-      let ESRIOceanTopoLayer: any = new ESRIOceanTopoBaseLayer("ESRIOceanTOPO", true);
+      let ESRIOceanTopoLayer: any = new ESRIOceanTopoBaseLayer("ESRIOceanTOPO", true, this.appConfig);
       ESRIOceanTopoLayer.olLayer = ESRIOceanTopoLayer.initializeLayer();
       this.mapService.layer_metadata.push( ESRIOceanTopoLayer ) ;
 
-      let ESRIOceanReferenceLayer: any = new ESRIOceanReferenceBaseLayer("ESRIOceanReference", true);
+      let ESRIOceanReferenceLayer: any = new ESRIOceanReferenceBaseLayer("ESRIOceanReference", true, this.appConfig);
       ESRIOceanReferenceLayer.olLayer = ESRIOceanReferenceLayer.initializeLayer();
       this.mapService.layer_metadata.push( ESRIOceanReferenceLayer ) ;
 
@@ -190,7 +190,7 @@ export class BuoydataMapPage {
       platformLayer.olLayer = platformLayer.initializeLayer(icon_path, this.platform, false);
       this.mapService.layer_metadata.push( platformLayer ) ;
 
-      let stationLayer: any = new GMRIStationLayer("STATION", true);
+      let stationLayer: any = new GMRIStationLayer("STATION", true, this.appConfig);
       stationLayer.olLayer = stationLayer.initializeLayer(icon_path, this.platform, false);
       this.mapService.layer_metadata.push( stationLayer ) ;
     }
