@@ -77,6 +77,9 @@ export class PlatformDesignerGraphPage {
       let colorRampIndex: number = 0 ;
       let maxColorRampIndex: number = this.appConfig.gmriUnits.compare_color_ramps.length ;
       let colorRampArray: any = [];
+      let dFoundKey: any ;
+      let dDuplicateKey: any ;
+      let bFoundDataset: boolean = false ;
 
       if ( this.metService.isInitialized()  ) {
         // first set the metServices bookkeeping array for web services to empty
@@ -97,17 +100,48 @@ export class PlatformDesignerGraphPage {
             dataTypesNotFound = pList ;
             // now go get a dataset id and other stuff.
             while ( bContinue ) {
-              erddapDatasetReturnArray = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-                                              location_name, dataTypesNotFound );
-              if ( erddapDatasetReturnArray['datasetMatched'] != undefined ) {
-                datasetsMatched.push(erddapDatasetReturnArray['datasetMatched']) ;
-                dataTypesNotFound = erddapDatasetReturnArray['dataTypesNotFound'];
-                if ( dataTypesNotFound.length == 0 ) {
+              if ( 0 ) {
+                // the original pick the dataset with the most matches
+                erddapDatasetReturnArray = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
+                                                location_name, dataTypesNotFound, false );
+                if ( erddapDatasetReturnArray['datasetMatched'] != undefined ) {
+                  datasetsMatched.push(erddapDatasetReturnArray['datasetMatched']) ;
+                  dataTypesNotFound = erddapDatasetReturnArray['dataTypesNotFound'];
+                  if ( dataTypesNotFound.length == 0 ) {
+                    bContinue = false ;
+                  }
+                } else {
+                  // we didn't find anything this time. we're all done.
                   bContinue = false ;
                 }
               } else {
-                // we didn't find anything this time. we're all done.
-                bContinue = false ;
+                // the new and improved get all datasets with data that matches.
+                erddapDatasetReturnArray = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
+                                                location_name, dataTypesNotFound, true );
+                if ( erddapDatasetReturnArray['allDatasestMatched'] != undefined ) {
+                  // save them all
+                  for ( dFoundKey in erddapDatasetReturnArray['allDatasestMatched']) {
+                    // don't duplicate datasets
+                    bFoundDataset = false ;
+                    for ( dDuplicateKey in datasetsMatched ) {
+                      if ( datasetsMatched[dDuplicateKey].datasetID ==
+                           erddapDatasetReturnArray['allDatasestMatched'][dFoundKey].datasetID ) {
+                        bFoundDataset = true ;
+                        break;
+                      }
+                    }
+                    if ( !bFoundDataset ) {
+                      datasetsMatched.push(erddapDatasetReturnArray['allDatasestMatched'][dFoundKey]) ;
+                    }
+                  }
+                  dataTypesNotFound = erddapDatasetReturnArray['dataTypesNotFound'];
+                  if ( dataTypesNotFound.length == 0 ) {
+                    bContinue = false ;
+                  }
+                } else {
+                  // we didn't find anything this time. we're all done.
+                  bContinue = false ;
+                }
               }
             }
             for ( erddapDatasetKey in datasetsMatched) {

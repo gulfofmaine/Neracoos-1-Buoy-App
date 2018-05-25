@@ -280,7 +280,7 @@ export class MetProvider {
       // from that dataset, then ask for all the data. What if that datatype isn't there?
       // for example the sensor has broken.
       let return_erddap_dtoiID: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-                                      this.gmriDatasets[datsetKey].ml_name, erdDataTypeOfInterest );
+                                      this.gmriDatasets[datsetKey].ml_name, erdDataTypeOfInterest, false );
       if ( return_erddap_dtoiID.datasetMatched['datasetID'] != null &&
             return_erddap_dtoiID.datasetMatched['ret_date_start_msse'] != undefined &&
             return_erddap_dtoiID.datasetMatched['ret_date_end_msse'] != undefined ) {
@@ -294,7 +294,8 @@ export class MetProvider {
                                       this.appConfig, return_erddap_dtoiID.datasetMatched['datasetID']  ) ;
         // returns a straight up array
         let erdDataTypes: any = this.gmriDatasets[datsetKey].getDataVariables() ;
-        let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.gmriDatasets[datsetKey].ml_name, erdDataTypes );
+        let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
+              this.gmriDatasets[datsetKey].ml_name, erdDataTypes, false );
         if ( return_erddap.datasetMatched['datasetID'] != null ) {
           let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
           this.dataGetUrls.push(getErdObsURL) ;
@@ -610,8 +611,6 @@ export class MetProvider {
                   erdDataTypeOfInterest.push(this.gmriDatasets[mlKey].observationData.table.columnNames[columnNameKey]) ;
                 }
               }
-              // look for some sample data types to see if we already have this dataset
-              mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
               // first dataset just take all it's yAxis entries
               // they are unique by units
               if ( myAxisArray.length == 0 ) {

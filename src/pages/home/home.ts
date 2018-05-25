@@ -35,20 +35,14 @@ export class HomePage {
     }
     this.appConfig.configUpdates().subscribe( event_obj => {
       console.log( event_obj.name ) ;
-      let event_name: string = event_obj.name ;
-      if (event_obj.name == 'updated_preference' ) {
-        if ( event_obj.preference == 'SELECTED_INTERFACE_NAME') {
-          this.appConfig.setSelectedInterface(event_obj.val);
-        }
-      }
-      switch( event_name ) {
+      switch( event_obj.name ) {
         case 'drupal_content_available':
           // the drupal service has returned with the data
           this.initializeDrupalContent();
           break;
         case 'updated_preference':
           if ( event_obj.preference == 'SELECTED_INTERFACE_NAME') {
-            this.appConfig.setSelectedInterface(event_obj.value);
+            this.appConfig.setSelectedInterface(event_obj.value, false);
           }
           break;
         case 'updated_preference':

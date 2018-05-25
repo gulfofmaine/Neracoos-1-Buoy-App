@@ -133,7 +133,7 @@ export class GMRIErddap {
   // the Dataset's end time ( return it along with the dataset id.
   // More embellishment. I want to return the dataset id and variables
   // for the best match (most variables I guess)
-  getDatasetID( appConfig, platform_name, data_type_array ) {
+  getDatasetID( appConfig, platform_name, data_type_array, bReturnAll ) {
     var date_range = appConfig.getERDDAPDateRange(null) ;
     let date_start_msse: number = date_range['date_start_msse'];
     let date_end_msse: number = date_range['date_end_msse'];
@@ -150,6 +150,7 @@ export class GMRIErddap {
     let dr_array: any = [];
     let dtObject: any ;
     let reworked_dt_array: any = [];
+    let bFoundDataType: boolean = false ;
 
     // multi parameter plots added some complexity to this.
     // allow for just an array of strings by doing the substitution
@@ -164,7 +165,7 @@ export class GMRIErddap {
       }
       data_type_array = reworked_dt_array ;
     }
-
+    // Find all datasets with the matching data type.
     for(rKey in this.raw_data.erdTables){
       if ( this.raw_data.erdTables[rKey].platform &&
             this.raw_data.erdTables[rKey].platform == platform_name) {
@@ -197,27 +198,52 @@ export class GMRIErddap {
         }
       }
     }
-    // look for the match with the greatest number from all the matches found.
-    matchCount = 0 ;
-    for ( rKey in datasetMatches ) {
-      if ( datasetMatches[rKey].dataTypesFound.length > matchCount ) {
-        matchCount = datasetMatches[rKey].dataTypesFound.length ;
-        maxDataset = rKey ;
-      }
-    }
-    if ( matchCount > 0 ) {
+    if ( bReturnAll ) {
       // also return the not matched.
       // for everything we were looking for
       for ( dKey in data_type_array ) {
         if ( data_type_array[dKey].selected ) {
-          // is it not in the dataset with the most things found
-          if (datasetMatches[maxDataset].dataTypesFound.indexOf(data_type_array[dKey].erddap_data_type) == -1 ){
+          bFoundDataType == false ;
+          for ( rKey in datasetMatches ) {
+            if ( datasetMatches[rKey].dataTypesFound.indexOf(data_type_array[dKey].erddap_data_type) != -1 ) {
+              bFoundDataType = true ;
+              break;
+            }
+          }
+          // is it not in any dataset
+          if ( !bFoundDataType ){
             dataTypesNotFound.push(data_type_array[dKey]);
           }
         }
       }
+      // save the results for this dataset
+      datasetMatch.dataTypesFound = dataTypesFound ;
+      datasetMatches.push( datasetMatch) ;
       ret_array['dataTypesNotFound'] = dataTypesNotFound ;
-      ret_array['datasetMatched'] = datasetMatches[maxDataset] ;
+      ret_array['allDatasestMatched'] = datasetMatches ;
+    } else {
+      // look for the match with the greatest number from all the matches found.
+      matchCount = 0 ;
+      for ( rKey in datasetMatches ) {
+        if ( datasetMatches[rKey].dataTypesFound.length > matchCount ) {
+          matchCount = datasetMatches[rKey].dataTypesFound.length ;
+          maxDataset = rKey ;
+        }
+      }
+      if ( matchCount > 0 ) {
+        // also return the not matched.
+        // for everything we were looking for
+        for ( dKey in data_type_array ) {
+          if ( data_type_array[dKey].selected ) {
+            // is it not in the dataset with the most things found
+            if (datasetMatches[maxDataset].dataTypesFound.indexOf(data_type_array[dKey].erddap_data_type) == -1 ){
+              dataTypesNotFound.push(data_type_array[dKey]);
+            }
+          }
+        }
+        ret_array['dataTypesNotFound'] = dataTypesNotFound ;
+        ret_array['datasetMatched'] = datasetMatches[maxDataset] ;
+      }
     }
     return ( ret_array );
   }
