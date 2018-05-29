@@ -134,7 +134,7 @@ export class MyApp {
     this.events.publish('pageChosen:leftmenu', page);
   }
   selectedInterface(item) {
-    if ( item.name == 'RESET') {
+    if ( item.name == 'reset') {
       this.appConfig.setSelectedInterface( 'default', true ) ;
     } else {
       this.appConfig.setSelectedInterface( item.name, false ) ;

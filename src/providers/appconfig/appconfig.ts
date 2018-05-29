@@ -932,6 +932,7 @@ export class AppConfig {
     let upKey: any ;
     for ( upKey in this.userPreferenceChoices ) {
       this.storage.remove( this.userPreferenceChoices[upKey]) ;
+      this.userPreferences[this.userPreferenceChoices[upKey]] = null ;
     }
   }
   // an alternative interface visibility based on interface level
