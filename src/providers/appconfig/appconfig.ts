@@ -351,6 +351,7 @@ export class AppConfig {
     switch ( this.selected_interface ) {
       case 'neracoos':
       case 'neracoos_gmri':
+      case 'mariner':
         pages = this.getMenu(this.selected_interface) ;
         break;
       default:
@@ -422,6 +423,7 @@ export class AppConfig {
     switch ( this.selected_interface ) {
       case 'neracoos':
       case 'neracoos_gmri':
+      case 'mariner':
         for ( lKey in this.monitoring_locations ) {
           if ( this.neracoos_platform_names.indexOf(this.monitoring_locations[lKey].properties.name) != -1 ) {
             locations.push(this.monitoring_locations[lKey]);
@@ -549,8 +551,10 @@ export class AppConfig {
       'page_comparison_menu',
       'page_comparison_menu',
       'platform_data_menu',
+      'platform_forecast_menu',
       'platform_dataset_menu',
-      'platform_graph_menu'
+      'platform_graph_menu',
+      'mariner_forecast_menu'
       ];
     let mKey : any ;
     for ( mKey in menus ) {

@@ -17,6 +17,42 @@
   </ion-navbar>
 </ion-header>
 
+
+<ion-menu id='buoy_menu' [content]="buoy_menu_content" side="right">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Options</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+  <ion-list>
+   <ion-item class="listtitle">Toggle Stations on/off</ion-item>
+    <ion-item *ngFor="let layer of labeled_options_display">
+      <ion-label> {{layer.displayName}}   </ion-label>
+      <ion-toggle [checked]="layer.visibility" (ionChange)="updateVisibility(layer)"></ion-toggle>
+    </ion-item>
+
+    <ion-item class="listtitle">WMS Layers</ion-item>
+    <ion-item *ngFor="let layer of wms_options_display">
+      <ion-label>{{layer.displayName}}</ion-label>
+      <ion-toggle [checked]="layer.visibility" (ionChange)="updateVisibility(layer)"></ion-toggle>
+      <ion-range min="0" max="100" step="5" [(ngModel)]="layer.opacity"
+                    (ionChange)="updateOpacity(layer)"></ion-range>
+    </ion-item>
+
+    <ion-item class="listtitle">Select Base Layer</ion-item>
+    <ion-item *ngFor="let layer of base_options_display">
+      <ion-label>{{layer.displayName}}</ion-label>
+      <ion-toggle [checked]="layer.visibility" (ionChange)="updateVisibility(layer)"></ion-toggle>
+      <ion-range min="0" max="100" step="5" [(ngModel)]="layer.opacity"
+                    (ionChange)="updateOpacity(layer)"></ion-range>
+
+    </ion-item>
+  </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-content padding>
 <ion-grid>
   <ion-row>
@@ -90,7 +126,20 @@ NOAA Buoys <img src="{{icon_path}}/img/symbols/symbol_noaa.png" width="15px" hei
 Water Level Stations <img src="{{icon_path}}/img/symbols/symbol_tide.gif" width="15px" height="15px">
         </ion-col>
       </ion-row>
-
+      <ion-row>
+        <ion-list>
+         <ion-item class="listtitle">WMS Legends</ion-item>
+          <ng-container *ngFor="let layer of wms_legends">
+            <ion-item *ngIf="layer.useTextLegendTitle && layer.visibility">
+              {{layer.displayName}}
+              <img src="{{layer.URL}}"/>
+            </ion-item>
+            <ion-item *ngIf="!layer.useTextLegendTitle && layer.visibility">
+              <img src="{{layer.URL}}"/>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ion-row>
 
     </ion-col>
   </ion-row>
@@ -98,3 +147,5 @@ Water Level Stations <img src="{{icon_path}}/img/symbols/symbol_tide.gif" width=
 
 
 </ion-content>
+
+<ion-nav [root]="BuoydataMapPage" #buoy_menu_content #page_menu swipeBackEnabled="false" ></ion-nav>

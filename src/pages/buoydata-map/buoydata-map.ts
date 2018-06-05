@@ -15,6 +15,7 @@ import {GMRIStationLayer} from "../../gmri/mapping/gmriStationMap";
 import {ESRIOceanTopoBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
 import {ESRIOceanReferenceBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
 import {MaritimeChartServerBaseLayer} from "../../gmri/mapping/gmriBaselayerMap";
+import {GMRIOISSTLayer,AXIOMMUR2_analysedSSTLayer,GMRIWW3BIOLayer} from "../../gmri/mapping/gmriSSTlayers";
 // import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 
 import { PlatformTabsPage } from '../platform-tabs/platform-tabs' ;
@@ -62,6 +63,10 @@ export class BuoydataMapPage {
   // page observable
   buoyMapPageProv: any;
   buoyMapPageProvObserver: any;
+  labeled_options_display: any ;
+  base_options_display: any ;
+  wms_options_display: any ;
+  wms_legends: any ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
             public appConfig: AppConfig,
@@ -84,6 +89,19 @@ export class BuoydataMapPage {
     this.icon_path = this.location.path();
     this.buoyMapPageProv = Observable.create(observer => {
       this.buoyMapPageProvObserver = observer;
+    });
+    // layer picker
+    // subscribe to the initialdata loaded event
+    this.mapService.mapProvUpdates().subscribe( event_obj => {
+      console.log( event_obj.name ) ;
+      if ( event_obj.name == "initial_map_data_loaded" ) {
+        this.labeled_options_display = this.getOptionsDisplay('labeled');
+        this.base_options_display = this.getOptionsDisplay('base');
+        this.wms_options_display = this.getOptionsDisplay('wms');
+        this.wms_legends = this.getLegendsDisplay('wms');
+        this.appConfig.enableMenu('buoy_menu') ;
+        this.menuCtrl.enable(true, 'page_menu') ;
+      }
     });
   }
 
@@ -152,6 +170,8 @@ export class BuoydataMapPage {
                 this.waveService.isInitialized()) {
               this.erosionEventCheck();
           }
+          this.appConfig.enableMenu('buoy_menu') ;
+          this.menuCtrl.enable(true, 'page_menu') ;
         }
       });
     }
@@ -159,6 +179,91 @@ export class BuoydataMapPage {
     if ( everybodyReady) {
       this.erosionEventCheck();
     }
+  }
+  // layer picker
+  getOptionsDisplay(layer_type) {
+    let options: any = []
+    for ( let mKey in this.mapService.layer_metadata ) {
+      let layer_options: any = {} ;
+      switch ( layer_type ) {
+        case 'base':
+        if ( this.mapService.layer_metadata[mKey].isBaseLayer) {
+          layer_options.displayName = this.mapService.layer_metadata[mKey].displayName ;
+          layer_options.name = this.mapService.layer_metadata[mKey].name ;
+          layer_options.visibility = this.mapService.layer_metadata[mKey].visibility ;
+          layer_options.isBaseLayer = this.mapService.layer_metadata[mKey].isBaseLayer ;
+          layer_options.opacity = 100 * this.mapService.layer_metadata[mKey].opacity ;
+          options.push( layer_options);
+        }
+        break;
+        case 'labeled':
+        if ( this.mapService.layer_metadata[mKey].isLabeledLayer ) {
+          layer_options.displayName = this.mapService.layer_metadata[mKey].displayName ;
+          layer_options.name = this.mapService.layer_metadata[mKey].name ;
+          layer_options.visibility = this.mapService.layer_metadata[mKey].visibility ;
+          layer_options.isLabeledLayer = this.mapService.layer_metadata[mKey].isLabeledLayer ;
+          layer_options.show_labels = this.mapService.layer_metadata[mKey].show_labels ;
+          options.push( layer_options);
+        }
+        break;
+        case 'wms':
+        if ( this.mapService.layer_metadata[mKey].isWMSLayer) {
+          layer_options.displayName = this.mapService.layer_metadata[mKey].displayName ;
+          layer_options.name = this.mapService.layer_metadata[mKey].name ;
+          layer_options.visibility = this.mapService.layer_metadata[mKey].visibility ;
+          layer_options.isBaseLayer = this.mapService.layer_metadata[mKey].isBaseLayer ;
+          layer_options.opacity = 100 * this.mapService.layer_metadata[mKey].opacity ;
+          options.push( layer_options);
+        }
+        break;
+      }
+    }
+    return( options ) ;
+  }
+  updateVisibility(layer) {
+    let olLayer: any = this.getFeatureLayer(layer.name);
+    let visible: boolean = olLayer.getVisible() ;
+    olLayer.setVisible(!visible);
+    this.mapService.toggleLayerVisibility(layer.name)
+    this.wms_legends = this.getLegendsDisplay('wms');
+  }
+  updateLabelVisibility(layer) {
+    this.mapService.toggleLayerLabelVisibility(layer.name) ;
+    let olLayer: any = this.getFeatureLayer(layer.name);
+    this.mapService.refreshLayer( olLayer );
+  }
+  updateOpacity(layer) {
+    let olLayer: any = this.getFeatureLayer(layer.name);
+    let opacity: number = layer.opacity / 100 ;
+    olLayer.setOpacity(opacity);
+  }
+  // end layer picker
+
+  // legends
+  getLegendsDisplay(layer_type) {
+    let options: any = []
+    for ( let mKey in this.mapService.layer_metadata ) {
+      let layer_options: any = {} ;
+      switch ( layer_type ) {
+        case 'base':
+        break;
+        case 'labeled':
+        break;
+        case 'wms':
+          if ( this.mapService.layer_metadata[mKey].isWMSLayer) {
+            layer_options.displayName = this.mapService.layer_metadata[mKey].displayName ;
+            layer_options.URL = this.mapService.layer_metadata[mKey].getLegendURL() ;
+            if ( layer_options.URL != undefined ) {
+              options.push( layer_options);
+            }
+            layer_options.visibility = this.mapService.layer_metadata[mKey].visibility ;
+            layer_options.isBaseLayer = this.mapService.layer_metadata[mKey].isBaseLayer ;
+            layer_options.opacity = 100 * this.mapService.layer_metadata[mKey].opacity ;
+          }
+        break;
+      }
+    }
+    return( options ) ;
   }
   showSelection() {
     let popover = this.popoverCtrl.create('LayerPickerPage', {filter_type:"mapoptions", parent: this});
@@ -193,6 +298,18 @@ export class BuoydataMapPage {
       let stationLayer: any = new GMRIStationLayer("STATION", true, this.appConfig);
       stationLayer.olLayer = stationLayer.initializeLayer(icon_path, this.platform, false);
       this.mapService.layer_metadata.push( stationLayer ) ;
+
+      let oisstLayer: any = new GMRIOISSTLayer("OISST", true, this.appConfig);
+      oisstLayer.olLayer = oisstLayer.initializeLayer();
+      this.mapService.layer_metadata.push( oisstLayer ) ;
+
+      let mur2sstLayer: any = new AXIOMMUR2_analysedSSTLayer("MUR2SST", true, this.appConfig);
+      mur2sstLayer.olLayer = mur2sstLayer.initializeLayer();
+      this.mapService.layer_metadata.push( mur2sstLayer ) ;
+
+      let ww3BIOLayer: any = new GMRIWW3BIOLayer("WW3BIO", true, this.appConfig);
+      ww3BIOLayer.olLayer = ww3BIOLayer.initializeLayer();
+      this.mapService.layer_metadata.push( ww3BIOLayer ) ;
     }
     // this didn't help the page gets loaded from scratch after another page
     // had loaded in the interim

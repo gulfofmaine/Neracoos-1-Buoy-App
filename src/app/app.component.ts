@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map' ;
 import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs' ;
+import { MarinerTabsPage } from '../pages/mariner-tabs/mariner-tabs' ;
 import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
 import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs' ;
 
@@ -31,7 +32,6 @@ export class MyApp {
   //layer picker
   toggleStatus: boolean = true ;
   isToggled: any;
-  labeled_options_display: any ;
   base_options_display: any ;
   filter_type: any ;
   buoyMapPage: any ;
@@ -49,15 +49,6 @@ export class MyApp {
               public metService: MetProvider) {
     this.initializeApp();
 
-    // layer picker
-    // subscribe to the initialdata loaded event
-    this.mapService.mapProvUpdates().subscribe( event_obj => {
-      console.log( event_obj.name ) ;
-      if ( event_obj.name == "initial_map_data_loaded" ) {
-        this.labeled_options_display = this.getOptionsDisplay('labeled');
-        this.base_options_display = this.getOptionsDisplay('base');
-      }
-    });
     // subscribe to the page loading event
     events.subscribe('buoyMapPage:loaded', (page) => {
       this.buoyMapPage = page ;
@@ -111,6 +102,15 @@ export class MyApp {
     let defaultMenuItem: any = {name: 'default', pages: defaultMenu };
     this.appConfig.addMenu(defaultMenuItem) ;
 
+    let marinerMenu: Array<{title: string, component: any}>;
+    marinerMenu = [
+          { title: 'Home', component: HomePage },
+          { title: 'Buoy Map', component: BuoydataMapPage },
+          { title: 'Platforms', component: MarinerTabsPage }
+    ];
+    let marinerMenuItem: any = {name: 'mariner', pages: marinerMenu };
+    this.appConfig.addMenu(marinerMenuItem) ;
+
     let neracoosMenu: Array<{title: string, component: any}>;
     neracoosMenu = [
           { title: 'Home', component: HomePage },
@@ -161,53 +161,6 @@ export class MyApp {
     this.appConfig.initializePlatformParameterList();
     this.events.publish('buoySelectionChanged:rightmenu', item.name);
   }
-  // layer picker
-  getOptionsDisplay(layer_type) {
-    let options: any = []
-    for ( let mKey in this.mapService.layer_metadata ) {
-      let layer_options: any = {} ;
-      switch ( layer_type ) {
-        case 'base':
-        if ( this.mapService.layer_metadata[mKey].isBaseLayer) {
-          layer_options.displayName = this.mapService.layer_metadata[mKey].displayName ;
-          layer_options.name = this.mapService.layer_metadata[mKey].name ;
-          layer_options.visibility = this.mapService.layer_metadata[mKey].visibility ;
-          layer_options.isBaseLayer = this.mapService.layer_metadata[mKey].isBaseLayer ;
-          layer_options.opacity = 100 * this.mapService.layer_metadata[mKey].opacity ;
-          options.push( layer_options);
-        }
-        break;
-        case 'labeled':
-        if ( this.mapService.layer_metadata[mKey].isLabeledLayer ) {
-          layer_options.displayName = this.mapService.layer_metadata[mKey].displayName ;
-          layer_options.name = this.mapService.layer_metadata[mKey].name ;
-          layer_options.visibility = this.mapService.layer_metadata[mKey].visibility ;
-          layer_options.isLabeledLayer = this.mapService.layer_metadata[mKey].isLabeledLayer ;
-          layer_options.show_labels = this.mapService.layer_metadata[mKey].show_labels ;
-          options.push( layer_options);
-        }
-        break;
-      }
-    }
-    return( options ) ;
-  }
-  updateVisibility(layer) {
-    let olLayer: any = this.buoyMapPage.getFeatureLayer(layer.name);
-    let visible: boolean = olLayer.getVisible() ;
-    olLayer.setVisible(!visible);
-    this.mapService.toggleLayerVisibility(layer.name)
-  }
-  updateLabelVisibility(layer) {
-    this.mapService.toggleLayerLabelVisibility(layer.name) ;
-    let olLayer: any = this.buoyMapPage.getFeatureLayer(layer.name);
-    this.mapService.refreshLayer( olLayer );
-  }
-  updateOpacity(layer) {
-    let olLayer: any = this.buoyMapPage.getFeatureLayer(layer.name);
-    let opacity: number = layer.opacity / 100 ;
-    olLayer.setOpacity(opacity);
-  }
-  // end layer picker
   comparisonTapped(event, item) {
     this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
     this.appConfig.initializePlatformParameterList();

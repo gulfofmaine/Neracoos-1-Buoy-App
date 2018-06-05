@@ -155,6 +155,10 @@ export class MappingProvider {
         layers: olLayers,
         target: map.nativeElement,
         view: new ol.View({
+              // experiment with 4326 Erddap WW3 BIO works with this
+              // projection: 'EPSG:4326',
+              // center: ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:4326'),
+              // axioms MUR2/sst_analysed with this.
               center: ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:3857'),
               zoom: start_zoom,
               minZoom: 6,

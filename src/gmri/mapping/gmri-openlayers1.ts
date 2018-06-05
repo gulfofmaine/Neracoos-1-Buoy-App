@@ -26,7 +26,12 @@ export class GMRIOpenlayers1Layer {
   show_labels: boolean = false ;
   isLabeledLayer: boolean = false ;
   isBaseLayer: boolean = false ;
+  isWMSLayer: boolean = false ;
   appConfig: any ;
+  date: any ;
+  colorscalerange: string = '272.039,303.7058';
+  useTextLegendTitle: boolean = false ;
+
 
 
   constructor( name: string, visibility: boolean, appConfig: any) {
@@ -35,5 +40,8 @@ export class GMRIOpenlayers1Layer {
     this.appConfig = appConfig ;
   }
 
+  getLegendURL() {
+    return( null );
+  }
 
 }

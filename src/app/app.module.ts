@@ -14,6 +14,8 @@ import { PlatformDatasetsGraphPage } from '../pages/platform-datasets-graph/plat
 import { PlatformDesignerGraphPage } from '../pages/platform-designer-graph/platform-designer-graph';
 import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
 import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs';
+import { MarinerTabsPage } from '../pages/mariner-tabs/mariner-tabs';
+import { MarinerForecastPage } from '../pages/mariner-forecast/mariner-forecast';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,13 +39,16 @@ declare var require: any;
     HomePage,
     BuoydataMapPage,
     PlatformTabsPage,
+    MarinerTabsPage,
     PlatformDataPage,
     PlatformGraphPage,
     PlatformDatasetsGraphPage,
     PlatformDesignerGraphPage,
     ListPage,
     WaveGraphPage,
-    NeracoosTabsPage
+    NeracoosTabsPage,
+    MarinerTabsPage,
+    MarinerForecastPage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,9 @@ declare var require: any;
     PlatformDesignerGraphPage,
     ListPage,
     WaveGraphPage,
-    NeracoosTabsPage
+    NeracoosTabsPage,
+    MarinerTabsPage,
+    MarinerForecastPage
   ],
   providers: [
     StatusBar,
