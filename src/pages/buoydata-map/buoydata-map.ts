@@ -19,6 +19,7 @@ import {GMRIOISSTLayer,AXIOMMUR2_analysedSSTLayer,GMRIWW3BIOLayer} from "../../g
 // import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 
 import { PlatformTabsPage } from '../platform-tabs/platform-tabs' ;
+import { MarinerTabsPage } from '../mariner-tabs/mariner-tabs' ;
 // import { WaveGraphPage } from '../wave-graph/wave-graph';
 // import { NeracoosTabsPage } from '../neracoos-tabs/neracoos-tabs' ;
 
@@ -95,12 +96,7 @@ export class BuoydataMapPage {
     this.mapService.mapProvUpdates().subscribe( event_obj => {
       console.log( event_obj.name ) ;
       if ( event_obj.name == "initial_map_data_loaded" ) {
-        this.labeled_options_display = this.getOptionsDisplay('labeled');
-        this.base_options_display = this.getOptionsDisplay('base');
-        this.wms_options_display = this.getOptionsDisplay('wms');
-        this.wms_legends = this.getLegendsDisplay('wms');
-        this.appConfig.enableMenu('buoy_menu') ;
-        this.menuCtrl.enable(true, 'page_menu') ;
+        this.initializeMenu();
       }
     });
   }
@@ -174,11 +170,22 @@ export class BuoydataMapPage {
           this.menuCtrl.enable(true, 'page_menu') ;
         }
       });
+    } else {
+      this.initializeMenu();
     }
     // walk the locations, triggering a load of any that aren't done
     if ( everybodyReady) {
       this.erosionEventCheck();
     }
+  }
+  // who knows why it's forgetful
+  initializeMenu() {
+    this.labeled_options_display = this.getOptionsDisplay('labeled');
+    this.base_options_display = this.getOptionsDisplay('base');
+    this.wms_options_display = this.getOptionsDisplay('wms');
+    this.wms_legends = this.getLegendsDisplay('wms');
+    this.appConfig.enableMenu('buoy_menu') ;
+    this.menuCtrl.enable(true, 'page_menu') ;
   }
   // layer picker
   getOptionsDisplay(layer_type) {
@@ -532,7 +539,19 @@ export class BuoydataMapPage {
           case 'UMO':
             this.appConfig.setPlatformSelected(this.waveService, location);
             this.navCtrl.popToRoot();
-            this.navCtrl.push(PlatformTabsPage);
+
+            switch ( this.appConfig.selected_interface ) {
+              case 'neracoos':
+              case 'neracoos_gmri':
+                this.navCtrl.push(PlatformTabsPage);
+                break;
+              case 'mariner':
+                this.navCtrl.push(MarinerTabsPage);
+                break;
+              default:
+                locations = this.monitoring_locations ;
+                break;
+            }
             break;
         }
         break;

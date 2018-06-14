@@ -48,7 +48,7 @@
 <ion-content padding>
   {{metService.dataDisplay.title}}
   <ion-list>
-    <ion-item  *ngFor="let item of metService.dataDisplay.seriesArray">
+    <ion-item  *ngFor="let item of pageDisplayData()">
       {{item.seriesGraph.data_type_description}} - {{item.displayValue}}
     </ion-item>
   </ion-list>

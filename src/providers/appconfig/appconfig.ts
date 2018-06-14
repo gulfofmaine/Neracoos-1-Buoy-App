@@ -78,6 +78,9 @@ export class AppConfig {
   max_interface_end_date: string ;
   start_date: any = new Date();
   end_date: any = new Date();
+  // keep a date range which would be good for displaying current conditions and a forecast
+  ccd_fcst_start_date: any = new Date();
+  ccd_fcst_end_date: any = new Date();
   min_date_allowed: any ;
   max_date_allowed: any ;
   days_forward: any = 0.0;
@@ -155,6 +158,9 @@ export class AppConfig {
   menus: Array<{name: string, pages: any}> = [];
   neracoos_platform_names: any = ['A01','B01','E01', 'F01','I01','M01', 'J02',
                               'N01'];
+  // display data types with these descriptions
+  mariner_data_type_descriptions: any = [ 'Wave Height', 'Wind gust', 'Wind speed',
+            'Air temperature', 'Visibility', 'Atomospheric pressure', 'Water temperature 2m']
 
   constructor( public datePipe: DatePipe,
                 public storage: Storage,
@@ -716,6 +722,18 @@ export class AppConfig {
     this.interface_end_date = moment(this.end_date).format() ;
     this.max_interface_start_date = moment(this.start_date).format('YYYY-MM-DD') ;
     this.max_interface_end_date = moment(this.end_date).format('YYYY-MM-DD') ;
+
+    // current conditions and forecast dates
+    // this is an attempt at making the display friendly for mariners
+    this.ccd_fcst_start_date = new Date();
+    msforward = 5 * 24 * 60 * 60 * 1000 ;
+    this.ccd_fcst_end_date = new Date(this.ccd_fcst_start_date.getTime() + msforward) ;
+    // it seems that having minutes down set to 0 is crucial to the web services working!
+    this.ccd_fcst_end_date.setMinutes(0,0,0);
+    before_now = 2*24*60*60*1000;
+    timeMinusBeforeNow = this.ccd_fcst_start_date.getTime() - before_now ;
+    this.ccd_fcst_start_date.setTime(timeMinusBeforeNow);
+    this.ccd_fcst_start_date.setHours(0,0,0,0) ;
   }
   // drupal data
   getContentOne() {
@@ -1138,6 +1156,18 @@ export class AppConfig {
   setDaysForward(new_days_forward) {
     this.days_forward = new_days_forward ;
   }
+  // current conditions forecast dates
+  getCcdFcstStartDate() {
+    var clonedDate = new Date(this.ccd_fcst_start_date.getTime()) ;
+    return(clonedDate);
+  }
+  getCcdFcstEndDate() {
+    // var msforward = this.days_forward * 24 * 60 * 60 * 1000 ;
+    // var end_date = new Date(this.start_date.getTime() + msforward) ;
+    var clonedDate = new Date(this.ccd_fcst_end_date.getTime()) ;
+    return(clonedDate);
+  }
+  // end current conditions forecaset dates
   // Graph Center Choices
   getGraphCenter() {
     // return this.graph_center;
@@ -1288,10 +1318,10 @@ export class AppConfig {
   }
   // Asking Erddap for data out of range is problematic
   // so check against the metadata we have from Erics service.
-  getERDDAPDateRange(erddap_array) {
+  getERDDAPDateRange(erddap_array, startDate, endDate) {
     var date_range = [] ;
-    var date_start = this.getStartDate();
-    var date_last = this.getEndDate();
+    var date_start = startDate ; // this.getStartDate();
+    var date_last = endDate; // this.getEndDate();
     if ( erddap_array != undefined ) {
       var erd_date_start = new Date(erddap_array.datasetMatched['start_time_msse']) ;
       var erd_date_end = new Date(erddap_array.datasetMatched['end_time_msse']) ;

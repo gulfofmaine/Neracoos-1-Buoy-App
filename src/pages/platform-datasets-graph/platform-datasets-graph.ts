@@ -51,10 +51,10 @@ export class PlatformDatasetsGraphPage {
       if ( this.waveService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       }
-      this.drawDatasetsGraph() ;
+      this.drawDatasetsGraph(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
     });
     // subscribe to graph drawn event
     events.subscribe('graphingFinished', (graph_type) => {
@@ -81,7 +81,7 @@ export class PlatformDatasetsGraphPage {
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       } else {
           this.menuCtrl.open('right');
       }
@@ -91,7 +91,7 @@ export class PlatformDatasetsGraphPage {
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
             if ( this.appConfig.getPlatformName() != undefined ) {
-                this.waveService.getWaveData(false);
+                this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             } else {
                 this.menuCtrl.open('right');
             }
@@ -132,9 +132,9 @@ export class PlatformDatasetsGraphPage {
         }
       });
     }
-    this.drawDatasetsGraph() ;
+    this.drawDatasetsGraph(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
   }
-  drawDatasetsGraph() {
+  drawDatasetsGraph(startDate, endDate) {
     let erddapDatasetId: any;
     let erddapDatasetKey: any ;
     let erddapGraphDatasets: any = [] ;
@@ -162,7 +162,7 @@ export class PlatformDatasetsGraphPage {
           let visible_parameters: any = [] ;
           dataset_available = this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
                   erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
-                  'single_dataset');
+                  'single_dataset', startDate, endDate);
           // Data may or may not have already been requested.
           // only add if the data is available
           if ( dataset_available['dataAvailable'] ) {
@@ -221,14 +221,14 @@ export class PlatformDatasetsGraphPage {
         console.log( event_obj.name ) ;
         if ( event_obj.name == "initial_platform_data_loaded" ) {
           if ( this.waveService.isInitialized() ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             this.appConfig.displayedErrorMessage = false;
           }
         }
       });
     }
     if ( everybodyReady) {
-      this.waveService.getWaveData(false);
+      this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       this.appConfig.displayedErrorMessage = false;
     }
   }
@@ -239,7 +239,7 @@ export class PlatformDatasetsGraphPage {
       popover.onDidDismiss(data => {
         if ( data != "cancel" ) {
           this.appConfig.displayedErrorMessage = false;
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       });
       popover.present({
@@ -252,13 +252,13 @@ export class PlatformDatasetsGraphPage {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       // this.events.publish('platformTapped:rightmenu', item.properties.name);
       this.appConfig.setDateFromInterface();
-      this.drawDatasetsGraph() ;
+      this.drawDatasetsGraph(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
     }
     this.menuCtrl.close();
   }
   datasetMenuClosed() {
     this.appConfig.setDateFromInterface();
-    this.drawDatasetsGraph() ;
+    this.drawDatasetsGraph(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
   }
 
 }

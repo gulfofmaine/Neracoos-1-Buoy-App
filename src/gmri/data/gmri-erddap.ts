@@ -133,8 +133,8 @@ export class GMRIErddap {
   // the Dataset's end time ( return it along with the dataset id.
   // More embellishment. I want to return the dataset id and variables
   // for the best match (most variables I guess)
-  getDatasetID( appConfig, platform_name, data_type_array, bReturnAll ) {
-    var date_range = appConfig.getERDDAPDateRange(null) ;
+  getDatasetID( appConfig, platform_name, data_type_array, bReturnAll, startDate, endDate ) {
+    var date_range = appConfig.getERDDAPDateRange(null, startDate, endDate) ;
     let date_start_msse: number = date_range['date_start_msse'];
     let date_end_msse: number = date_range['date_end_msse'];
     let dKey: any;
@@ -246,8 +246,8 @@ export class GMRIErddap {
   }
   // we actually know the dataset and just want to mimic the return
   // of getDatasetId above.
-  getDatasetDateRange( appConfig, platform_name, datasetID ) {
-    var date_range = appConfig.getERDDAPDateRange(null) ;
+  getDatasetDateRange( appConfig, platform_name, datasetID, startDate, endDate ) {
+    var date_range = appConfig.getERDDAPDateRange(null, startDate, endDate) ;
     let date_start_msse: number = date_range['date_start_msse'];
     let date_end_msse: number = date_range['date_end_msse'];
     // var date_end_msse = date_range['date_end_msse'];

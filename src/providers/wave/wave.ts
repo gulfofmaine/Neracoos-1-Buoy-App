@@ -309,7 +309,8 @@ export class WaveProvider {
     }
   return(ret_val);
   }
-  getWaveData(force_refresh) {
+  // allow the start date to be specified.
+  getWaveData(force_refresh, startDate, endDate) {
     // block redundant calls
     if ( !this.requested_forecast ) {
       // providing an array of urls
@@ -350,7 +351,7 @@ export class WaveProvider {
 
           // ww3 global data
           // NOTE: not ussing dww_start_date and dww_end_date because the global doesn't have those constraints
-          let ww3StartDate: string = this.appConfig.getStartDate().toISOString();
+          let ww3StartDate: string = startDate.toISOString();
           // now coastwatchs erddap is unpredictable so use a value gleaned from them on start up
           // as the end date.
           // let ww3EndDate: string = this.appConfig.getEndDate().toISOString();
@@ -376,10 +377,12 @@ export class WaveProvider {
           // check for availability of wave data
           let erdDataTypes : any = [ "significant_wave_height", "significant_wave_height_qc",
                                         "dominant_wave_period", "dominant_wave_period_qc"];
-          let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig, this.waveObjects[waveKey].ml_name, erdDataTypes );
+          let bReturnAll: boolean = false ;
+          let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
+                    this.waveObjects[waveKey].ml_name, erdDataTypes, bReturnAll, startDate, endDate );
           if ( return_erddap.datasetMatched.datasetID != null ) {
             let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig,
-                                            erdDataTypes, return_erddap) ;
+                                            erdDataTypes, return_erddap, startDate, endDate) ;
             this.dataGetUrls.push(getErdWaveObsURL) ;
             let getBuoyErdWaveObservations = this.jsonp.request(getErdWaveObsURL).map(res => res.json());
             // 9/11/2017 get erddap to use jsonp.
@@ -454,7 +457,7 @@ export class WaveProvider {
       }
       // use a separate observable for necofs
       if ( dataGetNecofs.length > 0 ) {
-        Observable.forkJoin(dataGetNecofs).subscribe(results => this.forecastDataReady("necofs_data", results),
+        Observable.forkJoin(dataGetNecofs).subscribe(results => this.forecastDataReady("necofs_data", results, startDate),
         error => this.forecastDataError( "NECOFS Data Failed to Load", error, this.dataGetNecofsUrls ),
         () => this.forecastDataComplete( "NECOFS Data Competed", this.dataGetNecofsUrls));
       } else {
@@ -467,7 +470,7 @@ export class WaveProvider {
       // again before the observable has come back? It won't happen now but
       // it's a model that needs work to be safe.
       if ( dataGETs.length > 0 ) {
-        Observable.forkJoin(dataGETs).subscribe(results => this.forecastDataReady("stable_data", results),
+        Observable.forkJoin(dataGETs).subscribe(results => this.forecastDataReady("stable_data", results, startDate),
         error => this.forecastDataError( "stable_data", error, this.dataGetUrls ) ,
         () => this.forecastDataComplete( "stable_data", this.dataGetUrls));
       } else {
@@ -475,7 +478,7 @@ export class WaveProvider {
         let wave_location_name: string = this.appConfig.platform_name ;
         let waveKey = this.getWaveObjectKey(wave_location_name, this.appConfig);
         // wave chart
-        let wave_array : any = this.waveObjects[waveKey].drawWaveChart(this.appConfig);
+        let wave_array : any = this.waveObjects[waveKey].drawWaveChart(this.appConfig, startDate);
         this.waveChart = wave_array['chartConfig'];
         this.forecast_ready = true ;
       }
@@ -510,7 +513,7 @@ export class WaveProvider {
   // this handles the subscription to two multi http querys
   // on is for everything but necofs and the other is for necofs.
   // necofs on occasion just times out so go ahead without it.
-  forecastDataReady (data_queried, results) {
+  forecastDataReady (data_queried, results, startDate) {
     let rdt_temp:string ;
     let resultdatems:number;
     let dKey:any;
@@ -627,7 +630,7 @@ export class WaveProvider {
     // They are both set at the same time! I can't figure it out!
     // if ( buoyDataObject.initialized && dwwDataObject.initialized  ) {
       // wave chart
-      let wave_array : any = this.waveObjects[waveKey].drawWaveChart(this.appConfig);
+      let wave_array : any = this.waveObjects[waveKey].drawWaveChart(this.appConfig, startDate);
       this.waveChart = wave_array['chartConfig'];
       this.forecast_ready = true ;
       // Assume that if we got this far the user has made a selection
@@ -710,13 +713,13 @@ class WaveObject {
     this.buoy_name = this.ml_name;
 
     var date_now = new Date();
-    var start_date = waveService.appConfig.getStartDate() ;
+    var start_date = waveService.appConfig.getCcdFcstStartDate() ;
     // var datems = Date.parse(start_date).getTime();
     var datems = start_date.getTime();
     this.hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
     // get a start and end date in ms to limit necofs data displayed.
     this.start_date_ms = datems ;
-    this.end_date_ms = waveService.appConfig.getEndDate().getTime();
+    this.end_date_ms = waveService.appConfig.getCcdFcstEndDate().getTime();
   }
   getNECOFSWaveURL() {
     // NECOFS forecast
@@ -799,9 +802,9 @@ class WaveObject {
     return( neracoosProxyURL );
   }
   // the array contains erddap start and end metadata
-  getERDDAPObservationURL(appConfig, parameters, erddap_array) {
+  getERDDAPObservationURL(appConfig, parameters, erddap_array, startDate, endDate) {
     let mpKey:any;
-    var date_range = this.appConfig.getERDDAPDateRange(erddap_array) ;
+    var date_range = this.appConfig.getERDDAPDateRange(erddap_array, startDate, endDate) ;
     var date_start_iso = date_range['date_start_iso'];
     var date_end_iso = date_range['date_end_iso'];
     // http://www.neracoos.org/erddap/tabledap/A01_met_all.json?station%2Ctime%2Cmooring_site_desc%2Cair_temperature%2Cair_temperature_qc%2Cbarometric_pressure%2Cbarometric_pressure_qc%2Cwind_gust%2Cwind_gust_qc%2Cwind_speed%2Cwind_speed_qc%2Cwind_direction%2Cwind_direction_qc%2Cvisibility%2Cvisibility_qc%2Clongitude%2Clatitude%2Cdepth&time%3E=2017-09-01T00%3A00%3A00Z&time%3C=2017-09-08T12%3A00%3A00Z
@@ -846,7 +849,8 @@ class WaveObject {
     var buoyObservationsURL = 'http://' + appConfig.getNJSProxyNeracoosHostPrefix() + queryString ;
     return( buoyObservationsURL);
   }
-  drawWaveChart(appConfig) {
+  // allow for custom start date. This is for a forecast current conditions range
+  drawWaveChart(appConfig, startDate) {
     var ret_array = [] ;
     var new_series = [];
     var yaxis_array = [];
@@ -1476,7 +1480,7 @@ class WaveObject {
             },
             rotation: -45
         },
-        min: appConfig.getStartDate().getTime(),
+        min: startDate.getTime(),
         max: appConfig.getEndDate().getTime(),
         tickInterval: appConfig.getChartTickIntervalsInMinutes() * 60 * 1000,
         allowDecimals: true,

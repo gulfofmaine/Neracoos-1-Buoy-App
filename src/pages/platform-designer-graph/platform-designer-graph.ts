@@ -103,7 +103,8 @@ export class PlatformDesignerGraphPage {
               if ( 0 ) {
                 // the original pick the dataset with the most matches
                 erddapDatasetReturnArray = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-                                                location_name, dataTypesNotFound, false );
+                                                location_name, dataTypesNotFound, false,
+                                                this.appConfig.getStartDate(), this.appConfig.getEndDate );
                 if ( erddapDatasetReturnArray['datasetMatched'] != undefined ) {
                   datasetsMatched.push(erddapDatasetReturnArray['datasetMatched']) ;
                   dataTypesNotFound = erddapDatasetReturnArray['dataTypesNotFound'];
@@ -117,7 +118,8 @@ export class PlatformDesignerGraphPage {
               } else {
                 // the new and improved get all datasets with data that matches.
                 erddapDatasetReturnArray = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-                                                location_name, dataTypesNotFound, true );
+                                                location_name, dataTypesNotFound, true,
+                                                this.appConfig.getStartDate(), this.appConfig.getEndDate() );
                 if ( erddapDatasetReturnArray['allDatasestMatched'] != undefined ) {
                   // save them all
                   for ( dFoundKey in erddapDatasetReturnArray['allDatasestMatched']) {
@@ -151,7 +153,7 @@ export class PlatformDesignerGraphPage {
               dataset_available = this.metService.setUpDataset(this.appConfig.date_changed,
                                 this.appConfig.gmriUnits.skip_plotting_parameters,
                                erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
-                               'multiple_dataset');
+                               'multiple_dataset', this.appConfig.getStartDate(), this.appConfig.getEndDate());
               // Data may or may not have already been requested.
               if ( dataset_available['dataAvailable'] ) {
                 erddapGraphDatasets.push(dataTypeMagicKey);
@@ -306,14 +308,14 @@ export class PlatformDesignerGraphPage {
         console.log( event_obj.name ) ;
         if ( event_obj.name == "initial_platform_data_loaded" ) {
           if ( this.waveService.isInitialized() ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             this.appConfig.displayedErrorMessage = false;
           }
         }
       });
     }
     if ( everybodyReady) {
-      this.waveService.getWaveData(false);
+      this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       this.appConfig.displayedErrorMessage = false;
     }
   }
@@ -324,7 +326,7 @@ export class PlatformDesignerGraphPage {
       popover.onDidDismiss(data => {
         if ( data != "cancel" ) {
           this.appConfig.displayedErrorMessage = false;
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       });
       popover.present({

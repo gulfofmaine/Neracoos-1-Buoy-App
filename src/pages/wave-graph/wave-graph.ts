@@ -42,7 +42,7 @@ export class WaveGraphPage {
       if ( this.waveService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.waveDisplayedErrorMessage == false ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       }
     });
@@ -62,7 +62,7 @@ export class WaveGraphPage {
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.waveDisplayedErrorMessage == false ) {
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       } else {
           this.menuCtrl.open('right');
       }
@@ -72,7 +72,7 @@ export class WaveGraphPage {
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
             if ( this.appConfig.getPlatformName() != undefined ) {
-                this.waveService.getWaveData(false);
+                this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             } else {
                 this.menuCtrl.open('right');
             }
@@ -146,14 +146,14 @@ export class WaveGraphPage {
         console.log( event_obj.name ) ;
         if ( event_obj.name == "initial_platform_data_loaded" ) {
           if ( this.waveService.isInitialized() ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             this.appConfig.waveDisplayedErrorMessage = false;
           }
         }
       });
     }
     if ( everybodyReady) {
-      this.waveService.getWaveData(false);
+      this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       this.appConfig.waveDisplayedErrorMessage = false;
     }
   }
@@ -164,7 +164,7 @@ export class WaveGraphPage {
       popover.onDidDismiss(data => {
         if ( data != "cancel" ) {
           this.appConfig.waveDisplayedErrorMessage = false;
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       });
       popover.present({

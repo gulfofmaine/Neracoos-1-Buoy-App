@@ -22,6 +22,7 @@ export class PlatformDataPage {
   private timer;
   // Subscription object
   private sub: Subscription;
+  dataDisplay: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
                 public appConfig: AppConfig,
@@ -34,7 +35,7 @@ export class PlatformDataPage {
       if ( this.waveService.isInitialized()  ) {
         // if a choice has been made and there was not previous error go directly to the page
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       }
       if ( this.metService.isInitialized()  ) {
@@ -42,7 +43,7 @@ export class PlatformDataPage {
         if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
           // first set the metServices bookkeeping array for web services to empty
           this.metService.resetDataGet();
-          this.getDatasetsData() ;
+          this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
         }
       }
     });
@@ -76,7 +77,7 @@ export class PlatformDataPage {
     if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-        this.getDatasetsData() ;
+        this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
       } else {
           this.menuCtrl.open('right');
       }
@@ -86,7 +87,7 @@ export class PlatformDataPage {
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
             if ( this.appConfig.getPlatformName() != undefined ) {
-              this.getDatasetsData() ;
+              this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
             } else {
                 this.menuCtrl.open('right');
             }
@@ -95,7 +96,7 @@ export class PlatformDataPage {
       });
     }
   }
-  getDatasetsData() {
+  getDatasetsData(startDate, endDate) {
     let erddapDatasetId: any;
     let erddapDatasetKey: any ;
     let erddapGraphDatasets: any = [] ;
@@ -122,9 +123,10 @@ export class PlatformDataPage {
             let dataTypeMagicKey: string = erddapDatasetId.substr(erddapDatasetId.indexOf("_") + 1 ) ;
             // a blank array is a signal to use them all.
             let visible_parameters: any = [] ;
-            dataset_available = this.metService.setUpDataset(false, this.appConfig.gmriUnits.skip_plotting_parameters,
+            dataset_available = this.metService.setUpDataset(false,
+                    this.appConfig.gmriUnits.skip_plotting_parameters,
                     erddapDatasetId, dataTypeMagicKey, visible_parameters, location_name,
-                    'no_graph_single_dataset');
+                    'no_graph_single_dataset', startDate, endDate);
             // Data may or may not have already been requested.
             // only add if the data is available
             if ( dataset_available['dataAvailable'] ) {
@@ -150,20 +152,36 @@ export class PlatformDataPage {
       }
     }
   }
+  // create a structure of data for this page
+  pageDisplayData() {
+    let ret_val: any = [] ;
+    let mKey: any ;
+    let dataItem: any ;
+    let dtD: string;
+    // walk the dataDisplay series created and look for desired parameters
+    for ( mKey in this.metService.dataDisplay.seriesArray ) {
+      dtD = this.metService.dataDisplay.seriesArray[mKey].seriesGraph.data_type_description ;
+      if ( this.appConfig.mariner_data_type_descriptions.indexOf(dtD) != -1 ) {
+        dataItem = this.metService.dataDisplay.seriesArray[mKey] ;
+        ret_val.push(dataItem) ;
+      }
+    }
+    return( ret_val );
+  }
   // filters platform, station
   platformTapped(event, item) {
     if ( item.properties.name != undefined ) {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       this.appConfig.setDateFromInterface();
       this.metService.resetDataGet();
-      this.getDatasetsData() ;
+      this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
     }
     this.menuCtrl.close();
   }
   dataMenuClosed() {
     this.appConfig.setDateFromInterface();
     this.metService.resetDataGet();
-    this.getDatasetsData() ;
+    this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
   }
 
 }

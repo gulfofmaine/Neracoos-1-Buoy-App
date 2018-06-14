@@ -23,10 +23,14 @@ export class GMRIOISSTLayer extends GMRIOpenlayers1Layer {
     this.sortNumber = 11 ;
     this.type = 'sst';
     this.displayName = "OISST";
-    this.URL = 'https://www.ncei.noaa.gov/thredds/wms/ncFC/fc-oisst-daily-avhrr-only-dly/OISST_Daily_AVHRR-only_Feature_Collection_best.ncd';
+    // https://www.ncei.noaa.gov/thredds/wms/ncFC/fc-oisst-daily-avhrr-only-dly-prelim/OISST_Preliminary_Daily_AVHRR-only_Feature_Collection_best.ncd?service=WMS&version=1.3.0&request=GetCapabilities
+    // this.URL = 'https://www.ncei.noaa.gov/thredds/wms/ncFC/fc-oisst-daily-avhrr-only-dly/OISST_Daily_AVHRR-only_Feature_Collection_best.ncd';
+    this.URL = 'https://www.ncei.noaa.gov/thredds/wms/ncFC/fc-oisst-daily-avhrr-only-dly-prelim/OISST_Preliminary_Daily_AVHRR-only_Feature_Collection_best.ncd'
     // Not happy with straight Date();
     // The value "2018-05-31T15:04:40.552Z" is not valid for the TIME dimension
-    this.date = new Date(1525996800000);
+    // this.date = new Date(1525996800000);
+    // this.date = new Date();
+    this.date = new Date("2018-06-02T00:00:00.000Z") ;
     this.colorscalerange = '-5,35';
 
     this.attribution = new ol.Attribution({
@@ -88,7 +92,8 @@ export class AXIOMMUR2_analysedSSTLayer extends GMRIOpenlayers1Layer {
     this.useTextLegendTitle = true ;
     // Not happy with straight Date();
     // The value "2018-05-31T15:04:40.552Z" is not valid for the TIME dimension
-    this.date = new Date(1525996800000);
+    // this.date = new Date(1525996800000);
+    this.date = new Date() ;
     this.colorscalerange = '272.039,303.7058';
 
     this.attribution = new ol.Attribution({

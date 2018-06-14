@@ -47,7 +47,7 @@ export class PlatformGraphPage {
     });
     // subscribe to the page loading event
     events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
-      this.drawPlatformGraphs();
+      this.drawPlatformGraphs(this.appConfig.getStartDate(), this.appConfig.getEndDate());
     });
     // subscribe to graph drawn event
     events.subscribe('graphingFinished', (graph_type) => {
@@ -75,8 +75,8 @@ export class PlatformGraphPage {
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-          this.waveService.getWaveData(false);
-          this.drawPlatformGraphs();
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
+          this.drawPlatformGraphs(this.appConfig.getStartDate(), this.appConfig.getEndDate());
       } else {
           this.menuCtrl.open('right');
       }
@@ -86,7 +86,7 @@ export class PlatformGraphPage {
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
             if ( this.appConfig.getPlatformName() != undefined ) {
-                this.waveService.getWaveData(false);
+                this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             } else {
                 this.menuCtrl.open('right');
             }
@@ -160,14 +160,14 @@ export class PlatformGraphPage {
         console.log( event_obj.name ) ;
         if ( event_obj.name == "initial_platform_data_loaded" ) {
           if ( this.waveService.isInitialized() ) {
-            this.waveService.getWaveData(false);
+            this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             this.appConfig.displayedErrorMessage = false;
           }
         }
       });
     }
     if ( everybodyReady) {
-      this.waveService.getWaveData(false);
+      this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       this.appConfig.displayedErrorMessage = false;
     }
   }
@@ -178,7 +178,7 @@ export class PlatformGraphPage {
       popover.onDidDismiss(data => {
         if ( data != "cancel" ) {
           this.appConfig.displayedErrorMessage = false;
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
         }
       });
       popover.present({
@@ -191,20 +191,20 @@ export class PlatformGraphPage {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       this.appConfig.setDateFromInterface();
       this.metService.resetDataGet();
-      this.drawPlatformGraphs() ;
+      this.drawPlatformGraphs(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
     }
     this.menuCtrl.close();
   }
   graphMenuClosed() {
     this.appConfig.setDateFromInterface();
     this.metService.resetDataGet();
-    this.drawPlatformGraphs() ;
+    this.drawPlatformGraphs(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
   }
-  drawPlatformGraphs() {
+  drawPlatformGraphs(startDate, endDate) {
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, startDate, endDate);
       }
     }
     if ( this.metService.isInitialized()  ) {
@@ -221,7 +221,7 @@ export class PlatformGraphPage {
         let dataTypeMagicKey: string = "ERDDAP_MET_OBSERVATIONS" ;
         erddapGraphDatasets.push(dataTypeMagicKey) ;
         this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
-                    'custom_observations');
+                    'custom_observations', startDate, endDate);
         // SBE16 Oxygen and more
         visible_parameters = ['temperature', 'salinity',
                       'dissolved_oxygen', 'oxygen_saturation', 'percent_oxygen_saturation',
@@ -231,7 +231,7 @@ export class PlatformGraphPage {
         dataTypeMagicKey = "ERDDAP_SBE16_OBSERVATIONS" ;
         erddapGraphDatasets.push(dataTypeMagicKey) ;
         this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
-                    'custom_observations');
+                    'custom_observations', startDate, endDate);
         // make the request
         let graph_instructions: any = {
           graph_type: 'custom_observations',

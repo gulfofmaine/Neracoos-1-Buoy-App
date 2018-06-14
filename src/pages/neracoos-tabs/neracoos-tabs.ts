@@ -47,7 +47,7 @@ export class NeracoosTabsPage {
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.waveDisplayedErrorMessage == false ) {
-          this.waveService.getWaveData(false);
+          this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
       } else {
           // this.menuCtrl.open('right');
       }
@@ -57,7 +57,7 @@ export class NeracoosTabsPage {
         switch (event_obj.name) {
           case "initial_platform_data_loaded":
             if ( this.appConfig.getPlatformName() != undefined ) {
-                this.waveService.getWaveData(false);
+                this.waveService.getWaveData(false, this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate());
             } else {
                 // this.menuCtrl.open('right');
             }

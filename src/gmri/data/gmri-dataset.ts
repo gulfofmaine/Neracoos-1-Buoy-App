@@ -51,9 +51,9 @@ export class GMRIDataset {
   }
   // check if this dataset has already acquired the data it would need
   // for the date range
-  isDataAcquired(appConfig) {
+  isDataAcquired(appConfig, startDate, endDate) {
     let ret_val: boolean = false ;
-    let date_range: any = appConfig.getERDDAPDateRange(null) ;
+    let date_range: any = appConfig.getERDDAPDateRange(null, startDate, endDate) ;
     let date_start_msse: number = date_range['date_start_msse'];
     let date_end_msse: number = date_range['date_end_msse'];
     // if the requested start time is between the data already acquireds start and end
@@ -69,10 +69,10 @@ export class GMRIDataset {
   }
   // redundant I know but at some point we may need to have an even more involved
   // definition of initialized.
-  isInitialized(appConfig) {
+  isInitialized(appConfig, startDate, endDate) {
     let ret_val: boolean = false ;
     if ( this.observationData != null && this.observationData != undefined ) {
-      ret_val = this.isDataAcquired(appConfig) ;
+      ret_val = this.isDataAcquired(appConfig, startDate, endDate) ;
     }
     return(ret_val);
   }
@@ -106,9 +106,9 @@ export class GMRIDataset {
     this.end_date_ms = appConfig.getEndDate().getTime();
   }
   // the array contains erddap start and end metadata
-  getERDDAPObservationURL(appConfig, parameters, erddap_array) {
+  getERDDAPObservationURL(appConfig, parameters, erddap_array, startDate, endDate) {
     let mpKey:any;
-    var date_range = this.appConfig.getERDDAPDateRange(erddap_array) ;
+    var date_range = this.appConfig.getERDDAPDateRange(erddap_array, startDate, endDate) ;
     var date_start_iso = date_range['date_start_iso'];
     var date_end_iso = date_range['date_end_iso'];
     // http://www.neracoos.org/erddap/tabledap/A01_met_all.json?station%2Ctime%2Cmooring_site_desc%2Cair_temperature%2Cair_temperature_qc%2Cbarometric_pressure%2Cbarometric_pressure_qc%2Cwind_gust%2Cwind_gust_qc%2Cwind_speed%2Cwind_speed_qc%2Cwind_direction%2Cwind_direction_qc%2Cvisibility%2Cvisibility_qc%2Clongitude%2Clatitude%2Cdepth&time%3E=2017-09-01T00%3A00%3A00Z&time%3C=2017-09-08T12%3A00%3A00Z

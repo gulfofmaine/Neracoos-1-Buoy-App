@@ -158,7 +158,8 @@ export class MetProvider {
   // setup a single dataset and all it's variables for a dataget
   // it's just a little different than setUpData below.
   setUpDataset(force_refresh, skip_plotting_parameters, erddapDatasetId,
-            dataTypeMagicKey, visible_parameters, location_name, graph_type) {
+            dataTypeMagicKey, visible_parameters, location_name, graph_type,
+            startDate, endDate) {
     let ret_val : any = [] ;
     let dataType: any ;
     ret_val['dataAvailable'] = false ;
@@ -173,7 +174,7 @@ export class MetProvider {
     // var hours_back = Math.round((date_now.getTime() - datems) / (60*60*1000));
     let datsetKey = this.getDatasetKeyFromDatasetId(location_name, erddapDatasetId, this.appConfig)
     // getDatasetKey generates a dataset if none was found.
-    if ( !this.gmriDatasets[datsetKey].isInitialized(this.appConfig) || force_refresh ) {
+    if ( !this.gmriDatasets[datsetKey].isInitialized(this.appConfig, startDate, endDate) || force_refresh ) {
       // first use the meta data already initialized
       let mlMetaData = this.appConfig.getMonitoringLocationMetadata( location_name);
       this.gmriDatasets[datsetKey].initialize_dataset_object( mlMetaData, this.appConfig ) ;
@@ -202,14 +203,16 @@ export class MetProvider {
       // save these for drawing the graph.
       this.gmriDatasets[datsetKey].plottedParameters[graph_type] = visible_parameters ;
       let return_erddap: any = this.appConfig.neracoosErddap.getDatasetDateRange(this.appConfig,
-                                      this.gmriDatasets[datsetKey].ml_name, erddapDatasetId );
+                                      this.gmriDatasets[datsetKey].ml_name, erddapDatasetId,
+                                      startDate, endDate );
       if ( return_erddap.datasetMatched['datasetID'] != null &&
             return_erddap.datasetMatched['start_time_msse'] != undefined &&
             return_erddap.datasetMatched['end_time_msse'] != undefined) {
         // save this date range in the dataset
         this.gmriDatasets[datsetKey].setDatasetRetrievedDateRange(return_erddap.datasetMatched['start_time_msse'],
                                       return_erddap.datasetMatched['end_time_msse'] );
-        let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
+        let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes,
+                                     return_erddap, startDate, endDate) ;
         this.dataGetUrls.push(getErdObsURL) ;
         let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());
         // 9/11/2017 get erddap to use jsonp.
@@ -249,7 +252,8 @@ export class MetProvider {
   }
   // set up the data gets for these data types of interest.
   // NOTE: they should identify with a single datasetID
-  setUpData(force_refresh, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey, graph_type) {
+  setUpData(force_refresh, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
+                      graph_type, startDate, endDate) {
     let ret_val : boolean = false ;
     // providing an array of urls
     // buoy dates
@@ -262,7 +266,7 @@ export class MetProvider {
     // look for some sample data types to see if we already have this dataset
     let datsetKey = this.getDatasetKey(location_name, erdDataTypeOfInterest, this.appConfig);
     // getDatasetKey generates a dataset if none was found.
-    if ( !this.gmriDatasets[datsetKey].isInitialized(this.appConfig) || force_refresh ) {
+    if ( !this.gmriDatasets[datsetKey].isInitialized(this.appConfig, startDate, endDate) || force_refresh ) {
       // setup the prameteter Visibility
       this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(0, visible_parameters);
       this.gmriDatasets[datsetKey].setInterfaceLevelParameterVisibility(1, visible_parameters);
@@ -280,7 +284,8 @@ export class MetProvider {
       // from that dataset, then ask for all the data. What if that datatype isn't there?
       // for example the sensor has broken.
       let return_erddap_dtoiID: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-                                      this.gmriDatasets[datsetKey].ml_name, erdDataTypeOfInterest, false );
+                                      this.gmriDatasets[datsetKey].ml_name,
+                                      erdDataTypeOfInterest, false, startDate, endDate );
       if ( return_erddap_dtoiID.datasetMatched['datasetID'] != null &&
             return_erddap_dtoiID.datasetMatched['ret_date_start_msse'] != undefined &&
             return_erddap_dtoiID.datasetMatched['ret_date_end_msse'] != undefined ) {
@@ -295,9 +300,10 @@ export class MetProvider {
         // returns a straight up array
         let erdDataTypes: any = this.gmriDatasets[datsetKey].getDataVariables() ;
         let return_erddap: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
-              this.gmriDatasets[datsetKey].ml_name, erdDataTypes, false );
+              this.gmriDatasets[datsetKey].ml_name, erdDataTypes, false, startDate, endDate );
         if ( return_erddap.datasetMatched['datasetID'] != null ) {
-          let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes, return_erddap) ;
+          let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig,
+                        erdDataTypes, return_erddap, startDate, endDate) ;
           this.dataGetUrls.push(getErdObsURL) ;
           let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());
           // 9/11/2017 get erddap to use jsonp.
