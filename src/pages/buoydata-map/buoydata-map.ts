@@ -549,7 +549,7 @@ export class BuoydataMapPage {
                 this.navCtrl.push(MarinerTabsPage);
                 break;
               default:
-                locations = this.monitoring_locations ;
+                // locations = this.monitoring_locations ;
                 break;
             }
             break;
