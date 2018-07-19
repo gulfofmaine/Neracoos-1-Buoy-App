@@ -174,14 +174,72 @@ export class PlatformDataPage {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       this.appConfig.setDateFromInterface();
       this.metService.resetDataGet();
-      this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
+      // limit the data ask by using CurrentConditions Forecast dates.
+      this.getDatasetsData(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
+
+
+      this.metService.metProvUpdates().subscribe( event_obj => {
+        console.log( event_obj.name ) ;
+        switch (event_obj.name) {
+          case "no_graph_single_dataset_data_available":
+            // get the parameters
+            let parameters : any = this.pageDisplayData();
+            let visible_parameters: any = [];
+            visible_parameters.push(parameters[0].seriesGraph.parameter) ;
+            // draw a graph using the first parameter
+            this.drawParameterGraph(visible_parameters, this.appConfig.getCcdFcstStartDate(),
+                                    this.appConfig.getCcdFcstEndDate());
+            break;
+        }
+      });
     }
     this.menuCtrl.close();
   }
   dataMenuClosed() {
     this.appConfig.setDateFromInterface();
     this.metService.resetDataGet();
-    this.getDatasetsData(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
+      // limit the data ask by using CurrentConditions Forecast dates.
+    this.getDatasetsData(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
+  }
+  changeGraph(item) {
+    // get the parameters
+    let visible_parameters: any = [];
+    visible_parameters.push(item.seriesGraph.parameter) ;
+    // draw a graph using the first parameter
+    this.drawParameterGraph(visible_parameters, this.appConfig.getCcdFcstStartDate(),
+                            this.appConfig.getCcdFcstEndDate());
+  }
+  drawParameterGraph(visible_parameters, startDate, endDate) {
+    let pKey: any ;
+    let erdDataTypeOfInterest  : any = [] ;
+    if ( this.metService.isInitialized()  ) {
+      let erddapGraphDatasets : any = [] ;
+      // if a choice has been made and there was not previous error go directly to the page
+      if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
+        // first set the metServices bookkeeping array for web services to empty
+        this.metService.resetDataGet();
+        // meterological data
+        // [ "water_temperature", "water_temperature_qc"];
+        for ( pKey in visible_parameters  ) {
+          erdDataTypeOfInterest.push(visible_parameters[pKey]) ;
+          erdDataTypeOfInterest.push(visible_parameters[pKey] + "_qc") ;
+        }
+        let dataTypeMagicKey: string = "ERDDAP_SINGLE_PARAMETER" ;
+        erddapGraphDatasets.push(dataTypeMagicKey) ;
+        // erdDataTypeOfInterest is used to find the correct dataset
+        // visible_parameters tells us what parameters to show.
+        this.metService.setUpData(false, visible_parameters, erdDataTypeOfInterest, dataTypeMagicKey,
+                    'custom_observations', startDate, endDate);
+        // make the request
+        let graph_instructions: any = {
+          graph_type: 'custom_observations',
+          graph_datasets: erddapGraphDatasets,
+          graph_erdDataTypeOfInterest: erdDataTypeOfInterest,
+          graph_title_postfix: ''
+        }
+        this.metService.getData(this.appConfig.gmriUnits.skip_plotting_parameters, graph_instructions);
+      }
+    }
   }
 
 }

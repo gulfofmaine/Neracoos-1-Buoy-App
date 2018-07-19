@@ -29,8 +29,16 @@ import { JsonpModule} from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { WaterlevelProvider } from '../providers/waterlevel/waterlevel';
-import { ChartModule } from 'angular2-highcharts';
+// import { ChartModule } from 'angular2-highcharts';
 import { MetProvider } from '../providers/met/met';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular2-highcharts';
+import exporting from 'highcharts/modules/exporting.src';
+import windbarb from 'highcharts-windbarb/windbarb.js';
+
+export function highchartsModules() {
+  // apply Highcharts Modules to this array
+  return [ exporting,windbarb ];
+}
 
 declare var require: any;
 @NgModule({
@@ -97,7 +105,8 @@ declare var require: any;
     AppConfig,
     DatePipe,
     HttpClient,
-    MetProvider
+    MetProvider,
+    { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }
   ]
 })
 export class AppModule {}

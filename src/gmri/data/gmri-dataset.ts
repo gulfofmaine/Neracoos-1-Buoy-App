@@ -1,5 +1,6 @@
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import {sprintf} from "sprintf-js";
+import moment from 'moment';
 
 export class GMRIDataset {
 
@@ -201,7 +202,7 @@ export class GMRIDataset {
     let displayed_units: any ;
     let point_count: number = 0 ;
     let windbarb_point: any ;
-    let use_windbarb: boolean = false ;
+    let use_windbarb: boolean = true ;
     let depths: any = [] ;
     // check for depths
     let depth_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'depth' );
@@ -538,7 +539,7 @@ export class GMRIDataset {
     let chart_sub_title: string = '' ;
     if ( chart_title.length == 0 ) {
       chart_title = platform_name ;
-      if ( dataset_type != undefined ) {
+      if ( dataset_type != undefined && dataset_type != "" ) {
         chart_title += " - " + dataset_type ;
       }
     }
@@ -810,6 +811,8 @@ export class GMRIDataset {
     let ret_array: any = [] ;
     let seriesNew: any ;
     let sKey: any ;
+    let tStamp: any;
+    let latestTStamp: any;
     let dataConfig: any = {
       title: dataTitle,
       subtitle: dataSubTitle,
@@ -821,6 +824,9 @@ export class GMRIDataset {
       seriesNew.seriesGraph = seriesArray[sKey];
       // this relies on having asked for up to the minute data
       seriesNew.latestValue = seriesArray[sKey].data[seriesArray[sKey].data.length-1];
+      latestTStamp = seriesNew.latestValue[0] ;
+      tStamp = Date(latestTStamp);
+      seriesNew.latestTimestamp = moment(tStamp).format('h:mm a MMM Do YYYY') ;
       seriesNew.displayValue = appConfig.gmriUnits.getDisplayString( seriesArray[sKey].parameter,
                         seriesArray[sKey].units,
                         seriesNew.latestValue[1], seriesArray[sKey].measurement_system );

@@ -159,7 +159,7 @@ export class AppConfig {
   neracoos_platform_names: any = ['A01','B01','E01', 'F01','I01','M01', 'J02',
                               'N01'];
   // display data types with these descriptions
-  mariner_data_type_descriptions: any = [ 'Wave Height', 'Wind gust', 'Wind speed',
+  mariner_data_type_descriptions: any = [ 'Wave Height', 'Wind gust', 'Wind speed', 'Wind direction',
             'Air temperature', 'Visibility', 'Atomospheric pressure', 'Water temperature 2m']
 
   constructor( public datePipe: DatePipe,
@@ -447,6 +447,11 @@ export class AppConfig {
     switch ( this.selected_interface ) {
       case 'neracoos':
       case 'neracoos_gmri':
+        if ( this.neracoos_platform_names.indexOf(platform_name ) != -1 ) {
+          display = true ;
+        }
+        break;
+      case 'mariner':
         if ( this.neracoos_platform_names.indexOf(platform_name ) != -1 ) {
           display = true ;
         }

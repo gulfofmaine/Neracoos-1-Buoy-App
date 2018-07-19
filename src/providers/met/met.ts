@@ -32,6 +32,7 @@ export class MetProvider {
   barometricPressure: any;
   conductivitySigmaTChart: any;
   designerChart: any ;
+  singleParameterChart: any;
 
   met_all: any;
   sbe16_all: any;
@@ -463,6 +464,13 @@ export class MetProvider {
                   mlKey = this.getDatasetKey(ml_location_name, erdDataTypeOfInterest, this.appConfig);
                   this.gmriDatasets[mlKey].observationData = results[dKey] ;
                   break;
+                case 'ERDDAP_SINGLE_PARAMETER':
+                  // get the object for this location
+                  ml_location_name= this.appConfig.platform_name ;
+                  mlKey = this.getDatasetKey(ml_location_name,
+                              graph_instructions.graph_erdDataTypeOfInterest, this.appConfig);
+                  this.gmriDatasets[mlKey].observationData = results[dKey] ;
+                  break;
                 default:
                   break;
               } // end of switch on types_array values
@@ -761,6 +769,19 @@ export class MetProvider {
                                             ml_location_name);
                   this.conductivitySigmaTChart = chart_results['chartConfig'];
                   break;
+                case 'ERDDAP_SINGLE_PARAMETER':
+                  // get the object for this location
+                  ml_location_name  = this.appConfig.platform_name ;
+                  mlKey = this.getDatasetKey(ml_location_name, graph_instructions.graph_erdDataTypeOfInterest,
+                                                 this.appConfig);
+                  parameters = this.gmriDatasets[mlKey].plottedParameters[graph_instructions.graph_type];
+                  // chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
+                  chart_results = this.gmriDatasets[mlKey].createChart(this.appConfig,
+                                            parameters,
+                                            measurement_system, graph_instructions.graph_title_postfix,
+                                            ml_location_name);
+                  this.singleParameterChart = chart_results['chartConfig'];
+                  break;
                 default:
                   break;
               } // end of switch on graph_instructions.graph_datasets values
@@ -934,6 +955,11 @@ export class MetProvider {
                                           ml_location_name);
               */
               this.dataDisplay = data_results['dataConfig'] ;
+              // send out an event object
+              let event_obj: any = { name: "no_graph_single_dataset_data_available" };
+              if ( this.metProvObserver != undefined ) {
+                this.metProvObserver.next(event_obj);
+              }
             break;
           default:
             break;
