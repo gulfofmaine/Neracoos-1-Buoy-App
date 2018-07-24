@@ -14,8 +14,8 @@ import { PlatformDesignerGraphPage } from '../platform-designer-graph/platform-d
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
- declare var require;
- require('highcharts-windbarb');
+ //declare var require;
+ //require('highcharts-windbarb');
 
 @Component({
   selector: 'page-neracoos-tabs',

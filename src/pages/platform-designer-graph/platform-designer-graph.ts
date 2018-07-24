@@ -5,15 +5,15 @@ import { Observable, Subscription } from 'rxjs/Rx';
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import Highcharts from 'highcharts/highstock';
+// import Highcharts from 'highcharts/highstock';
 /**
  * Generated class for the PlatformGraphPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-declare var require;
-require('highcharts-windbarb');
+//declare var require;
+//require('highcharts-windbarb');
 
 @IonicPage()
 @Component({
@@ -39,12 +39,12 @@ export class PlatformDesignerGraphPage {
           public popoverCtrl: PopoverController,
           public menuCtrl: MenuController,
           public events: Events) {
-    Highcharts.setOptions({
-      global: {
-          useUTC: false
+    //Highcharts.setOptions({
+    //  global: {
+    //      useUTC: false
           // timezoneOffset: 5 * 60
-      }
-    });
+    //  }
+    //});
     // subscribe to selection changed event
     events.subscribe('buoySelectionChanged:rightmenu', () => {
       this.appConfig.enableMenu('page_comparison_menu') ;
@@ -228,6 +228,7 @@ export class PlatformDesignerGraphPage {
       if ( this.metService.designerChart != undefined && this.appConfig.displayedErrorMessage == false ) {
         let temp: string = 'temp';
         temp = 'temp';
+        temp = temp ;
       } else {
         this.menuCtrl.open('right');
         this.metService.metProvUpdates().subscribe( event_obj => {

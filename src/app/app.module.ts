@@ -17,8 +17,8 @@ import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs';
 import { MarinerTabsPage } from '../pages/mariner-tabs/mariner-tabs';
 import { MarinerForecastPage } from '../pages/mariner-forecast/mariner-forecast';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+//import { StatusBar } from '@ionic-native/status-bar';
+//import { SplashScreen } from '@ionic-native/splash-screen';
 import { BuoyDataProvider } from '../providers/buoy-data/buoy-data';
 import { MappingProvider } from '../providers/mapping/mapping';
 import { WaveProvider } from '../providers/wave/wave';
@@ -29,18 +29,22 @@ import { JsonpModule} from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { WaterlevelProvider } from '../providers/waterlevel/waterlevel';
-// import { ChartModule } from 'angular2-highcharts';
+// import { ChartModule } from 'angular-highcharts';
 import { MetProvider } from '../providers/met/met';
-import { ChartModule, HIGHCHARTS_MODULES } from 'angular2-highcharts';
-import exporting from 'highcharts/modules/exporting.src';
-import windbarb from 'highcharts-windbarb/windbarb.js';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import * as Highcharts from 'highcharts';
+import * as more from 'highcharts/highcharts-more.src';
+import * as exporting from 'highcharts/modules/exporting.src';
+import * as highstock from 'highcharts/modules/stock.src';
+// import exporting from 'highcharts/modules/exporting.src';
+// import windbarb from 'highcharts-windbarb/windbarb.js';
 
-export function highchartsModules() {
+//export function highchartsModules() {
   // apply Highcharts Modules to this array
-  return [ exporting,windbarb ];
-}
+  //return [ exporting,windbarb ];
+//}
 
-declare var require: any;
+// declare var require: any;
 @NgModule({
   declarations: [
     MyApp,
@@ -72,7 +76,7 @@ declare var require: any;
     HttpClientModule,
     JsonpModule,
     IonicStorageModule.forRoot(),
-    ChartModule.forRoot(require('highcharts/highstock'))
+    ChartModule // (require('highcharts/highstock'))
   ],
   exports: [
     ChartModule
@@ -94,19 +98,20 @@ declare var require: any;
     MarinerForecastPage
   ],
   providers: [
-    StatusBar,
+    //StatusBar,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BuoyDataProvider,
     MappingProvider,
     WaveProvider,
     GMRIUnits,
     WaterlevelProvider,
-    SplashScreen,
+    //SplashScreen,
     AppConfig,
     DatePipe,
     HttpClient,
     MetProvider,
-    { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }
+    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting, Highcharts, highstock ] }
+    // { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }
   ]
 })
 export class AppModule {}

@@ -826,6 +826,7 @@ class WaveObject {
     }
     path += ",longitude,latitude,depth&time>=" + date_start_iso ;
     path += "&time<=" + date_end_iso ;
+    path = path ;
     var neracoosUnproxiedURL = "http://www.neracoos.org" + path_jsonp ;
     // var encQS =  encodeURIComponent(path);
     // var encQS = path;

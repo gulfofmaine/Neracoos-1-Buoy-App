@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
-import Highcharts from 'highcharts/highstock';
+// import Highcharts from 'highcharts/highstock';
 /**
  * Generated class for the WaveGraph page.
  *
@@ -31,12 +31,12 @@ export class WaveGraphPage {
           public popoverCtrl: PopoverController,
           public menuCtrl: MenuController,
           public events: Events ) {
-    Highcharts.setOptions({
-      global: {
-          useUTC: false
+    //Highcharts.setOptions({
+    //  global: {
+    //      useUTC: false
           // timezoneOffset: 5 * 60
-      }
-    });
+    //  }
+    //});
     // subscribe to the page loading event
     events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
       if ( this.waveService.isInitialized()  ) {

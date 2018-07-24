@@ -1,7 +1,7 @@
 import { Component, ViewChild, Renderer  } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, App, PopoverController, MenuController, Events } from 'ionic-angular';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+// import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { Observable, Subscription } from 'rxjs/Rx';
 import { AppConfig } from '../../providers/appconfig/appconfig';
@@ -38,8 +38,9 @@ declare var ol: any;
   selector: 'page-buoydata-map',
   templateUrl: 'buoydata-map.html',
   providers: [Location,
-              {provide: LocationStrategy, useClass: PathLocationStrategy},
-              InAppBrowser]
+              {provide: LocationStrategy, useClass: PathLocationStrategy}// ,
+              //InAppBrowser]
+              ]
 })
 export class BuoydataMapPage {
 
@@ -79,7 +80,7 @@ export class BuoydataMapPage {
             public waveService: WaveProvider,
             public waterlevelService: WaterlevelProvider,
             public appCtrl: App,
-            public iap: InAppBrowser,
+            // public iap: InAppBrowser,
             public popoverCtrl: PopoverController,
             public menuCtrl: MenuController,
             public events: Events) {
@@ -328,6 +329,7 @@ export class BuoydataMapPage {
     // subscribe to the initialdata loaded event
     var temp = 1;
     temp++ ;
+    temp = temp ;
   }
   updateMapFeature(location_name, data_queried) {
     let layer: any = this.getFeatureLayer("INUNDATION");
@@ -530,8 +532,8 @@ export class BuoydataMapPage {
           case 'NOAA_CLICKOVERENABLED':
             var noaa_url = "http://www.ndbc.noaa.gov/station_page.php?station=" + location ;
             this.platform.ready().then(() => {
-              let browser: any = this.iap.create(noaa_url, "_system", "location=true");
-              browser.show();
+              //let browser: any = this.iap.create(noaa_url, "_system", "location=true");
+              //browser.show();
             });
             break;
           case 'NOAA':

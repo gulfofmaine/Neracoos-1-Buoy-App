@@ -5,6 +5,8 @@ import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
 import { Observable, Subscription } from 'rxjs/Rx';
+import { StockChart } from 'angular-highcharts';
+//import { Chart } from 'angular-highcharts';
 
 /**
  * Generated class for the PlatformDataPage page.
@@ -22,6 +24,7 @@ export class PlatformDataPage {
   private timer;
   // Subscription object
   private sub: Subscription;
+  singleParameterChart: any ;
   dataDisplay: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -190,8 +193,13 @@ export class PlatformDataPage {
             this.drawParameterGraph(visible_parameters, this.appConfig.getCcdFcstStartDate(),
                                     this.appConfig.getCcdFcstEndDate());
             break;
+          case "single_parameter_chart_available":
+            let chart_options: any = this.metService.singleParameterChart;
+            this.singleParameterChart = new StockChart(chart_options);
+            break;
         }
       });
+
     }
     this.menuCtrl.close();
   }

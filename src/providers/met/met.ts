@@ -781,6 +781,11 @@ export class MetProvider {
                                             measurement_system, graph_instructions.graph_title_postfix,
                                             ml_location_name);
                   this.singleParameterChart = chart_results['chartConfig'];
+                  // send out an event object
+                  let event_obj: any = { name: "single_parameter_chart_available" };
+                  if ( this.metProvObserver != undefined ) {
+                    this.metProvObserver.next(event_obj);
+                  }
                   break;
                 default:
                   break;

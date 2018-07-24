@@ -589,6 +589,9 @@ export class GMRIDataset {
       let ret_array: any = [] ;
       let chartConfig: any = {
       options: {
+        time: {
+          useUTC: false
+        }
       },
       //This is the Main Highcharts chart config. Any Highchart options are valid here.
       //will be overriden by values specified below.
@@ -825,7 +828,7 @@ export class GMRIDataset {
       // this relies on having asked for up to the minute data
       seriesNew.latestValue = seriesArray[sKey].data[seriesArray[sKey].data.length-1];
       latestTStamp = seriesNew.latestValue[0] ;
-      tStamp = Date(latestTStamp);
+      tStamp = new Date(latestTStamp);
       seriesNew.latestTimestamp = moment(tStamp).format('h:mm a MMM Do YYYY') ;
       seriesNew.displayValue = appConfig.gmriUnits.getDisplayString( seriesArray[sKey].parameter,
                         seriesArray[sKey].units,

@@ -20,6 +20,8 @@ export class HomePage {
               public appConfig: AppConfig,
               public waveService: WaveProvider,
               public waterlevelService: WaterlevelProvider) {
+      let temp:string = "temp";
+      temp = temp ;
 
   }
 

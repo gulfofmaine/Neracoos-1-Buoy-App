@@ -1,7 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PlatformGraphPage } from './platform-graph';
-import { ChartModule } from 'angular2-highcharts';
+import { ChartModule } from 'angular-highcharts';
 
 // import { windbarb } from 'highcharts-windbarb';
 // import * as highcharts from 'Highcharts';
@@ -9,7 +9,7 @@ import { ChartModule } from 'angular2-highcharts';
 // import { Highcharts } from 'angular2-highcharts';
 /// ('highcharts/highcharts-more')(Highcharts);
 // require('highcharts/modules/windbarb')(Highcharts);
-declare var require ;
+// declare var require ;
 
 @NgModule({
   declarations: [
@@ -17,9 +17,9 @@ declare var require ;
   ],
   imports: [
     IonicPageModule.forChild(PlatformGraphPage),
-    // ChartModule
-    ChartModule.forRoot(require('highcharts/highstock'),
-                  require('highcharts-windbarb'))
+    ChartModule,
+    // ChartModule.forRoot(require('highcharts/highstock'),
+    //              require('highcharts-windbarb'))
   ],
   exports: [
     PlatformGraphPage

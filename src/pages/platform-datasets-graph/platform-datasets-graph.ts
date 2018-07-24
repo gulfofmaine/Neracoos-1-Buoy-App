@@ -5,15 +5,15 @@ import { Observable, Subscription } from 'rxjs/Rx';
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import Highcharts from 'highcharts/highstock';
+// import Highcharts from 'highcharts/highstock';
 /**
  * Generated class for the PlatformDatasetsGraphPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-declare var require;
-require('highcharts-windbarb');
+//declare var require;
+//require('highcharts-windbarb');
 
 @Component({
   selector: 'page-platform-datasets-graph',
@@ -38,12 +38,12 @@ export class PlatformDatasetsGraphPage {
           public popoverCtrl: PopoverController,
           public menuCtrl: MenuController,
           public events: Events) {
-    Highcharts.setOptions({
-      global: {
-          useUTC: false
+    //Highcharts.setOptions({
+    //  global: {
+    //      useUTC: false
           // timezoneOffset: 5 * 60
-      }
-    });
+    //  }
+    //});
     // subscribe to the page loading event
     // now that the tap is handled in this class add _disabled
     // so I'm not really subscribed.

@@ -152,6 +152,7 @@ export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
     if ( location_name == 'FERRY_BEACH' ) {
       var temp = 1;
       temp++;
+      temp = temp;
     }
     let inundObj: any = inundationService.getMonitoringLocation(location_name);
     if ( inundObj != undefined &&  inundObj.stocktonForecast != undefined ) {

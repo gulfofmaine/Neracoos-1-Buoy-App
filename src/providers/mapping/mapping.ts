@@ -260,10 +260,12 @@ export class MappingProvider {
   eventListenerZoom(event) {
     var temp = 1;
     temp++;
+    temp = temp ;
   }
   eventListenerMouseMove(event) {
     var temp = 1;
     temp++;
+    temp = temp ;
   }
   refreshLayer( layer ) {
     let source: any = layer.getSource();

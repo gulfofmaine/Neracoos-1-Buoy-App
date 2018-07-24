@@ -53,7 +53,7 @@
     </ion-item>
   </ion-list>
 
-  <chart type="StockChart" [options]="metService.singleParameterChart"></chart>
+  <div [chart]="singleParameterChart"></div>
 </ion-content>
 
 <ion-nav [root]="PlatformDataPage" #platform_menu swipeBackEnabled="false" ></ion-nav>
