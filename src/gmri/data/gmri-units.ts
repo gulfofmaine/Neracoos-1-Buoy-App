@@ -990,4 +990,12 @@ export class GMRIUnits {
       }
     return(ret_val);
   }
+  // prevent us from walking off the end of the array
+  // after running out of preset color ramps
+  getComparisonColorRamp(index) {
+    let ramp_index_count: number = this.compare_color_ramps.length ;
+    let use_index = index % ramp_index_count ;
+    let color_ramp = this.compare_color_ramps[use_index];
+    return( color_ramp );
+  }
 }

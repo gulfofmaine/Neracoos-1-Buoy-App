@@ -31,7 +31,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { WaterlevelProvider } from '../providers/waterlevel/waterlevel';
 // import { ChartModule } from 'angular2-highcharts';
 import { MetProvider } from '../providers/met/met';
-import { ChartModule, HIGHCHARTS_MODULES } from 'angular2-highcharts';
+import { ChartModule } from 'angular2-highcharts';
 import exporting from 'highcharts/modules/exporting.src';
 import windbarb from 'highcharts-windbarb/windbarb.js';
 
@@ -105,8 +105,7 @@ declare var require: any;
     AppConfig,
     DatePipe,
     HttpClient,
-    MetProvider,
-    { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }
+    MetProvider
   ]
 })
 export class AppModule {}

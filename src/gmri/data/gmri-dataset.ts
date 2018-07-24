@@ -161,7 +161,7 @@ export class GMRIDataset {
   // set's up chart components such as series, yAxis's and titles
   // to be used together in a single chart
   //  a color ram index of -1 is a flag to use the parameter coloring scheme.
-  creatChartComponents(appConfig, parameters, measurement_system, dataset_type,
+  createChartComponents(appConfig, parameters, measurement_system, dataset_type,
           platform_name, colorRampIndex) {
     let ret_array: any = [] ;
     let new_series: any = [];
@@ -202,7 +202,7 @@ export class GMRIDataset {
     let displayed_units: any ;
     let point_count: number = 0 ;
     let windbarb_point: any ;
-    let use_windbarb: boolean = true ;
+    let use_windbarb: boolean = false ;
     let depths: any = [] ;
     // check for depths
     let depth_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'depth' );
@@ -216,6 +216,7 @@ export class GMRIDataset {
     this.chartComponents = {} ;
     this.chartComponents.yAxisArray = [] ;
     this.chartComponents.seriesArray = [] ;
+    let color_ramp: any ;
 
     if ( depth_index != '' ) {
       for (row_index in this.observationData.table.rows) {
@@ -339,7 +340,8 @@ export class GMRIDataset {
           series_object.platform_name = platform_name;
           series_object.units = displayed_units ;
           if ( colorRampIndex > -1 ) {
-            series_object.color = appConfig.gmriUnits.compare_color_ramps[colorRampIndex][dKey];
+            color_ramp = appConfig.gmriUnits.getComparisonColorRamp(colorRampIndex);
+            series_object.color = color_ramp[dKey];
           } else {
             series_object.color = appConfig.gmriUnits.getPlotColor(parameter, depth, dKey, depths);
           }
@@ -775,7 +777,7 @@ export class GMRIDataset {
     let component_results:any = [] ;
     let colorRampIndex: number = -1 ;
 
-    this.creatChartComponents(appConfig, plottedParameters, measurement_system,
+    this.createChartComponents(appConfig, plottedParameters, measurement_system,
                               dataset_type, location_name, colorRampIndex);
     // For the case of multi dataset graphs these items Titles, yAxis and Series
     // are done by chart component and then "assembled"
@@ -793,7 +795,7 @@ export class GMRIDataset {
     let component_results:any = [] ;
     let colorRampIndex: number = -1 ;
 
-    this.creatChartComponents(appConfig, plottedParameters, measurement_system,
+    this.createChartComponents(appConfig, plottedParameters, measurement_system,
                               dataset_type, location_name, colorRampIndex);
     // For the case of multi dataset graphs these items Titles, yAxis and Series
     // are done by chart component and then "assembled"
@@ -825,7 +827,7 @@ export class GMRIDataset {
       // this relies on having asked for up to the minute data
       seriesNew.latestValue = seriesArray[sKey].data[seriesArray[sKey].data.length-1];
       latestTStamp = seriesNew.latestValue[0] ;
-      tStamp = Date(latestTStamp);
+      tStamp = new Date(latestTStamp);
       seriesNew.latestTimestamp = moment(tStamp).format('h:mm a MMM Do YYYY') ;
       seriesNew.displayValue = appConfig.gmriUnits.getDisplayString( seriesArray[sKey].parameter,
                         seriesArray[sKey].units,

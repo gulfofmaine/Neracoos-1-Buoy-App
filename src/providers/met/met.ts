@@ -605,7 +605,7 @@ export class MetProvider {
               }
 
               dataTypeMagicKey = graph_instructions.graph_dataset_ids[dKey].substr(graph_instructions.graph_dataset_ids[dKey].indexOf("_") + 1 ) ;
-              this.gmriDatasets[mlKey].creatChartComponents(this.appConfig,
+              this.gmriDatasets[mlKey].createChartComponents(this.appConfig,
                                             this.gmriDatasets[mlKey].plottedParameters[graph_instructions.graph_type],
                                             measurement_system, dataTypeMagicKey,
                                             ml_location_name, colorRampIndex);
@@ -868,7 +868,7 @@ export class MetProvider {
                   }
                 }
                 dataTypeMagicKey = graph_instructions.graph_dataset_ids[dKey].substr(graph_instructions.graph_dataset_ids[dKey].indexOf("_") + 1 ) ;
-                this.gmriDatasets[mlKey].creatChartComponents(this.appConfig,
+                this.gmriDatasets[mlKey].createChartComponents(this.appConfig,
                                 this.gmriDatasets[mlKey].plottedParameters[graph_instructions.graph_type],
                                 measurement_system, dataTypeMagicKey,
                                 ml_location_name, colorRampIndex);
