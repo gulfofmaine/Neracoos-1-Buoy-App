@@ -4,3 +4,6 @@ up:
 
 down:
 	docker-compose down
+
+build:
+	docker-compose run ionic ionic build --prod
