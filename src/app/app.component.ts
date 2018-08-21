@@ -105,7 +105,6 @@ export class MyApp {
     let marinerMenu: Array<{title: string, component: any}>;
     marinerMenu = [
           { title: 'Home', component: HomePage },
-          { title: 'Buoy Map', component: BuoydataMapPage },
           { title: 'Platforms', component: MarinerTabsPage }
     ];
     let marinerMenuItem: any = {name: 'mariner', pages: marinerMenu };
