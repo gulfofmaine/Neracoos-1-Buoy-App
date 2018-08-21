@@ -4,7 +4,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
-import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map';
 import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs';
@@ -19,6 +18,7 @@ import { MarinerForecastPage } from '../pages/mariner-forecast/mariner-forecast'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HomePageModule } from '../pages/home/home.module'
 import { BuoyDataProvider } from '../providers/buoy-data/buoy-data';
 import { MappingProvider } from '../providers/mapping/mapping';
 import { WaveProvider } from '../providers/wave/wave';
@@ -44,7 +44,6 @@ declare var require: any;
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     BuoydataMapPage,
     PlatformTabsPage,
     MarinerTabsPage,
@@ -71,6 +70,7 @@ declare var require: any;
     HttpModule,
     HttpClientModule,
     JsonpModule,
+    HomePageModule,
     IonicStorageModule.forRoot(),
     ChartModule.forRoot(require('highcharts/highstock'))
   ],
@@ -80,7 +80,6 @@ declare var require: any;
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     BuoydataMapPage,
     PlatformTabsPage,
     PlatformDataPage,
