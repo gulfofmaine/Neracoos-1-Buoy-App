@@ -1,3 +1,5 @@
+// Mariner about page driven by contentservice.gmri.org
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -13,7 +15,7 @@ import { AppConfig } from '../../providers/appconfig/appconfig';
 })
 export class MarinerAboutPage {
 
-  aboutContent: string
+  aboutContent: string  // displayed in body of about page
 
   constructor(
     public appConfig: AppConfig,
@@ -26,7 +28,7 @@ export class MarinerAboutPage {
     this.initializeDrupalContent()
   }
 
-
+  // Fetch about page content from contentservice.gmri.org
   initializeDrupalContent() {
     for ( var cKey in this.appConfig.drupalContent ) {
       if ( this.appConfig.drupalContent[cKey].field_neracoos_buoy_pwa_id[0].value == 'about_page_content') {
