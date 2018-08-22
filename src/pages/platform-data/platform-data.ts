@@ -168,6 +168,17 @@ export class PlatformDataPage {
     }
     return( ret_val );
   }
+
+  // return the latest timestamp from loaded data
+  latestTimestamp(): string {
+    let items = this.pageDisplayData()
+    items.sort((a, b) => b.latestValue[0] - a.latestValue[0])  // sort by the highest time values
+    if (items[0] != undefined) {
+      return items[0].latestTimestamp
+    }
+    return ""
+  }
+
   // filters platform, station
   platformTapped(event, item) {
     if ( item.properties.name != undefined ) {
