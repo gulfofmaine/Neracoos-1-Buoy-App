@@ -19,6 +19,7 @@ import { MarinerForecastPage } from '../pages/mariner-forecast/mariner-forecast'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePageModule } from '../pages/home/home.module'
+import { AboutPageModule, MarinerAboutPageModule } from '../pages/mariner-about/mariner-about.module'
 import { BuoyDataProvider } from '../providers/buoy-data/buoy-data';
 import { MappingProvider } from '../providers/mapping/mapping';
 import { WaveProvider } from '../providers/wave/wave';
@@ -71,6 +72,7 @@ declare var require: any;
     HttpClientModule,
     JsonpModule,
     HomePageModule,
+    MarinerAboutPageModule,
     IonicStorageModule.forRoot(),
     ChartModule.forRoot(require('highcharts/highstock'))
   ],
