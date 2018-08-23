@@ -71,7 +71,7 @@ export class MiniMapComponent {
       })
     })
 
-    // configure our events
+    // configure our click event
     this.ol_map.on('singleclick', (e: ol.MapBrowserPointerEvent) => {
       var hitTolerance
       var hit = false
@@ -89,9 +89,8 @@ export class MiniMapComponent {
     })
   }
 
+  // sort out if which features are relevant to work with
   navigateByfeatureInfo(e: ol.MapBrowserPointerEvent, features) {
-    let allowClick: boolean = true
-
     if (features.length > 0) {
       let location: string
       for (var i = 0; i < features.length; i++) {
@@ -109,10 +108,11 @@ export class MiniMapComponent {
     switch ( feature.get('program')) {
       case 'NOAA_CLICKOVERENABLED':
         var noaa_url = "http://www.ndbc.noaa.gov/station_page.php?station=" + location ;
-        this.platform.ready().then(() => {
-          let browser: any = this.iap.create(noaa_url, "_system", "location=true");
-          browser.show();
-        });
+        // this.platform.ready().then(() => {
+        //   let browser: any = this.iap.create(noaa_url, "_system", "location=true");
+        //   browser.show();
+        // });
+        console.error('Unable to show url: ' + noaa_url)
         break;
       case 'NOAA':
       case 'NERACOOS':
