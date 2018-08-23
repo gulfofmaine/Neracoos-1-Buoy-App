@@ -156,8 +156,7 @@ export class AppConfig {
   drupalContent: any  ;
   pages: Array<{title: string, component: any}> = [];
   menus: Array<{name: string, pages: any}> = [];
-  neracoos_platform_names: any = ['A01','B01','E01', 'F01','I01','M01', 'J02',
-                              'N01'];
+  neracoos_platform_names: any = ['A01','B01','E01', 'F01','I01','M01', 'N01'];
   // display data types with these descriptions
   mariner_data_type_descriptions: any = [ 'Wave Height', 'Wind gust', 'Wind speed', 'Wind direction',
             'Air temperature', 'Visibility', 'Atomospheric pressure', 'Water temperature 2m']
