@@ -35,6 +35,8 @@ import { ChartModule } from 'angular2-highcharts';
 import exporting from 'highcharts/modules/exporting.src';
 import windbarb from 'highcharts-windbarb/windbarb.js';
 
+import { MiniMapComponent } from '../components/mini-map/mini-map'
+
 export function highchartsModules() {
   // apply Highcharts Modules to this array
   return [ exporting,windbarb ];
@@ -56,7 +58,9 @@ declare var require: any;
     WaveGraphPage,
     NeracoosTabsPage,
     MarinerTabsPage,
-    MarinerForecastPage
+    MarinerForecastPage,
+
+    MiniMapComponent
   ],
   imports: [
     BrowserModule,
