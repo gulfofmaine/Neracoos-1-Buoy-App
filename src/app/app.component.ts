@@ -24,8 +24,7 @@ import { MappingProvider } from '../providers/mapping/mapping';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // rootPage: any = BuoydataMapPage;
-  rootPage: any = HomePage;
+  rootPage: any = MarinerTabsPage
 
   pages: Array<{title: string, component: any}>;
 

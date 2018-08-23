@@ -9,4 +9,4 @@ build:
 	docker-compose run ionic ionic build --prod --verbose
 
 deploy:
-	scp -r ./www awsgmri:/home2/ionic/neracoos1/www
+	scp -r ./www awsgmri:/home2/ionic/neracoos1
