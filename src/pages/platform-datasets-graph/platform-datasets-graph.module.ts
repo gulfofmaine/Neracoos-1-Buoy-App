@@ -18,7 +18,6 @@ export function highchartsFactory() {
   ],
   imports: [
     IonicPageModule.forChild(PlatformDatasetsGraphPage),
-    // ChartModule
     ChartModule
   ],
   exports: [

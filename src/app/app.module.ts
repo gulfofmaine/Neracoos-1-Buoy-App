@@ -5,16 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { ListPage } from '../pages/list/list';
-// import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map';
-// import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs';
-// import { PlatformDataPage } from '../pages/platform-data/platform-data';
-// import { PlatformGraphPage } from '../pages/platform-graph/platform-graph';
-// import { PlatformDatasetsGraphPage } from '../pages/platform-datasets-graph/platform-datasets-graph';
-// import { PlatformDesignerGraphPage } from '../pages/platform-designer-graph/platform-designer-graph';
-// import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
-// import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs';
-// import { MarinerTabsPage } from '../pages/mariner-tabs/mariner-tabs';
-// import { MarinerForecastPage } from '../pages/mariner-forecast/mariner-forecast';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -58,11 +48,10 @@ export function highchartsModules() {
 }
 
 export function highchartsFactory() {
-  const hc = require('highcharts')
+  const hc = require('highcharts/highstock')
   const dd = require('highcharts/modules/drilldown')
   dd(hc)
   return hc
-  // return require('highcharts')
 }
 
 
@@ -70,18 +59,7 @@ export function highchartsFactory() {
 @NgModule({
   declarations: [
     MyApp,
-    // BuoydataMapPage,
-    // PlatformTabsPage,
-    // MarinerTabsPage,
-    // PlatformDataPage,
-    // PlatformGraphPage,
-    // PlatformDatasetsGraphPage,
-    // PlatformDesignerGraphPage,
     ListPage,
-    // WaveGraphPage,
-    // NeracoosTabsPage,
-    // MarinerTabsPage,
-    // MarinerForecastPage,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +88,6 @@ export function highchartsFactory() {
     WaveGraphPageModule,
 
     IonicStorageModule.forRoot(),
-    // ChartModule.forRoot(require('highcharts/highstock'))
     ChartModule
   ],
   exports: [
@@ -119,17 +96,7 @@ export function highchartsFactory() {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    // BuoydataMapPage,
-    // PlatformTabsPage,
-    // PlatformDataPage,
-    // PlatformGraphPage,
-    // PlatformDatasetsGraphPage,
-    // PlatformDesignerGraphPage,
     ListPage,
-    // WaveGraphPage,
-    // NeracoosTabsPage,
-    // MarinerTabsPage,
-    // MarinerForecastPage
   ],
   providers: [
     StatusBar,
