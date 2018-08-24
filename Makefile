@@ -10,3 +10,6 @@ build:
 
 deploy:
 	scp -r ./www awsgmri:/home2/ionic/neracoos1
+
+serve-build:
+	python3 -m http.server -d www
