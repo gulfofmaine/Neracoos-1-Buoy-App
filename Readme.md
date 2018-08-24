@@ -9,6 +9,7 @@ When you're done making it more awesome run `make down`.
 ## Building
 
 You can use `make build` to update the `www` directory with a production build.
+You can run `make serve-build` to view the build locally before deploying.
 
 ## Deploying
 
