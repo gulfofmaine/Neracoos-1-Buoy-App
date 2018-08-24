@@ -24,8 +24,7 @@ import { MappingProvider } from '../providers/mapping/mapping';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // rootPage: any = BuoydataMapPage;
-  rootPage: any = HomePage;
+  rootPage: any = MarinerTabsPage
 
   pages: Array<{title: string, component: any}>;
 
@@ -105,7 +104,6 @@ export class MyApp {
     let marinerMenu: Array<{title: string, component: any}>;
     marinerMenu = [
           { title: 'Home', component: HomePage },
-          { title: 'Buoy Map', component: BuoydataMapPage },
           { title: 'Platforms', component: MarinerTabsPage }
     ];
     let marinerMenuItem: any = {name: 'mariner', pages: marinerMenu };
