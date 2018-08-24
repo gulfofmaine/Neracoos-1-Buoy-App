@@ -24,12 +24,17 @@ export class PlatformDataPage {
   private sub: Subscription;
   dataDisplay: any = [];
 
+  public instance: PlatformDataPage
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
                 public appConfig: AppConfig,
           public waveService: WaveProvider,
           public metService: MetProvider,
           public events: Events,
           public menuCtrl: MenuController) {
+    // connect instance to this so that mini-map can update the display cleaner
+    this.instance = this
+    
     // subscribe to the page loading event
     events.subscribe('platformTapped:rightmenu', (monitoringlocation) => {
       if ( this.waveService.isInitialized()  ) {
@@ -174,7 +179,7 @@ export class PlatformDataPage {
     let items = this.pageDisplayData()
     items.sort((a, b) => b.latestValue[0] - a.latestValue[0])  // sort by the highest time values
     if (items[0] != undefined) {
-      return items[0].latestTimestamp
+      return '@ ' + items[0].latestTimestamp
     }
     return ""
   }
@@ -182,30 +187,36 @@ export class PlatformDataPage {
   // filters platform, station
   platformTapped(event, item) {
     if ( item.properties.name != undefined ) {
-      this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
-      this.appConfig.setDateFromInterface();
-      this.metService.resetDataGet();
-      // limit the data ask by using CurrentConditions Forecast dates.
-      this.getDatasetsData(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
-
-
-      this.metService.metProvUpdates().subscribe( event_obj => {
-        console.log( event_obj.name ) ;
-        switch (event_obj.name) {
-          case "no_graph_single_dataset_data_available":
-            // get the parameters
-            let parameters : any = this.pageDisplayData();
-            let visible_parameters: any = [];
-            visible_parameters.push(parameters[0].seriesGraph.parameter) ;
-            // draw a graph using the first parameter
-            this.drawParameterGraph(visible_parameters, this.appConfig.getCcdFcstStartDate(),
-                                    this.appConfig.getCcdFcstEndDate());
-            break;
-        }
-      });
+      this.selectPlatform(item.properties.name)
     }
     this.menuCtrl.close();
   }
+
+  // display selected platform
+  selectPlatform(name) {
+    this.appConfig.setPlatformSelected(this.waveService, name);
+    this.appConfig.setDateFromInterface();
+    this.metService.resetDataGet();
+    // limit the data ask by using CurrentConditions Forecast dates.
+    this.getDatasetsData(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
+
+
+    this.metService.metProvUpdates().subscribe( event_obj => {
+      console.log( event_obj.name ) ;
+      switch (event_obj.name) {
+        case "no_graph_single_dataset_data_available":
+          // get the parameters
+          let parameters : any = this.pageDisplayData();
+          let visible_parameters: any = [];
+          visible_parameters.push(parameters[0].seriesGraph.parameter) ;
+          // draw a graph using the first parameter
+          this.drawParameterGraph(visible_parameters, this.appConfig.getCcdFcstStartDate(),
+                                  this.appConfig.getCcdFcstEndDate());
+          break;
+      }
+    });
+  }
+
   dataMenuClosed() {
     this.appConfig.setDateFromInterface();
     this.metService.resetDataGet();

@@ -4,6 +4,8 @@ import { PlatformDataPage } from './platform-data';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService'
 
+import { MiniMapComponent } from '../../components/mini-map/mini-map'
+
 
 
 export declare var require ;
@@ -15,6 +17,7 @@ export function highchartsFactory() {
 @NgModule({
   declarations: [
     PlatformDataPage,
+    MiniMapComponent
   ],
   imports: [
     IonicPageModule.forChild(PlatformDataPage),

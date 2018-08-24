@@ -42,6 +42,7 @@ import windbarb from 'highcharts-windbarb/windbarb.js';
 
 export declare var require: any;
 
+
 export function highchartsModules() {
   // apply Highcharts Modules to this array
   return [ exporting, windbarb ];
