@@ -205,6 +205,9 @@ export class GMRIDataset {
     let use_windbarb: boolean = false ;
     let depths: any = [] ;
     // check for depths
+    if (this.observationData === undefined ) {
+      debugger
+    }
     let depth_index = appConfig.ERDDAPColumnIndexFromColumnName( this.observationData.table.columnNames, 'depth' );
     let depth: number ;
     let dKey: any ;

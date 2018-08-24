@@ -885,6 +885,11 @@ export class MetProvider {
                       graph_instructions.graph_dataset_ids[dKey], this.appConfig) ;
                 // same rigamoroll to get the datasets
                 erdDataTypeOfInterest = [] ;
+
+                if (this.gmriDatasets[mlKey].observationData === undefined) {
+                  debugger
+                }
+                
                 for (columnNameKey in this.gmriDatasets[mlKey].observationData.table.columnNames ) {
                   // plot it if it's not in the list to skip and it's not a qc name.
                   if ( skipPlottingParameters.indexOf(this.gmriDatasets[mlKey].observationData.table.columnNames[columnNameKey]) == -1 &&
@@ -944,6 +949,11 @@ export class MetProvider {
                   chartTitle += " : " + titleArray[cKey] ;
                 }
               }
+
+              if (this.gmriDatasets[savedFirstDatasetKey] === undefined) {
+                debugger
+              }
+
               data_results = this.gmriDatasets[savedFirstDatasetKey].assembleData( chartTitle, chartSubTitle,
                                     myAxisArray, seriesArray,this.appConfig) ;
 

@@ -62,6 +62,7 @@ export class MarinerTabsPage {
             }
             break;
           case "forecast_data_error":
+            debugger
             this.appConfig.setErrorMessage(event_obj.error_msg);
             let pos: number = event_obj.error.message.search("Unexpected token" );
             this.error_msg_array = [] ;
