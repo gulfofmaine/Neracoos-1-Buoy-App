@@ -40,8 +40,6 @@ import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService'
 import exporting from 'highcharts/modules/exporting.src';
 import windbarb from 'highcharts-windbarb/windbarb.js';
 
-import { MiniMapComponent } from '../components/mini-map/mini-map'
-
 export declare var require: any;
 
 
@@ -63,8 +61,6 @@ export function highchartsFactory() {
   declarations: [
     MyApp,
     ListPage,
-
-    MiniMapComponent
   ],
   imports: [
     BrowserModule,
