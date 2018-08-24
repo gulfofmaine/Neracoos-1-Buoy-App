@@ -1,12 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController, Platform } from 'ionic-angular';
 
 // Custom providers
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave'
-
-import { MarinerTabsPage } from '../../pages/mariner-tabs/mariner-tabs';
 
 
 // Layers to be displayed in the map
@@ -26,6 +24,7 @@ ol = require('openlayers/dist/ol-debug')
 export class MiniMapComponent {
 
   @ViewChild('map') map
+  @Input() parent
 
   start_zoom: number = 6
   lon: number = -68.7
@@ -117,10 +116,7 @@ export class MiniMapComponent {
       case 'NOAA':
       case 'NERACOOS':
       case 'UMO':
-        this.appConfig.setPlatformSelected(this.waveService, location)
-        this.navCtrl.popToRoot()
-
-        this.navCtrl.push(MarinerTabsPage)
+        this.parent.selectPlatform(location)
     }
   }
 }

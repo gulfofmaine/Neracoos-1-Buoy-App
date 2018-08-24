@@ -46,7 +46,7 @@
 </ion-menu>
 
 <ion-content padding>
-  <mini-map></mini-map>
+  <mini-map [parent]="instance"></mini-map>
   <h1>{{metService.dataDisplay.title}}</h1>
   <h5>{{ latestTimestamp() }}</h5>
   <ion-list>
