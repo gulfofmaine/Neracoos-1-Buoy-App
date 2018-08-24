@@ -47,13 +47,16 @@
 
 <ion-content padding>
   <mini-map [parent]="instance"></mini-map>
-  <h1>{{metService.dataDisplay.title}}</h1>
-  <h5>{{ latestTimestamp() }}</h5>
-  <ion-list>
-    <ion-item  *ngFor="let item of pageDisplayData()" (click)="changeGraph(item)">
-      {{item.seriesGraph.data_type_description}} - {{item.displayValue}}
-    </ion-item>
-  </ion-list>
+  <div class="platform-data">
+      <h1>{{metService.dataDisplay.title}}</h1>
+      <h6>{{ latestTimestamp() }}</h6>
+      <ion-list>
+        <ion-item  *ngFor="let item of pageDisplayData()" (click)="changeGraph(item)">
+          {{item.seriesGraph.data_type_description}} - {{item.displayValue}}
+        </ion-item>
+      </ion-list>
+  </div>
+  
 
   <chart type="StockChart" [options]="metService.singleParameterChart"></chart>
 </ion-content>

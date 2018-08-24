@@ -179,7 +179,7 @@ export class PlatformDataPage {
     let items = this.pageDisplayData()
     items.sort((a, b) => b.latestValue[0] - a.latestValue[0])  // sort by the highest time values
     if (items[0] != undefined) {
-      return items[0].latestTimestamp
+      return '@ ' + items[0].latestTimestamp
     }
     return ""
   }
