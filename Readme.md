@@ -26,3 +26,7 @@ Host awsgmri
     User great_user_name
     IdentityFile ~/.ssh/id_rsa
 ```
+
+## Generating Pages and Components
+
+To create a new page run `docker-compose exec ionic ionic generate page <PAGENAME>`. Which will scaffold the page in the appropriate directory.
