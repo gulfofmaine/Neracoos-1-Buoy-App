@@ -4,7 +4,7 @@ import { PlatformDataPage } from './platform-data';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService'
 
-import { MiniMapComponent } from '../../components/mini-map/mini-map'
+import { MiniMapComponentModule } from '../../components/mini-map/mini-map.module'
 
 
 
@@ -17,11 +17,12 @@ export function highchartsFactory() {
 @NgModule({
   declarations: [
     PlatformDataPage,
-    MiniMapComponent
+    // MiniMapComponent
   ],
   imports: [
     IonicPageModule.forChild(PlatformDataPage),
-    ChartModule
+    ChartModule,
+    MiniMapComponentModule
   ],
   providers: [
     { provide: HighchartsStatic, useFactory: highchartsFactory }

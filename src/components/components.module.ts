@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MiniMapComponent } from './mini-map/mini-map';
+import { MiniMapComponentModule } from './mini-map/mini-map.module';
 @NgModule({
-	declarations: [MiniMapComponent],
-	imports: [],
-	exports: [MiniMapComponent]
+	declarations: [],
+	imports: [MiniMapComponentModule],
+	exports: []
 })
 export class ComponentsModule {}
