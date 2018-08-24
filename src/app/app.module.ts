@@ -4,21 +4,23 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
-import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { BuoydataMapPage } from '../pages/buoydata-map/buoydata-map';
-import { PlatformTabsPage } from '../pages/platform-tabs/platform-tabs';
-import { PlatformDataPage } from '../pages/platform-data/platform-data';
-import { PlatformGraphPage } from '../pages/platform-graph/platform-graph';
-import { PlatformDatasetsGraphPage } from '../pages/platform-datasets-graph/platform-datasets-graph';
-import { PlatformDesignerGraphPage } from '../pages/platform-designer-graph/platform-designer-graph';
-import { WaveGraphPage } from '../pages/wave-graph/wave-graph';
-import { NeracoosTabsPage } from '../pages/neracoos-tabs/neracoos-tabs';
-import { MarinerTabsPage } from '../pages/mariner-tabs/mariner-tabs';
-import { MarinerForecastPage } from '../pages/mariner-forecast/mariner-forecast';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HomePageModule } from '../pages/home/home.module'
+import { MarinerAboutPageModule } from '../pages/mariner-about/mariner-about.module'
+import { BuoydataMapPageModule } from '../pages/buoydata-map/buoydata-map.module'
+import { MarinerForecastPageModule } from '../pages/mariner-forecast/mariner-forecast.module'
+import { MarinerTabsPageModule } from '../pages/mariner-tabs/mariner-tabs.module'
+import { NeracoosTabsPageModule } from '../pages/neracoos-tabs/neracoos-tabs.module'
+import { PlatformDataPageModule } from '../pages/platform-data/platform-data.module'
+import { PlatformDatasetsGraphPageModule } from '../pages/platform-datasets-graph/platform-datasets-graph.module'
+import { PlatformDesignerGraphPageModule } from '../pages/platform-designer-graph/platform-designer-graph.module'
+import { PlatformGraphPageModule } from '../pages/platform-graph/platform-graph.module'
+import { PlatformTabsPageModule } from '../pages/platform-tabs/platform-tabs.module'
+import { WaveGraphPageModule } from '../pages/wave-graph/wave-graph.module'
+
 import { BuoyDataProvider } from '../providers/buoy-data/buoy-data';
 import { MappingProvider } from '../providers/mapping/mapping';
 import { WaveProvider } from '../providers/wave/wave';
@@ -32,33 +34,35 @@ import { WaterlevelProvider } from '../providers/waterlevel/waterlevel';
 // import { ChartModule } from 'angular2-highcharts';
 import { MetProvider } from '../providers/met/met';
 import { ChartModule } from 'angular2-highcharts';
+// import * as highcharts from 'highcharts'
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService'
+
 import exporting from 'highcharts/modules/exporting.src';
 import windbarb from 'highcharts-windbarb/windbarb.js';
 
 import { MiniMapComponent } from '../components/mini-map/mini-map'
 
+export declare var require: any;
+
+
 export function highchartsModules() {
   // apply Highcharts Modules to this array
-  return [ exporting,windbarb ];
+  return [ exporting, windbarb ];
 }
 
-declare var require: any;
+export function highchartsFactory() {
+  const hc = require('highcharts/highstock')
+  const dd = require('highcharts/modules/drilldown')
+  dd(hc)
+  return hc
+}
+
+
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    BuoydataMapPage,
-    PlatformTabsPage,
-    MarinerTabsPage,
-    PlatformDataPage,
-    PlatformGraphPage,
-    PlatformDatasetsGraphPage,
-    PlatformDesignerGraphPage,
     ListPage,
-    WaveGraphPage,
-    NeracoosTabsPage,
-    MarinerTabsPage,
-    MarinerForecastPage,
 
     MiniMapComponent
   ],
@@ -75,8 +79,21 @@ declare var require: any;
     HttpModule,
     HttpClientModule,
     JsonpModule,
+    HomePageModule,
+    MarinerAboutPageModule,
+    BuoydataMapPageModule,
+    MarinerForecastPageModule,
+    MarinerTabsPageModule,
+    NeracoosTabsPageModule,
+    PlatformDataPageModule,
+    PlatformDatasetsGraphPageModule,
+    PlatformDesignerGraphPageModule,
+    PlatformGraphPageModule,
+    PlatformTabsPageModule,
+    WaveGraphPageModule,
+
     IonicStorageModule.forRoot(),
-    ChartModule.forRoot(require('highcharts/highstock'))
+    ChartModule
   ],
   exports: [
     ChartModule
@@ -84,18 +101,7 @@ declare var require: any;
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    BuoydataMapPage,
-    PlatformTabsPage,
-    PlatformDataPage,
-    PlatformGraphPage,
-    PlatformDatasetsGraphPage,
-    PlatformDesignerGraphPage,
     ListPage,
-    WaveGraphPage,
-    NeracoosTabsPage,
-    MarinerTabsPage,
-    MarinerForecastPage
   ],
   providers: [
     StatusBar,
@@ -109,7 +115,9 @@ declare var require: any;
     AppConfig,
     DatePipe,
     HttpClient,
-    MetProvider
+    MetProvider,
+
+    { provide: HighchartsStatic, useFactory: highchartsFactory }
   ]
 })
 export class AppModule {}

@@ -129,7 +129,7 @@ export class AppConfig {
   neracoosErddap:any ;
   monitoring_locations: any = [] ;
   interface_choices: any = [] ;
-  selected_interface: string = 'intrepid_erddap' ;
+  selected_interface: string = 'mariner'
 
 
   // I admit I am flailing here. retrieving data from localstorge is

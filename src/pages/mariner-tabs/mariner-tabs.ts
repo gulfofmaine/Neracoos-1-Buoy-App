@@ -3,10 +3,12 @@ import { NavController, NavParams, MenuController } from 'ionic-angular';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
+import { BuoydataMapPage } from '../buoydata-map/buoydata-map'
 import { PlatformDataPage } from '../platform-data/platform-data';
 import { MarinerForecastPage } from '../mariner-forecast/mariner-forecast';
 import { PlatformDatasetsGraphPage } from '../platform-datasets-graph/platform-datasets-graph';
 import { PlatformDesignerGraphPage } from '../platform-designer-graph/platform-designer-graph';
+import { MarinerAboutPage } from '../mariner-about/mariner-about';
 /**
  * Generated class for the MarinerTabsPage page.
  *
@@ -26,6 +28,9 @@ export class MarinerTabsPage {
   tab2Root = MarinerForecastPage;
   tab3Root = PlatformDatasetsGraphPage;
   tab4Root = PlatformDesignerGraphPage;
+  tab5Root = BuoydataMapPage;
+  tab6Root = MarinerAboutPage;
+  
   error_msg_array:any = [] ;
   error_message: string ;
   tabsIndex: number = 0 ;
