@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NavController, Platform } from 'ionic-angular';
 
 // Custom providers
@@ -19,7 +19,8 @@ ol = require('openlayers/dist/ol-debug')
 
 @Component({
   selector: 'mini-map',
-  templateUrl: 'mini-map.html'
+  templateUrl: 'mini-map.html',
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class MiniMapComponent {
 
