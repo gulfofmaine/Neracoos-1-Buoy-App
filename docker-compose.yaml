@@ -11,3 +11,10 @@ services:
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules/
+
+  storybook:
+    build: .
+    image: neracoos-ionic
+    ports:
+    - "9001:9001"
+    command: "npm run storybook"

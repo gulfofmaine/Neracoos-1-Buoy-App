@@ -9,7 +9,8 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
     "@angular/common": "5.0.3",
@@ -39,6 +40,9 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
+    "@storybook/angular": "^3.4.10",
+    "@types/node": "^10.9.1",
+    "babel-core": "^6.26.3",
     "typescript": "2.4.2"
   },
   "description": "An Ionic project"

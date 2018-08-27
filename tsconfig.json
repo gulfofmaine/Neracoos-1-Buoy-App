@@ -19,7 +19,9 @@
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
-    "src/**/__tests__/*.ts"
+    "src/**/__tests__/*.ts",
+    "stories",
+    "**/*.stories.ts"
   ],
   "compileOnSave": false,
   "atom": {
