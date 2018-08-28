@@ -4,11 +4,10 @@ import { AlertController, IonicErrorHandler } from 'ionic-angular'
 import { Inject, Injectable } from '@angular/core'
 
 declare var require
-// import package_json from '../../../package.json'
 let package_json = require("../../../package.json")
 
 Raven.config('https://eab04522f42c4efab9d5bfe7d8594e9c@sentry.io/1270344',
-    { release: '194a76376791bbd234e79f6754c50558d6d01c4a'}).install()
+    { release: package_json.version}).install()
 
 @Injectable()
 export class GMRIErrorHandler extends IonicErrorHandler {
@@ -16,7 +15,6 @@ export class GMRIErrorHandler extends IonicErrorHandler {
         @Inject(AlertController) private alerts: AlertController
     ) {
         super()
-        console.log(package_json.version)
     }
 
     handleError(error: any): void {

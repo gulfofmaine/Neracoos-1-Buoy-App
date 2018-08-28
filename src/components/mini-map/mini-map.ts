@@ -73,14 +73,12 @@ export class MiniMapComponent {
     // configure our click event
     this.ol_map.on('singleclick', (e: ol.MapBrowserPointerEvent) => {
       var hitTolerance
-      var hit = false
       var features: any = []
       var layers: any = []
 
       this.ol_map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
         features.push(feature)
         layers.push(layer)
-        hit = true
       }, {
         hitTolerance: hitTolerance
       })
