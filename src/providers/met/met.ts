@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { MenuController, Events} from 'ionic-angular';
+import { Inject, Injectable } from '@angular/core';
+import { AlertController, MenuController, Events} from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
@@ -70,7 +70,8 @@ export class MetProvider {
               public menuCtrl: MenuController,
               public http: Http,
               public jsonp: Jsonp,
-              public events: Events) {
+              public events: Events,
+              @Inject(AlertController) private alerts: AlertController) {
     console.log('Hello MetProvider Provider');
     this.metProv = Observable.create(observer => {
       this.metProvObserver = observer;
@@ -943,7 +944,12 @@ export class MetProvider {
                 } else {
                   chartTitle += " : " + titleArray[cKey] ;
                 }
+              } 
+              if (savedFirstDatasetKey === undefined) {
+                this.noDataAlert()
+                break
               }
+
               data_results = this.gmriDatasets[savedFirstDatasetKey].assembleData( chartTitle, chartSubTitle,
                                     myAxisArray, seriesArray,this.appConfig) ;
 
@@ -1037,5 +1043,19 @@ export class MetProvider {
       return ( this.gmriDatasets.length - 1 ) ;
     }
   return ( OKey );
+  }
+
+  noDataAlert(): void {
+    const alert = this.alerts.create({
+      title: 'No data avaliable',
+      message: '<p>We tried to load data for your selected platform.</p><p>Either the server is down, or there is no data avaliable for the date range you selected.</p>',
+      enableBackdropDismiss: true,
+      buttons: [
+        { text: 'Cancel',
+          handler: () => true}
+      ]
+    })
+
+    alert.present()
   }
 }
