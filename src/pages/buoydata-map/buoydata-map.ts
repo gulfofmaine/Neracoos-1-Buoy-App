@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Platform, App, PopoverController, 
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Observable, Subscription, timer } from 'rxjs';
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { MappingProvider } from '../../providers/mapping/mapping';
 //import { InundationProvider } from '../../providers/inundation-provider';
@@ -109,7 +109,7 @@ export class BuoydataMapPage {
     console.log('ionViewDidLoad BuoydataMapPage');
 
     // After 15 minutes refresh and do it every 15 minutes after that.
-    this.timer = Observable.timer(15 * 60 * 1000, 15 * 60 * 1000);
+    this.timer = timer(15 * 60 * 1000, 15 * 60 * 1000);
     // subscribing to a observable returns a subscription object
     this.sub = this.timer.subscribe(t => this.tickerFunc(t));
     this.initializeService();

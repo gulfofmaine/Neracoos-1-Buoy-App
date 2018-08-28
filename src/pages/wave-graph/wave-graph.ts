@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Observable, Subscription, timer } from 'rxjs';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
@@ -51,7 +51,7 @@ export class WaveGraphPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaveGraphPage');
     // After 15 minutes refresh and do it every 15 minutes after that.
-    this.timer = Observable.timer(15 * 60 * 1000, 15 * 60 * 1000);
+    this.timer = timer(15 * 60 * 1000, 15 * 60 * 1000);
     // subscribing to a observable returns a subscription object
     this.sub = this.timer.subscribe(t => this.tickerFunc(t));
     this.appConfig.setTabSelected("graph");

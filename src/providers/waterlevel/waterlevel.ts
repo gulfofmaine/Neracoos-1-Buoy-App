@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 import { Http } from '@angular/http';
 import { DatePipe } from '@angular/common';
@@ -82,9 +81,9 @@ export class WaterlevelProvider {
     if ( !this.ml_metadata_loaded || refresh ) {
 
       let tideLocationURL: string = this.appConfig.getTideLocationURL();
-      let tideLocation = this.http.get(tideLocationURL).map(res => res.json());
+      let tideLocation = this.http.get(tideLocationURL).pipe(map(res => res.json()));
 
-      Observable.forkJoin([tideLocation]).subscribe(results => {
+      forkJoin([tideLocation]).subscribe(results => {
         this.tide_monitoring_locations_setup( results[0]);
         // send out an event object
         let event_obj_init_data: any = { name: "initial_station_data_loaded", "data_loaded": "yes" }
@@ -121,29 +120,29 @@ export class WaterlevelProvider {
       // tideDataObject.initialize_tide_object( tlMetaData, this.appConfig )
       // multiple data streams here
       // metadata from cbass
-      let getTide  = this.http.get(this.tideObjects[tideKey].getDataURL(date_start, hours_forward, tide_location_name, this.appConfig)).map(res => res.json());
+      let getTide  = this.http.get(this.tideObjects[tideKey].getDataURL(date_start, hours_forward, tide_location_name, this.appConfig)).pipe(map(res => res.json()));
       dataGETs.push( getTide);
       dataTypeLoaded.push("TIDE");
       // prediction data from tides and currents
-      let getPredictions  = this.http.get(this.tideObjects[tideKey].getPredictionsURL(this.appConfig, 6, 'lst_ldt')).map(res => res.json());
+      let getPredictions  = this.http.get(this.tideObjects[tideKey].getPredictionsURL(this.appConfig, 6, 'lst_ldt')).pipe(map(res => res.json()));
       dataGETs.push( getPredictions);
       dataTypeLoaded.push("TIDE_PREDICTIONS");
       // observed water level from tides and currents
-      let getObs  = this.http.get(this.tideObjects[tideKey].getWaterLevelURL(this.appConfig)).map(res => res.json());
+      let getObs  = this.http.get(this.tideObjects[tideKey].getWaterLevelURL(this.appConfig)).pipe(map(res => res.json()));
       dataGETs.push( getObs);
       dataTypeLoaded.push("TIDE_OBSERVED");
       // High/low prediction data from tides and currents
       // NOTE: GMT so I can manipulate the date easily
-      let getHiloPredictions  = this.http.get(this.tideObjects[tideKey].getPredictionsURL(this.appConfig, 'hilo', 'gmt')).map(res => res.json());
+      let getHiloPredictions  = this.http.get(this.tideObjects[tideKey].getPredictionsURL(this.appConfig, 'hilo', 'gmt')).pipe(map(res => res.json()))
       dataGETs.push( getHiloPredictions);
       dataTypeLoaded.push("HILO_TIDE_PREDICTIONS");
       // ESTOFS data for the same location as this tide station
-      let getESTOFS  = this.http.get(this.tideObjects[tideKey].getEstofsURL(this.appConfig)).map(res => res.json());
+      let getESTOFS  = this.http.get(this.tideObjects[tideKey].getEstofsURL(this.appConfig)).pipe(map(res => res.json()));
       dataGETs.push( getESTOFS);
       dataTypeLoaded.push("TIDE_LOCATION_ESTOFS");
       // NECOFS data for the same location as this tide station
       // necofs data isn't used in the stockton equation because it's too unreliably available
-      let getNECOFS  = this.http.get(this.tideObjects[tideKey].getNecofsURL(this.appConfig)).map(res => res.json());
+      let getNECOFS  = this.http.get(this.tideObjects[tideKey].getNecofsURL(this.appConfig)).pipe(map(res => res.json()));
       dataGetNecofs.push( getNECOFS);
       necofsDataTypeLoaded.push("TIDE_LOCATION_NECOFS");
     } else {
@@ -152,7 +151,7 @@ export class WaterlevelProvider {
     }
     // use a separate observable for necofs
     if ( dataGetNecofs.length > 0 ) {
-      Observable.forkJoin(dataGetNecofs).subscribe(
+      forkJoin(dataGetNecofs).subscribe(
         results => this.forecastDataReady("necofs_data", results, dataTypeLoaded),
         error => this.forecastDataError("necofs_data error", error, dataTypeLoaded),
         () => this.forecastDataComplete("necofs_data complete", dataTypeLoaded));
@@ -166,7 +165,7 @@ export class WaterlevelProvider {
     // again before the observable has come back? It won't happen now but
     // it's a model that needs work to be safe.
     if ( dataGETs.length > 0 ) {
-      Observable.forkJoin(dataGETs).subscribe(
+      forkJoin(dataGETs).subscribe(
       results => this.forecastDataReady("stable_data", results, dataTypeLoaded),
       error => this.forecastDataError("stable_data error", error, dataTypeLoaded),
       () => this.forecastDataComplete("stable_data complete", dataTypeLoaded));

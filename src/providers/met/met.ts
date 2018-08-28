@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MenuController, Events} from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators'
+
 import { Http } from '@angular/http';
 import { Jsonp } from '@angular/http';
 
@@ -215,7 +215,7 @@ export class MetProvider {
         let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig, erdDataTypes,
                                      return_erddap, startDate, endDate) ;
         this.dataGetUrls.push(getErdObsURL) ;
-        let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());
+        let getBuoyErdObservations = this.jsonp.request(getErdObsURL).pipe(map(res => res.json()))
         // 9/11/2017 get erddap to use jsonp.
         this.dataGETs.push( getBuoyErdObservations);
         this.dataTypeLoaded.push(dataTypeMagicKey);
@@ -306,7 +306,7 @@ export class MetProvider {
           let getErdObsURL : string = this.gmriDatasets[datsetKey].getERDDAPObservationURL(this.appConfig,
                         erdDataTypes, return_erddap, startDate, endDate) ;
           this.dataGetUrls.push(getErdObsURL) ;
-          let getBuoyErdObservations = this.jsonp.request(getErdObsURL).map(res => res.json());
+          let getBuoyErdObservations = this.jsonp.request(getErdObsURL).pipe(map(res => res.json()))
           // 9/11/2017 get erddap to use jsonp.
           this.dataGETs.push( getBuoyErdObservations);
           this.dataTypeLoaded.push(dataTypeMagicKey);
@@ -332,7 +332,7 @@ export class MetProvider {
       switch ( graph_instructions.graph_type ) {
         case 'no_graph_single_dataset' :
           if ( this.dataGETs.length > 0 ) {
-            Observable.forkJoin(this.dataGETs).subscribe(
+            forkJoin(this.dataGETs).subscribe(
               results => this.obsDataReady( results, this.dataTypeLoaded,skipPlottingParameters,graph_instructions),
               error => this.obsDataError( "ERDDAP data Failed to Load", error, this.dataGetUrls, graph_instructions ),
               () => this.obsDataComplete( "ERDDAP Data Complete", this.dataGetUrls, graph_instructions));
@@ -352,7 +352,7 @@ export class MetProvider {
           // again before the observable has come back? It won't happen now but
           // it's a model that needs work to be safe.
           if ( this.dataGETs.length > 0 ) {
-            Observable.forkJoin(this.dataGETs).subscribe(
+            forkJoin(this.dataGETs).subscribe(
               results => this.obsGraphDataReady( results, this.dataTypeLoaded,skipPlottingParameters,graph_instructions),
               error => this.obsDataError( "ERDDAP data Failed to Load", error, this.dataGetUrls, graph_instructions ),
               () => this.obsDataComplete( "ERDDAP Data Complete", this.dataGetUrls, graph_instructions));

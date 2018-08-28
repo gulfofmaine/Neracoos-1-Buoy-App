@@ -4,7 +4,7 @@ import { NavController, NavParams, Events, MenuController } from 'ionic-angular'
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Subscription, timer } from 'rxjs';
 
 /**
  * Generated class for the PlatformDataPage page.
@@ -70,7 +70,7 @@ export class PlatformDataPage {
     // this.menuCtrl.open('right');
     console.log('ionViewDidLoad PlatformDataPage');
     // this.appConfig.enableMenu('platform_menu') ;
-    this.timer = Observable.timer(1000);
+    this.timer = timer(1000);
     // subscribing to a observable returns a subscription object
     this.sub = this.timer.subscribe(t => this.tickerFunc(t));
   }

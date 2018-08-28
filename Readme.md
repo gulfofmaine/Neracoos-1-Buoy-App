@@ -16,7 +16,7 @@ You can run `make serve-build` to view the build locally before deploying.
 The site is currently deployed to http://neracoos.org/ionic/neracoos1/www/index.html 
 
 To update the deployment run `make deploy`.
-You probably want to run it in the form `make down build deploy` to make sure that you get a production
+You probably want to run it in the form `make down build deploy sentry` to make sure that you get a production
 build and that there is no iterferance with the local test server.
 
 The deploy uses `scp` so you will need to have a `~/.ssh/config entry that looks something like this:
@@ -31,3 +31,7 @@ Host awsgmri
 ## Generating Pages and Components
 
 To create a new page run `docker-compose exec ionic ionic generate page <PAGENAME>`. Which will scaffold the page in the appropriate directory.
+
+## Exception Tracking
+
+We're tracking exceptions with Sentry
