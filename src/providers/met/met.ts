@@ -5,6 +5,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Http } from '@angular/http';
 import { Jsonp } from '@angular/http';
+import Raven from 'raven-js'
 
 import { AppConfig } from '../appconfig/appconfig';
 import {GMRIMetDataset} from "../../gmri/data/gmri-met-dataset";
@@ -287,6 +288,16 @@ export class MetProvider {
       let return_erddap_dtoiID: any = this.appConfig.neracoosErddap.getDatasetID(this.appConfig,
                                       this.gmriDatasets[datsetKey].ml_name,
                                       erdDataTypeOfInterest, false, startDate, endDate );
+      if ( return_erddap_dtoiID.datasetMatched === undefined) {
+        Raven.captureBreadcrumb({
+          data: {
+            datasetKey
+          },
+          message: 'Empty return_erddap_dtoiID'
+        })
+        this.noDataAlert()
+        return
+      }
       if ( return_erddap_dtoiID.datasetMatched['datasetID'] != null &&
             return_erddap_dtoiID.datasetMatched['ret_date_start_msse'] != undefined &&
             return_erddap_dtoiID.datasetMatched['ret_date_end_msse'] != undefined ) {
@@ -945,6 +956,13 @@ export class MetProvider {
                 }
               } 
               if (savedFirstDatasetKey === undefined) {
+                Raven.captureBreadcrumb({
+                  data: {
+                    skipPlottingParameters,
+                    graph_instructions
+                  },
+                  message: 'Undefined savedFristDatasetKey'
+                })
                 this.noDataAlert()
                 break
               }
