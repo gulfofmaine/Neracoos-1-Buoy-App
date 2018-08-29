@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController, Platform } from 'ionic-angular';
+import Raven from 'raven-js'
 
 // Custom providers
 import { AppConfig } from '../../providers/appconfig/appconfig';
@@ -102,6 +103,12 @@ export class MiniMapComponent {
   }
 
   locationClick(location, feature) {
+    Raven.captureBreadcrumb({
+      data: {
+        location
+      },
+      message: 'Location clicked'
+    })
     switch ( feature.get('program')) {
       case 'NOAA_CLICKOVERENABLED':
         var noaa_url = "http://www.ndbc.noaa.gov/station_page.php?station=" + location ;

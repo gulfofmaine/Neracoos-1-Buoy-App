@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Events, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import Raven from 'raven-js'
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -128,10 +129,22 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    Raven.captureBreadcrumb({
+      data: {
+        name: page.name
+      },
+      message: 'Page opened'
+    })
     this.nav.setRoot(page.component);
     this.events.publish('pageChosen:leftmenu', page);
   }
   selectedInterface(item) {
+    Raven.captureBreadcrumb({
+      data: {
+        name: item.name
+      },
+      message: 'Interface selected'
+    })
     if ( item.name == 'reset') {
       this.appConfig.setSelectedInterface( 'default', true ) ;
     } else {

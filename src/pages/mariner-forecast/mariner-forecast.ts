@@ -207,6 +207,14 @@ export class MarinerForecastPage {
     this.drawPlatformGraphs(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
   }
   drawPlatformGraphs(startDate, endDate) {
+    Raven.captureBreadcrumb({
+      data: {
+        startDate,
+        endDate,
+        platform: this.appConfig.getPlatformName()
+      },
+      message: 'Draw platform graphs dates'
+    })
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {

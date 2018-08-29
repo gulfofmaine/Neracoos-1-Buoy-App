@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
 import { Subscription, timer } from 'rxjs';
+import Highcharts from 'highcharts/highstock';
+import Raven from 'raven-js'
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import Highcharts from 'highcharts/highstock';
+
 /**
  * Generated class for the PlatformDatasetsGraphPage page.
  *
@@ -142,6 +144,15 @@ export class PlatformDatasetsGraphPage {
     let erddapGraphDatasetIds: any = [] ;
     let platform_names: any = [] ;
     let dataset_available: boolean;
+
+    Raven.captureBreadcrumb({
+      data: {
+        startDate,
+        endDate,
+        platform: this.appConfig.getPlatformName()
+      },
+      message: 'Draw datasets Graph'
+    })    
     if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
@@ -248,6 +259,12 @@ export class PlatformDatasetsGraphPage {
   }
   // filters platform, station
   platformTapped(event, item) {
+    Raven.captureBreadcrumb({
+      data: {
+        name: item.properties.name
+      },
+      message: 'Platform Tapped'
+    })
     if ( item.properties.name != undefined ) {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       // this.events.publish('platformTapped:rightmenu', item.properties.name);

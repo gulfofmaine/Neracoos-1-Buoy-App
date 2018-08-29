@@ -8,11 +8,14 @@ import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators'
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import { MenuController } from 'ionic-angular';
+import moment from 'moment';
+import Raven from 'raven-js'
+
 
 import {GMRIErddap} from "../../gmri/data/gmri-erddap";
 import {GMRIUnits} from "../../gmri/data/gmri-units";
-import { MenuController } from 'ionic-angular';
-import moment from 'moment';
+
 
 /*
   Generated class for the Config provider.
@@ -413,6 +416,13 @@ export class AppConfig {
     return(ret_val) ;
   }
   setSelectedInterface( selected, reset ) {
+    Raven.captureBreadcrumb({
+      data: {
+        selected,
+        reset
+      },
+      message: 'Set selected interface'
+    })
     this.selected_interface = selected ;
     // a special case
     if ( reset ) {

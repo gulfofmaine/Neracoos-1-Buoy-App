@@ -110,6 +110,14 @@ export class PlatformDataPage {
     let erddapGraphDatasetIds: any = [] ;
     let platform_names: any = [] ;
     let dataset_available: boolean;
+    Raven.captureBreadcrumb({
+      data: {
+        startDate,
+        endDate,
+        platform: this.appConfig.getPlatformName()
+      },
+      message: 'Draw platform graphs dates'
+    })
     if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
@@ -201,6 +209,12 @@ export class PlatformDataPage {
 
   // display selected platform
   selectPlatform(name) {
+    Raven.captureBreadcrumb({
+      data: {
+        name
+      },
+      message: 'Select Platform'
+    })
     this.appConfig.setPlatformSelected(this.waveService, name);
     this.appConfig.setDateFromInterface();
     this.metService.resetDataGet();
@@ -231,6 +245,12 @@ export class PlatformDataPage {
     this.getDatasetsData(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
   }
   changeGraph(item) {
+    Raven.captureBreadcrumb({
+      data: {
+        name: item.seriesGraph.name
+      },
+      message: 'Change graph'
+    })
     // get the parameters
     let visible_parameters: any = [];
     visible_parameters.push(item.seriesGraph.parameter) ;

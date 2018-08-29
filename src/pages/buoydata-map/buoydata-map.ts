@@ -2,6 +2,7 @@ import { Component, ViewChild, Renderer  } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, App, PopoverController, MenuController, Events } from 'ionic-angular';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import Raven from 'raven-js'
 
 import { Observable, Subscription, timer } from 'rxjs';
 import { AppConfig } from '../../providers/appconfig/appconfig';
@@ -524,6 +525,13 @@ export class BuoydataMapPage {
     return randPrefix + '-' + randSuffix;
   }
   locationClick(location, layer, feature) {
+    Raven.captureBreadcrum({
+      data: {
+        layer,
+        location
+      },
+      message: 'Location clicked'
+    })
     switch ( layer ) {
       case "PLATFORM":
         switch ( feature.get('program')) {
