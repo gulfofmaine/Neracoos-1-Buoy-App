@@ -525,7 +525,7 @@ export class BuoydataMapPage {
     return randPrefix + '-' + randSuffix;
   }
   locationClick(location, layer, feature) {
-    Raven.captureBreadcrum({
+    Raven.captureBreadcrumb({
       data: {
         layer,
         location
