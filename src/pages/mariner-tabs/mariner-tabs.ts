@@ -68,34 +68,27 @@ export class MarinerTabsPage {
             break;
           case "forecast_data_error":
             this.appConfig.setErrorMessage(event_obj.error_msg);
-            let pos: number = event_obj.error.message.search("Unexpected token" );
             this.error_msg_array = [] ;
-            this.error_msg_array.push(event_obj.error.message) ;
-            let msg: string = event_obj.error.message ;
-            if ( pos == 0 ) {
-              msg += "</br> This messages often indicates a error returned from a web service";
-            this.error_msg_array.push("This messages often indicates a error returned from a web service, and unfortunately there may be multiple possiblities.") ;
+
+            if (event_obj.error.message != undefined) {
+              let pos: number = event_obj.error.message.search("Unexpected token" );
+              this.error_msg_array.push(event_obj.error.message) ;
+              let msg: string = event_obj.error.message ;
+              if ( pos == 0 ) {
+                msg += "</br> This messages often indicates a error returned from a web service";
+              this.error_msg_array.push("This messages often indicates a error returned from a web service, and unfortunately there may be multiple possiblities.") ;
+              }
+              for ( let uKey in event_obj.fetch_urls ) {
+                msg += "</br>" + event_obj.fetch_urls[uKey];
+              }
+              this.error_message = msg;
             }
-            for ( var uKey in event_obj.fetch_urls ) {
-              msg += "</br>" + event_obj.fetch_urls[uKey];
+            
+            for ( let uKey in event_obj.fetch_urls ) {
+              
               this.error_msg_array.push (" ");
               this.error_msg_array.push(event_obj.fetch_urls[uKey]) ;
             }
-            this.error_message = msg;
-            /* giving up on this.
-            // this.navCtrl.popToRoot();
-            // this.navCtrl.pop();
-            if ( this.navCtrl != undefined ) {
-              // let navLen : number = this.navCtrl.length();
-              // if ( navLen > 0 ) {
-              if ( this.navCtrl.canGoBack() ) {
-                this.navCtrl.popToRoot();
-              }
-              // this.navCtrl.push("ErrorPage");
-              this.navCtrl.setRoot('ErrorPage');
-            } else {
-            }
-            */
             // set a flag to tell us to display the choices next time.
             this.appConfig.waveDisplayedErrorMessage = true;
             break;
