@@ -15,12 +15,14 @@ build-prod:
 
 deploy:
 	scp -r ./www awsgmri:/home2/ionic/neracoos1
+	sentry-cli releases -o gulf-of-maine-research-institu deploys $(VERSION) new -e staging
 
 serve-build:
 	python3 -m http.server -d www
 
 sentry:
-	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard new $(VERSION)
+	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard new $(VERSION) --finalize
+	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard set-commits $(VERSION) --auto
 	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(VERSION) upload-sourcemaps www/build
 
 prune:
