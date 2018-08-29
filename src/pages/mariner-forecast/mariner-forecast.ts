@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
 import { Subscription, timer } from 'rxjs';
+import Raven from 'raven-js'
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
@@ -186,6 +187,12 @@ export class MarinerForecastPage {
   }
   // filters platform, station
   platformTapped(event, item) {
+    Raven.captureBreadcrumb({
+      data: {
+        item
+      },
+      message: 'Platform tapped'
+    })
     if ( item.properties.name != undefined ) {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       this.appConfig.setDateFromInterface();
