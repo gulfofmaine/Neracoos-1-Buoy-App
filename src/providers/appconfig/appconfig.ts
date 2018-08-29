@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 // import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/map';
 import { DatePipe } from '@angular/common';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators'
 import 'intl';
 import 'intl/locale-data/jsonp/en';
-import {GMRIErddap} from "../../gmri/data/gmri-erddap";
-import {GMRIUnits} from "../../gmri/data/gmri-units";
 import { MenuController } from 'ionic-angular';
 import moment from 'moment';
+import Raven from 'raven-js'
+
+
+import {GMRIErddap} from "../../gmri/data/gmri-erddap";
+import {GMRIUnits} from "../../gmri/data/gmri-units";
+
 
 /*
   Generated class for the Config provider.
@@ -414,6 +416,13 @@ export class AppConfig {
     return(ret_val) ;
   }
   setSelectedInterface( selected, reset ) {
+    Raven.captureBreadcrumb({
+      data: {
+        selected,
+        reset
+      },
+      message: 'Set selected interface'
+    })
     this.selected_interface = selected ;
     // a special case
     if ( reset ) {
@@ -584,23 +593,23 @@ export class AppConfig {
     if(use_cache_file){  // modulename can be null as well as path
       // Eric writes out a magic file on awsgmri for this.
       let ERDDAPMetadataURL: string = this.getErddapMetadataURL();
-      let erddapMetadata = this.http.get(ERDDAPMetadataURL).map(res => res.json());
+      let erddapMetadata = this.http.get(ERDDAPMetadataURL).pipe(map(res => res.json()))
       dataGETs.push(erddapMetadata);
       dataTypesLoaded.push('pre_built_erddap_metadata');
     } else {
       this.neracoosErddap = new GMRIErddap(null);
-      let erddap_metadata_get = this.http.get(this.neracoosErddap.erddap_url).map(res => res.json());
+      let erddap_metadata_get = this.http.get(this.neracoosErddap.erddap_url).pipe(map(res => res.json()))
       dataGETs.push(erddap_metadata_get);
       dataTypesLoaded.push('build_erddap_metadata');
     }
     // the above pre_built_erddap_metadata loads eric's metadata as is
     // this loads a buoy centric version of that data coming from neracoos.org
     let platformLocationURL: string = this.getWaveLocationURL();
-    let platformLocation = this.http.get(platformLocationURL).map(res => res.json());
+    let platformLocation = this.http.get(platformLocationURL).pipe(map(res => res.json()))
     dataGETs.push(platformLocation);
     dataTypesLoaded.push('platform_metadata');
 
-    Observable.forkJoin(dataGETs).subscribe(
+    forkJoin(dataGETs).subscribe(
           results => this.initialAppDataReady("initial_app_data", results, dataTypesLoaded),
           error => this.initialAppDataError( "Initial App data Failed to Load", error, dataTypesLoaded ),
           () => this.initialAppDataComplete( "Initial App Data Complete", dataTypesLoaded ));
@@ -741,7 +750,7 @@ export class AppConfig {
   }
   // drupal data
   getContentOne() {
-    this.http.get(this.drupalURLOne).map(res => res.json()).subscribe(
+    this.http.get(this.drupalURLOne).pipe(map(res => res.json())).subscribe(
       data => {this.readyContentOne(data)},
       error => {console.log(error)},
       () => { console.log("completed"); }

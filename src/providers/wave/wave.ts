@@ -1,8 +1,7 @@
 import { MenuController} from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http';
 import { Http } from '@angular/http';
 import { Jsonp } from '@angular/http';
@@ -152,21 +151,21 @@ export class WaveProvider {
     if ( !this.ml_metadata_loaded || refresh ) {
 
       let waveLocationURL: string = this.appConfig.getWaveLocationURL();
-      let waveLocation = this.http.get(waveLocationURL).map(res => res.json());
+      let waveLocation = this.http.get(waveLocationURL).pipe(map(res => res.json()));
 
       let drrURL: string = this.appConfig.getDateRangeWW3URL();
-      let dateRangeWW3 = this.http.get(drrURL).map(res => res.json());
+      let dateRangeWW3 = this.http.get(drrURL).pipe(map(res => res.json()));
 
       let drrWW3GlobalURL: string = this.appConfig.getDateRangeWW3GlobalURL();
-      let dateRangeWW3Global = this.http.get(drrWW3GlobalURL).map(res => res.json());
+      let dateRangeWW3Global = this.http.get(drrWW3GlobalURL).pipe(map(res => res.json()));
 
       // moved to appConfig
       // let ERDDAPMetadataURL: string = this.appConfig.getErddapMetadataURL();
-      // let erddapMetadata = this.http.get(ERDDAPMetadataURL).map(res => res.json());
+      // let erddapMetadata = this.http.get(ERDDAPMetadataURL).pipe(map(res => res.json()));
 
       let obj_text: string = '';
 
-      Observable.forkJoin([waveLocation, dateRangeWW3, dateRangeWW3Global]).subscribe(results => {
+      forkJoin([waveLocation, dateRangeWW3, dateRangeWW3Global]).subscribe(results => {
         // set up wave locations
         // replaced with erddap_wave_monitoring_locations_setup
         // NOPE I changed the web service to use erddap
@@ -345,7 +344,7 @@ export class WaveProvider {
           // metadata from cbass
           let getWW3URL: string = this.waveObjects[waveKey].getWW3URL(this.appConfig) ;
           this.dataGetUrls.push(getWW3URL) ;
-          let getWW3  = this.http.get(getWW3URL).map(res => res.json());
+          let getWW3  = this.http.get(getWW3URL).pipe(map(res => res.json()));
           dataGETs.push( getWW3);
           this.dataTypeLoaded.push("WW3");
 
@@ -359,7 +358,7 @@ export class WaveProvider {
           let dwwGlobalURL: string = this.waveObjects[waveKey].getWW3CoastwatchGlobalDataURL(ww3StartDate,
                       ww3EndDate, this.waveObjects[waveKey].geo_array, this.appConfig );
           this.dataGetUrls.push( dwwGlobalURL);
-          let getGlobalDWW  = this.http.get(dwwGlobalURL).map(res => res.json());
+          let getGlobalDWW  = this.http.get(dwwGlobalURL).pipe(map(res => res.json()));
           dataGETs.push( getGlobalDWW);
           this.dataTypeLoaded.push("WW3GLOBAL");
 
@@ -384,7 +383,7 @@ export class WaveProvider {
             let getErdWaveObsURL : string = this.waveObjects[waveKey].getERDDAPObservationURL(this.appConfig,
                                             erdDataTypes, return_erddap, startDate, endDate) ;
             this.dataGetUrls.push(getErdWaveObsURL) ;
-            let getBuoyErdWaveObservations = this.jsonp.request(getErdWaveObsURL).map(res => res.json());
+            let getBuoyErdWaveObservations = this.jsonp.request(getErdWaveObsURL).pipe(map(res => res.json()));
             // 9/11/2017 get erddap to use jsonp.
             dataGETs.push( getBuoyErdWaveObservations);
             this.dataTypeLoaded.push("ERDDAP_WAVE_OBSERVATIONS");
@@ -407,13 +406,13 @@ export class WaveProvider {
 
           let getNECOFSWavePredictionsURL: string = this.waveObjects[waveKey].getNECOFSWaveURL()
           this.dataGetNecofsUrls.push(getNECOFSWavePredictionsURL) ;
-          let getNECOFSWavePredictions  = this.http.get(getNECOFSWavePredictionsURL).map(res => res.json());
+          let getNECOFSWavePredictions  = this.http.get(getNECOFSWavePredictionsURL).pipe(map(res => res.json()));
           dataGetNecofs.push( getNECOFSWavePredictions);
           this.necofsDataTypeLoaded.push("NECOFS_WAVE_PREDICTIONS");
 
           let getNECOFSWaveLengthPredictionsURL: string = this.waveObjects[waveKey].getNECOFSWaveLengthURL() ;
           this.dataGetNecofsUrls.push(getNECOFSWaveLengthPredictionsURL) ;
-          let getNECOFSWaveLengthPredictions  = this.http.get(getNECOFSWaveLengthPredictionsURL).map(res => res.json());
+          let getNECOFSWaveLengthPredictions  = this.http.get(getNECOFSWaveLengthPredictionsURL).pipe(map(res => res.json()));
           dataGetNecofs.push( getNECOFSWaveLengthPredictions);
           this.necofsDataTypeLoaded.push("NECOFS_WAVE_LENGTH_PREDICTIONS");
 
@@ -435,20 +434,20 @@ export class WaveProvider {
             let dwwURL: string = dwwDataObject.geoGetDataURL(this.appConfig.dww_start_date,
                         this.appConfig.dww_end_date, this.waveObjects[waveKey].geo_array, this.appConfig );
             this.dataGetUrls.push( dwwURL);
-            let getDWW  = this.http.get(dwwURL).map(res => res.json());
+            let getDWW  = this.http.get(dwwURL).pipe(map(res => res.json()));
             dataGETs.push( getDWW);
             this.dataTypeLoaded.push("DWW");
             // NECOFS data
             // Wave height
             let dwwNECOFSWavePredictionsURL: string = dwwDataObject.getNECOFSWaveURL(this.waveObjects[waveKey].geo_array );
             this.dataGetNecofsUrls.push(dwwNECOFSWavePredictionsURL) ;
-            let getDWWNECOFSWavePredictions  = this.http.get(dwwNECOFSWavePredictionsURL).map(res => res.json());
+            let getDWWNECOFSWavePredictions  = this.http.get(dwwNECOFSWavePredictionsURL).pipe(map(res => res.json()));
             dataGetNecofs.push( getDWWNECOFSWavePredictions);
             this.necofsDataTypeLoaded.push("NECOFS_DWW_WAVE_PREDICTIONS");
             // Wave Length
             let dwwNECOFSWavelengthPredictionsURL: string = dwwDataObject.getNECOFSWaveLengthURL(this.waveObjects[waveKey].geo_array );
              this.dataGetNecofsUrls.push(dwwNECOFSWavelengthPredictionsURL) ;
-            let getDWWNECOFSWavelengthPredictions  = this.http.get(dwwNECOFSWavelengthPredictionsURL).map(res => res.json());
+            let getDWWNECOFSWavelengthPredictions  = this.http.get(dwwNECOFSWavelengthPredictionsURL).pipe(map(res => res.json()));
             dataGetNecofs.push( getDWWNECOFSWavelengthPredictions);
             this.necofsDataTypeLoaded.push("NECOFS_DWW_WAVE_LENGTH_PREDICTIONS");
           }
@@ -457,7 +456,7 @@ export class WaveProvider {
       }
       // use a separate observable for necofs
       if ( dataGetNecofs.length > 0 ) {
-        Observable.forkJoin(dataGetNecofs).subscribe(results => this.forecastDataReady("necofs_data", results, startDate),
+        forkJoin(dataGetNecofs).subscribe(results => this.forecastDataReady("necofs_data", results, startDate),
         error => this.forecastDataError( "NECOFS Data Failed to Load", error, this.dataGetNecofsUrls ),
         () => this.forecastDataComplete( "NECOFS Data Competed", this.dataGetNecofsUrls));
       } else {
@@ -470,7 +469,7 @@ export class WaveProvider {
       // again before the observable has come back? It won't happen now but
       // it's a model that needs work to be safe.
       if ( dataGETs.length > 0 ) {
-        Observable.forkJoin(dataGETs).subscribe(results => this.forecastDataReady("stable_data", results, startDate),
+        forkJoin(dataGETs).subscribe(results => this.forecastDataReady("stable_data", results, startDate),
         error => this.forecastDataError( "stable_data", error, this.dataGetUrls ) ,
         () => this.forecastDataComplete( "stable_data", this.dataGetUrls));
       } else {
