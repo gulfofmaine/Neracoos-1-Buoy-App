@@ -291,7 +291,7 @@ export class MetProvider {
       if ( return_erddap_dtoiID.datasetMatched === undefined) {
         Raven.captureBreadcrumb({
           data: {
-            datasetKey
+            datsetKey
           },
           message: 'Empty return_erddap_dtoiID'
         })
@@ -718,10 +718,26 @@ export class MetProvider {
 
                   parameters = ['wind_speed', 'wind_gust', 'wind_direction']
                   // chart_results = this.gmriDatasets[mlKey].drawChart(this.appConfig, parameters, measurement_system);
-                  chart_results = this.gmriDatasets[mlKey].createChart(this.appConfig,
-                                            parameters,
-                                            measurement_system, graph_instructions.graph_datasets[dKey],
-                                            ml_location_name);
+                  try {
+                    chart_results = this.gmriDatasets[mlKey].createChart(this.appConfig,
+                      parameters,
+                      measurement_system, graph_instructions.graph_datasets[dKey],
+                      ml_location_name);
+                  } catch(error) {
+                    Raven.captureBreadcrumb({
+                      data: {
+                        parameters,
+                        measurement_system,
+                        graph_instructions,
+                        dKey,
+                        ml_location_name
+                      },
+                      message: 'Unknown table'
+                    })
+                    this.noDataAlert()
+                    return
+                  }
+                  
                   this.windChart = chart_results['chartConfig'];
 
                   parameters = ['air_temperature']

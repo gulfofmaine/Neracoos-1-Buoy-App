@@ -1,3 +1,5 @@
+.PHONY: up, down, build, build-prod, deploy, serve-build, sentry, prune, patch, release-patch
+
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
 up:
@@ -28,3 +30,8 @@ sentry:
 prune:
 	docker volume rm $(docker volume ls -qf dangling=true)
 	docker system prune -a
+
+patch:
+	npm version patch
+
+release-patch: down patch build deploy sentry
