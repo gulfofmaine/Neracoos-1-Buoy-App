@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NavController, Platform } from 'ionic-angular';
+import Raven from 'raven-js'
 
 // Custom providers
 import { AppConfig } from '../../providers/appconfig/appconfig';
@@ -74,14 +75,12 @@ export class MiniMapComponent {
     // configure our click event
     this.ol_map.on('singleclick', (e: ol.MapBrowserPointerEvent) => {
       var hitTolerance
-      var hit = false
       var features: any = []
       var layers: any = []
 
       this.ol_map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
         features.push(feature)
         layers.push(layer)
-        hit = true
       }, {
         hitTolerance: hitTolerance
       })
@@ -105,6 +104,12 @@ export class MiniMapComponent {
   }
 
   locationClick(location, feature) {
+    Raven.captureBreadcrumb({
+      data: {
+        location
+      },
+      message: 'Location clicked'
+    })
     switch ( feature.get('program')) {
       case 'NOAA_CLICKOVERENABLED':
         var noaa_url = "http://www.ndbc.noaa.gov/station_page.php?station=" + location ;

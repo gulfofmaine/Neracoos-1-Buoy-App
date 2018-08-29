@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events, MenuController } from 'ionic-angular';
+import Raven from 'raven-js'
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Subscription, timer } from 'rxjs';
 
 /**
  * Generated class for the PlatformDataPage page.
@@ -70,7 +71,7 @@ export class PlatformDataPage {
     // this.menuCtrl.open('right');
     console.log('ionViewDidLoad PlatformDataPage');
     // this.appConfig.enableMenu('platform_menu') ;
-    this.timer = Observable.timer(1000);
+    this.timer = timer(1000);
     // subscribing to a observable returns a subscription object
     this.sub = this.timer.subscribe(t => this.tickerFunc(t));
   }
@@ -109,6 +110,14 @@ export class PlatformDataPage {
     let erddapGraphDatasetIds: any = [] ;
     let platform_names: any = [] ;
     let dataset_available: boolean;
+    Raven.captureBreadcrumb({
+      data: {
+        startDate,
+        endDate,
+        platform: this.appConfig.getPlatformName()
+      },
+      message: 'Draw platform graphs dates'
+    })
     if ( this.metService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {
@@ -186,6 +195,12 @@ export class PlatformDataPage {
 
   // filters platform, station
   platformTapped(event, item) {
+    Raven.captureBreadcrumb({
+      data: {
+        item
+      },
+      message: 'Platform tapped'
+    })
     if ( item.properties.name != undefined ) {
       this.selectPlatform(item.properties.name)
     }
@@ -194,6 +209,12 @@ export class PlatformDataPage {
 
   // display selected platform
   selectPlatform(name) {
+    Raven.captureBreadcrumb({
+      data: {
+        name
+      },
+      message: 'Select Platform'
+    })
     this.appConfig.setPlatformSelected(this.waveService, name);
     this.appConfig.setDateFromInterface();
     this.metService.resetDataGet();
@@ -224,6 +245,12 @@ export class PlatformDataPage {
     this.getDatasetsData(this.appConfig.getCcdFcstStartDate(), this.appConfig.getCcdFcstEndDate()) ;
   }
   changeGraph(item) {
+    Raven.captureBreadcrumb({
+      data: {
+        name: item.seriesGraph.name
+      },
+      message: 'Change graph'
+    })
     // get the parameters
     let visible_parameters: any = [];
     visible_parameters.push(item.seriesGraph.parameter) ;

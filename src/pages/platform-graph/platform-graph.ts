@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Subscription, timer } from 'rxjs';
+import Highcharts from 'highcharts/highstock';
+import Raven from 'raven-js'
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import Highcharts from 'highcharts/highstock';
+
 /**
  * Generated class for the PlatformGraphPage page.
  *
@@ -51,7 +53,7 @@ export class PlatformGraphPage {
     });
     // subscribe to graph drawn event
     events.subscribe('graphingFinished', (graph_type) => {
-      this.post_graph_timer = Observable.timer(15000);
+      this.post_graph_timer = timer(15000);
       // subscribing to a observable returns a subscription object
       this.post_graph_sub = this.post_graph_timer.subscribe(t => this.postGraphFunc(t));
     });
@@ -64,7 +66,7 @@ export class PlatformGraphPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaveGraphPage');
     // After 15 minutes refresh and do it every 15 minutes after that.
-    this.timer = Observable.timer(15 * 60 * 1000, 15 * 60 * 1000);
+    this.timer = timer(15 * 60 * 1000, 15 * 60 * 1000);
     // subscribing to a observable returns a subscription object
     this.sub = this.timer.subscribe(t => this.tickerFunc(t));
     this.appConfig.setTabSelected("graph");
@@ -187,6 +189,12 @@ export class PlatformGraphPage {
   }
   // filters platform, station
   platformTapped(event, item) {
+    Raven.captureBreadcrumb({
+      data: {
+        name: item.properties.name
+      },
+      message: 'Platform Tapped'
+    })
     if ( item.properties.name != undefined ) {
       this.appConfig.setPlatformSelected(this.waveService, item.properties.name);
       this.appConfig.setDateFromInterface();
@@ -201,6 +209,14 @@ export class PlatformGraphPage {
     this.drawPlatformGraphs(this.appConfig.getStartDate(), this.appConfig.getEndDate()) ;
   }
   drawPlatformGraphs(startDate, endDate) {
+    Raven.captureBreadcrumb({
+      data: {
+        startDate,
+        endDate,
+        platform: this.appConfig.getPlatformName()
+      },
+      message: 'Draw Platform Graph'
+    })
     if ( this.waveService.isInitialized()  ) {
       // if a choice has been made and there was not previous error go directly to the page
       if ( this.appConfig.getPlatformName() != undefined && this.appConfig.displayedErrorMessage == false ) {

@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicModule } from 'ionic-angular'
+
+import { GMRIErrorHandler } from '../helpers/errorhandling/errorhandler'
 
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
@@ -101,7 +103,7 @@ export function highchartsFactory() {
   ],
   providers: [
     StatusBar,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: GMRIErrorHandler },
     BuoyDataProvider,
     MappingProvider,
     WaveProvider,

@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 // import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
 import {GMRIInundationLayer} from "../../gmri/mapping/gmriInundationMap";
 import { Platform } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+
 import { WaveProvider } from '../wave/wave';
 import { AppConfig } from '../../providers/appconfig/appconfig';
 /*
