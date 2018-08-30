@@ -1,27 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import 'rxjs/add/operator/map';
-// import { AppConfig } from '../appconfig/appconfig';
-// import { GMRIUnits } from '../appconfig/appconfig';
-// import {sprintf} from "sprintf-js";
-// import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
 import {GMRIInundationLayer} from "../../gmri/mapping/gmriInundationMap";
 import { Platform } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
+import { Map, View } from 'ol'
+import { defaults as defaultInteractions } from 'ol/interaction'
+import { transform } from 'ol/proj'
+
+
 import { WaveProvider } from '../wave/wave';
 import { AppConfig } from '../../providers/appconfig/appconfig';
-/*
-  Generated class for the MapProvider provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-declare var require: any;
-declare var ol: any;
-// declare var view: any;
 
-ol = require('openlayers/dist/ol-debug');
 @Injectable()
 export class MappingProvider {
 
@@ -137,7 +128,6 @@ export class MappingProvider {
   loadMap(map, lat, lon, start_zoom, popup, parentPage) {
     console.log('Hello Seths map Page');
 
-    // var tile_source = new ol.source.OSM() ;
     let new_map: any;
     if ( this.olMap == undefined ) {
       let my_events: any = {
@@ -150,16 +140,12 @@ export class MappingProvider {
       for ( let lKey in this.layer_metadata ) {
         olLayers.push(this.layer_metadata[lKey].olLayer) ;
       }
-      new_map = new ol.Map({
-        interactions: ol.interaction.defaults({mouseWheelZoom:false}),
+      new_map = new Map({
+        interactions: defaultInteractions({mouseWheelZoom:false}),
         layers: olLayers,
         target: map.nativeElement,
-        view: new ol.View({
-              // experiment with 4326 Erddap WW3 BIO works with this
-              // projection: 'EPSG:4326',
-              // center: ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:4326'),
-              // axioms MUR2/sst_analysed with this.
-              center: ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:3857'),
+        view: new View({
+              center: transform([lon,lat], 'EPSG:4326', 'EPSG:3857'),
               zoom: start_zoom,
               minZoom: 6,
               events: my_events
@@ -168,11 +154,6 @@ export class MappingProvider {
           "zoomed": this.eventListenerZoom,
           "mousemove": this.eventListenerMouseMove
         }
-      });
-      new_map.on("click", function(evt) {
-      // var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-      // var lon = coord[0];
-      // var lat = coord[1];
       });
       new_map.on('singleclick', function(e) {
         var hitTolerance;
@@ -214,14 +195,6 @@ export class MappingProvider {
         // add this to the map.
         this.featureElement = popup ;
       }
-      /*
-      this.featurePopup = new ol.Overlay({
-        element: this.featureElement,
-        positioning: 'bottom-center',
-        stopEvent: false
-      });
-      new_map.addOverlay(this.featurePopup);
-      */
       // send out an event object
       let event_obj_init_data: any = { name: "initial_map_data_loaded", "data_loaded": "yes" } ;
       if ( this.mapProvObserver != undefined ) {

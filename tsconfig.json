@@ -9,7 +9,6 @@
       "es2015"
     ],
     "module": "es2015",
-    "resolveJsonModule": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "target": "es5"

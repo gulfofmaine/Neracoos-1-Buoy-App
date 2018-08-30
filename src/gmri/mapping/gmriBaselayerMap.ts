@@ -1,9 +1,10 @@
-import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
-declare var require: any;
-declare var ol: any;
-// declare var view: any;
+import { Attribution } from 'ol/control'
+import TileLayer from 'ol/layer/Tile'
+import { XYZ } from 'ol/source'
+import TileWMS from 'ol/source/TileWMS'
 
-ol = require('openlayers/dist/ol-debug');
+import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
+
 export class ESRIOceanTopoBaseLayer extends GMRIOpenlayers1Layer {
 
   constructor( name: string, visibility: boolean, appConfig: any) {
@@ -24,16 +25,16 @@ export class ESRIOceanTopoBaseLayer extends GMRIOpenlayers1Layer {
     this.URL = 'http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer';
 
 
-    this.attribution = new ol.Attribution({
+    this.attribution = new Attribution({
       html: 'Basemap &copy; <a href="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer">ArcGIS</a>'
       });
 
-    this.source = new ol.source.XYZ({
+    this.source = new XYZ({
       attributions: [this.attribution],
       url: this.URL+'/tile/{z}/{y}/{x}'
     }) ;
 
-    let new_layer: any = new ol.layer.Tile({
+    let new_layer: any = new TileLayer({
           source: this.source,
           name: this.name,
           visible: this.visibility
@@ -61,16 +62,16 @@ export class ESRIOceanReferenceBaseLayer extends GMRIOpenlayers1Layer {
     this.displayName = "ESRI Ocean Ref. Map";
     this.URL = 'http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer';
 
-    this.attribution = new ol.Attribution({
+    this.attribution = new Attribution({
       html: 'Basemap &copy; <a href="http://services.arcgisonline.com/ArcGIS/rest/services/World_Ocean_Reference/MapServer">ArcGIS</a>'
       });
 
-    this.source = new ol.source.XYZ({
+    this.source = new XYZ({
       attributions: [this.attribution],
       url: this.URL+'/tile/{z}/{y}/{x}'
     }) ;
 
-    let new_layer: any = new ol.layer.Tile({
+    let new_layer: any = new TileLayer({
           source: this.source,
           name: this.name,
           visible: this.visibility
@@ -98,16 +99,16 @@ export class MaritimeChartServerBaseLayer extends GMRIOpenlayers1Layer {
     this.displayName = "Maritime Chart Server";
     this.URL = "http://gis.charttools.noaa.gov/arcgis/rest/services/MCS/ENCOnline/MapServer/exts/Maritime%20Chart%20Server/WMSServer/";
 
-    this.attribution = new ol.Attribution({
+    this.attribution = new Attribution({
       html: 'Basemap &copy; <a href="http://gis.charttools.noaa.gov/arcgis/rest/services/MCS/ENCOnline/MapServer/">Maritime Chart Server</a>'
       });
 
-    this.source = new ol.source.TileWMS({
+    this.source = new TileWMS({
       attributions: [this.attribution],
       url: this.URL
     });
 
-    let new_layer: any = new ol.layer.Tile({
+    let new_layer: any = new TileLayer({
           source: this.source,
           name: this.name,
           visible: this.visibility

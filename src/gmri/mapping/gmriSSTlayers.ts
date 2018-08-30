@@ -1,10 +1,13 @@
+import { Attribution } from 'ol/control'
+import ImageLayer from 'ol/layer/Image'
+import TileLayer from 'ol/layer/Tile'
+
+import ImageWMS from 'ol/source/ImageWMS'
+import TileWMS from 'ol/source/TileWMS'
+
+
 import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
 
-declare var require: any;
-declare var ol: any;
-// declare var view: any;
-
-ol = require('openlayers/dist/ol-debug');
 export class GMRIOISSTLayer extends GMRIOpenlayers1Layer {
   date: any ;
 
@@ -33,11 +36,11 @@ export class GMRIOISSTLayer extends GMRIOpenlayers1Layer {
     this.date = new Date("2018-06-02T00:00:00.000Z") ;
     this.colorscalerange = '-5,35';
 
-    this.attribution = new ol.Attribution({
+    this.attribution = new Attribution({
       html: 'OISST'
       });
 
-    this.source =  new ol.source.ImageWMS(({
+    this.source =  new ImageWMS(({
             //url: 'http://www.ncdc.noaa.gov/thredds/wms/OISST-V2-AVHRR_agg_combined',
 						url: this.URL,
             params: {
@@ -54,7 +57,7 @@ export class GMRIOISSTLayer extends GMRIOpenlayers1Layer {
             ratio:1
         }));
     //Create SST Layer
-    let new_layer: any = new ol.layer.Image({
+    let new_layer: any = new ImageLayer({
         source: this.source,
         name: this.name,
         visible: this.visibility
@@ -96,16 +99,12 @@ export class AXIOMMUR2_analysedSSTLayer extends GMRIOpenlayers1Layer {
     this.date = new Date() ;
     this.colorscalerange = '272.039,303.7058';
 
-    this.attribution = new ol.Attribution({
+    this.attribution = new Attribution({
       html: 'MUR2 SST  Sea Surface Foundation Temperature'
       });
 
-    // this.source = new ol.source.TileWMS({
-    //  attributions: [this.attribution],
-   //   url: this.URL
-   // });
 
-    this.source = new ol.source.TileWMS({
+    this.source = new TileWMS({
         url: this.URL,
         params: {'LAYERS': 'MUR2/analysed_sst',
              'TILED': true,
@@ -115,7 +114,7 @@ export class AXIOMMUR2_analysedSSTLayer extends GMRIOpenlayers1Layer {
         // transition: 0
     });
 
-    let new_layer: any = new ol.layer.Tile({
+    let new_layer: any = new TileLayer({
           source: this.source,
           name: this.name,
           visible: this.visibility
@@ -152,15 +151,11 @@ export class GMRIWW3BIOLayer extends GMRIOpenlayers1Layer {
     this.URL = 'http://www.neracoos.org/erddap/wms/WW3_GulfOfMaine_latest/request';
     this.date = new Date();
 
-    this.attribution = new ol.Attribution({
+    this.attribution = new Attribution({
       html: 'MUR2 SST  Sea Surface Foundation Temperature'
       });
 
-    // this.source = new ol.source.TileWMS({
-    //  attributions: [this.attribution],
-   //   url: this.URL
-   // });
-    this.source = new ol.source.TileWMS({
+    this.source = new TileWMS({
         url: this.URL,
         params: {'LAYERS': 'WW3_GulfOfMaine_latest:hs', 'TILED': true},
         // time: '2018-05-31T18:00:00Z',
@@ -171,35 +166,11 @@ export class GMRIWW3BIOLayer extends GMRIOpenlayers1Layer {
         // transition: 0
     });
 
-    let new_layer: any = new ol.layer.Tile({
+    let new_layer: any = new TileLayer({
           source: this.source,
           name: this.name,
           visible: this.visibility
         })
-    /*
-    this.source = new ol.source.ImageWMS(({
-          //url: 'http://www.ncdc.noaa.gov/thredds/wms/OISST-V2-AVHRR_agg_combined',
-          url: this.URL,
-          params: {
-              // version:'1.3.0',
-              time: this.date.toISOString(),
-              time: '2018-05-31T18:00:00Z',
-              layers: 'WW3_GulfOfMaine_latest',
-              transparent:'true',
-              // crs: 'EPSG:4326'
-              // "COLORSCALERANGE": "-10,10",
-              // STYLES:'boxfill/redblue'
-          },
-          // serverType: 'geoserver',
-          ratio:1
-      }))
-
-    let new_layer: any = new ol.layer.Image({
-          source: this.source,
-          name: this.name,
-          visible: this.visibility
-        })
-    */
     return( new_layer ) ;
     // this.layers.push( inundationLayer.layer) ;
   }
