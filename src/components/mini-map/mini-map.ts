@@ -3,6 +3,9 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { NavController, Platform } from 'ionic-angular';
 import Raven from 'raven-js'
 
+import { Map, MapBrowserPointerEvent, View } from 'ol'
+import { transform } from 'ol/proj'
+
 // Custom providers
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave'
@@ -11,11 +14,6 @@ import { WaveProvider } from '../../providers/wave/wave'
 // Layers to be displayed in the map
 import { GMRIPlatformLayer } from '../../gmri/mapping/gmriPlatformMap';
 import { ESRIOceanTopoBaseLayer, ESRIOceanReferenceBaseLayer } from '../../gmri/mapping/gmriBaselayerMap';
-
-declare var require: any
-declare var ol: any
-
-ol = require('openlayers/dist/ol-debug')
 
 
 @Component({
@@ -32,7 +30,7 @@ export class MiniMapComponent {
   lon: number = -68.7
   lat: number =  43.5
   
-  ol_map: ol.Map
+  ol_map: Map
 
   constructor(public appConfig: AppConfig,
               public location: Location,
@@ -58,22 +56,22 @@ export class MiniMapComponent {
     platformLayer.olLayer = platformLayer.initializeLayer(icon_path, this.platform, false)
 
     // setup the map
-    this.ol_map = new ol.Map({
+    this.ol_map = new Map({
       target: this.map.nativeElement,
       layers: [
         esriOceanTopoLayer.olLayer,
         esriOceanReferenceLayer.olLayer,
         platformLayer.olLayer
       ],
-      view: new ol.View({
-        center: ol.proj.transform([this.lon, this.lat], 'EPSG:4326', 'EPSG:3857'),
+      view: new View({
+        center: transform([this.lon, this.lat], 'EPSG:4326', 'EPSG:3857'),
         zoom: this.start_zoom,
         minZoom: 6
       })
     })
 
     // configure our click event
-    this.ol_map.on('singleclick', (e: ol.MapBrowserPointerEvent) => {
+    this.ol_map.on('singleclick', (e: MapBrowserPointerEvent) => {
       var hitTolerance
       var features: any = []
       var layers: any = []
@@ -89,7 +87,7 @@ export class MiniMapComponent {
   }
 
   // sort out if which features are relevant to work with
-  navigateByfeatureInfo(e: ol.MapBrowserPointerEvent, features) {
+  navigateByfeatureInfo(e: MapBrowserPointerEvent, features) {
     if (features.length > 0) {
       let location: string
       for (var i = 0; i < features.length; i++) {

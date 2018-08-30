@@ -1,9 +1,14 @@
-import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
-declare var require: any;
-declare var ol: any;
-// declare var view: any;
+import GeoJSON from 'ol/format/GeoJSON'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import Fill from 'ol/style/Fill'
+import Icon from 'ol/style/Icon'
+import Stroke from 'ol/style/Stroke'
+import Style from 'ol/style/Style'
+import Text from 'ol/style/Text'
 
-ol = require('openlayers/dist/ol-debug');
+import {GMRIOpenlayers1Layer} from "../../gmri/mapping/gmri-openlayers1";
+
 export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
 
   constructor( name: string, visibility: boolean, appConfig: any) {
@@ -54,14 +59,14 @@ export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
     this.legendArray['erosion'] = this.icon_path + '/img/symbols/erosion.png' ;
     this.legendArray['inundation'] = this.icon_path + '/img/symbols/inundation.png' ;
 
-    this.source = new ol.source.Vector({
+    this.source = new VectorSource({
         url: this.URL,
         projection: 'EPSG:3857',
-        format: new ol.format.GeoJSON()
+        format: GeoJSON()
         // attribution = this.attribution
       });
 
-    let new_layer: any = new ol.layer.Vector({
+    let new_layer: any = new VectorLayer({
       title: this.name,
       name: this.name,
       displayName: this.displayName,
@@ -102,8 +107,8 @@ export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
         // This is for the legend and giving the user checkboxes based on
         // the icons, seining, jigging etc. figure it out later.
         // if (cbass_layer_visibility[actype] == 'checked') {
-        var style = new ol.style.Style({
-          image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+        var style = new Style({
+          image: new Icon(/** @type {olx.style.IconOptions} */ ({
             anchor: [0.0, 0],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
@@ -114,15 +119,8 @@ export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
             projection: 'EPSG:4326',
             src: img_icon
           })),
-          stroke: new ol.style.Stroke({color: lc, width: lw}),
+          stroke: new Stroke({color: lc, width: lw}),
           text: icon_label
-          /*
-          image: new ol.style.Circle({
-            radius: 10,
-            fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
-            stroke: new ol.style.Stroke({color: 'red', width: 1})
-          }),
-          */
         });
         if ( style != undefined ) {
           return [style];
@@ -245,13 +243,13 @@ export class GMRIInundationLayer extends GMRIOpenlayers1Layer {
     var outlineColor = dom.outline;
     var outlineWidth = parseInt(dom.outlineWidth, 10);
 
-    return new ol.style.Text({
+    return new Text({
       textAlign: align,
       textBaseline: baseline,
       font: font,
       text: this.getText(feature, resolution, dom, styleFor),
-      fill: new ol.style.Fill({color: fillColor}),
-      stroke: new ol.style.Stroke({color: outlineColor, width: outlineWidth}),
+      fill: new Fill({color: fillColor}),
+      stroke: new Stroke({color: outlineColor, width: outlineWidth}),
       offsetX: offsetX,
       offsetY: offsetY,
       rotation: rotation

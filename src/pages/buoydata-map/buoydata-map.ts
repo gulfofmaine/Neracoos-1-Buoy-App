@@ -4,6 +4,8 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import Raven from 'raven-js'
 
+import Overlay from 'ol/Overlay'
+
 import { Observable, Subscription, timer } from 'rxjs';
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { MappingProvider } from '../../providers/mapping/mapping';
@@ -21,18 +23,7 @@ import {GMRIOISSTLayer,AXIOMMUR2_analysedSSTLayer,GMRIWW3BIOLayer} from "../../g
 
 import { PlatformTabsPage } from '../platform-tabs/platform-tabs' ;
 import { MarinerTabsPage } from '../mariner-tabs/mariner-tabs' ;
-// import { WaveGraphPage } from '../wave-graph/wave-graph';
-// import { NeracoosTabsPage } from '../neracoos-tabs/neracoos-tabs' ;
 
-declare var require: any;
-declare var ol: any;
-
-/**
- * Generated class for the BuoydataMapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -84,7 +75,6 @@ export class BuoydataMapPage {
             public popoverCtrl: PopoverController,
             public menuCtrl: MenuController,
             public events: Events) {
-    ol = require('openlayers/dist/ol-debug');
     platform.ready().then(() => {
       console.log("Platform is ready");
     });
@@ -435,7 +425,7 @@ export class BuoydataMapPage {
     let fLayer = this.mapService.getLayerClass( layer.get('name'));
     this.selectedFeatureHTML = fLayer.getHoverTextForFeature(feature) ;
     this.selectedFeature = feature;
-    this.mapService.featurePopup = new ol.Overlay({
+    this.mapService.featurePopup = new Overlay({
       element: this.mapService.featureElement,
       // positioning: 'bottom-center',
       // positioning: 'center',
