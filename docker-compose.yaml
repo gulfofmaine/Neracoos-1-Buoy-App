@@ -11,3 +11,13 @@ services:
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules/
+  
+  test:
+    command: npm test
+    build: .
+    image: neracoos-ionic
+    ports:
+    - "9876:9876"
+    volumes:
+    - .:/usr/src/app
+    - /usr/src/app/node_modules/
