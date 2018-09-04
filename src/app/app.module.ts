@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular'
+import { APP_BASE_HREF } from '@angular/common'
 
 import { GMRIErrorHandler } from '../helpers/errorhandling/errorhandler'
 
@@ -101,6 +102,7 @@ export function highchartsFactory() {
   ],
   providers: [
     { provide: ErrorHandler, useClass: GMRIErrorHandler },
+    { provide: APP_BASE_HREF, useValue: '/'},
     BuoyDataProvider,
     MappingProvider,
     WaveProvider,
