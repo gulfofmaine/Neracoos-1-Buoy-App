@@ -8,8 +8,6 @@ import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { ListPage } from '../pages/list/list';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePageModule } from '../pages/home/home.module'
 import { MarinerAboutPageModule } from '../pages/mariner-about/mariner-about.module'
 import { BuoydataMapPageModule } from '../pages/buoydata-map/buoydata-map.module'
@@ -102,14 +100,12 @@ export function highchartsFactory() {
     ListPage,
   ],
   providers: [
-    StatusBar,
     { provide: ErrorHandler, useClass: GMRIErrorHandler },
     BuoyDataProvider,
     MappingProvider,
     WaveProvider,
     GMRIUnits,
     WaterlevelProvider,
-    SplashScreen,
     AppConfig,
     DatePipe,
     HttpClient,
