@@ -10,6 +10,7 @@
     ],
     "module": "es2015",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "sourceMap": true,
     "target": "es5"
   },
@@ -19,7 +20,8 @@
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
-    "src/**/__tests__/*.ts"
+    "src/**/__tests__/*.ts",
+    "**/*.conf.js"
   ],
   "compileOnSave": false,
   "atom": {
