@@ -11,7 +11,7 @@ import { MappingProvider } from '../../providers/mapping/mapping';
 @IonicPage()
 @Component({
   selector: 'page-layer-picker',
-  templateUrl: 'layer-picker.html',
+  templateUrl: './layer-picker.html',
 })
 export class LayerPickerPage {
 

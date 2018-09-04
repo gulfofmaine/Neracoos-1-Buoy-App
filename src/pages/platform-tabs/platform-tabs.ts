@@ -18,7 +18,7 @@ import { PlatformDesignerGraphPage } from '../platform-designer-graph/platform-d
 
 @Component({
   selector: 'page-platform-tabs',
-  templateUrl: 'platform-tabs.html',
+  templateUrl: './platform-tabs.html',
 })
 export class PlatformTabsPage {
   @ViewChild("pageTabs") pageTabs: Tabs;

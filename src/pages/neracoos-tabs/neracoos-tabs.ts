@@ -19,7 +19,7 @@ import { PlatformDesignerGraphPage } from '../platform-designer-graph/platform-d
 
 @Component({
   selector: 'page-neracoos-tabs',
-  templateUrl: 'neracoos-tabs.html',
+  templateUrl: './neracoos-tabs.html',
 })
 export class NeracoosTabsPage {
 

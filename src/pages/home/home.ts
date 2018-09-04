@@ -11,7 +11,7 @@ import { WaterlevelProvider } from '../../providers/waterlevel/waterlevel';
 )
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: './home.html'
 })
 export class HomePage {
 

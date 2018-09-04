@@ -11,7 +11,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-platform-metadata',
-  templateUrl: 'platform-metadata.html',
+  templateUrl: './platform-metadata.html',
 })
 export class PlatformMetadataPage {
 

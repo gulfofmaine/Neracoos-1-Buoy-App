@@ -20,7 +20,7 @@ import { MarinerAboutPage } from '../mariner-about/mariner-about';
 
 @Component({
   selector: 'page-mariner-tabs',
-  templateUrl: 'mariner-tabs.html',
+  templateUrl: './mariner-tabs.html',
 })
 export class MarinerTabsPage {
 

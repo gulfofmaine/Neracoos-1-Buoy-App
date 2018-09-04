@@ -11,7 +11,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-platform-summary',
-  templateUrl: 'platform-summary.html',
+  templateUrl: './platform-summary.html',
 })
 export class PlatformSummaryPage {
 

@@ -18,7 +18,7 @@ require('highcharts-windbarb');
 
 @Component({
   selector: 'page-mariner-forecast',
-  templateUrl: 'mariner-forecast.html',
+  templateUrl: './mariner-forecast.html',
 })
 export class MarinerForecastPage {
   // refresh timer

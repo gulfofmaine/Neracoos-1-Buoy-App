@@ -20,7 +20,7 @@ require('highcharts-windbarb');
 @IonicPage()
 @Component({
   selector: 'page-platform-graph',
-  templateUrl: 'platform-graph.html',
+  templateUrl: './platform-graph.html',
 })
 export class PlatformGraphPage {
   // refresh timer

@@ -14,7 +14,7 @@ import Highcharts from 'highcharts/highstock';
 @IonicPage()
 @Component({
   selector: 'page-wave-graph',
-  templateUrl: 'wave-graph.html',
+  templateUrl: './wave-graph.html',
 })
 export class WaveGraphPage {
 

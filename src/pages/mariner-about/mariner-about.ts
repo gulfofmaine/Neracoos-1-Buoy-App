@@ -11,7 +11,7 @@ import { AppConfig } from '../../providers/appconfig/appconfig';
 })
 @Component({
   selector: 'page-mariner-about',
-  templateUrl: 'mariner-about.html',
+  templateUrl: './mariner-about.html',
 })
 export class MarinerAboutPage {
 

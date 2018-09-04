@@ -16,7 +16,7 @@ import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'page-platform-data',
-  templateUrl: 'platform-data.html',
+  templateUrl: './platform-data.html',
 })
 export class PlatformDataPage {
   // refresh timer

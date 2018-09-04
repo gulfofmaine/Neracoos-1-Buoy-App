@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-list',
-  templateUrl: 'list.html'
+  templateUrl: './list.html'
 })
 export class ListPage {
   selectedItem: any;

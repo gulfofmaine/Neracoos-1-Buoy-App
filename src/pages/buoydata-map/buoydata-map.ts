@@ -27,7 +27,7 @@ import { MarinerTabsPage } from '../mariner-tabs/mariner-tabs' ;
 @IonicPage()
 @Component({
   selector: 'page-buoydata-map',
-  templateUrl: 'buoydata-map.html',
+  templateUrl: './buoydata-map.html',
   providers: [Location,
               {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })

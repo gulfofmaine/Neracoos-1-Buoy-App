@@ -19,7 +19,7 @@ require('highcharts-windbarb');
 
 @Component({
   selector: 'page-platform-datasets-graph',
-  templateUrl: 'platform-datasets-graph.html',
+  templateUrl: './platform-datasets-graph.html',
 })
 export class PlatformDatasetsGraphPage {
   // refresh timer
