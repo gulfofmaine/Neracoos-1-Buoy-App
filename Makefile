@@ -2,7 +2,7 @@
 
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
-up:
+up: down
 	docker-compose up -d --build
 	docker-compose logs -f
 
