@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Events, MenuController } from 'ionic-angular';
-import Raven from 'raven-js'
+import * as Raven from 'raven-js'
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';

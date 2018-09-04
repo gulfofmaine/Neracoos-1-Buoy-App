@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators'
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import { MenuController } from 'ionic-angular';
-import moment from 'moment';
-import Raven from 'raven-js'
+import * as moment from 'moment';
+import * as Raven from 'raven-js'
 
 
 import {GMRIErddap} from "../../gmri/data/gmri-erddap";

@@ -1,7 +1,7 @@
 import { Component, ViewChild, Renderer  } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, App, PopoverController, MenuController, Events } from 'ionic-angular';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import Raven from 'raven-js'
+import * as Raven from 'raven-js'
 
 import Overlay from 'ol/Overlay'
 

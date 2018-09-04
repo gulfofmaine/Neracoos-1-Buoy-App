@@ -1,6 +1,6 @@
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import {sprintf} from "sprintf-js";
-import moment from 'moment';
+import * as moment from 'moment';
 
 export class GMRIDataset {
 

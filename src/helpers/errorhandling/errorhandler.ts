@@ -1,5 +1,5 @@
 // import Raven = require('raven-js')
-import Raven from 'raven-js'
+import * as Raven from 'raven-js'
 import { AlertController, IonicErrorHandler } from 'ionic-angular'
 import { Inject, Injectable } from '@angular/core'
 

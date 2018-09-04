@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { NavController, Platform } from 'ionic-angular';
-import Raven from 'raven-js'
+import * as Raven from 'raven-js'
 
 import { Map, MapBrowserPointerEvent, View } from 'ol'
 import { transform } from 'ol/proj'

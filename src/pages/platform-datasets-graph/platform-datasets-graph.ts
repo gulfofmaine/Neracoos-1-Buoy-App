@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController, MenuController, Events } from 'ionic-angular';
 import { Subscription, timer } from 'rxjs';
-import Highcharts from 'highcharts/highstock';
-import Raven from 'raven-js'
+import * as Highcharts from 'highcharts/highstock';
+import * as Raven from 'raven-js'
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';

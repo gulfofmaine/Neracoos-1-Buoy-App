@@ -5,7 +5,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Http } from '@angular/http';
 import { Jsonp } from '@angular/http';
-import Raven from 'raven-js'
+import * as Raven from 'raven-js'
 
 import { AppConfig } from '../appconfig/appconfig';
 import {GMRIMetDataset} from "../../gmri/data/gmri-met-dataset";

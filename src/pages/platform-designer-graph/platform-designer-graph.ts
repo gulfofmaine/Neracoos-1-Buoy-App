@@ -5,7 +5,7 @@ import { Subscription, timer } from 'rxjs';
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
 import { MetProvider } from '../../providers/met/met';
-import Highcharts from 'highcharts/highstock';
+import * as Highcharts from 'highcharts/highstock';
 /**
  * Generated class for the PlatformGraphPage page.
  *

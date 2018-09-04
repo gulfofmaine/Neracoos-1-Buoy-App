@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events, MenuController } from 'ionic-angular';
-import Raven from 'raven-js'
+import * as Raven from 'raven-js'
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';

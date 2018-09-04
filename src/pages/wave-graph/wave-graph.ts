@@ -4,7 +4,7 @@ import { Subscription, timer } from 'rxjs';
 
 import { AppConfig } from '../../providers/appconfig/appconfig';
 import { WaveProvider } from '../../providers/wave/wave';
-import Highcharts from 'highcharts/highstock';
+import * as Highcharts from 'highcharts/highstock';
 /**
  * Generated class for the WaveGraph page.
  *
