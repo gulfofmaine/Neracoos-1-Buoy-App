@@ -1,7 +1,6 @@
 import { Component, ViewChild, Renderer  } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, App, PopoverController, MenuController, Events } from 'ionic-angular';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 import Raven from 'raven-js'
 
 import Overlay from 'ol/Overlay'
@@ -30,8 +29,7 @@ import { MarinerTabsPage } from '../mariner-tabs/mariner-tabs' ;
   selector: 'page-buoydata-map',
   templateUrl: 'buoydata-map.html',
   providers: [Location,
-              {provide: LocationStrategy, useClass: PathLocationStrategy},
-              InAppBrowser]
+              {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class BuoydataMapPage {
 
@@ -71,7 +69,6 @@ export class BuoydataMapPage {
             public waveService: WaveProvider,
             public waterlevelService: WaterlevelProvider,
             public appCtrl: App,
-            public iap: InAppBrowser,
             public popoverCtrl: PopoverController,
             public menuCtrl: MenuController,
             public events: Events) {
@@ -528,8 +525,7 @@ export class BuoydataMapPage {
           case 'NOAA_CLICKOVERENABLED':
             var noaa_url = "http://www.ndbc.noaa.gov/station_page.php?station=" + location ;
             this.platform.ready().then(() => {
-              let browser: any = this.iap.create(noaa_url, "_system", "location=true");
-              browser.show();
+              window.open(noaa_url, "_system")
             });
             break;
           case 'NOAA':

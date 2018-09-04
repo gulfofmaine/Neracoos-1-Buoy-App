@@ -28,7 +28,7 @@ sentry:
 	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") upload-sourcemaps www/build
 
 prune:
-	docker volume rm $(docker volume ls -qf dangling=true)
+	docker volume rm $(shell docker volume ls -qf dangling=true)
 	docker system prune -a
 
 patch:
