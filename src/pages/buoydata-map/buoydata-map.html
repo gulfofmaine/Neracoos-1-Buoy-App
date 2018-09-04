@@ -59,53 +59,7 @@
     <ion-col col-12 col-sm-8>
 
   <div id="map" #map class="map"  data-tap-disabled="true">
-    <div id="popup">
-      <div *ngIf="selectedFeature != undefined &&
-                    selectedFeature.get('projectidentifier') != undefined">
-        <div [ngSwitch]="selectedFeature.get('projectidentifier')">
-          <div *ngSwitchCase="'INUNDATION'">
-            {{selectedFeature.get('monitoringlocationname')}}<br/>
-            {{selectedFeature.get('monitoringlocationdescriptiontext')}}
-          </div>
-        </div>
-      </div>
-      <!-- NERACOOS buoy data -->
-      <!--http://www.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson -->
-      <div *ngIf="selectedFeature != undefined &&
-                    selectedFeature.get('mooring_site_desc') != undefined">
-
-          <div [ngSwitch]="selectedFeature.get('project')">
-            <div *ngSwitchCase="'NERACOOS'">
-              {{selectedFeature.get('name')}}<br/>
-              Program: {{selectedFeature.get('program')}}<br/>
-              {{selectedFeature.get('mooring_site_desc')}}<br/>
-              <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
-            </div>
-            <div *ngSwitchCase="'LOBO NERACOOS'">
-              {{selectedFeature.get('name')}}<br/>
-              Project: {{selectedFeature.get('project')}}<br/>
-              {{selectedFeature.get('mooring_site_desc')}}<br/>
-              <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
-            </div>
-          </div>
-      </div>
-      <!-- NOAA NOS/CO-OPS tide data -->
-      <div *ngIf="selectedFeature != undefined &&
-                    selectedFeature.get('projectidentifier') != undefined &&
-                    selectedFeature.get('projectidentifier') == 'NOS/CO-OPS' &&
-                    isNOAATideStation(selectedFeature.get('monitoringlocationidentifier'))">
-          {{selectedFeature.get('monitoringlocationdescriptiontext')}}<br/>
-          {{selectedFeature.get('monitoringlocationname')}}<br/>
-          Station Id - {{selectedFeature.get('monitoringlocationidentifier')}}
-          <span [innerHtml]="selectedFeature.get('platform_credit')"></span>
-      </div>
-      <div *ngIf="selectedFeature != undefined &&
-                    selectedFeature.get('projectidentifier') != undefined &&
-                    selectedFeature.get('projectidentifier') == 'NOS/CO-OPS' &&
-                    !isNOAATideStation(selectedFeature.get('monitoringlocationidentifier'))">
-          {{selectedFeature.get('monitoringlocationname')}}
-      </div>
-    </div>
+    
   </div>
   <strong>Beach Erosion and Flooding Forecast</strong> <br />
   The impact markers for the beach locations will update based on the forecast. Click the marker to view the forecast.<p></p>
@@ -114,6 +68,53 @@
   Click a tide gauge station to view the tide observations and water level forecast data.
     </ion-col>
     <ion-col col-12 col-sm-4>
+        <div id="popup">
+            <div *ngIf="selectedFeature != undefined &&
+                          selectedFeature.get('projectidentifier') != undefined">
+              <div [ngSwitch]="selectedFeature.get('projectidentifier')">
+                <div *ngSwitchCase="'INUNDATION'">
+                  {{selectedFeature.get('monitoringlocationname')}}<br/>
+                  {{selectedFeature.get('monitoringlocationdescriptiontext')}}
+                </div>
+              </div>
+            </div>
+            <!-- NERACOOS buoy data -->
+            <!--http://www.neracoos.org/data/json/monitoringlocations.php?format=erddapgeojson -->
+            <div *ngIf="selectedFeature != undefined &&
+                          selectedFeature.get('mooring_site_desc') != undefined">
+      
+                <div [ngSwitch]="selectedFeature.get('project')">
+                  <div *ngSwitchCase="'NERACOOS'">
+                    {{selectedFeature.get('name')}}<br/>
+                    Program: {{selectedFeature.get('program')}}<br/>
+                    {{selectedFeature.get('mooring_site_desc')}}<br/>
+                    <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
+                  </div>
+                  <div *ngSwitchCase="'LOBO NERACOOS'">
+                    {{selectedFeature.get('name')}}<br/>
+                    Project: {{selectedFeature.get('project')}}<br/>
+                    {{selectedFeature.get('mooring_site_desc')}}<br/>
+                    <!--><span [innerHtml]="selectedFeature.get('platform_credit')"></span>-->
+                  </div>
+                </div>
+            </div>
+            <!-- NOAA NOS/CO-OPS tide data -->
+            <div *ngIf="selectedFeature != undefined &&
+                          selectedFeature.get('projectidentifier') != undefined &&
+                          selectedFeature.get('projectidentifier') == 'NOS/CO-OPS' &&
+                          isNOAATideStation(selectedFeature.get('monitoringlocationidentifier'))">
+                {{selectedFeature.get('monitoringlocationdescriptiontext')}}<br/>
+                {{selectedFeature.get('monitoringlocationname')}}<br/>
+                Station Id - {{selectedFeature.get('monitoringlocationidentifier')}}
+                <span [innerHtml]="selectedFeature.get('platform_credit')"></span>
+            </div>
+            <div *ngIf="selectedFeature != undefined &&
+                          selectedFeature.get('projectidentifier') != undefined &&
+                          selectedFeature.get('projectidentifier') == 'NOS/CO-OPS' &&
+                          !isNOAATideStation(selectedFeature.get('monitoringlocationidentifier'))">
+                {{selectedFeature.get('monitoringlocationname')}}
+            </div>
+          </div>
         <ion-row>
           <ion-col>
           <h5>Legend</h5>
