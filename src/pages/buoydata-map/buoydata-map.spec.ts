@@ -1,12 +1,12 @@
 import { ComponentFixture, async } from '@angular/core/testing'
 import { TestUtils } from '../../test'
-import { BuoyDataMapPage} from './buoydata-map'
+import { BuoydataMapPage } from './buoydata-map'
 
-let fixture: ComponentFixture<BuoyDataMapPage> = null
+let fixture: ComponentFixture<BuoydataMapPage> = null
 let instance: any = null
 
 describe('Pages: Bouydata-map', () => {
-    beforeEach(async(() => TestUtils.beforeEachCompiler([BuoyDataMapPage]).then(compiled => {
+    beforeEach(async(() => TestUtils.beforeEachCompiler([BuoydataMapPage]).then(compiled => {
         fixture = compiled.fixture
         instance = compiled.instance
     })))
