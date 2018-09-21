@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { 
     Collapse, 
     DropdownItem, 
@@ -12,6 +12,9 @@ import {
     NavItem, 
     UncontrolledDropdown 
 } from 'reactstrap'
+
+import { paths } from '@app/constants'
+import { regionList } from '@app/Shared/regions';
 
 import './nav.css'
 
@@ -32,10 +35,17 @@ export default class NeracoosNavBar extends React.Component<object, State> {
     }
 
     public render() {
+        const regions = regionList.map((region, key) => {
+            const to = paths.platforms.root + '?region=' + region.slug
+            return (
+                <DropdownItem key={key}><NavLink className='nav-link' activeClassName='active' to={ to }>{ region.name }</NavLink></DropdownItem>
+            )
+        })
+
         return (
             <div>
                 <Navbar dark={true} expand="md">
-                    <NavbarBrand tag={Link} to=""><img src="http://www.neracoos.org/sites/all/themes/bootstrap_neracoos/logo.png" /></NavbarBrand>
+                    <NavbarBrand tag={Link} to={paths.home}><img src="http://www.neracoos.org/sites/all/themes/bootstrap_neracoos/logo.png" /></NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
 
                     <Collapse isOpen={this.state.isOpen} navbar={true}>
@@ -44,22 +54,16 @@ export default class NeracoosNavBar extends React.Component<object, State> {
                             <UncontrolledDropdown nav={true} inNavbar={true}>
                                 <DropdownToggle nav={true} caret={true}>Regions</DropdownToggle>
                                 <DropdownMenu right={true}>
-                                    <DropdownItem><Link className="nav-link" to="">Gulf of Maine</Link></DropdownItem>
-                                    <DropdownItem><Link className="nav-link" to="">Long Island Sound</Link></DropdownItem>
-                                    <DropdownItem><Link className="nav-link" to="">Great Bay, NH</Link></DropdownItem>
-                                    <DropdownItem><Link className="nav-link" to="">Boston Harbor</Link></DropdownItem>
-                                    <DropdownItem><Link className="nav-link" to="">Cape Cod / Buzzards Bay</Link></DropdownItem>
-                                    <DropdownItem><Link className="nav-link" to="">Narragansett Bay</Link></DropdownItem>
-                                    <DropdownItem><Link className="nav-link" to="">Newfoundland, Canada</Link></DropdownItem>
+                                    { regions }
                                 </DropdownMenu>
                             </UncontrolledDropdown>
 
                             <NavItem>
-                                <Link className="nav-link" to="">Map</Link>
+                                <NavLink className="nav-link" activeClassName='active' to={paths.map}>Map</NavLink>
                             </NavItem>
 
                             <NavItem>
-                                <Link className="nav-link" to="">About</Link>
+                                <NavLink className="nav-link" activeClassName='active' to={paths.about}>About</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
