@@ -1,7 +1,0 @@
-{
-  "name": "neracoos1",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular"
-}
