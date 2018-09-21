@@ -1,13 +1,12 @@
 version: '2.4'
 
 services:
-  ionic:
+  client:
     build: .
-    image: neracoos-ionic
+    image: neracoos-react
+    command: "yarn start"
     ports:
-    - "8100:8100"
-    - "35729:35729"
-    - "53703:53703"
+    - "3000:3000"
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules/

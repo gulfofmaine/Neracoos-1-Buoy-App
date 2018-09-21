@@ -2,7 +2,7 @@
 
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
-up:
+up: down
 	docker-compose up -d --build
 	docker-compose logs -f
 
@@ -10,17 +10,14 @@ down:
 	docker-compose down
 
 build: down
-	docker-compose run ionic ionic build --verbose
-
-build-prod:
-	docker-compose run ionic ionic build --prod --verbose
+	docker-compose run client yarn build
 
 deploy:
-	scp -r ./www awsgmri:/home2/ionic/neracoos1
+	scp -r ./build awsgmri:/home2/ionic/neracoos1
 	sentry-cli releases -o gulf-of-maine-research-institu deploys $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") new -e staging
 
 serve-build:
-	python3 -m http.server -d www
+	python3 -m http.server -d build/
 
 sentry:
 	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard new $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --finalize

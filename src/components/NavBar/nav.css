@@ -1,0 +1,11 @@
+nav.navbar {
+    background-color: var(--primary)
+}
+
+.navbar-dark .navbar-nav .dropdown-menu .nav-link {
+    color: var(--primary);
+}
+
+.navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {
+    color: black;
+}
