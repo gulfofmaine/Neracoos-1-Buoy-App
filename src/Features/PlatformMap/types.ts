@@ -25,8 +25,8 @@ export interface PlatformLocation {
     active: boolean
     data_depths: PlatformDataDepths
     data_types: PlatformDataTypes
-    lat: number
-    lon: number
+    lat: string
+    lon: string
     mooring_site_desc: string
     platform_credit: string
     program: string

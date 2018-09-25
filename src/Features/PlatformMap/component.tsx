@@ -1,4 +1,15 @@
-import { Feature } from '@turf/helpers'
+import { Feature as TurfFeature } from '@turf/helpers'
+// import Feature from 'ol/Feature'
+import GeoJSON from 'ol/format/GeoJSON'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import { 
+    Circle, 
+    Fill, 
+    Stroke, 
+    Style, 
+    // Text 
+} from 'ol/style'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
@@ -10,7 +21,7 @@ import { platformLocationsLoad } from './actions'
 
 export interface ReduxProps {
     loadPlatforms: () => void
-    platforms: Feature[]
+    platforms: TurfFeature[]
 }
 
 function mapStateToProps({ platformMap }: StoreState) {
@@ -23,6 +34,19 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     loadPlatforms: platformLocationsLoad
 }, dispatch)
 
+const platformStyle = new Style({
+    image: new Circle({
+        fill: new Fill({
+            color: 'rgba(255, 153, 0, 0.4)'
+        }),
+        radius: 5,
+        stroke: new Stroke({
+            color: 'red',
+            width: 1
+        })
+    })
+})
+
 export class PlatformMapBase extends React.Component<ReduxProps, object> {
     constructor(props: any) {
         super(props)
@@ -30,10 +54,28 @@ export class PlatformMapBase extends React.Component<ReduxProps, object> {
     }
 
     public render() {
+        
+
         const layers = [
             esriLayers.EsriOceanBasemapLayer,
             esriLayers.EsriOceanReferenceLayer
         ]
+
+        if (this.props.platforms.length > 0) {
+            const platformSource = new VectorSource({
+                features: (new GeoJSON()).readFeatures({
+                    features: this.props.platforms,
+                    type: 'FeatureCollection'
+                }, {featureProjection: 'EPSG:3857'})
+            })
+
+            const platformLayer = new VectorLayer({
+                source: platformSource,
+                style: platformStyle
+            })
+
+            layers.push(platformLayer)
+        }
 
         return (
             <BaseMap lon={-65} lat={42} startZoom={4} layers={layers} />

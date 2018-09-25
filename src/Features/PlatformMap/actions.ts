@@ -51,10 +51,12 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
             for (const platform in json) {
                 if (json.hasOwnProperty(platform)) {
                     const { lat, lon, data_types, data_depths, ...properties } = json[platform]
-                    const platformProperties = properties as PlatformProperties
-                    platformProperties.name = platform
-                    const platformPoint = point([lon, lat], platformProperties)
-                    platforms.push(platformPoint)
+                    if (properties.active) {
+                        const platformProperties = properties as PlatformProperties
+                        platformProperties.name = platform
+                        const platformPoint = point([parseFloat(lon), parseFloat(lat)], platformProperties)
+                        platforms.push(platformPoint)
+                    }
                 }
             }
 

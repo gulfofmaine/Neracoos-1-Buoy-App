@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import TileLayer from 'ol/layer/Tile'
+// import TileLayer from 'ol/layer/Tile'
+import Layer from 'ol/layer/Layer'
 import Map from 'ol/Map'
 import { transform, transformExtent } from 'ol/proj'
 import View from 'ol/View'
@@ -11,7 +12,7 @@ export interface Props {
     boundingBox?: BoundingBox
     lat: number
     lon: number
-    layers: TileLayer[]
+    layers: Layer[]
     startZoom: number,
     children?: JSX.Element | JSX.Element[] | Array<JSX.Element | undefined>
 }
