@@ -1,5 +1,7 @@
 import { DrupalStoreState } from '@app/Features/Drupal'
+import { PlatformMapStoreState } from '@app/Features/PlatformMap'
 
 export interface StoreState {
-    drupal: DrupalStoreState
+    drupal: DrupalStoreState,
+    platformMap: PlatformMapStoreState
 }
