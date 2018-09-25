@@ -1,12 +1,21 @@
 import * as React from 'react'
+import { Col, Row } from 'reactstrap'
+
+import { DrupalBlock } from '@app/Features/Drupal'
+import { PlatformMap } from '@app/Features/PlatformMap'
+
 
 export const HomePage: React.StatelessComponent<{}> = () => {
     return (
-        <div className="row">
-            <div className="col">
+        <Row>
+            <Col>
                 <h2>Home</h2>
-            </div>
-        </div>
+                <PlatformMap />
+            </Col>
+            <Col>
+                <DrupalBlock node="node/5" />
+            </Col>
+        </Row>
     )
 }
 
