@@ -50,7 +50,10 @@ const platformStyle = new Style({
 export class PlatformMapBase extends React.Component<ReduxProps, object> {
     constructor(props: any) {
         super(props)
-        this.props.loadPlatforms()
+        if (this.props.platforms.length < 1) {
+            this.props.loadPlatforms()
+        }
+        
     }
 
     public render() {

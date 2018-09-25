@@ -13,12 +13,18 @@ export interface PlatformDataTypes {
     [props: string]: string
 }
 
+export interface SensorName {
+    name: string
+    stub: string
+}
+
 export interface PlatformProperties {
     active: boolean
     program: string
     platform_credit: string
     mooring_site_desc: string
     name: string
+    sensors: SensorName[]
 }
 
 export interface PlatformLocation {

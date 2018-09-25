@@ -54,6 +54,14 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
                     if (properties.active) {
                         const platformProperties = properties as PlatformProperties
                         platformProperties.name = platform
+                        platformProperties.sensors = []
+
+                        for (const dataType in data_types) {
+                            if (data_types.hasOwnProperty(dataType)) {
+                                platformProperties.sensors.push({name: data_types[dataType], stub: dataType})
+                            }
+                        }
+
                         const platformPoint = point([parseFloat(lon), parseFloat(lat)], platformProperties)
                         platforms.push(platformPoint)
                     }
@@ -64,7 +72,7 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
 
         } catch(e) {
             // tslint:disable-next-line:no-console
-            console.exception(e)
+            console.log(e)
             Sentry.captureException(e)
             return dispatch(platformLocationsLoadError())
         }
