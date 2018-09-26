@@ -20,6 +20,7 @@ import urlParams from '@app/Shared/urlParams'
 
 import { PlatformInfo } from './platformInfo'
 import { PlatformTabs } from './platformTabs'
+import { RootInfo } from './rootInfo'
 
 
 const initialState = {
@@ -27,10 +28,6 @@ const initialState = {
 }
 
 type State = Readonly<typeof initialState>
-
-// interface PlatformMatchParams {
-//     id: string
-// }
 
 export class PlatformsPage extends React.Component<RouteComponentProps, State> {
     public state: State = initialState
@@ -54,8 +51,6 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
             regions.push(regionList[0])
         }
 
-        // const matchParams = this.props.match.params as PlatformMatchParams
-        
         return (
             <div>
                 <Row>
@@ -76,22 +71,16 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
                     </Col>
                 </Row>
 
+                <div style={{marginTop: '1rem'}}>
+                    <Switch>
+                        <Route path={ paths.platforms.observations } component={PlatformTabs} />
+                        <Route path={ paths.platforms.forecast } component={PlatformTabs} />
+                        <Route path={ paths.platforms.platform } component={PlatformTabs} />
+                    
+                        <Route path={ paths.platforms.root} exact={true} component={RootInfo} />
+                    </Switch> 
+                </div>
                 
-                <Row>
-                    <Col>
-                        <Switch>
-                            <Route path={ paths.platforms.observations } component={PlatformTabs} />
-                            <Route path={ paths.platforms.forecast } component={PlatformTabs} />
-                            <Route path={ paths.platforms.platform } component={PlatformTabs} />
-                        
-                            <Route path={ paths.platforms.root} exact={true}>
-                                <div>Root</div>
-                            </Route>
-                            
-                        </Switch>
-                        
-                    </Col>
-                </Row>
             </div>
             
         )

@@ -9,3 +9,7 @@ export default function urlParams(urlParamString: string): any {
     }
     return params
 }   
+
+export function urlPartReplacer(url: string, key: string, value: string): string {
+    return url.split('/').map((part) => part === key ? value : part).join('/')
+}

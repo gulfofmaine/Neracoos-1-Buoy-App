@@ -1,6 +1,12 @@
 import * as React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { 
+    Link, 
+    Route,
+    RouteComponentProps,
+    Switch
+} from 'react-router-dom'
 import {
+    Col,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -8,9 +14,16 @@ import {
     Nav,
     NavItem,
     NavLink,
+    Row,
 } from 'reactstrap'
 
 import { paths } from '@app/constants'
+import { urlPartReplacer } from '@app/Shared/urlParams'
+
+import { CurrentConditionsPage } from './currentConditions'
+import { ForecastsPage } from './forecasts'
+import { ObservationsPage } from './observations'
+import { PlatformMatchParams } from './types';
 
 const initialState = {
     moreDropdownOpen: false
@@ -28,41 +41,48 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
     }
 
     public render() {
+        const { id } = this.props.match.params as PlatformMatchParams
+
         // tslint:disable-next-line:no-console
-        console.log(this.props.match.params)
+        console.log(id)
 
         const { path } = this.props.match
 
         return (
-            <Nav tabs={true} style={{marginTop: '1rem'}}>
-                <NavItem>
-                    <NavLink active={ path === paths.platforms.observations }>Observations</NavLink>
-                </NavItem>
+            <div>
+                <Row>
+                    <Col>
+                        <Nav tabs={true}>
 
-                <NavItem>
-                    <NavLink active={ path === paths.platforms.platform }>Current Conditions</NavLink>
-                </NavItem>
+                            <Tab to={paths.platforms.observations} path={path} name='Observations' id={id} />
+                            <Tab to={paths.platforms.platform} path={path} name='Current Conditions' id={id} />
+                            <Tab to={paths.platforms.forecast} path={path} name='Forecast' id={id} />
 
-                <NavItem>
-                    <NavLink active={path === paths.platforms.forecast }>Forecast</NavLink>
-                </NavItem>
+                            <Dropdown nav={true} isOpen={this.state.moreDropdownOpen} toggle={this.moreToggle}>
+                                <DropdownToggle nav={true} caret={true}>More info</DropdownToggle>
+                                
+                                <DropdownMenu>
+                                    <DropdownItem>All data from this station</DropdownItem>
+                                    <DropdownItem>Compare stations</DropdownItem>
+                                    <DropdownItem>Graphing and download</DropdownItem>
+                                    <DropdownItem>12 hour history</DropdownItem>
+                                    <DropdownItem>Station description</DropdownItem>
+                                    <DropdownItem>Explanation of data types</DropdownItem>
+                                    <DropdownItem divider={true} />
+                                    <DropdownItem>Marine Forecast</DropdownItem>
+                                    <DropdownItem>Tides</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </Nav>
+                    </Col>
+                </Row>
 
-                <Dropdown nav={true} isOpen={this.state.moreDropdownOpen} toggle={this.moreToggle}>
-                    <DropdownToggle nav={true} caret={true}>More info</DropdownToggle>
-                    
-                    <DropdownMenu>
-                        <DropdownItem>All data from this station</DropdownItem>
-                        <DropdownItem>Compare stations</DropdownItem>
-                        <DropdownItem>Graphing and download</DropdownItem>
-                        <DropdownItem>12 hour history</DropdownItem>
-                        <DropdownItem>Station description</DropdownItem>
-                        <DropdownItem>Explanation of data types</DropdownItem>
-                        <DropdownItem divider={true} />
-                        <DropdownItem>Marine Forecast</DropdownItem>
-                        <DropdownItem>Tides</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-            </Nav>
+                <Switch>
+                    <Route path={paths.platforms.observations} component={ObservationsPage} />
+                    <Route path={paths.platforms.forecast} component={ForecastsPage} />
+                    <Route path={paths.platforms.platform} component={CurrentConditionsPage} />
+                </Switch>
+            </div>
         )
     }
 
@@ -70,5 +90,28 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
         this.setState({
             moreDropdownOpen: !this.state.moreDropdownOpen
         })
+    }
+}
+
+interface TabProps {
+    to: string
+    id: string
+    name: string
+    path: string
+}
+
+// tslint:disable-next-line:max-classes-per-file
+class Tab extends React.Component<TabProps, object> {
+    public render() {
+        const { to, name, path, id } = this.props
+
+        // tslint:disable-next-line:no-console
+        console.log(to, path, to === path)
+        
+        return (
+            <NavItem>
+                <NavLink tag={Link} to={ urlPartReplacer(to, ':id', id) } className={to === path ? 'nav-link active' : 'nav-link'}>{ name }</NavLink>
+            </NavItem>
+        )
     }
 }
