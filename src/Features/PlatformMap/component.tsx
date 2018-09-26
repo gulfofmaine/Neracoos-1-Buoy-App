@@ -1,4 +1,4 @@
-import { Feature as TurfFeature } from '@turf/helpers'
+import { Feature } from '@turf/helpers'
 // import Feature from 'ol/Feature'
 import GeoJSON from 'ol/format/GeoJSON'
 import VectorLayer from 'ol/layer/Vector'
@@ -26,7 +26,7 @@ export interface Props {
 
 export interface ReduxProps {
     loadPlatforms: () => void
-    platforms: TurfFeature[]
+    platforms: Feature[]
 }
 
 function mapStateToProps({ platformMap }: StoreState) {

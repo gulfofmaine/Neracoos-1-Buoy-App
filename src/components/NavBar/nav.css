@@ -1,5 +1,6 @@
 nav.navbar {
-    background-color: var(--primary)
+    background-color: var(--primary);
+    margin-bottom: 1rem;
 }
 
 .navbar-brand > img {

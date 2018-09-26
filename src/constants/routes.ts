@@ -3,6 +3,7 @@ export const paths = {
     home: '/',
     map: '/map',
     platforms: {
-        'root': '/platform'
+        platform: '/platform/:id',
+        root: '/platform/',
     }
 }
