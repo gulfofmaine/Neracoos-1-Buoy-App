@@ -16,8 +16,13 @@ import { bindActionCreators, Dispatch } from 'redux'
 
 import { BaseMap, esriLayers } from '@app/components/Map'
 import { StoreState } from '@app/constants'
+import { BoundingBox } from '@app/Shared/regions'
 
 import { platformLocationsLoad } from './actions'
+
+export interface Props {
+    boundingBox?: BoundingBox
+}
 
 export interface ReduxProps {
     loadPlatforms: () => void
@@ -47,7 +52,7 @@ const platformStyle = new Style({
     })
 })
 
-export class PlatformMapBase extends React.Component<ReduxProps, object> {
+export class PlatformMapBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: any) {
         super(props)
         if (this.props.platforms.length < 1) {
@@ -57,7 +62,6 @@ export class PlatformMapBase extends React.Component<ReduxProps, object> {
     }
 
     public render() {
-        
 
         const layers = [
             esriLayers.EsriOceanBasemapLayer,
@@ -81,7 +85,7 @@ export class PlatformMapBase extends React.Component<ReduxProps, object> {
         }
 
         return (
-            <BaseMap lon={-65} lat={42} startZoom={4} layers={layers} />
+            <BaseMap lon={-65} lat={42} startZoom={4} layers={layers} boundingBox={this.props.boundingBox}/>
         )
     }
 }

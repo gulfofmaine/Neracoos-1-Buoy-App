@@ -29,8 +29,6 @@ export class BaseMap extends React.Component<Props, State> {
     }
 
     public componentDidMount() {
-
-
         const { lat, lon, startZoom, layers } = this.props
 
         const map = new Map({
@@ -42,13 +40,15 @@ export class BaseMap extends React.Component<Props, State> {
             }),
         })
 
+        this.setState({map})
+
         if (this.props.boundingBox) {
             const { north, south, east, west } = this.props.boundingBox
             const extent = transformExtent([west, south, east, north], 'EPSG:4326', 'EPSG:3857')
             map.getView().fit(extent)
-        }
 
-        this.setState({map})
+            this.setState({map})
+        }
     }
 
     public componentDidUpdate(previousProps: Props, previousState: State, snapshot) {
