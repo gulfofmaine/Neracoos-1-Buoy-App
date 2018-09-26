@@ -10,6 +10,8 @@ import {
     NavLink,
 } from 'reactstrap'
 
+import { paths } from '@app/constants'
+
 const initialState = {
     moreDropdownOpen: false
 }
@@ -19,7 +21,7 @@ type State = Readonly<typeof initialState>
 export class PlatformTabs extends React.Component<RouteComponentProps, State> {
     public state: State = initialState
 
-    constructor(props: any) {
+    constructor(props: RouteComponentProps) {
         super(props)
 
         this.moreToggle = this.moreToggle.bind(this)
@@ -29,18 +31,20 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
         // tslint:disable-next-line:no-console
         console.log(this.props.match.params)
 
+        const { path } = this.props.match
+
         return (
             <Nav tabs={true} style={{marginTop: '1rem'}}>
                 <NavItem>
-                    <NavLink>Observations</NavLink>
+                    <NavLink active={ path === paths.platforms.observations }>Observations</NavLink>
                 </NavItem>
 
                 <NavItem>
-                    <NavLink active={true}>Current Conditions</NavLink>
+                    <NavLink active={ path === paths.platforms.platform }>Current Conditions</NavLink>
                 </NavItem>
 
                 <NavItem>
-                    <NavLink>Forecast</NavLink>
+                    <NavLink active={path === paths.platforms.forecast }>Forecast</NavLink>
                 </NavItem>
 
                 <Dropdown nav={true} isOpen={this.state.moreDropdownOpen} toggle={this.moreToggle}>

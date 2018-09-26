@@ -6,13 +6,6 @@ import {
 } from 'react-router'
 import {
     Col,
-    // Dropdown,
-    // DropdownItem,
-    // DropdownMenu,
-    // DropdownToggle,
-    // Nav,
-    // NavItem,
-    // NavLink,
     Row
 } from 'reactstrap'
 
@@ -25,7 +18,7 @@ import {
 import { Region } from '@app/Shared/regions';
 import urlParams from '@app/Shared/urlParams'
 
-// import { CurrentConditionsPage } from './currentConditions'
+import { PlatformInfo } from './platformInfo'
 import { PlatformTabs } from './platformTabs'
 
 
@@ -34,6 +27,10 @@ const initialState = {
 }
 
 type State = Readonly<typeof initialState>
+
+// interface PlatformMatchParams {
+//     id: string
+// }
 
 export class PlatformsPage extends React.Component<RouteComponentProps, State> {
     public state: State = initialState
@@ -56,6 +53,8 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
         } else {
             regions.push(regionList[0])
         }
+
+        // const matchParams = this.props.match.params as PlatformMatchParams
         
         return (
             <div>
@@ -72,9 +71,7 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
                                     <PlatformList boundingBox={regions[0].bbox} />
                                 </div>
                             </Route>
-                            <Route path={ paths.platforms.platform }>
-                                <div>Info about selected platform</div>
-                            </Route>
+                            <Route path={ paths.platforms.platform } component={PlatformInfo} />
                         </Switch>
                     </Col>
                 </Row>
@@ -83,18 +80,18 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
                 <Row>
                     <Col>
                         <Switch>
+                            <Route path={ paths.platforms.observations } component={PlatformTabs} />
+                            <Route path={ paths.platforms.forecast } component={PlatformTabs} />
+                            <Route path={ paths.platforms.platform } component={PlatformTabs} />
+                        
                             <Route path={ paths.platforms.root} exact={true}>
                                 <div>Root</div>
                             </Route>
-                            <Route path={ paths.platforms.platform } component={PlatformTabs} />
+                            
                         </Switch>
                         
                     </Col>
                 </Row>
-
-                {/* <Switch>
-                     <Route to={ paths.platforms.platform } component={CurrentConditionsPage} />
-                 </Switch> */}
             </div>
             
         )
