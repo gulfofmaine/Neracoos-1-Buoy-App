@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { 
-    Collapse, 
-    DropdownItem, 
+    Collapse,
     DropdownMenu, 
     DropdownToggle, 
     Nav, 
@@ -38,7 +37,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
         const regions = regionList.map((region, key) => {
             const to = paths.platforms.root + '?region=' + region.slug
             return (
-                <DropdownItem key={key}><NavLink className='nav-link' activeClassName='active' to={ to }>{ region.name }</NavLink></DropdownItem>
+                <NavLink key={key} className='nav-link dropdown-item btn' activeClassName='active' to={ to }>{ region.name }</NavLink>
             )
         })
 
