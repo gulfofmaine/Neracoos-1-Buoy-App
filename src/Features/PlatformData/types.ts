@@ -24,7 +24,7 @@ export interface Platform {
 }
 
 interface PlatformJsonDataTypeDict {
-    depth: number[]
+    depth: string[]
     uom: string
 }
 
@@ -32,14 +32,14 @@ interface PlatformJsonDataType {
     [props: string]: PlatformJsonDataTypeDict
 }
 
-interface PlatformJsonTimeSeriesReading {
-    depth: number
-    quality: number
-    reading: number
+export interface PlatformJsonTimeSeriesReading {
+    depth: string
+    quality: string
+    reading: string
 }
 
 interface PlatformJsonTimeSeries {
-    [props: string]: PlatformJsonTimeSeriesReading[]
+    [props: string]: PlatformJsonTimeSeriesReading
 }
 
 export interface PlatformJsonBase {

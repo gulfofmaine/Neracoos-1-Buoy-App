@@ -71,9 +71,6 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
             const data = transformPlatformJson(json)
 
-            // tslint:disable-next-line:no-console
-            console.log(json, data)
-
             return dispatch(platformDataLoadSuccess(platformId, data))
         } catch(error) {
             // tslint:disable-next-line:no-console

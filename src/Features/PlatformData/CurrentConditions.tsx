@@ -37,11 +37,14 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
         if (filteredPlatforms.length > 0) {
             const platform = filteredPlatforms[0]
 
-            // tslint:disable-next-line:no-console
-            console.log(platform)
-            
+            const dataTypes = platform.data_types.map((type, index) =>
+                <p key={index}>{type.data_type} - { type.depth }</p>
+            )
+
             return (
-                <div>Found platform</div>
+                <div>Found platform:
+                    { dataTypes }
+                </div>
             )
         } else {
             this.props.loadPlatform(this.props.platformId)
