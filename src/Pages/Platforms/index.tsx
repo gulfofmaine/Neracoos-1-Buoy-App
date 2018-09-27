@@ -45,8 +45,6 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
 
         if ( params.region !== undefined ) {
             regions = regionList.filter((r) => r.slug === params.region)
-            // tslint:disable-next-line:no-console
-            console.log(regions)
         } else {
             regions.push(regionList[0])
         }

@@ -1,8 +1,10 @@
 import * as React from 'react'
 
 // import TileLayer from 'ol/layer/Tile'
+import Feature from 'ol/Feature'
 import Layer from 'ol/layer/Layer'
 import Map from 'ol/Map'
+import MapBrowserEvent from 'ol/MapBrowserEvent'
 import { transform, transformExtent } from 'ol/proj'
 import View from 'ol/View'
 
@@ -15,6 +17,7 @@ export interface Props {
     layers: Layer[]
     startZoom: number,
     children?: JSX.Element | JSX.Element[] | Array<JSX.Element | undefined>
+    onClick?: (feature: Feature) => void
 }
 
 export interface State {
@@ -26,6 +29,8 @@ export class BaseMap extends React.Component<Props, State> {
         super(props)
 
         this.state = { map: {}}
+        
+        this.singleClick = this.singleClick.bind(this)
     }
 
     public componentDidMount() {
@@ -35,10 +40,12 @@ export class BaseMap extends React.Component<Props, State> {
             layers,
             target: "map",
             view: new View({
-                center: transform([lon, lat], 'EPSG:4326', 'EPSG:3857'),
+                center: transform([lon,  lat], 'EPSG:4326', 'EPSG:3857'),
                 zoom: startZoom
             }),
         })
+
+        map.on('singleclick', this.singleClick)
 
         this.setState({map})
 
@@ -92,5 +99,17 @@ export class BaseMap extends React.Component<Props, State> {
         return (
             <div id="map" style={{width: "100%", minHeight: 400}} />
         )
+    }
+
+    private singleClick(event: MapBrowserEvent) {
+        // // tslint:disable-next-line:no-console
+        // console.log(event)
+
+        // // tslint:disable-next-line:no-debugger
+        // debugger
+
+        if (this.props.onClick) {
+            event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature, layer: any) => this.props.onClick!(feature))
+        }
     }
 }

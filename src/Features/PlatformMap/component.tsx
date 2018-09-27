@@ -1,5 +1,6 @@
-import { Feature } from '@turf/helpers'
-// import Feature from 'ol/Feature'
+import { Feature as TurfFeature } from '@turf/helpers'
+import { push } from 'connected-react-router'
+import Feature from 'ol/Feature'
 import GeoJSON from 'ol/format/GeoJSON'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
@@ -15,8 +16,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import { BaseMap, esriLayers } from '@app/components/Map'
-import { StoreState } from '@app/constants'
+import { paths, StoreState } from '@app/constants'
 import { BoundingBox } from '@app/Shared/regions'
+import { urlPartReplacer } from '@app/Shared/urlParams';
 
 import { platformLocationsLoad } from './actions'
 
@@ -26,7 +28,8 @@ export interface Props {
 
 export interface ReduxProps {
     loadPlatforms: () => void
-    platforms: Feature[]
+    platforms: TurfFeature[]
+    push: (url: string) => void
 }
 
 function mapStateToProps({ platformMap }: StoreState) {
@@ -36,7 +39,8 @@ function mapStateToProps({ platformMap }: StoreState) {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    loadPlatforms: platformLocationsLoad
+    loadPlatforms: platformLocationsLoad,
+    push
 }, dispatch)
 
 const platformStyle = new Style({
@@ -59,6 +63,7 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
             this.props.loadPlatforms()
         }
         
+        this.onClick = this.onClick.bind(this)
     }
 
     public render() {
@@ -85,8 +90,26 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
         }
 
         return (
-            <BaseMap lon={-65} lat={42} startZoom={4} layers={layers} boundingBox={this.props.boundingBox}/>
+            <BaseMap 
+                lon={-65} 
+                lat={42} 
+                startZoom={4} 
+                layers={layers} 
+                boundingBox={this.props.boundingBox}
+                onClick={this.onClick} />
         )
+    }
+
+    private onClick(feature: Feature) {
+        if (feature.values_) {
+            if (feature.values_.name) {
+                const { name } = feature.values_
+                const url = urlPartReplacer(paths.platforms.platform, ':id', name)
+
+                this.props.push(url)
+            }
+            
+        }
     }
 }
 

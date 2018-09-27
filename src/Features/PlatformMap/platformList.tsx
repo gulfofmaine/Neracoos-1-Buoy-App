@@ -50,8 +50,7 @@ export class PlatformListBase extends React.Component<Props & ReduxProps, object
             if (filteredPlatforms.length > 0) {
                 const listItems = filteredPlatforms.map((platform, index) => {
                     const { name } = platform.properties as PlatformProperties
-                    // tslint:disable-next-line:no-console
-                    console.log(name)
+
                     return (
                         <Link key={index} to={ paths.platforms.root + name } className="list-group-item list-group-item-actio">{ name }</Link>
                     )

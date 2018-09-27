@@ -43,9 +43,6 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
     public render() {
         const { id } = this.props.match.params as PlatformMatchParams
 
-        // tslint:disable-next-line:no-console
-        console.log(id)
-
         const { path } = this.props.match
 
         return (
@@ -105,9 +102,6 @@ class Tab extends React.Component<TabProps, object> {
     public render() {
         const { to, name, path, id } = this.props
 
-        // tslint:disable-next-line:no-console
-        console.log(to, path, to === path)
-        
         return (
             <NavItem>
                 <NavLink tag={Link} to={ urlPartReplacer(to, ':id', id) } className={to === path ? 'nav-link active' : 'nav-link'}>{ name }</NavLink>
