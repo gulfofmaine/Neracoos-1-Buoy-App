@@ -6,10 +6,22 @@ import {
 export function transformPlatformJson(json: PlatformJson): PlatformData[] {
     const platformData: PlatformData[] = []
 
+    // tslint:disable-next-line:no-console
+    console.log(json)
+
+    // tslint:disable-next-line:no-debugger
+    // debugger
+
     for (const dataTypeName in json.data_types) {
-        if (json.hasOwnProperty(dataTypeName)) {
+
+        // tslint:disable-next-line:no-console
+        console.log(dataTypeName)
+        if (json.data_types.hasOwnProperty(dataTypeName)) {
 
             const data = json.data_types[dataTypeName]
+
+            // tslint:disable-next-line:no-console
+            console.log(dataTypeName, data)
 
             // tslint:disable-next-line:forin
             for (const index in data.depth) {

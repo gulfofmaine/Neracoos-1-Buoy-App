@@ -6,12 +6,12 @@ import { initialStoreState, Platform, PlatformDataStoreState, Status } from './t
 export function platformDataReducer(state: PlatformDataStoreState = initialStoreState, action: Action): PlatformDataStoreState {
     switch(action.type) {
         case actionTypes.PLATFORM_DATA_LOADING:
-            const filteredPlatforms = state.platforms.filter((p) => p.id === action.platformId)
-            const otherPlatforms = state.platforms.filter((p) => p.id !== action.platformId)
+            const filteredPlatformsLoading = state.platforms.filter((p) => p.id === action.platformId)
+            const otherPlatformsLoading = state.platforms.filter((p) => p.id !== action.platformId)
 
             let platform: Platform
-            if (filteredPlatforms.length > 0) {
-                platform = filteredPlatforms[0]
+            if (filteredPlatformsLoading.length > 0) {
+                platform = filteredPlatformsLoading[0]
                 platform.status = Status.Loading
             } else {
                 platform = {
@@ -24,8 +24,22 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
 
             return {
                 ...state,
-                platforms: [...otherPlatforms, platform]
+                platforms: [...otherPlatformsLoading, platform]
             }
+
+        case actionTypes.PLATFORM_DATA_LOAD_SUCCESS:
+            const filteredPlatformsSuccess = state.platforms.filter((p) => p.id === action.platformId)
+            const otherPlatformsSuccess = state.platforms.filter((p) => p.id !== action.platformId)
+
+            const platformSuccess = filteredPlatformsSuccess[0]
+            platformSuccess.status = Status.Loaded
+            platformSuccess.data_types = action.data
+
+            return {
+                ...state, 
+                platforms: [...otherPlatformsSuccess, platformSuccess]
+            }
+
         default:
             return state
     }
