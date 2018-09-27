@@ -41,3 +41,8 @@ export interface PlatformLocation {
 export interface PlatformMapStoreState {
     platforms: Feature[]
 }
+
+export interface Geometry {
+    type: string
+    coordinates: number[]
+}

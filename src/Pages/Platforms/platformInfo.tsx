@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
+import { PlatformInfoPanel } from '@app/Features/PlatformMap'
+
 import { PlatformMatchParams } from './types'
 
 export class PlatformInfo extends React.Component<RouteComponentProps, object> {
@@ -12,7 +14,7 @@ export class PlatformInfo extends React.Component<RouteComponentProps, object> {
         const { id } = this.props.match.params as PlatformMatchParams
 
         return (
-            <div>Info about selected platform: { id }</div>
+            <PlatformInfoPanel platformId={id} />
         )
     }
 }

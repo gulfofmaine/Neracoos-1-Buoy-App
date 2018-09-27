@@ -45,23 +45,21 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
 
         if ( params.region !== undefined ) {
             regions = regionList.filter((r) => r.slug === params.region)
-        } else {
-            regions.push(regionList[0])
         }
 
         return (
             <div>
                 <Row>
                     <Col md={{size: true}}>
-                        <PlatformMap boundingBox={regions[0].bbox} />
+                        <PlatformMap boundingBox={regions.length > 0 ? regions[0].bbox :  null} />
                     </Col>
 
                     <Col md={{size: true}}>
                         <Switch>
                             <Route path={ paths.platforms.root } exact={true}>
                                 <div>
-                                    <h2>Platforms in { regions[0].name }</h2>
-                                    <PlatformList boundingBox={regions[0].bbox} />
+                                    <h2>Platforms in { regions.length > 0 ? regions[0].name : '' }</h2>
+                                    <PlatformList boundingBox={regions.length > 0 ? regions[0].bbox : null } />
                                 </div>
                             </Route>
                             <Route path={ paths.platforms.platform } component={PlatformInfo} />

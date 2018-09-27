@@ -97,7 +97,7 @@ export class BaseMap extends React.Component<Props, State> {
 
     public render() {
         return (
-            <div id="map" style={{width: "100%", minHeight: 400}} />
+            <div id="map" style={{width: "100%", minHeight: 400, maxHeight: '80vh'}} />
         )
     }
 
