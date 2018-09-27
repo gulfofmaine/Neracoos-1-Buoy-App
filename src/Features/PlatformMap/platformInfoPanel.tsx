@@ -36,13 +36,8 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
         if ( this.props.platforms.length > 0 ) {
             const platforms = this.props.platforms.filter((p) => p.properties!.name === this.props.platformId)
 
-            // tslint:disable-next
-            
             if (platforms.length > 0) {
                 const platform: Feature = platforms[0]
-
-                // tslint:disable-next-line:no-console
-                console.log(platform)
 
                 if (platform.properties) {
                     const { name, program, mooring_site_desc } = platform.properties as PlatformProperties
@@ -51,10 +46,10 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
                         <Card>
                             <CardBody>
                                 <CardTitle>{ name }</CardTitle>
-                                <CardSubtitle>{ mooring_site_desc }</CardSubtitle>
+                                <CardSubtitle>{ mooring_site_desc } - { program }</CardSubtitle>
                                 <CardText>
-                                    <p><b>Lat:</b> { this.round(coordinates[1]) } <b>Lon:</b> { this.round(coordinates[0]) }</p>
-                                    <p>{ program }</p>
+                                    <b>Lat:</b> { this.round(coordinates[1]) } <b>Lon:</b> { this.round(coordinates[0]) }
+                                    
                                 </CardText>
                             </CardBody>
                         </Card>
