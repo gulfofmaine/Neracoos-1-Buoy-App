@@ -48,7 +48,7 @@ const prefferedDataTypes = new Set([
     'dominant_wave_period',
     'significant_height_of_wind_and_swell_waves',
     'sea_water_temperature',
-    'pressure_tendency'
+    // 'pressure_tendency'
 ])
 
 const windDataTypes = new Set([
@@ -90,6 +90,10 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                 const data = type.data.filter((reading) => reading.time > aDayAgo)
 
                 const latest = data[data.length - 1]
+                if (latest === undefined) {
+                    // tslint:disable-next-line:no-debugger
+                    debugger
+                }
 
                 return (
                     <Col key={index} md="4" style={{paddingTop: '1rem'}}>

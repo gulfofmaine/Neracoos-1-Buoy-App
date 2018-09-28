@@ -1,13 +1,15 @@
 import Highcharts from 'highcharts'
+// import addWindBarbModule from 'highcharts/modules/windbarb'
 import * as React from 'react'
 import {
     Chart,
     HighchartsChart,
     SplineSeries,
     Tooltip,
+    // WindBarbSeries,
     withHighcharts,
     XAxis,
-    YAxis
+    YAxis,
 } from 'react-jsx-highcharts'
 
 import { round } from '@app/Shared/math'
@@ -17,6 +19,8 @@ interface Props {
     data: DataTimeSeries[]
     days: number
 }
+
+// addWindBarbModule(Highcharts)
 
 export class SmallWindTimeSeriesChartBase extends React.Component<Props, object> {
     constructor(props: Props) {
@@ -48,6 +52,23 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
             )
         })
 
+        // const directions = this.props.data.filter((d) => d.name.includes('direction'))
+
+        // const directionSeries = directions.map((d, index) => {
+        //     const data = d.timeSeries.filter(
+        //         (reading) => reading.time > daysAgo
+        //     ).map(
+        //         (r) => [r.time.valueOf(), round(r.reading, 0)]
+        //     )
+
+        //     return (
+        //         <WindBarbSeries
+        //             key={this.props.data.length + index}
+        //             name={'Direction'}
+        //             data={data} />
+        //     )
+        // })
+
         return (
             <HighchartsChart>
                 <Chart height={150} />
@@ -56,6 +77,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
 
                 <YAxis>
                     { speedsSeries }
+                    {/* { directionSeries } */}
                 </YAxis>
 
                 <Tooltip 

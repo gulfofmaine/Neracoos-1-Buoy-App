@@ -10,6 +10,7 @@ import {
     YAxis
 } from 'react-jsx-highcharts'
 
+import { round } from '@app/Shared/math'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
 interface Props {
@@ -24,7 +25,7 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
     }
 
     public render() {
-        const data = this.props.timeSeries.map((r) => [r.time.valueOf(), r.reading])
+        const data = this.props.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
         return (
             <HighchartsChart>

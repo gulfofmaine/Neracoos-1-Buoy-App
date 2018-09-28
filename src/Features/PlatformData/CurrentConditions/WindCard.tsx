@@ -6,6 +6,7 @@ import {
     Col
 } from 'reactstrap'
 
+import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
 
 import { SmallWindTimeSeriesChart } from '@app/components/Charts'
@@ -35,10 +36,17 @@ export class WindCard extends React.Component<Props, object> {
                 })
             )
 
+            const speed = this.props.timeSeries.filter((type) => type.data_type.includes('speed'))
+            const gust = this.props.timeSeries.filter((type) => type.data_type.includes('gust'))
+
             return (
                 <Col md="4" style={{paddingTop: '1rem'}}>
                     <Card>
-                        <CardHeader>Winds</CardHeader>
+                        <CardHeader>
+                            Winds 
+                            { speed.length > 0 ? ' - ' + round(speed[0].data[speed[0].data.length - 1].reading, 1) : null }
+                            { gust.length > 0 ? ' gusting to ' + round(gust[0].data[gust[0].data.length - 1].reading, 1) + ' ' + gust[0].unit : null}
+                            </CardHeader>
                         <CardBody style={{padding: '.2rem'}}>
                             <SmallWindTimeSeriesChart
                                 days={this.props.days}
