@@ -1,12 +1,12 @@
 import Highcharts from 'highcharts'
-// import addWindBarbModule from 'highcharts/modules/windbarb'
+import addWindBarbModule from 'highcharts/modules/windbarb'
 import * as React from 'react'
 import {
     Chart,
     HighchartsChart,
     SplineSeries,
     Tooltip,
-    // WindBarbSeries,
+    WindBarbSeries,
     withHighcharts,
     XAxis,
     YAxis,
@@ -20,7 +20,7 @@ interface Props {
     days: number
 }
 
-// addWindBarbModule(Highcharts)
+addWindBarbModule(Highcharts)
 
 export class SmallWindTimeSeriesChartBase extends React.Component<Props, object> {
     constructor(props: Props) {
@@ -52,7 +52,53 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
             )
         })
 
-        // const directions = this.props.data.filter((d) => d.name.includes('direction'))
+        const speedOnly = this.props.data.filter((d) => d.name.includes('speed'))
+        const directions = this.props.data.filter((d) => d.name.includes('direction'))
+
+        const windData: number[][] = []
+
+        // tslint:disable-next-line:no-debugger
+        debugger
+
+        if (speedOnly.length > 0 && directions.length > 0 ) {
+            const speed = speedOnly[0]
+            const direction = directions[0]
+
+            const speedTs = speed.timeSeries.filter((r) => r.time > daysAgo)
+            const directionTs = direction.timeSeries.filter((r) => r.time > daysAgo)
+
+            if ( speedTs.length === directionTs.length) {
+                const stride = 12 // round(speedTs.length / 12)
+
+                for (let index = 0; index <= speedTs.length; index += stride) {
+                    if (speedTs[index] !== undefined && directionTs[index] !== undefined) {
+                        windData.push([
+                            directionTs[index].time.valueOf(),
+                            speedTs[index].reading,
+                            directionTs[index].reading
+                        ])
+                    }
+                }
+
+                // // tslint:disable-next-line:forin
+                // for (const index in direction.timeSeries) {
+                //     windData.push([
+                //         direction.timeSeries[index].time.valueOf(),
+                //         speed.timeSeries[index].reading,
+                //         direction.timeSeries[index].reading
+                //     ])
+                // }
+            }
+
+            // direction.timeSeries.forEach((reading) => {
+            //     const found = speed.timeSeries.filter((speedReading) => reading.time === speedReading.time)
+            //     if (found.length > 0) {
+            //         windData.push([reading.time.valueOf(), found[0].reading, round(reading.reading, 1)])
+            //     }
+            // })
+        }
+
+        
 
         // const directionSeries = directions.map((d, index) => {
         //     const data = d.timeSeries.filter(
@@ -78,6 +124,12 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                 <YAxis>
                     { speedsSeries }
                     {/* { directionSeries } */}
+
+                    { windData.length > 0 ? (
+                        <WindBarbSeries
+                            name='Direction'
+                            data={windData} />
+                    ) : ( null )}
                 </YAxis>
 
                 <Tooltip 
