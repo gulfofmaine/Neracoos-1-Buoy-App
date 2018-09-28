@@ -55,7 +55,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
             dispatch(platformDataLoading(platformId))
-            const url = 'http://neracoos.org/data/json/buoyrecentdata.php?platform=' + platformId + '&mp=no&hb=24&tsdt=all'
+            const url = 'http://neracoos.org/data/json/buoyrecentdata.php?platform=' + platformId + '&mp=no&hb=168&tsdt=all'
 
             Sentry.addBreadcrumb({
                 category: 'Platform Data',

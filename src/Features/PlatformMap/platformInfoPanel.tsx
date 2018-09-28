@@ -9,6 +9,8 @@ import {
     CardTitle
 } from 'reactstrap'
 
+import { round } from '@app/Shared/math'
+
 import { StoreState } from '@app/constants'
 
 import { Geometry, PlatformProperties } from './types';
@@ -48,7 +50,7 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
                                 <CardTitle>{ name }</CardTitle>
                                 <CardSubtitle>{ mooring_site_desc } - { program }</CardSubtitle>
                                 <CardText>
-                                    <b>Lat:</b> { this.round(coordinates[1]) } <b>Lon:</b> { this.round(coordinates[0]) }
+                                    <b>Lat:</b> { round(coordinates[1]) } <b>Lon:</b> { round(coordinates[0]) }
                                     
                                 </CardText>
                             </CardBody>
@@ -58,10 +60,6 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
             }
         }
         return null
-    }
-
-    private round(num: number): number {
-        return Math.ceil(num * 100) / 100
     }
 }
 
