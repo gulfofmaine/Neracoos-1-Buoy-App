@@ -12,12 +12,16 @@ export class CurrentConditionsPage extends React.Component<RouteComponentProps, 
         const { id } = this.props.match.params as PlatformMatchParams
 
         return (
-            <Row>
-                <Col>
-                    Current conditions here { id }
-                    <CurrentPlatformConditions platformId={id} />
-                </Col>
-            </Row>
+            <div>
+                <Row>
+                    <Col>
+                        Current conditions here { id }                        
+                    </Col>
+                </Row>
+                
+                <CurrentPlatformConditions platformId={id} />
+            </div>
+            
             
         )
     }

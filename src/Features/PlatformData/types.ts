@@ -1,12 +1,9 @@
+import { ReadingTimeSeries } from '@app/Shared/timeSeries'
+
 export enum Status {
     Loaded = 'LOADED',
     Loading = 'LOADING',
     Error = 'ERROR'
-}
-
-export interface ReadingTimeSeries {
-    time: Date
-    reading: number
 }
 
 export interface PlatformData {
