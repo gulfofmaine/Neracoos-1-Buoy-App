@@ -13,11 +13,27 @@ export interface PlatformData {
     data: ReadingTimeSeries[]
 }
 
+export interface ErddapDataset {
+    server: string
+    datasetId: string
+}
+
+export type ErddapDatasetInfo = ErddapDataset & {
+    coverageStart: Date
+    coverageEnd: Date
+}
+
+export type DatasetData = PlatformData & ErddapDataset & {
+    status: Status
+    error_message: string
+}
+
 export interface Platform {
     id: string
     status: Status
     error_message: string
     data_types: PlatformData[]
+    forecasts_types: DatasetData[]
 }
 
 interface PlatformJsonDataTypeDict {
@@ -50,9 +66,11 @@ export type PlatformJson = PlatformJsonBase & {
 }
 
 export interface PlatformDataStoreState {
+    datasetInfo: ErddapDatasetInfo[]
     platforms: Platform[]
 }
 
 export const initialStoreState: PlatformDataStoreState = {
+    datasetInfo: [],
     platforms: []
 }

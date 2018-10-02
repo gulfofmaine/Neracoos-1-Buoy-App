@@ -17,6 +17,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 platform = {
                     data_types: [],
                     error_message: '',
+                    forecasts_types: [],
                     id: action.platformId,
                     status: Status.Loading
                 }
