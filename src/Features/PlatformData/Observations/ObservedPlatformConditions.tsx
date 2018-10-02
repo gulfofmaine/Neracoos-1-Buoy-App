@@ -5,14 +5,10 @@ import {
     // CardBody,
     // CardHeader,
     Col,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
     Row
 } from 'reactstrap'
 
-// import { LargeTimeSeriesChart } from '@app/components/Charts'
+import { LargeTimeSeriesChart } from '@app/components/Charts'
 import { StoreState } from '@app/constants'
 
 import { humanDataName } from '@app/Shared/dataTypes'
@@ -22,6 +18,7 @@ import { Platform } from '../types'
 
 interface Props {
     platformId: string
+    type: string
 }
 
 interface ReduxProps {
@@ -34,19 +31,9 @@ function mapStateToProps({ platformData }: StoreState) {
     }
 }
 
-const initialState = {
-    dropdownOpen: false
-}
-
-type State = Readonly<typeof initialState>
-
-export class ObservedPlatformConditionsBase extends React.Component<Props & ReduxProps, State> {
-    public state: State = initialState
-
+export class ObservedPlatformConditionsBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: Props & ReduxProps) {
         super(props)
-
-        this.toggle = this.toggle.bind(this)
     }
 
     public render() {
@@ -55,30 +42,25 @@ export class ObservedPlatformConditionsBase extends React.Component<Props & Redu
         if (filteredPlatforms.length > 0) {
             const platform = filteredPlatforms[0]
 
-            const dropdownItems = Array.from(
-                new Set(platform.data_types.map((d) => d.data_type))
-            ).map((name, index) => 
-                <DropdownItem key={index}>{humanDataName(name)}</DropdownItem>
-            )
-            
-            return (
-                <div>
-                    <Row>
-                        <Col>
-                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle caret={true}>
-                                    Observation Types
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    {dropdownItems}
-                                </DropdownMenu>
-                            </Dropdown>
-                        </Col>
+            const timeSeries = platform.data_types.filter((d) => d.data_type === this.props.type).sort((d) => d.depth)
 
+            const charts = timeSeries.map((d, index) => {
+
+                const depth = d.depth > 0 ? ' at ' + d.depth + 'm below' : ''
+
+                return (
+                    <Row key={index}>
                         <Col>
-                            Found platform {platform.id}
+                            <h4>{humanDataName(d.data_type)}{depth}</h4>
+                            <LargeTimeSeriesChart timeSeries={d.data} unit={d.unit} name={humanDataName(d.data_type)} /> 
                         </Col>
                     </Row>
+                )
+            })
+
+            return (
+                <div>
+                    {charts}
                 </div>
             )
         } else {
@@ -90,12 +72,6 @@ export class ObservedPlatformConditionsBase extends React.Component<Props & Redu
                 </Row>
             )
         }
-    }
-
-    private toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        })
     }
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
     Dropdown,
     // DropdownItem,
@@ -63,7 +63,7 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
 
                 return (
                     // <DropdownItem key={index}>{humanDataName(name)}</DropdownItem>
-                    <NavLink className="dropdown-item" key={index} to={url}>{humanDataName(name)}</NavLink>
+                    <Link className="dropdown-item" key={index} to={url}>{humanDataName(name)}</Link>
                 )
             }
             )

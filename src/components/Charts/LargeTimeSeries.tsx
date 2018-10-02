@@ -41,7 +41,7 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
                 </YAxis>
 
                 <Tooltip
-                    pointFormat={'{point.y ' + this.props.unit} />
+                    pointFormat={'{point.y} ' + this.props.unit} />
             </HighchartsChart>
         )
     }
