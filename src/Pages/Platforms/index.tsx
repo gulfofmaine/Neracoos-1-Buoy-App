@@ -9,7 +9,7 @@ import {
     Row
 } from 'reactstrap'
 
-import { PlatformList, PlatformMap } from '@app/Features/PlatformMap'
+import { PlatformList, PlatformMap, PlatformMapLoader } from '@app/Features/PlatformMap'
 
 import { 
     paths, 
@@ -48,13 +48,13 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
         }
 
         return (
-            <div>
+            <PlatformMapLoader>
                 <Row>
-                    <Col md={{size: true}}>
+                    <Col sm={{size: true}}>
                         <PlatformMap boundingBox={regions.length > 0 ? regions[0].bbox :  null} />
                     </Col>
 
-                    <Col md={{size: true}}>
+                    <Col sm={{size: true}}>
                         <Switch>
                             <Route path={ paths.platforms.root } exact={true}>
                                 <div>
@@ -77,8 +77,7 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
                     </Switch> 
                 </div>
                 
-            </div>
-            
+            </PlatformMapLoader>
         )
     }
 

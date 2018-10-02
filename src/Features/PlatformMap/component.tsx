@@ -20,14 +20,12 @@ import { paths, StoreState } from '@app/constants'
 import { BoundingBox } from '@app/Shared/regions'
 import { urlPartReplacer } from '@app/Shared/urlParams';
 
-import { platformLocationsLoad } from './actions'
 
 export interface Props {
     boundingBox?: BoundingBox
 }
 
 export interface ReduxProps {
-    loadPlatforms: () => void
     platforms: TurfFeature[]
     push: (url: string) => void
 }
@@ -39,7 +37,6 @@ function mapStateToProps({ platformMap }: StoreState) {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    loadPlatforms: platformLocationsLoad,
     push
 }, dispatch)
 
@@ -59,9 +56,6 @@ const platformStyle = new Style({
 export class PlatformMapBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: any) {
         super(props)
-        if (this.props.platforms.length < 1) {
-            this.props.loadPlatforms()
-        }
         
         this.onClick = this.onClick.bind(this)
     }

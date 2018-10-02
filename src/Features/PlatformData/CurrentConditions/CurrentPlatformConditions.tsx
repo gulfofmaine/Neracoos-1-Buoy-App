@@ -94,7 +94,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                 }
 
                 return (
-                    <Col key={index} md="4" style={{paddingTop: '1rem'}}>
+                    <Col key={index} md="4" sm="6" style={{paddingTop: '1rem'}}>
                         <Link to={urlPartReplacer(
                                             urlPartReplacer(paths.platforms.observations, ':id', this.props.platformId),
                                             ':type', type.data_type)} >
@@ -118,7 +118,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
 
             return (
                 <Row>
-                    <Col md="4" style={{paddingTop: '1rem'}}>
+                    <Col md="4" sm="6" style={{paddingTop: '1rem'}}>
                         <Link to={urlPartReplacer(paths.platforms.observationsWind, ':id', this.props.platformId)} >
                             <WindCard 
                                 days={1} 
