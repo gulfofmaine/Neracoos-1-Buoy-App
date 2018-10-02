@@ -4,7 +4,7 @@ export const paths = {
     map: '/map',
     platforms: {
         forecast: '/platform/:id/forecast',
-        observations: '/platform/:id/observations',
+        observations: '/platform/:id/observations/:type',
         platform: '/platform/:id',
         root: '/platform/',
     }

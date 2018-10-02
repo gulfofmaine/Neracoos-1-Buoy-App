@@ -7,7 +7,6 @@ import {
     Col,
     Row
 } from 'reactstrap'
-import { bindActionCreators, Dispatch } from 'redux'
 
 import { 
     SmallTimeSeriesChart
@@ -17,7 +16,6 @@ import { StoreState } from '@app/constants'
 import { humanDataName } from '@app/Shared/dataTypes'
 import { round } from '@app/Shared/math'
 
-import { platformDataLoad } from '../actions'
 import { Platform } from '../types'
 
 import { WindCard } from './WindCard'
@@ -28,7 +26,6 @@ interface Props {
 
 interface ReduxProps {
     platforms: Platform[]
-    loadPlatform: (platformId: string) => void
 }
 
 function mapStateToProps({ platformData }: StoreState) {
@@ -36,10 +33,6 @@ function mapStateToProps({ platformData }: StoreState) {
         platforms: platformData.platforms
     }
 }
-
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    loadPlatform: platformDataLoad
-}, dispatch)
 
 const prefferedDataTypes = new Set([
     'air_temperature',
@@ -119,7 +112,6 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                 </Row>
             )
         } else {
-            this.props.loadPlatform(this.props.platformId)
 
             return (
                 <div>Loading platform</div>
@@ -128,4 +120,4 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
     }
 }
 
-export const CurrentPlatformConditions = connect(mapStateToProps, mapDispatchToProps)(CurrentPlatformConditionsBase)
+export const CurrentPlatformConditions = connect(mapStateToProps)(CurrentPlatformConditionsBase)

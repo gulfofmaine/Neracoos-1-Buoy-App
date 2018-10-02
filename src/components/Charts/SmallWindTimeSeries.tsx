@@ -57,8 +57,6 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
 
         const windData: number[][] = []
 
-        // tslint:disable-next-line:no-debugger
-        debugger
 
         if (speedOnly.length > 0 && directions.length > 0 ) {
             const speed = speedOnly[0]
@@ -79,41 +77,8 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                         ])
                     }
                 }
-
-                // // tslint:disable-next-line:forin
-                // for (const index in direction.timeSeries) {
-                //     windData.push([
-                //         direction.timeSeries[index].time.valueOf(),
-                //         speed.timeSeries[index].reading,
-                //         direction.timeSeries[index].reading
-                //     ])
-                // }
             }
-
-            // direction.timeSeries.forEach((reading) => {
-            //     const found = speed.timeSeries.filter((speedReading) => reading.time === speedReading.time)
-            //     if (found.length > 0) {
-            //         windData.push([reading.time.valueOf(), found[0].reading, round(reading.reading, 1)])
-            //     }
-            // })
         }
-
-        
-
-        // const directionSeries = directions.map((d, index) => {
-        //     const data = d.timeSeries.filter(
-        //         (reading) => reading.time > daysAgo
-        //     ).map(
-        //         (r) => [r.time.valueOf(), round(r.reading, 0)]
-        //     )
-
-        //     return (
-        //         <WindBarbSeries
-        //             key={this.props.data.length + index}
-        //             name={'Direction'}
-        //             data={data} />
-        //     )
-        // })
 
         return (
             <HighchartsChart>
@@ -128,6 +93,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                     { windData.length > 0 ? (
                         <WindBarbSeries
                             name='Direction'
+                            color='red'
                             data={windData} />
                     ) : ( null )}
                 </YAxis>

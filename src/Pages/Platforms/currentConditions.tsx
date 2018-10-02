@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { Col, Row } from 'reactstrap'
 
 import { CurrentPlatformConditions } from '@app/Features/PlatformData'
 
@@ -13,16 +12,8 @@ export class CurrentConditionsPage extends React.Component<RouteComponentProps, 
 
         return (
             <div>
-                <Row>
-                    <Col>
-                        Current conditions here { id }                        
-                    </Col>
-                </Row>
-                
                 <CurrentPlatformConditions platformId={id} />
             </div>
-            
-            
         )
     }
 }

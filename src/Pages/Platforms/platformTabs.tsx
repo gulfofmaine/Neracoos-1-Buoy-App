@@ -20,6 +20,11 @@ import {
 import { paths } from '@app/constants'
 import { urlPartReplacer } from '@app/Shared/urlParams'
 
+import { 
+    ObservedDropdown,
+    PlatformLoader
+} from '@app/Features/PlatformData'
+
 import { CurrentConditionsPage } from './currentConditions'
 import { ForecastsPage } from './forecasts'
 import { ObservationsPage } from './observations'
@@ -49,9 +54,10 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
             <div>
                 <Row>
                     <Col>
-                        <Nav tabs={true}>
+                        <PlatformLoader platformId={id}>
+                            <Nav tabs={true}>
 
-                            <Tab to={paths.platforms.observations} path={path} name='Observations' id={id} />
+                            <ObservedDropdown platformId={id} />
                             <Tab to={paths.platforms.platform} path={path} name='Current Conditions' id={id} />
                             <Tab to={paths.platforms.forecast} path={path} name='Forecast' id={id} />
 
@@ -70,7 +76,8 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
                                     <DropdownItem>Tides</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
-                        </Nav>
+                            </Nav>
+                        </PlatformLoader>
                     </Col>
                 </Row>
 
