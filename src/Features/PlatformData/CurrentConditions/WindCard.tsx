@@ -2,8 +2,7 @@ import * as React from 'react'
 import {
     Card,
     CardBody,
-    CardHeader,
-    Col
+    CardHeader
 } from 'reactstrap'
 
 import { round } from '@app/Shared/math'
@@ -40,7 +39,7 @@ export class WindCard extends React.Component<Props, object> {
             const gust = this.props.timeSeries.filter((type) => type.data_type.includes('gust'))
 
             return (
-                <Col md="4" style={{paddingTop: '1rem'}}>
+                
                     <Card>
                         <CardHeader>
                             Winds 
@@ -50,10 +49,10 @@ export class WindCard extends React.Component<Props, object> {
                         <CardBody style={{padding: '.2rem'}}>
                             <SmallWindTimeSeriesChart
                                 days={this.props.days}
-                                data={data} />
+                                data={data}
+                                height={150} />
                         </CardBody>
                     </Card>
-                </Col>
             )
         }
     }

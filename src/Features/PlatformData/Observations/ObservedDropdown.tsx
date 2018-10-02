@@ -54,7 +54,7 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
             const platform = filteredPlatforms[0]
 
             const dropdownItems = Array.from(
-                new Set(platform.data_types.map((d) => d.data_type))
+                new Set(platform.data_types.filter((d) => !d.data_type.includes('wind')).map((d) => d.data_type))
             ).sort((a, b) => humanDataName(a).localeCompare(humanDataName(b))).map((name, index) => {
 
                 const url = urlPartReplacer(
@@ -68,12 +68,19 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
             }
             )
 
+            const windUrl = urlPartReplacer(
+                urlPartReplacer(paths.platforms.observations, ':id', this.props.platformId),
+                ':type', 'wind')
+
             return (
                 <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle nav={true} caret={true}>Observations</DropdownToggle>
 
                     <DropdownMenu>
                         {dropdownItems}
+                        { platform.data_types.filter((d) => d.data_type.includes('wind')).length > 0 ? (
+                            <Link className="dropdown-item" to={windUrl}>Wind</Link>
+                        ) : (null)}
                     </DropdownMenu>
                 </Dropdown>
             )

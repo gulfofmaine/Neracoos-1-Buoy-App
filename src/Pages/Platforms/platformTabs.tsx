@@ -28,6 +28,7 @@ import {
 import { CurrentConditionsPage } from './currentConditions'
 import { ForecastsPage } from './forecasts'
 import { ObservationsPage } from './observations'
+import { WindObservationsPage } from './observationsWind'
 import { PlatformMatchParams } from './types';
 
 const initialState = {
@@ -52,7 +53,7 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
 
         return (
             <div>
-                <Row>
+                <Row style={{paddingBottom: '1rem'}}>
                     <Col>
                         <PlatformLoader platformId={id}>
                             <Nav tabs={true}>
@@ -82,6 +83,7 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
                 </Row>
 
                 <Switch>
+                    <Route path={paths.platforms.observationsWind} component={WindObservationsPage} />
                     <Route path={paths.platforms.observations} component={ObservationsPage} />
                     <Route path={paths.platforms.forecast} component={ForecastsPage} />
                     <Route path={paths.platforms.platform} component={CurrentConditionsPage} />

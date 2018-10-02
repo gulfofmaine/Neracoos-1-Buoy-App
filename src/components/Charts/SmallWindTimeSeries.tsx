@@ -18,6 +18,8 @@ import { DataTimeSeries } from '@app/Shared/timeSeries'
 interface Props {
     data: DataTimeSeries[]
     days: number
+    height: number
+    readingPerBarb?: number
 }
 
 addWindBarbModule(Highcharts)
@@ -66,7 +68,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
             const directionTs = direction.timeSeries.filter((r) => r.time > daysAgo)
 
             if ( speedTs.length === directionTs.length) {
-                const stride = 12 // round(speedTs.length / 12)
+                const stride = this.props.readingPerBarb ? this.props.readingPerBarb : 12 // 12 // round(speedTs.length / 12)
 
                 for (let index = 0; index <= speedTs.length; index += stride) {
                     if (speedTs[index] !== undefined && directionTs[index] !== undefined) {
@@ -82,7 +84,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
 
         return (
             <HighchartsChart>
-                <Chart height={150} />
+                <Chart height={this.props.height} />
 
                 <XAxis type='datetime' />
 

@@ -14,6 +14,8 @@ export const humanDataNameDict = {
     
     'significant_height_of_wind_and_swell_waves': 'Wave Height',
 
+    'pressure_tendency': 'Pressure trend',
+
     'visibility_in_air': 'Visibility',
 
     'wind_from_direction': 'Wind Direction',

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
     Card,
     CardBody,
@@ -11,10 +12,14 @@ import {
 import { 
     SmallTimeSeriesChart
 } from '@app/components/Charts'
-import { StoreState } from '@app/constants'
+import { 
+    paths,
+    StoreState 
+} from '@app/constants'
 
 import { humanDataName } from '@app/Shared/dataTypes'
 import { round } from '@app/Shared/math'
+import { urlPartReplacer } from '@app/Shared/urlParams'
 
 import { Platform } from '../types'
 
@@ -90,25 +95,38 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
 
                 return (
                     <Col key={index} md="4" style={{paddingTop: '1rem'}}>
-                        <Card >
-                            <CardHeader>{humanDataName(type.data_type) + depth} - { round(latest.reading, 1) } { type.unit }</CardHeader>
-                            <CardBody style={{padding: '.2rem'}}>
-                                <SmallTimeSeriesChart 
-                                    name={type.data_type} 
-                                    timeSeries={data}
-                                    unit={type.unit} />
-                            </CardBody>
-                        </Card>
+                        <Link to={urlPartReplacer(
+                                            urlPartReplacer(paths.platforms.observations, ':id', this.props.platformId),
+                                            ':type', type.data_type)} >
+                            <Card >
+                                <CardHeader>
+                                    
+                                        {humanDataName(type.data_type) + depth} - { round(latest.reading, 1) } { type.unit }
+                                    
+                                </CardHeader>
+                                <CardBody style={{padding: '.2rem'}}>
+                                    <SmallTimeSeriesChart 
+                                        name={type.data_type} 
+                                        timeSeries={data}
+                                        unit={type.unit} />
+                                </CardBody>
+                            </Card>
+                        </Link>
                     </Col>
                 )
             })
 
             return (
                 <Row>
-                    <WindCard 
-                        days={1} 
-                        timeSeries={windData} />
+                    <Col md="4" style={{paddingTop: '1rem'}}>
+                        <Link to={urlPartReplacer(paths.platforms.observationsWind, ':id', this.props.platformId)} >
+                            <WindCard 
+                                days={1} 
+                                timeSeries={windData} />
+                        </Link>
+                    </Col>
                     { dataTypes }
+                    
                 </Row>
             )
         } else {

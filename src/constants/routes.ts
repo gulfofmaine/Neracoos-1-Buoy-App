@@ -5,6 +5,7 @@ export const paths = {
     platforms: {
         forecast: '/platform/:id/forecast',
         observations: '/platform/:id/observations/:type',
+        observationsWind: '/platform/:id/observations/wind',
         platform: '/platform/:id',
         root: '/platform/',
     }
