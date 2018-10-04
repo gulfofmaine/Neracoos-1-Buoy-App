@@ -63,7 +63,7 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
 
                 return (
                     // <DropdownItem key={index}>{humanDataName(name)}</DropdownItem>
-                    <Link className="dropdown-item" key={index} to={url}>{humanDataName(name)}</Link>
+                    <Link className="dropdown-item nav-item" key={index} to={url}>{humanDataName(name)}</Link>
                 )
             }
             )
@@ -79,7 +79,7 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
                     <DropdownMenu>
                         {dropdownItems}
                         { platform.data_types.filter((d) => d.data_type.includes('wind')).length > 0 ? (
-                            <Link className="dropdown-item" to={windUrl}>Wind</Link>
+                            <Link className="dropdown-item nav-item" to={windUrl}>Wind</Link>
                         ) : (null)}
                     </DropdownMenu>
                 </Dropdown>

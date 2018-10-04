@@ -22,6 +22,7 @@ export type ErddapDatasetInfo = ErddapDataset & {
     coverageStart: Date
     coverageEnd: Date
     status: Status
+    error_message: string
 }
 
 export type DatasetData = PlatformData & ErddapDataset & {

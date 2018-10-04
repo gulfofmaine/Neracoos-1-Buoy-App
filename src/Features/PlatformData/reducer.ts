@@ -60,6 +60,37 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     }
                 })
             }
+        
+        case actionTypes.PLATFORM_DATA_LOAD_ERROR:
+            return {
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === action.platformId) {
+                        return {
+                            ...p,
+                            error_message: action.error,
+                            status: Status.Error
+                        }
+                    } else {
+                        return p
+                    }
+                })
+            }
+        
+        case actionTypes.PLATFORM_DATA_CLEAR_ERROR:
+            return {
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === action.platformId) {
+                        return {
+                            ...p,
+                            error_message: ''
+                        }
+                    } else {
+                        return p
+                    }
+                })
+            }
 
         case actionTypes.PLATFORM_DATA_METADATA_LOADING:
             if (state.datasetInfo.filter((d) => d.datasetId === action.dataset && d.server === action.server).length > 0) {
@@ -83,6 +114,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     coverageEnd: new Date(),
                     coverageStart: new Date(),
                     datasetId: action.dataset,
+                    error_message: '',
                     server: action.server,
                     status: Status.Loading
                 }
@@ -91,6 +123,22 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     ...state,
                     datasetInfo: [...state.datasetInfo, newMetadata]
                 }
+            }
+        
+        case actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR:
+            return {
+                ...state,
+                datasetInfo: state.datasetInfo.map((d) => {
+                    if (d.datasetId === action.dataset && d.server === action.server) {
+                        return {
+                            ...d,
+                            error_message: action.message,
+                            status: Status.Error
+                        }
+                    } else {
+                        return d
+                    }
+                })
             }
 
         case actionTypes.PLATFORM_DATA_METADATA_LOAD_SUCCESS:

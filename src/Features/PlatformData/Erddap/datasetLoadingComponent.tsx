@@ -2,6 +2,11 @@ import { Feature } from '@turf/helpers'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import {
+    Alert,
+    Col,
+    Row
+} from 'reactstrap'
+import {
     bindActionCreators,
     Dispatch
 } from 'redux'
@@ -20,6 +25,7 @@ interface ReduxProps {
     datasetInfo: ErddapDatasetInfo[]
     platforms: Feature[]
     loadMetadata: (datasetId: string, server: string) => void
+    // clearMessage: (datasetId: string, server: string) => void
     // loadDataset: (platformId: string, datasetName: string, server: string) => void
 }
 
@@ -57,8 +63,27 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
         // tslint:disable-next-line:no-console
         console.log(loaded)
 
+        const alerts = this.props.datasetInfo.filter(
+            (dataset) => dataset.error_message.length > 0
+        ).map((dataset, index) =>
+            <Alert key={index} color="warning">{dataset.error_message}</Alert>
+        )
+
         return (
-            <div>Dataset loader</div>
+            <div>
+                <Row>
+                    <Col>
+                        {alerts}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Alert color="primary">
+                            Dataset loader
+                        </Alert>
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }

@@ -33,6 +33,11 @@ export interface PlatformDataError {
     error: string
 }
 
+export interface PlatformDataClearError {
+    type: actionTypes.PLATFORM_DATA_CLEAR_ERROR,
+    platformId: string
+}
+
 export interface PlatformForecastLoadSuccess {
     type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_SUCCESS,
     data: PlatformData[],
@@ -73,10 +78,16 @@ export interface PlatformMetadataError {
     message: string
 }
 
+export interface PlatformMetadataClearError {
+    type: actionTypes.PLATFORM_DATA_METADATA_CLEAR_ERROR,
+    message: string
+}
+
 export type PlatformDataActions = (PlatformDataLoadSuccess 
-    | PlatformDataLoading | PlatformDataError |  PlatformForecastLoadSuccess
-    | PlatformForecastLoading | PlatformForecastError | PlatformMetadataLoadSuccess
-    | PlatformMetadataLoading | PlatformMetadataError )
+    | PlatformDataLoading | PlatformDataError | PlatformDataClearError 
+    | PlatformForecastLoadSuccess | PlatformForecastLoading 
+    | PlatformForecastError | PlatformMetadataLoadSuccess
+    | PlatformMetadataLoading | PlatformMetadataError | PlatformMetadataClearError )
 
 export function platformDataLoadSuccess(platformId: string, data: PlatformData[]): PlatformDataLoadSuccess {
     return {
@@ -98,6 +109,13 @@ export function platformDataError(platformId: string, error: string): PlatformDa
         error,
         platformId,
         type: actionTypes.PLATFORM_DATA_LOAD_ERROR
+    }
+}
+
+export function platformDataClearError(platformId: string): PlatformDataClearError {
+    return {
+        platformId,
+        type: actionTypes.PLATFORM_DATA_CLEAR_ERROR
     }
 }
 
@@ -128,7 +146,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
             Sentry.captureException(error)
             
-            return dispatch(platformDataError(platformId, 'An error occured loading data'))
+            return dispatch(platformDataError(platformId, 'An error occured loading data for ' + platformId))
         }
     }
 }
@@ -185,6 +203,8 @@ export function platformMetadataError(dataset: string, server: string, message: 
     }
 }
 
+// export function platformMetadataClearError(message: )
+
 export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (datasetId: string, server: string) => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
@@ -215,22 +235,22 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
             const coverageStart = new Date(metadataValue(json.table, 'time_coverage_start') as number)
             const coverageEnd = new Date(metadataValue(json.table, 'time_coverage_end') as number)
 
-            // const now = new Date()
+            const now = new Date()
 
-            // if (coverageStart <= now && now <= coverageEnd) {
-            return dispatch(platformMetadataSuccess(
-                datasetId,
-                server,
-                coverageStart,
-                coverageEnd
-            ))
-            // } else {
-            //     return dispatch(platformMetadataError(
-            //         datasetId,
-            //         server,
-            //         datasetId + ' is not avaliable for the current time period.'
-            //     ))
-            // }
+            if (coverageStart <= now && now <= coverageEnd) {
+                return dispatch(platformMetadataSuccess(
+                    datasetId,
+                    server,
+                    coverageStart,
+                    coverageEnd
+                ))
+            } else {
+                return dispatch(platformMetadataError(
+                    datasetId,
+                    server,
+                    datasetId + ' is not avaliable for the current time period.'
+                ))
+            }
 
             
         } catch(error) {
@@ -244,7 +264,7 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
     }
 }
 
-// export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, forecastType: string) => {
+// export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, datasetId: string, server: string, lat: number, lon: number) => {
 //     return async (dispatch: Dispatch): Promise<Action> => {
 //         try {
 //             dispatch(platformForecastLoading(platformId, forecastType))

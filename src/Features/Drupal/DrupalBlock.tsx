@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Alert } from 'reactstrap'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import ContentBlock from '@app/components/ContentBlock'
@@ -35,7 +36,7 @@ export class DrupalBlockBase extends React.Component<Props & ReduxProps, object>
         if (filtered.length < 1 ) {
             this.props.loadNode(this.props.node)
             return (
-                <ContentBlock content="Loading" />
+                <Alert color="primary">Loading content...</Alert>
             )
         } else {
             const node = filtered[0]

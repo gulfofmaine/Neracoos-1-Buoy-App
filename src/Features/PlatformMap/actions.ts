@@ -15,6 +15,7 @@ export interface PlatformLocationsLoadSucccess {
 
 export interface PlatformLocationsLoadError { 
     type: actionTypes.PLATFORM_LOACTIONS_LOAD_ERROR
+    message: string
 }
 
 export type PlatformMapActions = PlatformLocationsLoadSucccess | PlatformLocationsLoadError
@@ -26,8 +27,9 @@ export function platformLocationsLoadSuccess(platforms: Feature[]): PlatformLoca
     }
 }
 
-export function platformLocationsLoadError(): PlatformLocationsLoadError {
+export function platformLocationsLoadError(message: string): PlatformLocationsLoadError {
     return {
+        message,
         type: actionTypes.PLATFORM_LOACTIONS_LOAD_ERROR
     }
 }
@@ -74,7 +76,7 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
             // tslint:disable-next-line:no-console
             console.log(e)
             Sentry.captureException(e)
-            return dispatch(platformLocationsLoadError())
+            return dispatch(platformLocationsLoadError('Unable to load platform location data.'))
         }
     }
 }

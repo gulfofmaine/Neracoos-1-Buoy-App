@@ -40,6 +40,7 @@ export interface PlatformLocation {
 
 export interface PlatformMapStoreState {
     platforms: Feature[]
+    errorMessage: string
 }
 
 export interface Geometry {
