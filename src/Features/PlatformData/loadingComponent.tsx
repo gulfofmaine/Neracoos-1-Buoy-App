@@ -8,7 +8,7 @@ import {
 import { StoreState } from '@app/constants'
 
 import { platformDataLoad } from './actions'
-import { Platform } from './types'
+import { Platform, Status } from './types'
 
 interface Props {
     platformId: string
@@ -40,7 +40,7 @@ export class PlatformLoaderBase extends React.Component<Props & ReduxProps, obje
         if (filteredPlatforms.length > 0) {
             const platform = filteredPlatforms[0]
 
-            if (platform.status !== 'LOADED') {
+            if (platform.status !== Status.Loaded) {
                 return (
                     <div>
                         Loading platform {this.props.platformId}.

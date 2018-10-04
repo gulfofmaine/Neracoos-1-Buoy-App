@@ -21,6 +21,7 @@ export interface ErddapDataset {
 export type ErddapDatasetInfo = ErddapDataset & {
     coverageStart: Date
     coverageEnd: Date
+    status: Status
 }
 
 export type DatasetData = PlatformData & ErddapDataset & {

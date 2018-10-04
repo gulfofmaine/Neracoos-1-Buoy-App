@@ -67,9 +67,10 @@ export interface PlatformMetadataLoading {
 }
 
 export interface PlatformMetadataError {
-    type: actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR,
-    dataset: string,
+    type: actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR
+    dataset: string
     server: string
+    message: string
 }
 
 export type PlatformDataActions = (PlatformDataLoadSuccess 
@@ -175,50 +176,70 @@ export function platformMetadataLoading(dataset: string, server: string): Platfo
     }
 }
 
-export function platformMetadataError(dataset: string, server: string): PlatformMetadataError {
+export function platformMetadataError(dataset: string, server: string, message: string): PlatformMetadataError {
     return {
         dataset,
+        message,
         server,
         type: actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR
     }
 }
 
-export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (dataset: string, server: string) => {
+export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (datasetId: string, server: string) => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
-            dispatch(platformMetadataLoading(dataset, server))
+            dispatch(platformMetadataLoading(datasetId, server))
 
-            const url = server + '/' + dataset + '/info/index.json'
+            const url = server + '/info/' + datasetId + '/index.json'
+            // const proxyUrl = url.includes('neracoos') ? 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url) : url
+            const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
 
             Sentry.addBreadcrumb({
                 category: 'Platform ERDDAP Metadata',
                 data: {
-                    dataset,
+                    datasetId,
+                    proxyUrl,
                     server,
                     url
                 },
                 message: 'Loading ERDDAP dataset metadata'
             })
 
-            const result = await fetch(url)
+            // tslint:disable-next-line:no-console
+            console.log(url, proxyUrl)
+
+            const result = await fetch(proxyUrl)
+
             const json = await result.json() as GriddapJson
 
             const coverageStart = new Date(metadataValue(json.table, 'time_coverage_start') as number)
             const coverageEnd = new Date(metadataValue(json.table, 'time_coverage_end') as number)
 
+            // const now = new Date()
+
+            // if (coverageStart <= now && now <= coverageEnd) {
             return dispatch(platformMetadataSuccess(
-                dataset,
+                datasetId,
                 server,
                 coverageStart,
                 coverageEnd
             ))
+            // } else {
+            //     return dispatch(platformMetadataError(
+            //         datasetId,
+            //         server,
+            //         datasetId + ' is not avaliable for the current time period.'
+            //     ))
+            // }
+
+            
         } catch(error) {
             // tslint:disable-next-line:no-console
             console.log(error)
 
             Sentry.captureException(error)
 
-            return dispatch(platformMetadataError(dataset, server))
+            return dispatch(platformMetadataError(datasetId, server, 'Unknown error loading ' + datasetId))
         }
     }
 }

@@ -1,44 +1,116 @@
 import { Action } from '@app/actions'
 
 import * as actionTypes from './actionTypes'
-import { initialStoreState, Platform, PlatformDataStoreState, Status } from './types'
+import { 
+    ErddapDatasetInfo,
+    initialStoreState, 
+    Platform, 
+    PlatformDataStoreState, 
+    Status 
+} from './types'
 
 export function platformDataReducer(state: PlatformDataStoreState = initialStoreState, action: Action): PlatformDataStoreState {
     switch(action.type) {
         case actionTypes.PLATFORM_DATA_LOADING:
-            const filteredPlatformsLoading = state.platforms.filter((p) => p.id === action.platformId)
-            const otherPlatformsLoading = state.platforms.filter((p) => p.id !== action.platformId)
+            if ((state.platforms.filter((p) => p.id === action.platformId)).length > 0) {
+                
+                return {
+                    ...state,
+                    platforms: state.platforms.map((p) => {
+                        if (p.id === action.platformId) {
+                            return {
+                                    ...p,
+                                    status: Status.Loading
+                                }
+                        } else {
+                            return p
+                        }
+                    })
+                }
 
-            let platform: Platform
-            if (filteredPlatformsLoading.length > 0) {
-                platform = filteredPlatformsLoading[0]
-                platform.status = Status.Loading
             } else {
-                platform = {
+                const newPlatform: Platform = {
                     data_types: [],
                     error_message: '',
                     forecasts_types: [],
                     id: action.platformId,
                     status: Status.Loading
                 }
-            }
+                
+                return {
+                    ...state,
+                    platforms: [...state.platforms, newPlatform]
+                }
 
-            return {
-                ...state,
-                platforms: [...otherPlatformsLoading, platform]
             }
 
         case actionTypes.PLATFORM_DATA_LOAD_SUCCESS:
-            const filteredPlatformsSuccess = state.platforms.filter((p) => p.id === action.platformId)
-            const otherPlatformsSuccess = state.platforms.filter((p) => p.id !== action.platformId)
-
-            const platformSuccess = filteredPlatformsSuccess[0]
-            platformSuccess.status = Status.Loaded
-            platformSuccess.data_types = action.data
-
+            
             return {
-                ...state, 
-                platforms: [...otherPlatformsSuccess, platformSuccess]
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === action.platformId) {
+                        return {
+                            ...p,
+                            data_types: action.data,
+                            status: Status.Loaded
+                        }
+                    } else {
+                        return p
+                    }
+                })
+            }
+
+        case actionTypes.PLATFORM_DATA_METADATA_LOADING:
+            if (state.datasetInfo.filter((d) => d.datasetId === action.dataset && d.server === action.server).length > 0) {
+                
+                return {
+                    ...state,
+                    datasetInfo: state.datasetInfo.map((d) => {
+                        if (d.datasetId === action.dataset && d.server === action.server) {
+                            return {
+                                ...d,
+                                status: Status.Loading
+                            }
+                        } else {
+                            return d
+                        }
+                    })
+                }
+
+            } else {
+                const newMetadata: ErddapDatasetInfo = {
+                    coverageEnd: new Date(),
+                    coverageStart: new Date(),
+                    datasetId: action.dataset,
+                    server: action.server,
+                    status: Status.Loading
+                }
+
+                return {
+                    ...state,
+                    datasetInfo: [...state.datasetInfo, newMetadata]
+                }
+            }
+
+        case actionTypes.PLATFORM_DATA_METADATA_LOAD_SUCCESS:
+            if (state.datasetInfo.filter((d) => d.datasetId === action.dataset && d.server === action.server).length > 0) {
+                
+                return {
+                    ...state,
+                    datasetInfo: state.datasetInfo.map((d) => {
+                        if (d.datasetId === action.dataset && d.server === action.server) {
+                            return {
+                                ...d,
+                                coverageEnd: action.coverageEnd,
+                                coverageStart: action.coverageStart,
+                                status: Status.Loaded
+                            }
+                        } else {
+                            return d
+                        }
+                    })
+                }
             }
 
         default:

@@ -74,7 +74,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                     if (speedTs[index] !== undefined && directionTs[index] !== undefined) {
                         windData.push([
                             directionTs[index].time.valueOf(),
-                            speedTs[index].reading,
+                            round(speedTs[index].reading, 1),
                             directionTs[index].reading
                         ])
                     }

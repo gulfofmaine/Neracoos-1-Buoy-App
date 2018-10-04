@@ -1,14 +1,17 @@
 import * as React from 'react'
-import { Col, Row } from 'reactstrap'
+import { RouteComponentProps } from 'react-router-dom'
 
-export class ForecastsPage extends React.Component<object, object> {
+import { ForecastPlatformConditions } from '@app/Features/PlatformData'
+
+import { PlatformMatchParams } from './types'
+
+export class ForecastsPage extends React.Component<RouteComponentProps, object> {
     public render() {
+
+        const { id } = this.props.match.params as PlatformMatchParams
+
         return (
-            <Row>
-                <Col>
-                    Forecasts
-                </Col>
-            </Row>
+            <ForecastPlatformConditions platformId={id} />
         )
     }
 }

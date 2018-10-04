@@ -9,3 +9,7 @@ export {
     ObservedPlatformWindConditions
  } from './Observations'
 export { PlatformLoader } from './loadingComponent'
+
+export {
+    ForecastPlatformConditions
+} from './Forecasts'
