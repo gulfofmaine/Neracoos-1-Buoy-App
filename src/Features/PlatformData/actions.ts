@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 
 import { StoreState } from '@app/constants'
 import { 
+    ErddapDataset,
     GriddapJson, 
     metadataValue 
 } from '@app/Shared/erddap'
@@ -59,22 +60,19 @@ export interface PlatformForecastError {
 
 export interface PlatformMetadataLoadSuccess {
     type: actionTypes.PLATFORM_DATA_METADATA_LOAD_SUCCESS,
-    dataset: string,
-    server: string,
+    dataset: ErddapDataset,
     coverageStart: Date,
     coverageEnd: Date
 }
 
 export interface PlatformMetadataLoading {
     type: actionTypes.PLATFORM_DATA_METADATA_LOADING,
-    dataset: string,
-    server: string
+    dataset: ErddapDataset
 }
 
 export interface PlatformMetadataError {
     type: actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR
-    dataset: string
-    server: string
+    dataset: ErddapDataset
     message: string
 }
 
@@ -176,50 +174,46 @@ export function platformForecastError(platformId: string, forecastType: string):
     }
 }
 
-export function platformMetadataSuccess(dataset: string, server: string, coverageStart: Date, coverageEnd: Date): PlatformMetadataLoadSuccess {
+export function platformMetadataSuccess(dataset: ErddapDataset, coverageStart: Date, coverageEnd: Date): PlatformMetadataLoadSuccess {
     return {
         coverageEnd,
         coverageStart,
         dataset,
-        server,
         type: actionTypes.PLATFORM_DATA_METADATA_LOAD_SUCCESS
     }
 }
 
-export function platformMetadataLoading(dataset: string, server: string): PlatformMetadataLoading {
+export function platformMetadataLoading(dataset: ErddapDataset): PlatformMetadataLoading {
     return {
         dataset,
-        server,
         type: actionTypes.PLATFORM_DATA_METADATA_LOADING
     }
 }
 
-export function platformMetadataError(dataset: string, server: string, message: string): PlatformMetadataError {
+export function platformMetadataError(dataset: ErddapDataset, message: string): PlatformMetadataError {
     return {
         dataset,
         message,
-        server,
         type: actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR
     }
 }
 
 // export function platformMetadataClearError(message: )
 
-export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (datasetId: string, server: string) => {
+export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (dataset: ErddapDataset) => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
-            dispatch(platformMetadataLoading(datasetId, server))
+            dispatch(platformMetadataLoading(dataset))
 
-            const url = server + '/info/' + datasetId + '/index.json'
+            const url = dataset.server + '/info/' + dataset.datasetId + '/index.json'
             // const proxyUrl = url.includes('neracoos') ? 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url) : url
             const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
 
             Sentry.addBreadcrumb({
                 category: 'Platform ERDDAP Metadata',
                 data: {
-                    datasetId,
+                    dataset,
                     proxyUrl,
-                    server,
                     url
                 },
                 message: 'Loading ERDDAP dataset metadata'
@@ -239,16 +233,14 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
 
             if (coverageStart <= now && now <= coverageEnd) {
                 return dispatch(platformMetadataSuccess(
-                    datasetId,
-                    server,
+                    dataset,
                     coverageStart,
                     coverageEnd
                 ))
             } else {
                 return dispatch(platformMetadataError(
-                    datasetId,
-                    server,
-                    datasetId + ' is not avaliable for the current time period.'
+                    dataset,
+                    dataset.datasetId + ' is not avaliable for the current time period.'
                 ))
             }
 
@@ -259,7 +251,7 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
 
             Sentry.captureException(error)
 
-            return dispatch(platformMetadataError(datasetId, server, 'Unknown error loading ' + datasetId))
+            return dispatch(platformMetadataError(dataset, 'Unknown error loading ' + dataset.datasetId))
         }
     }
 }

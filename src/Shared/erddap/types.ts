@@ -8,3 +8,14 @@ export interface GriddapTable {
 export interface GriddapJson {
     table: GriddapTable
 }
+
+export enum DatasetTypes {
+    grid = 'griddap',
+    table = 'tabledap'
+}
+
+export interface ErddapDataset {
+    server: string
+    datasetId: string
+    datasetType: DatasetTypes
+}

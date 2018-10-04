@@ -1,3 +1,4 @@
+import { ErddapDataset } from '@app/Shared/erddap'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
 export enum Status {
@@ -11,11 +12,6 @@ export interface PlatformData {
     unit: string
     depth: number
     data: ReadingTimeSeries[]
-}
-
-export interface ErddapDataset {
-    server: string
-    datasetId: string
 }
 
 export type ErddapDatasetInfo = ErddapDataset & {

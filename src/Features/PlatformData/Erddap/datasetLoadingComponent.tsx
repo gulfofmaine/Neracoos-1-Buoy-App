@@ -12,9 +12,10 @@ import {
 } from 'redux'
 
 import { StoreState } from '@app/constants'
+import { ErddapDataset } from '@app/Shared/erddap'
 
 import { metadataLoad } from '../actions'
-import { ErddapDataset, ErddapDatasetInfo, Status } from '../types'
+import { ErddapDatasetInfo, Status } from '../types'
 
 interface Props {
     platformId: string
@@ -24,7 +25,7 @@ interface Props {
 interface ReduxProps {
     datasetInfo: ErddapDatasetInfo[]
     platforms: Feature[]
-    loadMetadata: (datasetId: string, server: string) => void
+    loadMetadata: (dataset: ErddapDataset) => void
     // clearMessage: (datasetId: string, server: string) => void
     // loadDataset: (platformId: string, datasetName: string, server: string) => void
 }
@@ -49,7 +50,7 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
         })
 
         notLoaded.map((dataset) => {
-            this.props.loadMetadata(dataset.datasetId, dataset.server)
+            this.props.loadMetadata(dataset)
         })
 
         const loaded = this.props.datasets.filter((dataset) => 

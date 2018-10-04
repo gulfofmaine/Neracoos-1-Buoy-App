@@ -1,10 +1,13 @@
 import * as React from 'react'
 
 import { 
+    datasets,
+    ErddapDataset
+} from '@app/Shared/erddap'
+
+import { 
     DatasetLoader,
-    datasets
 } from '../Erddap'
-import { ErddapDataset } from '../types'
 
 
 interface Props {
