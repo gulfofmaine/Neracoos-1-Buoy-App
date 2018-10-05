@@ -32,7 +32,9 @@ export class ForecastPlatformConditions extends React.Component<Props, object> {
             <div>
                 <DatasetLoader 
                     platformId={this.props.platformId}
-                    datasetsAndFields={forecastDatasets} />
+                    datasetsAndFields={forecastDatasets}>
+                        Hi from ForecastPlatformConditions
+                    </DatasetLoader>
             </div>
         )
     }

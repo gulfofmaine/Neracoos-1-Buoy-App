@@ -132,9 +132,7 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
                             && f.dataset.dataset.datasetType === datasetsAndField.dataset.datasetType
                             && f.dataset.dataset.server === datasetsAndField.dataset.server
                             && f.dataset.field === datasetsAndField.field).length < 1) {
-                        // tslint:disable-next-line:no-console
-                        console.log('Should load dataset for ', datasetsAndField)
-    
+
                         this.props.loadDataset(platform.id, datasetInfo, coordinates[1], coordinates[0], datasetsAndField.field)
                     }
                 }
@@ -153,7 +151,7 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
             return (
                 <div>
                     { errors }
-                    Forecasts loaded
+                    { this.props.children }
                 </div>
             )
         }

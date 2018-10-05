@@ -253,6 +253,32 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     }
                 })
             }
+        
+        case actionTypes.PLATFORM_DATA_FORECAST_LOAD_SUCCESS:
+            return {
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === action.platformId) {
+                        return {
+                            ...p,
+                            forecasts_types: p.forecasts_types.map((f) => {
+                                if (f.dataset === action.dataset) {
+                                    return {
+                                        ...f,
+                                        ...action.data,
+                                        error_message: '',
+                                        status: Status.Loaded
+                                    }
+                                } else {
+                                    return f
+                                }
+                            })
+                        }
+                    } else {
+                        return p
+                    }
+                })
+            }
 
         default:
             return state

@@ -7,6 +7,7 @@ import {
     datasetInfoJson,
     ErddapDataset,
     erddapUrl,
+    extractColumn,
     GriddapJson, 
     metadataValue 
 } from '@app/Shared/erddap'
@@ -48,7 +49,7 @@ export interface PlatformDataClearError {
 
 export interface PlatformForecastLoadSuccess {
     type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_SUCCESS,
-    data: PlatformData[],
+    data: PlatformData,
     dataset: ErddapDatasetAndField,
     platformId: string,
 }
@@ -164,7 +165,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
     }
 }
 
-export function platformForecastLoadSuccess(platformId: string, dataset: ErddapDatasetAndField, data: PlatformData[]): PlatformForecastLoadSuccess {
+export function platformForecastLoadSuccess(platformId: string, dataset: ErddapDatasetAndField, data: PlatformData): PlatformForecastLoadSuccess {
     return {
         data,
         dataset,
@@ -288,15 +289,41 @@ export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
         try {
             const url = erddapUrl(dataset as ErddapDataset, lat, lon, field, todayIso(), dataset.coverageEnd)
+            const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
 
-            // tslint:disable-next-line:no-console
-            console.log(url)
+            Sentry.addBreadcrumb({
+                category: 'Platform ERDDAP request',
+                data: {
+                    dataset,
+                    field,
+                    lat,
+                    lon,
+                    platformId,
+                    proxyUrl,
+                    url
+                },
+                message: 'Loading ERDDAP dataset'
+            })
 
-            return dispatch(platformForecastError(
-                platformId, 
-                datasetAndField, 
-                'Not really an error, just not finished programming the loading steps yet'
-                ))
+            const result = await fetch(proxyUrl)
+
+            const json = await result.json() as GriddapJson
+
+            const ts = extractColumn(json.table, field)
+
+            const data: PlatformData = {
+                data: ts,
+                data_type: 'forecast',
+                depth: 0,
+                unit: ''
+            }
+
+            return dispatch(platformForecastLoadSuccess(
+                platformId,
+                datasetAndField,
+                data
+            ))
+
         } catch(error) {
             // tslint:disable-next-line:no-console
             console.log(error)
