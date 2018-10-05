@@ -22,8 +22,11 @@ export type PLATFORM_DATA_FORECAST_LOADING = typeof PLATFORM_DATA_FORECAST_LOADI
 export const PLATFORM_DATA_FORECAST_LOAD_SUCCESS = 'platform/data/forecast/load/success'
 export type PLATFORM_DATA_FORECAST_LOAD_SUCCESS = typeof PLATFORM_DATA_FORECAST_LOAD_SUCCESS
 
-export const PLATFORM_DATA_FORECAST_LOAD_ERROR = 'platform/data/forecast/load/error'
+export const PLATFORM_DATA_FORECAST_LOAD_ERROR = 'platform/data/forecast/error'
 export type PLATFORM_DATA_FORECAST_LOAD_ERROR = typeof PLATFORM_DATA_FORECAST_LOAD_ERROR
+
+export const PLATFORM_DATA_FORECAST_CLEAR_ERROR = 'platform/data/forecast/error/clear'
+export type PLATFORM_DATA_FORECAST_CLEAR_ERROR = typeof PLATFORM_DATA_FORECAST_CLEAR_ERROR
 
 export const PLATFORM_DATA_METADATA_LOAD_REQUEST = 'platform/data/meta/load/request'
 export type PLATFORM_DATA_METADATA_LOAD_REQUEST = typeof PLATFORM_DATA_METADATA_LOAD_REQUEST

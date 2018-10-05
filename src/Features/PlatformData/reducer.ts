@@ -1,12 +1,16 @@
 import { Action } from '@app/actions'
 
+import { PlatformForecastLoading } from './actions'
+
 import * as actionTypes from './actionTypes'
 import { 
+    DatasetData,
+    ErddapDatasetAndField,
     ErddapDatasetInfo,
     initialStoreState, 
     Platform, 
     PlatformDataStoreState, 
-    Status 
+    Status
 } from './types'
 
 export function platformDataReducer(state: PlatformDataStoreState = initialStoreState, action: Action): PlatformDataStoreState {
@@ -160,17 +164,95 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 }
             }
         
-        // case actionTypes.PLATFORM_DATA_FORECAST_LOADING:
-        //     return {
-        //         ...state,
-        //         platforms: this.state.platforms.map((p) => {
-        //             if (p.forecasts_types.filter((f) => f.dataset === action.dataset && p.platformId === action.platformID)) {
-        //                 p.forecasts_types.map((f) => {
-        //                     if (f.dataset === action.dataset)
-        //                 })
-        //             }
-        //         })
-        //     }
+        case actionTypes.PLATFORM_DATA_FORECAST_LOADING:
+            return {
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === (action as PlatformForecastLoading).platformId) {
+                        if (p.forecasts_types.filter((f) => f.dataset === action.dataset).length > 0) {
+                            return {
+                                ...p,
+                                forecasts_types: p.forecasts_types.map((f) => {
+                                    if (f.dataset === action.dataset) {
+                                        return {
+                                            ...f,
+                                            status: Status.Loading
+                                        }
+                                    } else {
+                                        return f
+                                    }
+                                })
+                            }
+                        } else {
+                            const newForecast: DatasetData = {
+                                data: [],
+                                data_type: '',
+                                dataset: action.dataset as ErddapDatasetAndField,
+                                depth: 0,
+                                error_message: '',
+                                status: Status.Loading,
+                                unit: ''
+                            }
+                            return {
+                                ...p,
+                                forecasts_types: [...p.forecasts_types, newForecast]
+                            }
+                        }
+                        
+                    } else {
+                        return p
+                    }
+                })
+            }
+
+        case actionTypes.PLATFORM_DATA_FORECAST_LOAD_ERROR:
+            return {
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === action.platformId) {
+                        return {
+                            ...p,
+                            forecasts_types: p.forecasts_types.map((f) => {
+                                if (f.dataset === action.dataset) {
+                                    return {
+                                        ...f,
+                                        error_message: action.errorMessage,
+                                        status: Status.Error
+                                    }
+                                } else {
+                                    return f
+                                }
+                            })
+                        }
+                    } else {
+                        return p
+                    }
+                })
+            }
+        
+        case actionTypes.PLATFORM_DATA_FORECAST_CLEAR_ERROR:
+            return {
+                ...state,
+                platforms: state.platforms.map((p) => {
+                    if (p.id === action.platformId) {
+                        return {
+                            ...p,
+                            forecasts_types: p.forecasts_types.map((f) => {
+                                if (f.dataset === action.dataset) {
+                                    return {
+                                        ...f,
+                                        error_message: ''
+                                    }
+                                } else {
+                                    return f
+                                }
+                            })
+                        }
+                    } else {
+                        return p
+                    }
+                })
+            }
 
         default:
             return state

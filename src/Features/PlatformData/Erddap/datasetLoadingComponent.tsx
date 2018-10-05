@@ -19,7 +19,8 @@ import { ErddapDataset } from '@app/Shared/erddap'
 
 import { 
     forecastDataLoad,
-    metadataLoad 
+    metadataLoad,
+    platformForecastClearError
 } from '../actions'
 import { 
     ErddapDatasetAndField, 
@@ -27,6 +28,8 @@ import {
     Platform,
     Status 
 } from '../types'
+
+import { LoadingAlert } from './AlertComponent'
 
 interface Props {
     platformId: string
@@ -39,8 +42,7 @@ interface ReduxProps {
     platforms: Platform[]
     loadMetadata: (dataset: ErddapDataset) => void
     loadDataset: (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string) => void
-    // clearMessage: (datasetId: string, server: string) => void
-    // loadDataset: (platformId: string, datasetName: string, server: string) => void
+    clearError: (platformId: string, dataset: ErddapDatasetAndField) => void
 }
 
 function mapStateToProps({ platformData, platformMap }: StoreState) {
@@ -52,6 +54,7 @@ function mapStateToProps({ platformData, platformMap }: StoreState) {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+    clearError: platformForecastClearError,
     loadDataset: forecastDataLoad,
     loadMetadata: metadataLoad
 }, dispatch)
@@ -104,28 +107,59 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
     }
 
     private renderForecastLoading() {
-        const feature = this.props.features.filter((p) => p.properties!.name === this.props.platformId)[0]
         const platform = this.props.platforms.filter((p) => p.id === this.props.platformId)[0]
 
-        const coordinates = (feature.geometry as Geometry).coordinates as number[]
-
-        this.props.datasetInfo.map((datasetInfo) => {
-            const datasetsAndField = this.props.datasetsAndFields.filter((d) => d.dataset.datasetId === datasetInfo.datasetId && d.dataset.datasetType === datasetInfo.datasetType && d.dataset.server === datasetInfo.server)[0]
-            if (datasetsAndField !== undefined) {
-                if (platform.forecasts_types.map((f) => f.dataset).indexOf(datasetsAndField) < 0) {
-                    // tslint:disable-next-line:no-console
-                    console.log('Should load dataset for ', datasetsAndField)
-
-                    this.props.loadDataset(platform.id, datasetInfo, coordinates[1], coordinates[0], datasetsAndField.field)
-                }
-            }
+        const requestedDatasets = platform.forecasts_types.filter((f) => {
+            return this.props.datasetsAndFields.filter(
+                (d) => d.dataset.datasetId === f.dataset.dataset.datasetId
+                && d.dataset.datasetType === f.dataset.dataset.datasetType
+                && d.dataset.server === f.dataset.dataset.server
+                && d.field === f.dataset.field).length > 0
         })
 
+        if (requestedDatasets.length !== this.props.datasetsAndFields.length) {
+            const feature = this.props.features.filter((p) => p.properties!.name === this.props.platformId)[0]
+            const coordinates = (feature.geometry as Geometry).coordinates as number[]
+    
+            this.props.datasetInfo.map((datasetInfo) => {
+                const datasetsAndField = this.props.datasetsAndFields.filter(
+                    (d) => d.dataset.datasetId === datasetInfo.datasetId 
+                        && d.dataset.datasetType === datasetInfo.datasetType 
+                        && d.dataset.server === datasetInfo.server)[0]
+                if (datasetsAndField !== undefined) {
+                    if (platform.forecasts_types.filter(
+                        (f) => f.dataset.dataset.datasetId === datasetsAndField.dataset.datasetId
+                            && f.dataset.dataset.datasetType === datasetsAndField.dataset.datasetType
+                            && f.dataset.dataset.server === datasetsAndField.dataset.server
+                            && f.dataset.field === datasetsAndField.field).length < 1) {
+                        // tslint:disable-next-line:no-console
+                        console.log('Should load dataset for ', datasetsAndField)
+    
+                        this.props.loadDataset(platform.id, datasetInfo, coordinates[1], coordinates[0], datasetsAndField.field)
+                    }
+                }
+            })
+
+            return (
+                <Alert color="primary">Forecasts Loading</Alert>
+            )
+        } else {
+            const errors = requestedDatasets.filter(
+                (d) => d.error_message.length > 0
+            ).map((d, index) =>
+                <LoadingAlert key={index} dataset={d} platformId={platform.id} clearError={this.props.clearError} />
+            )
+
+            return (
+                <div>
+                    { errors }
+                    Forecasts loaded
+                </div>
+            )
+        }
         
 
-        return (
-            <Alert color="primary">Forecasts Loading</Alert>
-        )
+        
     }
 }
 

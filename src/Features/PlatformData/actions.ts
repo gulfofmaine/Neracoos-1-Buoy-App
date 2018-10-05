@@ -66,6 +66,12 @@ export interface PlatformForecastError {
     errorMessage: string
 }
 
+export interface PlatformForecastClearError {
+    type: actionTypes.PLATFORM_DATA_FORECAST_CLEAR_ERROR,
+    platformId: string,
+    dataset: ErddapDatasetAndField
+}
+
 export interface PlatformMetadataLoadSuccess {
     type: actionTypes.PLATFORM_DATA_METADATA_LOAD_SUCCESS,
     dataset: ErddapDataset,
@@ -92,8 +98,9 @@ export interface PlatformMetadataClearError {
 export type PlatformDataActions = (PlatformDataLoadSuccess 
     | PlatformDataLoading | PlatformDataError | PlatformDataClearError 
     | PlatformForecastLoadSuccess | PlatformForecastLoading 
-    | PlatformForecastError | PlatformMetadataLoadSuccess
-    | PlatformMetadataLoading | PlatformMetadataError | PlatformMetadataClearError )
+    | PlatformForecastError | PlatformForecastClearError 
+    | PlatformMetadataLoadSuccess | PlatformMetadataLoading 
+    | PlatformMetadataError | PlatformMetadataClearError )
 
 export function platformDataLoadSuccess(platformId: string, data: PlatformData[]): PlatformDataLoadSuccess {
     return {
@@ -180,6 +187,14 @@ export function platformForecastError(platformId: string, dataset: ErddapDataset
         errorMessage: message,
         platformId,
         type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_ERROR
+    }
+}
+
+export function platformForecastClearError(platformId: string, dataset: ErddapDatasetAndField): PlatformForecastClearError {
+    return {
+        dataset,
+        platformId,
+        type: actionTypes.PLATFORM_DATA_FORECAST_CLEAR_ERROR
     }
 }
 
@@ -277,7 +292,11 @@ export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             // tslint:disable-next-line:no-console
             console.log(url)
 
-            return dispatch(platformForecastError(platformId, datasetAndField, 'not really, just not finished yet'))
+            return dispatch(platformForecastError(
+                platformId, 
+                datasetAndField, 
+                'Not really an error, just not finished programming the loading steps yet'
+                ))
         } catch(error) {
             // tslint:disable-next-line:no-console
             console.log(error)

@@ -38,8 +38,6 @@ export function erddapUrl(dataset: ErddapDataset, lat: number, lon: number, fiel
     [(40.05):1:(40.05)][(-63.05):1:(-63.05)]
     */
 
-    // // tslint:disable-next-line:no-debugger
-    // debugger
     if (dataset.invertLongitude) {
         lon = 360 + lon
     }
