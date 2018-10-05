@@ -15,7 +15,9 @@ export enum DatasetTypes {
 }
 
 export interface ErddapDataset {
-    server: string
     datasetId: string
     datasetType: DatasetTypes
+    depth?: number
+    invertLongitude: boolean
+    server: string
 }

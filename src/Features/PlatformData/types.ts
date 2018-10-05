@@ -14,6 +14,11 @@ export interface PlatformData {
     data: ReadingTimeSeries[]
 }
 
+export interface ErddapDatasetAndField {
+    dataset: ErddapDataset
+    field: string
+}
+
 export type ErddapDatasetInfo = ErddapDataset & {
     coverageStart: Date
     coverageEnd: Date
@@ -21,7 +26,8 @@ export type ErddapDatasetInfo = ErddapDataset & {
     error_message: string
 }
 
-export type DatasetData = PlatformData & ErddapDataset & {
+export type DatasetData = PlatformData &  {
+    dataset: ErddapDatasetAndField
     status: Status
     error_message: string
 }

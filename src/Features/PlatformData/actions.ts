@@ -4,14 +4,21 @@ import { ThunkAction } from 'redux-thunk'
 
 import { StoreState } from '@app/constants'
 import { 
+    datasetInfoJson,
     ErddapDataset,
+    erddapUrl,
     GriddapJson, 
     metadataValue 
 } from '@app/Shared/erddap'
+import {
+    todayIso
+} from '@app/Shared/time'
 
 import * as actionTypes from './actionTypes'
 import { transformPlatformJson } from './jsonTransformer'
 import { 
+    ErddapDatasetAndField,
+    ErddapDatasetInfo,
     PlatformData, 
     PlatformJson 
 } from './types'
@@ -42,20 +49,21 @@ export interface PlatformDataClearError {
 export interface PlatformForecastLoadSuccess {
     type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_SUCCESS,
     data: PlatformData[],
+    dataset: ErddapDatasetAndField,
     platformId: string,
-    forecastType: string
 }
 
 export interface PlatformForecastLoading {
     type: actionTypes.PLATFORM_DATA_FORECAST_LOADING,
     platformId: string,
-    forecastType: string
+    dataset: ErddapDatasetAndField
 }
 
 export interface PlatformForecastError {
     type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_ERROR,
     platformId: string,
-    forecastType: string
+    dataset: ErddapDatasetAndField,
+    errorMessage: string
 }
 
 export interface PlatformMetadataLoadSuccess {
@@ -149,26 +157,27 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
     }
 }
 
-export function platformForecastLoadSuccess(platformId: string, forecastType: string, data: PlatformData[]): PlatformForecastLoadSuccess {
+export function platformForecastLoadSuccess(platformId: string, dataset: ErddapDatasetAndField, data: PlatformData[]): PlatformForecastLoadSuccess {
     return {
         data,
-        forecastType,
+        dataset,
         platformId,
         type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_SUCCESS
     }
 }
 
-export function platformForecastLoading(platformId: string, forecastType: string): PlatformForecastLoading {
+export function platformForecastLoading(platformId: string, dataset: ErddapDatasetAndField): PlatformForecastLoading {
     return {
-        forecastType,
+        dataset,
         platformId,
         type: actionTypes.PLATFORM_DATA_FORECAST_LOADING
     }
 }
 
-export function platformForecastError(platformId: string, forecastType: string): PlatformForecastError {
+export function platformForecastError(platformId: string, dataset: ErddapDatasetAndField, message: string): PlatformForecastError {
     return {
-        forecastType,
+        dataset,
+        errorMessage: message,
         platformId,
         type: actionTypes.PLATFORM_DATA_FORECAST_LOAD_ERROR
     }
@@ -205,8 +214,7 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
         try {
             dispatch(platformMetadataLoading(dataset))
 
-            const url = dataset.server + '/info/' + dataset.datasetId + '/index.json'
-            // const proxyUrl = url.includes('neracoos') ? 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url) : url
+            const url = datasetInfoJson(dataset)
             const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
 
             Sentry.addBreadcrumb({
@@ -218,9 +226,6 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
                 },
                 message: 'Loading ERDDAP dataset metadata'
             })
-
-            // tslint:disable-next-line:no-console
-            console.log(url, proxyUrl)
 
             const result = await fetch(proxyUrl)
 
@@ -256,19 +261,30 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
     }
 }
 
-// export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, datasetId: string, server: string, lat: number, lon: number) => {
-//     return async (dispatch: Dispatch): Promise<Action> => {
-//         try {
-//             dispatch(platformForecastLoading(platformId, forecastType))
+export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string) => {
+    return async (dispatch: Dispatch): Promise<Action> => {
 
+        const datasetAndField: ErddapDatasetAndField = {
+            dataset: dataset as ErddapDataset,
+            field
+        }
 
-//         } catch(error) {
-//             // tslint:disable-next-line:no-console
-//             console.log(error)
+        dispatch(platformForecastLoading(platformId, datasetAndField))
 
-//             Sentry.captureException(error)
+        try {
+            const url = erddapUrl(dataset as ErddapDataset, lat, lon, field, todayIso(), dataset.coverageEnd)
 
-//             return dispatch(platformForecastError(platformId, forecastType))
-//         }
-//     }
-// }
+            // tslint:disable-next-line:no-console
+            console.log(url)
+
+            return dispatch(platformForecastError(platformId, datasetAndField, 'not really, just not finished yet'))
+        } catch(error) {
+            // tslint:disable-next-line:no-console
+            console.log(error)
+
+            Sentry.captureException(error)
+
+            return dispatch(platformForecastError(platformId, datasetAndField, error))
+        }
+    }
+}

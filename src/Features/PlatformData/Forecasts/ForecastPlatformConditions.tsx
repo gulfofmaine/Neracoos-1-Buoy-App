@@ -2,21 +2,28 @@ import * as React from 'react'
 
 import { 
     datasets,
-    ErddapDataset
 } from '@app/Shared/erddap'
 
 import { 
     DatasetLoader,
 } from '../Erddap'
+import {
+    ErddapDatasetAndField
+} from '../types'
 
 
 interface Props {
     platformId: string
 }
 
-const forecastDatasets: ErddapDataset[] = [
-    datasets.NWW3,
-    datasets.WW3
+const forecastDatasets: ErddapDatasetAndField[] = [
+    {
+        dataset: datasets.NWW3,
+        field: 'Thgt'
+    },{
+        dataset: datasets.WW3,
+        field: 'hs'
+    }
 ]
 
 export class ForecastPlatformConditions extends React.Component<Props, object> {
@@ -25,7 +32,7 @@ export class ForecastPlatformConditions extends React.Component<Props, object> {
             <div>
                 <DatasetLoader 
                     platformId={this.props.platformId}
-                    datasets={forecastDatasets} />
+                    datasetsAndFields={forecastDatasets} />
             </div>
         )
     }

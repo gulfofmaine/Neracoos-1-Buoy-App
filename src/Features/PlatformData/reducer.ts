@@ -159,6 +159,18 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     })
                 }
             }
+        
+        // case actionTypes.PLATFORM_DATA_FORECAST_LOADING:
+        //     return {
+        //         ...state,
+        //         platforms: this.state.platforms.map((p) => {
+        //             if (p.forecasts_types.filter((f) => f.dataset === action.dataset && p.platformId === action.platformID)) {
+        //                 p.forecasts_types.map((f) => {
+        //                     if (f.dataset === action.dataset)
+        //                 })
+        //             }
+        //         })
+        //     }
 
         default:
             return state

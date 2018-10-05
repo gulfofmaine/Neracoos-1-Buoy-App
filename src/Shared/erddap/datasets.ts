@@ -11,12 +11,15 @@ const erddapServers = {
 const NWW3: ErddapDataset = {
     datasetId: 'NWW3_Global_Best',
     datasetType: DatasetTypes.grid,
+    depth: 0,
+    invertLongitude: true,
     server: erddapServers.coastWatch
 }
 
 const WW3: ErddapDataset = {
     datasetId: 'WW3_GulfOfMaine_latest',
     datasetType: DatasetTypes.grid,
+    invertLongitude: false,
     server: erddapServers.neracoos
 }
 
