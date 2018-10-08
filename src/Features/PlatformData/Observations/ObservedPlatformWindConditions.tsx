@@ -47,7 +47,7 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
                         <SmallWindTimeSeriesChart
                             days={7}
                             data={windTimeSeries}
-                            readingPerBarb={24}
+                            barbsPerDay={5}
                             legend={true}
                             />
                     </Col>

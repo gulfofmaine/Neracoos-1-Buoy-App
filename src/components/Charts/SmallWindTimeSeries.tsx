@@ -21,7 +21,7 @@ interface Props {
     days: number
     height: number
     legend: boolean
-    readingPerBarb?: number
+    barbsPerDay: number
 }
 
 addWindBarbModule(Highcharts)
@@ -57,21 +57,26 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
             )
         })
 
-        const speedOnly = this.props.data.filter((d) => d.name.includes('speed'))
+        const speedOnly = this.props.data.filter((d) => !d.name.includes('direction'))
         const directions = this.props.data.filter((d) => d.name.includes('direction'))
 
         const windData: number[][] = []
-
 
         if (speedOnly.length > 0 && directions.length > 0 ) {
             const speed = speedOnly[0]
             const direction = directions[0]
 
-            const speedTs = speed.timeSeries.filter((r) => r.time > daysAgo)
-            const directionTs = direction.timeSeries.filter((r) => r.time > daysAgo)
+            let speedTs = speed.timeSeries.filter((r) => r.time > daysAgo)
+            let directionTs = direction.timeSeries.filter((r) => r.time > daysAgo)
+
+            // cross filter our time series so that we only have matching times
+            const directionTimes = directionTs.map((r) => r.time.toISOString())
+            speedTs = speedTs.filter((r) => directionTimes.filter((d) => d === r.time.toISOString()).length > 0)
+            const speedTimes = speedTs.map((r) => r.time.toISOString())
+            directionTs = directionTs.filter((r) => speedTimes.filter((d) => d === r.time.toISOString()).length > 0)
 
             if ( speedTs.length === directionTs.length) {
-                const stride = this.props.readingPerBarb ? this.props.readingPerBarb : 12 // 12 // round(speedTs.length / 12)
+                const stride = Math.round(speedTs.length / (this.props.barbsPerDay * this.props.days))
 
                 for (let index = 0; index <= speedTs.length; index += stride) {
                     if (speedTs[index] !== undefined && directionTs[index] !== undefined) {

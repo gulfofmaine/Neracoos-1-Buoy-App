@@ -87,6 +87,19 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                 aDayAgo.setDate(aDayAgo.getDate() - 1)
                 const data = type.data.filter((reading) => reading.time > aDayAgo)
 
+                if (data.length === 0) {
+                    return (
+                        <Col md="4" sm="6" style={{paddingTop: '1rem'}}>
+                            <Card>
+                                <CardBody>
+                                    No data for {humanDataName(type.data_type)} in the last day.
+                                </CardBody>
+                                
+                            </Card>
+                        </Col>
+                    )
+                }
+
                 const latest = data[data.length - 1]
                 if (latest === undefined) {
                     // tslint:disable-next-line:no-debugger
@@ -118,13 +131,15 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
 
             return (
                 <Row>
-                    <Col md="4" sm="6" style={{paddingTop: '1rem'}}>
-                        <Link to={urlPartReplacer(paths.platforms.observationsWind, ':id', this.props.platformId)} >
-                            <WindCard 
-                                days={1} 
-                                timeSeries={windData} />
-                        </Link>
-                    </Col>
+                    { windData.length > 0 ? (
+                        <Col md="4" sm="6" style={{paddingTop: '1rem'}}>
+                            <Link to={urlPartReplacer(paths.platforms.observationsWind, ':id', this.props.platformId)} >
+                                <WindCard 
+                                    days={1} 
+                                    timeSeries={windData} />
+                            </Link>
+                        </Col>
+                    ) : null}
                     { dataTypes }
                     
                 </Row>

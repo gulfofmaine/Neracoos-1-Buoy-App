@@ -49,6 +49,7 @@ export class WindCard extends React.Component<Props, object> {
                         <CardBody style={{padding: '.2rem'}}>
                             <SmallWindTimeSeriesChart
                                 days={this.props.days}
+                                barbsPerDay={10}
                                 data={data}
                                 height={150} />
                         </CardBody>
