@@ -37,6 +37,7 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
                     <YAxis.Title>{this.props.unit}</YAxis.Title>
                     <SplineSeries
                         name={this.props.name}
+                        marker={{enabled: false}}
                         data={data} />
                 </YAxis>
 

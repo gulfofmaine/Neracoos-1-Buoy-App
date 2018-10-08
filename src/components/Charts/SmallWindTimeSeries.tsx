@@ -4,6 +4,7 @@ import * as React from 'react'
 import {
     Chart,
     HighchartsChart,
+    Legend,
     SplineSeries,
     Tooltip,
     WindBarbSeries,
@@ -19,6 +20,7 @@ interface Props {
     data: DataTimeSeries[]
     days: number
     height: number
+    legend: boolean
     readingPerBarb?: number
 }
 
@@ -50,6 +52,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                 <SplineSeries
                     key={index}
                     name={nameCaps}
+                    marker={{enabled: false}}
                     data={data} />
             )
         })
@@ -99,6 +102,10 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                             data={windData} />
                     ) : ( null )}
                 </YAxis>
+
+                { this.props.legend ? (
+                    <Legend />
+                ) : null}
 
                 <Tooltip 
                     // pointFormat={'{point.y}'}

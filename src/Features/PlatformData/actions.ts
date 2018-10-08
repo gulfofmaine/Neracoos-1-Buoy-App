@@ -153,6 +153,16 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
             const data = transformPlatformJson(json)
 
+            if (data.length === 0) {
+                Sentry.captureMessage(platformId + ' returned no data.')
+
+                return dispatch(
+                    platformDataError(
+                        platformId,
+                        platformId + ' did not return any data. Please try again later, and let us know if the issue reoccurs.'
+                    ))
+            }
+
             return dispatch(platformDataLoadSuccess(platformId, data))
         } catch(error) {
             // tslint:disable-next-line:no-console
