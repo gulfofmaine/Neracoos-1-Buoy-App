@@ -3,7 +3,7 @@ import { Alert } from 'reactstrap'
 
 import { 
     DatasetData,
-    ErddapDatasetAndField 
+    ErddapDatasetAndField
 } from '../types'
 
 interface Props {

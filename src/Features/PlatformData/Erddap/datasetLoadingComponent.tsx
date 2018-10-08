@@ -41,7 +41,7 @@ interface ReduxProps {
     features: Feature[]
     platforms: Platform[]
     loadMetadata: (dataset: ErddapDataset) => void
-    loadDataset: (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string) => void
+    loadDataset: (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string, datasetAndField: ErddapDatasetAndField) => void
     clearError: (platformId: string, dataset: ErddapDatasetAndField) => void
 }
 
@@ -133,7 +133,7 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
                             && f.dataset.dataset.server === datasetsAndField.dataset.server
                             && f.dataset.field === datasetsAndField.field).length < 1) {
 
-                        this.props.loadDataset(platform.id, datasetInfo, coordinates[1], coordinates[0], datasetsAndField.field)
+                        this.props.loadDataset(platform.id, datasetInfo, coordinates[1], coordinates[0], datasetsAndField.field, datasetsAndField)
                     }
                 }
             })

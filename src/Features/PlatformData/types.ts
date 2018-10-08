@@ -17,6 +17,7 @@ export interface PlatformData {
 export interface ErddapDatasetAndField {
     dataset: ErddapDataset
     field: string
+    name: string
 }
 
 export type ErddapDatasetInfo = ErddapDataset & {

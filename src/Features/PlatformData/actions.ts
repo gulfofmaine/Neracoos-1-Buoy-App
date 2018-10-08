@@ -277,13 +277,8 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
     }
 }
 
-export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string) => {
+export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string, datasetAndField: ErddapDatasetAndField) => {
     return async (dispatch: Dispatch): Promise<Action> => {
-
-        const datasetAndField: ErddapDatasetAndField = {
-            dataset: dataset as ErddapDataset,
-            field
-        }
 
         dispatch(platformForecastLoading(platformId, datasetAndField))
 

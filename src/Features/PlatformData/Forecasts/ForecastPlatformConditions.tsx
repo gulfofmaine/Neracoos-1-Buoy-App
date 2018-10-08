@@ -1,4 +1,8 @@
 import * as React from 'react'
+import {
+    Col,
+    Row
+} from 'reactstrap'
 
 import { 
     datasets,
@@ -11,6 +15,7 @@ import {
     ErddapDatasetAndField
 } from '../types'
 
+import { ForecastChart } from './ForecastChart'
 
 interface Props {
     platformId: string
@@ -19,10 +24,12 @@ interface Props {
 const forecastDatasets: ErddapDatasetAndField[] = [
     {
         dataset: datasets.NWW3,
-        field: 'Thgt'
+        field: 'Thgt',
+        name: 'WW3 Global Model Predicted Wave Height'
     },{
         dataset: datasets.WW3,
-        field: 'hs'
+        field: 'hs',
+        name: 'WW3 Bedford Institute Predicted Wave Height'
     }
 ]
 
@@ -33,7 +40,19 @@ export class ForecastPlatformConditions extends React.Component<Props, object> {
                 <DatasetLoader 
                     platformId={this.props.platformId}
                     datasetsAndFields={forecastDatasets}>
-                        Hi from ForecastPlatformConditions
+                    <Row>
+                        <Col>
+                            <h2>Wave forecast</h2>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <ForecastChart 
+                                platformId={this.props.platformId}
+                                datasets={forecastDatasets} />
+                        </Col>
+                    </Row>
+                        
                     </DatasetLoader>
             </div>
         )
