@@ -54,7 +54,11 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
             const platform = filteredPlatforms[0]
 
             const dropdownItems = Array.from(
-                new Set(platform.data_types.filter((d) => !d.data_type.includes('wind')).map((d) => d.data_type))
+                new Set(
+                    platform.data_types.filter(
+                        (d) => !d.data_type.includes('wind') // && !d.data_type.includes('sea_water_speed') && !d.data_type.includes('direction_of_sea_water_velocity')
+                    ).map((d) => d.data_type)
+                    )
             ).sort((a, b) => humanDataName(a).localeCompare(humanDataName(b))).map((name, index) => {
 
                 const url = urlPartReplacer(

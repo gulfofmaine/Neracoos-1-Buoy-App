@@ -154,12 +154,14 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             const data = transformPlatformJson(json)
 
             if (data.length === 0) {
-                Sentry.captureMessage(platformId + ' returned no data.')
+                Sentry.captureMessage(platformId + ' returned no data in the last week.')
 
                 return dispatch(
                     platformDataError(
                         platformId,
-                        platformId + ' did not return any data. Please try again later, and let us know if the issue reoccurs.'
+                        platformId 
+                        + ' did not return any data within the last week. '
+                        + 'Please try again later, and let us know if the issue reoccurs.'
                     ))
             }
 
@@ -170,7 +172,15 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
             Sentry.captureException(error)
             
-            return dispatch(platformDataError(platformId, 'An error occured loading data for ' + platformId))
+            return dispatch(
+                platformDataError(
+                    platformId, 
+                    'An error occured loading data for ' 
+                    + platformId 
+                    + '. This error may have been caused by bad data being returned by our server, '
+                    + 'or it may be a platform that we are still adding to our data sources.'
+                    + ' Please retry is a few minutes.'
+                    ))
         }
     }
 }

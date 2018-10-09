@@ -17,7 +17,7 @@ const NWW3: ErddapDataset = {
 }
 
 const WW3: ErddapDataset = {
-    datasetId: 'WW3_GulfOfMaine_latest',
+    datasetId: 'WW3_72_GulfOfMaine_latest',  // 'WW3_GulfOfMaine_latest',
     datasetType: DatasetTypes.grid,
     invertLongitude: false,
     server: erddapServers.neracoos

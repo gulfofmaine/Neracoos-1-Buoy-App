@@ -97,6 +97,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                 <XAxis type='datetime' />
 
                 <YAxis>
+                    <YAxis.Title>m/s</YAxis.Title>
                     { speedsSeries }
                     {/* { directionSeries } */}
 

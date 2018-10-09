@@ -9,7 +9,6 @@ export const HomePage: React.StatelessComponent<{}> = () => {
     return (
         <Row>
             <Col>
-                <h2>Home</h2>
                 <PlatformMapLoader>
                     <PlatformMap />
                 </PlatformMapLoader>
