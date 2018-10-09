@@ -149,7 +149,14 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             })
 
             const result = await fetch(url)
-            const json = await result.json() as PlatformJson
+            // const json = await result.json() as PlatformJson
+            let text = await result.text()
+
+            if (text.includes('>')) {
+                text = text.slice(text.lastIndexOf('>') + 2)
+            }
+
+            const json = JSON.parse(text) as PlatformJson
 
             const data = transformPlatformJson(json)
 
