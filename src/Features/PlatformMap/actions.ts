@@ -53,7 +53,7 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
             for (const platform in json) {
                 if (json.hasOwnProperty(platform)) {
                     const { lat, lon, data_types, data_depths, ...properties } = json[platform]
-                    if (properties.active) {
+                    if (properties.active && platform !== 'GREAT_BAY') {
                         const platformProperties = properties as PlatformProperties
                         platformProperties.name = platform
                         platformProperties.sensors = []

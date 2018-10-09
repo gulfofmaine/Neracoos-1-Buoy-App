@@ -132,7 +132,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
             return (
                 <Row>
                     { windData.length > 0 ? (
-                        <Col md="4" sm="6" style={{paddingTop: '1rem'}}>
+                        <Col md="4" sm="6" style={{paddingTop: '1rem'}} >
                             <Link to={urlPartReplacer(paths.platforms.observationsWind, ':id', this.props.platformId)} >
                                 <WindCard 
                                     days={1} 

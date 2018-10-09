@@ -153,7 +153,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             let text = await result.text()
 
             if (text.includes('>')) {
-                text = text.slice(text.lastIndexOf('>') + 2)
+                text = text.slice(text.lastIndexOf('>') + 1)
                 Sentry.captureMessage(platformId + ' has malformed but recoverable data.')
             }
 
