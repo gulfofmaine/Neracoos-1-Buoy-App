@@ -1,3 +1,7 @@
+/**
+ * Platform Data action types
+ */
+
 export const PLATFORM_DATA_LOAD_REQUEST = 'platform/data/load/request'
 export type PLATFORM_DATA_LOAD_REQUEST = typeof PLATFORM_DATA_LOAD_REQUEST
 

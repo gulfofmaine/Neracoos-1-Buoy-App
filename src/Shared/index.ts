@@ -1,1 +1,1 @@
-export { BoundingBox, OISSTJson } from './constants'
+export { BoundingBox } from './constants'

@@ -1,3 +1,6 @@
+/**
+ * Platform map related actions and functions.
+ */
 import * as Sentry from '@sentry/browser'
 import { Feature, point } from '@turf/helpers'
 import { Action, ActionCreator, Dispatch } from 'redux'
@@ -8,6 +11,7 @@ import { PlatformLocationsJson, PlatformProperties } from './types'
 
 import { StoreState } from '@app/constants'
 
+// Action types
 export interface PlatformLocationsLoadSucccess {
     type: actionTypes.PLATFORM_LOACTIONS_LOAD_SUCCESS
     platforms: Feature[]
@@ -20,6 +24,14 @@ export interface PlatformLocationsLoadError {
 
 export type PlatformMapActions = PlatformLocationsLoadSucccess | PlatformLocationsLoadError
 
+
+// Action creators
+
+/**
+ * Action creator for successfully loaded platforms.
+ * 
+ * @param platforms GeoJSON features for loaded platforms.
+ */
 export function platformLocationsLoadSuccess(platforms: Feature[]): PlatformLocationsLoadSucccess {
     return {
         platforms,
@@ -27,6 +39,11 @@ export function platformLocationsLoadSuccess(platforms: Feature[]): PlatformLoca
     }
 }
 
+/**
+ * Action creator when platforms are unable to be loaded.
+ * 
+ * @param message Error message.
+ */
 export function platformLocationsLoadError(message: string): PlatformLocationsLoadError {
     return {
         message,
@@ -34,6 +51,10 @@ export function platformLocationsLoadError(message: string): PlatformLocationsLo
     }
 }
 
+
+/**
+ * Platform map data loading function.
+ */
 export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = () => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
@@ -72,10 +93,11 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
 
             return dispatch(platformLocationsLoadSuccess(platforms))
 
-        } catch(e) {
+        } catch(error) {
             // tslint:disable-next-line:no-console
-            console.log(e)
-            Sentry.captureException(e)
+            console.log(error)
+            Sentry.captureException(error)
+
             return dispatch(platformLocationsLoadError('Unable to load platform location data.'))
         }
     }

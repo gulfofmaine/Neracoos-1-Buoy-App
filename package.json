@@ -34,7 +34,8 @@
     "start": "npm-run-all -p start-js",
     "build": "npm run build-css && react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "docs": "typedoc --out docs"
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
@@ -42,6 +43,7 @@
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
     "redux-devtools-extension": "^2.13.5",
+    "typedoc": "^0.12.0",
     "typescript": "^3.0.3"
   }
 }

@@ -1,3 +1,7 @@
+/**
+ * The ERDDAP datasets taht we use.
+ */
+
 import { 
     DatasetTypes,
     ErddapDataset 
@@ -8,6 +12,9 @@ const erddapServers = {
     neracoos: 'http://www.neracoos.org/erddap'
 }
 
+/**
+ * NOAA wave forecast
+ */
 const NWW3: ErddapDataset = {
     datasetId: 'NWW3_Global_Best',
     datasetType: DatasetTypes.grid,
@@ -16,6 +23,9 @@ const NWW3: ErddapDataset = {
     server: erddapServers.coastWatch
 }
 
+/**
+ * Bedford Institute wave forecast
+ */
 const WW3: ErddapDataset = {
     datasetId: 'WW3_72_GulfOfMaine_latest',  // 'WW3_GulfOfMaine_latest',
     datasetType: DatasetTypes.grid,

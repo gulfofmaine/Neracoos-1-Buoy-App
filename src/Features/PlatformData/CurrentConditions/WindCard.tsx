@@ -1,3 +1,6 @@
+/**
+ * Wind specific current conditions card
+ */
 import * as React from 'react'
 import {
     Card,
@@ -12,15 +15,19 @@ import { SmallWindTimeSeriesChart } from '@app/components/Charts'
 
 import { PlatformData } from '../types'
 
+
 interface Props {
+    /** Wind time series */
     timeSeries: PlatformData[]
+    /** Number of days to display */
     days: number
 }
 
+
+/**
+ * Wind current conditions card component
+ */
 export class WindCard extends React.Component<Props, object> {
-    constructor(props: Props) {
-        super(props)
-    }
 
     public render() {
         if (this.props.timeSeries.length < 1) {

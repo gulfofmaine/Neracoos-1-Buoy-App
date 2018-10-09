@@ -1,3 +1,7 @@
+/**
+ * Utilities to translate some of our data source names to much more pronouncable names.
+ */
+
 export const humanDataNameDict = {
     'air_temperature': 'Air Temperature',
 
@@ -31,6 +35,13 @@ export const humanDataNameDict = {
     'wind_speed': 'Wind Speed',
 }
 
+/**
+ * Convert machine names for data to those that people like more.
+ * If a machine name is unknown, then return that rather than exploding.
+ *
+ * @param dataType Machine name for a sensor or data type.
+ * @returns String with a much friendlier name for people.
+ */
 export function humanDataName(dataType: string): string {
     if (humanDataNameDict.hasOwnProperty(dataType)) {
         return humanDataNameDict[dataType]

@@ -1,3 +1,7 @@
+/**
+ * Types for interacting with ERDDAP data
+ */
+
 export interface GriddapTable {
     columnNames: string[]
     columnTypes: string | number | boolean

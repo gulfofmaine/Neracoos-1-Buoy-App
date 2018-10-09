@@ -5,6 +5,9 @@ import { CurrentPlatformConditions } from '@app/Features/PlatformData'
 
 import { PlatformMatchParams } from './types'
 
+/**
+ * Display current conditions for selected platform.
+ */
 export class CurrentConditionsPage extends React.Component<RouteComponentProps, object> {
     public render() {
 

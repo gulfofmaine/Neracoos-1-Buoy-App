@@ -1,3 +1,6 @@
+/**
+ * URL paths for various pages
+ */
 export const paths = {
     about: '/about',
     home: '/',

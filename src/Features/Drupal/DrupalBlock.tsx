@@ -1,3 +1,6 @@
+/**
+ * Drupal content block component
+ */
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Alert } from 'reactstrap'
@@ -10,7 +13,9 @@ import * as actions from './actions'
 import { StoreState } from '@app/constants'
 import { DrupalNode } from './constants';
 
+
 export interface Props {
+    /** Drupal content server node to laod */
     node: string
 }
 
@@ -29,6 +34,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     loadNode: actions.drupalLoadContent
 }, dispatch)
 
+
+/**
+ * Drupal Content Block component
+ */
 export class DrupalBlockBase extends React.Component<Props & ReduxProps, object> {
     public render() {
         const filtered = this.props.nodes.filter(node => node.node === this.props.node)
@@ -47,4 +56,5 @@ export class DrupalBlockBase extends React.Component<Props & ReduxProps, object>
     }
 }
 
+/** Redux connected DrupalBlock component. See [[DrupalBlockBase]] for details. */
 export const DrupalBlock = connect(mapStateToProps, mapDispatchToProps )(DrupalBlockBase)

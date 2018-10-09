@@ -1,3 +1,6 @@
+/**
+ * Drupal Content actions
+ */
 import * as Sentry from '@sentry/browser'
 import { Action, ActionCreator, Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
@@ -6,6 +9,9 @@ import * as actionTypes from './actionTypes'
 
 import { StoreState } from '@app/constants'
 import { DrupalContent, DrupalNodeResponse } from './constants'
+
+
+// Drupal Content Actions
 
 export interface DrupalSuccess {
     type: actionTypes.DRUPAL_LOAD_SUCCESS,
@@ -20,6 +26,16 @@ export interface DrupalError {
 
 export type DrupalActions = DrupalSuccess | DrupalError
 
+
+// Drupal Content Action Creators
+
+/**
+ * Drupal content sucessfully loaded action creator
+ * 
+ * @param node Node ID that content was loaded for
+ * @param content HTML content that was loaded
+ * @returns Formatted Action
+ */
 export function drupalSuccess(node: string, content: DrupalContent): DrupalSuccess {
     return {
         content,
@@ -28,6 +44,12 @@ export function drupalSuccess(node: string, content: DrupalContent): DrupalSucce
     }
 }
 
+/**
+ * Drupal content loading error
+ * 
+ * @param node Node that content was loaded for
+ * @returns Formatted action
+ */
 export function drupalError(node: string): DrupalError {
     return {
         node,
@@ -35,6 +57,12 @@ export function drupalError(node: string): DrupalError {
     }
 }
 
+
+/**
+ * Thunk action to load Drupal content
+ * 
+ * @param node ID of Drupal node to load content for
+ */
 export const drupalLoadContent: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (node: string) => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
@@ -45,21 +73,24 @@ export const drupalLoadContent: ActionCreator<ThunkAction<Promise<Action>, Store
                 },
                 message: 'Loading drupal node'
             })
+
             let url: string
             if (process.env.NODE_ENV !== 'production') {
                 url = "http://localhost:3000/api/" + node + '.json'
             } else {
                 url = 'http://content.gmri.org/api/' + node + '.jsonp'
             }
-            const result = await fetch(url)
 
+            const result = await fetch(url)
             const json = await result.json() as DrupalNodeResponse
 
             return dispatch(drupalSuccess(node, json.body.und[0]))
-        } catch(e) {
+
+        } catch(error) {
             // tslint:disable-next-line:no-console
-            console.log(e) 
-            Sentry.captureException(e)
+            console.log(error) 
+            Sentry.captureException(error)
+
             return dispatch(drupalError(node))
         }
     }

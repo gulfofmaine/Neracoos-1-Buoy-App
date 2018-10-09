@@ -1,3 +1,7 @@
+/**
+ * Display platforms filtered by a given bounding box.
+ */
+
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'
 import { Feature } from '@turf/helpers'
@@ -8,20 +12,19 @@ import {
     ListGroup, 
     // ListGroupItem 
 } from 'reactstrap'
-import { bindActionCreators, Dispatch } from 'redux'
 
 import { paths, StoreState } from '@app/constants'
 import { BoundingBox } from '@app/Shared/regions'
 
-import { platformLocationsLoad } from './actions'
 import { PlatformProperties } from './types'
 
+
 export interface Props {
+    /** Bounding box to filter platforms by. */
     boundingBox?: BoundingBox
 }
 
 export interface ReduxProps {
-    loadPlatforms: () => void
     platforms: Feature[]
 }
 
@@ -31,14 +34,11 @@ function mapStateToProps({ platformMap }: StoreState) {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    loadPlatforms: platformLocationsLoad
-}, dispatch)
 
+/**
+ * Display platforms filtered by a given bounding box.
+ */
 export class PlatformListBase extends React.Component<Props & ReduxProps, object> {
-    constructor(props: any) {
-        super(props)
-    }
 
     public render() {
         if (this.props.boundingBox && this.props.platforms.length > 0) {
@@ -63,10 +63,13 @@ export class PlatformListBase extends React.Component<Props & ReduxProps, object
                 )
             }
         }
+
+        // If there has been displayed already, return null
         return (
             null
         )
     }
 }
 
-export const PlatformList = connect(mapStateToProps, mapDispatchToProps)(PlatformListBase)
+/** Redux connected Platform list. See [[PlatformListBase]] for details. */
+export const PlatformList = connect(mapStateToProps)(PlatformListBase)

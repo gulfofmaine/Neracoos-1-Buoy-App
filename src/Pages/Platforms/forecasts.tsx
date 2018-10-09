@@ -5,6 +5,9 @@ import { ForecastPlatformConditions } from '@app/Features/PlatformData'
 
 import { PlatformMatchParams } from './types'
 
+/**
+ * Display forecast for specified platform ID.
+ */
 export class ForecastsPage extends React.Component<RouteComponentProps, object> {
     public render() {
 

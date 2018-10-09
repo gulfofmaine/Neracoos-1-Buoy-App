@@ -1,3 +1,7 @@
+/**
+ * Platform data loading component
+ */
+
 import * as React from 'react'
 import { connect } from 'react-redux'
 import {
@@ -18,7 +22,10 @@ import {
  } from './actions'
 import { Platform, Status } from './types'
 
+
+
 interface Props {
+    /** Platform ID to make sure the data is loaded for */
     platformId: string
 }
 
@@ -39,6 +46,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     loadPlatform: platformDataLoad
 }, dispatch)
 
+
+/**
+ * Platform data loading component.
+ * Makes sure that the NERACOOS data is loaded before displaying children,
+ * otherwise it will display any errors.
+ */
 export class PlatformLoaderBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: Props & ReduxProps) {
         super(props)
@@ -93,10 +106,12 @@ export class PlatformLoaderBase extends React.Component<Props & ReduxProps, obje
         }
     }
 
+    /** Retry loading of platform data. */
     private retry() {
         this.props.clearError(this.props.platformId)
         this.props.loadPlatform(this.props.platformId)
     }
 }
 
+/** Redux connected PlatformLoader component. See [[PlatformLoaderBase]] for details. */
 export const PlatformLoader = connect(mapStateToProps, mapDispatchToProps)(PlatformLoaderBase)

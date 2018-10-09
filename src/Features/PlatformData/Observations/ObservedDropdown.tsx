@@ -1,9 +1,11 @@
+/**
+ * Observed data dropdown menu
+ */
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
     Dropdown,
-    // DropdownItem,
     DropdownMenu,
     DropdownToggle
 } from 'reactstrap'
@@ -18,7 +20,9 @@ import { urlPartReplacer } from '@app/Shared/urlParams'
 
 import { Platform } from '../types'
 
+
 interface Props {
+    /** Platform ID to build menu for */
     platformId: string
 }
 
@@ -38,6 +42,10 @@ const initialState = {
 
 type State = Readonly<typeof initialState>
 
+
+/**
+ * Observed Dropdown Menu Component
+ */
 export class ObservedDropdownBase extends React.Component<Props & ReduxProps, State> {
     public state: State = initialState
 
@@ -100,4 +108,5 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
     }
 }
 
+/** Redux connected ObservedDropdown. See [[ObservedDropdownBase]] for details. */
 export const ObservedDropdown = connect(mapStateToProps)(ObservedDropdownBase)

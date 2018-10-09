@@ -1,3 +1,9 @@
+/**
+ * While index.tsx contains much of the plumbing related to routing, redux, and exception handling,
+ * App.tsx contains much more of our app structure, including our high level formatting, and routes
+ * to seperate pages.
+ */
+
 import * as React from 'react';
 import { Route, Switch } from 'react-router'
 
@@ -19,6 +25,8 @@ class App extends React.Component {
         
         <div className="container-fluid">
         
+        {/* Switch chooses the first route that matches the user has navigated to.
+            Otherwise any relevant Route would be chosen */}
           <Switch>
             <Route exact={true} path={paths.home} component={HomePage} />
             <Route path={paths.platforms.platform} component={PlatformsPage} />

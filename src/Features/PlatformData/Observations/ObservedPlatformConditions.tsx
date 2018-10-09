@@ -1,9 +1,9 @@
+/**
+ * Generalized Platform Observed Conditions Component
+ */
 import * as React from 'react'
 import { connect } from 'react-redux'
 import {
-    // Card,
-    // CardBody,
-    // CardHeader,
     Col,
     Row
 } from 'reactstrap'
@@ -12,12 +12,14 @@ import { LargeTimeSeriesChart } from '@app/components/Charts'
 import { StoreState } from '@app/constants'
 
 import { humanDataName } from '@app/Shared/dataTypes'
-// import { round } from '@app/Shared/math'
 
 import { Platform } from '../types'
 
+
 interface Props {
+    /** Platform id to show observed data for */
     platformId: string
+    /** Type of data to display */
     type: string
 }
 
@@ -31,6 +33,10 @@ function mapStateToProps({ platformData }: StoreState) {
     }
 }
 
+
+/**
+ * Display observed conditions for given platform and condition type.
+ */
 export class ObservedPlatformConditionsBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: Props & ReduxProps) {
         super(props)
@@ -77,4 +83,5 @@ export class ObservedPlatformConditionsBase extends React.Component<Props & Redu
     }
 }
 
+/** Redux connected ObservedPlatformConditions component. See [[ObservedPlatformConditionsBase]] for details. */
 export const ObservedPlatformConditions = connect(mapStateToProps)(ObservedPlatformConditionsBase)

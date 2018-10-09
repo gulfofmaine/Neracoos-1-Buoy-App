@@ -1,3 +1,7 @@
+/**
+ * Drupal loading action types.
+ */
+
 export const DRUPAL_LOAD_REQUEST = 'drupal/content/request'
 export type DRUPAL_LOAD_REQUEST = typeof DRUPAL_LOAD_SUCCESS
 

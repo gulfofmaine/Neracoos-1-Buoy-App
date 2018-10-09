@@ -5,6 +5,9 @@ import { ObservedPlatformConditions } from '@app/Features/PlatformData'
 
 import { PlatformObservationMatchParams } from './types'
 
+/**
+ * Generalized observation page.
+ */
 export class ObservationsPage extends React.Component<RouteComponentProps, object> {
     public render() {
 

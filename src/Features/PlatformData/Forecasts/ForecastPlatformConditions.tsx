@@ -1,26 +1,28 @@
+/**
+ * Display forecasted platform conditions
+ */
 import * as React from 'react'
 import {
     Col,
     Row
 } from 'reactstrap'
 
-import { 
-    datasets,
-} from '@app/Shared/erddap'
+import { datasets } from '@app/Shared/erddap'
 
-import { 
-    DatasetLoader,
-} from '../Erddap'
-import {
-    ErddapDatasetAndField
-} from '../types'
+import { DatasetLoader,} from '../Erddap'
+import { ErddapDatasetAndField } from '../types'
 
 import { ForecastChart } from './ForecastChart'
 
+
+
 interface Props {
+    /** Platform ID to load forecasts for */
     platformId: string
 }
 
+
+/** Forecasts to load */
 const forecastDatasets: ErddapDatasetAndField[] = [
     {
         dataset: datasets.NWW3,
@@ -33,6 +35,10 @@ const forecastDatasets: ErddapDatasetAndField[] = [
     }
 ]
 
+
+/**
+ * Platform forecast display component
+ */
 export class ForecastPlatformConditions extends React.Component<Props, object> {
     public render() {
         return (
@@ -53,7 +59,7 @@ export class ForecastPlatformConditions extends React.Component<Props, object> {
                         </Col>
                     </Row>
                         
-                    </DatasetLoader>
+                </DatasetLoader>
             </div>
         )
     }

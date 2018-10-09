@@ -1,3 +1,6 @@
+/**
+ * ERDDAP dataset loading component
+ */
 import { 
     Feature,
     Geometry 
@@ -31,8 +34,11 @@ import {
 
 import { LoadingAlert } from './AlertComponent'
 
+
 interface Props {
+    /** Platform to load datasets for */
     platformId: string
+    /** Datasets to load */
     datasetsAndFields: ErddapDatasetAndField[]
 }
 
@@ -41,7 +47,7 @@ interface ReduxProps {
     features: Feature[]
     platforms: Platform[]
     loadMetadata: (dataset: ErddapDataset) => void
-    loadDataset: (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string, datasetAndField: ErddapDatasetAndField) => void
+    loadDataset: (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, datasetAndField: ErddapDatasetAndField) => void
     clearError: (platformId: string, dataset: ErddapDatasetAndField) => void
 }
 
@@ -59,6 +65,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     loadMetadata: metadataLoad
 }, dispatch)
 
+
+/**
+ * Dataset loading component.
+ * Makes sure that datasets are initially loaded.
+ * Once at least one dataset is avaliable, then display the child data.
+ * Display errors and allow reloading for any dataset that has an error.
+ */
 export class DatasetLoaderBase extends React.Component<Props & ReduxProps, object> {
     public render() {
         const notLoaded = this.props.datasetsAndFields.filter((datasetAndField) => {
@@ -67,6 +80,7 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
                 ).length < 1
         })
 
+        // Load metadata for datasets that haven't started loading.
         notLoaded.map((datasetAndField) => {
             this.props.loadMetadata(datasetAndField.dataset)
         })
@@ -106,6 +120,7 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
         )
     }
 
+    /** Load forecasts as needed */
     private renderForecastLoading() {
         const platform = this.props.platforms.filter((p) => p.id === this.props.platformId)[0]
 
@@ -133,7 +148,12 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
                             && f.dataset.dataset.server === datasetsAndField.dataset.server
                             && f.dataset.field === datasetsAndField.field).length < 1) {
 
-                        this.props.loadDataset(platform.id, datasetInfo, coordinates[1], coordinates[0], datasetsAndField.field, datasetsAndField)
+                        this.props.loadDataset(
+                            platform.id, 
+                            datasetInfo, 
+                            coordinates[1], 
+                            coordinates[0], 
+                            datasetsAndField)
                     }
                 }
             })
@@ -161,4 +181,5 @@ export class DatasetLoaderBase extends React.Component<Props & ReduxProps, objec
     }
 }
 
+/** Redux connected DatasetLoader component. See [[DatasetLoaderBase]] for details. */
 export const DatasetLoader = connect(mapStateToProps, mapDispatchToProps)(DatasetLoaderBase)

@@ -1,3 +1,6 @@
+/**
+ * Special Wind Observed Conditions Component
+ */
 import * as React from 'react'
 import { connect } from 'react-redux'
 import {
@@ -7,11 +10,12 @@ import {
 
 import { SmallWindTimeSeriesChart } from '@app/components/Charts'
 import { StoreState } from '@app/constants'
-// import { DataTimeSeries } from '@app/Shared/timeSeries'
 
 import { Platform } from '../types'
 
+
 interface Props {
+    /** Platform ID to show wind data for */
     platformId: string
 }
 
@@ -25,6 +29,10 @@ function mapStateToProps({platformData }: StoreState) {
     }
 }
 
+
+/**
+ * Wind observed conditions component
+ */
 export class ObservedPlatformWindConditionsBase extends React.Component<Props & ReduxProps, object> {
     public render() {
         const filteredPlatforms = this.props.platforms.filter((p) => p.id === this.props.platformId)
@@ -67,4 +75,5 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
     }
 }
 
+/** Redux connected ObservedPlatformWindConditions component. See [[ObservedPlatformWindConditionsBase]] component. */
 export const ObservedPlatformWindConditions = connect(mapStateToProps)(ObservedPlatformWindConditionsBase)

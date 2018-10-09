@@ -32,3 +32,10 @@ patch:
 	npm version patch
 
 release-patch: down patch build sentry deploy
+
+rm-docs:
+	rm -r docs/
+
+docs: rm-docs
+	docker-compose exec client yarn docs
+	python3 -m http.server -d docs/

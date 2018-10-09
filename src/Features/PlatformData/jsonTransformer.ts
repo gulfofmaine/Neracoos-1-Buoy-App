@@ -4,6 +4,13 @@ import {
     PlatformJsonTimeSeriesReading 
 } from './types'
 
+
+/**
+ * Transform platform json into usuable platform data.
+ * 
+ * @param json Data returned from [NERACOOS.org](http://neracoos.org/data/json/buoyrecentdata.php?platform=SMB-MO-05&mp=no&hb=168&tsdt=all) to reshape.
+ * @returns Data that typescript is much happier with and easier to filter and display.
+ */
 export function transformPlatformJson(json: PlatformJson): PlatformData[] {
     const platformData: PlatformData[] = []
 

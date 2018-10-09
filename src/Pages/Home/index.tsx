@@ -5,6 +5,9 @@ import { DrupalBlock } from '@app/Features/Drupal'
 import { PlatformMap, PlatformMapLoader } from '@app/Features/PlatformMap'
 
 
+/**
+ * Home page component that combines a map with content from Drupal.
+ */
 export const HomePage: React.StatelessComponent<{}> = () => {
     return (
         <Row>

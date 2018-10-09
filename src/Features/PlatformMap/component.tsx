@@ -1,3 +1,7 @@
+/**
+ * Platform map component.
+ */
+
 import { Feature as TurfFeature } from '@turf/helpers'
 import { push } from 'connected-react-router'
 import Feature from 'ol/Feature'
@@ -22,6 +26,7 @@ import { urlPartReplacer } from '@app/Shared/urlParams';
 
 
 export interface Props {
+    /** Bounding box to focus the map on */
     boundingBox?: BoundingBox
 }
 
@@ -40,6 +45,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     push
 }, dispatch)
 
+
+/** Basic platform style */
 const platformStyle = new Style({
     image: new Circle({
         fill: new Fill({
@@ -53,6 +60,10 @@ const platformStyle = new Style({
     })
 })
 
+
+/**
+ * Platform Map component
+ */
 export class PlatformMapBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: any) {
         super(props)
@@ -94,6 +105,7 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
         )
     }
 
+    /** Handle Feature selection */
     private onClick(feature: Feature) {
         if (feature.values_) {
             if (feature.values_.name) {
@@ -107,4 +119,5 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
     }
 }
 
+/** Redux connected PlatformMap. See [[PlatformMapBase]] for details. */
 export const PlatformMap = connect(mapStateToProps, mapDispatchToProps)(PlatformMapBase)

@@ -23,20 +23,10 @@ import { PlatformTabs } from './platformTabs'
 import { RootInfo } from './rootInfo'
 
 
-const initialState = {
-    dropdownOpen: false
-}
-
-type State = Readonly<typeof initialState>
-
-export class PlatformsPage extends React.Component<RouteComponentProps, State> {
-    public state: State = initialState
-
-    constructor(props: any) {
-        super(props)
-
-        this.toggle = this.toggle.bind(this)
-    }
+/**
+ * Top level platform page. Displays region level platform selection if no platform is selected.
+ */
+export class PlatformsPage extends React.Component<RouteComponentProps, object> {
 
     public render() {
         const params = urlParams(this.props.location.search)
@@ -55,19 +45,24 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
                     </Col>
 
                     <Col sm={{size: true}}>
+
+                        {/* Show list of platfroms in a region if no platform is selected */}
                         <Switch>
                             <Route path={ paths.platforms.root } exact={true}>
                                 <div>
                                     <h2>Platforms in { regions.length > 0 ? regions[0].name : '' }</h2>
-                                    <PlatformList boundingBox={regions.length > 0 ? regions[0].bbox : null } />
+                                    <PlatformList boundingBox={regions.length > 0 ? regions[0].bbox : undefined } />
                                 </div>
                             </Route>
                             <Route path={ paths.platforms.platform } component={PlatformInfo} />
                         </Switch>
+
                     </Col>
                 </Row>
 
                 <div style={{marginTop: '1rem'}}>
+
+                    {/* Show general platform info if no platform is selected */}
                     <Switch>
                         <Route path={ paths.platforms.observations } component={PlatformTabs} />
                         <Route path={ paths.platforms.forecast } component={PlatformTabs} />
@@ -79,12 +74,6 @@ export class PlatformsPage extends React.Component<RouteComponentProps, State> {
                 
             </PlatformMapLoader>
         )
-    }
-
-    private toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        })
     }
 }
 

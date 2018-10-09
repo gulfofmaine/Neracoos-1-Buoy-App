@@ -1,3 +1,7 @@
+/**
+ * Platform data reducer
+ */
+
 import { Action } from '@app/actions'
 
 import { PlatformForecastLoading } from './actions'
@@ -13,9 +17,22 @@ import {
     Status
 } from './types'
 
+
+/**
+ * Platform data reducer
+ * 
+ * @param state Platform data redux store sub-state
+ * @param action Any valid redux action
+ * 
+ * @returns Platform data redux store sub-state
+ */
 export function platformDataReducer(state: PlatformDataStoreState = initialStoreState, action: Action): PlatformDataStoreState {
     switch(action.type) {
+
+        // Data loading transformation
         case actionTypes.PLATFORM_DATA_LOADING:
+            
+            // if there is an existing platform, update it's status
             if ((state.platforms.filter((p) => p.id === action.platformId)).length > 0) {
                 
                 return {
@@ -32,7 +49,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     })
                 }
 
-            } else {
+            } else {  // otherwise create a new platform
                 const newPlatform: Platform = {
                     data_types: [],
                     error_message: '',
@@ -48,54 +65,58 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
 
             }
 
+        // When a platform has sucessfully loaded data
         case actionTypes.PLATFORM_DATA_LOAD_SUCCESS:
             
             return {
                 ...state,
                 platforms: state.platforms.map((p) => {
-                    if (p.id === action.platformId) {
+                    if (p.id === action.platformId) {  // if we have the correct platform update the status and data_types
                         return {
                             ...p,
                             data_types: action.data,
                             status: Status.Loaded
                         }
-                    } else {
+                    } else {  // otherwise return the unmodified platform
                         return p
                     }
                 })
             }
         
+        // When there is an error loading a platform
         case actionTypes.PLATFORM_DATA_LOAD_ERROR:
             return {
                 ...state,
                 platforms: state.platforms.map((p) => {
-                    if (p.id === action.platformId) {
+                    if (p.id === action.platformId) {  // dispense blame appropriately
                         return {
                             ...p,
                             error_message: action.error,
                             status: Status.Error
                         }
-                    } else {
+                    } else {  // otherwise don't blame everyone
                         return p
                     }
                 })
             }
         
+        // The user has acknoledged the error
         case actionTypes.PLATFORM_DATA_CLEAR_ERROR:
             return {
                 ...state,
                 platforms: state.platforms.map((p) => {
-                    if (p.id === action.platformId) {
+                    if (p.id === action.platformId) {  // Abosolve the platform of it's sins.
                         return {
                             ...p,
                             error_message: ''
                         }
-                    } else {
+                    } else {  // But only absolve the correct sinner.
                         return p
                     }
                 })
             }
 
+        
         case actionTypes.PLATFORM_DATA_METADATA_LOADING:
             if (state.datasetInfo.filter((d) => d.datasetId === action.dataset.datasetId && d.server === action.dataset.server).length > 0) {
                 

@@ -9,9 +9,15 @@ import rootReducer from './reducer'
 
 import { StoreState } from './constants'
 
+/**
+ * Browser history
+ */
 // export const history = createBrowserHistory()
 export const history = createHashHistory()
 
+/**
+ * Global Redux store
+ */
 export const store: Store<StoreState> = createStore(
     connectRouter(history)(rootReducer),
     composeWithDevTools(

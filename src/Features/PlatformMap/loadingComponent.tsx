@@ -1,3 +1,7 @@
+/**
+ * Map data loading component
+ */
+
 import { Feature } from '@turf/helpers'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -14,6 +18,7 @@ import {
 import { StoreState } from '@app/constants'
 
 import { platformLocationsLoad } from './actions'
+
 
 export interface ReduxProps {
     loadPlatforms: () => void
@@ -32,6 +37,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     loadPlatforms: platformLocationsLoad
 }, dispatch)
 
+
+/**
+ * Map data loading component.
+ * It makes sure that the data is loaded before showing any child components,
+ * otherwise it displayes relevant error message.
+ */
 class PlatformMapLoaderBase extends React.Component<ReduxProps, object> {
     constructor(props: ReduxProps) {
         super(props)
@@ -74,4 +85,5 @@ class PlatformMapLoaderBase extends React.Component<ReduxProps, object> {
     }
 }
 
+/** Redux connected PlatformMapLoading component. See [[PlatformMapLoaderBase]] for details. */
 export const PlatformMapLoader = connect(mapStateToProps, mapDispatchToProps)(PlatformMapLoaderBase)

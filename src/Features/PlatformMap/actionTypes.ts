@@ -1,3 +1,7 @@
+/**
+ * Platform Map related action types.
+ */
+
 export const PLATFORM_LOACTIONS_LOAD_REQUEST = 'platformMap/locations/request'
 export type PLATFORM_LOACTIONS_LOAD_REQUEST = typeof PLATFORM_LOACTIONS_LOAD_REQUEST
 

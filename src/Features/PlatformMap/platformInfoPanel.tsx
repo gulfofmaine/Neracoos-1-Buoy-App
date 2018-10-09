@@ -1,3 +1,7 @@
+/**
+ * Platform info panel.
+ */
+
 import { Feature } from '@turf/helpers'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -15,7 +19,9 @@ import { StoreState } from '@app/constants'
 
 import { Geometry, PlatformProperties } from './types';
 
+
 export interface Props {
+    /** Selected platform ID */
     platformId: string
 }
 
@@ -29,6 +35,10 @@ function mapStateToProps({ platformMap }: StoreState) {
     }
 }
 
+
+/**
+ * Platform Info Panel
+ */
 export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: Props & ReduxProps) {
         super(props)
@@ -59,8 +69,11 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
                 }
             }
         }
+
+        // Return null if nothing else has been displayed if a selected platform cannot be found.
         return null
     }
 }
 
+/** Redux connected version of PlatformList. See [[PlatformInfoPanelBase]] for details. */
 export const PlatformInfoPanel = connect(mapStateToProps)(PlatformInfoPanelBase)

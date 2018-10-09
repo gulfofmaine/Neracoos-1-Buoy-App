@@ -1,3 +1,6 @@
+/**
+ * Navbar component
+ */
 import * as React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { 
@@ -17,6 +20,7 @@ import { regionList } from '@app/Shared/regions';
 
 import './nav.css'
 
+
 const initialState = {
     isOpen: true
 }
@@ -24,6 +28,9 @@ const initialState = {
 type State = Readonly<typeof initialState>
 
 
+/**
+ * Navbar component
+ */
 export default class NeracoosNavBar extends React.Component<object, State> {
     public state: State = initialState
 
@@ -71,6 +78,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
         )
     }
 
+    /** Toggle the navbar open and closed when viewed on mobile. */
     private toggle() {
         this.setState({
             isOpen: !this.state.isOpen

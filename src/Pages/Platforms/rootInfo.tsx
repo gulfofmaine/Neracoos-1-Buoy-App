@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { Col, Row } from 'reactstrap'
 
+/**
+ * Info that is displayed when no platforms are selected.
+ */
 export class RootInfo extends React.Component<object, object> {
     public render() {
         return (

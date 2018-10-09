@@ -1,3 +1,7 @@
+/**
+ * Tabs that are displayed on a platform page.
+ */
+
 import * as React from 'react'
 import { 
     Link, 
@@ -31,12 +35,16 @@ import { ObservationsPage } from './observations'
 import { WindObservationsPage } from './observationsWind'
 import { PlatformMatchParams } from './types';
 
+
 const initialState = {
     moreDropdownOpen: false
 }
 
 type State = Readonly<typeof initialState>
 
+/**
+ * Tabs that are displayed on a selected platform page.
+ */
 export class PlatformTabs extends React.Component<RouteComponentProps, State> {
     public state: State = initialState
 
@@ -47,11 +55,13 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
     }
 
     public render() {
+        // Get our current platform ID
         const { id } = this.props.match.params as PlatformMatchParams
 
         const { path } = this.props.match
 
         return (
+            // Make sure our platform data is loaded before displaying anything else.
             <PlatformLoader platformId={id}>
                 <Row style={{paddingBottom: '1rem'}}>
                     <Col>
@@ -62,6 +72,7 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
                             <Tab to={paths.platforms.platform} path={path} name='Current Conditions' id={id} />
                             <Tab to={paths.platforms.forecast} path={path} name='Forecast' id={id} />
 
+                            {/* Dropdown menu for various links associated with a station */}
                             <Dropdown nav={true} isOpen={this.state.moreDropdownOpen} toggle={this.moreToggle}>
                                 <DropdownToggle nav={true} caret={true}>More info</DropdownToggle>
                                 
@@ -101,6 +112,7 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
                     </Col>
                 </Row>
 
+                {/* Display our pages for the platform. */}
                 <Switch>
                     <Route path={paths.platforms.observationsWind} component={WindObservationsPage} />
                     <Route path={paths.platforms.observations} component={ObservationsPage} />
@@ -111,6 +123,9 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
         )
     }
 
+    /**
+     * Toggle the dropdown menu for additional data open and closed.
+     */
     private moreToggle() {
         this.setState({
             moreDropdownOpen: !this.state.moreDropdownOpen
@@ -125,6 +140,9 @@ interface TabProps {
     path: string
 }
 
+/**
+ * Mini component for Tabs that are part of the navbar.
+ */
 // tslint:disable-next-line:max-classes-per-file
 class Tab extends React.Component<TabProps, object> {
     public render() {

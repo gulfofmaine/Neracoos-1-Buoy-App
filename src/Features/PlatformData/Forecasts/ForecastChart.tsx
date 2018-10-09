@@ -10,8 +10,11 @@ import {
     Platform 
 } from '../types'
 
+
 interface Props {
+    /** Platform ID to load forecast from */
     platformId: string
+    /** Datasets to load forecasts for */
     datasets: ErddapDatasetAndField[]
 }
 
@@ -25,6 +28,9 @@ function mapStateToProps({ platformData }: StoreState) {
     }
 }
 
+/**
+ * Forecast chart component
+ */
 class ForecastChartBase extends React.Component<Props & ReduxProps, object> {
     public render() {
         const platform = this.props.platforms.filter((p) => p.id === this.props.platformId)[0]
@@ -64,4 +70,5 @@ class ForecastChartBase extends React.Component<Props & ReduxProps, object> {
     }
 }
 
+/** Redux connected ForecastChart. See [[ForecastChartBase]] for details. */
 export const ForecastChart = connect(mapStateToProps)(ForecastChartBase)

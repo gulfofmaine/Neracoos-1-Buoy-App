@@ -1,3 +1,7 @@
+/**
+ * Common regions, and region related types.
+ */
+
 export interface BoundingBox {
     north: number
     south: number

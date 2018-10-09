@@ -1,3 +1,7 @@
+/**
+ * Platform data actions
+ */
+
 import * as Sentry from '@sentry/browser'
 import { Action, ActionCreator, Dispatch} from 'redux'
 import { ThunkAction } from 'redux-thunk'
@@ -24,7 +28,7 @@ import {
     PlatformJson 
 } from './types'
 
-
+// Action types
 export interface PlatformDataLoadSuccess {
     type: actionTypes.PLATFORM_DATA_LOAD_SUCCESS,
     data: PlatformData[],
@@ -103,6 +107,16 @@ export type PlatformDataActions = (PlatformDataLoadSuccess
     | PlatformMetadataLoadSuccess | PlatformMetadataLoading 
     | PlatformMetadataError | PlatformMetadataClearError )
 
+
+// Platform DataAction Creators. See ERDDAP metadata and dataset actions below.
+
+/**
+ * Platform Data Load Success action creator
+ * 
+ * @param platformId ID of loaded platform
+ * @param data Data for loaded platform
+ * @returns Formatted action
+ */
 export function platformDataLoadSuccess(platformId: string, data: PlatformData[]): PlatformDataLoadSuccess {
     return {
         data,
@@ -111,6 +125,12 @@ export function platformDataLoadSuccess(platformId: string, data: PlatformData[]
     }
 }
 
+/**
+ * Platform data loading in progress action creator
+ * 
+ * @param platformId ID of platform that is currently loading
+ * @returns Formatted action
+ */
 export function platformDataLoading(platformId: string): PlatformDataLoading {
     return {
         platformId,
@@ -118,6 +138,13 @@ export function platformDataLoading(platformId: string): PlatformDataLoading {
     }
 }
 
+/**
+ * Platform data loading error
+ * 
+ * @param platformId Platform that had an error
+ * @param error Error message
+ * @returns Formatted Action
+ */
 export function platformDataError(platformId: string, error: string): PlatformDataError {
     return {
         error,
@@ -126,6 +153,12 @@ export function platformDataError(platformId: string, error: string): PlatformDa
     }
 }
 
+/**
+ * Platform data clear error
+ * 
+ * @param platformId Platform to clear an error from
+ * @returns Formatted Action
+ */
 export function platformDataClearError(platformId: string): PlatformDataClearError {
     return {
         platformId,
@@ -133,6 +166,12 @@ export function platformDataClearError(platformId: string): PlatformDataClearErr
     }
 }
 
+
+/**
+ * Thunk action to load data for a selected platform.
+ * 
+ * @param platformId Platform to load data for
+ */
 export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string) => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
@@ -149,9 +188,9 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             })
 
             const result = await fetch(url)
-            // const json = await result.json() as PlatformJson
             let text = await result.text()
 
+            // If the json has malformed HTML at the beginning, strip the html
             if (text.includes('>')) {
                 text = text.slice(text.lastIndexOf('>') + 1)
                 Sentry.captureMessage(platformId + ' has malformed but recoverable data.')
@@ -161,6 +200,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
             const data = transformPlatformJson(json)
 
+            // If there is no data we shouldn't try to display empty datasets.
             if (data.length === 0) {
                 Sentry.captureMessage(platformId + ' returned no data in the last week.')
 
@@ -174,6 +214,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             }
 
             return dispatch(platformDataLoadSuccess(platformId, data))
+
         } catch(error) {
             // tslint:disable-next-line:no-console
             console.log(error)
@@ -193,6 +234,17 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
     }
 }
 
+
+// Forecast data loading action creators
+
+/**
+ * Platform dataset loading action creator.
+ * 
+ * @param platformId Platform ID that data was loaded for.
+ * @param dataset Dataset that was loaded.
+ * @param data Dataset data in a friendlier time series format.
+ * @return Formatted action
+ */
 export function platformForecastLoadSuccess(platformId: string, dataset: ErddapDatasetAndField, data: PlatformData): PlatformForecastLoadSuccess {
     return {
         data,
@@ -202,6 +254,13 @@ export function platformForecastLoadSuccess(platformId: string, dataset: ErddapD
     }
 }
 
+/**
+ * Platform dataset loading in progress action creator
+ * 
+ * @param platformId Platform ID that requested the data
+ * @param dataset Dataset that was requested
+ * @returns Formatted Action
+ */
 export function platformForecastLoading(platformId: string, dataset: ErddapDatasetAndField): PlatformForecastLoading {
     return {
         dataset,
@@ -210,6 +269,14 @@ export function platformForecastLoading(platformId: string, dataset: ErddapDatas
     }
 }
 
+/**
+ * Platform dataset error action creator
+ * 
+ * @param platformId Platform ID that requested data
+ * @param dataset Dataset that was requested
+ * @param message Error message that occured while loading data
+ * @returns Formatted Action
+ */
 export function platformForecastError(platformId: string, dataset: ErddapDatasetAndField, message: string): PlatformForecastError {
     return {
         dataset,
@@ -219,6 +286,13 @@ export function platformForecastError(platformId: string, dataset: ErddapDataset
     }
 }
 
+/**
+ * Platform dataset error clearing action creator
+ * 
+ * @param platformId Platform ID that requested data
+ * @param dataset Dataset that was requested
+ * @returns Formatted Action
+ */
 export function platformForecastClearError(platformId: string, dataset: ErddapDatasetAndField): PlatformForecastClearError {
     return {
         dataset,
@@ -227,6 +301,17 @@ export function platformForecastClearError(platformId: string, dataset: ErddapDa
     }
 }
 
+
+// Metadata action creators
+
+/**
+ * ERDDAP dataset metadata loaded
+ * 
+ * @param dataset Dataset that metadata needed to be loaded for
+ * @param coverageStart First valid date for the dataset
+ * @param coverageEnd Last valid date for the dataset
+ * @returns Formatted Action
+ */
 export function platformMetadataSuccess(dataset: ErddapDataset, coverageStart: Date, coverageEnd: Date): PlatformMetadataLoadSuccess {
     return {
         coverageEnd,
@@ -236,6 +321,12 @@ export function platformMetadataSuccess(dataset: ErddapDataset, coverageStart: D
     }
 }
 
+/**
+ * ERDDAP dataset metadata loading in progress
+ * 
+ * @param dataset Dataset that is currently loading
+ * @returns Formatted Action
+ */
 export function platformMetadataLoading(dataset: ErddapDataset): PlatformMetadataLoading {
     return {
         dataset,
@@ -243,6 +334,13 @@ export function platformMetadataLoading(dataset: ErddapDataset): PlatformMetadat
     }
 }
 
+/**
+ * ERDDAP dataset metadata loading error
+ * 
+ * @param dataset Dataset that had an error
+ * @param message Error message
+ * @returns Formatted Action
+ */
 export function platformMetadataError(dataset: ErddapDataset, message: string): PlatformMetadataError {
     return {
         dataset,
@@ -251,8 +349,12 @@ export function platformMetadataError(dataset: ErddapDataset, message: string): 
     }
 }
 
-// export function platformMetadataClearError(message: )
 
+/**
+ * Load dataset metadata from ERDDAP server.
+ * 
+ * @param dataset Dataset to load
+ */
 export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (dataset: ErddapDataset) => {
     return async (dispatch: Dispatch): Promise<Action> => {
         try {
@@ -275,18 +377,20 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
 
             const json = await result.json() as GriddapJson
 
+            // Extract coverage start and end dates.
             const coverageStart = new Date(metadataValue(json.table, 'time_coverage_start') as number)
             const coverageEnd = new Date(metadataValue(json.table, 'time_coverage_end') as number)
 
             const now = new Date()
 
+            // If we are within the datasets covered range, then save the metadata 
             if (coverageStart <= now && now <= coverageEnd) {
                 return dispatch(platformMetadataSuccess(
                     dataset,
                     coverageStart,
                     coverageEnd
                 ))
-            } else {
+            } else { // Otherwise notify that there is no data to load.
                 return dispatch(platformMetadataError(
                     dataset,
                     dataset.datasetId + ' is not avaliable for the current time period.'
@@ -297,7 +401,6 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
         } catch(error) {
             // tslint:disable-next-line:no-console
             console.log(error)
-
             Sentry.captureException(error)
 
             return dispatch(platformMetadataError(dataset, 'Unknown error loading ' + dataset.datasetId))
@@ -305,20 +408,28 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
     }
 }
 
-export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, field: string, datasetAndField: ErddapDatasetAndField) => {
+/**
+ * Thunk action to load data for ERDDAP grid dataset for a selected location
+ * 
+ * @param platformId Platform ID that the returned data should be associated with
+ * @param dataset Dataset info with metadata like start and end dates
+ * @param lat Latitude North to load
+ * @param lon Longitude East to load
+ * @param datasetAndField Matching dataset and field object
+ */
+export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (platformId: string, dataset: ErddapDatasetInfo, lat: number, lon: number, datasetAndField: ErddapDatasetAndField) => {
     return async (dispatch: Dispatch): Promise<Action> => {
 
         dispatch(platformForecastLoading(platformId, datasetAndField))
-
         try {
-            const url = erddapUrl(dataset as ErddapDataset, lat, lon, field, todayIso(), dataset.coverageEnd)
+            const url = erddapUrl(dataset as ErddapDataset, lat, lon, datasetAndField.field, todayIso(), dataset.coverageEnd)
             const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
 
             Sentry.addBreadcrumb({
                 category: 'Platform ERDDAP request',
                 data: {
                     dataset,
-                    field,
+                    field: datasetAndField.field,
                     lat,
                     lon,
                     platformId,
@@ -329,10 +440,9 @@ export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             })
 
             const result = await fetch(proxyUrl)
-
             const json = await result.json() as GriddapJson
 
-            const ts = extractColumn(json.table, field)
+            const ts = extractColumn(json.table, datasetAndField.field)
 
             const data: PlatformData = {
                 data: ts,
