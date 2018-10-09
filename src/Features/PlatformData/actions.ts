@@ -154,6 +154,7 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
 
             if (text.includes('>')) {
                 text = text.slice(text.lastIndexOf('>') + 2)
+                Sentry.captureMessage(platformId + ' has malformed but recoverable data.')
             }
 
             const json = JSON.parse(text) as PlatformJson

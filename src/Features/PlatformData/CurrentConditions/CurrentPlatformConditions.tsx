@@ -45,7 +45,7 @@ const prefferedDataTypes = new Set([
     'visibility_in_air',
     'dominant_wave_period',
     'significant_height_of_wind_and_swell_waves',
-    'sea_water_temperature',
+    // 'sea_water_temperature',
     // 'pressure_tendency'
 ])
 
