@@ -44,6 +44,8 @@ export class ObservedPlatformConditionsBase extends React.Component<Props & Redu
 
             const timeSeries = platform.data_types.filter((d) => d.data_type === this.props.type).sort((d) => d.depth)
 
+            timeSeries.sort((a, b) => a.depth - b.depth)
+
             const charts = timeSeries.map((d, index) => {
 
                 const depth = d.depth > 0 ? ' at ' + d.depth + 'm below' : ''
