@@ -1,6 +1,6 @@
 {
   "name": "src",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "proxy": "http://content.gmri.org",
   "homepage": "http://neracoos.org/ionic/neracoos1/www/",
