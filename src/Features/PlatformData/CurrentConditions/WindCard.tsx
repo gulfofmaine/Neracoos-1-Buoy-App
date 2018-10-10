@@ -11,7 +11,7 @@ import {
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
 
-import { SmallWindTimeSeriesChart } from '@app/components/Charts'
+import { WindTimeSeriesChart } from '@app/components/Charts'
 
 import { PlatformData } from '../types'
 
@@ -54,7 +54,7 @@ export class WindCard extends React.Component<Props, object> {
                             { gust.length > 0 ? ' gusting to ' + round(gust[0].data[gust[0].data.length - 1].reading, 1) + ' ' + gust[0].unit : null}
                             </CardHeader>
                         <CardBody style={{padding: '.2rem'}}>
-                            <SmallWindTimeSeriesChart
+                            <WindTimeSeriesChart
                                 days={this.props.days}
                                 barbsPerDay={10}
                                 data={data}

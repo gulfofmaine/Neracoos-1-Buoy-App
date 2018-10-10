@@ -116,8 +116,10 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 })
             }
 
-        
+        // Add loading status when a dataset is updating metadata
         case actionTypes.PLATFORM_DATA_METADATA_LOADING:
+
+            // If the dataset exists, change the status
             if (state.datasetInfo.filter((d) => d.datasetId === action.dataset.datasetId && d.server === action.dataset.server).length > 0) {
                 
                 return {
@@ -134,7 +136,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                     })
                 }
 
-            } else {
+            } else {  // Otherwise add a new dataset object
                 const newMetadata: ErddapDatasetInfo = {
                     ...action.dataset,
                     coverageEnd: new Date(),
@@ -149,6 +151,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 }
             }
         
+        // Display error when dataset fails to load metadata
         case actionTypes.PLATFORM_DATA_METADATA_LOAD_ERROR:
             return {
                 ...state,
@@ -165,6 +168,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 })
             }
 
+        // Add loaded metadata to dataset
         case actionTypes.PLATFORM_DATA_METADATA_LOAD_SUCCESS:
             if (state.datasetInfo.filter((d) => d.datasetId === action.dataset.datasetId && d.server === action.dataset.server).length > 0) {
                 
@@ -185,11 +189,14 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 }
             }
         
+        // Display that a dataset is loading
         case actionTypes.PLATFORM_DATA_FORECAST_LOADING:
             return {
                 ...state,
                 platforms: state.platforms.map((p) => {
                     if (p.id === (action as PlatformForecastLoading).platformId) {
+
+                        // If the dataset already exists, update the dataset status
                         if (p.forecasts_types.filter((f) => f.dataset === action.dataset).length > 0) {
                             return {
                                 ...p,
@@ -204,7 +211,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                                     }
                                 })
                             }
-                        } else {
+                        } else {  // Otherwise add a new dataset
                             const newForecast: DatasetData = {
                                 data: [],
                                 data_type: '',
@@ -226,6 +233,8 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 })
             }
 
+
+        // Mark that a dataset has had an error loading
         case actionTypes.PLATFORM_DATA_FORECAST_LOAD_ERROR:
             return {
                 ...state,
@@ -251,6 +260,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 })
             }
         
+        // Remove a dataset loading error
         case actionTypes.PLATFORM_DATA_FORECAST_CLEAR_ERROR:
             return {
                 ...state,
@@ -275,6 +285,7 @@ export function platformDataReducer(state: PlatformDataStoreState = initialStore
                 })
             }
         
+        // Add the loaded data to a dataset
         case actionTypes.PLATFORM_DATA_FORECAST_LOAD_SUCCESS:
             return {
                 ...state,

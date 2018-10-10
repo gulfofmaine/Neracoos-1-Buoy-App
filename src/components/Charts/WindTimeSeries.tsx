@@ -1,3 +1,7 @@
+/**
+ * Wind time series chart component that can display steady and gust speeds
+ * in addition to wind barbs for wind direction
+ */
 import Highcharts from 'highcharts'
 import addWindBarbModule from 'highcharts/modules/windbarb'
 import * as React from 'react'
@@ -16,31 +20,45 @@ import {
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
 
+
 interface Props {
+    /** Wind data to display */
     data: DataTimeSeries[]
+    /** Number of days back to filter dataset by */
     days: number
+    /** Hight to try to limit chart to */
     height: number
+    /** Should the chart show a legend */
     legend: boolean
+    /** Home many wind barbs should the chart show for each day */
     barbsPerDay: number
 }
 
 addWindBarbModule(Highcharts)
 
-export class SmallWindTimeSeriesChartBase extends React.Component<Props, object> {
+
+/**
+ * Wind time series chart component that can display steady and gust speeds
+ * in addition to wind barbs for wind direction
+ */
+export class WindTimeSeriesChartBase extends React.Component<Props, object> {
     constructor(props: Props) {
         super(props)
     }
 
     public render() {
+        // Extract wind direction from windspeed data
         const speeds = this.props.data.filter((d) => ! d.name.includes('direction'))
+        const directions = this.props.data.filter((d) => d.name.includes('direction'))
 
         const daysAgo = new Date()
         daysAgo.setDate(daysAgo.getDate() - this.props.days)
 
         const speedsSeries = speeds.map((d, index) => {
+            // Filter windspeeds to only include data from the time range
             const data = d.timeSeries.filter(
                 (reading) => reading.time > daysAgo
-            ).map(
+            ).map( // Return Highcharts Spline dataformat [date, reading]
                 (r) => [r.time.valueOf(), round(r.reading, 1)]
             )
 
@@ -57,13 +75,12 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
             )
         })
 
-        const speedOnly = this.props.data.filter((d) => !d.name.includes('direction'))
-        const directions = this.props.data.filter((d) => d.name.includes('direction'))
-
+        /** Array of wind data. Highcharts uses [time, speed, direction] for each reading */
         const windData: number[][] = []
 
-        if (speedOnly.length > 0 && directions.length > 0 ) {
-            const speed = speedOnly[0]
+        /** Make sure our speed and direction data actually exists */
+        if (speeds.length > 0 && directions.length > 0 ) {
+            const speed = speeds[0]
             const direction = directions[0]
 
             let speedTs = speed.timeSeries.filter((r) => r.time > daysAgo)
@@ -76,6 +93,7 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
             directionTs = directionTs.filter((r) => speedTimes.filter((d) => d === r.time.toISOString()).length > 0)
 
             if ( speedTs.length === directionTs.length) {
+                // Figure out how many samples should be skipped between readings to manage chart density
                 const stride = Math.round(speedTs.length / (this.props.barbsPerDay * this.props.days))
 
                 for (let index = 0; index <= speedTs.length; index += stride) {
@@ -99,7 +117,6 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                 <YAxis>
                     <YAxis.Title>m/s</YAxis.Title>
                     { speedsSeries }
-                    {/* { directionSeries } */}
 
                     { windData.length > 0 ? (
                         <WindBarbSeries
@@ -114,11 +131,11 @@ export class SmallWindTimeSeriesChartBase extends React.Component<Props, object>
                 ) : null}
 
                 <Tooltip 
-                    // pointFormat={'{point.y}'}
                     shared={true} />
             </HighchartsChart>
         )
     }
 }
 
-export const SmallWindTimeSeriesChart = withHighcharts(SmallWindTimeSeriesChartBase, Highcharts)
+/** Highcharts enabled WindTimeSeriesChart. See [[WindTimeSeriesChartBase]] for details */
+export const WindTimeSeriesChart = withHighcharts(WindTimeSeriesChartBase, Highcharts)

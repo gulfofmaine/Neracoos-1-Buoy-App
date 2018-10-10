@@ -1,3 +1,6 @@
+/**
+ * Time series chart component for displaying multiple sets of time series data
+ */
 import Highcharts from 'highcharts'
 import * as React from 'react'
 import {
@@ -14,10 +17,17 @@ import {
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
 
+
 interface Props {
+    /** Time series data to display */
     data: DataTimeSeries[]
+    /** Units to display on chart */
+    unit: string
 }
 
+/**
+ * Time series chart component for displaying multiple sets of time series data
+ */
 class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
     public render() {
         const series = this.props.data.map((d, index) => {
@@ -43,6 +53,7 @@ class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
                 <XAxis type="datetime" />
 
                 <YAxis>
+                    <YAxis.Title>{ this.props.unit }</YAxis.Title>
                     { series }
                 </YAxis>
 
@@ -57,4 +68,5 @@ class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
     }
 }
 
+/** Highcharts enabled MultipleTimeSeriesChart component. See [[MultipleLargeTimeSeriesChartBase]] for details. */
 export const MultipleLargeTimeSeriesChart = withHighcharts(MultipleLargeTimeSeriesChartBase, Highcharts)

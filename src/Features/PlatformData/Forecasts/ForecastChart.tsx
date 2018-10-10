@@ -1,3 +1,6 @@
+/**
+ * Forecast chart component
+ */
 import * as React from 'react'
 import { connect } from 'react-redux'
 
@@ -65,7 +68,9 @@ class ForecastChartBase extends React.Component<Props & ReduxProps, object> {
         })
 
         return (
-            <MultipleLargeTimeSeriesChart data={data} />
+            <MultipleLargeTimeSeriesChart 
+                unit='meters'
+                data={data} />
         )
     }
 }

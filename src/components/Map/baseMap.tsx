@@ -1,3 +1,7 @@
+/**
+ * Basemap compnent
+ */
+
 import * as React from 'react'
 
 // import TileLayer from 'ol/layer/Tile'
@@ -10,20 +14,31 @@ import View from 'ol/View'
 
 import { BoundingBox } from '@app/Shared'
 
+
 export interface Props {
+    /** Bounding box to focus map view on */
     boundingBox?: BoundingBox
+    /** Decimal degrees North */
     lat: number
+    /** Decimal degrees East */
     lon: number
+    /** Layers to display on top of map. */
     layers: Layer[]
-    startZoom: number,
-    children?: JSX.Element | JSX.Element[] | Array<JSX.Element | undefined>
+    /** Zoom level to start at. 0 is furthest out */
+    startZoom: number
+    /** Callback function for click events */
     onClick?: (feature: Feature) => void
 }
 
 export interface State {
+    /** Internal map state object */
     map: any
 }
 
+
+/**
+ * Basemap component
+ */
 export class BaseMap extends React.Component<Props, State> {
     constructor(props: any) {
         super(props)
@@ -33,6 +48,7 @@ export class BaseMap extends React.Component<Props, State> {
         this.singleClick = this.singleClick.bind(this)
     }
 
+    /** Initialize the basemap */
     public componentDidMount() {
         const { lat, lon, startZoom, layers } = this.props
 
@@ -58,6 +74,7 @@ export class BaseMap extends React.Component<Props, State> {
         }
     }
 
+    /** Add and remove layers from the map, and focus on new bounding box if given */
     public componentDidUpdate(previousProps: Props, previousState: State, snapshot) {
         if (this.props.layers !== previousProps.layers ) {
             const map = previousState.map
@@ -101,13 +118,8 @@ export class BaseMap extends React.Component<Props, State> {
         )
     }
 
+    /** Pass click events to callback handler */
     private singleClick(event: MapBrowserEvent) {
-        // // tslint:disable-next-line:no-console
-        // console.log(event)
-
-        // // tslint:disable-next-line:no-debugger
-        // debugger
-
         if (this.props.onClick) {
             event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature, layer: any) => this.props.onClick!(feature))
         }

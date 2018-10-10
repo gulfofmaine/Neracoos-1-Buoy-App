@@ -1,3 +1,6 @@
+/**
+ * Small time series chart component (as seen on current conditions page)
+ */
 import Highcharts from 'highcharts'
 import * as React from 'react'
 import {
@@ -13,16 +16,20 @@ import {
 import { round } from '@app/Shared/math'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
+
 interface Props {
+    /** Time series to display */
     timeSeries: ReadingTimeSeries[]
+    /** Name of time series */
     name: string
+    /** Unit time series is measured in */
     unit: string
 }
 
+/**
+ * Small time series chart component (as seen on current conditions page)
+ */
 class SmallTimeSeriesChartBase extends React.Component<Props, object> {
-    constructor(props: Props) {
-        super(props)
-    }
 
     public render() {
         const data = this.props.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
@@ -49,4 +56,5 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
     }
 }
 
+/** Hightcharts enabled SmallTimeSeriesChart component. See [[SmallTimeSeriesChartBase]] for details. */
 export const SmallTimeSeriesChart = withHighcharts(SmallTimeSeriesChartBase, Highcharts)

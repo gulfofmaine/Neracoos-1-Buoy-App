@@ -8,7 +8,7 @@ import {
     Row
 } from 'reactstrap'
 
-import { SmallWindTimeSeriesChart } from '@app/components/Charts'
+import { WindTimeSeriesChart } from '@app/components/Charts'
 import { StoreState } from '@app/constants'
 
 import { Platform } from '../types'
@@ -52,7 +52,7 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
                 <Row>
                     <Col>
                         <h4>Wind</h4>
-                        <SmallWindTimeSeriesChart
+                        <WindTimeSeriesChart
                             days={7}
                             data={windTimeSeries}
                             barbsPerDay={5}

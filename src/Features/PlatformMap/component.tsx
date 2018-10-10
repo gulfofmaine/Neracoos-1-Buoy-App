@@ -24,10 +24,14 @@ import { paths, StoreState } from '@app/constants'
 import { BoundingBox } from '@app/Shared/regions'
 import { urlPartReplacer } from '@app/Shared/urlParams';
 
+import { PlatformProperties } from './types'
+
 
 export interface Props {
     /** Bounding box to focus the map on */
     boundingBox?: BoundingBox
+    /** Selected platform ID */
+    platformId: string
 }
 
 export interface ReduxProps {
@@ -60,6 +64,18 @@ const platformStyle = new Style({
     })
 })
 
+const selectedPlatform = new Style({
+    image: new Circle({
+        fill: new Fill({
+            color: 'rgba(255, 153, 0, 0.8)'
+        }),
+        radius: 10,
+        stroke: new Stroke({
+            color: 'red',
+            width: 1
+        })
+    })
+})
 
 /**
  * Platform Map component
@@ -78,10 +94,12 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
             esriLayers.EsriOceanReferenceLayer
         ]
 
-        if (this.props.platforms.length > 0) {
+        const filteredPlatforms = this.props.platforms.filter((p) => (p.properties as PlatformProperties).name !== this.props.platformId)
+
+        if (filteredPlatforms.length > 0) {
             const platformSource = new VectorSource({
                 features: (new GeoJSON()).readFeatures({
-                    features: this.props.platforms,
+                    features: filteredPlatforms,
                     type: 'FeatureCollection'
                 }, {featureProjection: 'EPSG:3857'})
             })
@@ -93,6 +111,27 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
 
             layers.push(platformLayer)
         }
+
+        const selectedPlatforms = this.props.platforms.filter((p) => (p.properties as PlatformProperties).name === this.props.platformId)
+
+        if (selectedPlatforms.length > 0) {
+            const selectedPlatformSource = new VectorSource({
+                features: (new GeoJSON()).readFeatures({
+                    features: selectedPlatforms,
+                    type: 'FeatureCollection'
+                }, {
+                    featureProjection: 'EPSG:3857'
+                })
+            })
+
+            const selectedPlatformLayer = new VectorLayer({
+                source: selectedPlatformSource,
+                style: selectedPlatform
+            })
+
+            layers.push(selectedPlatformLayer)
+        }
+        
 
         return (
             <BaseMap 

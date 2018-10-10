@@ -5,6 +5,18 @@
 import { Feature } from '@turf/helpers'
 
 /**
+ * PlatformMap Redux Store
+ */
+export interface PlatformMapStoreState {
+
+    /** Array of platform GeoJSON features */
+    platforms: Feature[]
+
+    /** Error message to display if string is not empty */
+    errorMessage: string
+}
+
+/**
  * Interface for the JSON returned from [NERACOOS.org](http://www.neracoos.org/data/json/monitoringlocations.php)
  */
 export interface PlatformLocationsJson {
@@ -86,19 +98,6 @@ export interface PlatformProperties {
 
     /** What sensors does the platform have */
     sensors: SensorName[]
-}
-
-
-/**
- * PlatformMap Redux Store
- */
-export interface PlatformMapStoreState {
-
-    /** Array of platform GeoJSON features */
-    platforms: Feature[]
-
-    /** Error message to display if string is not empty */
-    errorMessage: string
 }
 
 /** Simple interface for GeoJSON geometry */

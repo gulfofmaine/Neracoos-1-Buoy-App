@@ -1,5 +1,4 @@
-export { SparkLineChart } from './SparkLine'
 export { SmallTimeSeriesChart } from './SmallTimeSeries'
-export { SmallWindTimeSeriesChart } from './SmallWindTimeSeries'
+export { WindTimeSeriesChart } from './WindTimeSeries'
 export { LargeTimeSeriesChart } from './LargeTimeSeries'
 export { MultipleLargeTimeSeriesChart } from './MultipleLargeTimeSeries'

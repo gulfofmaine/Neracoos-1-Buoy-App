@@ -1,3 +1,6 @@
+/**
+ * Single large time series chart component
+ */
 import Highcharts from 'highcharts'
 import * as React from 'react'
 import {
@@ -13,12 +16,19 @@ import {
 import { round } from '@app/Shared/math'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
+
 interface Props {
+    /** Time series data to dispaly */
     timeSeries: ReadingTimeSeries[]
+    /** Name of data */
     name: string
+    /** Unit to display on Y axis */
     unit: string
 }
 
+/**
+ * Single large time series chart component
+ */
 class LargeTimeSeriesChartBase extends React.Component<Props, object> {
     constructor(props: Props) {
         super(props)
@@ -48,4 +58,5 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
     }
 }
 
+/** Highcharts connected LargeTimeSeriesChart component. See [[LargeTimeSeriesChartBase]] for details. */
 export const LargeTimeSeriesChart = withHighcharts(LargeTimeSeriesChartBase, Highcharts)

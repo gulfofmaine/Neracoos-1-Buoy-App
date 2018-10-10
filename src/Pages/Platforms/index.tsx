@@ -21,6 +21,7 @@ import urlParams from '@app/Shared/urlParams'
 import { PlatformInfo } from './platformInfo'
 import { PlatformTabs } from './platformTabs'
 import { RootInfo } from './rootInfo'
+import { PlatformMatchParams } from './types'
 
 
 /**
@@ -30,6 +31,8 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
 
     public render() {
         const params = urlParams(this.props.location.search)
+
+        const platformId = this.props.match.params.hasOwnProperty('id') ? (this.props.match.params as PlatformMatchParams).id : ''
 
         let regions: Region[] = []
 
@@ -41,7 +44,9 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
             <PlatformMapLoader>
                 <Row>
                     <Col sm={{size: true}}>
-                        <PlatformMap boundingBox={regions.length > 0 ? regions[0].bbox :  null} />
+                        <PlatformMap 
+                            platformId={platformId}
+                            boundingBox={regions.length > 0 ? regions[0].bbox :  null} />
                     </Col>
 
                     <Col sm={{size: true}}>
