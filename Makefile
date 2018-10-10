@@ -22,7 +22,7 @@ serve-build:
 sentry:
 	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard new $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --finalize
 	# sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard set-commits $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --auto
-	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") upload-sourcemaps www/build
+	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") upload-sourcemaps build
 
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)
