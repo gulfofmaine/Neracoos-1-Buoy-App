@@ -36,3 +36,7 @@ To create a new page run `docker-compose exec ionic ionic generate page <PAGENAM
 ## Exception Tracking
 
 We're tracking exceptions with Sentry.
+
+## Documention
+
+We're using [Typedoc](https://typedoc.org) for documentation. Run `make docs` to update the documentation folder and host it at [http://0.0.0.0:8000/](http://0.0.0.0:8000/).

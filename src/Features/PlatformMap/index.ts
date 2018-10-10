@@ -1,0 +1,7 @@
+export { PlatformMap } from './component'
+export { PlatformList } from './platformList'
+export { platformMapReducer } from './reducer'
+export { PlatformMapStoreState } from './types' 
+export { PlatformMapActions } from './actions'
+export { PlatformInfoPanel } from './platformInfoPanel'
+export { PlatformMapLoader } from './loadingComponent'

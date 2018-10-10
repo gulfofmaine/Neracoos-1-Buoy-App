@@ -1,16 +1,11 @@
-FROM node:10.6
+FROM node:10.11
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN npm install -g cordova ionic
-
 COPY ./package.json /usr/src/app/package.json
+COPY ./yarn.lock /usr/src/app/yarn.lock
 
-RUN npm install
+RUN yarn install
 
 COPY . /usr/src/app
-
-CMD ionic serve
-
-EXPOSE 8100 35729

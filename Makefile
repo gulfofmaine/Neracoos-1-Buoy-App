@@ -2,7 +2,7 @@
 
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
-up:
+up: down
 	docker-compose up -d --build
 	docker-compose logs -f
 
@@ -10,22 +10,19 @@ down:
 	docker-compose down
 
 build: down
-	docker-compose run ionic ionic build --verbose
-
-build-prod:
-	docker-compose run ionic ionic build --prod --verbose
+	docker-compose run client yarn build
 
 deploy:
-	scp -r ./www awsgmri:/home2/ionic/neracoos1
+	scp -r ./build/* awsgmri:/home2/ionic/neracoos1/www/
 	sentry-cli releases -o gulf-of-maine-research-institu deploys $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") new -e staging
 
 serve-build:
-	python3 -m http.server -d www
+	python3 -m http.server -d build/
 
 sentry:
 	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard new $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --finalize
 	# sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard set-commits $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --auto
-	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") upload-sourcemaps www/build
+	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") upload-sourcemaps build
 
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)
@@ -35,3 +32,10 @@ patch:
 	npm version patch
 
 release-patch: down patch build sentry deploy
+
+rm-docs:
+	rm -r docs/
+
+docs: rm-docs
+	docker-compose exec client yarn docs
+	python3 -m http.server -d docs/
