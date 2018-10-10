@@ -19,6 +19,12 @@ export function platformMapReducer(state: PlatformMapStoreState = initialStoreSt
                 ...state,
                 platforms: action.platforms
             }
+        
+        case actionTypes.PLATFORM_LOACTIONS_LOAD_ERROR:
+            return {
+                ...state,
+                errorMessage: action.message
+            }
 
         default:
             return state

@@ -77,8 +77,6 @@ export class PlatformLoaderBase extends React.Component<Props & ReduxProps, obje
                     </Row>
                 )
             } else if (platform.status === Status.Loaded) {
-                // tslint:disable-next-line:no-console
-                console.log('Platform loaded, displaying children')
 
                 return (
                     this.props.children
