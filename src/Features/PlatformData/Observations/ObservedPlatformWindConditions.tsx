@@ -3,6 +3,7 @@
  */
 import * as React from 'react'
 import { connect } from 'react-redux'
+import sizeMe, { SizeMeProps } from 'react-sizeme'
 import {
     Col,
     Row
@@ -33,8 +34,15 @@ function mapStateToProps({platformData }: StoreState) {
 /**
  * Wind observed conditions component
  */
-export class ObservedPlatformWindConditionsBase extends React.Component<Props & ReduxProps, object> {
+export class ObservedPlatformWindConditionsBase extends React.Component<Props & ReduxProps & SizeMeProps, object> {
     public render() {
+
+        // adjust number of barbs based on width
+        let barbsPerDay = 5
+        if (this.props.size.width < 800) {
+            barbsPerDay = 2
+        }
+
         const filteredPlatforms = this.props.platforms.filter((p) => p.id === this.props.platformId)
 
         if (filteredPlatforms.length > 0) {
@@ -55,7 +63,7 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
                         <WindTimeSeriesChart
                             days={7}
                             data={windTimeSeries}
-                            barbsPerDay={5}
+                            barbsPerDay={barbsPerDay}
                             legend={true}
                             />
                     </Col>
@@ -76,4 +84,4 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
 }
 
 /** Redux connected ObservedPlatformWindConditions component. See [[ObservedPlatformWindConditionsBase]] component. */
-export const ObservedPlatformWindConditions = connect(mapStateToProps)(ObservedPlatformWindConditionsBase)
+export const ObservedPlatformWindConditions = sizeMe()(connect(mapStateToProps)(ObservedPlatformWindConditionsBase))
