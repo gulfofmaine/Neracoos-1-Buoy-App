@@ -10,6 +10,7 @@ down:
 	docker-compose down
 
 build: down
+	docker-compose build
 	docker-compose run client yarn build
 
 deploy:
