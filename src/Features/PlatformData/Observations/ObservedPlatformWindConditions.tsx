@@ -1,10 +1,12 @@
 /**
  * Special Wind Observed Conditions Component
  */
+import * as Sentry from '@sentry/browser'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import sizeMe, { SizeMeProps } from 'react-sizeme'
 import {
+    Alert,
     Col,
     Row
 } from 'reactstrap'
@@ -48,7 +50,9 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
         if (filteredPlatforms.length > 0) {
             const platform = filteredPlatforms[0]
 
-            const windTimeSeries = platform.data_types.filter((d) => d.data_type.includes('wind') && !d.data_type.includes('waves')).map(
+            const windTimeSeries = platform.data_types.filter(
+                (d) => d.data_type.includes('wind') && !d.data_type.includes('waves')
+            ).map(
                 (type) => ({
                     name: type.data_type,
                     timeSeries: type.data,
@@ -56,30 +60,35 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
                 })
             )
 
-            return (
-                <Row>
-                    <Col>
-                        <h4>Wind</h4>
-                        <WindTimeSeriesChart
-                            days={7}
-                            data={windTimeSeries}
-                            barbsPerDay={barbsPerDay}
-                            legend={true}
-                            />
-                    </Col>
-                </Row>
-
-            )
-        } else {
-            return (
-                <Row>
-                    <Col>
-                        Unable to display wind info.
-                    </Col>
-                </Row>
-            )
-            
+            if (windTimeSeries.length > 0) {
+                if (windTimeSeries[0].data !== undefined && windTimeSeries[0].data.length > 0) {
+                    return (
+                        <Row>
+                            <Col>
+                                <h4>Wind</h4>
+                                <WindTimeSeriesChart
+                                    days={7}
+                                    data={windTimeSeries}
+                                    barbsPerDay={barbsPerDay}
+                                    legend={true}
+                                    />
+                            </Col>
+                        </Row>
+        
+                    )
+                }
+            }
         }
+        
+        Sentry.captureMessage('Unable to display wind data for ' + this.props.platformId)
+
+        return (
+            <Row>
+                <Col>
+                    <Alert color="warning">Unable to display wind info.</Alert>
+                </Col>
+            </Row>
+        )
     }
 }
 

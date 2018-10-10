@@ -14,6 +14,8 @@ export const humanDataNameDict = {
     'dominant_wave_period': 'Wave Period',
 
     'mean_wave_direction': 'Wave Direction',
+
+    'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
     
     'sea_level_pressure': 'Air Pressure',
     'sea_water_density': 'Water Density',
@@ -23,6 +25,8 @@ export const humanDataNameDict = {
     'sea_water_temperature': 'Water Temperature',
     
     'significant_height_of_wind_and_swell_waves': 'Wave Height',
+
+    'surface_partial_pressure_of_carbon_dioxide_in_sea_water': 'Partial Surface Pressure of Carbon Dioxide in Sea Water',
 
     'turbidity': 'Turbidity',
 

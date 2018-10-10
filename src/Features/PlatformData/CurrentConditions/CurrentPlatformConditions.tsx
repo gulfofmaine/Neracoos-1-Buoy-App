@@ -70,10 +70,20 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
         const filteredPlatforms = this.props.platforms.filter((p) => p.id === this.props.platformId)
         const platform = filteredPlatforms[0]
 
+        const aDayAgo = new Date()
+        aDayAgo.setDate(aDayAgo.getDate() - 1)
+
         // Seperate out wind data
         const windData = platform.data_types.filter(
             (type) => windDataTypes.has(type.data_type)
         )
+
+        let showWinds = false
+        if (windData.length > 0) {
+            if (windData[0].data.filter((r) => r.time > aDayAgo).length > 0) {
+                showWinds = true
+            }
+        }
 
         // The rest of the data to display
         const filteredData = platform.data_types.filter(
@@ -90,8 +100,6 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                 depth = ' - ' + -type.depth + 'm'
             }
 
-            const aDayAgo = new Date()
-            aDayAgo.setDate(aDayAgo.getDate() - 1)
             const data = type.data.filter((reading) => reading.time > aDayAgo)
 
             // If there is currently no valid data, then display a card letting us know.
@@ -135,7 +143,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
 
         return (
             <Row>
-                { windData.length > 0 ? (
+                { showWinds ? (
                     <Col md="4" sm="6" style={{paddingTop: '1rem'}} >
                         <Link to={urlPartReplacer(paths.platforms.observationsWind, ':id', this.props.platformId)} >
                             <WindCard 

@@ -54,6 +54,18 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
         const daysAgo = new Date()
         daysAgo.setDate(daysAgo.getDate() - this.props.days)
 
+        const filteredSpeeds = speeds.map((d, index) => {
+            const data = d.timeSeries.filter(
+                (r) => r.time > daysAgo
+            ).map(
+                (r) => [r.time.valueOf(), round(r.reading, 1)]
+            )
+            return data
+        })
+
+        if (filteredSpeeds[0].length < 1) {
+            return null
+        }
         const speedsSeries = speeds.map((d, index) => {
             // Filter windspeeds to only include data from the time range
             const data = d.timeSeries.filter(
