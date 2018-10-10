@@ -35,3 +35,4 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 *.ipynb
 docs
+build

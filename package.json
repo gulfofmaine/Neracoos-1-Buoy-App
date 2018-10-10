@@ -32,7 +32,7 @@
   "scripts": {
     "start-js": "react-scripts-ts start",
     "start": "npm-run-all -p start-js",
-    "build": "npm run build-css && react-scripts-ts build",
+    "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "docs": "typedoc --out docs"
