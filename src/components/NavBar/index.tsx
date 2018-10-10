@@ -22,7 +22,7 @@ import './nav.css'
 
 
 const initialState = {
-    isOpen: true
+    isOpen: false
 }
 
 type State = Readonly<typeof initialState>
