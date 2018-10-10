@@ -18,6 +18,12 @@ const packageJson = require('../package.json')
 
 Sentry.init({
   dsn: 'https://eab04522f42c4efab9d5bfe7d8594e9c@sentry.io/1270344',
+  beforeSend(event: Sentry.SentryEvent) {
+    if (event.exception) {
+      Sentry.showReportDialog()
+    }
+    return event
+  },
   release: packageJson.version
 })
 
