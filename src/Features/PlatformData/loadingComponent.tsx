@@ -76,33 +76,42 @@ export class PlatformLoaderBase extends React.Component<Props & ReduxProps, obje
                         </Col>
                     </Row>
                 )
-            } else if (platform.status !== Status.Loaded) {
-                return (
-                    <Row>
-                        <Col>
-                            <Alert color="primary">
-                                Loading platform {this.props.platformId}.
-                            </Alert>
-                        </Col>
-                    </Row>
-                )
-            } else { 
+            } else if (platform.status === Status.Loaded) {
+                // tslint:disable-next-line:no-console
+                console.log('Platform loaded, displaying children')
+
                 return (
                     this.props.children
                 )
             }
-        } else {
-            this.props.loadPlatform(this.props.platformId)
+        } 
 
-            return (
-                <Row>
-                    <Col>
-                        <Alert color="primary">
-                            Loading platform {this.props.platformId}.
-                        </Alert>
-                    </Col>
-                </Row>
-            )
+        return (
+            <Row>
+                <Col>
+                    <Alert color="primary">
+                        Loading platform {this.props.platformId}.
+                    </Alert>
+                </Col>
+            </Row>
+        )
+
+    }
+
+    public componentDidMount() {
+        this.loadPlatform()
+    }
+
+    public componentDidUpdate() {
+        this.loadPlatform()
+    }
+
+    /** Load platform data if needed */
+    private loadPlatform() {
+        const filteredPlatforms = this.props.platforms.filter((p) => p.id === this.props.platformId)
+
+        if (filteredPlatforms.length === 0) {
+            this.props.loadPlatform(this.props.platformId)
         }
     }
 

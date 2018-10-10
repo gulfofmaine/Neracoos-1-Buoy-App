@@ -97,7 +97,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
             // If there is currently no valid data, then display a card letting us know.
             if (data.length === 0) {
                 return (
-                    <Col md="4" sm="6" style={{paddingTop: '1rem'}}>
+                    <Col md="4" sm="6" style={{paddingTop: '1rem'}} key={index}>
                         <Card>
                             <CardBody>
                                 No data for {humanDataName(type.data_type)} in the last day.
@@ -145,7 +145,6 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                     </Col>
                 ) : null}
                 { dataTypes }
-                
             </Row>
         )
     }

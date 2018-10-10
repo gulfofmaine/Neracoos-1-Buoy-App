@@ -1,3 +1,5 @@
+import * as moment from 'moment'
+
 import { 
     PlatformData, 
     PlatformJson,
@@ -35,7 +37,8 @@ export function transformPlatformJson(json: PlatformJson): PlatformData[] {
         for (const timeString in timeSeries) {
             if (timeSeries.hasOwnProperty(timeString)) {
                 const readings = timeSeries[timeString]
-                const time = new Date(timeString)
+
+                const time = moment(timeString).toDate()
                 
                 // tslint:disable-next-line:forin
                 for (const index in readings) {
