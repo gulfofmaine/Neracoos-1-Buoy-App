@@ -13,7 +13,7 @@ build: down
 	docker-compose run client yarn build
 
 deploy:
-	scp -r ./build awsgmri:/home2/ionic/neracoos1
+	scp -r ./build/* awsgmri:/home2/ionic/neracoos1/www/
 	sentry-cli releases -o gulf-of-maine-research-institu deploys $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") new -e staging
 
 serve-build:
