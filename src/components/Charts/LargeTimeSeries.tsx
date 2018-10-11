@@ -31,12 +31,10 @@ interface Props {
  * Single large time series chart component
  */
 class LargeTimeSeriesChartBase extends React.Component<Props, object> {
-    constructor(props: Props) {
-        super(props)
-    }
 
     public render() {
-        const data = this.props.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
+        const { name, timeSeries, unit } = this.props
+        const data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
         return (
             <HighchartsChart>
@@ -45,15 +43,15 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
                 <XAxis type="datetime" />
 
                 <YAxis>
-                    <YAxis.Title>{ humanUnitName(this.props.unit) }</YAxis.Title>
+                    <YAxis.Title>{ humanUnitName(unit) }</YAxis.Title>
                     <SplineSeries
-                        name={this.props.name}
+                        name={ name }
                         marker={{enabled: false}}
-                        data={data} />
+                        data={ data } />
                 </YAxis>
 
                 <Tooltip
-                    pointFormat={'{point.y} ' + this.props.unit} />
+                    pointFormat={'{point.y} ' + (unit !== null ? unit : '') } />
             </HighchartsChart>
         )
     }
