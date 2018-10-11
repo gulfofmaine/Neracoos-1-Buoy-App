@@ -12,7 +12,7 @@ export const MapPage: React.StatelessComponent<{}> = () => {
             <div className="col">
                 <h2>Map</h2>
                 <PlatformMapLoader>
-                    <PlatformMap />
+                    <PlatformMap platformId='' />
                 </PlatformMapLoader>
             </div>
         </div>

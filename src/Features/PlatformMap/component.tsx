@@ -13,7 +13,6 @@ import {
     Fill, 
     Stroke, 
     Style, 
-    // Text 
 } from 'ol/style'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -49,45 +48,48 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     push
 }, dispatch)
 
+/** If the window is narrower than 800 px we shoudl increase object sizes */
+const adjustPxWidth = 800
 
-/** Basic platform style */
-const platformStyle = new Style({
-    image: new Circle({
-        fill: new Fill({
-            color: 'rgba(255, 153, 0, 0.4)'
-        }),
-        radius: 5,
-        stroke: new Stroke({
-            color: 'red',
-            width: 1
-        })
-    })
-})
-
-const selectedPlatform = new Style({
-    image: new Circle({
-        fill: new Fill({
-            color: 'rgba(255, 153, 0, 0.8)'
-        }),
-        radius: 10,
-        stroke: new Stroke({
-            color: 'red',
-            width: 1
-        })
-    })
-})
 
 /**
  * Platform Map component
  */
 export class PlatformMapBase extends React.Component<Props & ReduxProps, object> {
-    constructor(props: any) {
+    constructor(props: Props & ReduxProps) {
         super(props)
         
         this.onClick = this.onClick.bind(this)
     }
 
     public render() {
+
+        /** Basic platform style */
+        const platformStyle = new Style({
+            image: new Circle({
+                fill: new Fill({
+                    color: 'rgba(255, 153, 0, 0.4)'
+                }),
+                radius: window.innerWidth > adjustPxWidth ? 5 : 10,
+                stroke: new Stroke({
+                    color: 'red',
+                    width: 1
+                })
+            })
+        })
+
+        const selectedPlatform = new Style({
+            image: new Circle({
+                fill: new Fill({
+                    color: 'rgba(255, 153, 0, 0.8)'
+                }),
+                radius: window.innerWidth > adjustPxWidth ? 10 : 15,  // bigger targets on small screens
+                stroke: new Stroke({
+                    color: 'red',
+                    width: 1
+                })
+            })
+        })
 
         const layers = [
             esriLayers.EsriOceanBasemapLayer,

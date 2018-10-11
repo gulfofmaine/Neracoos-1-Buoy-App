@@ -13,7 +13,7 @@ export const HomePage: React.StatelessComponent<{}> = () => {
         <Row>
             <Col>
                 <PlatformMapLoader>
-                    <PlatformMap />
+                    <PlatformMap platformId='' />
                 </PlatformMapLoader>
             </Col>
             <Col>

@@ -46,7 +46,7 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
                     <Col sm={{size: true}}>
                         <PlatformMap 
                             platformId={platformId}
-                            boundingBox={regions.length > 0 ? regions[0].bbox :  null} />
+                            boundingBox={regions.length > 0 ? regions[0].bbox :  undefined } />
                     </Col>
 
                     <Col sm={{size: true}}>
