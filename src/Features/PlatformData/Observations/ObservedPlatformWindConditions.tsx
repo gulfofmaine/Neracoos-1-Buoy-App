@@ -78,6 +78,13 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
                     )
                 }
             }
+
+            Sentry.addBreadcrumb({
+                data: {
+                    platformId: this.props.platformId,
+                    windTimeSeries
+                }
+            })
         }
         
         Sentry.captureMessage('Unable to display wind data for ' + this.props.platformId)
