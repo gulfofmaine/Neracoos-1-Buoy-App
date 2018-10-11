@@ -2,6 +2,9 @@
  * Utilities to translate some of our data source names to much more pronouncable names.
  */
 
+import * as Sentry from '@sentry/browser'
+
+
 export const humanDataNameDict = {
     'air_temperature': 'Air Temperature',
 
@@ -50,5 +53,6 @@ export function humanDataName(dataType: string): string {
     if (humanDataNameDict.hasOwnProperty(dataType)) {
         return humanDataNameDict[dataType]
     }
+    Sentry.captureMessage('Unknown data type: ' + dataType)
     return dataType
 }
