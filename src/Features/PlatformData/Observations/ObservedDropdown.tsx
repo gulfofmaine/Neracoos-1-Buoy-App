@@ -64,7 +64,9 @@ export class ObservedDropdownBase extends React.Component<Props & ReduxProps, St
             const dropdownItems = Array.from(
                 new Set(
                     platform.data_types.filter(
-                        (d) => !d.data_type.includes('wind') // && !d.data_type.includes('sea_water_speed') && !d.data_type.includes('direction_of_sea_water_velocity')
+                        (d) => !d.data_type.includes("wind_from_direction") 
+                            && !d.data_type.includes("wind_gust") 
+                            && !d.data_type.includes("wind_speed")
                     ).map((d) => d.data_type)
                     )
             ).sort((a, b) => humanDataName(a).localeCompare(humanDataName(b))).map((name, index) => {
