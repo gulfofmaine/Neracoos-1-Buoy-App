@@ -13,6 +13,7 @@ import {
     YAxis
 } from 'react-jsx-highcharts'
 
+import { humanUnitName } from '@app/Shared/dataTypes'
 import { round } from '@app/Shared/math'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
@@ -44,7 +45,7 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
                 <XAxis type="datetime" />
 
                 <YAxis>
-                    <YAxis.Title>{this.props.unit}</YAxis.Title>
+                    <YAxis.Title>{ humanUnitName(this.props.unit) }</YAxis.Title>
                     <SplineSeries
                         name={this.props.name}
                         marker={{enabled: false}}
