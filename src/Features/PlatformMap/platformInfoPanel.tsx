@@ -14,6 +14,7 @@ import {
 } from 'reactstrap'
 
 import { round } from '@app/Shared/math'
+import { getProgram } from '@app/Shared/programs'
 
 import { StoreState } from '@app/constants'
 
@@ -54,13 +55,20 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
                 if (platform.properties) {
                     const { name, program, mooring_site_desc } = platform.properties as PlatformProperties
                     const { coordinates } = platform.geometry as Geometry
+
+                    const programMeta = getProgram(program)
+
                     return (
                         <Card>
                             <CardBody>
                                 <CardTitle>{ name }</CardTitle>
-                                <CardSubtitle>{ mooring_site_desc } - { program }</CardSubtitle>
+                                <CardSubtitle>
+                                    <a href={programMeta.url}>{ programMeta.full_name }</a>
+                                </CardSubtitle>
+                                
                                 <CardText>
                                     <b>Lat:</b> { round(coordinates[1]) } <b>Lon:</b> { round(coordinates[0]) }
+                                    <br />{ mooring_site_desc }
                                     
                                 </CardText>
                             </CardBody>
