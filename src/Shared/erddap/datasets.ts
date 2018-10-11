@@ -20,6 +20,7 @@ const NWW3: ErddapDataset = {
     datasetType: DatasetTypes.grid,
     depth: 0,
     invertLongitude: true,
+    name: 'NOAA Wave Model',
     server: erddapServers.coastWatch
 }
 
@@ -30,6 +31,7 @@ const WW3: ErddapDataset = {
     datasetId: 'WW3_72_GulfOfMaine_latest',  // 'WW3_GulfOfMaine_latest',
     datasetType: DatasetTypes.grid,
     invertLongitude: false,
+    name: 'Bedford Institute Wave Model',
     server: erddapServers.neracoos
 }
 

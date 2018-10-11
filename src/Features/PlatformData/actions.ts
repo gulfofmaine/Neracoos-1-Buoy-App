@@ -416,7 +416,7 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
             } else { // Otherwise notify that there is no data to load.
                 return dispatch(platformMetadataError(
                     dataset,
-                    dataset.datasetId + ' is not avaliable for the current time period.'
+                    dataset.name + ' is not avaliable for the current time period.'
                 ))
             }
 
@@ -426,7 +426,7 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
             console.log(error)
             Sentry.captureException(error)
 
-            return dispatch(platformMetadataError(dataset, 'Unknown error loading ' + dataset.datasetId))
+            return dispatch(platformMetadataError(dataset, 'Unknown error loading ' + dataset.name))
         }
     }
 }
