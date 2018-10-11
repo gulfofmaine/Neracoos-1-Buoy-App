@@ -191,12 +191,35 @@ export const platformDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
             let text = await result.text()
 
             // If the json has malformed HTML at the beginning, strip the html
-            if (text.includes('>')) {
+            if (text.indexOf('<') === 0) {
                 text = text.slice(text.lastIndexOf('>') + 1)
                 Sentry.captureMessage(platformId + ' has malformed but recoverable data.')
             }
 
-            const json = JSON.parse(text) as PlatformJson
+            let json: PlatformJson
+            try {
+                json = JSON.parse(text)
+            } catch(error) {
+                // tslint:disable-next-line:no-console
+                console.log(error)
+                Sentry.addBreadcrumb({
+                    data: {
+                        platformId,
+                        text
+                    },
+                    message: 'Error parsing JSON from text'
+                })
+                Sentry.captureException(error)
+
+                return dispatch(
+                    platformDataError(
+                        platformId,
+                        platformId
+                        + ' did not return valid data.'
+                        + ' Please try again later, and let us know if the issue reoccurs.'
+                    )
+                )
+            }
 
             const data = transformPlatformJson(json)
 
