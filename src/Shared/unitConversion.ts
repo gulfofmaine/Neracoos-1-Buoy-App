@@ -35,6 +35,7 @@ export function convertUnit(unit: string, value: number): string {
                 return ' (' + conversion(value, 'm', 'ft') + " feet)"
             } else {
                 // nautical miles are not currently avaliable
+                // they should be avaliable in the next release
                 //  + conversion(value, 'm', 'nMi') + 'nm, ' 
                 return ' (' + conversion(value, 'm', 'mi') + ' miles)'
             }

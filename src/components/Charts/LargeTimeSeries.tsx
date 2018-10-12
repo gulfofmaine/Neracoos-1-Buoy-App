@@ -72,7 +72,6 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
 
                 <Tooltip
                     formatter={pointFormatMaker(unit)} />
-                    // pointFormat={'{point.y} ' + (unit !== null ? unit : '') } />
             </HighchartsChart>
         )
     }

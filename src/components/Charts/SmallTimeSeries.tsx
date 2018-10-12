@@ -70,7 +70,6 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
                 </YAxis>
 
                 <Tooltip 
-                    // pointFormat={'{point.y} ' + unit}
                     formatter={pointFormatMaker(unit)}
                 />
             </HighchartsChart>

@@ -10,6 +10,7 @@ import * as actionTypes from './actionTypes'
 import { PlatformLocationsJson, PlatformProperties } from './types'
 
 import { StoreState } from '@app/constants'
+import { problematicPlatforms } from '@app/Shared/platforms'
 
 // Action types
 export interface PlatformLocationsLoadSucccess {
@@ -74,7 +75,7 @@ export const platformLocationsLoad: ActionCreator<ThunkAction<Promise<Action>, S
             for (const platform in json) {
                 if (json.hasOwnProperty(platform)) {
                     const { lat, lon, data_types, data_depths, ...properties } = json[platform]
-                    if (properties.active) {
+                    if (properties.active && !problematicPlatforms.has(platform)) {
                         const platformProperties = properties as PlatformProperties
                         platformProperties.name = platform
                         platformProperties.sensors = []
