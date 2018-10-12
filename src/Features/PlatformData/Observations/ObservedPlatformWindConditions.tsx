@@ -13,6 +13,7 @@ import {
 
 import { WindTimeSeriesChart } from '@app/components/Charts'
 import { StoreState } from '@app/constants'
+import { DataTimeSeries } from '@app/Shared/timeSeries'
 
 import { Platform } from '../types'
 
@@ -45,12 +46,12 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
             barbsPerDay = 2
         }
 
-        const filteredPlatforms = this.props.platforms.filter((p) => p.id === this.props.platformId)
+        const filteredPlatforms: Platform[] = this.props.platforms.filter((p) => p.id === this.props.platformId)
 
         if (filteredPlatforms.length > 0) {
-            const platform = filteredPlatforms[0]
+            const platform: Platform = filteredPlatforms[0]
 
-            const windTimeSeries = platform.data_types.filter(
+            const windTimeSeries: DataTimeSeries[] = platform.data_types.filter(
                 (d) => d.data_type.includes('wind') && !d.data_type.includes('waves')
             ).map(
                 (type) => ({
@@ -61,7 +62,7 @@ export class ObservedPlatformWindConditionsBase extends React.Component<Props & 
             )
 
             if (windTimeSeries.length > 0) {
-                if (windTimeSeries[0].data !== undefined && windTimeSeries[0].data.length > 0) {
+                if (windTimeSeries[0].timeSeries !== undefined && windTimeSeries[0].timeSeries.length > 0) {
                     return (
                         <Row>
                             <Col>

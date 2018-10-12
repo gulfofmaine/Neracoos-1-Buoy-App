@@ -21,6 +21,9 @@ export const humanDataNameDict = {
     'mean_wave_direction': 'Wave Direction',
 
     'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
+
+    'oxygen_satruation': 'Oxygen Saturation',
+    'percent_oxygen_saturation': 'Oxygen Saturation',
     
     'sea_level_pressure': 'Air Pressure',
     'sea_water_density': 'Water Density',
@@ -61,6 +64,8 @@ export function humanDataName(dataType: string): string {
 }
 
 export const humanUnitNamesDict = {
+    '%': 'Percent',
+
     'cm/s': 'Centimeters / Second',
 
     'kg/m3': 'Kilograms / Cubic Meter',
@@ -82,7 +87,7 @@ export const humanUnitNamesDict = {
 
     'Sec': 'Seconds',
 
-    'uATM': 'Microatmospheres (uATM)'
+    'uATM': 'Microatmospheres (uATM)',
 }
 
 /**
@@ -118,6 +123,9 @@ export const dataBounds = {
     // 'mean_wave_direction': 'Wave Direction',
 
     // 'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
+
+    // 'oxygen_satruation': 'Oxygen Saturation',
+    'percent_oxygen_saturation': [75, 90],
     
     // 'sea_level_pressure': 'Air Pressure',
     // 'sea_water_density': 'Water Density',
