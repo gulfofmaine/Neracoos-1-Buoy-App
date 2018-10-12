@@ -18,7 +18,7 @@ import {
     StoreState 
 } from '@app/constants'
 
-import { humanDataName } from '@app/Shared/dataTypes'
+import { humanDataName, naturalBounds } from '@app/Shared/dataTypes'
 import { round } from '@app/Shared/math'
 import { urlPartReplacer } from '@app/Shared/urlParams'
 
@@ -117,6 +117,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
             }
 
             const latest = data[data.length - 1]
+            const bounds = naturalBounds(type.data_type)
 
             return (
                 <Col key={index} md="4" sm="6" style={{paddingTop: '1rem'}}>
@@ -133,7 +134,9 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                                 <SmallTimeSeriesChart 
                                     name={type.data_type} 
                                     timeSeries={data}
-                                    unit={type.unit} />
+                                    unit={type.unit} 
+                                    softMin={bounds[0]}
+                                    softMax={bounds[1]}/>
                             </CardBody>
                         </Card>
                     </Link>

@@ -99,3 +99,60 @@ export function humanUnitName(unit: string): string {
     Sentry.captureMessage('Unknown unit name: ' + unit)
     return unit
 }
+
+
+/** Natural bounds that we like to view datasets with */
+export const dataBounds = {
+    'air_temperature': [10, 20],
+
+    // 'chlorophyll': 'Chlorophyll',
+
+    // 'dew_point_temperature': 'Dew Point',
+    
+    // 'direction_of_sea_water_velocity': 'Current Direction',
+
+    // 'dissolved_oxygen': 'Dissolved Oxygen',
+    
+    'dominant_wave_period': [0, 5],
+
+    // 'mean_wave_direction': 'Wave Direction',
+
+    // 'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
+    
+    // 'sea_level_pressure': 'Air Pressure',
+    // 'sea_water_density': 'Water Density',
+    // 'sea_water_electrical_conductivity': 'Water Conductivity',
+    // 'sea_water_salinity': 'Salinity',
+    // 'sea_water_speed': 'Current Speed',
+    // 'sea_water_temperature': 'Water Temperature',
+    
+    'significant_height_of_wind_and_swell_waves': [0, 1],
+
+    // 'surface_partial_pressure_of_carbon_dioxide_in_air': 'Partial Surface Pressure of Carbon Dioxide in Air',
+    // 'surface_partial_pressure_of_carbon_dioxide_in_sea_water': 'Partial Surface Pressure of Carbon Dioxide in Sea Water',
+
+    // 'turbidity': 'Turbidity',
+
+    'pressure_tendency': [undefined, undefined],
+
+    'visibility_in_air': [0, 100],
+
+    'wind_from_direction': [undefined, undefined],
+    'wind_gust': [0, 10],
+    'wind_speed': [0, 10],
+}
+
+/**
+ * Return the natural min and max that a chart should display for a data type.
+ * If the min and max are unknown, it returns unknown instead.
+ * 
+ * @param dataType 
+ * @returns [min, max]
+ */
+export function naturalBounds(dataType: string): Array<number | undefined> {
+    if (dataBounds.hasOwnProperty(dataType)) {
+        return dataBounds[dataType]
+    }
+
+    return [undefined, undefined]
+}

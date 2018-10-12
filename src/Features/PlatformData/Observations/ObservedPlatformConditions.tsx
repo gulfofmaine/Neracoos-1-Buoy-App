@@ -11,7 +11,7 @@ import {
 import { LargeTimeSeriesChart } from '@app/components/Charts'
 import { StoreState } from '@app/constants'
 
-import { humanDataName } from '@app/Shared/dataTypes'
+import { humanDataName, naturalBounds } from '@app/Shared/dataTypes'
 
 import { Platform } from '../types'
 
@@ -56,11 +56,18 @@ export class ObservedPlatformConditionsBase extends React.Component<Props & Redu
 
                 const depth = d.depth > 0 ? ' at ' + d.depth + 'm below' : ''
 
+                const bounds = naturalBounds(d.data_type)
+
                 return (
                     <Row key={index}>
                         <Col>
                             <h4>{humanDataName(d.data_type)}{depth}</h4>
-                            <LargeTimeSeriesChart timeSeries={d.data} unit={d.unit} name={humanDataName(d.data_type)} /> 
+                            <LargeTimeSeriesChart 
+                                timeSeries={d.data} 
+                                unit={d.unit} 
+                                name={humanDataName(d.data_type)} 
+                                softMin={bounds[0]}
+                                softMax={bounds[1]} /> 
                         </Col>
                     </Row>
                 )

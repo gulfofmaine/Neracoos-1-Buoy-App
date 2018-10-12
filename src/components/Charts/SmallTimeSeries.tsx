@@ -24,6 +24,10 @@ interface Props {
     name: string
     /** Unit time series is measured in */
     unit: string
+    /** Soft minimum for Y axis */
+    softMin: number | undefined
+    /** Soft maximum for Y axis */
+    softMax: number | undefined
 }
 
 /**
@@ -32,7 +36,8 @@ interface Props {
 class SmallTimeSeriesChartBase extends React.Component<Props, object> {
 
     public render() {
-        const data = this.props.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
+        const { name, softMax, softMin, timeSeries, unit } = this.props
+        const data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
         return (
             <HighchartsChart>
@@ -40,16 +45,18 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
 
                 <XAxis type='datetime' />
 
-                <YAxis>
-                    <YAxis.Title>{this.props.unit}</YAxis.Title>
+                <YAxis
+                    softMin={ softMin }
+                    softMax={ softMax }>
+                    <YAxis.Title>{ unit }</YAxis.Title>
                     <SplineSeries
-                        name={this.props.name}
+                        name={ name }
                         marker={{enabled: false}}
                         data={data} />
                 </YAxis>
 
                 <Tooltip 
-                    pointFormat={'{point.y} ' + this.props.unit}
+                    pointFormat={'{point.y} ' + unit}
                 />
             </HighchartsChart>
         )

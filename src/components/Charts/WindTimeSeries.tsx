@@ -126,7 +126,8 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
 
                 <XAxis type='datetime' />
 
-                <YAxis>
+                <YAxis
+                    softMin={0}>
                     <YAxis.Title>m/s</YAxis.Title>
                     { speedsSeries }
 

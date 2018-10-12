@@ -25,6 +25,10 @@ interface Props {
     name: string
     /** Unit to display on Y axis */
     unit: string
+    /** Soft minimum for Y axis */
+    softMin: number | undefined
+    /** Soft maximum for Y axis */
+    softMax: number | undefined
 }
 
 /**
@@ -33,7 +37,7 @@ interface Props {
 class LargeTimeSeriesChartBase extends React.Component<Props, object> {
 
     public render() {
-        const { name, timeSeries, unit } = this.props
+        const { name, timeSeries, unit, softMin, softMax } = this.props
         const data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
         return (
@@ -42,7 +46,9 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
 
                 <XAxis type="datetime" />
 
-                <YAxis>
+                <YAxis 
+                    softMin={softMin}
+                    softMax={softMax}>
                     <YAxis.Title>{ humanUnitName(unit) }</YAxis.Title>
                     <SplineSeries
                         name={ name }
