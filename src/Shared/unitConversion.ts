@@ -25,12 +25,13 @@ function conversion(value:number, from: string, to:string): number {
  * @param value Value of unit
  */
 export function convertUnit(unit: string, value: number): string {
+    unit = unit.toLowerCase()
     switch(unit) {
 
-        case 'Deg C':
+        case 'deg c':
             return ' (' + conversion(value, 'C', 'F') + '° F)'
         
-        case 'Meters':
+        case 'meters':
             if (value < 100) {
                 return ' (' + conversion(value, 'm', 'ft') + " feet)"
             } else {

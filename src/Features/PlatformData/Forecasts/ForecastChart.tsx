@@ -69,7 +69,7 @@ class ForecastChartBase extends React.Component<Props & ReduxProps, object> {
 
         return (
             <MultipleLargeTimeSeriesChart 
-                unit='meters'
+                unit='Meters'
                 data={data} />
         )
     }

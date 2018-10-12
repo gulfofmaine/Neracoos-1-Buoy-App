@@ -16,6 +16,20 @@ import {
 
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
+import { convertUnit } from '@app/Shared/unitConversion'
+
+
+function formatterWrapper(unit) {
+    return function pointFormatter(this: any) {
+
+        // tslint:disable-next-line:no-console
+        console.log(this)
+    
+        return this.points.map((p) => 
+            `<b>${p.series.name}:</b> ${p.y} m ${convertUnit(unit, p.y)}`
+        ).join('<br />')
+    }
+}
 
 
 interface Props {
@@ -60,7 +74,8 @@ class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
                 <Legend />
 
                 <Tooltip
-                    valueSuffix='m'
+                    formatter={formatterWrapper(this.props.unit)}
+                    // valueSuffix='m'
                     shared={true} />
 
             </HighchartsChart>
