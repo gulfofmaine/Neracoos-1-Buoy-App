@@ -20,6 +20,7 @@ import {
 
 import { humanDataName, naturalBounds } from '@app/Shared/dataTypes'
 import { round } from '@app/Shared/math'
+import { convertUnit } from '@app/Shared/unitConversion'
 import { urlPartReplacer } from '@app/Shared/urlParams'
 
 import { Platform } from '../types'
@@ -128,6 +129,7 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
                             <CardHeader>
                                 
                                     {humanDataName(type.data_type) + depth} - { round(latest.reading, 1) } { type.unit }
+                                     { convertUnit(type.unit, latest.reading)}
                                 
                             </CardHeader>
                             <CardBody style={{padding: '.2rem'}}>

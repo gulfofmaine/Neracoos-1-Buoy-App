@@ -19,6 +19,22 @@ import {
 
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
+import { convertUnit } from '@app/Shared/unitConversion'
+
+
+/**
+ * Allow our tooltip to convert windspeeds to units that people might be more used to.
+ * 
+ * @param this Highcharts position value
+ */
+function pointFormatter(this: any) {
+    return this.points.map((p) => {
+        if (p.series.name === 'Direction') {
+            return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${p.point.beaufort})`
+        }
+        return `<b>${p.series.name}:</b> ${p.y} m/s ${convertUnit('m/s', p.y)}`
+    }).join('<br />')
+}
 
 
 interface Props {
@@ -144,6 +160,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
                 ) : null}
 
                 <Tooltip 
+                    formatter={pointFormatter}
                     shared={true} />
             </HighchartsChart>
         )

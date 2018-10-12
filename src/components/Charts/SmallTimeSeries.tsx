@@ -15,6 +15,20 @@ import {
 
 import { round } from '@app/Shared/math'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
+import { convertUnit } from '@app/Shared/unitConversion'
+
+
+/**
+ * Wrap up our tooltip formatting function so we can specifiy the unit it should use
+ * 
+ * @param unit Unit that the chart should conver from
+ * @returns A function ready to be called by tooltip to convert our units.
+ */
+function pointFormatMaker(unit: string) {
+    return function pointFormatter(this: any) {
+        return `${this.y} ${unit} ${convertUnit(unit, this.y)}`
+    }
+}
 
 
 interface Props {
@@ -56,7 +70,8 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
                 </YAxis>
 
                 <Tooltip 
-                    pointFormat={'{point.y} ' + unit}
+                    // pointFormat={'{point.y} ' + unit}
+                    formatter={pointFormatMaker(unit)}
                 />
             </HighchartsChart>
         )

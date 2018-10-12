@@ -10,6 +10,7 @@ import {
 
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
+import { convertUnit } from '@app/Shared/unitConversion'
 
 import { WindTimeSeriesChart } from '@app/components/Charts'
 
@@ -50,8 +51,8 @@ export class WindCard extends React.Component<Props, object> {
                     <Card>
                         <CardHeader>
                             Winds 
-                            { speed.length > 0 ? ' - ' + round(speed[0].data[speed[0].data.length - 1].reading, 1) : null }
-                            { gust.length > 0 ? ' gusting to ' + round(gust[0].data[gust[0].data.length - 1].reading, 1) + ' ' + gust[0].unit : null}
+                            { speed.length > 0 ? ' - ' + round(speed[0].data[speed[0].data.length - 1].reading, 1) + ' ' + speed[0].unit + convertUnit('m/s', speed[0].data[speed[0].data.length - 1].reading) : null }
+                            { gust.length > 0 ? ' gusting to ' + round(gust[0].data[gust[0].data.length - 1].reading, 1) + ' ' + gust[0].unit + convertUnit('m/s', gust[0].data[gust[0].data.length - 1].reading): null}
                             </CardHeader>
                         <CardBody style={{padding: '.2rem'}}>
                             <WindTimeSeriesChart
