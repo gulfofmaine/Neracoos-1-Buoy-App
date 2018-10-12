@@ -9,7 +9,7 @@ export const AboutPage: React.StatelessComponent<{}> = () => {
     return (
         <div className="row">
             <div className="col">
-                <DrupalBlock node="node/26" />
+                <DrupalBlock node="node/28" />
             </div>
         </div>
     )

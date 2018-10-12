@@ -17,7 +17,7 @@ export const HomePage: React.StatelessComponent<{}> = () => {
                 </PlatformMapLoader>
             </Col>
             <Col>
-                <DrupalBlock node="node/5" />
+                <DrupalBlock node="node/27" />
             </Col>
         </Row>
     )
