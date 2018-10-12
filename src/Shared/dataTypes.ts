@@ -18,6 +18,8 @@ export const humanDataNameDict = {
     
     'dominant_wave_period': 'Wave Period',
 
+    'ED_PAR': 'Photosynthetically_active_radiation',
+
     'mean_wave_direction': 'Wave Direction',
 
     'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
@@ -76,6 +78,7 @@ export const humanUnitNamesDict = {
     
     
     'Meters': 'Meters',
+    'MicroEinsteins/m2/s': 'MicroEinsteins/m2/s',
     'mb': 'Millibars',
     'mg chl/m<sup>3</sup>': 'Milligrams Chlorophyll / Cubic Meter',
     'ml/l': 'Milliliters / liter',
