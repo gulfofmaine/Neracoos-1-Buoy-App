@@ -35,7 +35,7 @@ patch:
 release-patch: down patch build sentry deploy
 
 rm-docs:
-	rm -r docs/
+	rm -r docs/ || true
 
 docs: rm-docs
 	docker-compose exec client yarn docs
