@@ -6,7 +6,9 @@ import { Feature as TurfFeature } from '@turf/helpers'
 import { push } from 'connected-react-router'
 import Feature from 'ol/Feature'
 import GeoJSON from 'ol/format/GeoJSON'
+import Layer from 'ol/layer/Layer'
 import VectorLayer from 'ol/layer/Vector'
+import { AttributionLike } from 'ol/source'
 import VectorSource from 'ol/source/Vector'
 import { 
     Circle, 
@@ -91,7 +93,9 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
             })
         })
 
-        const layers = [
+        const attribution: AttributionLike = 'NERACOOS'
+
+        const layers: Layer[] = [
             esriLayers.EsriOceanBasemapLayer,
             esriLayers.EsriOceanReferenceLayer
         ]
@@ -100,10 +104,14 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
 
         if (filteredPlatforms.length > 0) {
             const platformSource = new VectorSource({
+                attributions: [attribution],
                 features: (new GeoJSON()).readFeatures({
                     features: filteredPlatforms,
                     type: 'FeatureCollection'
-                }, {featureProjection: 'EPSG:3857'})
+                }, {
+                    dataProjection: 'EPSG:4326',
+                    featureProjection: 'EPSG:3857'
+                })
             })
 
             const platformLayer = new VectorLayer({
@@ -122,6 +130,7 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
                     features: selectedPlatforms,
                     type: 'FeatureCollection'
                 }, {
+                    dataProjection: 'EPSG:4326',
                     featureProjection: 'EPSG:3857'
                 })
             })
@@ -148,15 +157,11 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
 
     /** Handle Feature selection */
     private onClick(feature: Feature) {
-        if (feature.values_) {
-            if (feature.values_.name) {
-                const { name } = feature.values_
-                const url = urlPartReplacer(paths.platforms.platform, ':id', name)
 
-                this.props.push(url)
-            }
-            
-        }
+        const name: string = feature.get('name')
+        const url = urlPartReplacer(paths.platforms.platform, ':id', name)
+
+        this.props.push(url)
     }
 }
 
