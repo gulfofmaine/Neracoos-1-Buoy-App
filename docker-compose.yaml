@@ -10,3 +10,11 @@ services:
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules/
+
+  test:
+    build: .
+    image: neracoos-react
+    command: "yarn test"
+    volumes:
+    - .:/usr/src/app
+    - /usr/src/app/node_modules/

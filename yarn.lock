@@ -17,43 +17,43 @@
     js-tokens "^4.0.0"
 
 "@sentry/browser@^4.0.5":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-4.1.0.tgz#f621c40ebc1c8930c76eef00a79992f7e287d00f"
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-4.1.1.tgz#9db1e765bf2afcbe0fb44b028abdf5c74d6e77b0"
   dependencies:
-    "@sentry/core" "4.1.0"
+    "@sentry/core" "4.1.1"
     "@sentry/types" "4.1.0"
-    "@sentry/utils" "4.1.0"
+    "@sentry/utils" "4.1.1"
 
-"@sentry/core@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-4.1.0.tgz#89cbdd4805d2763962e66735d5b540d0e8cbe352"
+"@sentry/core@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-4.1.1.tgz#013ee6ee32033b9a404da5bd27f5a2417dcb1a89"
   dependencies:
-    "@sentry/hub" "4.1.0"
-    "@sentry/minimal" "4.1.0"
+    "@sentry/hub" "4.1.1"
+    "@sentry/minimal" "4.1.1"
     "@sentry/types" "4.1.0"
-    "@sentry/utils" "4.1.0"
+    "@sentry/utils" "4.1.1"
 
-"@sentry/hub@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-4.1.0.tgz#fc89c0139320fc8a3e124e253dc484316568a6fa"
+"@sentry/hub@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-4.1.1.tgz#ef093fe4f42587c7868b66299584b5a9f9d67fc6"
   dependencies:
     "@sentry/types" "4.1.0"
-    "@sentry/utils" "4.1.0"
+    "@sentry/utils" "4.1.1"
 
-"@sentry/minimal@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-4.1.0.tgz#4af78ff99022dc76d34c8ee486f524e860e4fe45"
+"@sentry/minimal@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-4.1.1.tgz#46d8a35e0d82b0903ed83dba21d8344b601145a5"
   dependencies:
-    "@sentry/hub" "4.1.0"
+    "@sentry/hub" "4.1.1"
     "@sentry/types" "4.1.0"
 
 "@sentry/types@4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-4.1.0.tgz#ebffb9857abbecaad5d1c00152a50f72ac9757a5"
 
-"@sentry/utils@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-4.1.0.tgz#bda3147b8f4b988680a7415ca64790f91f090acb"
+"@sentry/utils@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-4.1.1.tgz#5624517d582c870348f234df27c509db95d4fdc6"
   dependencies:
     "@sentry/types" "4.1.0"
 
@@ -165,8 +165,8 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.5.tgz#6489ebda4452592d3fd37aefa57eedc01ed13378"
 
 "@types/node@^10.11.0":
-  version "10.11.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.6.tgz#ce5690df6cd917a9178439a1013e39a7e565c46e"
+  version "10.11.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.7.tgz#0e75ca9357d646ca754016ca1d68a127ad7e7300"
 
 "@types/ol@^4.6.2":
   version "4.6.2"
@@ -6509,10 +6509,10 @@ redux-thunk@^2.3.0:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
 
 redux@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.0.tgz#aa698a92b729315d22b34a0553d7e6533555cc03"
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   dependencies:
-    loose-envify "^1.1.0"
+    loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
 
 regenerate@^1.2.1:
@@ -7671,8 +7671,8 @@ typescript@3.0.x:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.3.tgz#4853b3e275ecdaa27f78fda46dc273a7eb7fc1c8"
 
 typescript@^3.0.3:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.2.tgz#c03a5d16f30bb60ad8bb6fe8e7cb212eedeec950"
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.3.tgz#01b70247a6d3c2467f70c45795ef5ea18ce191d5"
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
