@@ -40,3 +40,6 @@ rm-docs:
 docs: rm-docs
 	docker-compose exec client yarn docs
 	python3 -m http.server -d docs/
+
+cov:
+	docker-compose exec test yarn test --coverage
