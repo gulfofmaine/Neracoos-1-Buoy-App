@@ -14,7 +14,7 @@ services:
   test:
     build: .
     image: neracoos-react
-    command: "yarn test"
+    command: "yarn test --watchAll"
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules/

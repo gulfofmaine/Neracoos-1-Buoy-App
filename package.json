@@ -27,7 +27,7 @@
     "react-redux": "^5.0.7",
     "react-responsive": "^5.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "2.17.0",
+    "react-scripts-ts": "3.1.0",
     "react-sizeme": "^2.5.2",
     "reactstrap": "^6.4.0",
     "redux": "^4.0.0",
@@ -42,12 +42,23 @@
     "docs": "typedoc --out docs"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.14",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.0",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
+    "@types/react-test-renderer": "^16.0.3",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "react-test-renderer": "^16.5.2",
     "redux-devtools-extension": "^2.13.5",
     "typedoc": "0.13.0",
     "typescript": "^3.0.3"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@app/(.*)": "<rootDir>/src/$1"
+    }
   }
 }
