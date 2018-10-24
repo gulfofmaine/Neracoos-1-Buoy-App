@@ -6,6 +6,19 @@ import convert from 'convert-units'
 
 import { round } from './math'
 
+const unitNames = {
+    'Deg C': 'C',
+    'Meters': 'm',
+    'meters': 'm',
+}
+
+function compatabile_name(unit): string {
+    if (unitNames.hasOwnProperty(unit)) {
+        return unitNames[unit]
+    }
+    return unit
+}
+
 /**
  * We prefer to round our units to one place, 
  * so let's combine the functions to make things cleaner
@@ -14,8 +27,8 @@ import { round } from './math'
  * @param from Source unit
  * @param to Destination unit
  */
-function conversion(value:number, from: string, to:string): number {
-    return round(convert(value).from(from).to(to), 1)
+export function conversion(value:number, from: string, to:string): number {
+    return round(convert(value).from(compatabile_name(from)).to(to), 1)
 }
 
 /**
