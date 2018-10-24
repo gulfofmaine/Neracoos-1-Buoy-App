@@ -34,6 +34,8 @@ function mapStateToProps({ platformData }: StoreState) {
     }
 }
 
+const itemStyle = {padding: '.5rem', paddingLeft: '1rem'}
+
 
 /**
  * Current observations table component
@@ -48,8 +50,13 @@ export class ObservationTableBase extends React.Component<Props & ReduxProps, ob
         } else {
             const platform = filteredPlatforms[0]
 
+            const time = platform.data_types.filter((d) => d.data.length > 0).map((d) => d.data[0].time)
+
             return (
                 <ListGroup style={{paddingTop: '1rem'}}>
+                    { time.length > 0 ? (
+                        <ListGroupItem style={itemStyle}><b>Last updated at:</b> { time[0].toLocaleString() }</ListGroupItem>
+                    ) : null }
                     <TableItem platform={platform} data_type='wind_speed' name='Wind Speed' prefered_unit='knot' printed_unit='knots' />
                     <TableItem platform={platform} data_type='wind_gust' name='Wind Gusts' prefered_unit='knot' printed_unit='knots'/>
                     <TableItem platform={platform} data_type='wind_from_direction' name='Wind Direction' printed_unit='degrees' />
@@ -85,7 +92,7 @@ class TableItem extends React.Component<TableItemProps, object> {
             const selected = data[0]
             const reading = selected.data[selected.data.length - 1]
 
-            return <ListGroupItem style={{padding: '.5rem', paddingLeft: '1rem'}}><b>{ this.props.name }:</b> { this.props.prefered_unit !== undefined ? conversion(reading.reading, selected.unit, this.props.prefered_unit!) : round(reading.reading, 1) } { this.props.printed_unit }</ListGroupItem>
+            return <ListGroupItem style={ itemStyle }><b>{ this.props.name }:</b> { this.props.prefered_unit !== undefined ? conversion(reading.reading, selected.unit, this.props.prefered_unit!) : round(reading.reading, 1) } { this.props.printed_unit }</ListGroupItem>
         }
     }
 }

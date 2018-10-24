@@ -56,7 +56,9 @@ export function convertUnit(unit: string, value: number): string {
 
         case 'm/s':
             return ' (' + conversion(value, 'm/s', 'knot') + ' knots, ' + conversion(value, 'm/s', 'm/h') + ' mph)'
-        
+        case 'knot':
+            return ' (' + conversion(value, 'knot', 'm/s') + ' m/s, ' + conversion(value, 'knot', 'm/h') + ' mph)'
+
         default:
             return ''
     }

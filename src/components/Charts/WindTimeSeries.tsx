@@ -19,7 +19,10 @@ import {
 
 import { round } from '@app/Shared/math'
 import { DataTimeSeries } from '@app/Shared/timeSeries'
-import { convertUnit } from '@app/Shared/unitConversion'
+import { 
+    conversion, 
+    convertUnit 
+} from '@app/Shared/unitConversion'
 
 
 /**
@@ -32,7 +35,7 @@ function pointFormatter(this: any) {
         if (p.series.name === 'Direction') {
             return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${p.point.beaufort})`
         }
-        return `<b>${p.series.name}:</b> ${p.y} m/s ${convertUnit('m/s', p.y)}`
+        return `<b>${p.series.name}:</b> ${p.y} knot ${convertUnit('knot', p.y)}`
     }).join('<br />')
 }
 
@@ -87,7 +90,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
             const data = d.timeSeries.filter(
                 (reading) => reading.time > daysAgo
             ).map( // Return Highcharts Spline dataformat [date, reading]
-                (r) => [r.time.valueOf(), round(r.reading, 1)]
+                (r) => [r.time.valueOf(), conversion(r.reading, 'm/s', 'knot') ]
             )
 
             const nameParts = d.name.split('_')
@@ -144,7 +147,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
 
                 <YAxis
                     softMin={0}>
-                    <YAxis.Title>m/s</YAxis.Title>
+                    <YAxis.Title>Knots</YAxis.Title>
                     { speedsSeries }
 
                     { windData.length > 0 ? (
