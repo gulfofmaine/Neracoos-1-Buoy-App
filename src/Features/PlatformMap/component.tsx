@@ -146,9 +146,9 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
 
         return (
             <BaseMap 
-                lon={-65} 
-                lat={42} 
-                startZoom={4} 
+                lon={-68.5} 
+                lat={43.5} 
+                startZoom={6} 
                 layers={layers} 
                 boundingBox={this.props.boundingBox}
                 onClick={this.onClick} />
