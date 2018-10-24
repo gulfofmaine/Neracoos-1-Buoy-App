@@ -19,6 +19,7 @@ export const humanDataNameDict = {
     'dominant_wave_period': 'Wave Period',
 
     'ED_PAR': 'Photosynthetically_active_radiation',
+    'Ed_PAR': 'Photosynthetically Active Radiation',
 
     'mean_wave_direction': 'Wave Direction',
 
@@ -75,7 +76,7 @@ export const humanUnitNamesDict = {
     'Deg': 'Degrees',
     'Deg C': 'Degrees Celsius',
 
-    
+    'F': 'Degrees Fahrenheit',
     
     'Meters': 'Meters',
     'MicroEinsteins/m2/s': 'MicroEinsteins/m2/s',
@@ -85,6 +86,8 @@ export const humanUnitNamesDict = {
     'msiemens/cm': 'Millisiemens / Centimeter',
 
     'NTU': 'Nephelometric Turbidity Units (NTU)',
+
+    'oxygen_saturation': 'Oxygen Saturation',
 
     'PSU': 'Practical Salinity Unit (PSU, g salt / kg sea water)',
 
@@ -146,7 +149,7 @@ export const dataBounds = {
 
     'pressure_tendency': [undefined, undefined],
 
-    'visibility_in_air': [0, 100],
+    'visibility_in_air': [0, 1],
 
     'wind_from_direction': [undefined, undefined],
     'wind_gust': [0, 10],

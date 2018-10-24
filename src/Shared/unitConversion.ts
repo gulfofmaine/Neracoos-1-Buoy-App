@@ -43,6 +43,8 @@ export function convertUnit(unit: string, value: number): string {
 
         case 'deg c':
             return ' (' + conversion(value, 'C', 'F') + '° F)'
+        case 'f':
+            return ' (' + conversion(value, 'F', 'C') + '° C)'
         
         case 'meters':
             if (value < 100) {

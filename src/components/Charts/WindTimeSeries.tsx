@@ -35,7 +35,7 @@ function pointFormatter(this: any) {
         if (p.series.name === 'Direction') {
             return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${p.point.beaufort})`
         }
-        return `<b>${p.series.name}:</b> ${p.y} knot ${convertUnit('knot', p.y)}`
+        return `<b>${p.series.name}:</b> ${p.y} knots ${convertUnit('knot', p.y)}`
     }).join('<br />')
 }
 
