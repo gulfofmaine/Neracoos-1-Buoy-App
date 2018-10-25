@@ -50,7 +50,7 @@ export class ObservationTableBase extends React.Component<Props & ReduxProps, ob
         } else {
             const platform = filteredPlatforms[0]
 
-            const time = platform.data_types.filter((d) => d.data.length > 0).map((d) => d.data[0].time)
+            const time = platform.data_types.filter((d) => d.data.length > 0).map((d) => d.data[d.data.length - 1].time)
 
             return (
                 <ListGroup style={{paddingTop: '1rem'}}>
