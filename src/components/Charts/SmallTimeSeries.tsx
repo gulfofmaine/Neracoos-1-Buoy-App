@@ -26,7 +26,7 @@ import { conversion, convertUnit } from '@app/Shared/unitConversion'
  */
 function pointFormatMaker(unit: string) {
     return function pointFormatter(this: any) {
-        return `${this.y} ${unit} ${convertUnit(unit, this.y)}`
+        return `${(new Date(this.x).toLocaleString())}<br />${this.y} ${unit} ${convertUnit(unit, this.y)}`
     }
 }
 

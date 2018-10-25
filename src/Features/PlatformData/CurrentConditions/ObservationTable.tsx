@@ -50,12 +50,13 @@ export class ObservationTableBase extends React.Component<Props & ReduxProps, ob
         } else {
             const platform = filteredPlatforms[0]
 
-            const time = platform.data_types.filter((d) => d.data.length > 0).map((d) => d.data[d.data.length - 1].time)
+            const times = platform.data_types.filter((d) => d.data.length > 0).map((d) => d.data[d.data.length - 1].time)
+            times.sort()
 
             return (
                 <ListGroup style={{paddingTop: '1rem'}}>
-                    { time.length > 0 ? (
-                        <ListGroupItem style={itemStyle}><b>Last updated at:</b> { time[0].toLocaleString() }</ListGroupItem>
+                    { times.length > 0 ? (
+                        <ListGroupItem style={itemStyle}><b>Last updated at:</b> { times[ times.length - 1 ].toLocaleString() }</ListGroupItem>
                     ) : null }
                     <TableItem platform={platform} data_type='wind_speed' name='Wind Speed' prefered_unit='knot' printed_unit='knots' />
                     <TableItem platform={platform} data_type='wind_gust' name='Wind Gusts' prefered_unit='knot' printed_unit='knots'/>

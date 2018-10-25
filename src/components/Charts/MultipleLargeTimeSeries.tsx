@@ -25,7 +25,7 @@ function formatterWrapper(unit) {
         // tslint:disable-next-line:no-console
         console.log(this)
     
-        return this.points.map((p) => 
+        return `${(new Date(this.x).toLocaleString())}<br />` + this.points.map((p) => 
             `<b>${p.series.name}:</b> ${p.y} m ${convertUnit(unit, p.y)}`
         ).join('<br />')
     }

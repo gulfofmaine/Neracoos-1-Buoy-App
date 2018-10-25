@@ -31,7 +31,7 @@ import {
  * @param this Highcharts position value
  */
 function pointFormatter(this: any) {
-    return this.points.map((p) => {
+    return `${(new Date(this.x).toLocaleString())}<br />` + this.points.map((p) => {
         if (p.series.name === 'Direction') {
             return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${p.point.beaufort})`
         }
