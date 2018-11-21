@@ -1,5 +1,5 @@
 /**
- * Platform map component.
+ * Forecast platform map component.
  */
 
 import { Feature as TurfFeature } from '@turf/helpers'

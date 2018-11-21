@@ -1,3 +1,6 @@
+/**
+ * Link to a the point forecast for a platform
+ */
 import { Feature } from '@turf/helpers'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -22,6 +25,9 @@ function mapStateToProps({ platformMap }: StoreState) {
 }
 
 
+/**
+ * Link to the point forecast for a platform
+ */
 export class ForecastTabLinkBase extends React.Component<Props & ReduxProps, object> {
     public render() {
         if (this.props.platforms.length > 0) {
