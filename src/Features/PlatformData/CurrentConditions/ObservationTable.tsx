@@ -14,7 +14,7 @@ import { StoreState } from '@app/constants'
 
 // import { humanDataName } from '@app/Shared/dataTypes'
 import { round } from '@app/Shared/math'
-import { conversion } from '@app/Shared/unitConversion'
+import { conversion, convertUnit } from '@app/Shared/unitConversion'
 
 import { Platform } from '../types'
 
@@ -93,7 +93,12 @@ class TableItem extends React.Component<TableItemProps, object> {
             const selected = data[0]
             const reading = selected.data[selected.data.length - 1]
 
-            return <ListGroupItem style={ itemStyle }><b>{ this.props.name }:</b> { this.props.prefered_unit !== undefined ? conversion(reading.reading, selected.unit, this.props.prefered_unit!) : round(reading.reading, 1) } { this.props.printed_unit }</ListGroupItem>
+            return (
+                <ListGroupItem style={ itemStyle }>
+                    <b>{ this.props.name }:</b> { this.props.prefered_unit !== undefined ? conversion(reading.reading, selected.unit, this.props.prefered_unit!) : round(reading.reading, 1) } { this.props.printed_unit }
+                        { convertUnit(selected.unit, reading.reading) }
+                    </ListGroupItem>
+            )
         }
     }
 }
