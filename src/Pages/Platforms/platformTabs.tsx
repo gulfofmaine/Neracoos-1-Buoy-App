@@ -28,6 +28,7 @@ import {
     ObservedDropdown,
     PlatformLoader
 } from '@app/Features/PlatformData'
+import { ForecastTabLink } from '@app/Features/PlatformMap'
 
 import { CurrentConditionsPage } from './currentConditions'
 import { ForecastsPage } from './forecasts'
@@ -99,12 +100,10 @@ export class PlatformTabs extends React.Component<RouteComponentProps, State> {
                                         Explanation of Data Types
                                     </a>
                                     <DropdownItem divider={true} />
-                                    <a className="dropdown-item nav-item" href="http://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KGYX.html">
-                                        Marine Forecast
-                                    </a>
+                                    <ForecastTabLink platformId={id} />
                                     <a className="dropdown-item nav-item" href="https://tidesandcurrents.noaa.gov/">
                                         Tides
-                                    </a>
+                                    </a>  
                                 </DropdownMenu>
                             </Dropdown>
                             </Nav>
