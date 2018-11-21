@@ -43,16 +43,16 @@ function mapStateToProps({ platformData }: StoreState) {
     }
 }
 
-/** Data types that we wish to display on the current conditions page */
-const prefferedDataTypes = new Set([
+const prefferedDataTypesList = [
+    'significant_height_of_wind_and_swell_waves',
+    'dominant_wave_period',
     'air_temperature',
     'sea_level_pressure',
-    'visibility_in_air',
-    'dominant_wave_period',
-    'significant_height_of_wind_and_swell_waves',
-    // 'sea_water_temperature',
-    // 'pressure_tendency'
-])
+    'visibility_in_air'
+]
+
+/** Data types that we wish to display on the current conditions page */
+const prefferedDataTypes = new Set(prefferedDataTypesList)
 
 /** Wind data types that we wish to display */
 const windDataTypes = new Set([
@@ -89,6 +89,8 @@ export class CurrentPlatformConditionsBase extends React.Component<Props & Redux
         // The rest of the data to display
         const filteredData = platform.data_types.filter(
             (type) => prefferedDataTypes.has(type.data_type) && type.depth < 2)
+        
+        filteredData.sort((a, b) => prefferedDataTypesList.indexOf(a.data_type) - prefferedDataTypesList.indexOf(b.data_type))
         
         // Data cards
         const dataTypes = filteredData.map((type, index) => {
