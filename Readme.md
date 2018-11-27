@@ -40,3 +40,9 @@ We're tracking exceptions with Sentry.
 ## Documention
 
 We're using [Typedoc](https://typedoc.org) for documentation. Run `make docs` to update the documentation folder and host it at [http://0.0.0.0:8000/](http://0.0.0.0:8000/).
+
+## Testing
+
+The jest test runner will start when you run `make up` and run tests on changed files automatically. 
+
+You can also run `make cov` to generate code coverage.

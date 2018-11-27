@@ -64,9 +64,9 @@ export default class NeracoosNavBar extends React.Component<object, State> {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
 
-                            {/* <NavItem>
-                                <NavLink className="nav-link" activeClassName='active' to={paths.map}>Map</NavLink>
-                            </NavItem> */}
+                            <NavItem>
+                                <NavLink className="nav-link" activeClassName='active' to={paths.map}>Radar Map</NavLink>
+                            </NavItem>
 
                             <NavItem>
                                 <NavLink className="nav-link" activeClassName='active' to={paths.about}>About</NavLink>

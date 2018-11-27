@@ -15,7 +15,7 @@ import {
 
 import { round } from '@app/Shared/math'
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
-import { convertUnit } from '@app/Shared/unitConversion'
+import { conversion, convertUnit } from '@app/Shared/unitConversion'
 
 
 /**
@@ -26,7 +26,7 @@ import { convertUnit } from '@app/Shared/unitConversion'
  */
 function pointFormatMaker(unit: string) {
     return function pointFormatter(this: any) {
-        return `${this.y} ${unit} ${convertUnit(unit, this.y)}`
+        return `${(new Date(this.x).toLocaleString())}<br />${this.y} ${unit} ${convertUnit(unit, this.y)}`
     }
 }
 
@@ -50,8 +50,21 @@ interface Props {
 class SmallTimeSeriesChartBase extends React.Component<Props, object> {
 
     public render() {
-        const { name, softMax, softMin, timeSeries, unit } = this.props
-        const data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
+        const { name, softMax, softMin, timeSeries } = this.props
+        let { unit } = this.props
+        let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
+        if (unit === 'Deg C') {
+            data = timeSeries.map((r) => [r.time.valueOf(), conversion(r.reading, unit, 'F')])
+            unit = 'F'
+        }
+        if (name === 'visibility_in_air') {
+            data = timeSeries.map((r) => [r.time.valueOf(), conversion(r.reading, 'm', 'mi')])
+            unit = 'Miles'
+        }
+        if (name === 'significant_height_of_wind_and_swell_waves') {
+            data = timeSeries.map((r) => [r.time.valueOf(), conversion(r.reading, 'm', 'ft')])
+            unit = 'Feet'
+        }
 
         return (
             <HighchartsChart>

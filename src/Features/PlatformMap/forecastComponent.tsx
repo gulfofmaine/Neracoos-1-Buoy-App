@@ -1,14 +1,15 @@
 /**
- * Platform map component.
+ * Forecast platform map component.
  */
 
 import { Feature as TurfFeature } from '@turf/helpers'
 import { push } from 'connected-react-router'
 import Feature from 'ol/Feature'
 import GeoJSON from 'ol/format/GeoJSON'
+import ImageLayer from 'ol/layer/Image'
 import Layer from 'ol/layer/Layer'
 import VectorLayer from 'ol/layer/Vector'
-import { AttributionLike } from 'ol/source'
+import { AttributionLike, ImageArcGISRest } from 'ol/source'
 import VectorSource from 'ol/source/Vector'
 import { 
     Circle, 
@@ -55,9 +56,9 @@ const adjustPxWidth = 800
 
 
 /**
- * Platform Map component
+ * Forecast Map component
  */
-export class PlatformMapBase extends React.Component<Props & ReduxProps, object> {
+export class ForecastMapBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: Props & ReduxProps) {
         super(props)
         
@@ -95,9 +96,20 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
 
         const attribution: AttributionLike = 'NERACOOS'
 
+        const radarUrl = 'https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer'
+
+        const radarLayer = new ImageLayer({
+            source: new ImageArcGISRest({
+                params: {},
+                ratio: 1,
+                url: radarUrl
+            })
+        })
+
         const layers: Layer[] = [
             esriLayers.EsriOceanBasemapLayer,
-            esriLayers.EsriOceanReferenceLayer
+            esriLayers.EsriOceanReferenceLayer,
+            radarLayer,
         ]
 
         const filteredPlatforms = this.props.platforms.filter((p) => (p.properties as PlatformProperties).name !== this.props.platformId)
@@ -165,5 +177,5 @@ export class PlatformMapBase extends React.Component<Props & ReduxProps, object>
     }
 }
 
-/** Redux connected PlatformMap. See [[PlatformMapBase]] for details. */
-export const PlatformMap = connect(mapStateToProps, mapDispatchToProps)(PlatformMapBase)
+/** Redux connected ForecastMap. See [[ForecastMapBase]] for details. */
+export const ForecastMap = connect(mapStateToProps, mapDispatchToProps)(ForecastMapBase)

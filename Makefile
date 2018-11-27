@@ -35,8 +35,11 @@ patch:
 release-patch: down patch build sentry deploy
 
 rm-docs:
-	rm -r docs/
+	rm -r docs/ || true
 
 docs: rm-docs
 	docker-compose exec client yarn docs
 	python3 -m http.server -d docs/
+
+cov:
+	docker-compose exec test yarn test --coverage

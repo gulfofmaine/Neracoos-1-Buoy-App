@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import {
     Card,
     CardBody,
-    CardSubtitle,
     CardText,
     CardTitle
 } from 'reactstrap'
@@ -61,14 +60,11 @@ export class PlatformInfoPanelBase extends React.Component<Props & ReduxProps, o
                     return (
                         <Card>
                             <CardBody>
-                                <CardTitle>{ name }</CardTitle>
-                                <CardSubtitle>
-                                    <a href={programMeta.url}>{ programMeta.full_name }</a>
-                                </CardSubtitle>
-                                
+                                <CardTitle><a href={programMeta.url}>{ programMeta.full_name }</a> Buoy { name }</CardTitle>
                                 <CardText>
+                                    { mooring_site_desc }
+                                    <br />
                                     <b>Lat:</b> { round(coordinates[1]) } <b>Lon:</b> { round(coordinates[0]) }
-                                    <br />{ mooring_site_desc }
                                     
                                 </CardText>
                             </CardBody>
