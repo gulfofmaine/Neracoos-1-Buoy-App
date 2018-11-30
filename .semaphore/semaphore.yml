@@ -40,4 +40,4 @@ blocks:
       - name: Integration Tests
         commands:
           - yarn start & yarn run wait-on http://localhost:3000/
-          - yarn run cypress run --record --key 457c2db1-c34f-44c5-8d5c-eef06e8ad2cf
+          - yarn run cypress run --record --key 9719f2cf-c8c6-423c-ac09-68004e35b6c7
