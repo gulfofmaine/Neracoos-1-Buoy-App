@@ -26,6 +26,8 @@ describe('Platfrom N01', () => {
         cy.contains('Winds -')
 
         cy.get('[style="margin-top: 1rem;"] > :nth-child(2) > .row').children().should('have.length', 6)
+
+        cy.contains('Knots')
     })
 
     it('Shows wind plot', () => {
@@ -34,6 +36,11 @@ describe('Platfrom N01', () => {
         cy.contains('Observations').click()
         cy.get('[href="#/platform/N01/observations/wind"]').first().click()
         cy.get('h4').contains('Wind')
+        cy.get('svg.highcharts-root')
+        cy.get('svg.highcharts-root').contains('Gust').click()
+        cy.get('svg.highcharts-root').contains('Speed').click()
+        cy.get('svg.highcharts-root').contains('Direction').click()
+        cy.get('svg.highcharts-root').contains('Knots')
     })
 
     it('Shows wave forecast', () => {
@@ -41,6 +48,9 @@ describe('Platfrom N01', () => {
 
         cy.contains('Forecast').click()
         cy.get('h2').contains('Wave forecast')
+
+        cy.get('svg.highcharts-root').contains('Meters')
+        cy.get('svg.highcharts-root').contains('Observed Wave height').click()
     })
 
     it('Has More info menu', () => {
@@ -58,5 +68,20 @@ describe('Platfrom N01', () => {
         cy.contains('Explanation of Data Types')
         cy.contains('Marine Forecast')
         cy.contains('Tides')
+    })
+
+    it('Updated recently', () => {
+        cy.visit('/#/platform/N01')
+
+        cy.contains('Last updated at:').then(($element) => {
+            const text =  $element[0].parentElement.innerText
+
+            const date = new Date(text.split('Last updated at: '))
+
+            const threeDaysAgo = new Date()
+            threeDaysAgo.setDate(threeDaysAgo.getDate() - 3)
+
+            expect(date).greaterThan(threeDaysAgo)
+        })
     })
 })
