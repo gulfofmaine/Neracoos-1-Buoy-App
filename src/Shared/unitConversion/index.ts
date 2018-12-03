@@ -2,9 +2,9 @@
  * Conversion functions for common units
  */
 
-import convert from 'convert-units'
+import * as convert from 'convert-units'
 
-import { round } from './math'
+import { round } from '../math'
 
 const unitNames = {
     'Deg C': 'C',
@@ -38,6 +38,10 @@ export function conversion(value:number, from: string, to:string): number {
  * @param value Value of unit
  */
 export function convertUnit(unit: string, value: number): string {
+    if (unit === null) {
+        return ''
+    }
+
     unit = unit.toLowerCase()
     switch(unit) {
 
