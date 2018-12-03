@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "cypress": "^3.1.2"
+  },
+  "name": "test",
+  "version": "1.0.0",
+  "description": "Testing NERACOOS Mariner's dashboard with Cypress",
+  "main": "index.js",
+  "license": "MIT"
+}
