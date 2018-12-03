@@ -95,8 +95,10 @@ class TableItem extends React.Component<TableItemProps, object> {
 
             return (
                 <ListGroupItem style={ itemStyle }>
-                    <b>{ this.props.name }:</b> { this.props.prefered_unit !== undefined ? conversion(reading.reading, selected.unit, this.props.prefered_unit!) : round(reading.reading, 1) } { this.props.printed_unit }
-                        { convertUnit(selected.unit, reading.reading) }
+                    <b>{ this.props.name }:</b> { 
+                        this.props.prefered_unit !== undefined ? 
+                        ( `${conversion(reading.reading, selected.unit, this.props.prefered_unit!)} ${this.props.printed_unit}` ) : 
+                        (`${round(reading.reading, 1)} ${this.props.printed_unit} ${convertUnit(selected.unit, reading.reading)}` ) }
                     </ListGroupItem>
             )
         }
