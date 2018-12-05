@@ -4,10 +4,18 @@
 
 import * as Sentry from '@sentry/browser'
 import { ConnectedRouter } from 'connected-react-router'
+
+import moment from 'moment-timezone'
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 // import { HashRouter } from 'react-router-dom'
+
+declare global {
+  interface Window { moment: any }
+}
+
+window.moment = moment
 
 /**
  * Load our package.json so that we can access the version

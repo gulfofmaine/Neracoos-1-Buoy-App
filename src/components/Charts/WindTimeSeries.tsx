@@ -40,6 +40,12 @@ function pointFormatter(this: any) {
 }
 
 
+const plotOptions = {
+    time: {
+    	useUTC: false
+    }
+}
+
 interface Props {
     /** Wind data to display */
     data: DataTimeSeries[]
@@ -140,7 +146,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
         }
 
         return (
-            <HighchartsChart>
+            <HighchartsChart time={plotOptions.time}>
                 <Chart height={this.props.height} />
 
                 <XAxis type='datetime' />
