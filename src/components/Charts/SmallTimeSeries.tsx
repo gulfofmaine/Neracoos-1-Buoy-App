@@ -30,6 +30,13 @@ function pointFormatMaker(unit: string) {
     }
 }
 
+const plotOptions = {
+    time: {
+    	useUTC: false
+    }
+}
+
+
 
 interface Props {
     /** Time series to display */
@@ -67,7 +74,7 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
         }
 
         return (
-            <HighchartsChart>
+            <HighchartsChart time={plotOptions.time}>
                 <Chart height={150}/>
 
                 <XAxis type='datetime' />

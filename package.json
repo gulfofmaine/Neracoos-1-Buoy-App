@@ -19,6 +19,7 @@
     "convert-units": "^2.3.4",
     "highcharts": "^6.1.4",
     "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
     "ol": "^5.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

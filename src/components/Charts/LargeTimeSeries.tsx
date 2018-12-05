@@ -32,6 +32,13 @@ function pointFormatMaker(unit: string) {
 }
 
 
+const plotOptions = {
+    time: {
+    	useUTC: false
+    }
+}
+
+
 interface Props {
     /** Time series data to dispaly */
     timeSeries: ReadingTimeSeries[]
@@ -68,7 +75,7 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
         }
 
         return (
-            <HighchartsChart>
+            <HighchartsChart time={plotOptions.time}>
                 <Chart />
 
                 <XAxis type="datetime" />
