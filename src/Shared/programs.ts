@@ -27,7 +27,7 @@ const programs: Program[] = [
         url: 'http://www.ndbc.noaa.gov/'
     },
     {
-        full_name: 'Costal Data Information Program',
+        full_name: 'Coastal Data Information Program',
         slug: 'CDIP',
         url: 'http://cdip.ucsd.edu/'
     },
