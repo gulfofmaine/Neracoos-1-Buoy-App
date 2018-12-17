@@ -8,6 +8,7 @@ import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
 export interface ERDDAPStoreState {
     datasets: PlatformDataset[]
+    errorMessage?: string
     platforms: PlatformFeature[]
 }
 
