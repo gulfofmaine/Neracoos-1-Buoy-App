@@ -7,6 +7,8 @@ services:
     command: "yarn start"
     ports:
     - "3000:3000"
+    environment:
+      REACT_APP_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules/

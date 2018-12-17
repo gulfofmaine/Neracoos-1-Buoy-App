@@ -50,7 +50,7 @@
     "@types/react-test-renderer": "^16.0.3",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "fetch-mock": "^7.0.7",
+    "jest-fetch-mock": "^2.1.0",
     "react-test-renderer": "^16.5.2",
     "redux-devtools-extension": "^2.13.5",
     "redux-mock-store": "^1.5.3",

@@ -1,6 +1,5 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import * as fetchMock from 'fetch-mock'
 
 import {
     drupalSuccess,
@@ -54,17 +53,11 @@ const mockStore = configureMockStore(middlewares)
 
 describe('Drupal should be able to fetch a node and call our reducer with the relevant info', () => {
     afterEach(() => {
-        fetchMock.reset()
-        fetchMock.restore()
+        fetch.resetMocks()
     })
 
     it('Creates success action when fetching is complete', () => {
-        fetchMock.getOnce('http://localhost:3000/api/node/27.json', {
-            body: drupalResponseJson,
-            headers: {
-                'content-type': 'text/javascript'
-            }
-        })
+        fetch.mockResponseOnce(JSON.stringify(drupalResponseJson))
 
         const store = mockStore({ nodes: [] })
 
@@ -79,5 +72,8 @@ describe('Drupal should be able to fetch a node and call our reducer with the re
             expect(successAction.content.format).toEqual('full_html')
             expect(successAction.content.value.includes('Mariner')).toEqual(true)
         })
+
+        expect(fetch.mock.calls.length).toEqual(1)
+        expect(fetch.mock.calls[0][0]).toEqual('http://localhost:3000/api/node/27.json')
     })
 })
