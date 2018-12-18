@@ -29,4 +29,18 @@ describe('ERDDAP reducer', () => {
         expect(finalState.platforms).toBeDefined()
         expect(finalState.errorMessage).toEqual(message)
     })
+
+    it('Will add platforms to the store', () => {
+        const initialState = undefined
+        const geojson = require('./test-platforms.json')
+        const action = {
+            geojson,
+            type: actionTypes.ERDDAP_PLATFORM_LOAD_SUCCESS
+        }
+
+        const finalState = resultOf([action], initialState)
+
+        expect(finalState.platforms.length).toBe(geojson.features.length)
+
+    })
 })

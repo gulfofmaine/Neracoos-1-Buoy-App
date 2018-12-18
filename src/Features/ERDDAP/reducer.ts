@@ -11,6 +11,12 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
                 ...state,
                 errorMessage: action.message
             }
+        
+        case actionTypes.ERDDAP_PLATFORM_LOAD_SUCCESS:
+            return {
+                ...state,
+                platforms: action.geojson.features
+            }
             
 
         default:
