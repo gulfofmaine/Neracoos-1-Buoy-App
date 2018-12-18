@@ -44,7 +44,7 @@ export type PlatformFeatureWithDatasets = Feature & {
 
 export interface PlatformProperties {
     attribution: PlatformAttribution[]
-    mooring_site_dest: string
+    mooring_site_desc: string
     nbdc_site_id?: string
     // uscg_light_letter?: string
     // watch_circle_radius?: number
