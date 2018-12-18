@@ -1,4 +1,4 @@
-# Neracoos Ionic App [![Semaphore Dashboard](https://img.shields.io/badge/Semaphore-Dashboard-lightgrey.svg)](https://gmri.semaphoreci.com/projects/Neracoos-1-Buoy-App) [![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-lightgrey.svg)](https://dashboard.cypress.io/#/projects/xhz4kt/runs)
+# Neracoos Ionic App [![Semaphore Dashboard](https://img.shields.io/badge/Semaphore-Dashboard-lightgrey.svg)](https://gmri.semaphoreci.com/projects/Neracoos-1-Buoy-App) [![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-lightgrey.svg)](https://dashboard.cypress.io/#/projects/xhz4kt/runs) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gulfofmaine/Neracoos-1-Buoy-App&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gulfofmaine/Neracoos-1-Buoy-App&amp;utm_campaign=Badge_Coverage)
 
 ## Using with Docker
 
@@ -49,6 +49,8 @@ Semaphore CI automatically runs both unit and integration tests. For more detail
 
 - [Semaphore Dashboard](https://gmri.semaphoreci.com/projects/Neracoos-1-Buoy-App)
 - [Cypress Dashboard](https://dashboard.cypress.io/#/projects/xhz4kt/runs)
+
+[Codacy](https://app.codacy.com/project/gmri/Neracoos-1-Buoy-App/dashboard) is also running code quality tests, along with collecting test coverage information.
 
 ### Unit Tests
 
