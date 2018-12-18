@@ -2,35 +2,50 @@
  * Types related to the ERDDAP service
  */
 
-import { Feature, FeatureCollection } from '@turf/helpers'
+import { 
+    Feature, 
+    // FeatureCollection 
+} from '@turf/helpers'
 
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
 export interface ERDDAPStoreState {
-    datasets: PlatformDataset[]
     errorMessage?: string
-    platforms: PlatformFeature[]
+    platforms: PlatformFeatureWithDatasets[]
+    // platforms: PlatformFeature[]
 }
 
 export const initialStoreState: ERDDAPStoreState = {
-    datasets: [],
     platforms: []
 }
 
 
-export type PlatformFeatureCollection = FeatureCollection & {
+// export type PlatformFeatureCollection = FeatureCollection & {
+//     features: PlatformFeature[]
+// }
+
+export interface PlatformFeatureCollection {
     features: PlatformFeature[]
 }
 
 export type PlatformFeature = Feature & {
-    properties: {
-        attribution: PlatformAttribution[]
-        mooring_site_desc: string
-        nbdc_site_id?: string
-        // uscg_light_letter?: string
-        // watch_circle_radius?: number
+    properties: PlatformProperties & {
         readings: PlatformTimeSeries[]
     }
+}
+
+export type PlatformFeatureWithDatasets = Feature & {
+    properties: PlatformProperties & {
+        readings: PlatformDataset[]
+    }
+}
+
+export interface PlatformProperties {
+    attribution: PlatformAttribution[]
+    mooring_site_dest: string
+    nbdc_site_id?: string
+    // uscg_light_letter?: string
+    // watch_circle_radius?: number
 }
 
 export interface PlatformTimeSeries {
