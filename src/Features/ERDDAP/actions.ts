@@ -22,7 +22,11 @@ export interface ErddapPlatformLoadError {
     message: string
 }
 
-export type ErddapActions = ErddapPlatformLoadSuccess | ErddapPlatformLoadError
+export interface ErddapPlatformLoadStarted {
+    type: actionTypes.ERDDAP_PLATFORM_LOAD_STARTED
+}
+
+export type ErddapActions = ErddapPlatformLoadSuccess | ErddapPlatformLoadError | ErddapPlatformLoadStarted
 
 
 // Action creators
@@ -51,6 +55,15 @@ export function erddapPlatformLoadError(message: string): ErddapPlatformLoadErro
 }
 
 /**
+ * Action creator for when platforms start loading
+ */
+export function erddapPlatformLoadStarted(): ErddapPlatformLoadStarted {
+    return {
+        type: actionTypes.ERDDAP_PLATFORM_LOAD_STARTED
+    }
+}
+
+/**
  * Load platforms from ERDDAP service
  */
 export const erddapPlatformLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = () => {
@@ -60,6 +73,7 @@ export const erddapPlatformLoad: ActionCreator<ThunkAction<Promise<Action>, Stor
                 category: 'ERDDAP Service',
                 message: 'Loading platform GeoJSON'
             })
+            dispatch(erddapPlatformLoadStarted())
 
             const url = process.env.REACT_APP_ERDDAP_SERVICE as string
 

@@ -16,6 +16,14 @@ describe('actions', () => {
         expect(actions.erddapPlatformLoadError(message)).toEqual(expectedAction)
     })
 
+    it('should create an action to show that we are loading', () => {
+        const expectedAction = {
+            type: actionTypes.ERDDAP_PLATFORM_LOAD_STARTED
+        }
+
+        expect(actions.erddapPlatformLoadStarted()).toEqual(expectedAction)
+    })
+
     it('should create an action with the loaded geojson', () => {
         const geojson = require('./test-platforms.json')
         const expectedAction = {
@@ -34,7 +42,7 @@ describe('actions', () => {
 
         await actions.erddapPlatformLoad()(dispatch, getState)
 
-        expect(dispatch.mock.calls.length).toBe(1)
+        expect(dispatch.mock.calls.length).toBe(2)
         expect(dispatch).toBeCalledWith({
             geojson, 
             type: actionTypes.ERDDAP_PLATFORM_LOAD_SUCCESS
@@ -52,7 +60,7 @@ describe('actions', () => {
 
         await actions.erddapPlatformLoad()(dispatch, getState)
 
-        expect(dispatch.mock.calls.length).toBe(1)
+        expect(dispatch.mock.calls.length).toBe(2)
         expect(dispatch).toBeCalledWith({
             message: 'Unable to load platform data',
             type: actionTypes.ERDDAP_PLATFORM_LOAD_ERROR

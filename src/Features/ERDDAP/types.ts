@@ -11,11 +11,13 @@ import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
 export interface ERDDAPStoreState {
     errorMessage?: string
+    loading: boolean
     platforms: PlatformFeatureWithDatasets[]
     // platforms: PlatformFeature[]
 }
 
 export const initialStoreState: ERDDAPStoreState = {
+    loading: false,
     platforms: []
 }
 

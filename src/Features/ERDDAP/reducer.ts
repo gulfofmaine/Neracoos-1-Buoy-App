@@ -13,12 +13,20 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
         case actionTypes.ERDDAP_PLATFORM_LOAD_ERROR:
             return {
                 ...state,
-                errorMessage: action.message
+                errorMessage: action.message,
+                loading: false
+            }
+        
+        case actionTypes.ERDDAP_PLATFORM_LOAD_STARTED:
+            return {
+                ...state,
+                loading: true
             }
         
         case actionTypes.ERDDAP_PLATFORM_LOAD_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 platforms: action.geojson.features.map((feature) => {
                     return {
                     ...feature,
