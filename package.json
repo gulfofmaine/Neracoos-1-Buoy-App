@@ -38,7 +38,8 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "docs": "typedoc --out docs"
+    "docs": "typedoc --out docs",
+    "test-with-codacy-coverage": "react-scripts-ts test --env=jsdom --coverage && cat ./coverage/lcov.info | codacy-coverage"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.14",
@@ -48,6 +49,7 @@
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
     "@types/react-test-renderer": "^16.0.3",
+    "codacy-coverage": "^3.3.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "jest-fetch-mock": "^2.1.0",

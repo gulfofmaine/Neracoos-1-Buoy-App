@@ -24,6 +24,9 @@ blocks:
 
   - name: "Tests"
     task:
+      secrets:
+        - name: neracoos_mariners_dashboard_env
+
       prologue:
         commands:
           - checkout
@@ -35,7 +38,7 @@ blocks:
       jobs:
       - name: Unit Tests
         commands:
-          - yarn test
+          - yarn test-with-codacy-coverage
 
       - name: Integration Tests
         commands:
