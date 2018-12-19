@@ -14,6 +14,7 @@ import {
     StoreState
 } from '@app/constants'
 import { BoundingBox } from '@app/Shared/regions'
+import { urlPartReplacer } from '@app/Shared/urlParams'
 
 
 export interface Props {
@@ -49,7 +50,7 @@ export class ErddapPlatformListBase extends React.Component<Props & ReduxProps, 
                     const { id } = platform
 
                     return (
-                        <Link key={id} to={ paths.platforms.root + name } className="list-group-item list-group-item-action">{ id }</Link>
+                        <Link key={id} to={ urlPartReplacer(paths.platforms.platform, ':id', id as string) } className="list-group-item list-group-item-action">{ id }</Link>
                     ) 
                 })
 
