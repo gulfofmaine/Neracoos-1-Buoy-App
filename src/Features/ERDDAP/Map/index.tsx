@@ -39,13 +39,13 @@ export interface ReduxProps {
     push: (url: string) => void
 }
 
-function mapStateToProps({ erddap }: StoreState) {
+export function mapStateToProps({ erddap }: StoreState) {
     return {
         platforms: erddap.platforms
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+export const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     push
 }, dispatch)
 
@@ -80,7 +80,12 @@ function makeStyle(selected: boolean): Style {
     })
 }
 
-function makeLayer(platforms: PlatformFeatureWithDatasets[], style: Style): VectorLayer {
+/**
+ * Create platform layers
+ * @param platforms Array of platform features
+ * @param style Should the layer be fore selected platforms
+ */
+function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Style): VectorLayer {
     const attribution: AttributionLike = 'NERACOOS'
 
     const platformSource = new VectorSource({
@@ -100,7 +105,40 @@ function makeLayer(platforms: PlatformFeatureWithDatasets[], style: Style): Vect
     })
 }
 
+/**
+ * Create the layers for the map
+ * @param layers Array of base Layers to add to
+ * @param platforms Array of platform features
+ * @param platformId Selected platform ID name
+ */
+export function makeLayers(layers: Layer[], platforms: PlatformFeatureWithDatasets[], platformId: string): Layer[] {
+    /** platform styles */
+    const platformStyle = makeStyle(false)
+    const selectedStyle = makeStyle(true)
 
+    const filteredPlatforms = platforms.filter((p) => p.id !== platformId)
+    const selectedPlatforms = platforms.filter((p) => p.id === platformId)
+
+    if (filteredPlatforms.length > 0) {
+        layers.push(makePlatformLayer(filteredPlatforms, platformStyle))
+    }
+    if (selectedPlatforms.length > 0) {
+        layers.push(makePlatformLayer(selectedPlatforms, selectedStyle))
+    }
+
+    return layers
+}
+
+/** Basemap layers */
+const baseLayers: Layer[] = [
+    esriLayers.EsriOceanBasemapLayer,
+    esriLayers.EsriOceanReferenceLayer
+]
+
+
+/**
+ * ErddapMapBase provides a map with platforms focused on the Gulf of Maine by default
+ */
 export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
     constructor(props: Props & ReduxProps) {
         super(props)
@@ -109,38 +147,22 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
     }
 
     public render() {
-
-        /** platform styles */
-        const platformStyle = makeStyle(false)
-        const selectedStyle = makeStyle(true)
-
-        const layers: Layer[] = [
-            esriLayers.EsriOceanBasemapLayer,
-            esriLayers.EsriOceanReferenceLayer
-        ]
-
-        const filteredPlatforms = this.props.platforms.filter((p) => p.id !== this.props.platformId)
-        const selectedPlatforms = this.props.platforms.filter((p) => p.id === this.props.platformId)
-
-        if (filteredPlatforms.length > 0) {
-            layers.push(makeLayer(filteredPlatforms, platformStyle))
-        }
-        if (selectedPlatforms.length > 0) {
-            layers.push(makeLayer(selectedPlatforms, selectedStyle))
-        }
-
         return (
             <BaseMap
                 lon={-68.5}
                 lat={43.5}
                 startZoom={6}
-                layers={layers}
+                layers={makeLayers(baseLayers, this.props.platforms, this.props.platformId)}
                 boundingBox={this.props.boundingBox}
                 onClick={this.onClick} />
         )
     }
 
-    private onClick(feature: Feature) {
+    /**
+     * Handle clicks from OpenLayers
+     * @param feature OpenLayers Feature
+     */
+    protected onClick(feature: Feature) {
         const name: string = feature.getId()
         const url = urlPartReplacer(paths.platforms.platform, ':id', name)
 
@@ -148,4 +170,5 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
     }
 }
 
+/** Redux connected ErddapMap. See [[ErddapMapBase]] for details. */
 export const ErddapMap = connect(mapStateToProps, mapDispatchToProps)(ErddapMapBase)
