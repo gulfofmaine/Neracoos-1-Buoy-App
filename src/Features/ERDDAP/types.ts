@@ -2,10 +2,7 @@
  * Types related to the ERDDAP service
  */
 
-import { 
-    Feature, 
-    // FeatureCollection 
-} from '@turf/helpers'
+import { Feature } from '@turf/helpers'
 
 import { ReadingTimeSeries } from '@app/Shared/timeSeries'
 
