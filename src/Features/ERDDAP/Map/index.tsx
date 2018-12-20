@@ -113,6 +113,7 @@ function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Styl
  */
 export function makeLayers(layers: Layer[], platforms: PlatformFeatureWithDatasets[], platformId: string): Layer[] {
     /** platform styles */
+    layers = [...layers]
     const platformStyle = makeStyle(false)
     const selectedStyle = makeStyle(true)
 
