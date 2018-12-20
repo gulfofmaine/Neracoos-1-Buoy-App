@@ -26,7 +26,7 @@ function setup(platforms: PlatformFeatureWithDatasets[], platformId: string) {
 
 describe('<ErddapObservationTable>', () => {
     it('Should show selected observations for appropriate platform', () => {
-        const { enzymeWrapper } = setup(platforms, 'EXRX')
+        const { enzymeWrapper } = setup(testPlatforms, 'EXRX')
 
         expect(enzymeWrapper.find('li').length).toBe(7)
         expect(enzymeWrapper.text()).toContain('Last updated at: ')
@@ -34,14 +34,14 @@ describe('<ErddapObservationTable>', () => {
     })
 
     it('Should not explode when slected platform is not avaliable', () => {
-        const { enzymeWrapper } = setup(platforms, 'N01')
+        const { enzymeWrapper } = setup(testPlatforms, 'N01')
 
         expect(enzymeWrapper.text()).toBeNull()
     })
 })
 
 // tslint:disable:object-literal-sort-keys
-const platforms: PlatformFeatureWithDatasets[] = [{
+const testPlatforms: PlatformFeatureWithDatasets[] = [{
         "geometry": {
             "type": "Point",
             "coordinates": [
