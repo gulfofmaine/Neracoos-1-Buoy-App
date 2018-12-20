@@ -9,6 +9,7 @@ import { round } from '../math'
 const unitNames = {
     'Deg C': 'C',
     'Meters': 'm',
+    'celsius': 'C',
     'meters': 'm',
 }
 

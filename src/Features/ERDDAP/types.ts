@@ -48,7 +48,7 @@ export interface PlatformProperties {
 }
 
 export interface PlatformTimeSeries {
-    value?: string
+    value?: number
     time?: string
     depth: number
     data_type: DataType
