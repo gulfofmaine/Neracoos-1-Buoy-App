@@ -47,7 +47,7 @@ export class ErddapPlatformInfoPanelBase extends React.Component<Props & ReduxPr
 
                 if (platform.properties) {
                     const { id } = platform
-                    const { mooring_site_desc } = platform.properties
+                    const { attribution, mooring_site_desc } = platform.properties
                     const { coordinates } = platform.geometry as Geometry
 
                     return (
@@ -57,7 +57,10 @@ export class ErddapPlatformInfoPanelBase extends React.Component<Props & ReduxPr
                                 <CardText>
                                     { mooring_site_desc }
                                     <br />
-                                    <b>Lat:</b> { round(coordinates[1] as number)} <b>Lon:</b> {round(coordinates[0] as number)}
+                                    <b>Lat:</b> { round(coordinates[1] as number)} <b>Lon:</b> {round(coordinates[0] as number)}<br />
+                                    { attribution.map((attr, key) => (
+                                        <React.Fragment key={key}><a href={attr.program.website}>{ attr.attribution }</a><br /></React.Fragment>
+                                    ))}
                                 </CardText>
                             </CardBody>
                         </Card>

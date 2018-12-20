@@ -39,7 +39,13 @@ describe('ErddapPlatformInfoPanel', () => {
             },
             id: 'N01',
             properties: {
-                attribution: [],
+                attribution: [{
+                    attribution: 'Data management by NERACOOS',
+                    program: {
+                        name: 'NERACOOS',
+                        website: 'http://neracoos.org'
+                    }
+                }],
                 mooring_site_desc: 'NorthEast Channel',
                 readings: []
             },
@@ -52,5 +58,6 @@ describe('ErddapPlatformInfoPanel', () => {
         expect(enzymeWrapper.find('.card-text').text()).toContain(platform.properties.mooring_site_desc)
         expect(enzymeWrapper.find('.card-text').text()).toContain(platform.geometry.coordinates[0])
         expect(enzymeWrapper.find('.card-text').text()).toContain(platform.geometry.coordinates[1])
+        expect(enzymeWrapper.find('.card-text').text()).toContain(platform.properties.attribution[0].attribution)
     })
 })
