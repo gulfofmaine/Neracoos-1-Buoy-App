@@ -26,3 +26,17 @@ export interface ErddapDataset {
     invertLongitude: boolean
     server: string
 }
+
+
+export interface Constraints {
+    [key: string]: string
+}
+
+export interface ErddapJson {
+    table: {
+        columnNames: string[]
+        columnTypes: string[]
+        columnUnits: string[]
+        rows: Array<Array<number | string>>
+    }
+}

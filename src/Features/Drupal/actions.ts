@@ -74,12 +74,7 @@ export const drupalLoadContent: ActionCreator<ThunkAction<Promise<Action>, Store
                 message: 'Loading drupal node'
             })
 
-            let url: string
-            if (process.env.NODE_ENV !== 'production') {
-                url = "http://localhost:3000/api/" + node + '.json'
-            } else {
-                url = 'http://content.gmri.org/api/' + node + '.jsonp'
-            }
+            const url = 'http://content.gmri.org/api/' + node + '.jsonp'
 
             const result = await fetch(url)
             const json = await result.json() as DrupalNodeResponse

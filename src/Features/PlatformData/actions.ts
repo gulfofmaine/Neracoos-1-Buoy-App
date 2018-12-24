@@ -15,6 +15,7 @@ import {
     GriddapJson, 
     metadataValue 
 } from '@app/Shared/erddap'
+import { proxytizeUrl } from '@app/Shared/proxyUrl'
 import {
     todayIso
 } from '@app/Shared/time'
@@ -384,7 +385,7 @@ export const metadataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
             dispatch(platformMetadataLoading(dataset))
 
             const url = datasetInfoJson(dataset)
-            const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
+            const proxyUrl = proxytizeUrl(url)
 
             Sentry.addBreadcrumb({
                 category: 'Platform ERDDAP Metadata',
@@ -446,7 +447,7 @@ export const forecastDataLoad: ActionCreator<ThunkAction<Promise<Action>, StoreS
         dispatch(platformForecastLoading(platformId, datasetAndField))
         try {
             const url = erddapUrl(dataset as ErddapDataset, lat, lon, datasetAndField.field, todayIso(), dataset.coverageEnd)
-            const proxyUrl = 'http://www.neracoos.org' + '/proxy2?ajax=1&url=' + encodeURIComponent(url)
+            const proxyUrl = proxytizeUrl(url)
 
             Sentry.addBreadcrumb({
                 category: 'Platform ERDDAP request',
