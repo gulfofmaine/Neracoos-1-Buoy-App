@@ -56,14 +56,24 @@ export interface PlatformTimeSeries {
     variable: string
     dataset: string
     start_time: string
-    constants: {
+    constraints: {
         [key: string]: string | number
     }
 }
 
 export type PlatformDataset = PlatformTimeSeries & {
     loading: boolean
+    error?: string
     readings: ReadingTimeSeries[]
+}
+
+export interface FetchGroup {
+    server: string
+    dataset: string
+    constraints: {
+        [key: string]: string | number
+    }
+    datasets: PlatformDataset[]
 }
 
 export interface PlatformAttribution {
