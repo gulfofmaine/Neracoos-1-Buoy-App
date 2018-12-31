@@ -14,7 +14,6 @@ describe("ERDDAP reducer", () => {
 
     expect(finalState.platforms).toBeDefined()
     expect(finalState.loading).toBe(false)
-    // expect(finalState.datasets).toBeDefined()
   })
 
   it("Sets the status as loading, when platform loading starts", () => {
@@ -92,10 +91,6 @@ describe("ERDDAP reducer", () => {
   })
 
   it("Can set datasets as having an error", () => {
-    const initialDataset = {
-      ...dataset,
-      loading: true
-    }
     const initialState = {
       ...initialDatasetState,
       platforms: [
@@ -108,7 +103,7 @@ describe("ERDDAP reducer", () => {
               ...platform.properties,
               readings: [
                 ...platform.properties.readings.filter(reading => reading.variable !== dataset.variable),
-                initialDataset
+                loadingDataset
               ]
             }
           }))
@@ -123,7 +118,7 @@ describe("ERDDAP reducer", () => {
     expect(initialN01.properties.readings.map(reading => reading.loading)).toContain(true)
 
     const action: actions.ErddapDatasetLoadError = {
-      datasets: [initialDataset],
+      datasets: [loadingDataset],
       message: "It exploded",
       platformId: "N01",
       type: actionTypes.ERDDAP_DATASET_LOAD_ERROR
@@ -140,6 +135,60 @@ describe("ERDDAP reducer", () => {
 
     expect(a01.properties.readings.every(reading => reading.error === "")).toBe(true)
     expect(a01.properties.readings.every(reading => reading.loading === false)).toBe(true)
+  })
+
+  it("Can load new timeseries for datasets", () => {
+    const initialState = {
+      ...initialDatasetState,
+      platforms: [
+        ...initialDatasetState.platforms.filter(platform => platform.id !== "N01"),
+        ...initialDatasetState.platforms
+          .filter(platform => platform.id === "N01")
+          .map(platform => ({
+            ...platform,
+            properties: {
+              ...platform.properties,
+              readings: [
+                ...platform.properties.readings.filter(reading => reading.variable !== dataset.variable),
+                loadingDataset
+              ]
+            }
+          }))
+      ]
+    }
+
+    const initialN01 = initialState.platforms.filter(platfrom => platfrom.id === "N01")[0]
+    const initialA01 = initialState.platforms.filter(platform => platform.id === "A01")[0]
+
+    expect(initialA01.properties.readings.every(reading => reading.loading === false)).toBe(true)
+    expect(initialN01.properties.readings.map(reading => reading.loading)).toContain(false)
+    expect(initialN01.properties.readings.map(reading => reading.loading)).toContain(true)
+
+    const action: actions.ErddapDatasetLoadSuccess = {
+      data: {
+        table: {
+          columnNames: ["time", "salinity"],
+          columnTypes: ["String", "float"],
+          columnUnits: ["UTC", ""],
+          rows: [["2018-12-15T00:00:00Z", 26.1037], ["2018-12-15T01:00:00Z", 12.3186], ["2018-12-15T02:00:00Z", 9.0923]]
+        }
+      },
+      datasets: [loadingDataset],
+      platformId: "N01",
+      type: actionTypes.ERDDAP_DATASET_LOAD_SUCCESS
+    }
+
+    const finalState = resultOf([action], initialState)
+
+    const n01 = finalState.platforms.filter(platform => platform.id === "N01")[0]
+    const a01 = finalState.platforms.filter(platform => platform.id === "A01")[0]
+
+    expect(n01.properties.readings.every(reading => reading.loading === false)).toBe(true)
+    expect(a01.properties.readings.every(reading => reading.loading === false)).toBe(true)
+
+    const salinity = n01.properties.readings.filter(readings => readings.variable === dataset.variable)[0]
+
+    expect(salinity.readings.length).toBe(3)
   })
 })
 
@@ -164,6 +213,12 @@ const dataset = {
   value: null,
   variable: "salinity"
 }
+
+const loadingDataset = {
+  ...dataset,
+  loading: true
+}
+
 const initialDatasetState: ERDDAPStoreState = {
   loading: false,
   platforms: [

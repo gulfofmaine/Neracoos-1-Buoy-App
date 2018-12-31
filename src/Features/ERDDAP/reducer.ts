@@ -1,4 +1,6 @@
 import { Action } from "@app/actions"
+import { resultToTimeseries } from "@app/Shared/erddap"
+
 import * as actionTypes from "./actionTypes"
 import { ERDDAPStoreState, initialStoreState, PlatformDataset } from "./types"
 
@@ -94,7 +96,42 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
             }))
         ]
       }
-    // case actionTypes.ERDDAP_DATASET_LOAD_SUCCESS:
+    case actionTypes.ERDDAP_DATASET_LOAD_SUCCESS:
+      const datasetSuccessSet = new Set(action.datasets.map(dataset => JSON.stringify(dataset)))
+
+      return {
+        ...state,
+        platforms: [
+          ...state.platforms.filter(platform => platform.id !== action.platformId),
+          ...state.platforms
+            .filter(platform => platform.id === action.platformId)
+            .map(platfrom => ({
+              ...platfrom,
+              properties: {
+                ...platfrom.properties,
+                readings: [
+                  ...platfrom.properties.readings.filter(dataset => !datasetSuccessSet.has(JSON.stringify(dataset))),
+                  ...platfrom.properties.readings
+                    .filter(dataset => datasetSuccessSet.has(JSON.stringify(dataset)))
+                    .map(dataset => ({
+                      ...dataset,
+                      error: "",
+                      loading: false,
+                      readings: Array.from(
+                        // make sure that we only have one of each time point
+                        new Set(
+                          [
+                            ...dataset.readings,
+                            ...resultToTimeseries(action.data, [dataset.variable])[0].timeSeries
+                          ].map(reading => JSON.stringify(reading))
+                        )
+                      ).map(reading => JSON.parse(reading))
+                    }))
+                ]
+              }
+            }))
+        ]
+      }
 
     default:
       return state
