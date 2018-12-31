@@ -3,7 +3,7 @@ import * as actionTypes from "./actionTypes"
 import { erddapReducer } from "./reducer"
 import { ERDDAPStoreState } from "./types"
 
-const resultOf = (actions, initialState) => actions.reduce(erddapReducer, initialState)
+const resultOf = (reduceActions, initialState) => reduceActions.reduce(erddapReducer, initialState)
 
 describe("ERDDAP reducer", () => {
   it("Creates a valid initial state with no nodes loaded", () => {
@@ -133,8 +133,6 @@ describe("ERDDAP reducer", () => {
 
     const n01 = finalState.platforms.filter(platform => platform.id === "N01")[0]
     const a01 = finalState.platforms.filter(platform => platform.id === "A01")[0]
-
-    console.log(n01.properties.readings)
 
     expect(n01.properties.readings.map(reading => reading.error)).toContain("")
     expect(n01.properties.readings.map(reading => reading.error)).toContain(action.message)

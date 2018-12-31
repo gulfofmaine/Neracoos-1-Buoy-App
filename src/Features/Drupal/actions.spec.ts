@@ -40,6 +40,8 @@ describe("Drupal actions", () => {
 })
 
 const drupalNode = "node/27"
+
+// tslint:disable:object-literal-sort-keys
 const drupalResponseJson = {
   vid: "33",
   uid: "2",

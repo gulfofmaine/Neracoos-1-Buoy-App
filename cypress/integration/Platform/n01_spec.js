@@ -27,7 +27,7 @@ describe("Platfrom N01", () => {
     cy.contains("Current Conditions")
     cy.contains("Winds -")
 
-    cy.get('[style="margin-top: 1rem;"] > :nth-child(2) > .row')
+    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row")
       .children()
       .should("have.length", 6)
 
@@ -38,7 +38,7 @@ describe("Platfrom N01", () => {
     cy.visit("/#/platform/N01")
 
     cy.contains("Observations").click()
-    cy.get('[href="#/platform/N01/observations/wind"]')
+    cy.get("[href='#/platform/N01/observations/wind']")
       .first()
       .click()
     cy.get("h4").contains("Wind")
