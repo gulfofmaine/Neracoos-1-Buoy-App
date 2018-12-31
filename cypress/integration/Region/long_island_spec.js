@@ -1,16 +1,22 @@
-describe('Region: Long Island', () => {
-    it('Can show Long Island', () => {
-        cy.visit('=/')
+/*global cy*/
 
-        cy.contains('Regions').click()
-        cy.contains('Long Island').click()
-    })
+describe("Region: Long Island", () => {
+  it("Can show Long Island", () => {
+    cy.visit("=/")
 
-    it('Shows only a subset of platforms', () => {
-        cy.visit('=/#/platform/?region=LONG')
+    cy.contains("Regions").click()
+    cy.contains("Long Island").click()
+  })
 
-        cy.get('h2').contains('Platforms in Long Island Sound')
+  it("Shows only a subset of platforms", () => {
+    cy.visit("=/#/platform/?region=LONG")
 
-        cy.get('.list-group').children().should('have.length', 6)
-    })
+    cy.get("h2").contains("Platforms in Long Island Sound")
+
+    cy.get(".list-group")
+      .children()
+      .should("have.length", 6)
+
+    cy.get(".ol-attribution > button > span")
+  })
 })

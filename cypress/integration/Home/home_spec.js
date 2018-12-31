@@ -1,16 +1,18 @@
-describe('Home page', function() {
-    it('Loads Drupal content', function() {
-        cy.visit('/')
+/*global cy*/
 
-        cy.contains('feedback!')
-    })
+describe("Home page", function() {
+  it("Loads Drupal content", function() {
+    cy.visit("/")
 
-    it('Has a nav bar', () => {
-        cy.visit('/')
+    cy.contains("feedback!")
+  })
 
-        cy.get('.navbar-brand')
-        cy.contains('Regions')
-        cy.contains('Radar Map')
-        cy.contains('About')
-    })
+  it("Has a nav bar", () => {
+    cy.visit("/")
+
+    cy.get(".navbar-brand")
+    cy.contains("Regions")
+    cy.contains("Radar Map")
+    cy.contains("About")
+  })
 })

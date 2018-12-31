@@ -1,15 +1,17 @@
-describe('About Page', () => {
-    it('Can visit About Page from Home Page', () => {
-        cy.visit('/')
+/*global cy*/
 
-        cy.contains('About').click()
+describe("About Page", () => {
+  it("Can visit About Page from Home Page", () => {
+    cy.visit("/")
 
-        cy.contains('developed to improve')
-    })
+    cy.contains("About").click()
 
-    it('Loads Drupal Content', () => {
-        cy.visit('/#/about/')
+    cy.contains("developed to improve")
+  })
 
-        cy.contains('developed to improve')
-    })
+  it("Loads Drupal Content", () => {
+    cy.visit("/#/about/")
+
+    cy.contains("developed to improve")
+  })
 })
