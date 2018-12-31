@@ -2,93 +2,92 @@
  * Types related to the ERDDAP service
  */
 
-import { Feature } from '@turf/helpers'
+import { Feature } from "@turf/helpers"
 
-import { ReadingTimeSeries } from '@app/Shared/timeSeries'
+import { ReadingTimeSeries } from "@app/Shared/timeSeries"
 
 export interface ERDDAPStoreState {
-    errorMessage?: string
-    loading: boolean
-    platforms: PlatformFeatureWithDatasets[]
-    // platforms: PlatformFeature[]
+  errorMessage?: string
+  loading: boolean
+  platforms: PlatformFeatureWithDatasets[]
+  // platforms: PlatformFeature[]
 }
 
 export const initialStoreState: ERDDAPStoreState = {
-    loading: false,
-    platforms: []
+  loading: false,
+  platforms: []
 }
-
 
 // export type PlatformFeatureCollection = FeatureCollection & {
 //     features: PlatformFeature[]
 // }
 
 export interface PlatformFeatureCollection {
-    features: PlatformFeature[]
+  features: PlatformFeature[]
 }
 
 export type PlatformFeature = Feature & {
-    properties: PlatformProperties & {
-        readings: PlatformTimeSeries[]
-    }
+  properties: PlatformProperties & {
+    readings: PlatformTimeSeries[]
+  }
 }
 
 export type PlatformFeatureWithDatasets = Feature & {
-    properties: PlatformProperties & {
-        readings: PlatformDataset[]
-    }
+  properties: PlatformProperties & {
+    readings: PlatformDataset[]
+  }
 }
 
 export interface PlatformProperties {
-    attribution: PlatformAttribution[]
-    mooring_site_desc: string
-    nbdc_site_id?: string
-    // uscg_light_letter?: string
-    // watch_circle_radius?: number
+  attribution: PlatformAttribution[]
+  mooring_site_desc: string
+  nbdc_site_id?: string
+  // uscg_light_letter?: string
+  // watch_circle_radius?: number
 }
 
 export interface PlatformTimeSeries {
-    value?: number
-    time?: string
-    depth: number
-    data_type: DataType
-    server: string
-    variable: string
-    dataset: string
-    start_time: string
-    constraints: {
-        [key: string]: string | number
-    }
+  value?: number
+  time?: string
+  depth: number
+  data_type: DataType
+  server: string
+  variable: string
+  dataset: string
+  start_time: string
+  constraints: {
+    [key: string]: string | number
+  }
 }
 
 export type PlatformDataset = PlatformTimeSeries & {
-    loading: boolean
-    error?: string
-    readings: ReadingTimeSeries[]
+  loading: boolean
+  error: string
+  readings: ReadingTimeSeries[]
 }
 
 export interface FetchGroup {
-    server: string
-    dataset: string
-    constraints: {
-        [key: string]: string | number
-    }
-    datasets: PlatformDataset[]
+  server: string
+  dataset: string
+  constraints: {
+    [key: string]: string | number
+  }
+  datasets: PlatformDataset[]
 }
 
 export interface PlatformAttribution {
-    program: PlatformProgram
-    attribution: string
+  program: PlatformProgram
+  attribution: string
 }
 
 export interface PlatformProgram {
-    name: string
-    website: string
+  name: string
+  website: string
 }
 
 export interface DataType {
-    standard_name: string
-    short_name: string
-    long_name: string
-    units: string
+  standard_name: string
+  short_name: string
+  long_name: string
+  units: string
 }
