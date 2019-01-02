@@ -2,7 +2,7 @@ import { mount } from "enzyme"
 import * as React from "react"
 
 import { PlatformFeatureWithDatasets } from "../../types"
-import { ErddapPlatformGetterBase, ReduxProps, Props } from "./index"
+import { ErddapPlatformGetterBase, Props, ReduxProps } from "./index"
 
 describe("ErddapPlatformGetterBase", () => {
   it("Should pass the correct platform to the child component when loaded", () => {
