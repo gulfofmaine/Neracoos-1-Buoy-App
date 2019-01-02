@@ -110,9 +110,11 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
               properties: {
                 ...platfrom.properties,
                 readings: [
-                  ...platfrom.properties.readings.filter(dataset => !datasetSuccessSet.has(JSON.stringify(dataset))),
+                  ...platfrom.properties.readings.filter(
+                    dataset => !datasetSuccessSet.has(JSON.stringify({ ...dataset, loading: false }))
+                  ),
                   ...platfrom.properties.readings
-                    .filter(dataset => datasetSuccessSet.has(JSON.stringify(dataset)))
+                    .filter(dataset => datasetSuccessSet.has(JSON.stringify({ ...dataset, loading: false })))
                     .map(dataset => ({
                       ...dataset,
                       error: "",
