@@ -62,6 +62,7 @@ export interface PlatformTimeSeries {
 
 export type PlatformDataset = PlatformTimeSeries & {
   loading: boolean
+  loadStartTimes: Date[]
   error: string
   readings: ReadingTimeSeries[]
 }

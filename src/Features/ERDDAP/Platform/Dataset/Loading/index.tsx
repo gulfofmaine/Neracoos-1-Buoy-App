@@ -25,6 +25,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   )
 
+const bufferHours = 2
+
 export const ErddapDatasetLoaderBase: React.SFC<Props & ReduxProps> = ({
   children,
   platformId,
@@ -37,14 +39,18 @@ export const ErddapDatasetLoaderBase: React.SFC<Props & ReduxProps> = ({
 
   startTime = startTime ? startTime : sevenDaysAgo
 
-  const buffer = new Date(startTime.getTime())
-  buffer.setHours(buffer.getHours() + 2) // Erddap will return values after our start time
+  const bufferAfter = new Date(startTime.getTime())
+  bufferAfter.setHours(bufferAfter.getHours() + bufferHours) // Erddap will return values after our start time
+
+  const bufferBefore = new Date(startTime.getTime())
+  bufferBefore.setHours(bufferBefore.getHours() - bufferHours)
 
   const datasetsToLoad = datasets.filter(
     dataset =>
       dataset.loading === false && // If the dataset isn't currently loading
       (dataset.readings.length === 0 || // and there aren't any readings
-        !dataset.readings.some(reading => new Date(reading.time) < buffer)) // or there are no readings with values before the buffer time
+        // !dataset.readings.some(reading => new Date(reading.time) < buffer)) // or there are no readings with values before the buffer time
+        !dataset.loadStartTimes.some(time => time > bufferBefore && time < bufferAfter))
   ) // these datasets should be loaded
 
   if (datasetsToLoad.length > 0) {

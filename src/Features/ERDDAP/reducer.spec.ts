@@ -1,7 +1,7 @@
 import * as actions from "./actions"
 import * as actionTypes from "./actionTypes"
 import { erddapReducer } from "./reducer"
-import { ERDDAPStoreState } from "./types"
+import { ERDDAPStoreState, PlatformDataset } from "./types"
 
 const resultOf = (reduceActions, initialState) => reduceActions.reduce(erddapReducer, initialState)
 
@@ -71,9 +71,12 @@ describe("ERDDAP reducer", () => {
     expect(initialN01.properties.readings.map(reading => reading.loading)).toContain(false)
     expect(initialN01.properties.readings.map(reading => reading.loading)).not.toContain(true)
 
+    const startTime = new Date()
+
     const loadingAction: actions.ErddapDatasetLoadStarted = {
       datasets: [dataset],
       platformId: "N01",
+      time: startTime,
       type: actionTypes.ERDDAP_DATASET_LOAD_STARTED
     }
 
@@ -85,6 +88,12 @@ describe("ERDDAP reducer", () => {
     expect(n01.properties.readings.map(reading => reading.loading)).toContain(true)
     expect(n01.properties.readings.map(reading => reading.loading)).toContain(false)
     expect(a01.properties.readings.every(reading => reading.loading === false)).toBe(true)
+
+    const salinity = n01.properties.readings.filter(
+      reading => reading.data_type.standard_name === dataset.data_type.standard_name
+    )[0]
+
+    expect(salinity.loadStartTimes).toContain(startTime)
 
     expect(n01.properties.readings.every(reading => reading.error === "")).toBe(true)
     expect(a01.properties.readings.every(reading => reading.error === "")).toBe(true)
@@ -193,7 +202,7 @@ describe("ERDDAP reducer", () => {
   })
 })
 
-const dataset = {
+const dataset: PlatformDataset = {
   constraints: {
     "depth=": 1.0
   },
@@ -206,6 +215,7 @@ const dataset = {
   dataset: "N01_sbe37_all",
   depth: null,
   error: "",
+  loadStartTimes: [],
   loading: false,
   readings: [],
   server: "http://www.neracoos.org/erddap",
@@ -248,6 +258,7 @@ const initialDatasetState: ERDDAPStoreState = {
             dataset: "N01_sbe37_all",
             depth: null,
             error: "",
+            loadStartTimes: [],
             loading: false,
             readings: [],
             server: "http://www.neracoos.org/erddap",
@@ -286,6 +297,7 @@ const initialDatasetState: ERDDAPStoreState = {
             dataset: "cwwcNDBCMet",
             depth: null,
             error: "",
+            loadStartTimes: [],
             loading: false,
             readings: [],
             server: "https://coastwatch.pfeg.noaa.gov/erddap",

@@ -42,6 +42,7 @@ describe("ErddapDatasetLoader", () => {
 
     const testDataset: PlatformDataset = {
       ...dataset,
+      loadStartTimes: [sixHoursLater],
       readings: [
         {
           time: sixHoursLater,
@@ -71,6 +72,7 @@ describe("ErddapDatasetLoader", () => {
     const startTime = new Date()
     const testDataset: PlatformDataset = {
       ...dataset,
+      loadStartTimes: [startTime],
       readings: [
         {
           time: startTime,
@@ -110,6 +112,7 @@ const dataset: PlatformDataset = {
   dataset: "N01_met",
   depth: -2,
   error: "",
+  loadStartTimes: [],
   loading: false,
   readings: [],
   server: "neracoos",

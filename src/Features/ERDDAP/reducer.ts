@@ -32,6 +32,7 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
                 return {
                   ...reading,
                   error: "",
+                  loadStartTimes: [],
                   loading: false,
                   readings: []
                 } as PlatformDataset
@@ -70,7 +71,9 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
       }
 
     case actionTypes.ERDDAP_DATASET_LOAD_STARTED:
-      const datasetStartedSet = new Set(action.datasets.map(dataset => JSON.stringify(dataset)))
+      const datasetStartedSet = new Set(
+        action.datasets.map(dataset => JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
+      )
 
       return {
         ...state,
@@ -83,12 +86,18 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
               properties: {
                 ...platform.properties,
                 readings: [
-                  ...platform.properties.readings.filter(dataset => !datasetStartedSet.has(JSON.stringify(dataset))),
+                  ...platform.properties.readings.filter(
+                    dataset =>
+                      !datasetStartedSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
+                  ),
                   ...platform.properties.readings
-                    .filter(dataset => datasetStartedSet.has(JSON.stringify(dataset)))
+                    .filter(dataset =>
+                      datasetStartedSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
+                    )
                     .map(dataset => ({
                       ...dataset,
                       error: "",
+                      loadStartTimes: [...dataset.loadStartTimes, action.time],
                       loading: true
                     }))
                 ]
@@ -97,7 +106,9 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
         ]
       }
     case actionTypes.ERDDAP_DATASET_LOAD_SUCCESS:
-      const datasetSuccessSet = new Set(action.datasets.map(dataset => JSON.stringify(dataset)))
+      const datasetSuccessSet = new Set(
+        action.datasets.map(dataset => JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
+      )
 
       return {
         ...state,
@@ -111,10 +122,13 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
                 ...platfrom.properties,
                 readings: [
                   ...platfrom.properties.readings.filter(
-                    dataset => !datasetSuccessSet.has(JSON.stringify({ ...dataset, loading: false }))
+                    dataset =>
+                      !datasetSuccessSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
                   ),
                   ...platfrom.properties.readings
-                    .filter(dataset => datasetSuccessSet.has(JSON.stringify({ ...dataset, loading: false })))
+                    .filter(dataset =>
+                      datasetSuccessSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
+                    )
                     .map(dataset => ({
                       ...dataset,
                       error: "",

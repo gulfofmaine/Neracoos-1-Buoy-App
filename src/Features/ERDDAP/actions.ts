@@ -105,6 +105,7 @@ export interface ErddapDatasetLoadSuccess {
 
 export interface ErddapDatasetLoadStarted {
   type: actionTypes.ERDDAP_DATASET_LOAD_STARTED
+  time: Date
   platformId: string
   datasets: PlatformDataset[]
 }
@@ -133,10 +134,15 @@ export function erddapDatasetLoadSuccess(
   }
 }
 
-export function erddapDatasetLoadStarted(platformId: string, datasets: PlatformDataset[]): ErddapDatasetLoadStarted {
+export function erddapDatasetLoadStarted(
+  platformId: string,
+  datasets: PlatformDataset[],
+  time: Date
+): ErddapDatasetLoadStarted {
   return {
     datasets,
     platformId,
+    time,
     type: actionTypes.ERDDAP_DATASET_LOAD_STARTED
   }
 }
@@ -166,7 +172,7 @@ export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>,
       // datasets.forEach(dataset => {
       //   dispatch(erddapDatasetLoadStarted(platformId, dataset))
       // })
-      dispatch(erddapDatasetLoadStarted(platformId, datasets))
+      dispatch(erddapDatasetLoadStarted(platformId, datasets, startTime))
 
       const firstDataset = datasets[0]
       const constraints = {
