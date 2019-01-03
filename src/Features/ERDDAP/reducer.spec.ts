@@ -173,7 +173,7 @@ describe("ERDDAP reducer", () => {
           rows: [["2018-12-15T00:00:00Z", 26.1037], ["2018-12-15T01:00:00Z", 12.3186], ["2018-12-15T02:00:00Z", 9.0923]]
         }
       },
-      datasets: [loadingDataset],
+      datasets: [dataset],
       platformId: "N01",
       type: actionTypes.ERDDAP_DATASET_LOAD_SUCCESS
     }
@@ -189,6 +189,7 @@ describe("ERDDAP reducer", () => {
     const salinity = n01.properties.readings.filter(readings => readings.variable === dataset.variable)[0]
 
     expect(salinity.readings.length).toBe(3)
+    expect(salinity.readings.every(reading => reading.time instanceof Date)).toBe(true)
   })
 })
 

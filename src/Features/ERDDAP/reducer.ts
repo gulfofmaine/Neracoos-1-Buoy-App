@@ -125,9 +125,11 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
                           [
                             ...dataset.readings,
                             ...resultToTimeseries(action.data, [dataset.variable])[0].timeSeries
-                          ].map(reading => JSON.stringify(reading))
+                          ].map(reading => JSON.stringify(reading) as any)
                         )
-                      ).map(reading => JSON.parse(reading))
+                      )
+                        .map(reading => JSON.parse(reading))
+                        .map(reading => ({ ...reading, time: new Date(reading.time) }))
                     }))
                 ]
               }
