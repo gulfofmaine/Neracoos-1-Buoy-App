@@ -1,3 +1,6 @@
+/**
+ * Display the current loading and error status of datasets
+ */
 import * as React from "react"
 import { Alert } from "reactstrap"
 
@@ -7,6 +10,10 @@ interface Props {
   datasets: PlatformDataset[]
 }
 
+/**
+ * Display the current loading and error status of datasets
+ * @param datasets
+ */
 export const ErddapDatasetStatus: React.SFC<Props> = ({ datasets }) => {
   const loading = Array.from(new Set(datasets.filter(d => d.loading).map(d => d.data_type.long_name)))
   let loadingString: string
@@ -29,8 +36,7 @@ export const ErddapDatasetStatus: React.SFC<Props> = ({ datasets }) => {
   return (
     <React.Fragment>
       {errors}
-      {/* { errors.length > 0 ? ( { errors.map((d, key) => (<Alert color="warning" key={key}>Error loading {d.data_type.long_name}: {d.error}</Alert>))}) : null} */}
-      {loading.length > 0 ? <Alert>{loadingString}</Alert> : null}
+      {loading.length > 0 ? <Alert color="info">{loadingString}</Alert> : null}
       <Alert>Data loaded from ERDDAP</Alert>
     </React.Fragment>
   )

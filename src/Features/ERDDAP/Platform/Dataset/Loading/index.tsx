@@ -6,8 +6,6 @@ import { erddapDatasetsOrganizeLoadGroups } from "../../../actions"
 import { PlatformDataset } from "../../../types"
 
 interface Props {
-  // children: JSX.Element
-  // children: ReactNode
   children: React.ReactNode
   platformId: string
   datasets: PlatformDataset[]
@@ -49,7 +47,9 @@ export const ErddapDatasetLoaderBase: React.SFC<Props & ReduxProps> = ({
         !dataset.readings.some(reading => new Date(reading.time) < buffer)) // or there are no readings with values before the buffer time
   ) // these datasets should be loaded
 
-  loadDatasets(platformId, datasetsToLoad, startTime)
+  if (datasetsToLoad.length > 0) {
+    loadDatasets(platformId, datasetsToLoad, startTime)
+  }
 
   return <React.Fragment>{children}</React.Fragment>
 }

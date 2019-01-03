@@ -1,6 +1,8 @@
-import { SFC } from "react"
+import * as React from "react"
+import { Alert } from "reactstrap"
 
 import { PlatformDataset, PlatformFeatureWithDatasets } from "../../../types"
+import { ErddapDatasetStatus } from "../Status"
 
 interface Props {
   standardName: string
@@ -12,8 +14,21 @@ interface RenderProps {
   datasets: PlatformDataset[]
 }
 
-export const ErddapDatasetFinder: SFC<Props> = ({ children, standardName, platform }) => {
+export const ErddapDatasetFinder: React.SFC<Props> = ({ children, standardName, platform }) => {
   const datasets = platform.properties.readings.filter(r => r.data_type.standard_name === standardName)
 
-  return children({ datasets })
+  if (datasets.length === 0) {
+    return (
+      <Alert color="danger">
+        {platform.id as string} does not have any datasets matching {standardName}
+      </Alert>
+    )
+  }
+
+  return (
+    <React.Fragment>
+      <ErddapDatasetStatus datasets={datasets} />
+      {children({ datasets })}
+    </React.Fragment>
+  )
 }

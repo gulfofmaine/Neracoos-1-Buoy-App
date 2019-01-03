@@ -2,53 +2,56 @@
  * Utilities to translate some of our data source names to much more pronouncable names.
  */
 
-import * as Sentry from '@sentry/browser'
-
+import * as Sentry from "@sentry/browser"
 
 export const humanDataNameDict = {
-    'air_temperature': 'Air Temperature',
+  air_temperature: "Air Temperature",
 
-    'chlorophyll': 'Chlorophyll',
+  barometric_pressure: "Air Pressure",
 
-    'dew_point_temperature': 'Dew Point',
-    
-    'direction_of_sea_water_velocity': 'Current Direction',
+  chlorophyll: "Chlorophyll",
 
-    'dissolved_oxygen': 'Dissolved Oxygen',
-    
-    'dominant_wave_period': 'Wave Period',
+  dew_point_temperature: "Dew Point",
 
-    'ED_PAR': 'Photosynthetically_active_radiation',
-    'Ed_PAR': 'Photosynthetically Active Radiation',
+  direction_of_sea_water_velocity: "Current Direction",
 
-    'mean_wave_direction': 'Wave Direction',
+  dissolved_oxygen: "Dissolved Oxygen",
 
-    'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
+  dominant_wave_period: "Wave Period",
 
-    'oxygen_satruation': 'Oxygen Saturation',
-    'percent_oxygen_saturation': 'Oxygen Saturation',
-    
-    'sea_level_pressure': 'Air Pressure',
-    'sea_water_density': 'Water Density',
-    'sea_water_electrical_conductivity': 'Water Conductivity',
-    'sea_water_salinity': 'Salinity',
-    'sea_water_speed': 'Current Speed',
-    'sea_water_temperature': 'Water Temperature',
-    
-    'significant_height_of_wind_and_swell_waves': 'Wave Height',
+  ED_PAR: "Photosynthetically_active_radiation",
+  Ed_PAR: "Photosynthetically Active Radiation",
 
-    'surface_partial_pressure_of_carbon_dioxide_in_air': 'Partial Surface Pressure of Carbon Dioxide in Air',
-    'surface_partial_pressure_of_carbon_dioxide_in_sea_water': 'Partial Surface Pressure of Carbon Dioxide in Sea Water',
+  mean_wave_direction: "Wave Direction",
 
-    'turbidity': 'Turbidity',
+  mole_concentration_of_nitrate_in_sea_water: "Molarity of Nitrate in Sea Water",
 
-    'pressure_tendency': 'Pressure trend',
+  oxygen_satruation: "Oxygen Saturation",
+  percent_oxygen_saturation: "Oxygen Saturation",
+  period: "Dominant Wave Period",
 
-    'visibility_in_air': 'Visibility',
+  sea_level_pressure: "Air Pressure",
+  sea_water_density: "Water Density",
+  sea_water_electrical_conductivity: "Water Conductivity",
+  sea_water_salinity: "Salinity",
+  sea_water_speed: "Current Speed",
+  sea_water_temperature: "Water Temperature",
+  sea_water_velocity: "Current Speed",
 
-    'wind_from_direction': 'Wind Direction',
-    'wind_gust': 'Wind Gust',
-    'wind_speed': 'Wind Speed',
+  significant_height_of_wind_and_swell_waves: "Wave Height",
+
+  surface_partial_pressure_of_carbon_dioxide_in_air: "Partial Surface Pressure of Carbon Dioxide in Air",
+  surface_partial_pressure_of_carbon_dioxide_in_sea_water: "Partial Surface Pressure of Carbon Dioxide in Sea Water",
+
+  turbidity: "Turbidity",
+
+  pressure_tendency: "Pressure trend",
+
+  visibility_in_air: "Visibility",
+
+  wind_from_direction: "Wind Direction",
+  wind_gust: "Wind Gust",
+  wind_speed: "Wind Speed"
 }
 
 /**
@@ -59,114 +62,118 @@ export const humanDataNameDict = {
  * @returns String with a much friendlier name for people.
  */
 export function humanDataName(dataType: string): string {
-    if (humanDataNameDict.hasOwnProperty(dataType)) {
-        return humanDataNameDict[dataType]
-    }
-    Sentry.captureMessage('Unknown data type: ' + dataType)
-    return dataType
+  if (humanDataNameDict.hasOwnProperty(dataType)) {
+    return humanDataNameDict[dataType]
+  }
+  const message = "Unknown data type: " + dataType
+  Sentry.captureMessage(message)
+
+  // tslint:disable-next-line:no-console
+  console.log(message)
+
+  return dataType
 }
 
 export const humanUnitNamesDict = {
-    '%': 'Percent',
+  "%": "Percent",
 
-    'cm/s': 'Centimeters / Second',
+  "cm/s": "Centimeters / Second",
 
-    'kg/m3': 'Kilograms / Cubic Meter',
+  "kg/m3": "Kilograms / Cubic Meter",
 
-    'Deg': 'Degrees',
-    'Deg C': 'Degrees Celsius',
+  Deg: "Degrees",
+  "Deg C": "Degrees Celsius",
 
-    'F': 'Degrees Fahrenheit',
-    
-    'Meters': 'Meters',
-    'MicroEinsteins/m2/s': 'MicroEinsteins/m2/s',
-    'mb': 'Millibars',
-    'mg chl/m<sup>3</sup>': 'Milligrams Chlorophyll / Cubic Meter',
-    'ml/l': 'Milliliters / liter',
-    'msiemens/cm': 'Millisiemens / Centimeter',
+  F: "Degrees Fahrenheit",
 
-    'NTU': 'Nephelometric Turbidity Units (NTU)',
+  Meters: "Meters",
+  "MicroEinsteins/m2/s": "MicroEinsteins/m2/s",
+  mb: "Millibars",
+  "mg chl/m<sup>3</sup>": "Milligrams Chlorophyll / Cubic Meter",
+  "ml/l": "Milliliters / liter",
+  "msiemens/cm": "Millisiemens / Centimeter",
 
-    'oxygen_saturation': 'Oxygen Saturation',
+  NTU: "Nephelometric Turbidity Units (NTU)",
 
-    'PSU': 'Practical Salinity Unit (PSU, g salt / kg sea water)',
+  oxygen_saturation: "Oxygen Saturation",
 
-    'Sec': 'Seconds',
+  PSU: "Practical Salinity Unit (PSU, g salt / kg sea water)",
 
-    'uATM': 'Microatmospheres (uATM)',
+  Sec: "Seconds",
+
+  uATM: "Microatmospheres (uATM)"
 }
 
 /**
  * Convert from short unit names, to longer more people friendly ones.
- * 
+ *
  * @param unit short unit name
  * @returns friendlier unit name
  */
 export function humanUnitName(unit: string): string {
-    if (humanUnitNamesDict.hasOwnProperty(unit)) {
-        return humanUnitNamesDict[unit]
-    }
+  if (humanUnitNamesDict.hasOwnProperty(unit)) {
+    return humanUnitNamesDict[unit]
+  }
 
-    Sentry.captureMessage('Unknown unit name: ' + unit)
-    return unit
+  Sentry.captureMessage("Unknown unit name: " + unit)
+  return unit
 }
-
 
 /** Natural bounds that we like to view datasets with */
 export const dataBounds = {
-    'air_temperature': [10, 20],
+  air_temperature: [10, 20],
 
-    // 'chlorophyll': 'Chlorophyll',
+  // 'chlorophyll': 'Chlorophyll',
 
-    // 'dew_point_temperature': 'Dew Point',
-    
-    // 'direction_of_sea_water_velocity': 'Current Direction',
+  // 'dew_point_temperature': 'Dew Point',
 
-    // 'dissolved_oxygen': 'Dissolved Oxygen',
-    
-    'dominant_wave_period': [0, 5],
+  // 'direction_of_sea_water_velocity': 'Current Direction',
 
-    // 'mean_wave_direction': 'Wave Direction',
+  // 'dissolved_oxygen': 'Dissolved Oxygen',
 
-    // 'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
+  dominant_wave_period: [0, 5],
 
-    // 'oxygen_satruation': 'Oxygen Saturation',
-    'percent_oxygen_saturation': [75, 90],
-    
-    // 'sea_level_pressure': 'Air Pressure',
-    // 'sea_water_density': 'Water Density',
-    // 'sea_water_electrical_conductivity': 'Water Conductivity',
-    // 'sea_water_salinity': 'Salinity',
-    // 'sea_water_speed': 'Current Speed',
-    // 'sea_water_temperature': 'Water Temperature',
-    
-    'significant_height_of_wind_and_swell_waves': [0, 1],
+  // 'mean_wave_direction': 'Wave Direction',
 
-    // 'surface_partial_pressure_of_carbon_dioxide_in_air': 'Partial Surface Pressure of Carbon Dioxide in Air',
-    // 'surface_partial_pressure_of_carbon_dioxide_in_sea_water': 'Partial Surface Pressure of Carbon Dioxide in Sea Water',
+  // 'mole_concentration_of_nitrate_in_sea_water': 'Molarity of Nitrate in Sea Water',
 
-    // 'turbidity': 'Turbidity',
+  // 'oxygen_satruation': 'Oxygen Saturation',
+  percent_oxygen_saturation: [75, 90],
 
-    'pressure_tendency': [undefined, undefined],
+  // 'sea_level_pressure': 'Air Pressure',
+  // 'sea_water_density': 'Water Density',
+  // 'sea_water_electrical_conductivity': 'Water Conductivity',
+  // 'sea_water_salinity': 'Salinity',
+  // 'sea_water_speed': 'Current Speed',
+  // 'sea_water_temperature': 'Water Temperature',
 
-    'visibility_in_air': [0, 1],
+  significant_height_of_wind_and_swell_waves: [0, 1],
 
-    'wind_from_direction': [undefined, undefined],
-    'wind_gust': [0, 10],
-    'wind_speed': [0, 10],
+  // 'surface_partial_pressure_of_carbon_dioxide_in_air': 'Partial Surface Pressure of Carbon Dioxide in Air',
+  // 'surface_partial_pressure_of_carbon_dioxide_in_sea_water': 'Partial Surface Pressure of Carbon Dioxide in Sea Water',
+
+  // 'turbidity': 'Turbidity',
+
+  pressure_tendency: [undefined, undefined],
+
+  visibility_in_air: [0, 1],
+
+  wind_from_direction: [undefined, undefined],
+  wind_gust: [0, 10],
+  wind_speed: [0, 10]
 }
 
 /**
  * Return the natural min and max that a chart should display for a data type.
  * If the min and max are unknown, it returns unknown instead.
- * 
- * @param dataType 
+ *
+ * @param dataType
  * @returns [min, max]
  */
 export function naturalBounds(dataType: string): Array<number | undefined> {
-    if (dataBounds.hasOwnProperty(dataType)) {
-        return dataBounds[dataType]
-    }
+  if (dataBounds.hasOwnProperty(dataType)) {
+    return dataBounds[dataType]
+  }
 
-    return [undefined, undefined]
+  return [undefined, undefined]
 }
