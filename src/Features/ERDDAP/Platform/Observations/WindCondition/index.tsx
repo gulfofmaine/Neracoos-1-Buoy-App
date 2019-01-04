@@ -10,8 +10,7 @@ import { WindTimeSeriesChart } from "@app/components/Charts"
 import { DataTimeSeries } from "@app/Shared/timeSeries"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
-import { ErddapDatasetLoader } from "../../Dataset/Loading"
-import { ErddapDatasetStatus } from "../../Dataset/Status"
+import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
 
 interface Props {
   platform: PlatformFeatureWithDatasets
@@ -57,6 +56,7 @@ export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = (
           {windTimeSeries[0].timeSeries !== undefined && windTimeSeries[0].timeSeries.length > 0 ? (
             <Row>
               <Col>
+                <h4>Wind</h4>
                 <WindTimeSeriesChart days={7} data={windTimeSeries} barbsPerDay={barbsPerDay} legend={true} />
               </Col>
             </Row>

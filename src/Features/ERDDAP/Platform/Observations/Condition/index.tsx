@@ -5,8 +5,7 @@ import { LargeTimeSeriesChart } from "@app/components/Charts"
 import { naturalBounds } from "@app/Shared/dataTypes"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
-import { ErddapDatasetFinder } from "../../Dataset/Finder"
-import { ErddapDatasetLoader } from "../../Dataset/Loading"
+import { ErddapDatasetFinder, ErddapDatasetLoader } from "../../Dataset"
 
 interface Props {
   platform: PlatformFeatureWithDatasets
