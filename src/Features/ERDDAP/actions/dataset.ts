@@ -75,7 +75,6 @@ export function erddapDatasetLoadError(
   }
 }
 
-// export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<void, StoreState, undefined, Action>> = (
 export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (
   platformId: string,
   datasets: PlatformDataset[],

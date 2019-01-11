@@ -1,4 +1,4 @@
-version: '2.4'
+version: "2.4"
 
 services:
   client:
@@ -6,20 +6,9 @@ services:
     image: neracoos-react
     command: "yarn start"
     ports:
-    - "3000:3000"
+      - "3000:3000"
     environment:
-      REACT_APP_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
+      REACT_APP_ERDDAP_SERVICE: http://localhost:8080
     volumes:
-    - .:/usr/src/app
-    - /usr/src/app/node_modules/
-
-  test:
-    build: .
-    image: neracoos-react
-    command: "yarn test --watchAll" # --coverage"
-    environment:
-      REACT_APP_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
-    volumes:
-    - .:/usr/src/app
-    - /usr/src/app/node_modules/
-
+      - .:/usr/src/app
+      - /usr/src/app/node_modules/

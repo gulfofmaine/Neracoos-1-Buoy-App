@@ -51,7 +51,7 @@ describe("Platform actions", () => {
     })
 
     expect(fetch.mock.calls.length).toEqual(1)
-    expect(fetch.mock.calls[0][0]).toEqual(process.env.REACT_APP_ERDDAP_SERVICE)
+    expect(fetch.mock.calls[0][0]).toEqual(process.env.REACT_APP_ERDDAP_SERVICE + "/api/platforms/")
   })
 
   it("should dispatch an error message if it cannot contact erddap service", async () => {
@@ -72,6 +72,6 @@ describe("Platform actions", () => {
     })
 
     expect(fetch.mock.calls.length).toBe(1)
-    expect(fetch.mock.calls[0][0]).toEqual(process.env.REACT_APP_ERDDAP_SERVICE)
+    expect(fetch.mock.calls[0][0]).toEqual(process.env.REACT_APP_ERDDAP_SERVICE + "/api/platforms/")
   })
 })

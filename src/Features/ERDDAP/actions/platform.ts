@@ -38,7 +38,7 @@ export function erddapPlatformLoadSuccess(geojson: PlatformFeatureCollection): E
 }
 
 /**
- * Acction creator when platforms are unable to be loaded
+ * Action creator when platforms are unable to be loaded
  * @param message Error message
  */
 export function erddapPlatformLoadError(message: string): ErddapPlatformLoadError {
@@ -65,7 +65,7 @@ export const erddapPlatformLoad: ActionCreator<ThunkAction<Promise<Action>, Stor
     try {
       dispatch(erddapPlatformLoadStarted())
 
-      const url = process.env.REACT_APP_ERDDAP_SERVICE as string
+      const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + "/api/platforms/"
 
       Sentry.addBreadcrumb({
         category: "ERDDAP Service",

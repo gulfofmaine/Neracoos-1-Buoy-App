@@ -1,7 +1,7 @@
 import * as actions from "./actions"
 import * as actionTypes from "./actionTypes"
 import { erddapReducer } from "./reducer"
-import { ERDDAPStoreState, PlatformDataset } from "./types"
+import { ERDDAPStoreState, PlatformDataset, ForecastSource } from "./types"
 
 const resultOf = (reduceActions, initialState) => reduceActions.reduce(erddapReducer, initialState)
 
@@ -15,7 +15,9 @@ describe("ERDDAP reducer", () => {
     expect(finalState.platforms).toBeDefined()
     expect(finalState.loading).toBe(false)
   })
+})
 
+describe("ERDDAP reducer - platfrom loading", () => {
   it("Sets the status as loading, when platform loading starts", () => {
     const initialState = undefined
     const action = {
@@ -61,7 +63,9 @@ describe("ERDDAP reducer", () => {
     expect(finalState.platforms.length).toBe(geojson.features.length)
     expect(finalState.loading).toBe(false)
   })
+})
 
+describe("ERDDAP Reducer - Dataset loading", () => {
   it("Can set datasets as loading", () => {
     const initialN01 = initialDatasetState.platforms.filter(platfrom => platfrom.id === "N01")[0]
     const initialA01 = initialDatasetState.platforms.filter(platform => platform.id === "A01")[0]
@@ -199,6 +203,71 @@ describe("ERDDAP reducer", () => {
 
     expect(salinity.readings.length).toBe(3)
     expect(salinity.readings.every(reading => reading.time instanceof Date)).toBe(true)
+  })
+})
+
+describe("ERDDAP reducer - forecast metadata loading", () => {
+  it("Can set the status as loading when the metadata loading starts", () => {
+    const initialState = undefined
+    const action = {
+      type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_STARTED
+    }
+
+    const finalState = resultOf([action], initialState)
+
+    expect(finalState.forecasts.loading).toBe(true)
+    expect(finalState.forecasts.errorMessage).toBeUndefined()
+  })
+
+  it("Can add an error message when there is an error loading metadata", () => {
+    const initialState = undefined
+    const action = {
+      message: "Unable to load metadata",
+      type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_ERROR
+    }
+
+    const finalState = resultOf([action], initialState)
+
+    expect(finalState.forecasts.loading).toBe(false)
+    expect(finalState.forecasts.errorMessage).toEqual(action.message)
+  })
+
+  it("Can add forecast sources to the store", () => {
+    const initialState = undefined
+    const forecasts: ForecastSource[] = [
+      {
+        description: "Wave Direction from the Bedford Institute Wave Model",
+        forecast_type: "Wave Direction",
+        name: "Bedford Institute Wave Model - Direction",
+        point_forecast: "/api/forecasts/bedford_ww3_wave_direction/",
+        slug: "bedford_ww3_wave_direction",
+        source_url: "http://www.neracoos.org/erddap/griddap/WW3_72_GulfOfMaine_latest.html"
+      },
+      {
+        description: "Wave Height from the Bedford Institute Wave Model",
+        forecast_type: "Wave Height",
+        name: "Bedford Institute Wave Model - Height",
+        point_forecast: "/api/forecasts/bedford_ww3_wave_height/",
+        slug: "bedford_ww3_wave_height",
+        source_url: "http://www.neracoos.org/erddap/griddap/WW3_72_GulfOfMaine_latest.html"
+      }
+    ]
+
+    const loadingAction = {
+      type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_STARTED
+    }
+
+    const action = {
+      forecasts,
+      type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_SUCCESS
+    }
+
+    const finalState = resultOf([loadingAction, action], initialState)
+
+    expect(finalState.forecasts.forecasts.length).toBe(2)
+    expect(finalState.forecasts.forecasts).toBe(forecasts)
+    expect(finalState.forecasts.loading).toBe(false)
+    expect(finalState.forecasts.errorMessage).toBeUndefined()
   })
 })
 

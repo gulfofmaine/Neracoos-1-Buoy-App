@@ -10,9 +10,20 @@ export interface ERDDAPStoreState {
   errorMessage?: string
   loading: boolean
   platforms: PlatformFeatureWithDatasets[]
+  forecasts: ForecastStore
+}
+
+export interface ForecastStore {
+  forecasts: ForecastSource[]
+  loading: boolean
+  errorMessage?: string
 }
 
 export const initialStoreState: ERDDAPStoreState = {
+  forecasts: {
+    forecasts: [],
+    loading: false
+  },
   loading: false,
   platforms: []
 }
@@ -29,8 +40,8 @@ export type PlatformFeature = Feature & {
 
 export type PlatformFeatureWithDatasets = Feature & {
   properties: PlatformProperties & {
-    // forecasts:
     readings: PlatformDataset[]
+    forecasts: ForecastDataset[]
   }
 }
 
@@ -72,11 +83,25 @@ export type PlatformDataset = PlatformTimeSeries & {
 }
 
 export enum ForecastType {
-  wind,
-  wave
+  waveHeight = "Wave Height",
+  wavePeriod = "Wave Period",
+  waveDirection = "Wave Direction",
+  airTemperature = "Air Temperature",
+  windSpeed = "Wind Speed",
+  windDirection = "Wind Direction"
+}
+
+export interface ForecastSource {
+  slug: string
+  forecast_type: string
+  name: string
+  description: string
+  soruce_url: string
+  point_forecast: string
 }
 
 export interface ForecastDataset {
+  source: ForecastSource
   loading: boolean
   error: string
   readings: ReadingTimeSeries[]

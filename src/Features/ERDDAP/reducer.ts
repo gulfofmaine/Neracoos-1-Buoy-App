@@ -6,6 +6,7 @@ import { ERDDAPStoreState, initialStoreState, PlatformDataset } from "./types"
 
 export function erddapReducer(state: ERDDAPStoreState = initialStoreState, action: Action): ERDDAPStoreState {
   switch (action.type) {
+    // Platform loading
     case actionTypes.ERDDAP_PLATFORM_LOAD_ERROR:
       return {
         ...state,
@@ -28,6 +29,7 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
             ...feature,
             properties: {
               ...feature.properties,
+              forecasts: [],
               readings: feature.properties!.readings.map(reading => {
                 return {
                   ...reading,
@@ -42,6 +44,7 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
         })
       }
 
+    // Dataset loading
     case actionTypes.ERDDAP_DATASET_LOAD_ERROR:
       const datasetErrorSet = new Set(action.datasets.map(dataset => JSON.stringify(dataset)))
 
@@ -150,6 +153,40 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
             }))
         ]
       }
+
+    // Forecast metadata loading
+    case actionTypes.ERDDAP_FORECAST_METADATA_LOAD_STARTED:
+      return {
+        ...state,
+        forecasts: {
+          ...state.forecasts,
+          errorMessage: undefined,
+          loading: true
+        }
+      }
+
+    case actionTypes.ERDDAP_FORECAST_METADATA_LOAD_ERROR:
+      return {
+        ...state,
+        forecasts: {
+          ...state.forecasts,
+          errorMessage: action.message,
+          loading: false
+        }
+      }
+
+    case actionTypes.ERDDAP_FORECAST_METADATA_LOAD_SUCCESS:
+      return {
+        ...state,
+        forecasts: {
+          ...state.forecasts,
+          errorMessage: undefined,
+          forecasts: action.forecasts,
+          loading: false
+        }
+      }
+
+    // Forecast data loading
 
     default:
       return state
