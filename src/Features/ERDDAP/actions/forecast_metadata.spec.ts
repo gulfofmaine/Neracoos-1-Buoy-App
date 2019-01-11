@@ -1,6 +1,6 @@
 import * as actionTypes from "../actionTypes"
-import * as actions from "./forecast_metadata"
 import { ForecastSource } from "../types"
+import * as actions from "./forecast_metadata"
 
 describe("Forecast metadata actions", () => {
   beforeEach(() => {

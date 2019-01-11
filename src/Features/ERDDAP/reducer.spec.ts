@@ -1,7 +1,7 @@
 import * as actions from "./actions"
 import * as actionTypes from "./actionTypes"
 import { erddapReducer } from "./reducer"
-import { ERDDAPStoreState, PlatformDataset, ForecastSource } from "./types"
+import { ERDDAPStoreState, ForecastSource, PlatformDataset } from "./types"
 
 const resultOf = (reduceActions, initialState) => reduceActions.reduce(erddapReducer, initialState)
 

@@ -56,7 +56,7 @@ Semaphore CI automatically runs both unit and integration tests. For more detail
 
 The jest test runner will start when you run `make up` and run tests on changed files automatically.
 
-You can also run `make cov` to generate code coverage.
+You can also run `make cov` to generate code coverage, and `make cov-html` to view the coverage in a browser.
 
 ### Integration Tests
 
