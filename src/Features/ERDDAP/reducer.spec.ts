@@ -271,6 +271,74 @@ describe("ERDDAP reducer - forecast metadata loading", () => {
   })
 })
 
+describe("ERDDAP reducer - forecast loading", () => {
+  it("Can set the status as loading when the forecast loading starts", () => {
+    const initialState = initialDatasetState
+
+    const action = {
+      forecast,
+      platformId,
+      type: actionTypes.ERDDAP_FORECAST_LOAD_STARTED
+    }
+
+    const initialN01 = initialState.platforms.filter(platform => (platform.id as string) === platformId)[0]
+    expect(initialN01.properties.forecasts.length).toBe(0)
+
+    const finalState = resultOf([action], initialState)
+
+    const n01 = finalState.platforms.filter(platform => platform.id === platformId)[0]
+
+    expect(n01.properties.forecasts.length).toBe(1)
+    expect(n01.properties.forecasts[0].source).toBe(forecast)
+    expect(n01.properties.forecasts[0].loading).toBe(true)
+  })
+
+  it("Can set an error message on a loading forecast", () => {
+    const initialState = initialDatasetState
+
+    const action = {
+      forecast,
+      message: "It exploded",
+      platformId,
+      type: actionTypes.ERDDAP_FORECAST_LOAD_ERROR
+    }
+
+    const finalState = resultOf([initialForecastLoadingAction, action], initialState)
+
+    const n01 = finalState.platforms.filter(platform => platform.id === platformId)[0]
+    const a01 = finalState.platforms.filter(platform => platform.id !== platformId)[0]
+
+    expect(n01.properties.forecasts.length).toBe(1)
+    expect(n01.properties.forecasts[0].loading).toBe(false)
+    expect(n01.properties.forecasts[0].source).toBe(forecast)
+    expect(n01.properties.forecasts[0].error).toBe(action.message)
+
+    expect(a01.properties.forecasts.length).toBe(0)
+  })
+
+  it("Can load new forecast data for platform", () => {
+    const initialState = initialDatasetState
+
+    const action = {
+      forecast,
+      platformId,
+      readings: forecastTimeSeries,
+      type: actionTypes.ERDDAP_FORECAST_LOAD_SUCCESS
+    }
+
+    const finalState = resultOf([initialForecastLoadingAction, action], initialState)
+
+    const n01 = finalState.platforms.filter(platform => platform.id === platformId)[0]
+
+    expect(n01.properties.forecasts.length).toBe(1)
+    expect(n01.properties.forecasts[0].loading).toBe(false)
+    expect(n01.properties.forecasts[0].error).toBe("")
+    expect(n01.properties.forecasts[0].readings).toBe(forecastTimeSeries)
+  })
+})
+
+const platformId = "N01"
+
 const dataset: PlatformDataset = {
   constraints: {
     "depth=": 1.0
@@ -299,7 +367,20 @@ const loadingDataset = {
   loading: true
 }
 
+const forecast: ForecastSource = {
+  description: "Wave Direction from the Bedford Institute Wave Model",
+  forecast_type: "Wave Direction",
+  name: "Bedford Institute Wave Model - Direction",
+  point_forecast: "/api/forecasts/bedford_ww3_wave_direction/",
+  slug: "bedford_ww3_wave_direction",
+  source_url: "http://www.neracoos.org/erddap/griddap/WW3_72_GulfOfMaine_latest.html"
+}
+
 const initialDatasetState: ERDDAPStoreState = {
+  forecasts: {
+    forecasts: [forecast],
+    loading: false
+  },
   loading: false,
   platforms: [
     {
@@ -307,9 +388,11 @@ const initialDatasetState: ERDDAPStoreState = {
         coordinates: [0, 0],
         type: "Point"
       },
-      id: "N01",
+      id: platformId,
       properties: {
+        alerts: [],
         attribution: [],
+        forecasts: [],
         mooring_site_desc: "Northeast Channel",
         readings: [
           dataset,
@@ -347,8 +430,9 @@ const initialDatasetState: ERDDAPStoreState = {
       },
       id: "A01",
       properties: {
+        alerts: [],
         attribution: [],
-
+        forecasts: [],
         mooring_site_desc: "Massachusetts Bay",
         ndbc_site_id: "44029",
         readings: [
@@ -384,3 +468,24 @@ const initialDatasetState: ERDDAPStoreState = {
     }
   ]
 }
+
+const initialForecastLoadingAction = {
+  forecast,
+  platformId,
+  type: actionTypes.ERDDAP_FORECAST_LOAD_STARTED
+}
+
+const forecastTimeSeries = [
+  {
+    time: "2019-01-14T00:00:00Z",
+    value: 346.5862084564193
+  },
+  {
+    time: "2019-01-14T03:00:00Z",
+    value: 56.48942151481367
+  },
+  {
+    time: "2019-01-14T06:00:00Z",
+    value: 356.55931033474735
+  }
+]

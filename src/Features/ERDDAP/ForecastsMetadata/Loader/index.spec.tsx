@@ -1,7 +1,7 @@
 import { mount } from "enzyme"
 import * as React from "react"
 
-import { ForecastSource } from "../types"
+import { ForecastSource } from "../../types"
 
 import { ForecastMetataLoaderBase, ReduxProps } from "./index"
 

@@ -188,6 +188,79 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
 
     // Forecast data loading
 
+    case actionTypes.ERDDAP_FORECAST_LOAD_STARTED:
+      return {
+        ...state,
+        platforms: [
+          ...state.platforms.filter(platform => (platform.id as string) !== action.platformId),
+          ...state.platforms
+            .filter(platform => (platform.id as string) === action.platformId)
+            .map(platform => ({
+              ...platform,
+              properties: {
+                ...platform.properties,
+                forecasts: [
+                  ...platform.properties.forecasts.filter(forecast => action.forecast !== forecast.source),
+                  { error: "", loading: true, readings: [], source: action.forecast }
+                ]
+              }
+            }))
+        ]
+      }
+
+    case actionTypes.ERDDAP_FORECAST_LOAD_ERROR:
+      return {
+        ...state,
+        platforms: [
+          ...state.platforms.filter(platform => (platform.id as string) !== action.platformId),
+          ...state.platforms
+            .filter(platform => (platform.id as string) === action.platformId)
+            .map(platform => ({
+              ...platform,
+              properties: {
+                ...platform.properties,
+                forecasts: [
+                  ...platform.properties.forecasts.filter(forecast => action.forecast !== forecast.source),
+                  ...platform.properties.forecasts
+                    .filter(forecast => action.forecast === forecast.source)
+                    .map(forecast => ({
+                      ...forecast,
+                      error: action.message,
+                      loading: false
+                    }))
+                ]
+              }
+            }))
+        ]
+      }
+
+    case actionTypes.ERDDAP_FORECAST_LOAD_SUCCESS:
+      return {
+        ...state,
+        platforms: [
+          ...state.platforms.filter(platform => (platform.id as string) !== action.platformId),
+          ...state.platforms
+            .filter(platform => (platform.id as string) === action.platformId)
+            .map(platform => ({
+              ...platform,
+              properties: {
+                ...platform.properties,
+                forecasts: [
+                  ...platform.properties.forecasts.filter(forecast => action.forecast !== forecast.source),
+                  ...platform.properties.forecasts
+                    .filter(forecast => action.forecast === forecast.source)
+                    .map(forecast => ({
+                      ...forecast,
+                      error: "",
+                      loading: false,
+                      readings: action.readings
+                    }))
+                ]
+              }
+            }))
+        ]
+      }
+
     default:
       return state
   }

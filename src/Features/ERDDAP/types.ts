@@ -96,7 +96,7 @@ export interface ForecastSource {
   forecast_type: string
   name: string
   description: string
-  soruce_url: string
+  source_url: string
   point_forecast: string
 }
 
@@ -105,6 +105,12 @@ export interface ForecastDataset {
   loading: boolean
   error: string
   readings: ReadingTimeSeries[]
+}
+
+export type ForecastJson = ForecastSource & {
+  latitude: number
+  longitude: number
+  time_series: ReadingTimeSeries[]
 }
 
 export interface FetchGroup {

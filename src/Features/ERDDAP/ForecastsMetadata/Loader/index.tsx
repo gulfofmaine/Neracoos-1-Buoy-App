@@ -5,8 +5,8 @@ import { bindActionCreators, Dispatch } from "redux"
 
 import { StoreState } from "@app/constants"
 
-import { forecastMetadataLoad } from "../actions"
-import { ForecastSource } from "../types"
+import { forecastMetadataLoad } from "../../actions"
+import { ForecastSource } from "../../types"
 
 export interface Props {
   children: React.ReactElement<any>
