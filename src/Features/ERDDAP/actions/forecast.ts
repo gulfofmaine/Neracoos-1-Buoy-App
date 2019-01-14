@@ -68,7 +68,7 @@ export function forecastLoadSuccess(
   }
 }
 
-export const loadForecast: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (
+export const forecastLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState, undefined, Action>> = (
   platform: PlatformFeatureWithDatasets,
   forecast: ForecastSource
 ) => {
@@ -79,13 +79,13 @@ export const loadForecast: ActionCreator<ThunkAction<Promise<Action>, StoreState
       const lat = (platform.geometry as Point).coordinates[1]
       const lon = (platform.geometry as Point).coordinates[0]
 
-      const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + forecast.slug + `?lat=${lat}&lon=${lon}`
+      const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
 
       Sentry.addBreadcrumb({
         category: "ERDDAP Service",
         data: {
           forecast,
-          platform,
+          platformId: platform.id,
           url
         },
         message: "Loading forecast"
@@ -94,7 +94,13 @@ export const loadForecast: ActionCreator<ThunkAction<Promise<Action>, StoreState
       const result = await fetch(url)
       const json = (await result.json()) as ForecastJson
 
-      return dispatch(forecastLoadSuccess(platform.id as string, forecast, json.time_series))
+      return dispatch(
+        forecastLoadSuccess(
+          platform.id as string,
+          forecast,
+          json.time_series.map(ts => ({ ...ts, time: new Date(ts.time) }))
+        )
+      )
     } catch (error) {
       // tslint:disable-next-line:no-console
       console.log(error)

@@ -13,6 +13,6 @@ export type ErddapActions =
   | ErddapForecastActions
 
 export { erddapDatasetsOrganizeLoadGroups } from "./dataset"
-export { loadForecast } from "./forecast"
+export { forecastLoad } from "./forecast"
 export { erddapPlatformLoad } from "./platform"
 export { forecastMetadataLoad } from "./forecast_metadata"

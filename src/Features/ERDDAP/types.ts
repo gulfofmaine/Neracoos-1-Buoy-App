@@ -98,6 +98,7 @@ export interface ForecastSource {
   description: string
   source_url: string
   point_forecast: string
+  units: string
 }
 
 export interface ForecastDataset {

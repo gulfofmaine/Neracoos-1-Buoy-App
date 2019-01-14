@@ -46,7 +46,7 @@ describe("Forecast actions", () => {
 
     fetch.mockResponseOnce(JSON.stringify(response))
 
-    await actions.loadForecast(platform, forecast)(dispatch, getState)
+    await actions.forecastLoad(platform, forecast)(dispatch, getState)
 
     expect(dispatch.mock.calls.length).toBe(2)
     expect(dispatch).toBeCalledWith({

@@ -1,10 +1,13 @@
 import * as React from "react"
 import { connect } from "react-redux"
 
+import { MultipleLargeTimeSeriesChart } from "@app/components/Charts"
 import { StoreState } from "@app/constants"
+import { DataTimeSeries } from "@app/Shared/timeSeries"
 
 import { ForecastSource, PlatformFeatureWithDatasets } from "../../../types"
 import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
+import { ForecastLoader } from "../Loader"
 
 export interface Props {
   platform: PlatformFeatureWithDatasets
@@ -57,16 +60,36 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
     forecast => forecast.source.forecast_type.toLowerCase().replace(" ", "_") === type
   )
 
+  const data: DataTimeSeries[] = datasets.map(dataset => ({
+    name: dataset.data_type.long_name,
+    timeSeries: dataset.readings,
+    unit: dataset.data_type.units
+  }))
+
+  platformForecasts.map(forecast => {
+    if (forecast.readings.length > 0) {
+      data.push({
+        name: forecast.source.name,
+        timeSeries: forecast.readings,
+        unit: forecast.source.units
+      })
+    }
+  })
+
+  const units = Array.from(new Set(data.map(ts => ts.unit)))
+
   return (
-    <p>
-      Hi, there are {filteredForecasts.length} forecasts for {filteredForecasts[0].forecast_type}. There are{" "}
-      {Array.from(standardNames).length} dataset standards that match the forecast. There are {datasets.length} datasets
-      for platform {platform.id as string} that match the forecast. There are {platformForecasts.length} forecasts
-      loaded for the platform.
+    <React.Fragment>
+      <h4>{filteredForecasts[0].forecast_type} Forecast</h4>
       <ErddapDatasetLoader platformId={platform.id as string} datasets={datasets}>
         <ErddapDatasetStatus datasets={datasets} />
+        <ForecastLoader platform={platform} forecasts={filteredForecasts}>
+          <React.Fragment>
+            {units.length > 0 ? <MultipleLargeTimeSeriesChart unit={units[0]} data={data} /> : null}
+          </React.Fragment>
+        </ForecastLoader>
       </ErddapDatasetLoader>
-    </p>
+    </React.Fragment>
   )
 }
 
