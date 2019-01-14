@@ -60,9 +60,12 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
     forecast => forecast.source.forecast_type.toLowerCase().replace(" ", "_") === type
   )
 
+  const aDayAgo = new Date()
+  aDayAgo.setDate(aDayAgo.getDate() - 1)
+
   const data: DataTimeSeries[] = datasets.map(dataset => ({
-    name: dataset.data_type.long_name,
-    timeSeries: dataset.readings,
+    name: dataset.data_type.long_name + " observed",
+    timeSeries: dataset.readings.filter(reading => reading.time > aDayAgo),
     unit: dataset.data_type.units
   }))
 

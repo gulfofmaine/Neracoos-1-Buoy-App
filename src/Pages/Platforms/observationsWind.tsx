@@ -1,19 +1,14 @@
-import * as React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-
-import { ObservedPlatformWindConditions } from '@app/Features/PlatformData'
-
-import { PlatformMatchParams } from './types'
-
 /**
  * Specialty Wind observation page.
  */
-export class WindObservationsPage extends React.Component<RouteComponentProps, object> {
-    public render() {
-        const { id } = this.props.match.params as PlatformMatchParams
+import * as React from "react"
 
-        return (
-            <ObservedPlatformWindConditions platformId={id} />
-        )
-    }
-}
+import { ErddapWindObservedCondition, RenderProps } from "@app/Features/ERDDAP"
+
+/**
+ *
+ * @param platform Platform object to load wind data from
+ */
+export const WindObservationsPage: React.SFC<RenderProps> = ({ platform }) => (
+  <ErddapWindObservedCondition platform={platform} />
+)

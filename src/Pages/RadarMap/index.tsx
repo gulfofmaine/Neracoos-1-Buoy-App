@@ -1,6 +1,9 @@
 import * as React from 'react'
 
-import { ForecastMap, PlatformMapLoader } from '@app/Features/PlatformMap'
+import { 
+    ErddapForecastMap,
+    ErddapPlatformsLoader 
+} from '@app/Features/ERDDAP'
 
 /**
  * Basic map page.
@@ -10,10 +13,9 @@ export const RadarMapPage: React.StatelessComponent<{}> = () => {
     return (
         <div className="row">
             <div className="col">
-                <h2>Map</h2>
-                <PlatformMapLoader>
-                    <ForecastMap platformId='' />
-                </PlatformMapLoader>
+                <ErddapPlatformsLoader>
+                    <ErddapForecastMap platformId='' />
+                </ErddapPlatformsLoader>
             </div>
         </div>
     )

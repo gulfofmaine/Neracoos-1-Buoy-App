@@ -1,22 +1,16 @@
-import * as React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-
-import { CurrentPlatformConditions } from '@app/Features/PlatformData'
-
-import { PlatformMatchParams } from './types'
-
 /**
  * Display current conditions for selected platform.
  */
-export class CurrentConditionsPage extends React.Component<RouteComponentProps, object> {
-    public render() {
+import * as React from "react"
 
-        const { id } = this.props.match.params as PlatformMatchParams
+import { ErddapCurrentPlatformConditions, RenderProps } from "@app/Features/ERDDAP"
 
-        return (
-            <div>
-                <CurrentPlatformConditions platformId={id} />
-            </div>
-        )
-    }
-}
+/**
+ * Display current conditions for selected platform
+ * @param platform ERDDAP platform object
+ */
+export const CurrentConditionsPage: React.SFC<RenderProps> = ({ platform }) => (
+  <div>
+    <ErddapCurrentPlatformConditions platform={platform} />
+  </div>
+)

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Col, Row } from 'reactstrap'
 
 import { DrupalBlock } from '@app/Features/Drupal'
-import { PlatformMap, PlatformMapLoader } from '@app/Features/PlatformMap'
+import { ErddapMap, ErddapPlatformsLoader } from '@app/Features/ERDDAP'
 
 
 /**
@@ -12,9 +12,9 @@ export const HomePage: React.StatelessComponent<{}> = () => {
     return (
         <Row>
             <Col>
-                <PlatformMapLoader>
-                    <PlatformMap platformId='' />
-                </PlatformMapLoader>
+                <ErddapPlatformsLoader>
+                    <ErddapMap platformId='' />
+                </ErddapPlatformsLoader>
             </Col>
             <Col>
                 <DrupalBlock node="node/27" />
