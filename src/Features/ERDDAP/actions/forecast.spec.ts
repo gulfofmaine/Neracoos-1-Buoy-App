@@ -54,12 +54,7 @@ describe("Forecast actions", () => {
       platformId,
       type: actionTypes.ERDDAP_FORECAST_LOAD_STARTED
     })
-    expect(dispatch).toBeCalledWith({
-      forecast,
-      platformId,
-      readings,
-      type: actionTypes.ERDDAP_FORECAST_LOAD_SUCCESS
-    })
+    expect(dispatch).toHaveBeenCalledTimes(2)
   })
 })
 
