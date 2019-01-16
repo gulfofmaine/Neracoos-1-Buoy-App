@@ -14,6 +14,7 @@ import {
   YAxis
 } from "react-jsx-highcharts"
 
+import { humanUnitName } from "@app/Shared/dataTypes"
 import { round } from "@app/Shared/math"
 import { DataTimeSeries } from "@app/Shared/timeSeries"
 import { convertUnit } from "@app/Shared/unitConversion"
@@ -67,7 +68,7 @@ class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
         <XAxis type="datetime" />
 
         <YAxis>
-          <YAxis.Title>{this.props.unit}</YAxis.Title>
+          <YAxis.Title>{humanUnitName(this.props.unit)}</YAxis.Title>
           {series}
         </YAxis>
 

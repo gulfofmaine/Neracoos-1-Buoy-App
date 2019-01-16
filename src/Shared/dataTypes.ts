@@ -87,6 +87,10 @@ export const humanUnitNamesDict = {
   F: "Degrees Fahrenheit",
 
   Meters: "Meters",
+  meters: "Meters",
+
+  m: "Meters",
+
   "MicroEinsteins/m2/s": "MicroEinsteins/m2/s",
   mb: "Millibars",
   "mg chl/m<sup>3</sup>": "Milligrams Chlorophyll / Cubic Meter",
