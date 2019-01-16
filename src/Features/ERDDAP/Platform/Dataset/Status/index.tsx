@@ -37,7 +37,7 @@ export const ErddapDatasetStatus: React.SFC<Props> = ({ datasets }) => {
     <React.Fragment>
       {errors}
       {loading.length > 0 ? <Alert color="info">{loadingString}</Alert> : null}
-      <Alert>Data loaded from ERDDAP</Alert>
+      {process.env.NODE_ENV === "development" ? <Alert>Development info: Data loaded from ERDDAP</Alert> : null}
     </React.Fragment>
   )
 }

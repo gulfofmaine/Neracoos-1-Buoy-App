@@ -70,7 +70,7 @@ describe("ErddapDatasetFinder", () => {
       </ErddapDatasetFinder>
     )
 
-    expect(wrapper.text()).toContain("Data loaded from ERDDAP")
+    expect(wrapper.text()).toContain("")
   })
 })
 

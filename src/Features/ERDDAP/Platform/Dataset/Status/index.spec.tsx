@@ -9,7 +9,7 @@ describe("ErddapDatasetStatus", () => {
   it("Will display that datasets were from ERDDAP", () => {
     const wrapper = render(<ErddapDatasetStatus datasets={[]} />)
 
-    expect(wrapper.text()).toEqual("Data loaded from ERDDAP")
+    expect(wrapper.text()).toEqual("")
   })
 
   it("Will display when a dataset is loading", () => {
