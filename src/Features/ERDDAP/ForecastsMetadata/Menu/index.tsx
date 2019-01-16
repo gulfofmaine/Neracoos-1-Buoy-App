@@ -59,7 +59,7 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
 
     return (
       <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle nav={true} caret={true}>
+        <DropdownToggle nav={true} caret={true} id="forecast">
           Forecasts
         </DropdownToggle>
 
