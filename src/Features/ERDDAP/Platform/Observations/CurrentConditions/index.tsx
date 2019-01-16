@@ -123,9 +123,6 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) 
     )
   })
 
-  // tslint:disable-next-line:no-console
-  console.log(showWinds, dataCards)
-
   return (
     <React.Fragment>
       <ErddapDatasetStatus datasets={[...filteredDatasets, ...windDatasets]} />

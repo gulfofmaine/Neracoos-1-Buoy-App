@@ -20,9 +20,6 @@ import { convertUnit } from "@app/Shared/unitConversion"
 
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
-    // tslint:disable-next-line:no-console
-    console.log(this)
-
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
       this.points.map(p => `<b>${p.series.name}:</b> ${p.y} m ${convertUnit(unit, p.y)}`).join("<br />")
