@@ -9,6 +9,7 @@ services:
       - "3000:3000"
     environment:
       REACT_APP_ERDDAP_SERVICE: http://localhost:8080
+      REACT_APP_PROXY_ROOT: http://localhost:9090/
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules/
