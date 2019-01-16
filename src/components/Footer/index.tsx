@@ -11,7 +11,7 @@ const textStyle = { fontSize: ".8rem", padding: ".25rem" }
 const colSize = 10
 
 export const Footer: React.SFC = () => (
-  <React.Fragment>
+  <div className="footer">
     <Row style={{ ...textStyle, paddingTop: "1rem" }}>
       <Col md={colSize} className="mx-auto text-center">
         Copyright © 2019 ~ NERACOOS
@@ -28,7 +28,12 @@ export const Footer: React.SFC = () => (
     <Row style={textStyle}>
       <Col md={colSize} className="mx-auto text-center">
         <a href="https://www.gmri.org/">
-          <img src="http://gmri.org/sites/default/files/gmri_logo_tag.jpg" style={logoStyle} />
+          <img
+            src="http://gmri.org/sites/default/files/gmri_logo_tag.jpg"
+            style={logoStyle}
+            alt="Gulf of Maine Research Institute"
+            title="Gulf of Maine Research Institute"
+          />
         </a>
         <a href="https://www.gmri.org/our-work/research/our-approach/ocean-data">
           <SignalFlag character="o" title="O for Ocean" style={imageStyle} />
@@ -106,7 +111,7 @@ export const Footer: React.SFC = () => (
         </a>
       </Col>
     </Row>
-  </React.Fragment>
+  </div>
 )
 
 export default Footer
