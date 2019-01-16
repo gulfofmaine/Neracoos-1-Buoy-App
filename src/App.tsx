@@ -4,30 +4,29 @@
  * to seperate pages.
  */
 
-import * as React from 'react';
-import { Route, Switch } from 'react-router'
+import * as React from "react"
+import { Route, Switch } from "react-router"
 
-import NavBar from '@app/components/NavBar'
+import Footer from "@app/components/Footer"
+import NavBar from "@app/components/NavBar"
 
-import AboutPage from '@app/Pages/About'
-import HomePage from '@app/Pages/Home'
+import AboutPage from "@app/Pages/About"
+import HomePage from "@app/Pages/Home"
 // import MapPage from '@app/Pages/Map'
-import PlatformsPage from '@app/Pages/Platforms'
-import RadarMapPage from '@app/Pages/RadarMap'
+import PlatformsPage from "@app/Pages/Platforms"
+import RadarMapPage from "@app/Pages/RadarMap"
 
-import './App.css';
-import { paths } from './constants';
-
+import "./App.css"
+import { paths } from "./constants"
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
         <NavBar />
-        
+
         <div className="container-fluid">
-        
-        {/* Switch chooses the first route that matches the user has navigated to.
+          {/* Switch chooses the first route that matches the user has navigated to.
             Otherwise any relevant Route would be chosen */}
           <Switch>
             <Route exact={true} path={paths.home} component={HomePage} />
@@ -37,10 +36,11 @@ class App extends React.Component {
             <Route path={paths.about} component={AboutPage} />
           </Switch>
 
+          <Footer />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
