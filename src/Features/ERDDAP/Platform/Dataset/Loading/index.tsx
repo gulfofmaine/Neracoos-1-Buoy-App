@@ -48,6 +48,7 @@ export const ErddapDatasetLoaderBase: React.SFC<Props & ReduxProps> = ({
   const datasetsToLoad = datasets.filter(
     dataset =>
       dataset.loading === false && // If the dataset isn't currently loading
+      dataset.error.length < 1 &&
       (dataset.readings.length === 0 || // and there aren't any readings
         // !dataset.readings.some(reading => new Date(reading.time) < buffer)) // or there are no readings with values before the buffer time
         !dataset.loadStartTimes.some(time => time > bufferBefore && time < bufferAfter))

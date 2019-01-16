@@ -28,7 +28,7 @@ export const ErddapDatasetStatus: React.SFC<Props> = ({ datasets }) => {
   const errors = datasets
     .filter(d => d.error.length > 0)
     .map((d, key) => (
-      <Alert key={key}>
+      <Alert key={key} color="warning">
         Error loading {d.data_type.long_name}: {d.error}
       </Alert>
     ))

@@ -114,24 +114,35 @@ export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>,
       })
 
       const result = await fetch(proxyUrl)
+
+      if (result.status !== 200) {
+        const msg = `Not sucessful retrieving request. Status: ${result.status} - ${result.statusText}`
+
+        // tslint:disable-next-line:no-console
+        console.log(msg)
+
+        Sentry.captureMessage(msg)
+
+        return dispatch(erddapDatasetLoadError(platformId, datasets, "Unable to load dataset due to server error"))
+      }
+
       const json = (await result.json()) as ErddapJson
 
       return dispatch(erddapDatasetLoadSuccess(platformId, datasets, json))
-      // datasets.slice(1).forEach(dataset => {
-      //   dispatch(erddapDatasetLoadSuccess(platformId, dataset, json))
-      // })
-      // return dispatch(erddapDatasetLoadSuccess(platformId, datasets[0], json))
     } catch (error) {
+      if ((error as Error).message.includes("Unexpected token")) {
+        // tslint:disable-next-line:no-console
+        console.error(error)
+
+        return dispatch(erddapDatasetLoadError(platformId, datasets, "Dataset returned invalid data"))
+      }
+
       // tslint:disable-next-line:no-console
       console.log(error)
 
       Sentry.captureException(error)
 
       return dispatch(erddapDatasetLoadError(platformId, datasets, "Unable to load datasets."))
-      // datasets.slice(1).forEach(dataset => {
-      //   dispatch(erddapDatasetLoadError(platformId, dataset, "Unable to load dataset"))
-      // })
-      // return dispatch(erddapDatasetLoadError(platformId, datasets[0], "Unable to load dataset"))
     }
   }
 }
