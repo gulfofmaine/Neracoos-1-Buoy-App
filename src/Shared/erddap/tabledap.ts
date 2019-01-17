@@ -16,7 +16,8 @@ export function constraintsToString(constraints: Constraints): string {
 
   for (const key in constraints) {
     if (constraints.hasOwnProperty(key)) {
-      constraintStr += "&" + key + constraints[key]
+      // constraintStr += "&" + key + "%22" + constraints[key] + "%22"
+      constraintStr += "&" + key + '"' + constraints[key] + '"'
     }
   }
 

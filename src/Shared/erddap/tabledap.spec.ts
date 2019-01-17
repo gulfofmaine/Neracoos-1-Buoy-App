@@ -1,9 +1,4 @@
-import {
-  constraintsToString,
-  resultToTimeseries,
-  tabledapUrl,
-  variableString
-} from "./tabledap"
+import { constraintsToString, resultToTimeseries, tabledapUrl, variableString } from "./tabledap"
 
 describe("constraintsToString()", () => {
   it("Can create a valid constraints string", () => {
@@ -13,7 +8,7 @@ describe("constraintsToString()", () => {
 
     const result = constraintsToString(constraints)
 
-    expect(result).toEqual("&time>=2018-12-15T00:00:00Z")
+    expect(result).toEqual('&time>="2018-12-15T00:00:00Z"')
   })
 })
 
@@ -39,7 +34,7 @@ describe("datasetUrl", () => {
     const result = tabledapUrl(server, dataset, variables, constraints)
 
     expect(result).toEqual(
-      "http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time,current_speed,current_direction&time>=2018-12-15T00:00:00Z"
+      'http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time,current_speed,current_direction&time>="2018-12-15T00:00:00Z"'
     )
   })
 })
@@ -74,13 +69,7 @@ describe("resultToTimeSeries", () => {
 
 const erddapJson = {
   table: {
-    columnNames: [
-      "time",
-      "current_speed",
-      "current_direction",
-      "temperature",
-      "depth"
-    ],
+    columnNames: ["time", "current_speed", "current_direction", "temperature", "depth"],
     columnTypes: ["String", "float", "float", "float", "float"],
     columnUnits: ["UTC", "cm/s", "angular_degrees", "celsius", "m"],
     rows: [
