@@ -2,14 +2,14 @@
 
 describe("Region: Long Island", () => {
   it("Can show Long Island", () => {
-    cy.visit("=/")
+    cy.visit("/")
 
     cy.contains("Regions").click()
     cy.contains("Long Island").click()
   })
 
   it("Shows only a subset of platforms", () => {
-    cy.visit("=/#/platform/?region=LONG")
+    cy.visit("/platform/?region=LONG")
 
     cy.get("h2").contains("Platforms in Long Island Sound")
 

@@ -10,7 +10,7 @@ describe("About Page", () => {
   })
 
   it("Loads Drupal Content", () => {
-    cy.visit("/#/about/")
+    cy.visit("/about/")
 
     cy.contains("developed to improve")
   })

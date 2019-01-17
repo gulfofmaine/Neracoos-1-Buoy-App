@@ -13,7 +13,7 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows platform status", () => {
-    cy.visit("/#/platform/N01")
+    cy.visit("/platform/N01")
 
     cy.contains("Lat:")
     cy.contains("Lon:")
@@ -22,7 +22,7 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows current conditions", () => {
-    cy.visit("/#/platform/N01")
+    cy.visit("/platform/N01")
 
     cy.contains("Current Conditions")
     cy.contains("Winds -")
@@ -35,10 +35,10 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows wind plot", () => {
-    cy.visit("/#/platform/N01")
+    cy.visit("/platform/N01")
 
     cy.contains("Observations").click()
-    cy.get("[href='#/platform/N01/observations/wind']")
+    cy.get("[href='/platform/N01/observations/wind']")
       .first()
       .click()
     cy.get("h4").contains("Wind")
@@ -56,11 +56,11 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows wave forecast", () => {
-    cy.visit("/#/platform/N01")
+    cy.visit("/platform/N01")
 
     cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get('[href="#/platform/N01/forecast/wave_height"]').click()
+    cy.get('[href="/platform/N01/forecast/wave_height"]').click()
     cy.get("h4").contains("Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Meters")
@@ -73,7 +73,7 @@ describe("Platfrom N01", () => {
   })
 
   it("Has More info menu", () => {
-    cy.visit("/#/platform/N01")
+    cy.visit("/platform/N01")
 
     cy.contains("More info").click()
     cy.contains("More info")
@@ -95,7 +95,7 @@ describe("Platfrom N01", () => {
   })
 
   it("Updated recently", () => {
-    cy.visit("/#/platform/N01")
+    cy.visit("/platform/N01")
 
     cy.contains("Last updated at:").then($element => {
       const text = $element[0].parentElement.innerText
