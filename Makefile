@@ -32,7 +32,7 @@ prune:
 patch:
 	npm version patch
 
-release-patch: down patch build sentry deploy
+release-patch: test down patch build sentry deploy
 
 rm-docs:
 	rm -r docs/ || true

@@ -8,8 +8,19 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_ERDDAP_SERVICE: http://localhost:8080
-      REACT_APP_PROXY_ROOT: http://localhost:9090/
+      REACT_APP_ERDDAP_SERVICE: http://buoybarn.neracoos.org
+      # REACT_APP_ERDDAP_SERVICE: http://localhost:8080
+      REACT_APP_PROXY_ROOT: http://proxy.neracoos.org/
+      # REACT_APP_PROXY_ROOT: http://localhost:9090/
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules/
+  # test:
+  #   build: .
+  #   image: neracoos-react
+  #   command: "yarn test --watchAll" # --coverage"
+  #   environment:
+  #     REACT_APP_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
+  #   volumes:
+  #   - .:/usr/src/app
+  #   - /usr/src/app/node_modules/
