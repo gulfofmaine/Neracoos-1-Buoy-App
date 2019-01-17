@@ -80,7 +80,7 @@ export class BaseMap extends React.Component<Props, State> {
       }
 
       if (nextProps.boundingBox !== this.props.boundingBox) {
-        if (this.props.boundingBox) {
+        if (nextProps.boundingBox) {
           const { north, south, east, west } = nextProps.boundingBox as BoundingBox
           const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
           map.getView().fit(extent)
