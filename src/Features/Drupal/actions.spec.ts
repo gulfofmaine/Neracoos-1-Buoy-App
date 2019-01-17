@@ -109,7 +109,7 @@ describe("Drupal should be able to fetch a node and call our reducer with the re
 
     const store = mockStore({ nodes: [] })
 
-    return store.dispatch(drupalLoadContent(drupalNode)).then(() => {
+    store.dispatch(drupalLoadContent(drupalNode)).then(() => {
       const actions = store.getActions()
 
       expect(actions.length).toEqual(1)
@@ -121,6 +121,6 @@ describe("Drupal should be able to fetch a node and call our reducer with the re
     })
 
     expect(fetch.mock.calls.length).toEqual(1)
-    expect(fetch.mock.calls[0][0]).toEqual("http://localhost:3000/api/node/27.json")
+    expect(fetch.mock.calls[0][0]).toContain("/api/node/27.json")
   })
 })

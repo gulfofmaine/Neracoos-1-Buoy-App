@@ -62,15 +62,13 @@ export class BaseMap extends React.Component<Props, State> {
 
     map.on("singleclick", this.singleClick)
 
-    this.setState({ map })
-
     if (this.props.boundingBox) {
       const { north, south, east, west } = this.props.boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
       map.getView().fit(extent)
-
-      this.setState({ map })
     }
+
+    this.setState({ map })
   }
 
   public componentWillReceiveProps(nextProps: Props) {
