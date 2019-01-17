@@ -35,7 +35,7 @@ export const Footer: React.SFC = () => (
             title="Gulf of Maine Research Institute"
           />
         </a>
-        <a href="https://www.gmri.org/our-work/research/our-approach/ocean-data">
+        <a href="https://www.gmri.org/our-work/research/our-approach/ocean-data" style={{ display: "inline-block" }}>
           <SignalFlag character="o" title="O for Ocean" style={imageStyle} />
           <SignalFlag character="d" title="D for Data" style={imageStyle} />
           <SignalFlag character="p" title="P for Products" style={imageStyle} />
