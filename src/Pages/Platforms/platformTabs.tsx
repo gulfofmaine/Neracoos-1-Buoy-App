@@ -18,7 +18,6 @@ import {
 } from "@app/Features/ERDDAP"
 
 import { CurrentConditionsPage } from "./currentConditions"
-// import { ForecastsPage } from "./forecasts"
 import { ForecastTypePage } from "./forecastType"
 import { ObservationsPage } from "./observations"
 import { WindObservationsPage } from "./observationsWind"
@@ -45,7 +44,6 @@ export const PlatformTabs: React.SFC<RouteComponentProps> = ({ match }) => {
                 <ForecastMetadataLoader>
                   <React.Fragment>
                     <ForecastDropdown platformId={platform.id as string} />
-                    {/* <Tab to={paths.platforms.forecast} path={path} name="Old Forecast" id={id} /> */}
                   </React.Fragment>
                 </ForecastMetadataLoader>
 
@@ -65,7 +63,6 @@ export const PlatformTabs: React.SFC<RouteComponentProps> = ({ match }) => {
             <Route path={paths.platforms.forecastType}>
               {props => <ForecastTypePage {...props} platform={platform} />}
             </Route>
-            {/* <Route path={paths.platforms.forecast}>{props => <ForecastsPage {...props} platform={platform} />}</Route> */}
             <Route path={paths.platforms.platform}>
               <CurrentConditionsPage platform={platform} />
             </Route>
