@@ -2,7 +2,6 @@
   "name": "src",
   "version": "0.1.27",
   "private": true,
-  "proxy": "http://www.neracoos.org",
   "homepage": "http://mariners.neracoos.org/",
   "dependencies": {
     "@sentry/browser": "^4.0.5",
