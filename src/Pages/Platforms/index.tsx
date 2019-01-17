@@ -33,11 +33,7 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
     return (
       <ErddapPlatformsLoader>
         <Row>
-          <Col sm={{ size: true }}>
-            <ErddapMap platformId={platformId} boundingBox={regions.length > 0 ? regions[0].bbox : undefined} />
-          </Col>
-
-          <Col sm={{ size: true }}>
+          <Col sm={{ size: true, order: 6 }}>
             {/* Show list of platfroms in a region if no platform is selected */}
             <Switch>
               <Route path={paths.platforms.root} exact={true}>
@@ -48,6 +44,10 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
               </Route>
               <Route path={paths.platforms.platform} component={PlatformInfo} />
             </Switch>
+          </Col>
+
+          <Col sm={{ size: true, order: 1 }}>
+            <ErddapMap platformId={platformId} boundingBox={regions.length > 0 ? regions[0].bbox : undefined} />
           </Col>
         </Row>
 
