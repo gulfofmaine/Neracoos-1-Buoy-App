@@ -1,4 +1,6 @@
 import * as React from "react"
+// import { withDebouncedProps } from "react-debounce-props"
+// import Debounce from "react-debounce-props"
 import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
@@ -38,7 +40,16 @@ export const ForecastLoaderBase: React.SFC<Props & ReduxProps> = ({ children, fo
   return <React.Fragment>{children}</React.Fragment>
 }
 
+// const ForecastLoaderDebounced = withDebouncedProps(["platform"], 200)(ForecastLoaderBase)
+
+// const ForecastLoaderDebounced: React.SFC<Props & ReduxProps> = props => (
+//   <Debounce debouncedPlatform={props.platform} wait={200}>
+//     {({ debouncedPlatform }) => <ForecastLoaderBase {...props} platform={debouncedPlatform} />}
+//   </Debounce>
+// )
+
 export const ForecastLoader = connect(
   null,
   mapDispatchToProps
+  // )(ForecastLoaderDebounced)
 )(ForecastLoaderBase)
