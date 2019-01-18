@@ -8,6 +8,14 @@ agent:
 blocks:
   - name: "Install"
     task:
+      env_vars:
+        - name: REACT_APP_ERDDAP_SERVICE
+          value: http://buoybarn.neracoos.org
+        - name: REACT_APP_PROXY_ROOT
+          value: http://proxy.neracoos.org/
+      secrets:
+        - name: neracoos_mariners_dashboard_env
+
       prologue:
         commands:
           - sem-version node 10.13.0
@@ -25,6 +33,11 @@ blocks:
 
   - name: "Unit Tests"
     task:
+      env_vars:
+        - name: REACT_APP_ERDDAP_SERVICE
+          value: http://buoybarn.neracoos.org
+        - name: REACT_APP_PROXY_ROOT
+          value: http://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
@@ -41,6 +54,11 @@ blocks:
 
   - name: "Integration Tests"
     task:
+      env_vars:
+        - name: REACT_APP_ERDDAP_SERVICE
+          value: http://buoybarn.neracoos.org
+        - name: REACT_APP_PROXY_ROOT
+          value: http://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
