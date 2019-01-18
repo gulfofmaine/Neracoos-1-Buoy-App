@@ -35,6 +35,7 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
     super(props)
 
     this.toggle = this.toggle.bind(this)
+    this.close = this.close.bind(this)
   }
 
   public render() {
@@ -47,6 +48,7 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
       <Link
         key={forecastType}
         className="dropdown-item nav-item"
+        onClick={this.close}
         to={urlPartReplacer(
           urlPartReplacer(paths.platforms.forecastType, ":id", platformId),
           ":type",
@@ -71,6 +73,12 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
   private toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
+    })
+  }
+
+  private close() {
+    this.setState({
+      dropdownOpen: false
     })
   }
 }

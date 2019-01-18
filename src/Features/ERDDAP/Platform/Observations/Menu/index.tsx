@@ -29,6 +29,7 @@ export class ErddapObservedDropdown extends React.Component<RenderProps, State> 
     super(props)
 
     this.toggle = this.toggle.bind(this)
+    this.close = this.close.bind(this)
   }
 
   public render() {
@@ -51,7 +52,7 @@ export class ErddapObservedDropdown extends React.Component<RenderProps, State> 
         )
 
         return (
-          <Link className="dropdown-item nav-item" key={index} to={url}>
+          <Link className="dropdown-item nav-item" key={index} to={url} onClick={this.close}>
             {d.long_name}
           </Link>
         )
@@ -72,7 +73,7 @@ export class ErddapObservedDropdown extends React.Component<RenderProps, State> 
         <DropdownMenu>
           {dropdownItems}
           {platform.properties.readings.filter(d => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
-            <Link className="dropdown-item nav-item" to={windUrl}>
+            <Link className="dropdown-item nav-item" to={windUrl} onClick={this.close}>
               Wind
             </Link>
           ) : null}
@@ -84,6 +85,12 @@ export class ErddapObservedDropdown extends React.Component<RenderProps, State> 
   private toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
+    })
+  }
+
+  private close() {
+    this.setState({
+      dropdownOpen: false
     })
   }
 }

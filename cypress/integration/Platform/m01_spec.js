@@ -1,19 +1,21 @@
 /*global cy*/
 
-describe("Platfrom N01", () => {
+const platformUrl = "/platform/M01"
+
+describe("Platfrom M01", () => {
   it("Can get to from Home Page", () => {
     cy.visit("/")
 
     cy.contains("Regions").click()
     cy.contains("Gulf Of Maine").click()
 
-    cy.contains("N01").click()
+    cy.contains("M01").click()
 
-    cy.contains("Buoy N01")
+    cy.contains("Buoy M01")
   })
 
   it("Shows platform status", () => {
-    cy.visit("/platform/N01")
+    cy.visit(platformUrl)
 
     cy.contains("Lat:")
     cy.contains("Lon:")
@@ -22,7 +24,7 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows current conditions", () => {
-    cy.visit("/platform/N01")
+    cy.visit(platformUrl)
 
     cy.contains("Current Conditions")
     cy.contains("Winds -")
@@ -35,10 +37,10 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows wind plot", () => {
-    cy.visit("/platform/N01")
+    cy.visit(platformUrl)
 
     cy.contains("Observations").click()
-    cy.get("[href='/platform/N01/observations/wind']")
+    cy.get("[href='/platform/M01/observations/wind']")
       .first()
       .click()
     cy.get("h4").contains("Wind")
@@ -56,24 +58,22 @@ describe("Platfrom N01", () => {
   })
 
   it("Shows wave forecast", () => {
-    cy.visit("/platform/N01")
+    cy.visit(platformUrl)
 
     cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get('[href="/platform/N01/forecast/wave_height"]').click()
+    cy.get("[href='/platform/M01/forecast/wave_height']").click()
     cy.get("h4").contains("Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Meters")
-    cy.get("svg.highcharts-root")
-      .contains("Significant Wave Height observed")
-      .click()
+    // cy.contains("Significant Wave Height observed").click()
     cy.get("svg.highcharts-root")
       .contains("Bedford Institute Wave Model - Height")
       .click()
   })
 
   it("Has More info menu", () => {
-    cy.visit("/platform/N01")
+    cy.visit(platformUrl)
 
     cy.contains("More info").click()
     cy.contains("More info")
@@ -95,7 +95,7 @@ describe("Platfrom N01", () => {
   })
 
   it("Updated recently", () => {
-    cy.visit("/platform/N01")
+    cy.visit(platformUrl)
 
     cy.contains("Last updated at:").then($element => {
       const text = $element[0].parentElement.innerText
