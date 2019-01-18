@@ -17,11 +17,11 @@ blocks:
           - mv home/semaphore/.cache/Cypress/ ~/.cache/Cypress/ || true
 
       jobs:
-      - name: Build Yarn modules
-        commands:
-          - yarn --frozen-lockfile
-          - cache store node-modules-$(checksum yarn.lock) node_modules
-          - cache store cypress=3.1.2 ~/.cache/Cypress
+        - name: Build Yarn modules
+          commands:
+            - yarn --frozen-lockfile
+            - cache store node-modules-$(checksum yarn.lock) node_modules
+            - cache store cypress=3.1.2 ~/.cache/Cypress
 
   - name: "Unit Tests"
     task:
@@ -35,9 +35,9 @@ blocks:
           - cache restore node-modules-$(checksum yarn.lock)
 
       jobs:
-      - name: Unit Tests
-        commands:
-          - yarn test-with-codacy-coverage
+        - name: Unit Tests
+          commands:
+            - yarn test-with-codacy-coverage
 
   - name: "Integration Tests"
     task:
@@ -53,7 +53,8 @@ blocks:
           - mv home/semaphore/.cache/Cypress/ ~/.cache/Cypress/
           - sudo apt-get update && sudo apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
 
-      - name: Integration Tests
-        commands:
-          - yarn start & yarn run wait-on http://localhost:3000/
-          - yarn run cypress run --record --key 9719f2cf-c8c6-423c-ac09-68004e35b6c7 || yarn run cypress run
+      jobs:
+        - name: Integration Tests
+          commands:
+            - yarn start & yarn run wait-on http://localhost:3000/
+            - yarn run cypress run --record --key 9719f2cf-c8c6-423c-ac09-68004e35b6c7 || yarn run cypress run
