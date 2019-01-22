@@ -1,0 +1,9 @@
+engines:
+  coverage:
+    enabled: true
+    exclude_paths:
+        - '**/*.spec.ts'
+        - '**/*.spec.tsx'
+        - '**/*.css'
+        - '**/*.md'
+        - '**/*.json'

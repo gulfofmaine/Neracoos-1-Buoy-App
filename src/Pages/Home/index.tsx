@@ -1,26 +1,25 @@
-import * as React from 'react'
-import { Col, Row } from 'reactstrap'
+import * as React from "react"
+import { Col, Row } from "reactstrap"
 
-import { DrupalBlock } from '@app/Features/Drupal'
-import { PlatformMap, PlatformMapLoader } from '@app/Features/PlatformMap'
-
+import { DrupalBlock } from "@app/Features/Drupal"
+import { ErddapMap, ErddapPlatformsLoader } from "@app/Features/ERDDAP"
 
 /**
  * Home page component that combines a map with content from Drupal.
  */
 export const HomePage: React.StatelessComponent<{}> = () => {
-    return (
-        <Row>
-            <Col>
-                <PlatformMapLoader>
-                    <PlatformMap platformId='' />
-                </PlatformMapLoader>
-            </Col>
-            <Col>
-                <DrupalBlock node="node/27" />
-            </Col>
-        </Row>
-    )
+  return (
+    <Row>
+      <Col sm={6}>
+        <ErddapPlatformsLoader>
+          <ErddapMap platformId="" />
+        </ErddapPlatformsLoader>
+      </Col>
+      <Col sm={6}>
+        <DrupalBlock node="node/27" />
+      </Col>
+    </Row>
+  )
 }
 
 export default HomePage

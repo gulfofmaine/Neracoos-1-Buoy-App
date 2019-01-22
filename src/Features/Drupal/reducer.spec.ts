@@ -1,30 +1,29 @@
-import * as actionTypes from './actionTypes'
-import { drupalReducer } from './reducer'
+import * as actionTypes from "./actionTypes"
+import { drupalReducer } from "./reducer"
 
 const resultOf = (actions, initialState) => actions.reduce(drupalReducer, initialState)
 
-describe('Drupal Content Reducer', () => {
+describe("Drupal Content Reducer", () => {
+  it("Creates a valid inital state with no nodes loaded ", () => {
+    const initialState = undefined
+    const action = {}
+    const finalState = resultOf([action], initialState)
 
-    it('Creates a valid inital state with no nodes loaded ', () => {
-        const initialState = undefined
-        const action = {}
-        let finalState = resultOf([action], initialState)
+    expect(finalState.nodes).toBeDefined()
+    expect(finalState.nodes.length).toEqual(0)
+  })
 
-        expect(finalState.nodes).toBeDefined()
-        expect(finalState.nodes.length).toEqual(0)
-    })
-        
-    it('Can save new drupal node data', () => {
-        const initialState = undefined
-        const action = {
-            content: 'Hi',
-            node: '15',
-            type: actionTypes.DRUPAL_LOAD_SUCCESS
-        }
+  it("Can save new drupal node data", () => {
+    const initialState = undefined
+    const action = {
+      content: "Hi",
+      node: "15",
+      type: actionTypes.DRUPAL_LOAD_SUCCESS
+    }
 
-        let finalState = resultOf([action], initialState)
+    const finalState = resultOf([action], initialState)
 
-        expect(finalState.nodes).toBeDefined()
-        expect(finalState.nodes.length).toEqual(1)
-    })
+    expect(finalState.nodes).toBeDefined()
+    expect(finalState.nodes.length).toEqual(1)
+  })
 })

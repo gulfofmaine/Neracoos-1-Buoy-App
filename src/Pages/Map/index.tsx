@@ -1,6 +1,10 @@
 import * as React from 'react'
 
-import { PlatformMap, PlatformMapLoader } from '@app/Features/PlatformMap'
+import { 
+    ErddapMap,
+    ErddapPlatformsLoader 
+} from '@app/Features/ERDDAP'
+// import { PlatformMap, PlatformMapLoader } from '@app/Features/PlatformMap'
 
 /**
  * Basic map page.
@@ -11,9 +15,9 @@ export const MapPage: React.StatelessComponent<{}> = () => {
         <div className="row">
             <div className="col">
                 <h2>Map</h2>
-                <PlatformMapLoader>
-                    <PlatformMap platformId='' />
-                </PlatformMapLoader>
+                <ErddapPlatformsLoader>
+                    <ErddapMap platformId='' />
+                </ErddapPlatformsLoader>
             </div>
         </div>
     )

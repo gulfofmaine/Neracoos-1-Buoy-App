@@ -32,7 +32,7 @@ prune:
 patch:
 	npm version patch
 
-release-patch: down patch build sentry deploy
+release-patch: test down patch build sentry deploy
 
 rm-docs:
 	rm -r docs/ || true
@@ -42,4 +42,10 @@ docs: rm-docs
 	python3 -m http.server -d docs/
 
 cov:
-	docker-compose exec test yarn test --coverage
+	docker-compose exec client yarn test --coverage
+
+test:
+	docker-compose exec -e CI=true client yarn test
+
+cov-html:
+	open coverage/lcov-report/index.html

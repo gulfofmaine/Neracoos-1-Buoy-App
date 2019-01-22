@@ -1,92 +1,87 @@
 /**
  * Time series chart component for displaying multiple sets of time series data
  */
-import Highcharts from 'highcharts'
-import * as React from 'react'
+import Highcharts from "highcharts"
+import * as React from "react"
 import {
-    Chart,
-    HighchartsChart,
-    Legend,
-    SplineSeries,
-    Tooltip,
-    withHighcharts,
-    XAxis,
-    YAxis
-} from 'react-jsx-highcharts'
+  Chart,
+  HighchartsChart,
+  Legend,
+  SplineSeries,
+  Tooltip,
+  withHighcharts,
+  XAxis,
+  YAxis
+} from "react-jsx-highcharts"
 
-import { round } from '@app/Shared/math'
-import { DataTimeSeries } from '@app/Shared/timeSeries'
-import { convertUnit } from '@app/Shared/unitConversion'
-
+import { humanUnitName } from "@app/Shared/dataTypes"
+import { round } from "@app/Shared/math"
+import { DataTimeSeries } from "@app/Shared/timeSeries"
+import { convertUnit } from "@app/Shared/unitConversion"
 
 function formatterWrapper(unit) {
-    return function pointFormatter(this: any) {
-
-        // tslint:disable-next-line:no-console
-        console.log(this)
-    
-        return `${(new Date(this.x).toLocaleString())}<br />` + this.points.map((p) => 
-            `<b>${p.series.name}:</b> ${p.y} m ${convertUnit(unit, p.y)}`
-        ).join('<br />')
-    }
+  return function pointFormatter(this: any) {
+    return (
+      `${new Date(this.x).toLocaleString()}<br />` +
+      this.points.map(p => `<b>${p.series.name}:</b> ${p.y} m ${convertUnit(unit, p.y)}`).join("<br />")
+    )
+  }
 }
 
 const plotOptions = {
-    time: {
-    	useUTC: false
-    }
+  time: {
+    useUTC: false
+  }
 }
 
-
 interface Props {
-    /** Time series data to display */
-    data: DataTimeSeries[]
-    /** Units to display on chart */
-    unit: string
+  /** Time series data to display */
+  data: DataTimeSeries[]
+  /** Units to display on chart */
+  unit: string
 }
 
 /**
  * Time series chart component for displaying multiple sets of time series data
  */
 class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
-    public render() {
-        const series = this.props.data.map((d, index) => {
-            const data = d.timeSeries.map(
-                (r) => [r.time.valueOf(), round(r.reading, 1)]
-            )
-            
-            return (
-                <SplineSeries
-                    key={index}
-                    name={d.name}
-                    marker={{
-                        enabled: false
-                    }}
-                    data={data} />
-            )
-        })
+  public render() {
+    const series = this.props.data.map((d, index) => {
+      const data = d.timeSeries.map(r => [r.time.valueOf(), round(r.reading, 1)])
 
-        return (
-            <HighchartsChart time={plotOptions.time}>
-                <Chart />
+      return (
+        <SplineSeries
+          key={index}
+          name={d.name}
+          marker={{
+            enabled: false
+          }}
+          data={data}
+        />
+      )
+    })
 
-                <XAxis type="datetime" />
+    return (
+      <HighchartsChart time={plotOptions.time}>
+        <Chart />
 
-                <YAxis>
-                    <YAxis.Title>{ this.props.unit }</YAxis.Title>
-                    { series }
-                </YAxis>
+        <XAxis type="datetime" />
 
-                <Legend />
+        <YAxis>
+          <YAxis.Title>{humanUnitName(this.props.unit)}</YAxis.Title>
+          {series}
+        </YAxis>
 
-                <Tooltip
-                    formatter={formatterWrapper(this.props.unit)}
-                    // valueSuffix='m'
-                    shared={true} />
+        <Legend />
 
-            </HighchartsChart>
-        )
-    }
+        <Tooltip
+          formatter={formatterWrapper(this.props.unit)}
+          // valueSuffix='m'
+          shared={true}
+        />
+      </HighchartsChart>
+    )
+  }
 }
 
 /** Highcharts enabled MultipleTimeSeriesChart component. See [[MultipleLargeTimeSeriesChartBase]] for details. */
