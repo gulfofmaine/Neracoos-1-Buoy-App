@@ -15,7 +15,7 @@ describe("Region: Long Island", () => {
 
     cy.get(".list-group")
       .children()
-      .should("have.length", 6)
+      .should("have.length", 5)
 
     cy.get(".ol-attribution > button > span")
   })

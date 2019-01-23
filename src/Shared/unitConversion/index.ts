@@ -116,6 +116,11 @@ const compass = {
   32: ["North by west", "NbW"]
 }
 
+/**
+ * Convert decimal degrees to compass directions
+ * @param degrees decimal degrees from 0 to 360
+ * @returns array of strings. First string is the long name, ala North-northeast, the second is the short name NNE
+ */
 export function compassDirection(degrees: number): string[] {
   const pointNumber = Math.floor((degrees + spaceBetweenCompassPoints / 2.0) / spaceBetweenCompassPoints) + 1
 
