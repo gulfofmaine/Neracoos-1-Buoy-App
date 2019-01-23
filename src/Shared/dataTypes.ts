@@ -27,6 +27,8 @@ export const humanDataNameDict = {
   mole_concentration_of_nitrate_in_sea_water: "Molarity of Nitrate in Sea Water",
 
   oxygen_satruation: "Oxygen Saturation",
+  oxygen_saturation: "Oxygen Saturation",
+
   percent_oxygen_saturation: "Oxygen Saturation",
   period: "Dominant Wave Period",
 
