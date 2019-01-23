@@ -6,7 +6,7 @@ import { Card, CardBody, CardHeader } from "reactstrap"
 
 import { round } from "@app/Shared/math"
 import { DataTimeSeries } from "@app/Shared/timeSeries"
-import { convertUnit } from "@app/Shared/unitConversion"
+import { compassDirection, convertUnit } from "@app/Shared/unitConversion"
 
 import { WindTimeSeriesChart } from "@app/components/Charts"
 
@@ -29,6 +29,7 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
 
   const speed = datasets.filter(dataset => dataset.data_type.standard_name.includes("speed"))
   const gust = datasets.filter(dataset => dataset.data_type.standard_name.includes("gust"))
+  const direction = datasets.filter(dataset => dataset.data_type.standard_name.includes("direction"))
 
   return (
     <Card>
@@ -47,6 +48,9 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
             " " +
             gust[0].data_type.units +
             convertUnit("m/s", gust[0].readings[gust[0].readings.length - 1].reading)
+          : null}
+        {direction.length > 0
+          ? " from " + compassDirection(direction[0].readings[direction[0].readings.length - 1].reading)[1]
           : null}
       </CardHeader>
       <CardBody style={{ padding: ".2rem" }}>
