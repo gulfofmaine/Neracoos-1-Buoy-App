@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
 
 import { paths } from "@app/constants"
 import { urlPartReplacer } from "@app/Shared/urlParams"
@@ -34,6 +34,14 @@ export class ErddapObservedDropdown extends React.Component<RenderProps, State> 
 
   public render() {
     const { platform } = this.props
+
+    if (platform.properties.readings.length === 0) {
+      return (
+        <NavItem>
+          <NavLink disabled={true}>No Observations avaliable</NavLink>
+        </NavItem>
+      )
+    }
 
     const dropdownItems = Array.from(
       new Set(
