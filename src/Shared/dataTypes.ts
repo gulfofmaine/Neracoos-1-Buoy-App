@@ -78,36 +78,45 @@ export function humanDataName(dataType: string): string {
 
 export const humanUnitNamesDict = {
   "%": "Percent",
+  angular_degrees: "Angular Degrees",
+
+  celsius: "Degrees Celsius",
 
   "cm/s": "Centimeters / Second",
 
   "kg/m3": "Kilograms / Cubic Meter",
 
-  Deg: "Degrees",
-  "Deg C": "Degrees Celsius",
+  deg: "Degrees",
+  "deg c": "Degrees Celsius",
+  degrees: "Degrees Celsius",
 
-  F: "Degrees Fahrenheit",
+  f: "Degrees Fahrenheit",
 
-  Meters: "Meters",
+  hpa: "Hectopascals",
+
+  "kg/m^3": "Kilograms per cubic meter",
+
   meters: "Meters",
 
   m: "Meters",
+  "m/s": "Meters per Second",
 
-  "MicroEinsteins/m2/s": "MicroEinsteins/m2/s",
   mb: "Millibars",
   "mg chl/m<sup>3</sup>": "Milligrams Chlorophyll / Cubic Meter",
+  "microeinsteins/m2/s": "MicroEinsteins/m2/s",
   "ml/l": "Milliliters / liter",
   "msiemens/cm": "Millisiemens / Centimeter",
 
-  NTU: "Nephelometric Turbidity Units (NTU)",
+  ntu: "Nephelometric Turbidity Units (NTU)",
 
   oxygen_saturation: "Oxygen Saturation",
 
-  PSU: "Practical Salinity Unit (PSU, g salt / kg sea water)",
+  psu: "Practical Salinity Unit (PSU, g salt / kg sea water)",
 
-  Sec: "Seconds",
+  s: "Seconds",
+  sec: "Seconds",
 
-  uATM: "Microatmospheres (uATM)"
+  uatm: "Microatmospheres (uATM)"
 }
 
 /**
@@ -117,8 +126,8 @@ export const humanUnitNamesDict = {
  * @returns friendlier unit name
  */
 export function humanUnitName(unit: string): string {
-  if (humanUnitNamesDict.hasOwnProperty(unit)) {
-    return humanUnitNamesDict[unit]
+  if (humanUnitNamesDict.hasOwnProperty(unit.toLowerCase())) {
+    return humanUnitNamesDict[unit.toLowerCase()]
   }
 
   Sentry.captureMessage("Unknown unit name: " + unit)

@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
+import { Alert, Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
 import { SmallTimeSeriesChart } from "@app/components/Charts"
 import { paths } from "@app/constants"
@@ -128,15 +128,23 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) 
       <ErddapDatasetStatus datasets={[...filteredDatasets, ...windDatasets]} />
       <ErddapDatasetLoader datasets={[...filteredDatasets, ...windDatasets]} platformId={platform.id as string}>
         <Row>
-          {showWinds ? (
-            <Col {...cardProps}>
-              <Link to={urlPartReplacer(paths.platforms.observationsWind, ":id", platform.id as string)}>
-                <WindCard datasets={windDatasets} />
-              </Link>
+          {dataCards.length === 0 && windDatasets.length === 0 ? (
+            <Col>
+              <Alert color="info">No recent data avaliable for {platform.id as string}.</Alert>
             </Col>
-          ) : null}
+          ) : (
+            <React.Fragment>
+              {showWinds ? (
+                <Col {...cardProps}>
+                  <Link to={urlPartReplacer(paths.platforms.observationsWind, ":id", platform.id as string)}>
+                    <WindCard datasets={windDatasets} />
+                  </Link>
+                </Col>
+              ) : null}
 
-          {dataCards}
+              {dataCards}
+            </React.Fragment>
+          )}
         </Row>
       </ErddapDatasetLoader>
     </React.Fragment>

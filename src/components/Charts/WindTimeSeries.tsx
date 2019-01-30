@@ -19,7 +19,7 @@ import {
 
 import { round } from "@app/Shared/math"
 import { DataTimeSeries } from "@app/Shared/timeSeries"
-import { conversion, convertUnit } from "@app/Shared/unitConversion"
+import { compassDirection, conversion, convertUnit } from "@app/Shared/unitConversion"
 
 /**
  * Allow our tooltip to convert windspeeds to units that people might be more used to.
@@ -32,7 +32,8 @@ function pointFormatter(this: any) {
     this.points
       .map(p => {
         if (p.series.name === "Direction") {
-          return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${p.point.beaufort})`
+          const direction = compassDirection(p.point.direction)
+          return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
         }
         return `<b>${p.series.name}:</b> ${p.y} knots ${convertUnit("knot", p.y)}`
       })
