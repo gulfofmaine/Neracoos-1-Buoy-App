@@ -30,6 +30,8 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "**/*.spec.*"
+    "**/*.spec.*",
+    "coverage",
+    "cypress"
   ]
 }
