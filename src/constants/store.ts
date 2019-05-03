@@ -1,10 +1,10 @@
-import { DrupalStoreState } from "@app/Features/Drupal"
 import { ERDDAPStoreState } from "@app/Features/ERDDAP"
+import { WagtailStoreState } from "@app/Features/WagtailApi"
 
 /**
  * Global Redux store state
  */
 export interface StoreState {
-  drupal: DrupalStoreState
   erddap: ERDDAPStoreState
+  wagtail: WagtailStoreState
 }
