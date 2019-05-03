@@ -1,5 +1,5 @@
 # FROM node:10.11@sha256:32d5d5435e5038028bd0c0871d256d5887b06c4315cb1a135bcf81e0735627c9
-FROM node:11.14.0-alpine@sha256:ca1695f514d5dc54b4812f8b9029b277f86b50e83870af47bfa4582af0ec695d
+FROM node:11.14.0-alpine@sha256:2278992c11ebfba68ca40a56ac77de59f5669b9ce1bb479f89840c95ac1adae7
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
