@@ -259,10 +259,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.7.tgz#0e75ca9357d646ca754016ca1d68a127ad7e7300"
   integrity sha512-yOxFfkN9xUFLyvWaeYj90mlqTJ41CsQzWKS3gXdOMOyPVacUsymejKxJ4/pMW7exouubuEeZLJawGgcNGYlTeg==
 
-"@types/ol@4.6.2":
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/@types/ol/-/ol-4.6.2.tgz#35c2b45268ff44bd6f8246a95d2fa4a8c9bc5ef7"
-  integrity sha512-nXmOOkNjrHpTLHIN6H1Y7q9u6s/uSSnUi1va9n37FFjtf8O6IYSAll/uzKv+jqNOoN9SFx/RYSyhRK8Hs460BA==
+"@types/ol@4.6.5":
+  version "4.6.5"
+  resolved "https://registry.yarnpkg.com/@types/ol/-/ol-4.6.5.tgz#361366d61cd0367a44f580ce2227e421049eea8b"
+  integrity sha512-SvAnsqaUWH90j2BFqH3VjfoclMe7iasMI1E/wg3SgewcmZVQSFtei0MtFR7wZjUYXFmgH0gjlCSkn+oErLtj4w==
   dependencies:
     "@types/openlayers" "*"
 
