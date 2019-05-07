@@ -8,7 +8,7 @@
     "@turf/bbox-polygon": "6.0.1",
     "@turf/boolean-contains": "6.0.1",
     "@turf/helpers": "6.1.4",
-    "@types/ol": "4.6.2",
+    "@types/ol": "4.6.5",
     "@types/react-redux": "6.0.9",
     "@types/react-responsive": "3.0.2",
     "@types/react-router-dom": "4.3.1",
