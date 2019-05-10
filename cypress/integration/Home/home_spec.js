@@ -4,7 +4,7 @@ describe("Home page", function() {
   it("Loads Drupal content", function() {
     cy.visit("/")
 
-    cy.contains("feedback!")
+    cy.contains("Content for")
   })
 
   it("Has a nav bar", () => {

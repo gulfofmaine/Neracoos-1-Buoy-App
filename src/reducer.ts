@@ -7,13 +7,13 @@ import { combineReducers } from "redux"
 import { Action } from "./actions"
 import { StoreState } from "./constants"
 
-import { drupalReducer as drupal } from "@app/Features/Drupal"
 import { erddapReducer as erddap } from "@app/Features/ERDDAP"
+import { wagtailReducer as wagtail } from "@app/Features/WagtailApi"
 
 /**
  * Redux reducer
  */
 export default combineReducers<StoreState, Action>({
-  drupal,
-  erddap
+  erddap,
+  wagtail
 })

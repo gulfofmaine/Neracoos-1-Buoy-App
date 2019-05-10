@@ -1,18 +1,18 @@
-import * as React from 'react'
+import * as React from "react"
 
-import { DrupalBlock } from '@app/Features/Drupal'
+import { WagtailBlock } from "@app/Features/WagtailApi"
 
 /**
  * The about page displays content from the drupal content server.
  */
 export const AboutPage: React.StatelessComponent<{}> = () => {
-    return (
-        <div className="row">
-            <div className="col">
-                <DrupalBlock node="node/28" />
-            </div>
-        </div>
-    )
+  return (
+    <div className="row">
+      <div className="col">
+        <WagtailBlock pageId="5" />
+      </div>
+    </div>
+  )
 }
 
 export default AboutPage

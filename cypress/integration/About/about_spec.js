@@ -6,12 +6,12 @@ describe("About Page", () => {
 
     cy.contains("About").click()
 
-    cy.contains("developed to improve")
+    cy.contains("Content for Mariners Dashboard About Page")
   })
 
-  it("Loads Drupal Content", () => {
+  it("Loads Wagtail Content", () => {
     cy.visit("/about/")
 
-    cy.contains("developed to improve")
+    cy.contains("Content for Mariners Dashboard About Page")
   })
 })

@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Col, Row } from "reactstrap"
 
-import { DrupalBlock } from "@app/Features/Drupal"
 import { ErddapMap, ErddapPlatformsLoader } from "@app/Features/ERDDAP"
+import { WagtailBlock } from "@app/Features/WagtailApi"
 
 /**
  * Home page component that combines a map with content from Drupal.
@@ -16,7 +16,7 @@ export const HomePage: React.StatelessComponent<{}> = () => {
         </ErddapPlatformsLoader>
       </Col>
       <Col sm={6}>
-        <DrupalBlock node="node/27" />
+        <WagtailBlock pageId="4" />
       </Col>
     </Row>
   )
