@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/enzyme": "3.1.14",
-    "@types/enzyme-adapter-react-16": "1.0.3",
+    "@types/enzyme-adapter-react-16": "1.0.5",
     "@types/jest": "23.3.5",
     "@types/node": "10.11.7",
     "@types/react": "16.4.16",
@@ -51,7 +51,7 @@
     "@types/react-test-renderer": "16.0.3",
     "codacy-coverage": "3.3.0",
     "enzyme": "3.7.0",
-    "enzyme-adapter-react-16": "1.6.0",
+    "enzyme-adapter-react-16": "1.13.0",
     "jest-fetch-mock": "2.1.0",
     "react-test-renderer": "16.5.2",
     "redux-devtools-extension": "2.13.5",
