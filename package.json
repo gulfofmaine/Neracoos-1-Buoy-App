@@ -36,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scriptstest",
+    "test": "react-scripts test",
     "think-before-eject": "react-scripts eject",
     "docs": "typedoc --out docs",
     "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage"

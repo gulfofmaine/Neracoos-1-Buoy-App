@@ -1,7 +1,6 @@
 import * as React from "react"
 
 import { ErddapMap, ErddapPlatformsLoader } from "Features/ERDDAP"
-// import { PlatformMap, PlatformMapLoader } from 'Features/PlatformMap'
 
 /**
  * Basic map page.

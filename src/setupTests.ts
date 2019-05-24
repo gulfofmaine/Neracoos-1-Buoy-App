@@ -1,9 +1,8 @@
-import { configure } from 'enzyme'
-import * as Adapter from 'enzyme-adapter-react-16'
-import { GlobalWithFetchMock } from 'jest-fetch-mock'
-import fetchMock = require('jest-fetch-mock')
+import Enzyme from "enzyme"
+import Adapter from "enzyme-adapter-react-16"
+import fetchMock, { GlobalWithFetchMock } from "jest-fetch-mock"
 
-configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter() })
 
 const customGlobal: GlobalWithFetchMock = global as GlobalWithFetchMock
 customGlobal.fetch = fetchMock
