@@ -26,7 +26,7 @@
     "react-redux": "5.0.7",
     "react-responsive": "5.0.0",
     "react-router-dom": "4.3.1",
-    "react-scripts-ts": "3.1.0",
+    "react-scripts": "^3.0.1",
     "react-sizeme": "2.5.2",
     "reactstrap": "6.5.0",
     "redux": "4.0.1",
@@ -34,12 +34,12 @@
     "svg-signal-flags": "https://github.com/stuyam/svg-signal-flags.git"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scriptstest",
+    "think-before-eject": "react-scripts eject",
     "docs": "typedoc --out docs",
-    "test-with-codacy-coverage": "react-scripts-ts test --env=jsdom --coverage && cat ./coverage/lcov.info | codacy-coverage"
+    "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage"
   },
   "devDependencies": {
     "@types/enzyme": "3.1.14",
@@ -57,13 +57,8 @@
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.3",
     "typedoc": "0.13.0",
-    "typescript": "3.1.3",
+    "typescript": "3.4.5",
     "wait-on": "3.2.0"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^@app/(.*)": "<rootDir>/src/$1"
-    }
   },
   "optionalDependencies": {
     "cypress": "3.1.2"
@@ -71,5 +66,17 @@
   "prettier": {
     "semi": false,
     "printWidth": 120
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
