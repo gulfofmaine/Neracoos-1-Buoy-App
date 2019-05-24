@@ -5,10 +5,10 @@
 import { combineReducers } from "redux"
 
 import { Action } from "./actions"
-import { StoreState } from "./constants"
+import { StoreState } from "/Shared/constants"
 
-import { erddapReducer as erddap } from "@app/Features/ERDDAP"
-import { wagtailReducer as wagtail } from "@app/Features/WagtailApi"
+import { erddapReducer as erddap } from "Features/ERDDAP"
+import { wagtailReducer as wagtail } from "Features/WagtailApi"
 
 /**
  * Redux reducer

@@ -1,7 +1,8 @@
-export { BaseMap } from './baseMap'
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from './esriLayers'
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "./esriLayers"
 
 export const esriLayers = {
-    EsriOceanBasemapLayer,
-    EsriOceanReferenceLayer
+  EsriOceanBasemapLayer,
+  EsriOceanReferenceLayer
 }
+
+export { BaseMap } from "./baseMap"

@@ -6,8 +6,8 @@ import * as React from "react"
 import sizeMe, { SizeMeProps } from "react-sizeme"
 import { Alert, Col, Row } from "reactstrap"
 
-import { WindTimeSeriesChart } from "@app/components/Charts"
-import { DataTimeSeries } from "@app/Shared/timeSeries"
+import { WindTimeSeriesChart } from "components/Charts"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
 import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"

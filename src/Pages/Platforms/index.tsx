@@ -2,11 +2,11 @@ import * as React from "react"
 import { Route, RouteComponentProps, Switch } from "react-router"
 import { Col, Row } from "reactstrap"
 
-import { ErddapMap, ErddapPlatformList, ErddapPlatformsLoader } from "@app/Features/ERDDAP"
+import { ErddapMap, ErddapPlatformList, ErddapPlatformsLoader } from "Features/ERDDAP"
 
-import { paths, regionList } from "@app/constants"
-import { Region } from "@app/Shared/regions"
-import urlParams from "@app/Shared/urlParams"
+import { paths, regionList } from "Shared/constants"
+import { Region } from "Shared/regions"
+import urlParams from "Shared/urlParams"
 
 import { PlatformInfo } from "./platformInfo"
 import { PlatformTabs } from "./platformTabs"

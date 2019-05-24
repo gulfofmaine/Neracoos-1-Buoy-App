@@ -10,10 +10,10 @@ import * as React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { BaseMap, esriLayers } from "@app/components/Map"
-import { paths, StoreState } from "@app/constants"
-import { BoundingBox } from "@app/Shared/regions"
-import { urlPartReplacer } from "@app/Shared/urlParams"
+import { BaseMap, esriLayers } from "components/Map"
+import { paths, StoreState } from "Shared/constants"
+import { BoundingBox } from "Shared/regions"
+import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeatureWithDatasets } from "../types"
 

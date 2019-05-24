@@ -1,8 +1,8 @@
 import * as React from "react"
 import { ListGroupItem } from "reactstrap"
 
-import { round } from "@app/Shared/math"
-import { conversion, convertUnit } from "@app/Shared/unitConversion"
+import { round } from "Shared/math"
+import { conversion, convertUnit } from "Shared/unitConversion"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
 

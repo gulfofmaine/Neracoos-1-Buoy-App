@@ -7,7 +7,7 @@ import reduxThunk from "redux-thunk"
 
 import rootReducer from "./reducer"
 
-import { StoreState } from "./constants"
+import { StoreState } from "./Shared/constants"
 
 /**
  * Browser history

@@ -1,5 +1,8 @@
-export { ErddapActions } from "./actions"
-export { ERDDAPStoreState, ForecastType } from "./types"
+// export { ErddapActions } from "./actions"
+export {
+  // ERDDAPStoreState,
+  ForecastType
+} from "./types"
 export { erddapReducer } from "./reducer"
 export { ErddapPlatformsLoader } from "./platformsLoadingComponent"
 export { ErddapMap } from "./Map"
@@ -7,7 +10,7 @@ export { ErddapForecastMap } from "./Map/forecast"
 export { ErddapPlatformList } from "./List"
 export { ErddapPlatformInfoPanel } from "./Platform/Info"
 export { ErddapObservationTable } from "./Platform/Observations/Table"
-export { ErddapPlatformGetter, RenderProps } from "./Platform/Grabber"
+export { ErddapPlatformGetter /* RenderProps */ } from "./Platform/Grabber"
 export { ErddapObservedDropdown } from "./Platform/Observations/Menu"
 export { ErddapMoreInfoDropdown } from "./Platform/MoreInfoMenu"
 export { ErddapObservedCondition } from "./Platform/Observations/Condition"

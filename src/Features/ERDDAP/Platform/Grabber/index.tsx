@@ -4,7 +4,7 @@
 import * as React from "react"
 import { connect } from "react-redux"
 
-import { StoreState } from "@app/constants"
+import { StoreState } from "Shared/constants"
 
 import { PlatformFeatureWithDatasets } from "../../types"
 

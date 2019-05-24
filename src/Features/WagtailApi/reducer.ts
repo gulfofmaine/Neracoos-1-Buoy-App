@@ -1,4 +1,4 @@
-import { Action } from "@app/actions"
+import { Action } from "actions"
 
 import * as actionTypes from "./actionTypes"
 import { WagtailPage, WagtailStoreState } from "./constants"

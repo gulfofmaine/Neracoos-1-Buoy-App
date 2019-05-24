@@ -5,9 +5,9 @@ import Highcharts from "highcharts"
 import * as React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
 
-import { round } from "@app/Shared/math"
-import { ReadingTimeSeries } from "@app/Shared/timeSeries"
-import { conversion } from "@app/Shared/unitConversion"
+import { round } from "Shared/math"
+import { ReadingTimeSeries } from "Shared/timeSeries"
+import { conversion } from "Shared/unitConversion"
 
 import { pointFormatMaker } from "./formatter"
 

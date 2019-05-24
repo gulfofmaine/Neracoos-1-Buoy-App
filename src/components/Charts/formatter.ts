@@ -1,4 +1,4 @@
-import { convertUnit } from "@app/Shared/unitConversion"
+import { convertUnit } from "Shared/unitConversion"
 
 /**
  * Wrap up our tooltip formatting function so we can specifiy the unit it should use

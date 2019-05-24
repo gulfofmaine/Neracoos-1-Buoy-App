@@ -17,9 +17,9 @@ import {
   YAxis
 } from "react-jsx-highcharts"
 
-import { round } from "@app/Shared/math"
-import { DataTimeSeries } from "@app/Shared/timeSeries"
-import { compassDirection, conversion, convertUnit } from "@app/Shared/unitConversion"
+import { round } from "Shared/math"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { compassDirection, conversion, convertUnit } from "Shared/unitConversion"
 
 /**
  * Allow our tooltip to convert windspeeds to units that people might be more used to.
@@ -67,10 +67,6 @@ addWindBarbModule(Highcharts)
  * in addition to wind barbs for wind direction
  */
 export class WindTimeSeriesChartBase extends React.Component<Props, object> {
-  constructor(props: Props) {
-    super(props)
-  }
-
   public render() {
     // Extract wind direction from windspeed data
     const speeds = this.props.data.filter(d => !d.name.toLowerCase().includes("direction"))

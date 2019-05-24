@@ -6,8 +6,8 @@ import * as React from "react"
 import { Link, Route, RouteComponentProps, Switch } from "react-router-dom"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
-import { paths } from "@app/constants"
-import { urlPartReplacer } from "@app/Shared/urlParams"
+import { paths } from "Shared/constants"
+import { urlPartReplacer } from "Shared/urlParams"
 
 import {
   ErddapMoreInfoDropdown,
@@ -15,7 +15,7 @@ import {
   ErddapPlatformGetter,
   ForecastDropdown,
   ForecastMetadataLoader
-} from "@app/Features/ERDDAP"
+} from "Features/ERDDAP"
 
 import { CurrentConditionsPage } from "./currentConditions"
 import { ForecastTypePage } from "./forecastType"

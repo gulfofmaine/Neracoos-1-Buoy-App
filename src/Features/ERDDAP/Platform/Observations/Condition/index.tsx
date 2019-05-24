@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Col, Row } from "reactstrap"
 
-import { LargeTimeSeriesChart } from "@app/components/Charts"
-import { naturalBounds } from "@app/Shared/dataTypes"
+import { LargeTimeSeriesChart } from "components/Charts"
+import { naturalBounds } from "Shared/dataTypes"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
 import { ErddapDatasetFinder, ErddapDatasetLoader } from "../../Dataset"

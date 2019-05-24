@@ -3,7 +3,7 @@
  */
 import * as React from "react"
 
-import { ErddapCurrentPlatformConditions, RenderProps } from "@app/Features/ERDDAP"
+import { ErddapCurrentPlatformConditions, RenderProps } from "Features/ERDDAP"
 
 /**
  * Display current conditions for selected platform

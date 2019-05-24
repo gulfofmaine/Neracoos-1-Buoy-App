@@ -2,8 +2,8 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
 
-import { paths } from "@app/constants"
-import { urlPartReplacer } from "@app/Shared/urlParams"
+import { paths } from "Shared/constants"
+import { urlPartReplacer } from "Shared/urlParams"
 
 import { DataType } from "../../../types"
 import { RenderProps } from "../../Grabber"

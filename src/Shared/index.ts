@@ -1,1 +1,1 @@
-export { BoundingBox } from './constants'
+export { BoundingBox } from "./types"

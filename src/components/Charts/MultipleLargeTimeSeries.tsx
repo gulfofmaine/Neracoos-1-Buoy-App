@@ -14,10 +14,10 @@ import {
   YAxis
 } from "react-jsx-highcharts"
 
-import { humanUnitName } from "@app/Shared/dataTypes"
-import { round } from "@app/Shared/math"
-import { DataTimeSeries } from "@app/Shared/timeSeries"
-import { convertUnit } from "@app/Shared/unitConversion"
+import { humanUnitName } from "Shared/dataTypes"
+import { round } from "Shared/math"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { convertUnit } from "Shared/unitConversion"
 
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {

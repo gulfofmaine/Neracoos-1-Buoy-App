@@ -4,7 +4,7 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
-import { ErddapObservedCondition, RenderProps } from "@app/Features/ERDDAP"
+import { ErddapObservedCondition, RenderProps } from "Features/ERDDAP"
 
 import { PlatformObservationMatchParams } from "./types"
 

@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/browser"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
-import { StoreState } from "@app/constants"
+import { StoreState } from "Shared/constants"
 
 import * as actionTypes from "../actionTypes"
 import { ForecastSource } from "../types"

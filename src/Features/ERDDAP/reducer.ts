@@ -1,5 +1,5 @@
-import { Action } from "@app/actions"
-import { resultToTimeseries } from "@app/Shared/erddap"
+import { Action } from "actions"
+import { resultToTimeseries } from "Shared/erddap"
 
 import * as actionTypes from "./actionTypes"
 import { ERDDAPStoreState, initialStoreState, PlatformDataset } from "./types"

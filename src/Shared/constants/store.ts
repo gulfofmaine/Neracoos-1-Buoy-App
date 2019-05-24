@@ -1,5 +1,5 @@
-import { ERDDAPStoreState } from "@app/Features/ERDDAP"
-import { WagtailStoreState } from "@app/Features/WagtailApi"
+import { ERDDAPStoreState } from "Features/ERDDAP"
+import { WagtailStoreState } from "Features/WagtailApi"
 
 /**
  * Global Redux store state

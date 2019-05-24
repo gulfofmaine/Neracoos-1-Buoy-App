@@ -3,7 +3,7 @@
  */
 import * as React from "react"
 
-import { ErddapWindObservedCondition, RenderProps } from "@app/Features/ERDDAP"
+import { ErddapWindObservedCondition, RenderProps } from "Features/ERDDAP"
 
 /**
  *

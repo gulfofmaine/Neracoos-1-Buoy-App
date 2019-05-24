@@ -13,7 +13,7 @@ import MapBrowserEvent from "ol/MapBrowserEvent"
 import { transform, transformExtent } from "ol/proj"
 import View from "ol/View"
 
-import { BoundingBox } from "@app/Shared"
+import { BoundingBox } from "Shared"
 
 export interface Props {
   /** Bounding box to focus map view on */
