@@ -21,7 +21,7 @@
     "moment-timezone": "0.5.23",
     "ol": "5.2.0",
     "react": "16.5.2",
-    "react-dom": "16.5.2",
+    "react-dom": "16.8.6",
     "react-jsx-highcharts": "3.2.1",
     "react-redux": "5.0.7",
     "react-responsive": "5.0.0",
