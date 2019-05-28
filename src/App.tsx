@@ -7,17 +7,17 @@
 import * as React from "react"
 import { Route, Switch } from "react-router"
 
-import Footer from "@app/components/Footer"
-import NavBar from "@app/components/NavBar"
+import Footer from "components/Footer"
+import NavBar from "components/NavBar"
 
-import AboutPage from "@app/Pages/About"
-import HomePage from "@app/Pages/Home"
-// import MapPage from '@app/Pages/Map'
-import PlatformsPage from "@app/Pages/Platforms"
-import RadarMapPage from "@app/Pages/RadarMap"
+import AboutPage from "Pages/About"
+import HomePage from "Pages/Home"
+// import MapPage from 'Pages/Map'
+import PlatformsPage from "Pages/Platforms"
+import RadarMapPage from "Pages/RadarMap"
 
 import "./App.css"
-import { paths } from "./constants"
+import { paths } from "./Shared/constants"
 
 class App extends React.Component {
   public render() {

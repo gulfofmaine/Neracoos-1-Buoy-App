@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Col, Row } from "reactstrap"
 
-import { ErddapMap, ErddapPlatformsLoader } from "@app/Features/ERDDAP"
-import { WagtailBlock } from "@app/Features/WagtailApi"
+import { ErddapMap, ErddapPlatformsLoader } from "Features/ERDDAP"
+import { WagtailBlock } from "Features/WagtailApi"
 
 /**
  * Home page component that combines a map with content from Drupal.

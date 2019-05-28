@@ -4,11 +4,11 @@
 import * as React from "react"
 import { Card, CardBody, CardHeader } from "reactstrap"
 
-import { round } from "@app/Shared/math"
-import { DataTimeSeries } from "@app/Shared/timeSeries"
-import { compassDirection, convertUnit } from "@app/Shared/unitConversion"
+import { round } from "Shared/math"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { compassDirection, convertUnit } from "Shared/unitConversion"
 
-import { WindTimeSeriesChart } from "@app/components/Charts"
+import { WindTimeSeriesChart } from "components/Charts"
 
 import { PlatformDataset } from "../../../types"
 

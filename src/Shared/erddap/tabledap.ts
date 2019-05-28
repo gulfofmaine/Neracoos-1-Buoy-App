@@ -2,8 +2,7 @@
  * Funtions for interacting with ERDDAP TableDAP datasets
  */
 
-// import { proxytizeUrl } from "@app/Shared/proxyUrl"
-import { DataTimeSeries } from "@app/Shared/timeSeries"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 import { Constraints, ErddapJson } from "./types"
 

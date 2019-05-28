@@ -17,7 +17,7 @@ describe("SignalFlag", () => {
 
     const img = wrapper.find("img")
 
-    expect(img.props()).toHaveProperty("src", props.character + ".svg")
+    // expect(img.props()).toHaveProperty("src", props.character + ".svg")
     expect(img.props()).toHaveProperty("alt", props.title)
     expect(img.props()).toHaveProperty("title", props.title)
   })

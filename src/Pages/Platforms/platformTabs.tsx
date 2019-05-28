@@ -3,11 +3,11 @@
  */
 
 import * as React from "react"
-import { Link, Route, RouteComponentProps, Switch } from "react-router-dom"
+import { Link, match, Route, RouteComponentProps, Switch } from "react-router-dom"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
-import { paths } from "@app/constants"
-import { urlPartReplacer } from "@app/Shared/urlParams"
+import { paths } from "Shared/constants"
+import { urlPartReplacer } from "Shared/urlParams"
 
 import {
   ErddapMoreInfoDropdown,
@@ -15,20 +15,23 @@ import {
   ErddapPlatformGetter,
   ForecastDropdown,
   ForecastMetadataLoader
-} from "@app/Features/ERDDAP"
+} from "Features/ERDDAP"
 
 import { CurrentConditionsPage } from "./currentConditions"
 import { ForecastTypePage } from "./forecastType"
 import { ObservationsPage } from "./observations"
 import { WindObservationsPage } from "./observationsWind"
-import { PlatformMatchParams } from "./types"
+
+interface Props extends RouteComponentProps {
+  match: match<{ id: string }>
+}
 
 /**
  * Display tab bar and tab data for individual platforms
  * @param param0 React-Router props
  */
-export const PlatformTabs: React.SFC<RouteComponentProps> = ({ match }) => {
-  const { id } = match.params as PlatformMatchParams
+export const PlatformTabs: React.SFC<Props> = ({ match }) => {
+  const { id } = match.params
   const { path } = match
 
   return (

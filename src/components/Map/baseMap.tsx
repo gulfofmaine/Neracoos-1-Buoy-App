@@ -11,9 +11,10 @@ import Layer from "ol/layer/Layer"
 import Map from "ol/Map"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import { transform, transformExtent } from "ol/proj"
+import RenderFeature from "ol/render/Feature"
 import View from "ol/View"
 
-import { BoundingBox } from "@app/Shared"
+import { BoundingBox } from "Shared/types"
 
 export interface Props {
   /** Bounding box to focus map view on */
@@ -32,7 +33,7 @@ export interface Props {
 
 export interface State {
   /** Internal map state object */
-  map: Map
+  map?: Map
 }
 
 /**
@@ -41,8 +42,6 @@ export interface State {
 export class BaseMap extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
-
-    this.state = { map: {} }
 
     this.singleClick = this.singleClick.bind(this)
   }
@@ -72,7 +71,7 @@ export class BaseMap extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (this.state.map instanceof Map) {
+    if (this.state && this.state.map) {
       const { map } = this.state
 
       if (this.props.layers !== nextProps.layers) {
@@ -98,7 +97,11 @@ export class BaseMap extends React.Component<Props, State> {
   /** Pass click events to callback handler */
   private singleClick(event: MapBrowserEvent) {
     if (this.props.onClick) {
-      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature, layer: any) => this.props.onClick!(feature))
+      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature | RenderFeature, layer: any) => {
+        if (feature instanceof Feature) {
+          this.props.onClick!(feature)
+        }
+      })
     }
   }
 }

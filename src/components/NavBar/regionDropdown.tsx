@@ -2,8 +2,8 @@ import * as React from "react"
 import { NavLink } from "react-router-dom"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
-import { paths } from "@app/constants"
-import { regionList } from "@app/Shared/regions"
+import { paths } from "Shared/constants"
+import { regionList } from "Shared/regions"
 
 const initialState = {
   dropdownOpen: false

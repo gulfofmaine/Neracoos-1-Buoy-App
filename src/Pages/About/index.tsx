@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { WagtailBlock } from "@app/Features/WagtailApi"
+import { WagtailBlock } from "Features/WagtailApi"
 
 /**
  * The about page displays content from the drupal content server.

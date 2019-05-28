@@ -2,18 +2,22 @@
  * Combined redux reducer for all of the features.
  */
 
+import { connectRouter, LocationChangeAction } from "connected-react-router"
+import { History } from "history"
 import { combineReducers } from "redux"
 
 import { Action } from "./actions"
-import { StoreState } from "./constants"
+import { StoreState } from "Shared/constants/store"
 
-import { erddapReducer as erddap } from "@app/Features/ERDDAP"
-import { wagtailReducer as wagtail } from "@app/Features/WagtailApi"
+import { erddapReducer as erddap } from "Features/ERDDAP"
+import { wagtailReducer as wagtail } from "Features/WagtailApi"
 
 /**
  * Redux reducer
  */
-export default combineReducers<StoreState, Action>({
-  erddap,
-  wagtail
-})
+export default (history: History) =>
+  combineReducers<StoreState, Action & LocationChangeAction>({
+    erddap,
+    router: connectRouter(history),
+    wagtail
+  })

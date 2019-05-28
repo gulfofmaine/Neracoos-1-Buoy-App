@@ -1,9 +1,9 @@
 import * as React from "react"
 import { connect } from "react-redux"
 
-import { MultipleLargeTimeSeriesChart } from "@app/components/Charts"
-import { StoreState } from "@app/constants"
-import { DataTimeSeries } from "@app/Shared/timeSeries"
+import { MultipleLargeTimeSeriesChart } from "components/Charts"
+import { StoreState } from "Shared/constants/store"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 import { ForecastSource, PlatformFeatureWithDatasets } from "../../../types"
 import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
@@ -69,7 +69,7 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
     unit: dataset.data_type.units
   }))
 
-  platformForecasts.map(forecast => {
+  platformForecasts.forEach(forecast => {
     if (forecast.readings.length > 0) {
       data.push({
         name: forecast.source.name,
@@ -96,4 +96,5 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
   )
 }
 
+// @ts-ignore
 export const Forecast = connect(mapStateToProps)(ForecastBase)

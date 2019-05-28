@@ -5,7 +5,7 @@ import * as React from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
-import { paths } from "@app/constants"
+import { paths } from "Shared/constants"
 
 import { RegionDropdown } from "./regionDropdown"
 
@@ -34,7 +34,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
       <div>
         <Navbar dark={true} expand="md">
           <NavbarBrand tag={Link} to={paths.home}>
-            <img src="http://www.neracoos.org/sites/all/themes/bootstrap_neracoos/logo.png" />
+            <img src="http://www.neracoos.org/sites/all/themes/bootstrap_neracoos/logo.png" alt="NERACOOS" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
 

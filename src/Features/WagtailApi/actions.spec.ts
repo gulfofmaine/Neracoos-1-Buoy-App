@@ -37,54 +37,54 @@ describe("Wagtail actions", () => {
 
 // tslint:disable:object-literal-sort-keys
 const wagtailResponseJson = {
-    "id": 5,
-    "meta": {
-        "type": "home.HomePage",
-        "detail_url": "http://localhost/api/pages/5/",
-        "html_url": "http://localhost/mariners-about/",
-        "slug": "mariners-about",
-        "show_in_menus": false,
-        "seo_title": "",
-        "search_description": "",
-        "first_published_at": "2019-05-02T17:22:34.560943Z",
-        "parent": {
-            "id": 3,
-            "meta": {
-                "type": "home.HomePage",
-                "detail_url": "http://localhost/api/pages/3/",
-                "html_url": "http://localhost/"
-            },
-            "title": "Home"
-        }
-    },
-    "title": "Mariners - About",
-    "body": "Content for Mariners Dashboard About Page"
+  id: 5,
+  meta: {
+    type: "home.HomePage",
+    detail_url: "http://localhost/api/pages/5/",
+    html_url: "http://localhost/mariners-about/",
+    slug: "mariners-about",
+    show_in_menus: false,
+    seo_title: "",
+    search_description: "",
+    first_published_at: "2019-05-02T17:22:34.560943Z",
+    parent: {
+      id: 3,
+      meta: {
+        type: "home.HomePage",
+        detail_url: "http://localhost/api/pages/3/",
+        html_url: "http://localhost/"
+      },
+      title: "Home"
+    }
+  },
+  title: "Mariners - About",
+  body: "Content for Mariners Dashboard About Page"
 }
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
 describe("Wagtail should be able to fetch a node and call the reducer with the relevant info", () => {
-    afterEach(() => {
-        fetch.resetMocks()
+  afterEach(() => {
+    fetch.resetMocks()
+  })
+
+  it("Creates a successful action when fetching is complete", () => {
+    fetch.mockResponseOnce(JSON.stringify(wagtailResponseJson))
+
+    const store = mockStore({ pages: [] })
+
+    store.dispatch(wagtailLoadContent("5")).then(() => {
+      const actions = store.getActions()
+
+      expect(actions.length).toEqual(1)
+
+      const successAction = actions[0]
+
+      expect(successAction.content.body).toEqual(wagtailResponseJson.body)
     })
 
-    it("Creates a successful action when fetching is complete", () => {
-        fetch.mockResponseOnce(JSON.stringify(wagtailResponseJson))
-
-        const store = mockStore({ pages: []})
-
-        store.dispatch(wagtailLoadContent('5')).then(() => {
-            const actions = store.getActions()
-
-            expect(actions.length).toEqual(1)
-
-            const successAction = actions[0]
-
-            const expect(successAction.content.body).toEqual(wagtailResponseJson.body)
-        })
-
-        expect(fetch.mock.calls.length).toEqual(1)
-        expect(fetch.mock.calls[0][0]).toContain("/api/pages/5/?format=json")
-    })
+    expect(fetch.mock.calls.length).toEqual(1)
+    expect(fetch.mock.calls[0][0]).toContain("/api/pages/5/?format=json")
+  })
 })

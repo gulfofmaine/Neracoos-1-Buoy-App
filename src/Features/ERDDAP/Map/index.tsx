@@ -3,17 +3,18 @@ import Feature from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
 import Layer from "ol/layer/Layer"
 import VectorLayer from "ol/layer/Vector"
-import { AttributionLike } from "ol/source"
+import { AttributionLike } from "ol/source/Source"
 import VectorSource from "ol/source/Vector"
 import { Circle, Fill, Stroke, Style } from "ol/style"
 import * as React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { BaseMap, esriLayers } from "@app/components/Map"
-import { paths, StoreState } from "@app/constants"
-import { BoundingBox } from "@app/Shared/regions"
-import { urlPartReplacer } from "@app/Shared/urlParams"
+import { BaseMap, esriLayers } from "components/Map"
+import { paths } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
+import { BoundingBox } from "Shared/regions"
+import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeatureWithDatasets } from "../types"
 
@@ -166,7 +167,7 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
    * @param feature OpenLayers Feature
    */
   protected onClick(feature: Feature) {
-    const name: string = feature.getId()
+    const name: string = feature.getId().toString()
     const url = urlPartReplacer(paths.platforms.platform, ":id", name)
 
     this.props.push(url)
@@ -177,4 +178,5 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
 export const ErddapMap = connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(ErddapMapBase)

@@ -5,7 +5,7 @@ import * as React from "react"
 import { connect } from "react-redux"
 import { Alert } from "reactstrap"
 
-import { BaseMap, esriLayers } from "@app/components/Map"
+import { BaseMap, esriLayers } from "components/Map"
 
 import { ErddapMapBase, makeLayers, mapDispatchToProps, mapStateToProps } from "./index"
 import { RadarInfo } from "./radarInfo"
@@ -52,4 +52,5 @@ export class ErddapForecastMapBase extends ErddapMapBase {
 export const ErddapForecastMap = connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(ErddapForecastMapBase)

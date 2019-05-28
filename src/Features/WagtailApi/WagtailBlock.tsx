@@ -3,11 +3,11 @@ import { connect } from "react-redux"
 import { Alert } from "reactstrap"
 import { bindActionCreators, Dispatch } from "redux"
 
-import ContentBlock from "@app/components/ContentBlock"
+import ContentBlock from "components/ContentBlock"
 
 import * as actions from "./actions"
 
-import { StoreState } from "@app/constants"
+import { StoreState } from "Shared/constants/store"
 import { WagtailPage } from "./constants"
 
 export interface Props {
@@ -51,4 +51,5 @@ export class WagtailBlockBase extends React.Component<Props & ReduxProps, object
 export const WagtailBlock = connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(WagtailBlockBase)

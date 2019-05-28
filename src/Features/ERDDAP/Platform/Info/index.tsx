@@ -5,7 +5,7 @@ import { Geometry } from "@turf/helpers"
 import * as React from "react"
 import { Card, CardBody, CardText, CardTitle } from "reactstrap"
 
-import { round } from "@app/Shared/math"
+import { round } from "Shared/math"
 
 import { RenderProps } from "../Grabber"
 

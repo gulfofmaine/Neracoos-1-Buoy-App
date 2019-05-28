@@ -3,8 +3,8 @@ import { Point } from "@turf/helpers"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
-import { StoreState } from "@app/constants"
-import { ReadingTimeSeries } from "@app/Shared/timeSeries"
+import { StoreState } from "Shared/constants/store"
+import { ReadingTimeSeries } from "Shared/timeSeries"
 
 import * as actionTypes from "../actionTypes"
 import { ForecastJson, ForecastSource, PlatformFeatureWithDatasets } from "../types"

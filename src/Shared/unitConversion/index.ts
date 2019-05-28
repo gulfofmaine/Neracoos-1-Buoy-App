@@ -2,7 +2,7 @@
  * Conversion functions for common units
  */
 
-import * as convert from "convert-units"
+import convert from "convert-units"
 
 import { round } from "../math"
 

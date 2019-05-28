@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   )
 
 export const ForecastLoaderBase: React.SFC<Props & ReduxProps> = ({ children, forecasts, platform, loadForecast }) => {
-  forecasts.map(forecast => {
+  forecasts.forEach(forecast => {
     const index = platform.properties.forecasts.findIndex(f => f.source === forecast)
     if (
       index < 0 ||
@@ -52,4 +52,5 @@ export const ForecastLoader = connect(
   null,
   mapDispatchToProps
   // )(ForecastLoaderDebounced)
+  // @ts-ignore
 )(ForecastLoaderBase)

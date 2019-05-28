@@ -4,7 +4,7 @@
 
 import { Feature } from "@turf/helpers"
 
-import { ReadingTimeSeries } from "@app/Shared/timeSeries"
+import { ReadingTimeSeries } from "Shared/timeSeries"
 
 export interface ERDDAPStoreState {
   errorMessage?: string
