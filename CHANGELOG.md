@@ -14,5 +14,6 @@ Changes:
 - Update enzyme test adapter from 1.0.3 to 1.0.5
 - Update Codacy-coverage from 3.3.0 to 3.4.0
 - Update Bootstrap from 4.1.3 to 4.3.1
+- Update Node image from 11.15.0 to 12.3.1
 
 Fixes:
