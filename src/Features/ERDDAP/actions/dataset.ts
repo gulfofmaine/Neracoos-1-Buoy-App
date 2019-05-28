@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/browser"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
-import { StoreState } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 import { tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"

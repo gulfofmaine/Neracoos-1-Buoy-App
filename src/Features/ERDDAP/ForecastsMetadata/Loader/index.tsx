@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { NavItem, NavLink } from "reactstrap"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { StoreState } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 
 import { forecastMetadataLoad } from "../../actions"
 import { ForecastSource } from "../../types"

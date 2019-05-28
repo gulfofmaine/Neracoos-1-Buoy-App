@@ -7,7 +7,7 @@ import { connect } from "react-redux"
 import { Alert, Col, Row } from "reactstrap"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { StoreState } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 
 import { erddapPlatformLoad } from "../actions"
 import { PlatformFeatureWithDatasets } from "../types"

@@ -1,5 +1,7 @@
-import { ERDDAPStoreState } from "Features/ERDDAP"
-import { WagtailStoreState } from "Features/WagtailApi"
+import { RouterState } from "connected-react-router"
+
+import { ERDDAPStoreState } from "Features/ERDDAP/types"
+import { WagtailStoreState } from "Features/WagtailApi/constants"
 
 /**
  * Global Redux store state
@@ -7,4 +9,5 @@ import { WagtailStoreState } from "Features/WagtailApi"
 export interface StoreState {
   erddap: ERDDAPStoreState
   wagtail: WagtailStoreState
+  router: RouterState
 }

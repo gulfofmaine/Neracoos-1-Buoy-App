@@ -7,7 +7,7 @@ import ContentBlock from "components/ContentBlock"
 
 import * as actions from "./actions"
 
-import { StoreState } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 import { WagtailPage } from "./constants"
 
 export interface Props {

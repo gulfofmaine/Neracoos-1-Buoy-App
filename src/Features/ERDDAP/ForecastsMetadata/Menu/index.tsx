@@ -3,7 +3,8 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
-import { paths, StoreState } from "Shared/constants"
+import { paths } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { ForecastSource } from "../../types"

@@ -2,7 +2,7 @@ import * as React from "react"
 import { connect } from "react-redux"
 
 import { MultipleLargeTimeSeriesChart } from "components/Charts"
-import { StoreState } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { ForecastSource, PlatformFeatureWithDatasets } from "../../../types"

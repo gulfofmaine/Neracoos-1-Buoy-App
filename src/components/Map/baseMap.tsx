@@ -14,7 +14,7 @@ import { transform, transformExtent } from "ol/proj"
 import RenderFeature from "ol/render/Feature"
 import View from "ol/View"
 
-import { BoundingBox } from "Shared"
+import { BoundingBox } from "Shared/types"
 
 export interface Props {
   /** Bounding box to focus map view on */

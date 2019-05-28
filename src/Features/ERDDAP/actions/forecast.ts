@@ -3,7 +3,7 @@ import { Point } from "@turf/helpers"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
-import { StoreState } from "Shared/constants"
+import { StoreState } from "Shared/constants/store"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 
 import * as actionTypes from "../actionTypes"

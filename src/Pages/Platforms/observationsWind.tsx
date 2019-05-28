@@ -3,7 +3,8 @@
  */
 import * as React from "react"
 
-import { ErddapWindObservedCondition, RenderProps } from "Features/ERDDAP"
+import { ErddapWindObservedCondition } from "Features/ERDDAP"
+import { RenderProps } from "Features/ERDDAP/Platform/Grabber"
 
 /**
  *
