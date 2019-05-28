@@ -64,4 +64,5 @@ export const ErddapDatasetLoaderBase: React.SFC<Props & ReduxProps> = ({
 export const ErddapDatasetLoader = connect(
   null,
   mapDispatchToProps
+  // @ts-ignore
 )(ErddapDatasetLoaderBase)

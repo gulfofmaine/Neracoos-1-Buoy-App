@@ -52,4 +52,5 @@ export class ErddapForecastMapBase extends ErddapMapBase {
 export const ErddapForecastMap = connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(ErddapForecastMapBase)

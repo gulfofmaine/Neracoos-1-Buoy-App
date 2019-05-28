@@ -10,7 +10,7 @@ interface Props {
   children(props: RenderProps): JSX.Element
 }
 
-interface RenderProps {
+export interface RenderProps {
   datasets: PlatformDataset[]
 }
 

@@ -1,4 +1,4 @@
-import { connectRouter, routerMiddleware } from "connected-react-router"
+import { routerMiddleware } from "connected-react-router"
 import { createBrowserHistory } from "history"
 // import { createHashHistory } from 'history'
 import { applyMiddleware, createStore, Store } from "redux"
@@ -19,7 +19,7 @@ export const history = createBrowserHistory()
  * Global Redux store
  */
 export const store: Store<StoreState> = createStore(
-  connectRouter(history)(rootReducer),
+  rootReducer(history),
   composeWithDevTools(applyMiddleware(routerMiddleware(history), reduxThunk))
 )
 

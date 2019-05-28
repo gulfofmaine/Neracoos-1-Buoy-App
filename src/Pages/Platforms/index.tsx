@@ -54,9 +54,9 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
         <div style={{ marginTop: "1rem" }}>
           {/* Show general platform info if no platform is selected */}
           <Switch>
-            <Route path={paths.platforms.observations} component={PlatformTabs} />
-            <Route path={paths.platforms.forecast} component={PlatformTabs} />
-            <Route path={paths.platforms.platform} component={PlatformTabs} />
+            <Route path={paths.platforms.observations}>{props => <PlatformTabs {...props} />}</Route>
+            <Route path={paths.platforms.forecast}>{props => <PlatformTabs {...props} />}</Route>
+            <Route path={paths.platforms.platform}>{props => <PlatformTabs {...props} />}</Route>
 
             <Route path={paths.platforms.root} exact={true} component={RootInfo} />
           </Switch>

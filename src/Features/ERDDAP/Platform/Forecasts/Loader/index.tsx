@@ -52,4 +52,5 @@ export const ForecastLoader = connect(
   null,
   mapDispatchToProps
   // )(ForecastLoaderDebounced)
+  // @ts-ignore
 )(ForecastLoaderBase)

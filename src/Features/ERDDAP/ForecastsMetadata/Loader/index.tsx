@@ -14,8 +14,8 @@ export interface Props {
 
 export interface ReduxProps {
   errorMessage?: string
-  loading: boolean
-  forecasts: ForecastSource[]
+  loading?: boolean
+  forecasts?: ForecastSource[]
   loadForecastMetadata: () => void
 }
 
@@ -38,7 +38,7 @@ export const ForecastMetataLoaderBase: React.SFC<Props & ReduxProps> = ({
   loadForecastMetadata,
   loading
 }) => {
-  if (forecasts.length > 0) {
+  if (forecasts && forecasts.length > 0) {
     return children
   } else if (errorMessage && errorMessage.length > 0) {
     return (
@@ -71,4 +71,5 @@ export const ForecastMetataLoaderBase: React.SFC<Props & ReduxProps> = ({
 export const ForecastMetadataLoader = connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(ForecastMetataLoaderBase)

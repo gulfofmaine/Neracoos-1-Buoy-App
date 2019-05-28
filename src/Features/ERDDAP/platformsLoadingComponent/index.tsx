@@ -12,6 +12,10 @@ import { StoreState } from "Shared/constants"
 import { erddapPlatformLoad } from "../actions"
 import { PlatformFeatureWithDatasets } from "../types"
 
+export interface Props {
+  children: React.ReactNode
+}
+
 export interface ReduxProps {
   loadPlatforms: () => void
   loading: boolean
@@ -31,8 +35,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   )
 
-export class ErddapPlatformsLoaderBase extends React.Component<ReduxProps, object> {
-  constructor(props: ReduxProps) {
+export class ErddapPlatformsLoaderBase extends React.Component<Props & ReduxProps, object> {
+  constructor(props: Props & ReduxProps) {
     super(props)
 
     this.retry = this.retry.bind(this)
@@ -77,7 +81,8 @@ export class ErddapPlatformsLoaderBase extends React.Component<ReduxProps, objec
   }
 }
 
-export const ErddapPlatformsLoader = connect(
+export const ErddapPlatformsLoader = connect<Props & ReduxProps>(
+  // @ts-ignore
   mapStateToProps,
   mapDispatchToProps
 )(ErddapPlatformsLoaderBase)

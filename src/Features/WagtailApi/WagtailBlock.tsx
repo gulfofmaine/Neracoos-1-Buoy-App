@@ -51,4 +51,5 @@ export class WagtailBlockBase extends React.Component<Props & ReduxProps, object
 export const WagtailBlock = connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(WagtailBlockBase)

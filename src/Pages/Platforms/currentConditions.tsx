@@ -3,7 +3,8 @@
  */
 import * as React from "react"
 
-import { ErddapCurrentPlatformConditions, RenderProps } from "Features/ERDDAP"
+import { ErddapCurrentPlatformConditions } from "Features/ERDDAP"
+import { RenderProps } from "Features/ERDDAP/Platform/Grabber"
 
 /**
  * Display current conditions for selected platform

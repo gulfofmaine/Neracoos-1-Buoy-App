@@ -96,4 +96,5 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
   )
 }
 
+// @ts-ignore
 export const Forecast = connect(mapStateToProps)(ForecastBase)

@@ -3,7 +3,8 @@ import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
 import { StoreState } from "Shared/constants"
-import { ErddapJson, tabledapUrl } from "Shared/erddap"
+import { tabledapUrl } from "Shared/erddap"
+import { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"
 import { proxytizeUrl } from "Shared/proxyUrl"
 
