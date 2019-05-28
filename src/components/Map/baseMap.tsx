@@ -71,7 +71,7 @@ export class BaseMap extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (this.state.map instanceof Map) {
+    if (this.state && this.state.map) {
       const { map } = this.state
 
       if (this.props.layers !== nextProps.layers) {
