@@ -3,7 +3,7 @@
  */
 import * as Sentry from "@sentry/browser"
 import * as React from "react"
-import sizeMe, { SizeMeProps } from "react-sizeme"
+import { SizeMeProps, withSize } from "react-sizeme"
 import { Alert, Col, Row } from "reactstrap"
 
 import { WindTimeSeriesChart } from "components/Charts"
@@ -21,7 +21,7 @@ const windStandards = new Set(["wind_from_direction", "wind_speed", "wind_speed_
 export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = ({ platform, size }) => {
   // adjust number of barbs based on width
   let barbsPerDay = 5
-  if (size.width < 800) {
+  if (size && size.width && size.width < 800) {
     barbsPerDay = 2
   }
 
@@ -75,4 +75,4 @@ const noWind = (
   </Row>
 )
 
-export const ErddapWindObservedCondition = sizeMe()(ErddapWindObservedConditionBase)
+export const ErddapWindObservedCondition = withSize()(ErddapWindObservedConditionBase)
