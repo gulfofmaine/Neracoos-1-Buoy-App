@@ -31,7 +31,7 @@
     "react-responsive": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-scripts": "^3.0.1",
-    "react-sizeme": "2.5.2",
+    "react-sizeme": "2.6.7",
     "reactstrap": "6.5.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
