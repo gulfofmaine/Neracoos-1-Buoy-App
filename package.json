@@ -42,7 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "think-before-eject": "react-scripts eject",
-    "docs": "typedoc --out docs",
+    "docs": "typedoc",
     "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage"
   },
   "devDependencies": {
