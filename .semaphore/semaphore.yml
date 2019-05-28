@@ -18,7 +18,7 @@ blocks:
 
       prologue:
         commands:
-          - sem-version node 10.13.0
+          - sem-version node 12.3.1
           - checkout
           - cache restore node-modules-$(checksum yarn.lock)
           - cache restore cypress=3.1.2
@@ -43,7 +43,7 @@ blocks:
 
       prologue:
         commands:
-          - sem-version node 10.13.0
+          - sem-version node 12.3.1
           - checkout
           - cache restore node-modules-$(checksum yarn.lock)
 
@@ -64,7 +64,7 @@ blocks:
 
       prologue:
         commands:
-          - sem-version node 10.13.0
+          - sem-version node 12.3.1
           - checkout
           - cache restore node-modules-$(checksum yarn.lock)
           - cache restore cypress=3.1.2
