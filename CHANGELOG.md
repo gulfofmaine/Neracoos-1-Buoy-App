@@ -11,5 +11,6 @@ Changes:
   - Update React and React-Dom from 16.5.2 to 16.8.6
   - Update Connected-React-Router from 4.5.0 to 6.4.0
   - Update React-JSX-Highcharts from 3.2.1 to 3.5.0
+- Update Bootstrap from 4.1.3 to 4.3.1
 
 Fixes:
