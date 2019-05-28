@@ -17,5 +17,6 @@ Changes:
 - Update Node image from 11.15.0 to 12.3.1
 - Update typedoc from 0.13.0 to 0.14.2
 - Update React-sizeme from 2.5.2 to 2.6.7
+- Remove unused React-responsive
 
 Fixes:
