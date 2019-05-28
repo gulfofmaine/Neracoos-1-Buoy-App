@@ -21,7 +21,7 @@
     "highcharts": "6.1.4",
     "history": "4.7.2",
     "moment": "2.22.2",
-    "moment-timezone": "0.5.23",
+    "moment-timezone": "0.5.25",
     "ol": "5.3.3",
     "prop-types": "^15.0.0",
     "react": "16.8.6",
