@@ -20,3 +20,5 @@ Changes:
 - Remove unused React-responsive
 
 Fixes:
+
+- Add alternative preffered data types to current conditions to display things like wave period for NDBC stations. Fixes #94
