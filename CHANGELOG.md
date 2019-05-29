@@ -20,3 +20,5 @@ Changes:
 - Remove unused React-responsive
 
 Fixes:
+
+- Fix wrong units on forecast charts. Closes #95, #85
