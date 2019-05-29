@@ -20,3 +20,5 @@ Changes:
 - Remove unused React-responsive
 
 Fixes:
+
+- Crash when scrubbing over a direction chart. Closes #160
