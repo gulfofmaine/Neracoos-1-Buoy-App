@@ -88,8 +88,8 @@ export const humanUnitNamesDict = {
 
   deg: "Degrees",
   "deg c": "Degrees Celsius",
-  degrees: "Degrees Celsius",
   degree_C: "Degrees Celsius",
+  degrees: "Degrees Celsius",
   degrees_true: "Degrees",
 
   f: "Degrees Fahrenheit",
