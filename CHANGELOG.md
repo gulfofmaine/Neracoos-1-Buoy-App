@@ -20,3 +20,5 @@ Changes:
 - Remove unused React-responsive
 
 Fixes:
+
+- Change buoy to station. Closes #87
