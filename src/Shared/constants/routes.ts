@@ -6,6 +6,7 @@ export const paths = {
   home: "/",
   map: "/map",
   platforms: {
+    all: "/platform/:id/observations/all",
     forecast: "/platform/:id/forecast",
     forecastType: "/platform/:id/forecast/:type",
     observations: "/platform/:id/observations/:type",

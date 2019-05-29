@@ -108,4 +108,13 @@ describe("Platfrom M01", () => {
       expect(date).greaterThan(threeDaysAgo)
     })
   })
+
+  it("Can view all observations", () => {
+    cy.visit(platformUrl)
+
+    cy.contains("Observations").click()
+    cy.contains("All Observations").click()
+
+    cy.contains("Sigma-T @ 100m")
+  })
 })

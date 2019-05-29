@@ -4,6 +4,9 @@
 
 Additions:
 
+- Add all observations page. Closes #115
+  - Adds link from small and all observation tables to observation pages.
+
 Changes:
 
 - Migrate to native Create React App from Create React App Typescript which was depricated.
