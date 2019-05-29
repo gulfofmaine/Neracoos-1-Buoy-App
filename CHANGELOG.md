@@ -20,3 +20,5 @@ Changes:
 - Remove unused React-responsive
 
 Fixes:
+
+- Fix `seconds` being an unknown unit. Closes #162

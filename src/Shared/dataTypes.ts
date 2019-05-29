@@ -115,6 +115,7 @@ export const humanUnitNamesDict = {
 
   s: "Seconds",
   sec: "Seconds",
+  seconds: "Seconds",
 
   uatm: "Microatmospheres (uATM)"
 }
