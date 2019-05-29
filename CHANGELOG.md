@@ -21,4 +21,4 @@ Changes:
 
 Fixes:
 
-- Fix `seconds` being an unknown unit. Closes #162
+- Fix `seconds`, `degree_C`, `degrees_true`, `millibars`, and `simens/m` being unknown units. Closes #162
