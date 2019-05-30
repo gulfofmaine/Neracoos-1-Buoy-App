@@ -4,6 +4,14 @@
 
 Additions:
 
+Changes:
+
+Fixes:
+
+## 0.3.0 - All The Data - 5/30/19
+
+Additions:
+
 - Add all observations page. Closes #115
   - Adds link from small and all observation tables to observation pages.
 
