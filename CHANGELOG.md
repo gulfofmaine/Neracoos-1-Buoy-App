@@ -20,3 +20,5 @@ Changes:
 - Remove unused React-responsive
 
 Fixes:
+
+- Fix constraint formatting. Works on #118
