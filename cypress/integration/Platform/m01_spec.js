@@ -31,7 +31,8 @@ describe("Platfrom M01", () => {
 
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row")
       .children()
-      .should("have.length", 8)
+      .its("length")
+      .should("be.gte", 6)
 
     cy.contains("Knots")
   })
