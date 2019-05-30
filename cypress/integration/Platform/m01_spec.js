@@ -11,7 +11,7 @@ describe("Platfrom M01", () => {
 
     cy.contains("M01").click()
 
-    cy.contains("Buoy M01")
+    cy.contains("Station M01")
   })
 
   it("Shows platform status", () => {
