@@ -8,6 +8,9 @@ Changes:
 
 Fixes:
 
+- ERDDAP constraints so that both string and number values are formatted correctly. Closes #165
+  - Adds test for platform 44007 to see if things are loading correctly from Coastwatch.
+
 ## 0.3.0 - All The Data - 5/30/19
 
 Additions:

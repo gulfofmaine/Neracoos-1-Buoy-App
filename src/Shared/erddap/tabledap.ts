@@ -5,6 +5,7 @@
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { Constraints, ErddapJson } from "./types"
+import { number } from "prop-types"
 
 /**
  * Transform ERDDAP constraints from a object into a URL valid string
@@ -15,8 +16,12 @@ export function constraintsToString(constraints: Constraints): string {
 
   for (const key in constraints) {
     if (constraints.hasOwnProperty(key)) {
-      // constraintStr += "&" + key + "%22" + constraints[key] + "%22"
-      constraintStr += "&" + key + constraints[key]
+      const constraint = constraints[key]
+      if (typeof constraint === "number") {
+        constraintStr += "&" + key + constraints[key]
+      } else {
+        constraintStr += "&" + key + "%22" + constraints[key] + "%22"
+      }
     }
   }
 
