@@ -75,6 +75,8 @@ export function convertUnit(unit: string, value: number): string {
       if (direction) {
         return " (" + direction[1] + ")"
       }
+      return ""
+
     default:
       return ""
   }
