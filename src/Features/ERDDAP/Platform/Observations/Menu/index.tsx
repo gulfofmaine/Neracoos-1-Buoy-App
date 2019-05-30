@@ -79,6 +79,12 @@ export class ErddapObservedDropdown extends React.Component<RenderProps, State> 
         </DropdownToggle>
 
         <DropdownMenu>
+          <Link
+            className="dropdown-item nav-item"
+            to={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}
+          >
+            <b>All Observations</b>
+          </Link>
           {dropdownItems}
           {platform.properties.readings.filter(d => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
             <Link className="dropdown-item nav-item" to={windUrl} onClick={this.close}>
