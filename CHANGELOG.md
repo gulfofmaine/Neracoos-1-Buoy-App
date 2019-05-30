@@ -24,6 +24,7 @@ Changes:
 
 Fixes:
 
+- Fix `seconds`, `degree_C`, `degrees_true`, `millibars`, and `simens/m` being unknown units. Closes #162
 - Crash when scrubbing over a direction chart. Closes #160
 - Fix wrong units on forecast charts. Closes #95, #85
 - Change buoy to station. Closes #87

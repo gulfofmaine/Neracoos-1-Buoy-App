@@ -88,7 +88,9 @@ export const humanUnitNamesDict = {
 
   deg: "Degrees",
   "deg c": "Degrees Celsius",
+  degree_C: "Degrees Celsius",
   degrees: "Degrees Celsius",
+  degrees_true: "Degrees",
 
   f: "Degrees Fahrenheit",
 
@@ -104,6 +106,7 @@ export const humanUnitNamesDict = {
   mb: "Millibars",
   "mg chl/m<sup>3</sup>": "Milligrams Chlorophyll / Cubic Meter",
   "microeinsteins/m2/s": "MicroEinsteins/m2/s",
+  millibars: "Millibars",
   "ml/l": "Milliliters / liter",
   "msiemens/cm": "Millisiemens / Centimeter",
 
@@ -115,6 +118,9 @@ export const humanUnitNamesDict = {
 
   s: "Seconds",
   sec: "Seconds",
+  seconds: "Seconds",
+
+  "siemens/m": "Siemens / Meter",
 
   uatm: "Microatmospheres (uATM)"
 }
