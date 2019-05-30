@@ -1,12 +1,14 @@
 import * as React from "react"
-import { ListGroupItem } from "reactstrap"
+import { Link } from "react-router-dom"
 
+import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { conversion, convertUnit } from "Shared/unitConversion"
+import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
 
-export const itemStyle = { padding: ".5rem", paddingLeft: "1rem" }
+export const itemStyle = { padding: ".5rem", paddingLeft: "1rem", color: "black" }
 
 interface TableItemProps {
   platform: PlatformFeatureWithDatasets
@@ -29,7 +31,15 @@ export const TableItem: React.SFC<TableItemProps> = ({
     const selected = data[0]
 
     return (
-      <ListGroupItem style={itemStyle}>
+      <Link
+        to={urlPartReplacer(
+          urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
+          ":type",
+          selected.data_type.standard_name
+        )}
+        style={itemStyle}
+        className="list-group-item"
+      >
         <b>{name}:</b>{" "}
         {prefered_unit !== undefined
           ? `${conversion(selected.value as number, selected.data_type.units, prefered_unit)} ${printed_unit}`
@@ -37,7 +47,7 @@ export const TableItem: React.SFC<TableItemProps> = ({
               selected.data_type.units,
               selected.value as number
             )}`}
-      </ListGroupItem>
+      </Link>
     )
   }
 

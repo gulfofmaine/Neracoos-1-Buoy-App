@@ -23,7 +23,7 @@ function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
-      this.points.map(p => `<b>${p.series.name}:</b> ${p.y} m ${convertUnit(unit, p.y)}`).join("<br />")
+      this.points.map(p => `<b>${p.series.name}:</b> ${p.y} ${unit} ${convertUnit(unit, p.y)}`).join("<br />")
     )
   }
 }
