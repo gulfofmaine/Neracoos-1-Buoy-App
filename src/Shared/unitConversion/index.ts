@@ -72,8 +72,9 @@ export function convertUnit(unit: string, value: number): string {
 
     case "degrees":
       const direction = compassDirection(value)
-      return " (" + direction[1] + ")"
-
+      if (direction) {
+        return " (" + direction[1] + ")"
+      }
     default:
       return ""
   }

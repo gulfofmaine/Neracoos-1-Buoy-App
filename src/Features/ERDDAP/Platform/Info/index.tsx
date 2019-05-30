@@ -16,7 +16,7 @@ import { RenderProps } from "../Grabber"
 export const ErddapPlatformInfoPanel: React.SFC<RenderProps> = ({ platform }) => (
   <Card>
     <CardBody>
-      <CardTitle>Buoy {platform.id}</CardTitle>
+      <CardTitle>Station {platform.id}</CardTitle>
       <CardText>
         {platform.properties.mooring_site_desc}
         <br />

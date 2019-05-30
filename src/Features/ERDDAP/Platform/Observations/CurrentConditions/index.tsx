@@ -21,10 +21,14 @@ interface Props {
 
 const prefferedDataTypesList = [
   "significant_height_of_wind_and_swell_waves",
+  "sea_surface_wave_significant_height",
   "dominant_wave_period",
+  "sea_surface_swell_wave_period",
   "period",
+  "mean_wave_direction",
   "air_temperature",
   "barometric_pressure",
+  "sea_water_temperature",
   "sea_level_pressure",
   "visibility_in_air"
 ]

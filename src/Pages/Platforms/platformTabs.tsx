@@ -10,6 +10,7 @@ import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import {
+  ErddapAllObservationsTable,
   ErddapMoreInfoDropdown,
   ErddapObservedDropdown,
   ErddapPlatformGetter,
@@ -57,6 +58,7 @@ export const PlatformTabs: React.SFC<Props> = ({ match }) => {
 
           {/* Display our pages for the platform. */}
           <Switch>
+            <Route path={paths.platforms.all}>{props => <ErddapAllObservationsTable platform={platform} />}</Route>
             <Route path={paths.platforms.observationsWind}>
               <WindObservationsPage platform={platform} />
             </Route>

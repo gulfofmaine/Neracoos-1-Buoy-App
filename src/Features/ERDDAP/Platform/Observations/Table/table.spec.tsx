@@ -2,24 +2,21 @@ import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
 
-import { PlatformFeatureWithDatasets } from "../../../types"
-import { ErddapObservedDropdown } from "./index"
+import { PlatformFeatureWithDatasets } from "../../types"
 
-describe("ErddapObservedDropdown", () => {
-  it("Renders a menu for a platform", () => {
-    const wrapper = mount(
+import { ErddapObservationTable } from "./table"
+
+describe("<ErddapObservationTable>", () => {
+  it("Should show selected observations for appropriate platform", () => {
+    const enzymeWrapper = mount(
       <MemoryRouter>
-        <ErddapObservedDropdown platform={platform} />
+        <ErddapObservationTable platform={platform} />
       </MemoryRouter>
     )
 
-    expect(wrapper.find("a.dropdown-toggle").text()).toEqual("Observations")
-
-    const items = wrapper.find("div.dropdown-menu")
-
-    expect(items.children().length).toEqual(12)
-
-    expect(items.childAt(1).text()).toEqual("Air Pressure")
+    expect(enzymeWrapper.find("a").length).toBe(6)
+    expect(enzymeWrapper.text()).toContain("Last updated at: ")
+    expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 knots")
   })
 })
 
@@ -50,18 +47,12 @@ const platform: PlatformFeatureWithDatasets = {
           "station=": "44022"
         },
         dataset: "cwwcNDBCMet",
-        loading: false,
-        error: "",
-        readings: [],
         start_time: "1970-02-26T20:00:00Z"
       },
       {
         value: -0.699999988079071,
         time: "2018-12-20T14:00:00Z",
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "eastward_wind",
           short_name: null,
@@ -80,9 +71,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "surface_altitude",
           short_name: null,
@@ -101,9 +89,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "tendency_of_air_pressure",
           short_name: null,
@@ -122,9 +107,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "visibility_in_air",
           short_name: "VIS",
@@ -143,9 +125,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "dew_point_temperature",
           short_name: "DEWP",
@@ -164,9 +143,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: 4.699999809265137,
         time: "2018-12-20T14:00:00Z",
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "sea_surface_temperature",
           short_name: null,
@@ -185,9 +161,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "air_temperature",
           short_name: "AT",
@@ -206,9 +179,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "air_pressure_at_sea_level",
           short_name: null,
@@ -227,9 +197,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "sea_surface_wave_to_direction",
           short_name: null,
@@ -248,9 +215,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "sea_surface_swell_wave_period",
           short_name: null,
@@ -269,9 +233,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "sea_surface_swell_wave_period",
           short_name: null,
@@ -290,9 +251,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: null,
         time: null,
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "sea_surface_wave_significant_height",
           short_name: null,
@@ -311,9 +269,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: 3.0,
         time: "2018-12-20T14:00:00Z",
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "wind_speed_of_gust",
           short_name: "WGST",
@@ -332,9 +287,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: 2.0,
         time: "2018-12-20T14:00:00Z",
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "wind_speed",
           short_name: "WSPD",
@@ -353,9 +305,6 @@ const platform: PlatformFeatureWithDatasets = {
         value: 20.0,
         time: "2018-12-20T14:00:00Z",
         depth: null,
-        loading: false,
-        error: "",
-        readings: [],
         data_type: {
           standard_name: "wind_from_direction",
           short_name: "WD",
