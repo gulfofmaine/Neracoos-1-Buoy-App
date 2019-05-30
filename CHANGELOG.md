@@ -24,6 +24,7 @@ Changes:
 
 Fixes:
 
+- Crash when scrubbing over a direction chart. Closes #160
 - Fix wrong units on forecast charts. Closes #95, #85
 - Change buoy to station. Closes #87
 - Add alternative preffered data types to current conditions to display things like wave period for NDBC stations. Fixes #94
