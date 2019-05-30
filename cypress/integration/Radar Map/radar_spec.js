@@ -1,7 +1,7 @@
 /*global cy*/
 
 describe("Radar Page", () => {
-  it("Can visit the Radar Map from Home Page", () => {
+  xit("Can visit the Radar Map from Home Page", () => {
     cy.visit("/")
 
     cy.contains("Radar Map").click()

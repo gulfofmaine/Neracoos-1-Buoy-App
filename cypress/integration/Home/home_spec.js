@@ -12,7 +12,7 @@ describe("Home page", function() {
 
     cy.get(".navbar-brand")
     cy.contains("Regions")
-    cy.contains("Radar Map")
+    // cy.contains("Radar Map")
     cy.contains("About")
   })
 
