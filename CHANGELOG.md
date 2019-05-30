@@ -4,6 +4,9 @@
 
 Additions:
 
+- Add all observations page. Closes #115
+  - Adds link from small and all observation tables to observation pages.
+
 Changes:
 
 - Migrate to native Create React App from Create React App Typescript which was depricated.
@@ -22,3 +25,6 @@ Changes:
 Fixes:
 
 - Fix wrong units on forecast charts. Closes #95, #85
+- Change buoy to station. Closes #87
+- Add alternative preffered data types to current conditions to display things like wave period for NDBC stations. Fixes #94
+- Fix constraint formatting. Works on #118

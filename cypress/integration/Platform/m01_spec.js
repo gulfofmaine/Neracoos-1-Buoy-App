@@ -11,7 +11,7 @@ describe("Platfrom M01", () => {
 
     cy.contains("M01").click()
 
-    cy.contains("Buoy M01")
+    cy.contains("Station M01")
   })
 
   it("Shows platform status", () => {
@@ -31,7 +31,7 @@ describe("Platfrom M01", () => {
 
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row")
       .children()
-      .should("have.length", 6)
+      .should("have.length", 8)
 
     cy.contains("Knots")
   })
@@ -107,5 +107,14 @@ describe("Platfrom M01", () => {
 
       expect(date).greaterThan(threeDaysAgo)
     })
+  })
+
+  it("Can view all observations", () => {
+    cy.visit(platformUrl)
+
+    cy.contains("Observations").click()
+    cy.contains("All Observations").click()
+
+    cy.contains("Sigma-T @ 100m")
   })
 })

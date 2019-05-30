@@ -1,17 +1,22 @@
 import { mount } from "enzyme"
 import * as React from "react"
+import { MemoryRouter } from "react-router-dom"
 
 import { PlatformFeatureWithDatasets } from "../../types"
 
-import { ErddapObservationTable } from "./index"
+import { ErddapAllObservationsTable } from "./all"
 
-describe("<ErddapObservationTable>", () => {
-  it("Should show selected observations for appropriate platform", () => {
-    const enzymeWrapper = mount(<ErddapObservationTable platform={platform} />)
+describe("<ErddapAllObservationsTable>", () => {
+  it("Should show all observations for appropriate platform", () => {
+    const enzymeWrapper = mount(
+      <MemoryRouter>
+        <ErddapAllObservationsTable platform={platform} />
+      </MemoryRouter>
+    )
 
-    expect(enzymeWrapper.find("li").length).toBe(7)
+    expect(enzymeWrapper.find("a").length).toBe(16)
     expect(enzymeWrapper.text()).toContain("Last updated at: ")
-    expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 knots")
+    expect(enzymeWrapper.text()).toContain("Wind Speed: 2 m/s")
   })
 })
 

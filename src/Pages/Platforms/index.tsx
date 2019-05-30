@@ -57,6 +57,7 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
             <Route path={paths.platforms.observations}>{props => <PlatformTabs {...props} />}</Route>
             <Route path={paths.platforms.forecast}>{props => <PlatformTabs {...props} />}</Route>
             <Route path={paths.platforms.platform}>{props => <PlatformTabs {...props} />}</Route>
+            <Route path={paths.platforms.all}>{props => <PlatformTabs {...props} />}</Route>
 
             <Route path={paths.platforms.root} exact={true} component={RootInfo} />
           </Switch>
