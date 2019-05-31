@@ -5,7 +5,6 @@
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { Constraints, ErddapJson } from "./types"
-import { number } from "prop-types"
 
 /**
  * Transform ERDDAP constraints from a object into a URL valid string

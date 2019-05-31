@@ -12,7 +12,7 @@ blocks:
         - name: REACT_APP_ERDDAP_SERVICE
           value: http://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
-          value: http://proxy.neracoos.org/
+          value: https://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
@@ -37,7 +37,7 @@ blocks:
         - name: REACT_APP_ERDDAP_SERVICE
           value: http://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
-          value: http://proxy.neracoos.org/
+          value: https://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
@@ -58,7 +58,7 @@ blocks:
         - name: REACT_APP_ERDDAP_SERVICE
           value: http://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
-          value: http://proxy.neracoos.org/
+          value: https://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 

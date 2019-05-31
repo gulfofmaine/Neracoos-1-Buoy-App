@@ -6,6 +6,9 @@ build:
       context: .
       docker:
         dockerfile: Dockerfile.production
+        buildArgs:
+          REACT_APP_PROXY_ROOT: https://proxy.neracoos.org/
+          REACT_APP_ERDDAP_SERVICE: https://buoybarn.neracoos.org
 deploy:
   kustomize:
       path: k8s/

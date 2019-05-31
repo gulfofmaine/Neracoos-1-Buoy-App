@@ -4,6 +4,14 @@
 
 Additions:
 
+Changes:
+
+Fixes:
+
+## 0.3.1 - Going to sea with Kubernetes - 5/31/19
+
+Additions:
+
 - Migrate deployment to Kubernetes using Kustomize and Skaffold.
 
 Changes:
