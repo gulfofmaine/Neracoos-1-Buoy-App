@@ -10,7 +10,7 @@ blocks:
     task:
       env_vars:
         - name: REACT_APP_ERDDAP_SERVICE
-          value: http://buoybarn.neracoos.org
+          value: https://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
           value: https://proxy.neracoos.org/
       secrets:
@@ -35,7 +35,7 @@ blocks:
     task:
       env_vars:
         - name: REACT_APP_ERDDAP_SERVICE
-          value: http://buoybarn.neracoos.org
+          value: https://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
           value: https://proxy.neracoos.org/
       secrets:
@@ -56,7 +56,7 @@ blocks:
     task:
       env_vars:
         - name: REACT_APP_ERDDAP_SERVICE
-          value: http://buoybarn.neracoos.org
+          value: https://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
           value: https://proxy.neracoos.org/
       secrets:

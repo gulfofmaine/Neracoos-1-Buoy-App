@@ -9,3 +9,10 @@ commonLabels:
   maintainer: akerney
   funder: NERACOOS
   project: Mariners_dashboard
+patchesJson6902:
+  - target:
+      name: mariners-dashboard
+      group: extensions
+      version: v1beta1
+      kind: Ingress
+    path: ingress_patch.yaml
