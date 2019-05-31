@@ -1,0 +1,11 @@
+namespace: mariners-dashboard
+resources:
+- docker-hub-secret.yaml
+- frontend.yaml
+- service.yaml
+- ingress.yaml
+commonLabels:
+  app: mariners-dashboard
+  maintainer: akerney
+  funder: NERACOOS
+  project: Mariners_dashboard

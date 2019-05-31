@@ -1,0 +1,11 @@
+apiVersion: skaffold/v1beta7
+kind: Config
+build:
+  artifacts:
+    - image: gmri/neracoos-mariners-dashboard
+      context: .
+      docker:
+        dockerfile: Dockerfile.production
+deploy:
+  kustomize:
+      path: k8s/
