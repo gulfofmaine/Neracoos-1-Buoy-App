@@ -36,3 +36,4 @@ UserInterfaceState.xcuserstate
 *.ipynb
 docs
 build
+docker-hub-secret.yaml

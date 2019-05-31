@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mariners-dashboard
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - host: mariners.neracoos.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: mariners-dashboard
+              servicePort: 80
