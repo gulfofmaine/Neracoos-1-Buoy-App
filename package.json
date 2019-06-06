@@ -28,7 +28,7 @@
     "react-dom": "16.8.6",
     "react-jsx-highcharts": "3.5.0",
     "react-redux": "7.0.3",
-    "react-router-dom": "5.0.0",
+    "react-router-dom": "5.0.1",
     "react-scripts": "^3.0.1",
     "react-sizeme": "2.6.7",
     "reactstrap": "8.0.0",
