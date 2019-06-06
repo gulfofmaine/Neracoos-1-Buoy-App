@@ -3,12 +3,13 @@ import { constraintsToString, resultToTimeseries, tabledapUrl, variableString } 
 describe("constraintsToString()", () => {
   it("Can create a valid constraints string", () => {
     const constraints = {
-      "time>=": "2018-12-15T00:00:00Z"
+      "time>=": "2018-12-15T00:00:00Z",
+      "temperature_qc<": 1
     }
 
     const result = constraintsToString(constraints)
 
-    expect(result).toEqual('&time>="2018-12-15T00:00:00Z"')
+    expect(result).toEqual("&time>=%222018-12-15T00:00:00Z%22&temperature_qc<1")
   })
 })
 
@@ -34,7 +35,7 @@ describe("datasetUrl", () => {
     const result = tabledapUrl(server, dataset, variables, constraints)
 
     expect(result).toEqual(
-      'http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time,current_speed,current_direction&time>="2018-12-15T00:00:00Z"'
+      "http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time,current_speed,current_direction&time>=%222018-12-15T00:00:00Z%22"
     )
   })
 })

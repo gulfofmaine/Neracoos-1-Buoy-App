@@ -1,4 +1,4 @@
-# Neracoos Ionic App [![Semaphore Dashboard](https://img.shields.io/badge/Semaphore-Dashboard-lightgrey.svg)](https://gmri.semaphoreci.com/projects/Neracoos-1-Buoy-App) [![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-lightgrey.svg)](https://dashboard.cypress.io/#/projects/xhz4kt/runs) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Coverage)
+# Neracoos Mariner's Dashboard [![Semaphore Dashboard](https://img.shields.io/badge/Semaphore-Dashboard-lightgrey.svg)](https://gmri.semaphoreci.com/projects/Neracoos-1-Buoy-App) [![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-lightgrey.svg)](https://dashboard.cypress.io/#/projects/xhz4kt/runs) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Coverage)
 
 ## Using with Docker
 
@@ -13,20 +13,22 @@ You can run `make serve-build` to view the build locally before deploying.
 
 ## Deploying and Versioning
 
-The site is currently deployed to http://neracoos.org/ionic/neracoos1/www/index.html
+The site is deployed to the NERACOOS Digital Ocean Kubernetes Cluster.
 
-To update the deployment run `make deploy`.
-You probably want to `npm version patch` (or `minor`/`major` depending on changes) run it in the form
-`make down build deploy sentry` to make sure that you get a production
-build and that there is no iterferance with the local test server and get source maps copied to sentry.
+When you're using the NERACOOS Kubernetes config, to update the deployment run `skaffold run -t VERSION_NUMBER --tail`.
+You probably want to `npm version patch` (or `minor`/`major` depending on changes) first.
 
-The deploy uses `scp` so you will need to have a `~/.ssh/config entry that looks something like this:
+You will need to have `docker-hub-secret.yaml` in `/k8s/` for the deploy to work using an account with access to the GMRI Docker Hub repos.
 
-```sh
-Host awsgmri
-    HostName awsgmri.neracoos.org
-    User great_user_name
-    IdentityFile ~/.ssh/id_rsa
+```yaml
+apiVersion: v1
+data:
+  .dockerconfigjson: Some string
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: docker-hub-secret
+type: kubernetes.io/dockerconfigjson
 ```
 
 ## Generating Pages and Components

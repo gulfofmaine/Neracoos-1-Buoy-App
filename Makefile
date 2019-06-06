@@ -9,30 +9,12 @@ up: down
 down:
 	docker-compose down
 
-build: down
-	docker-compose build
-	docker-compose run client yarn build
-
-deploy:
-	scp -r ./build/* awsgmri:/home2/ionic/neracoos1/www/
-	sentry-cli releases -o gulf-of-maine-research-institu deploys $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") new -e staging
-
-serve-build:
-	python3 -m http.server -d build/
-
-sentry:
-	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard new $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --finalize
-	# sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard set-commits $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") --auto
-	sentry-cli releases -o gulf-of-maine-research-institu -p neracoos-mariners-dashboard files $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])") upload-sourcemaps build
-
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)
 	docker system prune -a
 
 patch:
 	npm version patch
-
-release-patch: test down patch build sentry deploy
 
 rm-docs:
 	rm -r docs/ || true

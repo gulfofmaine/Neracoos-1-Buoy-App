@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariners-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: mariners-dashboard
+  template:
+    metadata:
+      labels:
+        app: mariners-dashboard
+    spec:
+      containers:
+      - name: mariners-dashboard
+        image: gmri/neracoos-mariners-dashboard
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80
+          name: http
+      imagePullSecrets:
+        - name: docker-hub-secret 

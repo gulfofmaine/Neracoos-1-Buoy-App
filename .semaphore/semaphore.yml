@@ -10,15 +10,15 @@ blocks:
     task:
       env_vars:
         - name: REACT_APP_ERDDAP_SERVICE
-          value: http://buoybarn.neracoos.org
+          value: https://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
-          value: http://proxy.neracoos.org/
+          value: https://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
       prologue:
         commands:
-          - sem-version node 10.13.0
+          - sem-version node 12.3.1
           - checkout
           - cache restore node-modules-$(checksum yarn.lock)
           - cache restore cypress=3.1.2
@@ -35,15 +35,15 @@ blocks:
     task:
       env_vars:
         - name: REACT_APP_ERDDAP_SERVICE
-          value: http://buoybarn.neracoos.org
+          value: https://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
-          value: http://proxy.neracoos.org/
+          value: https://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
       prologue:
         commands:
-          - sem-version node 10.13.0
+          - sem-version node 12.3.1
           - checkout
           - cache restore node-modules-$(checksum yarn.lock)
 
@@ -56,15 +56,15 @@ blocks:
     task:
       env_vars:
         - name: REACT_APP_ERDDAP_SERVICE
-          value: http://buoybarn.neracoos.org
+          value: https://buoybarn.neracoos.org
         - name: REACT_APP_PROXY_ROOT
-          value: http://proxy.neracoos.org/
+          value: https://proxy.neracoos.org/
       secrets:
         - name: neracoos_mariners_dashboard_env
 
       prologue:
         commands:
-          - sem-version node 10.13.0
+          - sem-version node 12.3.1
           - checkout
           - cache restore node-modules-$(checksum yarn.lock)
           - cache restore cypress=3.1.2

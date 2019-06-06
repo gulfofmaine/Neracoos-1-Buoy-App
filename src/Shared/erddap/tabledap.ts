@@ -15,8 +15,12 @@ export function constraintsToString(constraints: Constraints): string {
 
   for (const key in constraints) {
     if (constraints.hasOwnProperty(key)) {
-      // constraintStr += "&" + key + "%22" + constraints[key] + "%22"
-      constraintStr += "&" + key + '"' + constraints[key] + '"'
+      const constraint = constraints[key]
+      if (typeof constraint === "number") {
+        constraintStr += "&" + key + constraints[key]
+      } else {
+        constraintStr += "&" + key + "%22" + constraints[key] + "%22"
+      }
     }
   }
 

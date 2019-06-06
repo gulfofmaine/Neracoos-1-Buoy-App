@@ -28,7 +28,7 @@ export interface ErddapDataset {
 }
 
 export interface Constraints {
-  [key: string]: string
+  [key: string]: string | number
 }
 
 export interface ErddapJson {

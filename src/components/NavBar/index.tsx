@@ -41,12 +41,12 @@ export default class NeracoosNavBar extends React.Component<object, State> {
           <Collapse isOpen={this.state.isOpen} navbar={true}>
             <Nav className="ml-auto" navbar={true}>
               <RegionDropdown />
-
+              {/* 
               <NavItem>
                 <NavLink className="nav-link" activeClassName="active" to={paths.map}>
                   Radar Map
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
 
               <NavItem>
                 <NavLink className="nav-link" activeClassName="active" to={paths.about}>
