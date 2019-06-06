@@ -1,6 +1,6 @@
 import * as actions from "./actions"
 import * as actionTypes from "./actionTypes"
-import { erddapReducer } from "./reducer"
+import { erddapReducer, filterableDataset } from "./reducer"
 import { ERDDAPStoreState, ForecastSource, PlatformDataset } from "./types"
 
 const resultOf = (reduceActions, initialState) => reduceActions.reduce(erddapReducer, initialState)
@@ -334,6 +334,20 @@ describe("ERDDAP reducer - forecast loading", () => {
     expect(n01.properties.forecasts[0].loading).toBe(false)
     expect(n01.properties.forecasts[0].error).toBe("")
     expect(n01.properties.forecasts[0].readings).toBe(forecastTimeSeries)
+  })
+})
+
+describe("filterableDataset", () => {
+  it("Can create a slimmed down dataset that can be filtered", () => {
+    const filtered = filterableDataset(dataset)
+
+    expect(filtered).toContain("constraint")
+    expect(filtered).toContain("data_type")
+    expect(filtered).toContain("depth")
+    expect(filtered).toContain("server")
+    expect(filtered).toContain("variable")
+    expect(filtered).not.toContain("time")
+    expect(filtered).not.toContain("readings")
   })
 })
 

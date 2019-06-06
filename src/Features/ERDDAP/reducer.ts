@@ -4,6 +4,23 @@ import { resultToTimeseries } from "Shared/erddap"
 import * as actionTypes from "./actionTypes"
 import { ERDDAPStoreState, initialStoreState, PlatformDataset } from "./types"
 
+/**
+ * Extract unique identifying details about a dataset and stringify so that it can be used in a set filter
+ *
+ * @param dataset Dataset to extract details from
+ * @returns Stringified version of key dataset details
+ */
+export function filterableDataset({
+  constraints,
+  data_type,
+  dataset,
+  depth,
+  server,
+  variable
+}: PlatformDataset): string {
+  return JSON.stringify({ constraints, data_type, dataset, depth, server, variable })
+}
+
 export function erddapReducer(state: ERDDAPStoreState = initialStoreState, action: Action): ERDDAPStoreState {
   switch (action.type) {
     // Platform loading
@@ -46,9 +63,7 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
 
     // Dataset loading
     case actionTypes.ERDDAP_DATASET_LOAD_ERROR:
-      const datasetErrorSet = new Set(
-        action.datasets.map(dataset => JSON.stringify({ ...dataset, loadStartTimes: [], loading: false, error: "" }))
-      )
+      const datasetErrorSet = new Set(action.datasets.map(dataset => filterableDataset(dataset)))
 
       return {
         ...state,
@@ -61,16 +76,9 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
               properties: {
                 ...platfrom.properties,
                 readings: [
-                  ...platfrom.properties.readings.filter(
-                    dataset =>
-                      !datasetErrorSet.has(
-                        JSON.stringify({ ...dataset, loadStartTimes: [], loading: false, error: "" })
-                      )
-                  ),
+                  ...platfrom.properties.readings.filter(dataset => !datasetErrorSet.has(filterableDataset(dataset))),
                   ...platfrom.properties.readings
-                    .filter(dataset =>
-                      datasetErrorSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false, error: "" }))
-                    )
+                    .filter(dataset => datasetErrorSet.has(filterableDataset(dataset)))
                     .map(dataset => ({
                       ...dataset,
                       error: action.message,
@@ -83,9 +91,7 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
       }
 
     case actionTypes.ERDDAP_DATASET_LOAD_STARTED:
-      const datasetStartedSet = new Set(
-        action.datasets.map(dataset => JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
-      )
+      const datasetStartedSet = new Set(action.datasets.map(dataset => filterableDataset(dataset)))
 
       return {
         ...state,
@@ -98,14 +104,9 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
               properties: {
                 ...platform.properties,
                 readings: [
-                  ...platform.properties.readings.filter(
-                    dataset =>
-                      !datasetStartedSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
-                  ),
+                  ...platform.properties.readings.filter(dataset => !datasetStartedSet.has(filterableDataset(dataset))),
                   ...platform.properties.readings
-                    .filter(dataset =>
-                      datasetStartedSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
-                    )
+                    .filter(dataset => datasetStartedSet.has(filterableDataset(dataset)))
                     .map(dataset => ({
                       ...dataset,
                       error: "",
@@ -118,9 +119,7 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
         ]
       }
     case actionTypes.ERDDAP_DATASET_LOAD_SUCCESS:
-      const datasetSuccessSet = new Set(
-        action.datasets.map(dataset => JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
-      )
+      const datasetSuccessSet = new Set(action.datasets.map(dataset => filterableDataset(dataset)))
 
       return {
         ...state,
@@ -133,14 +132,9 @@ export function erddapReducer(state: ERDDAPStoreState = initialStoreState, actio
               properties: {
                 ...platfrom.properties,
                 readings: [
-                  ...platfrom.properties.readings.filter(
-                    dataset =>
-                      !datasetSuccessSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
-                  ),
+                  ...platfrom.properties.readings.filter(dataset => !datasetSuccessSet.has(filterableDataset(dataset))),
                   ...platfrom.properties.readings
-                    .filter(dataset =>
-                      datasetSuccessSet.has(JSON.stringify({ ...dataset, loadStartTimes: [], loading: false }))
-                    )
+                    .filter(dataset => datasetSuccessSet.has(filterableDataset(dataset)))
                     .map(dataset => ({
                       ...dataset,
                       error: "",

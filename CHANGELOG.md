@@ -13,3 +13,5 @@ Changes:
   - Update React-JSX-Highcharts from 3.2.1 to 3.5.0
 
 Fixes:
+
+- Fix loaded data not displaying on Safari. Closes #171
