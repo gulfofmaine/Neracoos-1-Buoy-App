@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Fix loaded data not displaying on Safari. Closes #171
+
 ## 0.3.1 - Going to sea with Kubernetes - 5/31/19
 
 Additions:
