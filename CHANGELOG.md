@@ -2,9 +2,13 @@
 
 ## Upcoming (unknown release)
 
-## 0.3.2 - The United States of Water - 6/6/19
-
 Additions:
+
+Changes:
+
+Fixes:
+
+## 0.3.2 - The United States of Water - 6/6/19
 
 Changes:
 
