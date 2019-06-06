@@ -59,7 +59,7 @@ describe("TableItem", () => {
       </MemoryRouter>
     )
 
-    expect(wrapper.text()).toBe(null)
+    expect(wrapper.text()).toBe("")
   })
 })
 
