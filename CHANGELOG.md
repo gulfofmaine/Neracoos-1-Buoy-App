@@ -2,13 +2,25 @@
 
 ## Upcoming (unknown release)
 
+## 0.3.2 - The United States of Water - 6/6/19
+
 Additions:
 
 Changes:
 
+- Update Dependencies
+  - Node from 12.3.1 to 12.4
+  - Nginx to 1.17.0 (from a less specifc tag)
+  - Highcharts from 7.1.1 to 7.1.2
+  - React-router-dom from 5.0.0 to 5.0.1
+  - @types/node from 12.0.3 to 12.0.5
+  - Enzyme from 3.9.0 to 3.10.0
+  - Enzyme-adapter-react-16 from 1.13.2 to 1.14.0
+
 Fixes:
 
 - Fix loaded data not displaying on Safari. Closes #171
+- Fix formatting of Enzyme unit test.
 
 ## 0.3.1 - Going to sea with Kubernetes - 5/31/19
 
