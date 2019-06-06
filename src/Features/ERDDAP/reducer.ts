@@ -10,16 +10,8 @@ import { ERDDAPStoreState, initialStoreState, PlatformDataset } from "./types"
  * @param dataset Dataset to extract details from
  * @returns Stringified version of key dataset details
  */
-export function filterableDataset({
-  constraints,
-  data_type,
-  dataset,
-  depth,
-  server,
-  variable
-}: PlatformDataset): string {
-  return JSON.stringify({ constraints, data_type, dataset, depth, server, variable })
-}
+export const filterableDataset = ({ constraints, data_type, dataset, depth, server, variable }) =>
+  JSON.stringify({ constraints, data_type, dataset, depth, server, variable })
 
 export function erddapReducer(state: ERDDAPStoreState = initialStoreState, action: Action): ERDDAPStoreState {
   switch (action.type) {
