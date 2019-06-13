@@ -3273,13 +3273,6 @@ create-react-context@<=0.2.2:
     fbjs "^0.8.0"
     gud "^1.0.0"
 
-create-react-context@^0.2.2:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/create-react-context/-/create-react-context-0.2.3.tgz#9ec140a6914a22ef04b8b09b7771de89567cb6f3"
-  dependencies:
-    fbjs "^0.8.0"
-    gud "^1.0.0"
-
 cross-fetch@^2.2.2:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-2.2.3.tgz#e8a0b3c54598136e037f8650f8e823ccdfac198e"
@@ -3624,6 +3617,11 @@ date-fns@^1.27.2:
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
+
+debounce-raf@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/debounce-raf/-/debounce-raf-1.0.1.tgz#1e9cd63fd9afb0a9dce86b79ef435655bcb0c5d1"
+  integrity sha512-VzPF4wRtsqIHuBeN3/7jYvB4lpO2HSOzU4zWVDui4cAMjHkOcxMCjSvlxJq769M4lyM0ZEcl/XiI78Wv7RwT0g==
 
 debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -7160,7 +7158,7 @@ mimic-fn@^2.0.0:
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
-mini-create-react-context@^0.3.0:
+mini-create-react-context@^0.3.0, mini-create-react-context@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/mini-create-react-context/-/mini-create-react-context-0.3.2.tgz#79fc598f283dd623da8e088b05db8cddab250189"
   integrity sha512-2v+OeetEyliMt5VHMXsBhABoJ0/M4RCe7fatd/fBy6SMiKazUSEt3gxxypfnk2SHMkdBYvorHRoQxuGoiwbzAw==
@@ -9092,16 +9090,16 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-jsx-highcharts@3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/react-jsx-highcharts/-/react-jsx-highcharts-3.5.0.tgz#340c39bd41971aacea57b0c2f45e4ea76af8bd97"
-  integrity sha512-J01W8Tz1ZM9mRqJ9PRVEoEEMTxVhq/oj2SpzjNbb6EuLYrU5HYwz3t1gs2h+9lGWFUuIncI+BtANvdz/82S2LA==
+react-jsx-highcharts@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/react-jsx-highcharts/-/react-jsx-highcharts-3.6.0.tgz#c44e33375a349c945c596eaba3222a9764ef35d0"
+  integrity sha512-CiR1EGBnM9ZT6bTgK08JBxE41rtKL4OdWqF+kfJLmQQT6m7id7KP0FrmsIteB8XovJ3KyKAT42c56Xb4O8u5Yw==
   dependencies:
-    "@babel/runtime" "^7.1.2"
-    create-react-context "^0.2.2"
+    debounce-raf "^1.0.1"
     immutable-is "^3.7.6"
     is-immutable "^1.0.1"
     lodash-es "^4.17.5"
+    mini-create-react-context "^0.3.2"
     uuid "^3.2.1"
 
 react-lifecycles-compat@^3.0.4:
