@@ -1428,10 +1428,10 @@
   version "4.0.39"
   resolved "https://registry.yarnpkg.com/@types/handlebars/-/handlebars-4.0.39.tgz#961fb54db68030890942e6aeffe9f93a957807bd"
 
-"@types/highcharts@^5.0.39":
-  version "5.0.39"
-  resolved "https://registry.yarnpkg.com/@types/highcharts/-/highcharts-5.0.39.tgz#ff0c95431dd29613372a9088d5d2ed465524028a"
-  integrity sha512-eLmHtoCQFTF1da58xQ/ZVElbHxQVTrHq4zktDpnWmHBOBeNudkXanO1otsK9MkxQIPBSUKThVcM9LUrZbaQktA==
+"@types/highcharts@^5.0.41":
+  version "5.0.41"
+  resolved "https://registry.yarnpkg.com/@types/highcharts/-/highcharts-5.0.41.tgz#ccfbea235090288ffba9b3319265bc3fba64850e"
+  integrity sha512-XB2kbP1JdP49CVN1g2R7gCkofUWfzXlJypsTUdLtR3KoduDYBYhmfEUgnJ5Hw8d1at5I0e1Z/BMmdIVh9ivQ3w==
   dependencies:
     "@types/geojson" "*"
 
