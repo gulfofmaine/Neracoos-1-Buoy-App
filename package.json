@@ -8,7 +8,7 @@
     "@turf/bbox-polygon": "6.0.1",
     "@turf/boolean-contains": "6.0.1",
     "@turf/helpers": "6.1.4",
-    "@types/highcharts": "^5.0.39",
+    "@types/highcharts": "^5.0.42",
     "@types/history": "^4.7.2",
     "@types/ol": "5.3.0",
     "@types/react-redux": "7.0.9",
