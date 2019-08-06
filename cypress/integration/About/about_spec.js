@@ -6,12 +6,12 @@ describe("About Page", () => {
 
     cy.contains("About").click()
 
-    cy.contains("Content for Mariners Dashboard About Page")
+    cy.contains("Platform data provided by:")
   })
 
   it("Loads Wagtail Content", () => {
     cy.visit("/about/")
 
-    cy.contains("Content for Mariners Dashboard About Page")
+    cy.contains("Platform data provided by:")
   })
 })

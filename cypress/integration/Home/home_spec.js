@@ -4,7 +4,7 @@ describe("Home page", function() {
   it("Loads Drupal content", function() {
     cy.visit("/")
 
-    cy.contains("Content for")
+    cy.contains("The Mariners' Dashboard provides near real-time data for buoys and sensors in the Northeast.")
   })
 
   it("Has a nav bar", () => {
