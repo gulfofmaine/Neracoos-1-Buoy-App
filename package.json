@@ -61,7 +61,7 @@
     "redux-mock-store": "1.5.3",
     "typedoc": "0.14.2",
     "typescript": "3.4.5",
-    "wait-on": "3.2.0"
+    "wait-on": "3.3.0"
   },
   "optionalDependencies": {
     "cypress": "3.1.2"
