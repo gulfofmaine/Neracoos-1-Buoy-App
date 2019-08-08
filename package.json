@@ -51,7 +51,7 @@
     "@types/node": "12.6.1",
     "@types/react": "16.8.24",
     "@types/react-dom": "16.8.5",
-    "@types/react-test-renderer": "16.8.1",
+    "@types/react-test-renderer": "16.8.3",
     "codacy-coverage": "3.4.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
