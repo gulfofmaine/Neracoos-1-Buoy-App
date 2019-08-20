@@ -1564,10 +1564,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/reactstrap@8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-8.0.1.tgz#356cc359657a9f6bc84a2f689656cb8790229aaa"
-  integrity sha512-Gn3u6zAFxfBcxDxEMbyUC/A+zS8KpKNg/gKjdFLHug+sG4XOMUaychNiA5buRLeh0r3s+amsjD+xrX8gT612YA==
+"@types/reactstrap@8.0.3":
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-8.0.3.tgz#b0bcb3b8dcfcb02727b60f7c3a7f3a76d2ee8b9f"
+  integrity sha512-ztleh3D+Y5s5HfPpJSHwn+sqDNxXswDEvuiSaL+4eLDNIYaKpONXOv9F6fLNoRpbbDgf3m4awqoYZIv50W9vLw==
   dependencies:
     "@types/react" "*"
     popper.js "^1.14.1"
@@ -8093,11 +8093,7 @@ pnp-webpack-plugin@1.2.1:
   dependencies:
     ts-pnp "^1.0.0"
 
-popper.js@^1.14.1:
-  version "1.14.4"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
-
-popper.js@^1.14.4:
+popper.js@^1.14.1, popper.js@^1.14.4:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
   integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
