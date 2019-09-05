@@ -31,27 +31,39 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
   const gust = datasets.filter(dataset => dataset.data_type.standard_name.includes("gust"))
   const direction = datasets.filter(dataset => dataset.data_type.standard_name.includes("direction"))
 
+  let speedTitle: string = ""
+  if (speed.length > 0 && speed[0].readings.length > 0) {
+    speedTitle =
+      " - " +
+      round(speed[0].readings[speed[0].readings.length - 1].reading, 1) +
+      " " +
+      speed[0].data_type.units +
+      convertUnit("m/s", speed[0].readings[speed[0].readings.length - 1].reading)
+  }
+
+  let gustTitle: string = ""
+  if (gust.length > 0) {
+    gustTitle =
+      " gusting to " +
+      round(gust[0].readings[gust[0].readings.length - 1].reading) +
+      " " +
+      gust[0].data_type.units +
+      convertUnit("m/s", gust[0].readings[gust[0].readings.length - 1].reading)
+  }
+
+  let directionTitle: string = ""
+  if (direction.length > 0 && direction[0].readings.length > 0) {
+    const reading = direction[0].readings[direction[0].readings.length - 1].reading
+    const compass = compassDirection(reading)
+    directionTitle = " from " + compass[1]
+  }
+
   return (
     <Card>
       <CardHeader>
-        Winds
-        {speed.length > 0
-          ? " - " +
-            round(speed[0].readings[speed[0].readings.length - 1].reading, 1) +
-            " " +
-            speed[0].data_type.units +
-            convertUnit("m/s", speed[0].readings[speed[0].readings.length - 1].reading)
-          : null}
-        {gust.length > 0
-          ? " gusting to " +
-            round(gust[0].readings[gust[0].readings.length - 1].reading) +
-            " " +
-            gust[0].data_type.units +
-            convertUnit("m/s", gust[0].readings[gust[0].readings.length - 1].reading)
-          : null}
-        {direction.length > 0
-          ? " from " + compassDirection(direction[0].readings[direction[0].readings.length - 1].reading)[1]
-          : null}
+        Winds{speedTitle}
+        {gustTitle}
+        {directionTitle}
       </CardHeader>
       <CardBody style={{ padding: ".2rem" }}>
         <WindTimeSeriesChart days={1} barbsPerDay={10} data={data} height={150} />

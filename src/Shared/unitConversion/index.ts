@@ -116,7 +116,8 @@ const compass = {
   29: ["Northwest", "NW"],
   30: ["Northwest by north", "NWbN"],
   31: ["North-northwest", "NNW"],
-  32: ["North by west", "NbW"]
+  32: ["North by west", "NbW"],
+  33: ["North", "N"]
 }
 
 /**
