@@ -8,6 +8,46 @@ Changes:
 
 Fixes:
 
+## 0.3.3 - Hidden in fog - 9/5/19
+
+Changes:
+
+- Update Dependencies
+  - Node from 12.4 to 12.9.1
+  - Nginx from 1.17.0 to 1.17.3
+  - @sentry/browser from 4.6.6 to 5.6.3
+  - Connected-React-Router from 6.4.0 to 6.5.2
+  - Highcharts from 7.1.2 to 7.1.3
+  - Moment-timezone from 0.5.25 to 0.5.26
+  - React from 16.8.6 to 16.9.0
+  - React-DOM from 16.8.6 to 16.9.0
+  - React-JSX-Highcharts from 3.5.0 to 3.6.1
+  - React-Redux from 7.0.3 to 7.1.1
+  - React-Scripts from 3.0.1 to 3.1.1
+  - Reactstrap from 8.0.0 to 8.0.1
+  - Redux from 4.0.1 to 4.0.4
+  - React test render from 16.8.6 to 16.9.0
+  - Typedoc from 0.14.2 to 0.15.0
+  - Wait-on from 3.2.0 to 3.3.0
+  - Types
+    - Highcharts from 5.0.39 to 5.0.44
+    - History from 4.7.2 to 4.7.3
+    - OpenLayers from 5.3.0 to 5.3.4
+    - React-Redux from 7.0.9 to 7.1.2
+    - React-Router-DOM from 4.3.3 to 4.3.5
+    - Reactstrap from 8.0.1 to 8.0.4
+    - Enzyme from 3.9.3 to 3.10.3
+    - Jest from 24.0.13 to 24.0.18
+    - Node from 12.0.5 to 12.7.2
+    - React from 16.8.19 to 16.9.0
+    - React-DOM from 16.8.4 to 16.9.0
+    - React test render from 16.8.1 to 16.9.0
+
+Fixes:
+
+- Text in Cypress tests
+- Sentry typing
+
 ## 0.3.2 - The United States of Water - 6/6/19
 
 Changes:
