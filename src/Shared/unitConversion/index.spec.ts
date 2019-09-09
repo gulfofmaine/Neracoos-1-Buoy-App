@@ -104,4 +104,12 @@ describe("compassDirection", () => {
     expect(long).toEqual("West-northwest")
     expect(short).toEqual("WNW")
   })
+
+  it("Can find 355.92", () => {
+    const degrees = 355.92
+    const [long, short] = compassDirection(degrees)
+
+    expect(long).toEqual("North")
+    expect(short).toEqual("N")
+  })
 })

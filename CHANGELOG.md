@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Issue with compass points very close to North (~355).
+
 ## 0.3.3 - Hidden in fog - 9/5/19
 
 Changes:
