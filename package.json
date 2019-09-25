@@ -12,7 +12,7 @@
     "@types/history": "^4.7.3",
     "@types/ol": "5.3.4",
     "@types/react-redux": "7.1.2",
-    "@types/react-responsive": "3.0.3",
+    "@types/react-responsive": "8.0.0",
     "@types/react-router-dom": "4.3.5",
     "@types/reactstrap": "8.0.4",
     "bootstrap": "4.3.1",
