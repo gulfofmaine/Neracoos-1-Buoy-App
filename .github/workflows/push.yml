@@ -89,4 +89,4 @@ jobs:
         timeout-minutes: 1
 
       - name: Run Cypress
-        run: cypress run
+        run: npx cypress run
