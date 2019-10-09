@@ -24,5 +24,11 @@ jobs:
       - name: Build Docker image
         run: docker-compose build client
 
+      - name: Tag Docker image
+        run: docker tag gmri/neracoos-mariners-dashboard:latest gmri/neracoos-mariners-dashboard:${{ github.sha }}
+
       - name: "Unit tests"
         run: docker-compose run -e CI=true client yarn test
+
+      - name: Push Docker image
+        run: docker push gmri/neracoos-mariners-dashboard:${{ github.sha }}
