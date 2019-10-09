@@ -27,7 +27,7 @@ cov:
 	docker-compose exec client yarn test --coverage
 
 test:
-	docker-compose exec -e CI=true client yarn test
+	docker-compose run -e CI=true client yarn test
 
 cov-html:
 	open coverage/lcov-report/index.html
