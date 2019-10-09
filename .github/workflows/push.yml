@@ -79,7 +79,7 @@ jobs:
         run: docker tag gmri/neracoos-mariners-dashboard:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
 
       - name: Install Cypress and wait on
-        run: npm install cypress@3.1.2 wait-on
+        run: npm install cypress@3.2.0 wait-on
 
       - name: Start container
         run: docker-compose up -d client
@@ -89,10 +89,10 @@ jobs:
         timeout-minutes: 1
 
       - name: Run Cypress
-        run: npx cypress run
+        run: npx cypress run --browser chrome
         timeout-minutes: 15
 
       - name: Run Cypress and send results to dashboard
-        run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
         if: failure()
