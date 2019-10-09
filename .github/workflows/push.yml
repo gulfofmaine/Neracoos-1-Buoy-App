@@ -48,5 +48,8 @@ jobs:
       - name: Pull Docker image
         run: docker pull gmri/neracoos-mariners-dashboard:${{ github.sha }}
 
+      - name: Tag Docker image
+        run: docker tag gmri/neracoos-mariners-dashboard:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
+
       - name: Run unit tests
         run: docker-compose run -e CI=true client yarn test
