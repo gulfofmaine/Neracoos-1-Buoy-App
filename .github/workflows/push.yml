@@ -17,5 +17,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Pull latest Docker image
+        run: docker pull gmri/neracoos-mariners-dashboard:latest
+        continue-on-error: true
+
+      - name: Build Docker image
+        run: docker-compose build client
+
       - name: "Unit tests"
         run: docker-compose run -e CI=true client yarn test
