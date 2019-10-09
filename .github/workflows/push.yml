@@ -60,7 +60,7 @@ jobs:
     name: Cypress integration tests
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 10
+    timeout-minutes: 30
 
     steps:
       - name: "Checkout"
@@ -90,3 +90,9 @@ jobs:
 
       - name: Run Cypress
         run: npx cypress run
+        timeout-minutes: 15
+
+      - name: Run Cypress and send results to dashboard
+        run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        timeout-minutes: 15
+        if: failure()
