@@ -78,13 +78,13 @@ jobs:
         run: docker tag gmri/neracoos-mariners-dashboard:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
 
       - name: Install Cypress and wait on
-        run: npm install -g cypress@3.1.2 wait-on
+        run: npm install cypress@3.1.2 wait-on
 
       - name: Start container
         run: docker-compose up -d client
 
       - name: Wait for container to become avaliable
-        run: npx  wait-on http://localhost:300
+        run: npx wait-on http://localhost:300
 
       - name: Run Cypress
         run: cypress run
