@@ -2,7 +2,8 @@ name: Continuous Integration
 
 on: [push]
 env:
-  DOCKER_IMAGE: gmri/neracoos-mariners-dashboard
+  LATEST_IMAGE: gmri/neracoos-mariners-dashboard:latest
+  TAGGED_IMAGE: gmri/neracoos-mariners-dashboard:${{ github.sha }}
 
 jobs:
   build:
@@ -21,14 +22,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull latest Docker image
-        run: docker pull ${DOCKER_IMAGE}:latest
+        run: docker pull ${LATEST_IMAGE}
         continue-on-error: true
 
       - name: Build Docker image
-        run: docker build --cache-from ${DOCKER_IMAGE}:latest --tag ${DOCKER_IMAGE}:${{ github.sha }} .
+        run: docker build --cache-from ${LATEST_IMAGE} --tag ${TAGGED_IMAGE} .
 
       - name: Push Docker image
-        run: docker push ${DOCKER_IMAGE}:${{ github.sha }}
+        run: docker push ${TAGGED_IMAGE}
 
   unit_tests:
     name: Unit tests and coverage
@@ -47,10 +48,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run: docker pull ${{ github.sha }}:${{ github.sha }}
+        run: docker pull ${TAGGED_IMAGE}
 
       - name: Tag Docker image
-        run: docker tag ${{ github.sha }}:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
+        run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
 
       - name: Run unit tests and coverage
         run: docker-compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
@@ -72,10 +73,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run: docker pull ${{ github.sha }}:${{ github.sha }}
+        run: docker pull ${TAGGED_IMAGE}
 
       - name: Tag Docker image
-        run: docker tag ${{ github.sha }}:${{ github.sha }} ${{ github.sha }}:latest
+        run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
 
       - name: Install Cypress and wait on
         run: npm install cypress@3.2.0 wait-on
@@ -102,3 +103,24 @@ jobs:
           name: videos
           path: ./cypress/videos
 
+  latest:
+    name: Tag latest Docker image
+    runs-on: ubuntu-latest
+    needs: [build, cypress]
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: "Login to Docker Hub"
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Pull Docker image
+        run: docker pull ${TAGGED_IMAGE}
+
+      - name: Tag Docker image
+        run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
+
+      - name: Push Docker image
+        run: docker push ${LATEST_IMAGE}
