@@ -1,6 +1,8 @@
 name: Continuous Integration
 
 on: [push]
+env:
+  DOCKER_IMAGE: gmri/neracoos-mariners-dashboard
 
 jobs:
   build:
@@ -19,17 +21,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull latest Docker image
-        run: docker pull gmri/neracoos-mariners-dashboard:latest
+        run: docker pull ${DOCKER_IMAGE}:latest
         continue-on-error: true
 
       - name: Build Docker image
-        run: docker build --cache-from gmri/neracoos-mariners-dashboard:latest --tag gmri/neracoos-mariners-dashboard:latest .
-
-      - name: Tag Docker image
-        run: docker tag gmri/neracoos-mariners-dashboard:latest gmri/neracoos-mariners-dashboard:${{ github.sha }}
+        run: docker build --cache-from ${DOCKER_IMAGE}:latest --tag ${DOCKER_IMAGE}:${{ github.sha }} .
 
       - name: Push Docker image
-        run: docker push gmri/neracoos-mariners-dashboard:${{ github.sha }}
+        run: docker push ${DOCKER_IMAGE}:${{ github.sha }}
 
   unit_tests:
     name: Unit tests and coverage
@@ -48,10 +47,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run: docker pull gmri/neracoos-mariners-dashboard:${{ github.sha }}
+        run: docker pull ${{ github.sha }}:${{ github.sha }}
 
       - name: Tag Docker image
-        run: docker tag gmri/neracoos-mariners-dashboard:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
+        run: docker tag ${{ github.sha }}:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
 
       - name: Run unit tests and coverage
         run: docker-compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
@@ -73,10 +72,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run: docker pull gmri/neracoos-mariners-dashboard:${{ github.sha }}
+        run: docker pull ${{ github.sha }}:${{ github.sha }}
 
       - name: Tag Docker image
-        run: docker tag gmri/neracoos-mariners-dashboard:${{ github.sha }} gmri/neracoos-mariners-dashboard:latest
+        run: docker tag ${{ github.sha }}:${{ github.sha }} ${{ github.sha }}:latest
 
       - name: Install Cypress and wait on
         run: npm install cypress@3.2.0 wait-on
@@ -92,7 +91,14 @@ jobs:
         run: npx cypress run --browser chrome
         timeout-minutes: 15
 
-      - name: Run Cypress and send results to dashboard
+      - name: Run Cypress and send results to dashboard if the previous run failed
         run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
         if: failure()
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: videos
+          path: ./cypress/videos
+
