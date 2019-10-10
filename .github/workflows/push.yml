@@ -97,12 +97,6 @@ jobs:
         timeout-minutes: 15
         if: failure()
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: videos
-          path: ./cypress/videos
-
   latest:
     name: Tag latest Docker image
     runs-on: ubuntu-latest
