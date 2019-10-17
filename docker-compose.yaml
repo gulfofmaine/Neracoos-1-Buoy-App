@@ -3,7 +3,7 @@ version: "2.4"
 services:
   client:
     build: .
-    image: neracoos-react
+    image: gmri/neracoos-mariners-dashboard
     command: "yarn start"
     ports:
       - "3000:3000"

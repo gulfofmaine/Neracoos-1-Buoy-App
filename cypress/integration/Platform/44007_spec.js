@@ -69,7 +69,7 @@ describe("Platfrom 44007", () => {
     cy.get("svg.highcharts-root").contains("Meters")
     // cy.contains("Significant Wave Height observed").click()
     cy.get("svg.highcharts-root")
-      .contains("Bedford Institute Wave Model - Height")
+      .contains("Bedford Institute Wave Model")
       .click()
   })
 

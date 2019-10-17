@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Github actions workflow
+
 Fixes:
 
 - Issue with compass points very close to North (~355).
