@@ -167,10 +167,13 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
    * @param feature OpenLayers Feature
    */
   protected onClick(feature: Feature) {
-    const name: string = feature.getId().toString()
-    const url = urlPartReplacer(paths.platforms.platform, ":id", name)
+    const featureId = feature.getId()
+    if (featureId) {
+      const name: string = featureId.toString()
+      const url = urlPartReplacer(paths.platforms.platform, ":id", name)
 
-    this.props.push(url)
+      this.props.push(url)
+    }
   }
 }
 
