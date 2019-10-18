@@ -42,7 +42,8 @@
     "test": "react-scripts test",
     "think-before-eject": "react-scripts eject",
     "docs": "typedoc",
-    "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage"
+    "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage",
+    "types": "tsc"
   },
   "devDependencies": {
     "@types/enzyme": "3.10.3",
