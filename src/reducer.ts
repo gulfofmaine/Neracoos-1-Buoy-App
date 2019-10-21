@@ -10,6 +10,7 @@ import { Action } from "./actions"
 import { StoreState } from "Shared/constants/store"
 
 import { erddapReducer as erddap } from "Features/ERDDAP"
+import { unitReducer as unit } from "Features/Units"
 import { wagtailReducer as wagtail } from "Features/WagtailApi"
 
 /**
@@ -19,5 +20,6 @@ export default (history: History) =>
   combineReducers<StoreState, Action & LocationChangeAction>({
     erddap,
     router: connectRouter(history),
+    unit,
     wagtail
   })
