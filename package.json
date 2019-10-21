@@ -31,7 +31,7 @@
     "react-router-dom": "5.0.1",
     "react-scripts": "^3.2.0",
     "react-sizeme": "2.6.7",
-    "reactstrap": "8.0.1",
+    "reactstrap": "8.1.1",
     "redux": "4.0.4",
     "redux-thunk": "2.3.0",
     "svg-signal-flags": "https://github.com/stuyam/svg-signal-flags.git"
