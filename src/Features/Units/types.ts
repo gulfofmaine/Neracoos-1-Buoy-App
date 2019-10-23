@@ -13,5 +13,5 @@ export interface UnitStoreState {
 }
 
 export const initialStoreState: UnitStoreState = {
-  system: UnitSystem.metric
+  system: UnitSystem.imperial
 }

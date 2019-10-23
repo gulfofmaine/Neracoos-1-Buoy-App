@@ -2,6 +2,7 @@ import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
 import { ErddapObservationTable, ErddapPlatformGetter, ErddapPlatformInfoPanel, PlatformAlerts } from "Features/ERDDAP"
+import { UnitSelector } from "Features/Units"
 
 import { PlatformMatchParams } from "./types"
 
@@ -19,7 +20,7 @@ export class PlatformInfo extends React.Component<RouteComponentProps, object> {
             <React.Fragment>
               <PlatformAlerts platform={platform} />
               <ErddapPlatformInfoPanel platform={platform} />
-              <ErddapObservationTable platform={platform} />
+              <ErddapObservationTable platform={platform} unitSelector={<UnitSelector />} />
             </React.Fragment>
           )}
         </ErddapPlatformGetter>

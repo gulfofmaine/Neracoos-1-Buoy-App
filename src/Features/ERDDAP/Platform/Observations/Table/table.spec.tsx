@@ -10,7 +10,7 @@ describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
     const enzymeWrapper = mount(
       <MemoryRouter>
-        <ErddapObservationTable platform={platform} />
+        <ErddapObservationTable platform={platform} unitSelector={<b>Fake unit selector</b>} />
       </MemoryRouter>
     )
 

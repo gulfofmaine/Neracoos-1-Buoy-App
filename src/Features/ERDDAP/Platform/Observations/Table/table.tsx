@@ -7,11 +7,15 @@ import { ListGroup, ListGroupItem } from "reactstrap"
 import { RenderProps } from "../../Grabber"
 import { itemStyle, TableItem } from "./item"
 
+interface Props {
+  unitSelector?: React.ReactNode
+}
+
 /**
  * Recent platform observation values
  * @param platform
  */
-export const ErddapObservationTable: React.SFC<RenderProps> = ({ platform }) => {
+export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platform, unitSelector }) => {
   const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
   times.sort()
 
@@ -22,6 +26,13 @@ export const ErddapObservationTable: React.SFC<RenderProps> = ({ platform }) => 
           <b>Last updated at:</b> {times[times.length - 1].toLocaleString()}
         </ListGroupItem>
       ) : null}
+
+      {unitSelector ? (
+        <ListGroupItem>
+          <b>Unit system:</b> {unitSelector}
+        </ListGroupItem>
+      ) : null}
+
       <TableItem
         platform={platform}
         data_type="wind_speed"

@@ -5,13 +5,13 @@ import { UnitSystem } from "./types"
 const resultOf = (actions, initialState) => actions.reduce(unitReducer, initialState)
 
 describe("Unit System Reducer", () => {
-  it("Creates a valid initial state with the metric system selected", () => {
+  it("Creates a valid initial state with the imperial system selected", () => {
     const initialState = undefined
     const action = {}
     const finalState = resultOf([action], initialState)
 
     expect(finalState.system).toBeDefined()
-    expect(finalState.system).toEqual(UnitSystem.metric)
+    expect(finalState.system).toEqual(UnitSystem.imperial)
   })
 
   it("Can switch unit system to imperial", () => {

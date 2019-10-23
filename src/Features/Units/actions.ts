@@ -16,7 +16,7 @@ export type UnitActions = UnitSwitch
  * Switch display to use designated system of units
  * @param system system of  units to switch display into
  */
-export function unitSwitch(system: UnitSystem): UnitSwitch {
+export const unitSwitch = (system: UnitSystem): UnitSwitch => {
   return {
     system,
     type: actionTypes.UNIT_SWITCH
