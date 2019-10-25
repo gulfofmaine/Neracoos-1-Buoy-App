@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   )
 
 export class UnitSelectorBase extends React.Component<ReduxProps, object> {
-  public render() {
+  public render(): React.ReactNode {
     return (
       <ButtonGroup>
         {this.unitButton(UnitSystem.metric)}
@@ -41,7 +41,7 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
     )
   }
 
-  private unitButton(buttonSystem: UnitSystem) {
+  private unitButton(buttonSystem: UnitSystem): React.ReactNode {
     const { system } = this.props
 
     return (
