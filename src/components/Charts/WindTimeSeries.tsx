@@ -26,7 +26,7 @@ import { compassDirection, conversion, convertUnit } from "Shared/unitConversion
  *
  * @param this Highcharts position value
  */
-function pointFormatter(this: any) {
+function pointFormatter(this: any): string {
   return (
     `${new Date(this.x).toLocaleString()}<br />` +
     this.points
@@ -67,7 +67,7 @@ addWindBarbModule(Highcharts)
  * in addition to wind barbs for wind direction
  */
 export class WindTimeSeriesChartBase extends React.Component<Props, object> {
-  public render() {
+  public render(): React.ReactNode {
     // Extract wind direction from windspeed data
     const speeds = this.props.data.filter(d => !d.name.toLowerCase().includes("direction"))
     const directions = this.props.data.filter(d => d.name.toLowerCase().includes("direction"))

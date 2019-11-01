@@ -20,14 +20,8 @@ type State = Readonly<typeof initialState>
 /**
  * Navbar component
  */
-export default class NeracoosNavBar extends React.Component<object, State> {
+export class NeracoosNavBar extends React.Component<object, State> {
   public state: State = initialState
-
-  constructor(props: any) {
-    super(props)
-
-    this.toggle = this.toggle.bind(this)
-  }
 
   public render() {
     return (
@@ -61,9 +55,9 @@ export default class NeracoosNavBar extends React.Component<object, State> {
   }
 
   /** Toggle the navbar open and closed when viewed on mobile. */
-  private toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    })
+  private toggle = () => {
+    this.setState(prevState => ({
+      isOpen: !prevState.isOpen
+    }))
   }
 }

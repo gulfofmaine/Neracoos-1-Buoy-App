@@ -72,9 +72,9 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
   }
 
   private toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    })
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }))
   }
 
   private close() {

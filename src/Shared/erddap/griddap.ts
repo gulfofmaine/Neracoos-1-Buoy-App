@@ -16,7 +16,7 @@ import { ErddapDataset, GriddapTable } from "./types"
  * @param columnName Column name of data to extract.
  * @returns Time series with the given column.
  */
-export function extractColumn(griddapResponse: GriddapTable, columnName: string): ReadingTimeSeries[] {
+export const extractColumn = (griddapResponse: GriddapTable, columnName: string): ReadingTimeSeries[] => {
   const { rows, columnNames } = griddapResponse
   const columnIndex = columnNames.indexOf(columnName)
 
@@ -37,7 +37,7 @@ export function extractColumn(griddapResponse: GriddapTable, columnName: string)
  * @param metadataField Field that we are looking to return from the metadata.
  * @returns Value of metadata field.
  */
-export function metadataValue(griddapResponse: GriddapTable, metadataField: string): string | number | boolean {
+export const metadataValue = (griddapResponse: GriddapTable, metadataField: string): string | number | boolean => {
   const { rows } = griddapResponse
 
   const index = rows.map(r => r[2]).indexOf(metadataField)
@@ -56,14 +56,14 @@ export function metadataValue(griddapResponse: GriddapTable, metadataField: stri
  * @param endDate Date to end the query.
  * @returns URL string for ERDDAP json query.
  */
-export function erddapUrl(
+export const erddapUrl = (
   dataset: ErddapDataset,
   lat: number,
   lon: number,
   field: string,
   startDate: Date,
   endDate: Date
-): string {
+): string => {
   /*
     http://www.neracoos.org/erddap/griddap/WW3_GulfOfMaine_latest.json?hs
     [( 2018-10-06T00:00:00Z):1:(2018-10-06T00:00:00Z)][(40.05):1:(40.05)][(-63.05):1:(-63.05)]

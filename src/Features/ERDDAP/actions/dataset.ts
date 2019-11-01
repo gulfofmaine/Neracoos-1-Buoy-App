@@ -37,11 +37,11 @@ export type ErddapDatasetActions = ErddapDatasetLoadSuccess | ErddapDatasetLoadS
 
 // Dataset action creators
 
-export function erddapDatasetLoadSuccess(
+export const erddapDatasetLoadSuccess = (
   platformId: string,
   datasets: PlatformDataset[],
   data: ErddapJson
-): ErddapDatasetLoadSuccess {
+): ErddapDatasetLoadSuccess => {
   return {
     data,
     datasets,
@@ -50,11 +50,11 @@ export function erddapDatasetLoadSuccess(
   }
 }
 
-export function erddapDatasetLoadStarted(
+export const erddapDatasetLoadStarted = (
   platformId: string,
   datasets: PlatformDataset[],
   time: Date
-): ErddapDatasetLoadStarted {
+): ErddapDatasetLoadStarted => {
   return {
     datasets,
     platformId,
@@ -63,11 +63,11 @@ export function erddapDatasetLoadStarted(
   }
 }
 
-export function erddapDatasetLoadError(
+export const erddapDatasetLoadError = (
   platformId: string,
   datasets: PlatformDataset[],
   message: string
-): ErddapDatasetLoadError {
+): ErddapDatasetLoadError => {
   return {
     datasets,
     message,
@@ -84,9 +84,6 @@ export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>,
 ) => {
   return async (dispatch: Dispatch) => {
     try {
-      // datasets.forEach(dataset => {
-      //   dispatch(erddapDatasetLoadStarted(platformId, dataset))
-      // })
       dispatch(erddapDatasetLoadStarted(platformId, datasets, startTime))
 
       const firstDataset = datasets[0]
@@ -163,7 +160,7 @@ export const erddapDatasetsOrganizeLoadGroups: ActionCreator<ThunkAction<void, S
   }
 }
 
-export function groupByServerDatasetConstraint(readings: PlatformDataset[]): FetchGroup[] {
+export const groupByServerDatasetConstraint = (readings: PlatformDataset[]): FetchGroup[] => {
   const results: FetchGroup[] = []
   const servers = groupBy(readings, "server")
   for (const server in servers) {

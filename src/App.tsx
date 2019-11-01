@@ -8,12 +8,12 @@ import * as React from "react"
 import { Route, Switch } from "react-router"
 
 import Footer from "components/Footer"
-import NavBar from "components/NavBar"
+import { NeracoosNavBar } from "components/NavBar"
 
 import AboutPage from "Pages/About"
 import HomePage from "Pages/Home"
 // import MapPage from 'Pages/Map'
-import PlatformsPage from "Pages/Platforms"
+import { PlatformsPage } from "Pages/Platforms"
 import RadarMapPage from "Pages/RadarMap"
 
 import "./App.css"
@@ -23,7 +23,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <NavBar />
+        <NeracoosNavBar />
 
         <div className="container-fluid">
           {/* Switch chooses the first route that matches the user has navigated to.

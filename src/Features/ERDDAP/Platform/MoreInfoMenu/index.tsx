@@ -75,8 +75,8 @@ export class ErddapMoreInfoDropdown extends React.Component<RenderProps, State> 
   }
 
   private toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    })
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }))
   }
 }

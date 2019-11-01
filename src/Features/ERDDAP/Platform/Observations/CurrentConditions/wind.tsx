@@ -31,7 +31,7 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
   const gust = datasets.filter(dataset => dataset.data_type.standard_name.includes("gust"))
   const direction = datasets.filter(dataset => dataset.data_type.standard_name.includes("direction"))
 
-  let speedTitle: string = ""
+  let speedTitle = ""
   if (speed.length > 0 && speed[0].readings.length > 0) {
     speedTitle =
       " - " +
@@ -41,7 +41,7 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
       convertUnit("m/s", speed[0].readings[speed[0].readings.length - 1].reading)
   }
 
-  let gustTitle: string = ""
+  let gustTitle = ""
   if (gust.length > 0) {
     gustTitle =
       " gusting to " +
@@ -51,7 +51,7 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
       convertUnit("m/s", gust[0].readings[gust[0].readings.length - 1].reading)
   }
 
-  let directionTitle: string = ""
+  let directionTitle = ""
   if (direction.length > 0 && direction[0].readings.length > 0) {
     const reading = direction[0].readings[direction[0].readings.length - 1].reading
     const compass = compassDirection(reading)

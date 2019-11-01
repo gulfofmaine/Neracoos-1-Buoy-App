@@ -28,13 +28,13 @@ export interface ReduxProps {
   push: (url: string) => void
 }
 
-export function mapStateToProps({ erddap }: StoreState) {
+export function mapStateToProps({ erddap }: StoreState): Pick<ReduxProps, "platforms"> {
   return {
     platforms: erddap.platforms
   }
 }
 
-export const mapDispatchToProps = (dispatch: Dispatch) =>
+export const mapDispatchToProps = (dispatch: Dispatch): Pick<ReduxProps, "push"> =>
   bindActionCreators(
     {
       push
@@ -50,7 +50,7 @@ const adjustPxWidth = 800
  * @param selected Is this the style for a selected platform
  * @param old Is the data old and should the platform be greyed out
  */
-function makeStyle(selected: boolean, old: boolean = false): Style {
+const makeStyle = (selected: boolean, old = false): Style => {
   let radius: number
   if (selected) {
     radius = window.innerWidth > adjustPxWidth ? 10 : 15
@@ -77,7 +77,7 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
  * @param platforms Array of platform features
  * @param style Should the layer be fore selected platforms
  */
-function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Style): VectorLayer {
+const makePlatformLayer = (platforms: PlatformFeatureWithDatasets[], style: Style): VectorLayer => {
   const attribution: AttributionLike = "NERACOOS"
 
   const platformSource = new VectorSource({
@@ -106,9 +106,9 @@ function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Styl
  * @param platforms Array of platform features
  * @param platformId Selected platform ID name
  */
-export function makeLayers(layers: Layer[], platforms: PlatformFeatureWithDatasets[], platformId: string): Layer[] {
+export const makeLayers = (layers: Layer[], platforms: PlatformFeatureWithDatasets[], platformId: string): Layer[] => {
   /** platform styles */
-  layers = [...layers]
+  const madeLayers = [...layers]
   const platformStyle = makeStyle(false)
   const selectedStyle = makeStyle(true)
   const oldStyle = makeStyle(false, true)
@@ -123,17 +123,17 @@ export function makeLayers(layers: Layer[], platforms: PlatformFeatureWithDatase
   const selectedPlatforms = platforms.filter(p => p.id === platformId)
 
   if (oldPlatforms.length > 0) {
-    layers.push(makePlatformLayer(oldPlatforms, oldStyle))
+    madeLayers.push(makePlatformLayer(oldPlatforms, oldStyle))
   }
 
   if (filteredPlatforms.length > 0) {
-    layers.push(makePlatformLayer(filteredPlatforms, platformStyle))
+    madeLayers.push(makePlatformLayer(filteredPlatforms, platformStyle))
   }
   if (selectedPlatforms.length > 0) {
-    layers.push(makePlatformLayer(selectedPlatforms, selectedStyle))
+    madeLayers.push(makePlatformLayer(selectedPlatforms, selectedStyle))
   }
 
-  return layers
+  return madeLayers
 }
 
 /** Basemap layers */
@@ -149,7 +149,7 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
     this.onClick = this.onClick.bind(this)
   }
 
-  public render() {
+  public render(): React.ReactNode {
     return (
       <BaseMap
         lon={-68.5}
@@ -166,7 +166,7 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
    * Handle clicks from OpenLayers
    * @param feature OpenLayers Feature
    */
-  protected onClick(feature: Feature) {
+  protected onClick(feature: Feature): void {
     const featureId = feature.getId()
     if (featureId) {
       const name: string = featureId.toString()

@@ -40,14 +40,14 @@ export interface State {
  * Basemap component
  */
 export class BaseMap extends React.Component<Props, State> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props)
 
     this.singleClick = this.singleClick.bind(this)
   }
 
   /** Initialize the basemap */
-  public componentDidMount() {
+  public componentDidMount(): void {
     const { lat, lon, startZoom, layers } = this.props
 
     const map = new Map({
@@ -70,7 +70,7 @@ export class BaseMap extends React.Component<Props, State> {
     this.setState({ map })
   }
 
-  public componentWillReceiveProps(nextProps: Props) {
+  public componentWillReceiveProps(nextProps: Props): void {
     if (this.state && this.state.map) {
       const { map } = this.state
 
@@ -90,16 +90,18 @@ export class BaseMap extends React.Component<Props, State> {
     }
   }
 
-  public render() {
+  public render(): React.ReactNode {
     return <div id="map" style={{ width: "100%", minHeight: 400, maxHeight: "80vh" }} />
   }
 
   /** Pass click events to callback handler */
-  private singleClick(event: MapBrowserEvent) {
+  private singleClick(event: MapBrowserEvent): void {
     if (this.props.onClick) {
       event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature | RenderFeature, layer: any) => {
         if (feature instanceof Feature) {
-          this.props.onClick!(feature)
+          if (this.props.onClick !== undefined) {
+            this.props.onClick(feature)
+          }
         }
       })
     }

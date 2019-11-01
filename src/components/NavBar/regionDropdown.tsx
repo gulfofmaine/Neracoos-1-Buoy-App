@@ -43,9 +43,9 @@ export class RegionDropdown extends React.Component<object, State> {
   }
 
   private toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    })
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }))
   }
 
   private close() {

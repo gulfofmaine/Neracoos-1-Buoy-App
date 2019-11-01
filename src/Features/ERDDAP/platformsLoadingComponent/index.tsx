@@ -20,14 +20,14 @@ export interface ReduxProps {
   loadPlatforms: () => void
   loading: boolean
   platforms: PlatformFeatureWithDatasets[]
-  errorMessage: string
+  errorMessage?: string
 }
 
-function mapStateToProps({ erddap }: StoreState) {
+const mapStateToProps = ({ erddap }: StoreState): Pick<ReduxProps, "loading" | "platforms" | "errorMessage"> => {
   return erddap
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
+const mapDispatchToProps = (dispatch: Dispatch): Pick<ReduxProps, "loadPlatforms"> =>
   bindActionCreators(
     {
       loadPlatforms: erddapPlatformLoad
@@ -42,7 +42,7 @@ export class ErddapPlatformsLoaderBase extends React.Component<Props & ReduxProp
     this.retry = this.retry.bind(this)
   }
 
-  public render() {
+  public render(): React.ReactNode {
     if (this.props.platforms.length > 0) {
       return this.props.children
     } else if (this.props.errorMessage && this.props.errorMessage.length > 0) {
@@ -76,7 +76,7 @@ export class ErddapPlatformsLoaderBase extends React.Component<Props & ReduxProp
     }
   }
 
-  private retry() {
+  private retry(): void {
     this.props.loadPlatforms()
   }
 }

@@ -23,7 +23,7 @@ export interface ReduxProps {
   platforms: Feature[]
 }
 
-function mapStateToProps({ erddap }: StoreState): ReduxProps {
+const mapStateToProps = ({ erddap }: StoreState): ReduxProps => {
   return {
     platforms: erddap.platforms
   }
@@ -33,7 +33,7 @@ function mapStateToProps({ erddap }: StoreState): ReduxProps {
  * Display platforms filtered by a given bounding box
  */
 export class ErddapPlatformListBase extends React.Component<Props & ReduxProps, object> {
-  public render() {
+  public render(): React.ReactNode {
     if (this.props.boundingBox && this.props.platforms.length > 0) {
       const bbox = this.props.boundingBox
       const polygon = bboxPolygon([bbox.west, bbox.south, bbox.east, bbox.north])
