@@ -15,7 +15,7 @@
     "@types/react-responsive": "8.0.2",
     "@types/react-router-dom": "4.3.5",
     "@types/reactstrap": "8.0.6",
-    "bootstrap": "4.3.1",
+    "bootstrap": "4.4.1",
     "connected-react-router": "6.6.1",
     "convert-units": "2.3.4",
     "highcharts": "7.2.0",
