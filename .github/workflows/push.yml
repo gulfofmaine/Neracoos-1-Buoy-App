@@ -81,24 +81,24 @@ jobs:
       - name: Tag Docker image
         run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
 
-      - name: Install Cypress and wait on
-        run: npm install cypress@3.2.0 wait-on
-
       - name: Start container
         run: docker-compose up -d client
 
-      - name: Wait for container to become avaliable
-        run: npx wait-on http://localhost:3000
-        timeout-minutes: 1
-
       - name: Run Cypress
-        run: npx cypress run --browser chrome
+        uses: cypress-io/github-action@v1
         timeout-minutes: 15
+        with:
+          wait-on: "http://localhost:3000"
 
       - name: Run Cypress and send results to dashboard if the previous run failed
-        run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
-        timeout-minutes: 15
+        uses: cypress-io/github-action@v1
         if: failure()
+        timeout-minutes: 15
+        with:
+          wait-on: "http://localhost:3000"
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   latest:
     name: Tag latest Docker image

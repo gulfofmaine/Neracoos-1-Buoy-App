@@ -9,7 +9,9 @@ import { RenderProps } from "Features/ERDDAP/Platform/Grabber"
 
 import { PlatformObservationMatchParams } from "./types"
 
-export const ForecastTypePage: React.SFC<RenderProps & RouteComponentProps> = ({ platform, match }) => {
+export type ForecastTypePageProps = RenderProps & RouteComponentProps
+
+export const ForecastTypePage: React.SFC<ForecastTypePageProps> = ({ platform, match }) => {
   const { type } = match.params as PlatformObservationMatchParams
 
   return <Forecast platform={platform} type={type} />

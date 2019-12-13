@@ -9,7 +9,7 @@ import { Region } from "Shared/regions"
 import urlParams from "Shared/urlParams"
 
 import { PlatformInfo } from "./platformInfo"
-import { PlatformTabs } from "./platformTabs"
+import { PlatformTabs, PlatformTabsProps } from "./platformTabs"
 import { RootInfo } from "./rootInfo"
 import { PlatformMatchParams } from "./types"
 
@@ -54,10 +54,12 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
         <div style={{ marginTop: "1rem" }}>
           {/* Show general platform info if no platform is selected */}
           <Switch>
-            <Route path={paths.platforms.observations}>{props => <PlatformTabs {...props} />}</Route>
-            <Route path={paths.platforms.forecast}>{props => <PlatformTabs {...props} />}</Route>
-            <Route path={paths.platforms.platform}>{props => <PlatformTabs {...props} />}</Route>
-            <Route path={paths.platforms.all}>{props => <PlatformTabs {...props} />}</Route>
+            <Route path={paths.platforms.observations}>
+              {props => <PlatformTabs {...(props as PlatformTabsProps)} />}
+            </Route>
+            <Route path={paths.platforms.forecast}>{props => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
+            <Route path={paths.platforms.platform}>{props => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
+            <Route path={paths.platforms.all}>{props => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
 
             <Route path={paths.platforms.root} exact={true} component={RootInfo} />
           </Switch>
