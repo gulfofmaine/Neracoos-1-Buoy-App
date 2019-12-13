@@ -106,6 +106,7 @@ jobs:
       - name: Run Cypress and send results to dashboard if the previous run failed
         run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
+        if: failure()
 
   latest:
     name: Tag latest Docker image
