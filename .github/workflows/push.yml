@@ -65,6 +65,9 @@ jobs:
     needs: build
     timeout-minutes: 30
 
+    env:
+      CYPRESS_VERSION: "3.8.0"
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@v1
@@ -81,24 +84,28 @@ jobs:
       - name: Tag Docker image
         run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
 
+      - name: Cache Cypress
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/Cypress
+          key: Cypress${CYPRESS_VERSION}
+
+      - name: Install Cypress and wait on
+        run: npm install cypress@${CYPRESS_VERSION} wait-on
+
       - name: Start container
         run: docker-compose up -d client
 
+      - name: Wait for container to become avaliable
+        run: npx wait-on http://localhost:3000
+        timeout-minutes: 1
+
       - name: Run Cypress
-        uses: cypress-io/github-action@v1
-        timeout-minutes: 15
-        with:
-          wait-on: "http://localhost:3000"
+        run: npx cypress run --browser chrome
 
       - name: Run Cypress and send results to dashboard if the previous run failed
-        uses: cypress-io/github-action@v1
-        if: failure()
+        run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
-        with:
-          wait-on: "http://localhost:3000"
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   latest:
     name: Tag latest Docker image
