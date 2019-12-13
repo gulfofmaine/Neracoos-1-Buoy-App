@@ -102,6 +102,7 @@ jobs:
 
       - name: Run Cypress
         run: npx cypress run --browser chrome
+        timeout-minutes: 15
 
       - name: Run Cypress and send results to dashboard if the previous run failed
         run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
