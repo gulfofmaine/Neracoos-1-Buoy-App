@@ -19,11 +19,11 @@ import {
 } from "Features/ERDDAP"
 
 import { CurrentConditionsPage } from "./currentConditions"
-import { ForecastTypePage } from "./forecastType"
-import { ObservationsPage } from "./observations"
+import { ForecastTypePage, ForecastTypePageProps } from "./forecastType"
+import { ObservationsPage, ObservationPageProps } from "./observations"
 import { WindObservationsPage } from "./observationsWind"
 
-interface Props extends RouteComponentProps {
+export interface PlatformTabsProps extends RouteComponentProps {
   match: match<{ id: string }>
 }
 
@@ -31,7 +31,7 @@ interface Props extends RouteComponentProps {
  * Display tab bar and tab data for individual platforms
  * @param param0 React-Router props
  */
-export const PlatformTabs: React.SFC<Props> = ({ match }) => {
+export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
   const { id } = match.params
   const { path } = match
 
@@ -63,10 +63,10 @@ export const PlatformTabs: React.SFC<Props> = ({ match }) => {
               <WindObservationsPage platform={platform} />
             </Route>
             <Route path={paths.platforms.observations}>
-              {props => <ObservationsPage {...props} platform={platform} />}
+              {props => <ObservationsPage {...(props as ObservationPageProps)} platform={platform} />}
             </Route>
             <Route path={paths.platforms.forecastType}>
-              {props => <ForecastTypePage {...props} platform={platform} />}
+              {props => <ForecastTypePage {...(props as ForecastTypePageProps)} platform={platform} />}
             </Route>
             <Route path={paths.platforms.platform}>
               <CurrentConditionsPage platform={platform} />
