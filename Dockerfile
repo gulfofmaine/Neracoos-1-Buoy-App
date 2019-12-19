@@ -1,4 +1,4 @@
-FROM node:13.3.0-alpine@sha256:651ea3e88c99d53886790449d541ac54db4babd4a63e8bd480bed7ff9421f7aa
+FROM node:13.4.0-alpine@sha256:41847b21decb378c16c3cfd8b1236f7afd6fbbf7f965529e8c08514b92134696
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
