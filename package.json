@@ -32,7 +32,7 @@
     "react-scripts": "^3.3.0",
     "react-sizeme": "2.6.10",
     "reactstrap": "8.2.0",
-    "redux": "4.0.4",
+    "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "svg-signal-flags": "https://github.com/stuyam/svg-signal-flags.git"
   },
