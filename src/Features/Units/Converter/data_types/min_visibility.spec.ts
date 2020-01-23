@@ -1,5 +1,7 @@
 import { UnitSystem } from "../../types"
-import { min_visibility } from "./min_visibility"
+import { data_types } from "./index"
+
+const { min_visibility } = data_types
 
 const source_value = 2994.5664
 

@@ -1,5 +1,7 @@
 import { UnitSystem } from "../../types"
-import { air_pressure } from "./air_pressure"
+import { data_types } from "./index"
+
+const { air_pressure } = data_types
 
 const source_value = 1018.8694
 
@@ -22,6 +24,6 @@ describe("air_pressure conversions", () => {
   it("display names", () => {
     expect(air_pressure.displayName(UnitSystem.imperial)).toBe("psi")
     expect(air_pressure.displayName(UnitSystem.mariners)).toBe("millibars")
-    expect(air_pressure.displayName(UnitSystem.metric)).toBe("millibars")
+    expect(air_pressure.displayName(UnitSystem.metric)).toBe("hPa")
   })
 })

@@ -1,5 +1,7 @@
 import { UnitSystem } from "../../types"
-import { max_visibility } from "./max_visibility"
+import { data_types } from "./index"
+
+const { max_visibility } = data_types
 
 const source_value = 2994.5664
 

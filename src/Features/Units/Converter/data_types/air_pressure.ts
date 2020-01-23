@@ -18,11 +18,4 @@ class AirPressure extends DataTypeConversion {
   }
 }
 
-export const air_pressure = new AirPressure(
-  "air_pressure",
-  "Barometric Pressure",
-  "mbar",
-  "millibars",
-  "millibars",
-  "psi"
-)
+export const air_pressure = new AirPressure("air_pressure", "Barometric Pressure", "mbar", "millibars", "hPa", "psi")
