@@ -3,7 +3,11 @@ import convert from "convert-units"
 import { DataTypeConversion } from "../conversions"
 import { UnitSystem } from "Features/Units/types"
 
-class AirPressureAtSeaLevel extends DataTypeConversion {
+export class AirPressureHpa extends DataTypeConversion {
+  constructor(public data_type: string, public display_name: string) {
+    super(data_type, display_name, "hPa", "millibars", "hPa", "psi")
+  }
+
   public convertTo(value: number, unitSystem: UnitSystem): number {
     switch (unitSystem) {
       case UnitSystem.metric:
@@ -18,12 +22,3 @@ class AirPressureAtSeaLevel extends DataTypeConversion {
     }
   }
 }
-
-export const air_pressure_at_sea_level = new AirPressureAtSeaLevel(
-  "air_pressure_at_sea_level",
-  "Air Pressure",
-  "hPa",
-  "millibars",
-  "hPa",
-  "psi"
-)
