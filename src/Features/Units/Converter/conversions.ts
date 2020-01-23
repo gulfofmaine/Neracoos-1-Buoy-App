@@ -25,7 +25,7 @@ export class DataTypeConversion {
    * @param value Value that should be converted
    * @param unitSystem Unit system that the value should be converted into
    */
-  public convertTo(value: number, unitSystem: UnitSystem): number {
+  public convertTo(value: number, unitSystem: UnitSystem): number | string {
     const to = this.toUnitSystem(unitSystem)
     return this.convertFrom(value).to(to)
   }
