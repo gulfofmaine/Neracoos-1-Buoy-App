@@ -13,7 +13,7 @@ services:
       REACT_APP_PROXY_ROOT: https://proxy.neracoos.org/
       # REACT_APP_PROXY_ROOT: http://localhost:9090/
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app:cached
       - /usr/src/app/node_modules/
   # test:
   #   build: .
