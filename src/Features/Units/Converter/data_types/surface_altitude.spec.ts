@@ -16,14 +16,8 @@ describe("surface_altitude conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = surface_altitude.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(2.2572)
-  })
-
   it("display names", () => {
     expect(surface_altitude.displayName(UnitSystem.imperial)).toBe("Feet")
-    expect(surface_altitude.displayName(UnitSystem.mariners)).toBe("Feet")
     expect(surface_altitude.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

@@ -16,14 +16,8 @@ describe("air_pressure conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = air_pressure_at_sea_level.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(source_value)
-  })
-
   it("display names", () => {
     expect(air_pressure_at_sea_level.displayName(UnitSystem.imperial)).toBe("psi")
-    expect(air_pressure_at_sea_level.displayName(UnitSystem.mariners)).toBe("millibars")
     expect(air_pressure_at_sea_level.displayName(UnitSystem.metric)).toBe("hPa")
   })
 })

@@ -27,6 +27,7 @@ export const data_types: DataTypesObject = {
   predicted_sea_water_level: new WaveHeight("predicted_sea_water_level", "Predicted level of sea water"),
   sea_level_pressure: new AirPressureHpa("sea_level_pressure", "Sea Level Pressure"),
   sea_surface_temperature: new Temperature("sea_surface_temperature", "Sea Surface Temperature"),
+  sea_water_temperature: new Temperature("sea_water_temperature", "Water Temperature"),
   sea_surface_wave_significant_height: new WaveHeight("max_wave_height", "Wave Height"),
   sea_surface_wave_to_direction: new CardinalDirection("sea_surface_wave_to_direction", "Wave Direction"),
   sea_water_level: new WaveHeight("sea_water_level", "Sea water level relative to the mean"),

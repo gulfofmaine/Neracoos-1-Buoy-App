@@ -16,14 +16,8 @@ describe("sea_surface_wave_to_direction conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = sea_surface_wave_to_direction.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBe("NE")
-  })
-
   it("display names", () => {
     expect(sea_surface_wave_to_direction.displayName(UnitSystem.imperial)).toBe("Cardinal Direction")
-    expect(sea_surface_wave_to_direction.displayName(UnitSystem.mariners)).toBe("Cardinal Direction")
     expect(sea_surface_wave_to_direction.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })

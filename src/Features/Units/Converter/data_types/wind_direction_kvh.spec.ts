@@ -16,14 +16,8 @@ describe("mean_wave_direction conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = mean_wave_direction.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBe("NE")
-  })
-
   it("display names", () => {
     expect(mean_wave_direction.displayName(UnitSystem.imperial)).toBe("Cardinal Direction")
-    expect(mean_wave_direction.displayName(UnitSystem.mariners)).toBe("Cardinal Direction")
     expect(mean_wave_direction.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })

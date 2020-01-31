@@ -16,14 +16,8 @@ describe("air_temperature conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = air_temperature.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(40.1)
-  })
-
   it("display names", () => {
     expect(air_temperature.displayName(UnitSystem.imperial)).toBe("Fahrenheit")
-    expect(air_temperature.displayName(UnitSystem.mariners)).toBe("Fahrenheit")
     expect(air_temperature.displayName(UnitSystem.metric)).toBe("Celsius")
   })
 })

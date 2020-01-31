@@ -16,14 +16,8 @@ describe("significant_height_of_wind_and_swell_waves conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = significant_height_of_wind_and_swell_waves.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(2.2572)
-  })
-
   it("display names", () => {
     expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.imperial)).toBe("Feet")
-    expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.mariners)).toBe("Feet")
     expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

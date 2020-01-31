@@ -16,14 +16,8 @@ describe("sea_surface_wave_significant_height conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = sea_surface_wave_significant_height.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(2.2572)
-  })
-
   it("display names", () => {
     expect(sea_surface_wave_significant_height.displayName(UnitSystem.imperial)).toBe("Feet")
-    expect(sea_surface_wave_significant_height.displayName(UnitSystem.mariners)).toBe("Feet")
     expect(sea_surface_wave_significant_height.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })
