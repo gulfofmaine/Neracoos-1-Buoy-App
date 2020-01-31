@@ -28,7 +28,7 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
       ) : null}
 
       {unitSelector ? (
-        <ListGroupItem>
+        <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
           <b>Unit system:</b> {unitSelector}
         </ListGroupItem>
       ) : null}

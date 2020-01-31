@@ -36,7 +36,6 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
       <ButtonGroup>
         {this.unitButton(UnitSystem.metric)}
         {this.unitButton(UnitSystem.imperial)}
-        {this.unitButton(UnitSystem.mariners)}
       </ButtonGroup>
     )
   }
@@ -62,7 +61,4 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
   }
 }
 
-export const UnitSelector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UnitSelectorBase)
+export const UnitSelector = connect(mapStateToProps, mapDispatchToProps)(UnitSelectorBase)

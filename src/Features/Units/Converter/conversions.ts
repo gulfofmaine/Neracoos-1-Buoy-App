@@ -6,7 +6,28 @@ export interface ConvertFrom {
   to: (output_unit: string) => number
 }
 
+/**
+ * Base DataTypeConversion class
+ *
+ * Uses convert-units to change values from source unit
+ * to specified unit system.
+ *
+ * Individual methods can be overridden for units
+ * that are currently unsupported by
+ * convert-units
+ */
 export class DataTypeConversion {
+  /**
+   * Create a new DataTypeConversion
+   *
+   * @param data_type ERDDAP data_type/CF standard name
+   * @param display_name Public friendly name
+   * @param source_unit Unit type that convert-units understands as input
+   * @param metric_unit Unit type that convert-units understands as output
+   * @param imperial_unit Unit type that convert-units understands as output
+   * @param metric_unit_display Friendly unit name
+   * @param imperial_unit_display Friendly unit name
+   */
   constructor(
     public data_type: string,
     public display_name: string,

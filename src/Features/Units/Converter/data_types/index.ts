@@ -2,6 +2,8 @@ import { DataTypeConversion } from "../conversions"
 
 import { AirPressureHpa } from "./_air_pressure_hpa"
 import { CardinalDirection } from "./_cardinal_direction"
+import { CmsVelocity } from "./_cms_velocity"
+import { Passthrough } from "./_passthrough"
 import { Temperature } from "./_temperature"
 import { Visibility } from "./_visibility"
 import { WaveHeight } from "./_wave_height"
@@ -18,11 +20,23 @@ export const data_types: DataTypesObject = {
   air_pressure_at_sea_level: new AirPressureHpa("air_pressure_at_sea_level", "Air Pressure"),
   air_temperature: new Temperature("air_temperature", "Air Temperature"),
   dew_point_temperature: new Temperature("dew_point_temperature", "Dewpoint Temperature"),
+  chlorophyll: new Passthrough("chlorophyll", "Chlorophyll", "chl/m3", "Chlorophyll per Cubic Meter"),
+  direction_of_sea_water_velocity: new Passthrough(
+    "direction_of_sea_water_velocity",
+    "Current Direction",
+    "Angular Degrees",
+    "Angular Degrees"
+  ),
+  eastward_sea_water_velocity: new CmsVelocity("eastward_sea_water_velocity", "East Velocity Component"),
   eastward_wind: new WindSpeed("eastward_wind", "Wind Speed, Zonal"),
+  Ed_PAR: new Passthrough("Ed_PAR", "Downwelling Irradiance of PAR", "microE/m^2/s", "microE/m^2/s"),
+  lat_offset: new Passthrough("lat_offset", "Latitudinal Offset", "Angular Minutes", "Angular Minutes"),
+  lon_offset: new Passthrough("lon_offset", "Longitudinal Offset", "Angular Minutes", "Angular Minutes"),
   max_visibility: new Visibility("max_visibility", "Maximum Visibility"),
   max_wave_height: new WaveHeight("max_wave_height", "Maximum Wave Height"),
   mean_wave_direction: new CardinalDirection("mean_wave_direction", "Mean Wave Direction"),
   min_visibility: new Visibility("min_visibility", "Minimum Visibility"),
+  northward_sea_water_velocity: new CmsVelocity("northward_sea_water_velocity", "North Velocity Component"),
   northward_wind: new WindSpeed("northward_wind", "Wind Speed, Meridional"),
   predicted_sea_water_level: new WaveHeight("predicted_sea_water_level", "Predicted level of sea water"),
   sea_level_pressure: new AirPressureHpa("sea_level_pressure", "Sea Level Pressure"),
@@ -31,14 +45,20 @@ export const data_types: DataTypesObject = {
   sea_surface_wave_significant_height: new WaveHeight("max_wave_height", "Wave Height"),
   sea_surface_wave_to_direction: new CardinalDirection("sea_surface_wave_to_direction", "Wave Direction"),
   sea_water_level: new WaveHeight("sea_water_level", "Sea water level relative to the mean"),
+  sea_water_speed: new CmsVelocity("sea_water_speed", "Current Speed"),
+  sea_water_velocity: new CmsVelocity("sea_water_velocity", "Current Speed"),
   significant_height_of_wind_and_swell_waves: new WaveHeight("max_wave_height", "Significant Wave Height"),
   significant_height_of_wind_and_swell_waves_3: new WaveHeight("max_wave_height", "Significant Wave Height"),
   significant_wave_height: new WaveHeight("max_wave_height", "Significant Wave Height"),
+  sun_icon: new Passthrough("sun_icon", "Sun Icon", "1", "Sun Icon"),
   tendency_of_air_pressure: new AirPressureHpa("tendency_of_air_pressure", "Pressure Tendency"),
   surface_altitude: new WaveHeight("surface_altitude", "Water Level"),
   visibility_in_air: new Visibility("visibility_in_air", "Visibility"),
   wind_direction_kvh: new CardinalDirection("wind_direction_kvh", "Mean Wind Direction"),
   wind_from_direction: new CardinalDirection("wind_from_direction", "Wind Direction"),
+  wind_gust: new CmsVelocity("wind_gust", "Wind Gust"),
+  wind_min: new CmsVelocity("wind_min", "Wind Minimum Speed"),
+  wind_percent_good: new Passthrough("wind_percent_good", "Wind Percent Good", "1", "Wind Percent Good"),
   wind_speed_of_gust: new WindSpeed("wind_speed_of_gust", "Wind Gust"),
   wind_speed_sc: new WindSpeed("wind_speed_sc", "Scalar Average Wind Speed"),
   wind_speed_ve: new WindSpeed("wind_speed_ve", "Vector Average Wind Speed"),
