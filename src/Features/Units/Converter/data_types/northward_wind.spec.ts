@@ -8,7 +8,7 @@ const { northward_wind } = data_types
 describe("northward_wind conversions", () => {
   it("to imperial", () => {
     const result = northward_wind.convertTo(source_value, UnitSystem.imperial)
-    expect(result).toBeCloseTo(22.3694)
+    expect(result).toBeCloseTo(19.4384)
   })
 
   it("to metric", () => {
@@ -16,14 +16,8 @@ describe("northward_wind conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = northward_wind.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(19.4384)
-  })
-
   it("display names", () => {
-    expect(northward_wind.displayName(UnitSystem.imperial)).toBe("Miles Per Hour")
-    expect(northward_wind.displayName(UnitSystem.mariners)).toBe("Knots")
+    expect(northward_wind.displayName(UnitSystem.imperial)).toBe("Knots")
     expect(northward_wind.displayName(UnitSystem.metric)).toBe("Meters/Second")
   })
 })

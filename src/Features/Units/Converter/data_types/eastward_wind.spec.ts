@@ -8,7 +8,7 @@ const { eastward_wind } = data_types
 describe("eastward_wind conversions", () => {
   it("to imperial", () => {
     const result = eastward_wind.convertTo(source_value, UnitSystem.imperial)
-    expect(result).toBeCloseTo(22.3694)
+    expect(result).toBeCloseTo(19.4384)
   })
 
   it("to metric", () => {
@@ -16,14 +16,8 @@ describe("eastward_wind conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = eastward_wind.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(19.4384)
-  })
-
   it("display names", () => {
-    expect(eastward_wind.displayName(UnitSystem.imperial)).toBe("Miles Per Hour")
-    expect(eastward_wind.displayName(UnitSystem.mariners)).toBe("Knots")
+    expect(eastward_wind.displayName(UnitSystem.imperial)).toBe("Knots")
     expect(eastward_wind.displayName(UnitSystem.metric)).toBe("Meters/Second")
   })
 })
