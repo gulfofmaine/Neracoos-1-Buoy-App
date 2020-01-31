@@ -12,7 +12,7 @@ export class Visibility extends DataTypeConversion {
         return value / 1852
 
       default:
-        return super.convertTo(value, unitSystem)
+        return super.convertTo(value, unitSystem) as number
     }
   }
 }

@@ -12,7 +12,7 @@ export class AirPressureHpa extends DataTypeConversion {
     switch (unitSystem) {
       case UnitSystem.metric:
       case UnitSystem.imperial:
-        return super.convertTo(value, unitSystem)
+        return super.convertTo(value, unitSystem) as number
       case UnitSystem.mariners:
         return (
           convert(value)

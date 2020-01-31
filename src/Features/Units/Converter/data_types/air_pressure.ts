@@ -7,7 +7,7 @@ class AirPressure extends DataTypeConversion {
   public convertTo(value: number, unitSystem: UnitSystem): number {
     switch (unitSystem) {
       case UnitSystem.imperial:
-        return super.convertTo(value, unitSystem)
+        return super.convertTo(value, unitSystem) as number
       case UnitSystem.mariners:
       case UnitSystem.metric:
         return value
