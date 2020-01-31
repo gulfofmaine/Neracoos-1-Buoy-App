@@ -9,7 +9,7 @@ import { itemStyle, TableItem } from "./item"
 
 export const ErddapAllObservationsTable: React.SFC<RenderProps> = ({ platform }: RenderProps) => {
   const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
-  times.sort()
+  times.sort((a, b) => a.valueOf() - b.valueOf())
 
   const datasets = platform.properties.readings
 

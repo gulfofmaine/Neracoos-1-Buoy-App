@@ -12,6 +12,7 @@ Fixes:
 
 - Issue with compass points very close to North (~355).
 - Check for feature existance before changing URL.
+- Observation table sorting dates as strings rather than natively.
 
 ## 0.3.3 - Hidden in fog - 9/5/19
 
