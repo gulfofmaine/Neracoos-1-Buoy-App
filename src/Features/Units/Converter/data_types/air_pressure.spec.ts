@@ -8,7 +8,7 @@ const source_value = 1018.8694
 describe("air_pressure conversions", () => {
   it("to imperial", () => {
     const result = air_pressure.convertTo(source_value, UnitSystem.imperial)
-    expect(result).toBeCloseTo(14.777)
+    expect(result).toBeCloseTo(30.087)
   })
 
   it("to metric", () => {
@@ -16,14 +16,8 @@ describe("air_pressure conversions", () => {
     expect(result).toBeCloseTo(source_value)
   })
 
-  it("to mariners", () => {
-    const result = air_pressure.convertTo(source_value, UnitSystem.mariners)
-    expect(result).toBeCloseTo(source_value)
-  })
-
   it("display names", () => {
-    expect(air_pressure.displayName(UnitSystem.imperial)).toBe("psi")
-    expect(air_pressure.displayName(UnitSystem.mariners)).toBe("millibars")
-    expect(air_pressure.displayName(UnitSystem.metric)).toBe("hPa")
+    expect(air_pressure.displayName(UnitSystem.imperial)).toBe("Inches")
+    expect(air_pressure.displayName(UnitSystem.metric)).toBe("Millibars")
   })
 })
