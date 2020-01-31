@@ -8,7 +8,6 @@ class AirPressure extends DataTypeConversion {
     switch (unitSystem) {
       case UnitSystem.imperial:
         return value / 33.863886666667
-      case UnitSystem.mariners:
       case UnitSystem.metric:
         return value
     }
@@ -22,10 +21,8 @@ export const air_pressure = new AirPressure(
   "air_pressure",
   "Barometric Pressure",
   "mbar",
-  "millibars",
   "hPa",
   "inches",
-  "millibars",
   "Millibars",
   "Inches"
 )

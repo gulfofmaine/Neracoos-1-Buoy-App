@@ -4,7 +4,7 @@ import { compassDirection } from "Shared/unitConversion"
 
 export class CardinalDirection extends DataTypeConversion {
   constructor(public data_type: string, public display_name: string) {
-    super(data_type, display_name, "degrees", "Cardinal Direction", "Degrees", "Cardinal Direction")
+    super(data_type, display_name, "degrees", "Degrees", "Cardinal Direction")
   }
 
   public convertTo(value: number, unitSystem: UnitSystem): number | string {
@@ -12,7 +12,6 @@ export class CardinalDirection extends DataTypeConversion {
       case UnitSystem.metric:
         return value
       case UnitSystem.imperial:
-      case UnitSystem.mariners:
         return compassDirection(value)[1]
     }
   }

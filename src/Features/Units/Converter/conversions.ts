@@ -11,10 +11,8 @@ export class DataTypeConversion {
     public data_type: string,
     public display_name: string,
     private source_unit: string,
-    private mariners_unit: string,
     private metric_unit: string,
     private imperial_unit: string,
-    private mariners_unit_display?: string,
     private metric_unit_display?: string,
     private imperial_unit_display?: string
   ) {}
@@ -46,11 +44,8 @@ export class DataTypeConversion {
       case UnitSystem.metric:
         to = this.metric_unit
         break
-      case UnitSystem.imperial:
-        to = this.imperial_unit
-        break
       default:
-        to = this.mariners_unit
+        to = this.imperial_unit
     }
     return to
   }
@@ -63,10 +58,8 @@ export class DataTypeConversion {
     switch (unitSystem) {
       case UnitSystem.metric:
         return this.metric_unit_display ? this.metric_unit_display : this.metric_unit
-      case UnitSystem.imperial:
+      default:
         return this.imperial_unit_display ? this.imperial_unit_display : this.imperial_unit
-      case UnitSystem.mariners:
-        return this.mariners_unit_display ? this.mariners_unit_display : this.mariners_unit
     }
   }
 }
