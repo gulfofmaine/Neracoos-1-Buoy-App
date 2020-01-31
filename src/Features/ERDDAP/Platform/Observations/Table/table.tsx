@@ -13,7 +13,7 @@ import { itemStyle, TableItem } from "./item"
  */
 export const ErddapObservationTable: React.SFC<RenderProps> = ({ platform }) => {
   const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
-  times.sort()
+  times.sort((a, b) => a.valueOf() - b.valueOf())
 
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
