@@ -1,0 +1,35 @@
+import { UnitSystem } from "../../types"
+import { data_types } from "./index"
+
+const { concentration_of_colored_dissolved_organic_matter_in_sea_water } = data_types
+
+const source_value = 1018.8694
+
+const displayName = "ppbQSE"
+
+describe("concentration_of_colored_dissolved_organic_matter_in_sea_water conversions", () => {
+  it("to imperial", () => {
+    const result = concentration_of_colored_dissolved_organic_matter_in_sea_water.convertTo(
+      source_value,
+      UnitSystem.imperial
+    )
+    expect(result).toBeCloseTo(source_value)
+  })
+
+  it("to metric", () => {
+    const result = concentration_of_colored_dissolved_organic_matter_in_sea_water.convertTo(
+      source_value,
+      UnitSystem.metric
+    )
+    expect(result).toBeCloseTo(source_value)
+  })
+
+  it("display names", () => {
+    expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.imperial)).toBe(
+      displayName
+    )
+    expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.metric)).toBe(
+      displayName
+    )
+  })
+})
