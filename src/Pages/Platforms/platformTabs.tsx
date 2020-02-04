@@ -37,39 +37,39 @@ export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
 
   return (
     <ErddapPlatformGetter platformId={id}>
-      {({ platform }) => (
+      {platform_props => (
         <React.Fragment>
           <Row style={{ paddingBottom: "1rem" }}>
             <Col>
               <Nav tabs={true}>
-                <ErddapObservedDropdown platform={platform} />
+                <ErddapObservedDropdown {...platform_props} />
 
                 <Tab to={paths.platforms.platform} path={path} name="Current Conditions" id={id} />
                 <ForecastMetadataLoader>
                   <React.Fragment>
-                    <ForecastDropdown platformId={platform.id as string} />
+                    <ForecastDropdown platformId={platform_props.platform.id as string} />
                   </React.Fragment>
                 </ForecastMetadataLoader>
 
-                <ErddapMoreInfoDropdown platform={platform} />
+                <ErddapMoreInfoDropdown {...platform_props} />
               </Nav>
             </Col>
           </Row>
 
           {/* Display our pages for the platform. */}
           <Switch>
-            <Route path={paths.platforms.all}>{props => <ErddapAllObservationsTable platform={platform} />}</Route>
+            <Route path={paths.platforms.all}>{props => <ErddapAllObservationsTable {...platform_props} />}</Route>
             <Route path={paths.platforms.observationsWind}>
-              <WindObservationsPage platform={platform} />
+              <WindObservationsPage {...platform_props} />
             </Route>
             <Route path={paths.platforms.observations}>
-              {props => <ObservationsPage {...(props as ObservationPageProps)} platform={platform} />}
+              {route_props => <ObservationsPage {...(route_props as ObservationPageProps)} {...platform_props} />}
             </Route>
             <Route path={paths.platforms.forecastType}>
-              {props => <ForecastTypePage {...(props as ForecastTypePageProps)} platform={platform} />}
+              {route_props => <ForecastTypePage {...(route_props as ForecastTypePageProps)} {...platform_props} />}
             </Route>
             <Route path={paths.platforms.platform}>
-              <CurrentConditionsPage platform={platform} />
+              <CurrentConditionsPage {...platform_props} />
             </Route>
           </Switch>
         </React.Fragment>

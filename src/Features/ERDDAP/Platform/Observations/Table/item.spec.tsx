@@ -2,6 +2,8 @@ import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
 
+import { UnitSystem } from "Features/Units/types"
+
 import { PlatformFeatureWithDatasets } from "../../../types"
 import { TableItem } from "./item"
 
@@ -9,7 +11,7 @@ describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" printed_unit="M/S" name="Wind Speed" />
+        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={UnitSystem.imperial} />
       </MemoryRouter>
     )
 
@@ -19,43 +21,17 @@ describe("TableItem", () => {
   it("Rounds the wind speed", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" printed_unit="M/S" name="Wind Speed" />
+        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={UnitSystem.metric} />
       </MemoryRouter>
     )
 
-    expect(wrapper.text()).toContain("Wind Speed: 4.3 M/S")
-  })
-
-  it("Includes similar measures", () => {
-    const wrapper = mount(
-      <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" printed_unit="M/S" name="Wind Speed" />
-      </MemoryRouter>
-    )
-
-    expect(wrapper.text()).toContain("(8.3 knots, 9.6 mph)")
-  })
-
-  it("Transforms measurement value when preffered_unit differs", () => {
-    const wrapper = mount(
-      <MemoryRouter>
-        <TableItem
-          platform={platform}
-          data_type="wind_speed"
-          printed_unit="Knots"
-          name="Wind Speed"
-          prefered_unit="knot"
-        />
-      </MemoryRouter>
-    )
-
-    expect(wrapper.text()).toContain("Wind Speed: 8.3 Knots")
+    expect(wrapper.text()).toContain("Wind Speed: 4.3 Meters/Second")
   })
 
   it("Returns null when there is not a matching datatype", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="air_temp" printed_unit="C" name="Air Temp" />
+        <TableItem platform={platform} data_type="air_temp" unit_system={UnitSystem.imperial} name="Air Temp" />
       </MemoryRouter>
     )
 

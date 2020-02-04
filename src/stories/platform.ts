@@ -1,4 +1,7 @@
+// @ts-nocheck
 import { PlatformFeatureWithDatasets} from "Features/ERDDAP/types"
+
+
 
 export const platform: PlatformFeatureWithDatasets = {
     "id": "M01",
