@@ -2157,6 +2157,23 @@ exports[`Storyshots ERDDAP|ObservedCondition Metric 1`] = `
 </div>
 `;
 
+exports[`Storyshots ERDDAP|ObservedWindCondition Configurable 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Wind
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
 exports[`Storyshots Units|UnitSelector Configurable 1`] = `
 <div
   className="btn-group"

@@ -7,6 +7,7 @@ import { SizeMeProps, withSize } from "react-sizeme"
 import { Alert, Col, Row } from "reactstrap"
 
 import { WindTimeSeriesChart } from "components/Charts"
+import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeatureWithDatasets } from "../../../types"
@@ -14,11 +15,12 @@ import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
 
 interface Props {
   platform: PlatformFeatureWithDatasets
+  unit_system: UnitSystem
 }
 
-const windStandards = new Set(["wind_from_direction", "wind_speed", "wind_speed_of_gust"])
+export const windStandards = new Set(["wind_from_direction", "wind_speed", "wind_speed_of_gust"])
 
-export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = ({ platform, size }) => {
+export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = ({ platform, size, unit_system }) => {
   // adjust number of barbs based on width
   let barbsPerDay = 5
   if (size && size.width && size.width < 800) {
@@ -54,12 +56,7 @@ export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = (
       <ErddapDatasetLoader platformId={platform.id as string} datasets={windDatasets}>
         <React.Fragment>
           {windTimeSeries[0].timeSeries !== undefined && windTimeSeries[0].timeSeries.length > 0 ? (
-            <Row>
-              <Col>
-                <h4>Wind</h4>
-                <WindTimeSeriesChart days={7} data={windTimeSeries} barbsPerDay={barbsPerDay} legend={true} />
-              </Col>
-            </Row>
+            <WindChart barbsPerDay={barbsPerDay} data={windTimeSeries} unit_system={unit_system} />
           ) : null}
         </React.Fragment>
       </ErddapDatasetLoader>
@@ -76,3 +73,18 @@ const noWind = (
 )
 
 export const ErddapWindObservedCondition = withSize()(ErddapWindObservedConditionBase)
+
+interface WindChartProps {
+  barbsPerDay: number
+  data: DataTimeSeries[]
+  unit_system: UnitSystem
+}
+
+export const WindChart: React.SFC<WindChartProps> = props => (
+  <Row>
+    <Col>
+      <h4>Wind</h4>
+      <WindTimeSeriesChart days={7} {...props} legend={true} />
+    </Col>
+  </Row>
+)
