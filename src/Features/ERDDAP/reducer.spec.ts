@@ -183,7 +183,11 @@ describe("ERDDAP Reducer - Dataset loading", () => {
           columnNames: ["time", "salinity"],
           columnTypes: ["String", "float"],
           columnUnits: ["UTC", ""],
-          rows: [["2018-12-15T00:00:00Z", 26.1037], ["2018-12-15T01:00:00Z", 12.3186], ["2018-12-15T02:00:00Z", 9.0923]]
+          rows: [
+            ["2018-12-15T00:00:00Z", 26.1037],
+            ["2018-12-15T01:00:00Z", 12.3186],
+            ["2018-12-15T02:00:00Z", 9.0923]
+          ]
         }
       },
       datasets: [dataset],

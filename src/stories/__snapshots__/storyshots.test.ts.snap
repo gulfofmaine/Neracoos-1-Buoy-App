@@ -2100,6 +2100,63 @@ exports[`Storyshots ERDDAP|ObservationTable/Item Configurable 1`] = `
 </a>
 `;
 
+exports[`Storyshots ERDDAP|ObservedCondition Configurable 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Visibility
+       
+      
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedCondition Imperial 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Visibility
+       
+      
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedCondition Metric 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Visibility
+       
+      
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
 exports[`Storyshots Units|UnitSelector Configurable 1`] = `
 <div
   className="btn-group"
