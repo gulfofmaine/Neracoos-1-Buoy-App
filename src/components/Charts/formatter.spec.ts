@@ -1,24 +1,23 @@
+import { UnitSystem } from "Features/Units/types"
 import { pointFormatMaker } from "./formatter"
 
-describe("poimtFormatMaker", () => {
+describe("pointFormatMaker", () => {
   it("Will return a function", () => {
-    const result = pointFormatMaker(unit)
+    const result = pointFormatMaker(UnitSystem.metric, "wind_gust")
 
     expect(result).toBeInstanceOf(Function)
   })
 
   it("Can produce a string with unit and value", () => {
-    let pointFormatter = pointFormatMaker(unit)
+    let pointFormatter = pointFormatMaker(UnitSystem.metric, "wind_gust")
 
-    const thisObject = { x: new Date(), y: 243 }
+    const thisObject = { x: new Date(), y: 3.7 }
 
     pointFormatter = pointFormatter.bind(thisObject)
 
     const result = pointFormatter()
 
-    expect(result).toContain(unit)
+    expect(result).toContain("Meters/Second")
     expect(result).toContain(thisObject.y)
   })
 })
-
-const unit = "celsius"

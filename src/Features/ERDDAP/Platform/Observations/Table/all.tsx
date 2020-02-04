@@ -7,7 +7,7 @@ import { ListGroup, ListGroupItem } from "reactstrap"
 import { RenderProps } from "../../Grabber"
 import { itemStyle, TableItem } from "./item"
 
-export const ErddapAllObservationsTable: React.SFC<RenderProps> = ({ platform }: RenderProps) => {
+export const ErddapAllObservationsTable: React.SFC<RenderProps> = ({ platform, unit_system }: RenderProps) => {
   const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
@@ -35,7 +35,7 @@ export const ErddapAllObservationsTable: React.SFC<RenderProps> = ({ platform }:
             platform={platform}
             data_type={dataset.data_type.standard_name}
             name={name}
-            printed_unit={dataset.data_type.units}
+            unit_system={unit_system}
           />
         )
       })}

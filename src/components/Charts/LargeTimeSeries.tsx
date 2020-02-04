@@ -5,10 +5,10 @@ import Highcharts from "highcharts"
 import * as React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
 
-import { humanUnitName } from "Shared/dataTypes"
 import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
-import { conversion } from "Shared/unitConversion"
+import { UnitSystem } from "Features/Units/types"
+import { converter } from "Features/Units/Converter"
 
 import { pointFormatMaker } from "./formatter"
 
@@ -23,12 +23,14 @@ interface Props {
   timeSeries: ReadingTimeSeries[]
   /** Name of data */
   name: string
-  /** Unit to display on Y axis */
-  unit: string
   /** Soft minimum for Y axis */
   softMin: number | undefined
   /** Soft maximum for Y axis */
   softMax: number | undefined
+  /** Unit system to display in */
+  unit_system: UnitSystem
+  /** Data type to display */
+  data_type: string
 }
 
 /**
@@ -36,21 +38,14 @@ interface Props {
  */
 class LargeTimeSeriesChartBase extends React.Component<Props, object> {
   public render() {
-    const { name, softMax, softMin, timeSeries } = this.props
-    let { unit } = this.props
-    let data = timeSeries.map(r => [r.time.valueOf(), round(r.reading, 2)])
-    if (unit === "Deg C") {
-      data = timeSeries.map(r => [r.time.valueOf(), conversion(r.reading, unit, "F")])
-      unit = "F"
-    }
-    if (name === "visibility_in_air") {
-      data = timeSeries.map(r => [r.time.valueOf(), conversion(r.reading, "m", "mi")])
-      unit = "Miles"
-    }
-    if (name === "significant_height_of_wind_and_swell_waves") {
-      data = timeSeries.map(r => [r.time.valueOf(), conversion(r.reading, "m", "ft")])
-      unit = "Feet"
-    }
+    const { name, softMax, softMin, timeSeries, data_type, unit_system } = this.props
+
+    const data_converter = converter(data_type)
+
+    const data = timeSeries.map(r => [
+      r.time.valueOf(),
+      round(data_converter.convertTo(r.reading as number, unit_system) as number, 2)
+    ])
 
     return (
       <HighchartsChart time={plotOptions.time}>
@@ -59,11 +54,11 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
         <XAxis type="datetime" />
 
         <YAxis softMin={softMin} softMax={softMax}>
-          <YAxis.Title>{humanUnitName(unit)}</YAxis.Title>
+          <YAxis.Title>{data_converter.displayName(unit_system)}</YAxis.Title>
           <SplineSeries name={name} marker={{ enabled: false }} data={data} />
         </YAxis>
 
-        <Tooltip formatter={pointFormatMaker(unit)} />
+        <Tooltip formatter={pointFormatMaker(unit_system, data_type)} />
       </HighchartsChart>
     )
   }

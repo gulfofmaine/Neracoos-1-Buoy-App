@@ -16,11 +16,11 @@ export class PlatformInfo extends React.Component<RouteComponentProps, object> {
     return (
       <div>
         <ErddapPlatformGetter platformId={id}>
-          {({ platform }) => (
+          {({ platform, unit_system }) => (
             <React.Fragment>
               <PlatformAlerts platform={platform} />
-              <ErddapPlatformInfoPanel platform={platform} />
-              <ErddapObservationTable platform={platform} unitSelector={<UnitSelector />} />
+              <ErddapPlatformInfoPanel platform={platform} unit_system={unit_system} />
+              <ErddapObservationTable platform={platform} unit_system={unit_system} unitSelector={<UnitSelector />} />
             </React.Fragment>
           )}
         </ErddapPlatformGetter>

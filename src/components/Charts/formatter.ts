@@ -1,13 +1,17 @@
-import { convertUnit } from "Shared/unitConversion"
+import { UnitSystem } from "Features/Units/types"
+import { converter } from "Features/Units/Converter"
 
 /**
  * Wrap up our tooltip formatting function so we can specifiy the unit it should use
  *
- * @param unit Unit that the chart should conver from
+ * @param unit_system Current unit system to convert to
+ * @param data_type Data type to convert
  * @returns A function ready to be called by tooltip to convert our units.
  */
-export function pointFormatMaker(unit: string): (this: any) => string {
+export function pointFormatMaker(unit_system: UnitSystem, data_type: string): (this: any) => string {
   return function pointFormatter(this: any): string {
-    return `${new Date(this.x).toLocaleString()}<br />${this.y} ${unit} ${convertUnit(unit, this.y)}`
+    const data_converter = converter(data_type)
+
+    return `${new Date(this.x).toLocaleString()}<br />${this.y} ${data_converter.displayName(unit_system)}`
   }
 }
