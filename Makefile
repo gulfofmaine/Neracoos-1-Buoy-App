@@ -31,3 +31,7 @@ test:
 
 cov-html:
 	open coverage/lcov-report/index.html
+
+
+storybook:
+	docker-compose run -p 9009:9009 client yarn storybook

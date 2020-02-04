@@ -43,9 +43,20 @@
     "think-before-eject": "react-scripts eject",
     "docs": "typedoc",
     "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage",
-    "types": "tsc"
+    "types": "tsc",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^5.3.10",
+    "@storybook/addon-actions": "^5.3.10",
+    "@storybook/addon-docs": "^5.3.10",
+    "@storybook/addon-knobs": "^5.3.10",
+    "@storybook/addon-links": "^5.3.10",
+    "@storybook/addon-storyshots": "^5.3.10",
+    "@storybook/addons": "^5.3.10",
+    "@storybook/preset-create-react-app": "^1.5.2",
+    "@storybook/react": "^5.3.10",
     "@types/enzyme": "3.10.4",
     "@types/enzyme-adapter-react-16": "1.0.5",
     "@types/jest": "25.1.1",
@@ -60,6 +71,7 @@
     "react-test-renderer": "16.12.0",
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.4",
+    "storybook-react-router": "^1.0.8",
     "typedoc": "0.15.5",
     "typescript": "3.7.3",
     "wait-on": "3.3.0"
@@ -82,5 +94,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[tj]sx?$": "babel-jest",
+      "^.+\\.mdx$": "@storybook/addon-docs/jest-transform-mdx"
+    }
   }
 }

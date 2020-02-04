@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Erddap|ObservationTable/Item Configurable 1`] = `
+<a
+  className="list-group-item"
+  href="/platform/M01/observations/wind_speed"
+  onClick={[Function]}
+  style={
+    Object {
+      "color": "black",
+      "padding": ".5rem",
+      "paddingLeft": "1rem",
+    }
+  }
+>
+  <b>
+    Wind Speed
+    :
+  </b>
+   
+  4.6 knots
+</a>
+`;
+
+exports[`Storyshots Units|UnitSelector Configurable 1`] = `
+<div
+  className="btn-group"
+  role="group"
+>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm"
+    id="Metric"
+    onClick={[Function]}
+    type="button"
+  >
+    Metric
+  </button>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm active"
+    id="Imperial"
+    onClick={[Function]}
+    type="button"
+  >
+    Imperial
+  </button>
+</div>
+`;
