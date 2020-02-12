@@ -38,18 +38,6 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
     const { name, softMax, softMin, timeSeries } = this.props
     let { unit } = this.props
     let data = timeSeries.map(r => [r.time.valueOf(), round(r.reading, 2)])
-    if (unit === "Deg C") {
-      data = timeSeries.map(r => [r.time.valueOf(), conversion(r.reading, unit, "F")])
-      unit = "F"
-    }
-    if (name === "visibility_in_air") {
-      data = timeSeries.map(r => [r.time.valueOf(), conversion(r.reading, "m", "mi")])
-      unit = "Miles"
-    }
-    if (name === "significant_height_of_wind_and_swell_waves") {
-      data = timeSeries.map(r => [r.time.valueOf(), conversion(r.reading, "m", "ft")])
-      unit = "Feet"
-    }
 
     return (
       <HighchartsChart time={plotOptions.time}>

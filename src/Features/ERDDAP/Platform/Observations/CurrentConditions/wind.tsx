@@ -6,7 +6,9 @@ import { Card, CardBody, CardHeader } from "reactstrap"
 
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { compassDirection, convertUnit } from "Shared/unitConversion"
+import { compassDirection } from "Shared/unitConversion"
+import { UnitSystem } from "Features/Units/types"
+import { converter } from "Features/Units/Converter"
 
 import { WindTimeSeriesChart } from "components/Charts"
 
@@ -14,9 +16,10 @@ import { PlatformDataset } from "../../../types"
 
 interface Props {
   datasets: PlatformDataset[]
+  unit_system: UnitSystem
 }
 
-export const WindCard: React.SFC<Props> = ({ datasets }) => {
+export const WindCard: React.SFC<Props> = ({ datasets, unit_system }) => {
   if (datasets.length < 1) {
     return null
   }
@@ -31,24 +34,27 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
   const gust = datasets.filter(dataset => dataset.data_type.standard_name.includes("gust"))
   const direction = datasets.filter(dataset => dataset.data_type.standard_name.includes("direction"))
 
+  const data_converter = converter([...speed, ...gust][0].data_type.standard_name)
+
   let speedTitle: string = ""
   if (speed.length > 0 && speed[0].readings.length > 0) {
     speedTitle =
       " - " +
-      round(speed[0].readings[speed[0].readings.length - 1].reading, 1) +
+      round(
+        data_converter.convertTo(speed[0].readings[speed[0].readings.length - 1].reading, unit_system) as number,
+        1
+      ) +
       " " +
-      speed[0].data_type.units +
-      convertUnit("m/s", speed[0].readings[speed[0].readings.length - 1].reading)
+      data_converter.displayName(unit_system)
   }
 
   let gustTitle: string = ""
   if (gust.length > 0) {
     gustTitle =
       " gusting to " +
-      round(gust[0].readings[gust[0].readings.length - 1].reading) +
+      round(data_converter.convertTo(gust[0].readings[gust[0].readings.length - 1].reading, unit_system) as number, 1) +
       " " +
-      gust[0].data_type.units +
-      convertUnit("m/s", gust[0].readings[gust[0].readings.length - 1].reading)
+      data_converter.displayName(unit_system)
   }
 
   let directionTitle: string = ""
@@ -66,7 +72,7 @@ export const WindCard: React.SFC<Props> = ({ datasets }) => {
         {directionTitle}
       </CardHeader>
       <CardBody style={{ padding: ".2rem" }}>
-        <WindTimeSeriesChart days={1} barbsPerDay={10} data={data} height={150} />
+        <WindTimeSeriesChart days={1} barbsPerDay={10} data={data} height={150} unit_system={unit_system} />
       </CardBody>
     </Card>
   )
