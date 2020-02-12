@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots ERDDAP|Forecast Configurable 1`] = `
+<div
+  className="chart "
+/>
+`;
+
+exports[`Storyshots ERDDAP|Forecast Imperial 1`] = `
+<div
+  className="chart "
+/>
+`;
+
+exports[`Storyshots ERDDAP|Forecast Metric 1`] = `
+<div
+  className="chart "
+/>
+`;
+
 exports[`Storyshots ERDDAP|ObservationTable/All Configurable 1`] = `
 <ul
   className="list-group"
@@ -2167,9 +2185,34 @@ exports[`Storyshots ERDDAP|ObservedWindCondition Configurable 1`] = `
     <h4>
       Wind
     </h4>
-    <div
-      className="chart "
-    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedWindCondition Imperial 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Wind
+    </h4>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedWindCondition Metric 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Wind
+    </h4>
   </div>
 </div>
 `;

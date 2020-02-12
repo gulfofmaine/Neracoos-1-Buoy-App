@@ -21,7 +21,7 @@ import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { compassDirection, conversion, convertUnit } from "Shared/unitConversion"
+import { compassDirection } from "Shared/unitConversion"
 
 const data_converter = converter("wind_speed")
 
@@ -31,6 +31,7 @@ function pointFormatterMaker(unit_system: UnitSystem) {
    *
    * @param this Highcharts position value
    */
+  // eslint-disable-next-line
   function pointFormatter(this: any) {
     return (
       `${new Date(this.x).toLocaleString()}<br />` +

@@ -9,7 +9,7 @@ import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 import { conversion } from "Shared/unitConversion"
 
-import { pointFormatMaker } from "./formatter"
+// import { pointFormatMaker } from "./formatter"
 
 const plotOptions = {
   time: {
@@ -62,7 +62,7 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
           <SplineSeries name={name} marker={{ enabled: false }} data={data} />
         </YAxis>
 
-        <Tooltip formatter={pointFormatMaker(unit)} />
+        {/* <Tooltip formatter={pointFormatMaker(unit)} /> */}
       </HighchartsChart>
     )
   }

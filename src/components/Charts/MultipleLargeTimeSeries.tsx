@@ -17,13 +17,12 @@ import {
 import { humanUnitName } from "Shared/dataTypes"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { convertUnit } from "Shared/unitConversion"
 
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
-      this.points.map(p => `<b>${p.series.name}:</b> ${p.y} ${unit} ${convertUnit(unit, p.y)}`).join("<br />")
+      this.points.map(p => `<b>${p.series.name}:</b> ${p.y} ${unit}`).join("<br />")
     )
   }
 }
@@ -68,7 +67,7 @@ class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
         <XAxis type="datetime" />
 
         <YAxis>
-          <YAxis.Title>{humanUnitName(this.props.unit)}</YAxis.Title>
+          <YAxis.Title>{this.props.unit}</YAxis.Title>
           {series}
         </YAxis>
 
