@@ -6,8 +6,8 @@ const { sea_water_density } = data_types
 const source_value = 1018.8694
 
 describe("sea_water_density conversions", () => {
-  it("to imperial", () => {
-    const result = sea_water_density.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_water_density.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("sea_water_density conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_water_density.displayName(UnitSystem.imperial)).toBe("Kilograms per cubic meter")
+    expect(sea_water_density.displayName(UnitSystem.english)).toBe("Kilograms per cubic meter")
     expect(sea_water_density.displayName(UnitSystem.metric)).toBe("Kilograms per cubic meter")
   })
 })

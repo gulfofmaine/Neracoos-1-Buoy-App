@@ -6,8 +6,8 @@ const source_value = 48
 const { mean_wave_direction } = data_types
 
 describe("mean_wave_direction conversions", () => {
-  it("to imperial", () => {
-    const result = mean_wave_direction.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = mean_wave_direction.convertTo(source_value, UnitSystem.english)
     expect(result).toBe("NE")
   })
 
@@ -17,7 +17,7 @@ describe("mean_wave_direction conversions", () => {
   })
 
   it("display names", () => {
-    expect(mean_wave_direction.displayName(UnitSystem.imperial)).toBe("Cardinal Direction")
+    expect(mean_wave_direction.displayName(UnitSystem.english)).toBe("Cardinal Direction")
     expect(mean_wave_direction.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })

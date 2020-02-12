@@ -6,8 +6,8 @@ const { air_pressure } = data_types
 const source_value = 1018.8694
 
 describe("air_pressure conversions", () => {
-  it("to imperial", () => {
-    const result = air_pressure.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = air_pressure.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(30.087)
   })
 
@@ -17,7 +17,7 @@ describe("air_pressure conversions", () => {
   })
 
   it("display names", () => {
-    expect(air_pressure.displayName(UnitSystem.imperial)).toBe("Inches")
+    expect(air_pressure.displayName(UnitSystem.english)).toBe("Inches")
     expect(air_pressure.displayName(UnitSystem.metric)).toBe("Millibars")
   })
 })

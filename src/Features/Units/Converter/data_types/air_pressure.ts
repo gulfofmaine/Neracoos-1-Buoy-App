@@ -6,7 +6,7 @@ import { UnitSystem } from "Features/Units/types"
 class AirPressure extends DataTypeConversion {
   public convertTo(value: number, unitSystem: UnitSystem): number {
     switch (unitSystem) {
-      case UnitSystem.imperial:
+      case UnitSystem.english:
         return value / 33.863886666667
       case UnitSystem.metric:
         return value

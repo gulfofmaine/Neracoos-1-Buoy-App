@@ -11,7 +11,7 @@ describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={UnitSystem.imperial} />
+        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={UnitSystem.english} />
       </MemoryRouter>
     )
 
@@ -31,7 +31,7 @@ describe("TableItem", () => {
   it("Returns null when there is not a matching datatype", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="air_temp" unit_system={UnitSystem.imperial} name="Air Temp" />
+        <TableItem platform={platform} data_type="air_temp" unit_system={UnitSystem.english} name="Air Temp" />
       </MemoryRouter>
     )
 

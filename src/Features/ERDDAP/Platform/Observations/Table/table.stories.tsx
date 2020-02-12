@@ -13,13 +13,13 @@ export default {
 }
 
 export const configurable = () => {
-  const options = [UnitSystem.imperial, UnitSystem.metric]
+  const options = [UnitSystem.english, UnitSystem.metric]
   const unit = select("Unit System", options, options[0], "unit-system-0")
   return <ErddapObservationTable platform={platform} unit_system={unit} unitSelector={<i>Unit selector goes here</i>} />
 }
 
-export const imperial = () => {
-  return <ErddapObservationTable platform={platform} unit_system={UnitSystem.imperial} />
+export const english = () => {
+  return <ErddapObservationTable platform={platform} unit_system={UnitSystem.english} />
 }
 
 export const metric = () => {

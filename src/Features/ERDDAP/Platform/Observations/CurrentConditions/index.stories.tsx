@@ -25,7 +25,7 @@ filtered_datasets.sort(
 )
 
 export const configurable = () => {
-  const options = [UnitSystem.imperial, UnitSystem.metric]
+  const options = [UnitSystem.english, UnitSystem.metric]
   const unit = select("Unit System", options, options[0], "unit-system-0")
 
   return (
@@ -40,10 +40,10 @@ export const configurable = () => {
   )
 }
 
-export const imperial = () => (
+export const english = () => (
   <Row>
     <CurrentConditions
-      unit_system={UnitSystem.imperial}
+      unit_system={UnitSystem.english}
       platform={platform}
       wind_datasets={wind_datasets}
       filtered_datasets={filtered_datasets}

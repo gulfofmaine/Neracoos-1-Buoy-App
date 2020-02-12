@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "Radians"
 
 describe("solar_zenith_angle conversions", () => {
-  it("to imperial", () => {
-    const result = solar_zenith_angle.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = solar_zenith_angle.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("solar_zenith_angle conversions", () => {
   })
 
   it("display names", () => {
-    expect(solar_zenith_angle.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(solar_zenith_angle.displayName(UnitSystem.english)).toBe(displayName)
     expect(solar_zenith_angle.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "m/s, degrees"
 
 describe("wind_speed_and_direction conversions", () => {
-  it("to imperial", () => {
-    const result = wind_speed_and_direction.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = wind_speed_and_direction.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("wind_speed_and_direction conversions", () => {
   })
 
   it("display names", () => {
-    expect(wind_speed_and_direction.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(wind_speed_and_direction.displayName(UnitSystem.english)).toBe(displayName)
     expect(wind_speed_and_direction.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

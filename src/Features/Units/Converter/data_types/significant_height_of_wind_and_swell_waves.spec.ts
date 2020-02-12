@@ -6,8 +6,8 @@ const source_value = 0.6880212
 const { significant_height_of_wind_and_swell_waves } = data_types
 
 describe("significant_height_of_wind_and_swell_waves conversions", () => {
-  it("to imperial", () => {
-    const result = significant_height_of_wind_and_swell_waves.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = significant_height_of_wind_and_swell_waves.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(2.2572)
   })
 
@@ -17,7 +17,7 @@ describe("significant_height_of_wind_and_swell_waves conversions", () => {
   })
 
   it("display names", () => {
-    expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.imperial)).toBe("Feet")
+    expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.english)).toBe("Feet")
     expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

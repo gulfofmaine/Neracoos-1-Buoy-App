@@ -69,7 +69,7 @@ describe("Platfrom 44007", () => {
     cy.get("svg.highcharts-root").contains("Feet")
     cy.contains("Metric").click()
     cy.get("svg.highcharts-root").contains("Meters")
-    cy.contains("Imperial").click()
+    cy.contains("English").click()
     cy.get("svg.highcharts-root").contains("Feet")
     // cy.contains("Significant Wave Height observed").click()
     cy.get("svg.highcharts-root")

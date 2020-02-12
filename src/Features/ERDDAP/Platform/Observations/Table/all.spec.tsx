@@ -11,7 +11,7 @@ describe("<ErddapAllObservationsTable>", () => {
   it("Should show all observations for appropriate platform", () => {
     const enzymeWrapper = mount(
       <MemoryRouter>
-        <ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.imperial} />
+        <ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.english} />
       </MemoryRouter>
     )
 

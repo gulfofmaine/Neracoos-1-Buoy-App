@@ -6,8 +6,8 @@ const { amps } = data_types
 const source_value = 1018.8694
 
 describe("amps conversions", () => {
-  it("to imperial", () => {
-    const result = amps.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = amps.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("amps conversions", () => {
   })
 
   it("display names", () => {
-    expect(amps.displayName(UnitSystem.imperial)).toBe("Counts")
+    expect(amps.displayName(UnitSystem.english)).toBe("Counts")
     expect(amps.displayName(UnitSystem.metric)).toBe("Counts")
   })
 })

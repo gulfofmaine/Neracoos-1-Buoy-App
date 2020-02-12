@@ -27,12 +27,6 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
         </ListGroupItem>
       ) : null}
 
-      {unitSelector ? (
-        <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
-          <b>Unit system:</b> {unitSelector}
-        </ListGroupItem>
-      ) : null}
-
       <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={unit_system} />
       <TableItem platform={platform} data_type="wind_gust" name="Wind Gusts" unit_system={unit_system} />
       <TableItem platform={platform} data_type="wind_from_direction" name="Wind Direction" unit_system={unit_system} />
@@ -67,6 +61,12 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
         unit_system={unit_system}
       />
       <TableItem platform={platform} data_type="visibility_in_air" name="Visibility" unit_system={unit_system} />
+
+      {unitSelector ? (
+        <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
+          <b>Unit system:</b> {unitSelector}
+        </ListGroupItem>
+      ) : null}
     </ListGroup>
   )
 }

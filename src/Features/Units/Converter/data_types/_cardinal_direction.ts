@@ -17,7 +17,7 @@ export class CardinalDirection extends DataTypeConversion {
     switch (unitSystem) {
       case UnitSystem.metric:
         return value
-      case UnitSystem.imperial:
+      case UnitSystem.english:
         return compassDirection(value)[1]
     }
   }

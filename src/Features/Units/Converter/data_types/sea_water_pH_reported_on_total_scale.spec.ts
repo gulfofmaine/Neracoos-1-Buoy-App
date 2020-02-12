@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "pH Total"
 
 describe("sea_water_pH_reported_on_total_scale conversions", () => {
-  it("to imperial", () => {
-    const result = sea_water_pH_reported_on_total_scale.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_water_pH_reported_on_total_scale.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("sea_water_pH_reported_on_total_scale conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_water_pH_reported_on_total_scale.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(sea_water_pH_reported_on_total_scale.displayName(UnitSystem.english)).toBe(displayName)
     expect(sea_water_pH_reported_on_total_scale.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

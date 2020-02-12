@@ -6,8 +6,8 @@ const { sun_icon } = data_types
 const source_value = 1018.8694
 
 describe("sun_icon conversions", () => {
-  it("to imperial", () => {
-    const result = sun_icon.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sun_icon.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("sun_icon conversions", () => {
   })
 
   it("display names", () => {
-    expect(sun_icon.displayName(UnitSystem.imperial)).toBe("Sun Icon")
+    expect(sun_icon.displayName(UnitSystem.english)).toBe("Sun Icon")
     expect(sun_icon.displayName(UnitSystem.metric)).toBe("Sun Icon")
   })
 })

@@ -16,7 +16,7 @@ const standard_name = "visibility_in_air"
 const datasets = platform.properties.readings.filter(reading => reading.data_type.standard_name === standard_name)
 
 export const configurable = () => {
-  const options = [UnitSystem.imperial, UnitSystem.metric]
+  const options = [UnitSystem.english, UnitSystem.metric]
   const unit = select("Unit System", options, options[0], "unit-system-0")
 
   return (
@@ -29,11 +29,11 @@ export const configurable = () => {
   )
 }
 
-export const imperial = () => (
+export const english = () => (
   <ObservedConditionsDatasets
     platform={platform}
     standardName={standard_name}
-    unit_system={UnitSystem.imperial}
+    unit_system={UnitSystem.english}
     datasets={datasets}
   />
 )

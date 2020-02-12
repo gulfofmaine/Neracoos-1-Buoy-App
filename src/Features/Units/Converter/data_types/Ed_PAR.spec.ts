@@ -6,8 +6,8 @@ const { Ed_PAR } = data_types
 const source_value = 1018.8694
 
 describe("Ed_PAR conversions", () => {
-  it("to imperial", () => {
-    const result = Ed_PAR.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = Ed_PAR.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("Ed_PAR conversions", () => {
   })
 
   it("display names", () => {
-    expect(Ed_PAR.displayName(UnitSystem.imperial)).toBe("microE/m^2/s")
+    expect(Ed_PAR.displayName(UnitSystem.english)).toBe("microE/m^2/s")
     expect(Ed_PAR.displayName(UnitSystem.metric)).toBe("microE/m^2/s")
   })
 })

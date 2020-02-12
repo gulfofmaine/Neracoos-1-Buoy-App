@@ -11,7 +11,7 @@ export default {
 }
 
 export const configurable = () => {
-  const options = [UnitSystem.imperial, UnitSystem.metric]
+  const options = [UnitSystem.english, UnitSystem.metric]
   const unit = select("Unit System", options, options[0], "unit-system-0")
 
   return <UnitSelectorBase system={unit} switchUnits={action("switch-units")} />

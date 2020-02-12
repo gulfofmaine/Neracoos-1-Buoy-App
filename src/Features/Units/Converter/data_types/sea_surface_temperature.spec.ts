@@ -6,8 +6,8 @@ const source_value = 4.5
 const { sea_surface_temperature } = data_types
 
 describe("sea_surface_temperature conversions", () => {
-  it("to imperial", () => {
-    const result = sea_surface_temperature.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_surface_temperature.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(40.1)
   })
 
@@ -17,7 +17,7 @@ describe("sea_surface_temperature conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_temperature.displayName(UnitSystem.imperial)).toBe("Fahrenheit")
+    expect(sea_surface_temperature.displayName(UnitSystem.english)).toBe("Fahrenheit")
     expect(sea_surface_temperature.displayName(UnitSystem.metric)).toBe("Celsius")
   })
 })

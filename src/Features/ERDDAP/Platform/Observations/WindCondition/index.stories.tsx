@@ -22,12 +22,12 @@ const windTimeSeries: DataTimeSeries[] = windDatasets.map(reading => ({
 }))
 
 export const configurable = () => {
-  const options = [UnitSystem.imperial, UnitSystem.metric]
+  const options = [UnitSystem.english, UnitSystem.metric]
   const unit = select("Unit System", options, options[0], "unit-system-0")
 
   return <WindChart data={windTimeSeries} barbsPerDay={5} unit_system={unit} />
 }
 
-export const imperial = () => <WindChart data={windTimeSeries} barbsPerDay={5} unit_system={UnitSystem.imperial} />
+export const english = () => <WindChart data={windTimeSeries} barbsPerDay={5} unit_system={UnitSystem.english} />
 
 export const metric = () => <WindChart data={windTimeSeries} barbsPerDay={5} unit_system={UnitSystem.metric} />

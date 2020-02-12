@@ -1,12 +1,825 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots ERDDAP|CurrentConditions Configurable 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/wind"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Winds
+           - 4.6 Knots
+          
+           from NE
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        />
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           -
+           
+          6.3
+           
+          Seconds
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/air_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Air Temperature
+           -
+           
+          38.9
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/barometric_pressure"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Barometric Pressure
+           -
+           
+          14.7
+           
+          psi
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/sea_water_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Water Temperature @ 1m
+           -
+           
+          41.3
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        No data for 
+        Water Temperature
+         in the last day.
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/visibility_in_air"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Visibility
+           -
+           
+          1.7
+           
+          Nautical Miles
+           
+           (1.9 miles)
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|CurrentConditions English 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/wind"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Winds
+           - 4.6 Knots
+          
+           from NE
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        />
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           -
+           
+          6.3
+           
+          Seconds
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/air_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Air Temperature
+           -
+           
+          38.9
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/barometric_pressure"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Barometric Pressure
+           -
+           
+          14.7
+           
+          psi
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/sea_water_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Water Temperature @ 1m
+           -
+           
+          41.3
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        No data for 
+        Water Temperature
+         in the last day.
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/visibility_in_air"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Visibility
+           -
+           
+          1.7
+           
+          Nautical Miles
+           
+           (1.9 miles)
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|CurrentConditions Metric 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/wind"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Winds
+           - 2.4 Meters/Second
+          
+           from NE
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        />
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           -
+           
+          6.3
+           
+          Seconds
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/air_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Air Temperature
+           -
+           
+          3.9
+           
+          Celsius
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/barometric_pressure"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Barometric Pressure
+           -
+           
+          1012.9
+           
+          hPa
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/sea_water_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Water Temperature @ 1m
+           -
+           
+          5.2
+           
+          Celsius
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        No data for 
+        Water Temperature
+         in the last day.
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/visibility_in_air"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Visibility
+           -
+           
+          3
+           
+          Kilometers
+           
+           (1.9 miles)
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
 exports[`Storyshots ERDDAP|Forecast Configurable 1`] = `
 <div
   className="chart "
 />
 `;
 
-exports[`Storyshots ERDDAP|Forecast Imperial 1`] = `
+exports[`Storyshots ERDDAP|Forecast English 1`] = `
 <div
   className="chart "
 />
@@ -550,7 +1363,7 @@ exports[`Storyshots ERDDAP|ObservationTable/All Configurable 1`] = `
 </ul>
 `;
 
-exports[`Storyshots ERDDAP|ObservationTable/All Imperial 1`] = `
+exports[`Storyshots ERDDAP|ObservationTable/All English 1`] = `
 <ul
   className="list-group"
   style={
@@ -1639,24 +2452,6 @@ exports[`Storyshots ERDDAP|ObservationTable/Current Configurable 1`] = `
      
     2/4/2020, 12:59:59 PM
   </li>
-  <li
-    className="list-group-item"
-    style={
-      Object {
-        "color": "black",
-        "padding": ".5rem",
-        "paddingLeft": "1rem",
-      }
-    }
-  >
-    <b>
-      Unit system:
-    </b>
-     
-    <i>
-      Unit selector goes here
-    </i>
-  </li>
   <a
     className="list-group-item"
     href="/platform/M01/observations/wind_speed"
@@ -1783,10 +2578,28 @@ exports[`Storyshots ERDDAP|ObservationTable/Current Configurable 1`] = `
      
     Nautical Miles
   </a>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Unit system:
+    </b>
+     
+    <i>
+      Unit selector goes here
+    </i>
+  </li>
 </ul>
 `;
 
-exports[`Storyshots ERDDAP|ObservationTable/Current Imperial 1`] = `
+exports[`Storyshots ERDDAP|ObservationTable/Current English 1`] = `
 <ul
   className="list-group"
   style={
@@ -2137,7 +2950,7 @@ exports[`Storyshots ERDDAP|ObservedCondition Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition Imperial 1`] = `
+exports[`Storyshots ERDDAP|ObservedCondition English 1`] = `
 <div
   className="row"
 >
@@ -2189,7 +3002,7 @@ exports[`Storyshots ERDDAP|ObservedWindCondition Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedWindCondition Imperial 1`] = `
+exports[`Storyshots ERDDAP|ObservedWindCondition English 1`] = `
 <div
   className="row"
 >
@@ -2234,11 +3047,11 @@ exports[`Storyshots Units|UnitSelector Configurable 1`] = `
   <button
     aria-label={null}
     className="btn btn-primary btn-sm active"
-    id="Imperial"
+    id="English"
     onClick={[Function]}
     type="button"
   >
-    Imperial
+    English
   </button>
 </div>
 `;

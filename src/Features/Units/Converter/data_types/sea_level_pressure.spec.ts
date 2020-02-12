@@ -6,8 +6,8 @@ const { sea_level_pressure } = data_types
 const source_value = 1018.8694
 
 describe("sea_level_pressure conversions", () => {
-  it("to imperial", () => {
-    const result = sea_level_pressure.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_level_pressure.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(14.777)
   })
 
@@ -17,7 +17,7 @@ describe("sea_level_pressure conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_level_pressure.displayName(UnitSystem.imperial)).toBe("psi")
+    expect(sea_level_pressure.displayName(UnitSystem.english)).toBe("psi")
     expect(sea_level_pressure.displayName(UnitSystem.metric)).toBe("hPa")
   })
 })

@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "percent"
 
 describe("transmissivity conversions", () => {
-  it("to imperial", () => {
-    const result = transmissivity.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = transmissivity.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("transmissivity conversions", () => {
   })
 
   it("display names", () => {
-    expect(transmissivity.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(transmissivity.displayName(UnitSystem.english)).toBe(displayName)
     expect(transmissivity.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

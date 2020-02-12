@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "Seconds"
 
 describe("dominant_wave_period_3 conversions", () => {
-  it("to imperial", () => {
-    const result = dominant_wave_period_3.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = dominant_wave_period_3.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("dominant_wave_period_3 conversions", () => {
   })
 
   it("display names", () => {
-    expect(dominant_wave_period_3.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(dominant_wave_period_3.displayName(UnitSystem.english)).toBe(displayName)
     expect(dominant_wave_period_3.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

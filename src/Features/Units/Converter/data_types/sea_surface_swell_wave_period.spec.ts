@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "Seconds"
 
 describe("sea_surface_swell_wave_period conversions", () => {
-  it("to imperial", () => {
-    const result = sea_surface_swell_wave_period.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_surface_swell_wave_period.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("sea_surface_swell_wave_period conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_swell_wave_period.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(sea_surface_swell_wave_period.displayName(UnitSystem.english)).toBe(displayName)
     expect(sea_surface_swell_wave_period.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

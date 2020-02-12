@@ -6,8 +6,8 @@ const source_value = 1000
 const { northward_sea_water_velocity } = data_types
 
 describe("northward_sea_water_velocity conversions", () => {
-  it("to imperial", () => {
-    const result = northward_sea_water_velocity.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = northward_sea_water_velocity.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(19.4384)
   })
 
@@ -22,7 +22,7 @@ describe("northward_sea_water_velocity conversions", () => {
   })
 
   it("display names", () => {
-    expect(northward_sea_water_velocity.displayName(UnitSystem.imperial)).toBe("Knots")
+    expect(northward_sea_water_velocity.displayName(UnitSystem.english)).toBe("Knots")
     expect(northward_sea_water_velocity.displayName(UnitSystem.metric)).toBe("Meters/Second")
   })
 })

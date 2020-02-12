@@ -34,12 +34,12 @@ data.push({
 })
 
 export const configurable = () => {
-  const options = [UnitSystem.imperial, UnitSystem.metric]
+  const options = [UnitSystem.english, UnitSystem.metric]
   const unit = select("Unit System", options, options[0], "unit-system-0")
 
   return <ForecastChart data={data} unit_system={unit} type={forecast_type} />
 }
 
-export const imperial = () => <ForecastChart data={data} unit_system={UnitSystem.imperial} type={forecast_type} />
+export const english = () => <ForecastChart data={data} unit_system={UnitSystem.english} type={forecast_type} />
 
 export const metric = () => <ForecastChart data={data} unit_system={UnitSystem.metric} type={forecast_type} />

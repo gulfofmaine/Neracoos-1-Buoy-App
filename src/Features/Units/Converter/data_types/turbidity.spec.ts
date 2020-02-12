@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "ntu"
 
 describe("turbidity conversions", () => {
-  it("to imperial", () => {
-    const result = turbidity.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = turbidity.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("turbidity conversions", () => {
   })
 
   it("display names", () => {
-    expect(turbidity.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(turbidity.displayName(UnitSystem.english)).toBe(displayName)
     expect(turbidity.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

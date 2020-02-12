@@ -6,8 +6,8 @@ const source_value = 48
 const { sea_surface_wave_to_direction } = data_types
 
 describe("sea_surface_wave_to_direction conversions", () => {
-  it("to imperial", () => {
-    const result = sea_surface_wave_to_direction.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_surface_wave_to_direction.convertTo(source_value, UnitSystem.english)
     expect(result).toBe("NE")
   })
 
@@ -17,7 +17,7 @@ describe("sea_surface_wave_to_direction conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_wave_to_direction.displayName(UnitSystem.imperial)).toBe("Cardinal Direction")
+    expect(sea_surface_wave_to_direction.displayName(UnitSystem.english)).toBe("Cardinal Direction")
     expect(sea_surface_wave_to_direction.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })

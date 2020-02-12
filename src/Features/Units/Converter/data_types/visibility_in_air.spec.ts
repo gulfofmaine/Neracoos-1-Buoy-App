@@ -6,8 +6,8 @@ const { visibility_in_air } = data_types
 const source_value = 2994.5664
 
 describe("min_visiblity conversions", () => {
-  it("to imperial", () => {
-    const result = visibility_in_air.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = visibility_in_air.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(1.6169)
   })
 
@@ -17,7 +17,7 @@ describe("min_visiblity conversions", () => {
   })
 
   it("display names", () => {
-    expect(visibility_in_air.displayName(UnitSystem.imperial)).toBe("Nautical Miles")
+    expect(visibility_in_air.displayName(UnitSystem.english)).toBe("Nautical Miles")
     expect(visibility_in_air.displayName(UnitSystem.metric)).toBe("Kilometers")
   })
 })

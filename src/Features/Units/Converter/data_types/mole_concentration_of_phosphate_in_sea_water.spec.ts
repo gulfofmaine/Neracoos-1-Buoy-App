@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "microM/l"
 
 describe("mole_concentration_of_phosphate_in_sea_water conversions", () => {
-  it("to imperial", () => {
-    const result = mole_concentration_of_phosphate_in_sea_water.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = mole_concentration_of_phosphate_in_sea_water.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("mole_concentration_of_phosphate_in_sea_water conversions", () => {
   })
 
   it("display names", () => {
-    expect(mole_concentration_of_phosphate_in_sea_water.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(mole_concentration_of_phosphate_in_sea_water.displayName(UnitSystem.english)).toBe(displayName)
     expect(mole_concentration_of_phosphate_in_sea_water.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

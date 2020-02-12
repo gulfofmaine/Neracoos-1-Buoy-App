@@ -6,8 +6,8 @@ const { chlorophyll } = data_types
 const source_value = 1018.8694
 
 describe("chlorophyll conversions", () => {
-  it("to imperial", () => {
-    const result = chlorophyll.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = chlorophyll.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("chlorophyll conversions", () => {
   })
 
   it("display names", () => {
-    expect(chlorophyll.displayName(UnitSystem.imperial)).toBe("Chlorophyll per Cubic Meter")
+    expect(chlorophyll.displayName(UnitSystem.english)).toBe("Chlorophyll per Cubic Meter")
     expect(chlorophyll.displayName(UnitSystem.metric)).toBe("Chlorophyll per Cubic Meter")
   })
 })

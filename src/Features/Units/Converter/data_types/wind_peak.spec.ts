@@ -6,8 +6,8 @@ const source_value = 1000
 const { wind_peak } = data_types
 
 describe("wind_peak conversions", () => {
-  it("to imperial", () => {
-    const result = wind_peak.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = wind_peak.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(19.4384)
   })
 
@@ -22,7 +22,7 @@ describe("wind_peak conversions", () => {
   })
 
   it("display names", () => {
-    expect(wind_peak.displayName(UnitSystem.imperial)).toBe("Knots")
+    expect(wind_peak.displayName(UnitSystem.english)).toBe("Knots")
     expect(wind_peak.displayName(UnitSystem.metric)).toBe("Meters/Second")
   })
 })

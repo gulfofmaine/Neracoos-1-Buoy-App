@@ -6,8 +6,8 @@ const { sea_water_pressure } = data_types
 const source_value = 1018.8694
 
 describe("sea_water_pressure conversions", () => {
-  it("to imperial", () => {
-    const result = sea_water_pressure.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_water_pressure.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("sea_water_pressure conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_water_pressure.displayName(UnitSystem.imperial)).toBe("Decibars")
+    expect(sea_water_pressure.displayName(UnitSystem.english)).toBe("Decibars")
     expect(sea_water_pressure.displayName(UnitSystem.metric)).toBe("Decibars")
   })
 })

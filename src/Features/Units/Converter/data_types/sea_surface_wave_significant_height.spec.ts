@@ -6,8 +6,8 @@ const source_value = 0.6880212
 const { sea_surface_wave_significant_height } = data_types
 
 describe("sea_surface_wave_significant_height conversions", () => {
-  it("to imperial", () => {
-    const result = sea_surface_wave_significant_height.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_surface_wave_significant_height.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(2.2572)
   })
 
@@ -17,7 +17,7 @@ describe("sea_surface_wave_significant_height conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_wave_significant_height.displayName(UnitSystem.imperial)).toBe("Feet")
+    expect(sea_surface_wave_significant_height.displayName(UnitSystem.english)).toBe("Feet")
     expect(sea_surface_wave_significant_height.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

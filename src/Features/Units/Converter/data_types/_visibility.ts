@@ -17,7 +17,7 @@ export class Visibility extends DataTypeConversion {
 
   public convertTo(value: number, unitSystem: UnitSystem): number {
     switch (unitSystem) {
-      case UnitSystem.imperial:
+      case UnitSystem.english:
         return value / 1852
 
       default:

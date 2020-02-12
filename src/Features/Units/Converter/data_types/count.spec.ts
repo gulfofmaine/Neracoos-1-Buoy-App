@@ -6,8 +6,8 @@ const { count } = data_types
 const source_value = 1018.8694
 
 describe("count conversions", () => {
-  it("to imperial", () => {
-    const result = count.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = count.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("count conversions", () => {
   })
 
   it("display names", () => {
-    expect(count.displayName(UnitSystem.imperial)).toBe("Count")
+    expect(count.displayName(UnitSystem.english)).toBe("Count")
     expect(count.displayName(UnitSystem.metric)).toBe("Count")
   })
 })

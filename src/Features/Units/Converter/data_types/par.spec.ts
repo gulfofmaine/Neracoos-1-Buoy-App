@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "µE/m2/sec"
 
 describe("par conversions", () => {
-  it("to imperial", () => {
-    const result = par.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = par.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("par conversions", () => {
   })
 
   it("display names", () => {
-    expect(par.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(par.displayName(UnitSystem.english)).toBe(displayName)
     expect(par.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

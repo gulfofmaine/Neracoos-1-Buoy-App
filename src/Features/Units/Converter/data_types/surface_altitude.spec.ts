@@ -6,8 +6,8 @@ const source_value = 0.6880212
 const { surface_altitude } = data_types
 
 describe("surface_altitude conversions", () => {
-  it("to imperial", () => {
-    const result = surface_altitude.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = surface_altitude.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(2.2572)
   })
 
@@ -17,7 +17,7 @@ describe("surface_altitude conversions", () => {
   })
 
   it("display names", () => {
-    expect(surface_altitude.displayName(UnitSystem.imperial)).toBe("Feet")
+    expect(surface_altitude.displayName(UnitSystem.english)).toBe("Feet")
     expect(surface_altitude.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

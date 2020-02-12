@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "microM/kg"
 
 describe("sea_water_alkalinity_expressed_as_mole_equivalent conversions", () => {
-  it("to imperial", () => {
-    const result = sea_water_alkalinity_expressed_as_mole_equivalent.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = sea_water_alkalinity_expressed_as_mole_equivalent.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("sea_water_alkalinity_expressed_as_mole_equivalent conversions", () => 
   })
 
   it("display names", () => {
-    expect(sea_water_alkalinity_expressed_as_mole_equivalent.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(sea_water_alkalinity_expressed_as_mole_equivalent.displayName(UnitSystem.english)).toBe(displayName)
     expect(sea_water_alkalinity_expressed_as_mole_equivalent.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

@@ -6,8 +6,8 @@ const { wave_direction_spread } = data_types
 const source_value = 1018.8694
 
 describe("wave_direction_spread conversions", () => {
-  it("to imperial", () => {
-    const result = wave_direction_spread.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = wave_direction_spread.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("wave_direction_spread conversions", () => {
   })
 
   it("display names", () => {
-    expect(wave_direction_spread.displayName(UnitSystem.imperial)).toBe("Degrees")
+    expect(wave_direction_spread.displayName(UnitSystem.english)).toBe("Degrees")
     expect(wave_direction_spread.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })

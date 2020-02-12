@@ -8,10 +8,10 @@ const source_value = 1018.8694
 const displayName = "ppbQSE"
 
 describe("concentration_of_colored_dissolved_organic_matter_in_sea_water conversions", () => {
-  it("to imperial", () => {
+  it("to english", () => {
     const result = concentration_of_colored_dissolved_organic_matter_in_sea_water.convertTo(
       source_value,
-      UnitSystem.imperial
+      UnitSystem.english
     )
     expect(result).toBeCloseTo(source_value)
   })
@@ -25,7 +25,7 @@ describe("concentration_of_colored_dissolved_organic_matter_in_sea_water convers
   })
 
   it("display names", () => {
-    expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.imperial)).toBe(
+    expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.english)).toBe(
       displayName
     )
     expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.metric)).toBe(

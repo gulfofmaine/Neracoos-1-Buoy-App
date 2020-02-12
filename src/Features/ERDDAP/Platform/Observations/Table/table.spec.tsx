@@ -13,7 +13,7 @@ describe("<ErddapObservationTable>", () => {
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
-          unit_system={UnitSystem.imperial}
+          unit_system={UnitSystem.english}
           unitSelector={<b>Fake unit selector</b>}
         />
       </MemoryRouter>

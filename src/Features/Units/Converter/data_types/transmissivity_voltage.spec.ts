@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "percent"
 
 describe("transmissivity_voltage conversions", () => {
-  it("to imperial", () => {
-    const result = transmissivity_voltage.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = transmissivity_voltage.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("transmissivity_voltage conversions", () => {
   })
 
   it("display names", () => {
-    expect(transmissivity_voltage.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(transmissivity_voltage.displayName(UnitSystem.english)).toBe(displayName)
     expect(transmissivity_voltage.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

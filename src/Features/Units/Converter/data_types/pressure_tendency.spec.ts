@@ -6,8 +6,8 @@ const { pressure_tendency } = data_types
 const source_value = 1018.8694
 
 describe("pressure_tendency conversions", () => {
-  it("to imperial", () => {
-    const result = pressure_tendency.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = pressure_tendency.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("pressure_tendency conversions", () => {
   })
 
   it("display names", () => {
-    expect(pressure_tendency.displayName(UnitSystem.imperial)).toBe("Degrees")
+    expect(pressure_tendency.displayName(UnitSystem.english)).toBe("Degrees")
     expect(pressure_tendency.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })

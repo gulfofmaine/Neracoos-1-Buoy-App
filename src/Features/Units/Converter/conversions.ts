@@ -24,18 +24,18 @@ export class DataTypeConversion {
    * @param display_name Public friendly name
    * @param source_unit Unit type that convert-units understands as input
    * @param metric_unit Unit type that convert-units understands as output
-   * @param imperial_unit Unit type that convert-units understands as output
+   * @param english_unit Unit type that convert-units understands as output
    * @param metric_unit_display Friendly unit name
-   * @param imperial_unit_display Friendly unit name
+   * @param english_unit_display Friendly unit name
    */
   constructor(
     public data_type: string,
     public display_name: string,
     private source_unit: string,
     private metric_unit: string,
-    private imperial_unit: string,
+    private english_unit: string,
     private metric_unit_display?: string,
-    private imperial_unit_display?: string
+    private english_unit_display?: string
   ) {}
 
   /**
@@ -66,7 +66,7 @@ export class DataTypeConversion {
         to = this.metric_unit
         break
       default:
-        to = this.imperial_unit
+        to = this.english_unit
     }
     return to
   }
@@ -80,7 +80,7 @@ export class DataTypeConversion {
       case UnitSystem.metric:
         return this.metric_unit_display ? this.metric_unit_display : this.metric_unit
       default:
-        return this.imperial_unit_display ? this.imperial_unit_display : this.imperial_unit
+        return this.english_unit_display ? this.english_unit_display : this.english_unit
     }
   }
 }

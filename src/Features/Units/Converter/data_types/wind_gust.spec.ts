@@ -6,8 +6,8 @@ const source_value = 1000
 const { wind_gust } = data_types
 
 describe("wind_gust conversions", () => {
-  it("to imperial", () => {
-    const result = wind_gust.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = wind_gust.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(19.4384)
   })
 
@@ -22,7 +22,7 @@ describe("wind_gust conversions", () => {
   })
 
   it("display names", () => {
-    expect(wind_gust.displayName(UnitSystem.imperial)).toBe("Knots")
+    expect(wind_gust.displayName(UnitSystem.english)).toBe("Knots")
     expect(wind_gust.displayName(UnitSystem.metric)).toBe("Meters/Second")
   })
 })

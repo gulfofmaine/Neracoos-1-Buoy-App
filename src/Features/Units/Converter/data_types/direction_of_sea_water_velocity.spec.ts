@@ -6,8 +6,8 @@ const { direction_of_sea_water_velocity } = data_types
 const source_value = 1018.8694
 
 describe("direction_of_sea_water_velocity conversions", () => {
-  it("to imperial", () => {
-    const result = direction_of_sea_water_velocity.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = direction_of_sea_water_velocity.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -17,7 +17,7 @@ describe("direction_of_sea_water_velocity conversions", () => {
   })
 
   it("display names", () => {
-    expect(direction_of_sea_water_velocity.displayName(UnitSystem.imperial)).toBe("Angular Degrees")
+    expect(direction_of_sea_water_velocity.displayName(UnitSystem.english)).toBe("Angular Degrees")
     expect(direction_of_sea_water_velocity.displayName(UnitSystem.metric)).toBe("Angular Degrees")
   })
 })

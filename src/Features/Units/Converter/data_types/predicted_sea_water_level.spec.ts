@@ -6,8 +6,8 @@ const source_value = 0.6880212
 const { predicted_sea_water_level } = data_types
 
 describe("predicted_sea_water_level conversions", () => {
-  it("to imperial", () => {
-    const result = predicted_sea_water_level.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = predicted_sea_water_level.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(2.2572)
   })
 
@@ -17,7 +17,7 @@ describe("predicted_sea_water_level conversions", () => {
   })
 
   it("display names", () => {
-    expect(predicted_sea_water_level.displayName(UnitSystem.imperial)).toBe("Feet")
+    expect(predicted_sea_water_level.displayName(UnitSystem.english)).toBe("Feet")
     expect(predicted_sea_water_level.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

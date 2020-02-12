@@ -8,8 +8,8 @@ const source_value = 1018.8694
 const displayName = "Per Meter"
 
 describe("attenuation conversions", () => {
-  it("to imperial", () => {
-    const result = attenuation.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = attenuation.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(source_value)
   })
 
@@ -19,7 +19,7 @@ describe("attenuation conversions", () => {
   })
 
   it("display names", () => {
-    expect(attenuation.displayName(UnitSystem.imperial)).toBe(displayName)
+    expect(attenuation.displayName(UnitSystem.english)).toBe(displayName)
     expect(attenuation.displayName(UnitSystem.metric)).toBe(displayName)
   })
 })

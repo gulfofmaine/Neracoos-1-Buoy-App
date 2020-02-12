@@ -35,7 +35,7 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
     return (
       <ButtonGroup>
         {this.unitButton(UnitSystem.metric)}
-        {this.unitButton(UnitSystem.imperial)}
+        {this.unitButton(UnitSystem.english)}
       </ButtonGroup>
     )
   }

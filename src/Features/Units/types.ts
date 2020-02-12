@@ -4,7 +4,7 @@
 
 export enum UnitSystem {
   metric = "Metric",
-  imperial = "Imperial"
+  english = "English"
 }
 
 export interface UnitStoreState {
@@ -12,5 +12,5 @@ export interface UnitStoreState {
 }
 
 export const initialStoreState: UnitStoreState = {
-  system: UnitSystem.imperial
+  system: UnitSystem.english
 }

@@ -6,8 +6,8 @@ const { barometric_pressure } = data_types
 const source_value = 1018.8694
 
 describe("barometric_pressure conversions", () => {
-  it("to imperial", () => {
-    const result = barometric_pressure.convertTo(source_value, UnitSystem.imperial)
+  it("to english", () => {
+    const result = barometric_pressure.convertTo(source_value, UnitSystem.english)
     expect(result).toBeCloseTo(14.777)
   })
 
@@ -17,7 +17,7 @@ describe("barometric_pressure conversions", () => {
   })
 
   it("display names", () => {
-    expect(barometric_pressure.displayName(UnitSystem.imperial)).toBe("psi")
+    expect(barometric_pressure.displayName(UnitSystem.english)).toBe("psi")
     expect(barometric_pressure.displayName(UnitSystem.metric)).toBe("hPa")
   })
 })
