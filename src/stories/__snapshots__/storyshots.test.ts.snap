@@ -1,0 +1,3057 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots ERDDAP|CurrentConditions Configurable 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/wind"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Winds
+           - 4.6 Knots
+          
+           from NE
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        />
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           -
+           
+          6.3
+           
+          Seconds
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/air_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Air Temperature
+           -
+           
+          38.9
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/barometric_pressure"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Barometric Pressure
+           -
+           
+          14.7
+           
+          psi
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/sea_water_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Water Temperature @ 1m
+           -
+           
+          41.3
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        No data for 
+        Water Temperature
+         in the last day.
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/visibility_in_air"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Visibility
+           -
+           
+          1.7
+           
+          Nautical Miles
+           
+           (1.9 miles)
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|CurrentConditions English 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/wind"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Winds
+           - 4.6 Knots
+          
+           from NE
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        />
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           -
+           
+          6.3
+           
+          Seconds
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/air_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Air Temperature
+           -
+           
+          38.9
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/barometric_pressure"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Barometric Pressure
+           -
+           
+          14.7
+           
+          psi
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/sea_water_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Water Temperature @ 1m
+           -
+           
+          41.3
+           
+          Fahrenheit
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        No data for 
+        Water Temperature
+         in the last day.
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/visibility_in_air"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Visibility
+           -
+           
+          1.7
+           
+          Nautical Miles
+           
+           (1.9 miles)
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|CurrentConditions Metric 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/wind"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Winds
+           - 2.4 Meters/Second
+          
+           from NE
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        />
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           -
+           
+          6.3
+           
+          Seconds
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/air_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Air Temperature
+           -
+           
+          3.9
+           
+          Celsius
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/barometric_pressure"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Barometric Pressure
+           -
+           
+          1012.9
+           
+          hPa
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/sea_water_temperature"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Water Temperature @ 1m
+           -
+           
+          5.2
+           
+          Celsius
+           
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        No data for 
+        Water Temperature
+         in the last day.
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/visibility_in_air"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Visibility
+           -
+           
+          3
+           
+          Kilometers
+           
+           (1.9 miles)
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|Forecast Configurable 1`] = `
+<div
+  className="chart "
+/>
+`;
+
+exports[`Storyshots ERDDAP|Forecast English 1`] = `
+<div
+  className="chart "
+/>
+`;
+
+exports[`Storyshots ERDDAP|Forecast Metric 1`] = `
+<div
+  className="chart "
+/>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/All Configurable 1`] = `
+<ul
+  className="list-group"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Last updated at: 
+    </b>
+     
+    2/4/2020, 12:59:59 PM
+  </li>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/air_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Air Temperature
+      :
+    </b>
+     
+    38.9
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/barometric_pressure"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Barometric Pressure
+      :
+    </b>
+     
+    14.7
+     
+    psi
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 1m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 50m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 100m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/direction_of_sea_water_velocity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Current Direction
+      :
+    </b>
+     
+    290.9
+     
+    Angular Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_velocity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Current Speed
+      :
+    </b>
+     
+    0.4
+     
+    Knots
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/dominant_wave_period"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Dominant Wave Period
+      :
+    </b>
+     
+    6.3
+     
+    Seconds
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/max_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Maximum Wave Height
+      :
+    </b>
+     
+    7.4
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 1m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 50m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 100m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 1m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 50m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 100m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Significant Wave Height
+      :
+    </b>
+     
+    4.6
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/visibility_in_air"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Visibility
+      :
+    </b>
+     
+    1.7
+     
+    Nautical Miles
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 1m
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 50m
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 100m
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_from_direction"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Direction
+      :
+    </b>
+     
+    NE
+     
+    Cardinal Direction
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed_of_gust"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Gust
+      :
+    </b>
+     
+    6.5
+     
+    Knots
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Speed
+      :
+    </b>
+     
+    4.6
+     
+    Knots
+  </a>
+</ul>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/All English 1`] = `
+<ul
+  className="list-group"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Last updated at: 
+    </b>
+     
+    2/4/2020, 12:59:59 PM
+  </li>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/air_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Air Temperature
+      :
+    </b>
+     
+    38.9
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/barometric_pressure"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Barometric Pressure
+      :
+    </b>
+     
+    14.7
+     
+    psi
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 1m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 50m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 100m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/direction_of_sea_water_velocity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Current Direction
+      :
+    </b>
+     
+    290.9
+     
+    Angular Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_velocity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Current Speed
+      :
+    </b>
+     
+    0.4
+     
+    Knots
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/dominant_wave_period"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Dominant Wave Period
+      :
+    </b>
+     
+    6.3
+     
+    Seconds
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/max_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Maximum Wave Height
+      :
+    </b>
+     
+    7.4
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 1m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 50m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 100m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 1m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 50m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 100m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Significant Wave Height
+      :
+    </b>
+     
+    4.6
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/visibility_in_air"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Visibility
+      :
+    </b>
+     
+    1.7
+     
+    Nautical Miles
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 1m
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 50m
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 100m
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_from_direction"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Direction
+      :
+    </b>
+     
+    NE
+     
+    Cardinal Direction
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed_of_gust"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Gust
+      :
+    </b>
+     
+    6.5
+     
+    Knots
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Speed
+      :
+    </b>
+     
+    4.6
+     
+    Knots
+  </a>
+</ul>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/All Metric 1`] = `
+<ul
+  className="list-group"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Last updated at: 
+    </b>
+     
+    2/4/2020, 12:59:59 PM
+  </li>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/air_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Air Temperature
+      :
+    </b>
+     
+    3.9
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/barometric_pressure"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Barometric Pressure
+      :
+    </b>
+     
+    1012.9
+     
+    hPa
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 1m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 50m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_electrical_conductivity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Conductivity @ 100m
+      :
+    </b>
+     
+    31
+     
+    siemens/m
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/direction_of_sea_water_velocity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Current Direction
+      :
+    </b>
+     
+    290.9
+     
+    Angular Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_velocity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Current Speed
+      :
+    </b>
+     
+    0.2
+     
+    Meters/Second
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/dominant_wave_period"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Dominant Wave Period
+      :
+    </b>
+     
+    6.3
+     
+    Seconds
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/max_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Maximum Wave Height
+      :
+    </b>
+     
+    2.3
+     
+    Meters
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 1m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 50m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_salinity"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Salinity @ 100m
+      :
+    </b>
+     
+    32
+     
+    PSU
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 1m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 50m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_density"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Sigma-T @ 100m
+      :
+    </b>
+     
+    25.3
+     
+    Kilograms per cubic meter
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Significant Wave Height
+      :
+    </b>
+     
+    1.4
+     
+    Meters
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/visibility_in_air"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Visibility
+      :
+    </b>
+     
+    3
+     
+    Kilometers
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature
+      :
+    </b>
+     
+    7.8
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 1m
+      :
+    </b>
+     
+    7.8
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 50m
+      :
+    </b>
+     
+    7.8
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature @ 100m
+      :
+    </b>
+     
+    7.8
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_from_direction"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Direction
+      :
+    </b>
+     
+    44.5
+     
+    Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed_of_gust"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Gust
+      :
+    </b>
+     
+    3.4
+     
+    Meters/Second
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Speed
+      :
+    </b>
+     
+    2.4
+     
+    Meters/Second
+  </a>
+</ul>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/Current Configurable 1`] = `
+<ul
+  className="list-group"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Last updated at:
+    </b>
+     
+    2/4/2020, 12:59:59 PM
+  </li>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Speed
+      :
+    </b>
+     
+    4.6
+     
+    Knots
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_from_direction"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Direction
+      :
+    </b>
+     
+    NE
+     
+    Cardinal Direction
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/dominant_wave_period"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Period
+      :
+    </b>
+     
+    6.3
+     
+    Seconds
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/air_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Air Temperature
+      :
+    </b>
+     
+    38.9
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/visibility_in_air"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Visibility
+      :
+    </b>
+     
+    1.7
+     
+    Nautical Miles
+  </a>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Unit system:
+    </b>
+     
+    <i>
+      Unit selector goes here
+    </i>
+  </li>
+</ul>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/Current English 1`] = `
+<ul
+  className="list-group"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Last updated at:
+    </b>
+     
+    2/4/2020, 12:59:59 PM
+  </li>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Speed
+      :
+    </b>
+     
+    4.6
+     
+    Knots
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_from_direction"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Direction
+      :
+    </b>
+     
+    NE
+     
+    Cardinal Direction
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/dominant_wave_period"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Period
+      :
+    </b>
+     
+    6.3
+     
+    Seconds
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/air_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Air Temperature
+      :
+    </b>
+     
+    38.9
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature
+      :
+    </b>
+     
+    46.1
+     
+    Fahrenheit
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/visibility_in_air"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Visibility
+      :
+    </b>
+     
+    1.7
+     
+    Nautical Miles
+  </a>
+</ul>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/Current Metric 1`] = `
+<ul
+  className="list-group"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <li
+    className="list-group-item"
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Last updated at:
+    </b>
+     
+    2/4/2020, 12:59:59 PM
+  </li>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_speed"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Speed
+      :
+    </b>
+     
+    2.4
+     
+    Meters/Second
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/wind_from_direction"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wind Direction
+      :
+    </b>
+     
+    44.5
+     
+    Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/dominant_wave_period"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Period
+      :
+    </b>
+     
+    6.3
+     
+    Seconds
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/air_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Air Temperature
+      :
+    </b>
+     
+    3.9
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/sea_water_temperature"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Water Temperature
+      :
+    </b>
+     
+    7.8
+     
+    Celsius
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/visibility_in_air"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Visibility
+      :
+    </b>
+     
+    3
+     
+    Kilometers
+  </a>
+</ul>
+`;
+
+exports[`Storyshots ERDDAP|ObservationTable/Item Configurable 1`] = `
+<a
+  className="list-group-item"
+  href="/platform/M01/observations/wind_speed"
+  onClick={[Function]}
+  style={
+    Object {
+      "color": "black",
+      "padding": ".5rem",
+      "paddingLeft": "1rem",
+    }
+  }
+>
+  <b>
+    Wind Speed
+    :
+  </b>
+   
+  4.6
+   
+  Knots
+</a>
+`;
+
+exports[`Storyshots ERDDAP|ObservedCondition Configurable 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Visibility
+       
+      
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedCondition English 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Visibility
+       
+      
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedCondition Metric 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Visibility
+       
+      
+    </h4>
+    <div
+      className="chart "
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedWindCondition Configurable 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Wind
+    </h4>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedWindCondition English 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Wind
+    </h4>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|ObservedWindCondition Metric 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col"
+  >
+    <h4>
+      Wind
+    </h4>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Units|UnitSelector Configurable 1`] = `
+<div
+  className="btn-group"
+  role="group"
+>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm"
+    id="Metric"
+    onClick={[Function]}
+    type="button"
+  >
+    Metric
+  </button>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm active"
+    id="English"
+    onClick={[Function]}
+    type="button"
+  >
+    English
+  </button>
+</div>
+`;

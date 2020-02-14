@@ -29,5 +29,12 @@ cov:
 test:
 	docker-compose run -e CI=true client yarn test
 
+test-watch:
+	docker-compose exec client yarn test
+
 cov-html:
 	open coverage/lcov-report/index.html
+
+
+storybook:
+	docker-compose run -p 9009:9009 client yarn storybook

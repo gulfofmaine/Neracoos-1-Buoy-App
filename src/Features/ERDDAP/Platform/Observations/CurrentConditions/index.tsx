@@ -9,17 +9,21 @@ import { naturalBounds } from "Shared/dataTypes"
 import { round } from "Shared/math"
 import { convertUnit } from "Shared/unitConversion"
 import { urlPartReplacer } from "Shared/urlParams"
+import { UnitSystem } from "Features/Units/types"
+import { converter } from "Features/Units/Converter"
 
-import { PlatformFeatureWithDatasets } from "../../../types"
+import { PlatformFeatureWithDatasets, PlatformDataset } from "../../../types"
 import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
 
 import { WindCard } from "./wind"
 
 interface Props {
   platform: PlatformFeatureWithDatasets
+
+  unit_system: UnitSystem
 }
 
-const prefferedDataTypesList = [
+export const prefferedDataTypesList = [
   "significant_height_of_wind_and_swell_waves",
   "sea_surface_wave_significant_height",
   "dominant_wave_period",
@@ -34,10 +38,10 @@ const prefferedDataTypesList = [
 ]
 
 /** Data types that we wish to display on the current conditions page */
-const prefferedDataTypes = new Set(prefferedDataTypesList)
+export const prefferedDataTypes = new Set(prefferedDataTypesList)
 
 /** Wind data types that we wish to display */
-const windDataTypes = new Set(["wind_from_direction", "wind_gust", "wind_speed"])
+export const windDataTypes = new Set(["wind_from_direction", "wind_gust", "wind_speed"])
 
 const cardProps = {
   md: "4",
@@ -47,32 +51,80 @@ const cardProps = {
   }
 }
 
-export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) => {
+export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform, unit_system }) => {
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
-  const windDatasets = platform.properties.readings.filter(reading =>
-    windDataTypes.has(reading.data_type.standard_name)
-  )
+  const windDatasets = platform.properties.readings
+    .filter(dataset => windDataTypes.has(dataset.data_type.standard_name))
+    .map(dataset => ({
+      ...dataset,
+      readings: dataset.readings.filter(r => r.time > aDayAgo)
+    }))
 
-  let showWinds = false
-  if (windDatasets.length > 0) {
-    if (windDatasets[0].readings.filter(r => r.time > aDayAgo).length > 0) {
-      showWinds = true
-    }
-  }
+  const filteredDatasets = platform.properties.readings
+    .filter(dataset => prefferedDataTypes.has(dataset.data_type.standard_name) && dataset.depth < 2)
+    .map(dataset => ({
+      ...dataset,
+      readings: dataset.readings.filter(r => r.time > aDayAgo)
+    }))
 
-  const filteredDatasets = platform.properties.readings.filter(
-    reading => prefferedDataTypes.has(reading.data_type.standard_name) && reading.depth < 2
-  )
   filteredDatasets.sort(
     (a, b) =>
       prefferedDataTypesList.indexOf(a.data_type.standard_name) -
       prefferedDataTypesList.indexOf(b.data_type.standard_name)
   )
 
+  return (
+    <React.Fragment>
+      <ErddapDatasetStatus datasets={[...filteredDatasets, ...windDatasets]} />
+      <ErddapDatasetLoader datasets={[...filteredDatasets, ...windDatasets]} platformId={platform.id as string}>
+        <Row>
+          <CurrentConditions
+            wind_datasets={windDatasets.filter(dataset => dataset.readings.length > 0)}
+            filtered_datasets={filteredDatasets.filter(dataset => dataset.readings.length > 0)}
+            platform={platform}
+            unit_system={unit_system}
+          />
+        </Row>
+      </ErddapDatasetLoader>
+    </React.Fragment>
+  )
+}
+
+interface CurrentConditionsProps {
+  wind_datasets: PlatformDataset[]
+
+  filtered_datasets: PlatformDataset[]
+
+  platform: PlatformFeatureWithDatasets
+
+  unit_system: UnitSystem
+}
+
+export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
+  wind_datasets,
+  filtered_datasets,
+  platform,
+  unit_system
+}) => {
+  if (wind_datasets.length === 0 && filtered_datasets.length === 0) {
+    return (
+      <Col>
+        <Alert color="info">No recent data avaliable for {platform.id as string}.</Alert>
+      </Col>
+    )
+  }
+
+  let showWinds = false
+  if (wind_datasets.length > 0) {
+    if (wind_datasets[0].readings.length > 0) {
+      showWinds = true
+    }
+  }
+
   // Data cards
-  const dataCards = filteredDatasets.map(reading => {
+  const dataCards = filtered_datasets.map(reading => {
     let depth: string
     if (reading.depth === undefined || reading.depth === 0) {
       depth = ""
@@ -82,7 +134,7 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) 
       depth = " @ " + -reading.depth + "m"
     }
 
-    const data = reading.readings.filter(r => r.time > aDayAgo)
+    let data = reading.readings
 
     // If there is no current data, display a card letting us know
     if (data.length === 0) {
@@ -98,6 +150,13 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) 
     const latest = data[data.length - 1]
     const bounds = naturalBounds(reading.data_type.standard_name)
 
+    const data_converter = converter(reading.data_type.standard_name)
+
+    data = data.map(r => ({
+      ...r,
+      reading: round(data_converter.convertTo(r.reading, unit_system) as number, 2)
+    }))
+
     return (
       <Col key={reading.data_type.standard_name} {...cardProps}>
         <Link
@@ -109,16 +168,19 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) 
         >
           <Card>
             <CardHeader>
-              {reading.data_type.long_name + depth} - {round(latest.reading, 1)} {reading.data_type.units}{" "}
-              {convertUnit(reading.data_type.units, latest.reading)}
+              {reading.data_type.long_name + depth} -{" "}
+              {round(data_converter.convertTo(latest.reading, unit_system) as number, 1)}{" "}
+              {data_converter.displayName(unit_system)} {convertUnit(reading.data_type.units, latest.reading)}
             </CardHeader>
             <CardBody style={{ padding: ".2rem" }}>
               <SmallTimeSeriesChart
                 name={reading.data_type.standard_name}
                 timeSeries={data}
-                unit={reading.data_type.units}
+                unit={data_converter.displayName(unit_system)}
                 softMin={bounds[0]}
                 softMax={bounds[1]}
+                unit_system={unit_system}
+                data_type={reading.data_type.standard_name}
               />
             </CardBody>
           </Card>
@@ -129,28 +191,16 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform }) 
 
   return (
     <React.Fragment>
-      <ErddapDatasetStatus datasets={[...filteredDatasets, ...windDatasets]} />
-      <ErddapDatasetLoader datasets={[...filteredDatasets, ...windDatasets]} platformId={platform.id as string}>
-        <Row>
-          {dataCards.length === 0 && windDatasets.length === 0 ? (
-            <Col>
-              <Alert color="info">No recent data avaliable for {platform.id as string}.</Alert>
-            </Col>
-          ) : (
-            <React.Fragment>
-              {showWinds ? (
-                <Col {...cardProps}>
-                  <Link to={urlPartReplacer(paths.platforms.observationsWind, ":id", platform.id as string)}>
-                    <WindCard datasets={windDatasets} />
-                  </Link>
-                </Col>
-              ) : null}
-
-              {dataCards}
-            </React.Fragment>
-          )}
-        </Row>
-      </ErddapDatasetLoader>
+      <React.Fragment>
+        {showWinds ? (
+          <Col {...cardProps}>
+            <Link to={urlPartReplacer(paths.platforms.observationsWind, ":id", platform.id as string)}>
+              <WindCard datasets={wind_datasets} unit_system={unit_system} />
+            </Link>
+          </Col>
+        ) : null}
+      </React.Fragment>
+      {dataCards}
     </React.Fragment>
   )
 }

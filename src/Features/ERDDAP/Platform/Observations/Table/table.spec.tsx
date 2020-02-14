@@ -2,6 +2,7 @@ import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
 
+import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
 
 import { ErddapObservationTable } from "./table"
@@ -10,13 +11,33 @@ describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
     const enzymeWrapper = mount(
       <MemoryRouter>
-        <ErddapObservationTable platform={platform} />
+        <ErddapObservationTable
+          platform={platform}
+          unit_system={UnitSystem.english}
+          unitSelector={<b>Fake unit selector</b>}
+        />
       </MemoryRouter>
     )
 
     expect(enzymeWrapper.find("a").length).toBe(6)
     expect(enzymeWrapper.text()).toContain("Last updated at: ")
-    expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 knots")
+    expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 Knots")
+  })
+
+  it("Should show selected observations in metric", () => {
+    const enzymeWrapper = mount(
+      <MemoryRouter>
+        <ErddapObservationTable
+          platform={platform}
+          unit_system={UnitSystem.metric}
+          unitSelector={<b>Fake unit selector</b>}
+        />
+      </MemoryRouter>
+    )
+
+    expect(enzymeWrapper.find("a").length).toBe(6)
+    expect(enzymeWrapper.text()).toContain("Last updated at: ")
+    expect(enzymeWrapper.text()).toContain("Wind Speed: 2 Meters/Second")
   })
 })
 

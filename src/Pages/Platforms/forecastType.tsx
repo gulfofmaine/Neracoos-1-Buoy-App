@@ -11,8 +11,8 @@ import { PlatformObservationMatchParams } from "./types"
 
 export type ForecastTypePageProps = RenderProps & RouteComponentProps
 
-export const ForecastTypePage: React.SFC<ForecastTypePageProps> = ({ platform, match }) => {
+export const ForecastTypePage: React.SFC<ForecastTypePageProps> = ({ platform, match, unit_system }) => {
   const { type } = match.params as PlatformObservationMatchParams
 
-  return <Forecast platform={platform} type={type} />
+  return <Forecast platform={platform} type={type} unit_system={unit_system} />
 }

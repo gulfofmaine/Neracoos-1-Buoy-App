@@ -17,28 +17,38 @@ import {
   YAxis
 } from "react-jsx-highcharts"
 
+import { converter } from "Features/Units/Converter"
+import { UnitSystem } from "Features/Units/types"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { compassDirection, conversion, convertUnit } from "Shared/unitConversion"
+import { compassDirection } from "Shared/unitConversion"
 
-/**
- * Allow our tooltip to convert windspeeds to units that people might be more used to.
- *
- * @param this Highcharts position value
- */
-function pointFormatter(this: any) {
-  return (
-    `${new Date(this.x).toLocaleString()}<br />` +
-    this.points
-      .map(p => {
-        if (p.series.name === "Direction") {
-          const direction = compassDirection(p.point.direction)
-          return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
-        }
-        return `<b>${p.series.name}:</b> ${p.y} knots ${convertUnit("knot", p.y)}`
-      })
-      .join("<br />")
-  )
+const data_converter = converter("wind_speed")
+
+function pointFormatterMaker(unit_system: UnitSystem) {
+  /**
+   * Allow our tooltip to convert windspeeds to units that people might be more used to.
+   *
+   * @param this Highcharts position value
+   */
+  // eslint-disable-next-line
+  function pointFormatter(this: any) {
+    return (
+      `${new Date(this.x).toLocaleString()}<br />` +
+      this.points
+        .map(p => {
+          if (p.series.name === "Direction") {
+            const direction = compassDirection(p.point.direction)
+            return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
+          }
+          return `<b>${p.series.name}:</b> ${p.y} knots ${round(
+            data_converter.convertTo(p.y, unit_system) as number,
+            1
+          )} ${data_converter.displayName(unit_system)}`
+        })
+        .join("<br />")
+    )
+  }
 }
 
 const plotOptions = {
@@ -58,6 +68,8 @@ interface Props {
   legend: boolean
   /** Home many wind barbs should the chart show for each day */
   barbsPerDay: number
+  /** Which unit system should the axis and tooltip be in */
+  unit_system: UnitSystem
 }
 
 addWindBarbModule(Highcharts)
@@ -68,6 +80,7 @@ addWindBarbModule(Highcharts)
  */
 export class WindTimeSeriesChartBase extends React.Component<Props, object> {
   public render() {
+    const { unit_system } = this.props
     // Extract wind direction from windspeed data
     const speeds = this.props.data.filter(d => !d.name.toLowerCase().includes("direction"))
     const directions = this.props.data.filter(d => d.name.toLowerCase().includes("direction"))
@@ -76,7 +89,9 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
     daysAgo.setDate(daysAgo.getDate() - this.props.days)
 
     const filteredSpeeds = speeds.map((d, index) => {
-      const data = d.timeSeries.filter(r => r.time > daysAgo).map(r => [r.time.valueOf(), round(r.reading, 1)])
+      const data = d.timeSeries
+        .filter(r => r.time > daysAgo)
+        .map(r => [r.time.valueOf(), round(data_converter.convertTo(r.reading, unit_system) as number, 1)])
       return data
     })
 
@@ -89,7 +104,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
         .filter(reading => reading.time > daysAgo)
         .map(
           // Return Highcharts Spline dataformat [date, reading]
-          r => [r.time.valueOf(), conversion(r.reading, "m/s", "knot")]
+          r => [r.time.valueOf(), round(data_converter.convertTo(r.reading, unit_system) as number, 1)]
         )
 
       const nameParts = d.name.split("_")
@@ -132,6 +147,8 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
       }
     }
 
+    const pointFormatter = pointFormatterMaker(unit_system)
+
     return (
       <HighchartsChart time={plotOptions.time}>
         <Chart height={this.props.height} />
@@ -139,7 +156,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
         <XAxis type="datetime" />
 
         <YAxis softMin={0}>
-          <YAxis.Title>Knots</YAxis.Title>
+          <YAxis.Title>{data_converter.displayName(unit_system)}</YAxis.Title>
           {speedsSeries}
 
           {windData.length > 0 ? <WindBarbSeries name="Direction" color="red" data={windData} /> : null}

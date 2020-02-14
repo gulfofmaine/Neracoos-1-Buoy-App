@@ -66,7 +66,11 @@ describe("Platfrom 44007", () => {
     cy.get("[href='/platform/44007/forecast/wave_height']").click()
     cy.get("h4").contains("Wave Height Forecast")
 
+    cy.get("svg.highcharts-root").contains("Feet")
+    cy.contains("Metric").click()
     cy.get("svg.highcharts-root").contains("Meters")
+    cy.contains("English").click()
+    cy.get("svg.highcharts-root").contains("Feet")
     // cy.contains("Significant Wave Height observed").click()
     cy.get("svg.highcharts-root")
       .contains("Bedford Institute Wave Model")
