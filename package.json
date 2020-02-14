@@ -9,7 +9,7 @@
     "@turf/boolean-contains": "6.0.1",
     "@turf/helpers": "6.1.4",
     "@types/highcharts": "^7.0.0",
-    "@types/history": "^4.7.4",
+    "@types/history": "^4.7.5",
     "@types/ol": "6.1.0",
     "@types/react-redux": "7.1.7",
     "@types/react-responsive": "8.0.2",
