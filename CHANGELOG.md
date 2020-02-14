@@ -9,6 +9,7 @@ Additions:
 Changes:
 
 - Github actions workflow
+- Replace with new NERACOOS logo
 
 Fixes:
 

@@ -34,7 +34,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
       <div>
         <Navbar dark={true} expand="md">
           <NavbarBrand tag={Link} to={paths.home}>
-            <img src="http://www.neracoos.org/sites/all/themes/bootstrap_neracoos/logo.png" alt="NERACOOS" />
+            <img src="http://www.neracoos.org/sites/neracoos.org/files/NERACOOS_logo_white_300x43.png" alt="NERACOOS" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
 
