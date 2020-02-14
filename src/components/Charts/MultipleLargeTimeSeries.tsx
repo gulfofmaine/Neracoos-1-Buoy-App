@@ -14,7 +14,6 @@ import {
   YAxis
 } from "react-jsx-highcharts"
 
-import { humanUnitName } from "Shared/dataTypes"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 

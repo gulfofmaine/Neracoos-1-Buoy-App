@@ -179,6 +179,8 @@ export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
                 unit={data_converter.displayName(unit_system)}
                 softMin={bounds[0]}
                 softMax={bounds[1]}
+                unit_system={unit_system}
+                data_type={reading.data_type.standard_name}
               />
             </CardBody>
           </Card>
