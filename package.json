@@ -67,7 +67,7 @@
     "codacy-coverage": "3.4.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
-    "jest-fetch-mock": "3.0.2",
+    "jest-fetch-mock": "3.0.3",
     "react-test-renderer": "16.13.0",
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.4",
