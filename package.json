@@ -55,7 +55,7 @@
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addon-storyshots": "^5.3.18",
     "@storybook/addons": "^5.3.14",
-    "@storybook/preset-create-react-app": "^2.0.0",
+    "@storybook/preset-create-react-app": "^2.1.1",
     "@storybook/react": "^5.3.17",
     "@types/enzyme": "3.10.5",
     "@types/enzyme-adapter-react-16": "1.0.6",
