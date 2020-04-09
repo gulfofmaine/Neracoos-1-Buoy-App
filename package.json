@@ -74,7 +74,7 @@
     "storybook-react-router": "^1.0.8",
     "typedoc": "0.17.3",
     "typescript": "3.8.3",
-    "wait-on": "4.0.1"
+    "wait-on": "4.0.2"
   },
   "optionalDependencies": {
     "cypress": "4.3.0"
