@@ -62,16 +62,6 @@ jobs:
       - name: Yarn Build
         run: docker-compose run client yarn build
 
-      - name: Build Storybook Pages
-        run: docker-compose run client yarn build-storybook
-
-      - name: Deploy Storybook to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@3.4.8
-        with:
-          ACCESS_TOKEN: ${{ secrets.GH_PAGES_ACCESS_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: storybook-public # The folder the action should deploy.
-
   cypress:
     name: Cypress integration tests
     runs-on: ubuntu-latest
@@ -123,7 +113,7 @@ jobs:
         if: failure()
 
   latest:
-    name: Tag latest Docker image
+    name: Tag latest Docker image and Github Pages
     runs-on: ubuntu-latest
     needs: [build, cypress]
     if: github.ref == 'refs/heads/master'
@@ -143,3 +133,13 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${LATEST_IMAGE}
+
+      - name: Build Storybook Pages
+        run: docker-compose run client yarn build-storybook
+
+      - name: Deploy Storybook to Github Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@3.4.8
+        with:
+          ACCESS_TOKEN: ${{ secrets.GH_PAGES_ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: storybook-public
