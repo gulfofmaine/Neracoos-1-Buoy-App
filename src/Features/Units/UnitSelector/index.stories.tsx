@@ -18,6 +18,6 @@ export const configurable = () => {
   return <UnitSelectorBase system={unit} switchUnits={action("switch-units")} />
 }
 
-export const english = () => <UnitSelectorBase system={UnitSystem.english} />
+export const english = () => <UnitSelectorBase system={UnitSystem.english} switchUnits={action("switch-units")} />
 
-export const metric = () => <UnitSelectorBase system={UnitSystem.metric} />
+export const metric = () => <UnitSelectorBase system={UnitSystem.metric} switchUnits={action("switch-units")} />

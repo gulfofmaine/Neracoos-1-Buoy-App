@@ -7,6 +7,7 @@ Additions:
 Changes:
 
 - Setup Storybook docs.
+- Deploy Storybook docs to Github Pages.
 
 Fixes:
 

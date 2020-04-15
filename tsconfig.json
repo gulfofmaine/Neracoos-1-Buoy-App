@@ -18,5 +18,5 @@
     "baseUrl": "src"
   },
   "include": ["src"],
-  "exclude": ["src/setupTests.ts", "**/*.spec.*"]
+  "exclude": ["src/setupTests.ts", "**/*.spec.*", "**/*.stories.*"]
 }

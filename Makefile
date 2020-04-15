@@ -38,3 +38,6 @@ cov-html:
 
 storybook:
 	docker-compose run -p 9009:9009 client yarn storybook
+
+build-storybook:
+	docker-compose run client yarn build-storybook
