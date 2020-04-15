@@ -1,0 +1,18 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks"
+
+import { UnitSelectorBase } from "./index"
+import * as stories from "./index.stories"
+
+<Meta title="Units|UnitSelector" component={UnitSelectorBase} />
+
+# Unit Selector
+
+[`src/Features/Units/UnitSelector`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/Units/UnitSelector/index.tsx) - [Platform M01 - Current Conditions](https://mariners.neracoos.org/platform/M01/)
+
+As part of the Mariner's dashboard we keep track of which unit system a user
+would prefer to have the data displayed in.
+
+The unit selector lives at the bottom of the current conditions table
+on each platform page, so it's accessable from any tab.
+
+<Story name="English units">{stories.english()}</Story>

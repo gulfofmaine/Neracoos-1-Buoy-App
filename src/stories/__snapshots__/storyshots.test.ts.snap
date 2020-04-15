@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots ERDDAP|CurrentConditions Configurable 1`] = `
+exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
 <div
   className="row"
 >
@@ -271,7 +271,7 @@ exports[`Storyshots ERDDAP|CurrentConditions Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|CurrentConditions English 1`] = `
+exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
 <div
   className="row"
 >
@@ -542,7 +542,7 @@ exports[`Storyshots ERDDAP|CurrentConditions English 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|CurrentConditions Metric 1`] = `
+exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
 <div
   className="row"
 >
@@ -813,19 +813,19 @@ exports[`Storyshots ERDDAP|CurrentConditions Metric 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|Forecast Configurable 1`] = `
+exports[`Storyshots ERDDAP|Forecast/Configurable Configurable 1`] = `
 <div
   className="chart "
 />
 `;
 
-exports[`Storyshots ERDDAP|Forecast English 1`] = `
+exports[`Storyshots ERDDAP|Forecast/Configurable English 1`] = `
 <div
   className="chart "
 />
 `;
 
-exports[`Storyshots ERDDAP|Forecast Metric 1`] = `
+exports[`Storyshots ERDDAP|Forecast/Configurable Metric 1`] = `
 <div
   className="chart "
 />
@@ -2931,7 +2931,7 @@ exports[`Storyshots ERDDAP|ObservationTable/Item Configurable 1`] = `
 </a>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition Configurable 1`] = `
+exports[`Storyshots ERDDAP|ObservedCondition/Configurable Configurable 1`] = `
 <div
   className="row"
 >
@@ -2950,7 +2950,7 @@ exports[`Storyshots ERDDAP|ObservedCondition Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition English 1`] = `
+exports[`Storyshots ERDDAP|ObservedCondition/Configurable English 1`] = `
 <div
   className="row"
 >
@@ -2969,7 +2969,7 @@ exports[`Storyshots ERDDAP|ObservedCondition English 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition Metric 1`] = `
+exports[`Storyshots ERDDAP|ObservedCondition/Configurable Metric 1`] = `
 <div
   className="row"
 >
@@ -3030,7 +3030,7 @@ exports[`Storyshots ERDDAP|ObservedWindCondition Metric 1`] = `
 </div>
 `;
 
-exports[`Storyshots Units|UnitSelector Configurable 1`] = `
+exports[`Storyshots Units|UnitSelector/configurable Configurable 1`] = `
 <div
   className="btn-group"
   role="group"
@@ -3047,6 +3047,58 @@ exports[`Storyshots Units|UnitSelector Configurable 1`] = `
   <button
     aria-label={null}
     className="btn btn-primary btn-sm active"
+    id="English"
+    onClick={[Function]}
+    type="button"
+  >
+    English
+  </button>
+</div>
+`;
+
+exports[`Storyshots Units|UnitSelector/configurable English 1`] = `
+<div
+  className="btn-group"
+  role="group"
+>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm"
+    id="Metric"
+    onClick={[Function]}
+    type="button"
+  >
+    Metric
+  </button>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm active"
+    id="English"
+    onClick={[Function]}
+    type="button"
+  >
+    English
+  </button>
+</div>
+`;
+
+exports[`Storyshots Units|UnitSelector/configurable Metric 1`] = `
+<div
+  className="btn-group"
+  role="group"
+>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm active"
+    id="Metric"
+    onClick={[Function]}
+    type="button"
+  >
+    Metric
+  </button>
+  <button
+    aria-label={null}
+    className="btn btn-primary btn-sm"
     id="English"
     onClick={[Function]}
     type="button"

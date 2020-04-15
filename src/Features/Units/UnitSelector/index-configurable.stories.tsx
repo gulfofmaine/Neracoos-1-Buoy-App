@@ -7,8 +7,7 @@ import { UnitSystem } from "Features/Units/types"
 
 export default {
   component: UnitSelectorBase,
-  title: "Units|UnitSelector",
-  includeStories: [],
+  title: "Units|UnitSelector/configurable",
 }
 
 export const configurable = () => {

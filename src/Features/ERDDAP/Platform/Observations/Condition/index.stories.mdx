@@ -1,0 +1,43 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks"
+
+import { ObservedConditionsDatasets } from "./index"
+import * as stories from "./index.stories"
+
+<Meta title="ERDDAP|ObservedCondition" component={ObservedConditionsDatasets} />
+
+# Observed Conditions
+
+[`src/Features/ERDDAP/Platform/Observations/Conditions`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Observations/Condition/index.tsx) - [Platform M01 - Air Temperature](https://mariners.neracoos.org/platform/M01/observations/air_temperature)
+
+The observed conditions charts are used to display 7 (or in the future more!)
+days worth of data queried from ERDDAP.
+
+It honors the set unit system, and if you switch
+unit system while it is displayed it will smoothly transition.
+To see the transition, switch to the **Canvas** tab and select the **Configurable** story.
+
+## English Units
+
+<Story name="English units">{stories.english()}</Story>
+
+```tsx
+<ObservedConditionsDatasets
+  platform={platform}
+  standardName="visibility_in_air"
+  unit_system={UnitSystem.english}
+  datasets={datasets}
+/>
+```
+
+## Metric units
+
+<Story name="Metric units">{stories.metric()}</Story>
+
+```tsx
+<ObservedConditionsDatasets
+  platform={platform}
+  standardName="visibility_in_air"
+  unit_system={UnitSystem.metric}
+  datasets={datasets}
+/>
+```

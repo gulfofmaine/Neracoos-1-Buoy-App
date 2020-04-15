@@ -1,5 +1,6 @@
 import React from "react"
 import { Row } from "reactstrap"
+import { select } from "@storybook/addon-knobs"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -9,8 +10,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: CurrentConditions,
-  title: "ERDDAP|CurrentConditions",
-  includeStories: [],
+  title: "ERDDAP|CurrentConditions/Configurable",
 }
 
 const wind_datasets = platform.properties.readings.filter((reading) =>
@@ -25,6 +25,22 @@ filtered_datasets.sort(
     prefferedDataTypesList.indexOf(a.data_type.standard_name) -
     prefferedDataTypesList.indexOf(b.data_type.standard_name)
 )
+
+export const configurable = () => {
+  const options = [UnitSystem.english, UnitSystem.metric]
+  const unit = select("Unit System", options, options[0], "unit-system-0")
+
+  return (
+    <Row>
+      <CurrentConditions
+        unit_system={unit}
+        platform={platform}
+        wind_datasets={wind_datasets}
+        filtered_datasets={filtered_datasets}
+      />
+    </Row>
+  )
+}
 
 export const english = () => (
   <Row>

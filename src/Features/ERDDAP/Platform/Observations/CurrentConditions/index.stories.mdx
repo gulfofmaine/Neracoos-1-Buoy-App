@@ -1,0 +1,45 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks"
+
+import { CurrentConditions } from "./index"
+import * as stories from "./index.stories"
+
+<Meta title="ERDDAP|CurrentConditions" component={CurrentConditions} />
+
+# Current Conditions
+
+[`src/Features/ERDDAP/Platform/Observations/CurrentConditions`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Observations/CurrentConditions/index.tsx) - [Platform M01 - Current Conditions](https://mariners.neracoos.org/platform/M01)
+
+The current conditions page is designed to give the user a quick view
+of the last 24 hours of data.
+
+It honors the set unit system, and if you switch
+unit system while it is displayed it will smoothly transition.
+To see the transition, switch to the **Canvas** tab and select the **Configurable** story.
+
+_Note: the Wind does not display correctly in Storybooks_
+
+## English units
+
+<Story name="English units">{stories.english()}</Story>
+
+```tsx
+<CurrentConditions
+  unit_system={UnitSystem.english}
+  platform={platform}
+  wind_datasets={wind_datasets}
+  filtered_datasets={filtered_datasets}
+/>
+```
+
+## Metric units
+
+<Story name="Metric units">{stories.metric()}</Story>
+
+```tsx
+<CurrentConditions
+  unit_system={UnitSystem.metric}
+  platform={platform}
+  wind_datasets={wind_datasets}
+  filtered_datasets={filtered_datasets}
+/>
+```

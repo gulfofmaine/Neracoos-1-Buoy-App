@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Setup Storybook docs.
+
 Fixes:
 
 - Less strict checks on number of buoys in the Long Island region in Cypress tests.
