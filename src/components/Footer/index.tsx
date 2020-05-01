@@ -14,7 +14,7 @@ export const Footer: React.SFC = () => (
   <div className="footer">
     <Row style={{ ...textStyle, paddingTop: "1rem" }}>
       <Col md={colSize} className="mx-auto text-center">
-        Copyright © 2019 ~ NERACOOS
+        Copyright © 2020 ~ NERACOOS
       </Col>
     </Row>
     <Row style={textStyle}>
