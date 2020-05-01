@@ -45,7 +45,7 @@
     "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage",
     "types": "tsc",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -c .storybook -o storybook-public"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^5.3.18",

@@ -9,7 +9,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: ErddapAllObservationsTable,
-  title: "ERDDAP|ObservationTable/All"
+  title: "ERDDAP|ObservationTable/All",
 }
 
 export const configurable = () => {

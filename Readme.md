@@ -1,4 +1,9 @@
-# Neracoos Mariner's Dashboard ![Github Actions CI](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/workflows/CI/badge.svg)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6196b46b92eb4bdeac6e8b435fc82bc9)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Coverage)
+# Neracoos Mariner's Dashboard
+
+[![Github Actions CI](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/workflows/CI/badge.svg?branch=master)](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/actions?query=workflow%3ACI+branch%3Amaster)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9e0e054bf41a40379ab44aa1dadc2bc8)](https://www.codacy.com/gh/gulfofmaine/Neracoos-1-Buoy-App?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/9e0e054bf41a40379ab44aa1dadc2bc8)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=gulfofmaine/Neracoos-1-Buoy-App&utm_campaign=Badge_Coverage)
+[![Storybook Docs](https://img.shields.io/badge/Storybook-Docs-informational)](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page)
 
 ## Using with Docker
 
@@ -37,16 +42,18 @@ We're tracking exceptions with Sentry.
 
 ## Documention
 
-We're using [Typedoc](https://typedoc.org) for documentation. Run `make docs` to update the documentation folder and host it at [http://0.0.0.0:8000/](http://0.0.0.0:8000/).
+We're using Storybook for documentation.
+
+Run `make storybook` to launch it locally,
+or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page) after the master branch builds.
 
 ## Testing
 
 ### Continuous Integration
 
-Semaphore CI automatically runs both unit and integration tests. For more details on those test see below.
+[Github Actions](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/actions) runs on each commit with unit, snapshot, and Cypress tests.
 
-- [Semaphore Dashboard](https://gmri.semaphoreci.com/projects/Neracoos-1-Buoy-App)
-- [Cypress Dashboard](https://dashboard.cypress.io/#/projects/xhz4kt/runs)
+[Cypress Dashboard](https://dashboard.cypress.io/#/projects/xhz4kt/runs) will display info about failed Cypress runs.
 
 [Codacy](https://app.codacy.com/project/gmri/Neracoos-1-Buoy-App/dashboard) is also running code quality tests, along with collecting test coverage information.
 

@@ -6,6 +6,9 @@ Additions:
 
 Changes:
 
+- Setup Storybook docs.
+- Deploy Storybook docs to Github Pages.
+
 Fixes:
 
 - Less strict checks on number of buoys in the Long Island region in Cypress tests.

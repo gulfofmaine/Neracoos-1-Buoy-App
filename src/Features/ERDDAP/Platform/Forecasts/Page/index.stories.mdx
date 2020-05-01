@@ -1,0 +1,33 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks"
+
+import { ForecastChart } from "./index"
+import * as stories from "./index.stories"
+
+<Meta title="ERDDAP|Forecast" component={ForecastChart} />
+
+# ForecastChart
+
+[`src/Features/ERDDAP/Platform/Forecasts/Page`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Forecasts/Page/index.tsx) - [Platform M01 - Wind Speed Forecast](https://mariners.neracoos.org/platform/M01/forecast/wind_speed)
+
+A forecast chart combines current data from a platform with
+forecast retrieved through the Buoy Barn API.
+
+It honors the set unit system, and if you switch
+unit system while it is displayed it will smoothly transition.
+To see the transition, switch to the **Canvas** tab and select the **Configurable** story.
+
+## English units
+
+<Story name="English units">{stories.english()}</Story>
+
+```tsx
+<ForecastChart data={data} unit_system={UnitSystem.english} type="wave_height" />
+```
+
+## Metric units
+
+<Story name="Metric units">{stories.metric()}</Story>
+
+```tsx
+<ForecastChart data={data} unit_system={UnitSystem.metric} type="wave_height" />
+```
