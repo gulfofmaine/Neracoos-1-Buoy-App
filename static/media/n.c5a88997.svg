@@ -1,0 +1,23 @@
+<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="#053378" width="30" height="30" x="0" y="0"/>
+  <rect fill="#ffffff" width="30" height="30" x="30" y="0"/>
+  <rect fill="#053378" width="30" height="30" x="60" y="0"/>
+  <rect fill="#ffffff" width="30" height="30" x="90" y="0"/>
+
+  <rect fill="#ffffff" width="30" height="30" x="0" y="30"/>
+  <rect fill="#053378" width="30" height="30" x="30" y="30"/>
+  <rect fill="#ffffff" width="30" height="30" x="60" y="30"/>
+  <rect fill="#053378" width="30" height="30" x="90" y="30"/>
+
+  <rect fill="#053378" width="30" height="30" x="0" y="60"/>
+  <rect fill="#ffffff" width="30" height="30" x="30" y="60"/>
+  <rect fill="#053378" width="30" height="30" x="60" y="60"/>
+  <rect fill="#ffffff" width="30" height="30" x="90" y="60"/>
+
+  <rect fill="#ffffff" width="30" height="30" x="0" y="90"/>
+  <rect fill="#053378" width="30" height="30" x="30" y="90"/>
+  <rect fill="#ffffff" width="30" height="30" x="60" y="90"/>
+  <rect fill="#053378" width="30" height="30" x="90" y="90"/>
+
+  <rect fill="none" stroke-width="2" stroke="#d8d8d8" width="118" height="118" x="1" y="1"/>
+</svg>
