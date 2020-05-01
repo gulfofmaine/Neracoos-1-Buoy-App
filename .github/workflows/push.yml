@@ -69,7 +69,7 @@ jobs:
     timeout-minutes: 30
 
     env:
-      CYPRESS_VERSION: "4.4.0"
+      CYPRESS_VERSION: "4.5.0"
 
     steps:
       - name: "Checkout"
@@ -104,11 +104,11 @@ jobs:
         timeout-minutes: 1
 
       - name: Run Cypress
-        run: npx cypress run --browser chrome
+        run: npx cypress run
         timeout-minutes: 15
 
       - name: Run Cypress and send results to dashboard if the previous run failed
-        run: npx cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
         if: failure()
 

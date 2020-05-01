@@ -1,5 +1,446 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Components|Footer Footer 1`] = `
+<div
+  className="footer"
+>
+  <div
+    className="row"
+    style={
+      Object {
+        "fontSize": ".8rem",
+        "padding": ".25rem",
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <div
+      className="mx-auto text-center col-md-10"
+    >
+      Copyright © 2020 ~ NERACOOS
+    </div>
+  </div>
+  <div
+    className="row"
+    style={
+      Object {
+        "fontSize": ".8rem",
+        "padding": ".25rem",
+      }
+    }
+  >
+    <div
+      className="mx-auto text-center col-md-10"
+    >
+      Website and products developed and managed by
+       
+      <a
+        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
+      >
+        The Gulf of Maine Research Institute's Ocean Data Products team
+      </a>
+    </div>
+  </div>
+  <div
+    className="row"
+    style={
+      Object {
+        "fontSize": ".8rem",
+        "padding": ".25rem",
+      }
+    }
+  >
+    <div
+      className="mx-auto text-center col-md-10"
+    >
+      <a
+        href="https://www.gmri.org/"
+      >
+        <img
+          alt="Gulf of Maine Research Institute"
+          src="http://gmri.org/sites/default/files/gmri_logo_tag.jpg"
+          style={
+            Object {
+              "height": "80px",
+              "margin": ".2rem",
+              "marginRight": ".5rem",
+            }
+          }
+          title="Gulf of Maine Research Institute"
+        />
+      </a>
+      <a
+        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <img
+          alt="O for Ocean"
+          src={
+            Object {
+              "ReactComponent": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "__esModule": true,
+              "default": "o.svg",
+            }
+          }
+          style={
+            Object {
+              "height": "40px",
+              "margin": ".2rem",
+            }
+          }
+          title="O for Ocean"
+        />
+        <img
+          alt="D for Data"
+          src={
+            Object {
+              "ReactComponent": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "__esModule": true,
+              "default": "d.svg",
+            }
+          }
+          style={
+            Object {
+              "height": "40px",
+              "margin": ".2rem",
+            }
+          }
+          title="D for Data"
+        />
+        <img
+          alt="P for Products"
+          src={
+            Object {
+              "ReactComponent": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              },
+              "__esModule": true,
+              "default": "p.svg",
+            }
+          }
+          style={
+            Object {
+              "height": "40px",
+              "margin": ".2rem",
+            }
+          }
+          title="P for Products"
+        />
+      </a>
+    </div>
+  </div>
+  <div
+    className="row"
+    style={
+      Object {
+        "fontSize": ".8rem",
+        "padding": ".25rem",
+      }
+    }
+  >
+    <div
+      className="mx-auto text-center col-md-10"
+    >
+      <strong>
+        Regional Coastal Observing Systems:
+      </strong>
+       
+      <a
+        href="http://www.aoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Alaska Ocean Observing System"
+      >
+        Alaska
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.nanoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Pacific Northwest Regional Ocean Observing System"
+      >
+        Pacific Northwest
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.cencoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Central and Northern California Ocean Observing"
+      >
+        Central and Northern California
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.sccoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Southern California Coastal Ocean Observing System"
+      >
+        Southern California
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.pacioos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Pacific Islands Ocean Observing System"
+      >
+        Pacific Islands
+      </a>
+       
+      •
+       
+      <a
+        href="http://glos.us/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Great Lakes Observing System"
+      >
+        Great Lakes
+         
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.neracoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Northeastern Regional Association of Coastal Ocean Observing Systems"
+      >
+        Atlantic-Northeast
+      </a>
+       
+      •
+       
+      <a
+        href="http://maracoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Mid-Atlantic Regional Association Coastal Ocean Observing System"
+      >
+        Mid-Atlantic
+      </a>
+       
+      •
+       
+      <a
+        href="http://secoora.org"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Southeast Coastal Ocean Observing Regional Association"
+      >
+        Atlantic-Southeast
+      </a>
+       
+      •
+       
+      <a
+        href="http://gcoos.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Gulf of Mexico Coastal Ocean Observing System"
+      >
+        Gulf of Mexico
+      </a>
+       
+      •
+       
+      <a
+        href="http://cara.uprm.edu/"
+        rel="noopener noreferrer"
+        title="Caribbean Coastal Ocean Observing System"
+      >
+        Caribbean
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.ioosassociation.org/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="IOOS Association"
+      >
+        IOOS Association
+      </a>
+      <br />
+      <strong>
+        National Observing System Partners:
+      </strong>
+       
+      <a
+        href="http://www.act-us.info/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Alliance for Coastal Technologies ACT"
+      >
+        Alliance for Coastal Technologies (ACT)
+      </a>
+       
+      •
+       
+      <a
+        href="http://www.sura.org/home/"
+        rel="noopener noreferrer"
+        target="_blank"
+        title="Southeastern Universities Research Association SURA"
+      >
+        Southeastern Universities Research Association (SURA)
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components|NavBar Nav Bar 1`] = `
+<div>
+  <nav
+    className="navbar navbar-expand-md navbar-dark"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        alt="NERACOOS"
+        src="http://www.neracoos.org/sites/neracoos.org/files/NERACOOS_logo_white_300x43.png"
+      />
+    </a>
+    <button
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      className="collapse navbar-collapse"
+      style={Object {}}
+    >
+      <ul
+        className="ml-auto navbar-nav"
+      >
+        <li
+          className="dropdown nav-item"
+          onKeyDown={[Function]}
+        >
+          <a
+            aria-expanded={false}
+            aria-haspopup={true}
+            className="dropdown-toggle nav-link"
+            href="#"
+            onClick={[Function]}
+          >
+            Regions
+          </a>
+          <div
+            aria-hidden={true}
+            className="dropdown-menu dropdown-menu-right"
+            role="menu"
+            tabIndex="-1"
+          >
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=GOM"
+              onClick={[Function]}
+            >
+              Gulf Of Maine
+            </a>
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=LONG"
+              onClick={[Function]}
+            >
+              Long Island Sound
+            </a>
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=GREAT"
+              onClick={[Function]}
+            >
+              Great Bay, NH
+            </a>
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=BOSTON"
+              onClick={[Function]}
+            >
+              Boston Harbor
+            </a>
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=CAPE"
+              onClick={[Function]}
+            >
+              Cape Cod / Buzzards Bay
+            </a>
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=NARRAGANSETT"
+              onClick={[Function]}
+            >
+              Narragansett Bay
+            </a>
+            <a
+              aria-current={null}
+              className="nav-link dropdown-item btn"
+              href="/platform/?region=NEWFOUNDLAND"
+              onClick={[Function]}
+            >
+              Newfoundland
+            </a>
+          </div>
+        </li>
+        <li
+          className="nav-item"
+        >
+          <a
+            aria-current={null}
+            className="nav-link"
+            href="/about"
+            onClick={[Function]}
+          >
+            About
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+`;
+
 exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
 <div
   className="row"
