@@ -119,6 +119,9 @@ jobs:
     # if: github.ref == 'refs/heads/master'
 
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
       - name: "Login to Docker Hub"
         uses: azure/docker-login@v1
         with:
