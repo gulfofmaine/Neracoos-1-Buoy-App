@@ -38,12 +38,12 @@ exports[`Storyshots Components|Footer Footer 1`] = `
       >
         NERACOOS.org
       </a>
-       developed and maintained by the
+       - Developed by the
        
       <a
         href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
       >
-        Gulf of Maine Research Institute
+        Gulf of Maine Research Institute Ocean Data Products Team
       </a>
     </div>
   </div>
@@ -60,11 +60,27 @@ exports[`Storyshots Components|Footer Footer 1`] = `
       className="mx-auto text-center col-md-10"
     >
       <a
-        href="https://www.gmri.org/"
+        href="http://neracoos.org"
+      >
+        <img
+          alt="NERACOOS"
+          src="NERACOOS_horizontal_logo_acronym title_yellowline.png"
+          style={
+            Object {
+              "height": "80px",
+              "margin": ".2rem",
+              "marginRight": ".5rem",
+            }
+          }
+          title="NERACOOS"
+        />
+      </a>
+      <a
+        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
       >
         <img
           alt="Gulf of Maine Research Institute"
-          src="http://gmri.org/sites/default/files/gmri_logo_tag.jpg"
+          src="gmri.jpg"
           style={
             Object {
               "height": "80px",
@@ -73,75 +89,6 @@ exports[`Storyshots Components|Footer Footer 1`] = `
             }
           }
           title="Gulf of Maine Research Institute"
-        />
-      </a>
-      <a
-        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
-      >
-        <img
-          alt="O for Ocean"
-          src={
-            Object {
-              "ReactComponent": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "render": [Function],
-              },
-              "__esModule": true,
-              "default": "o.svg",
-            }
-          }
-          style={
-            Object {
-              "height": "40px",
-              "margin": ".2rem",
-            }
-          }
-          title="O for Ocean"
-        />
-        <img
-          alt="D for Data"
-          src={
-            Object {
-              "ReactComponent": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "render": [Function],
-              },
-              "__esModule": true,
-              "default": "d.svg",
-            }
-          }
-          style={
-            Object {
-              "height": "40px",
-              "margin": ".2rem",
-            }
-          }
-          title="D for Data"
-        />
-        <img
-          alt="P for Products"
-          src={
-            Object {
-              "ReactComponent": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "render": [Function],
-              },
-              "__esModule": true,
-              "default": "p.svg",
-            }
-          }
-          style={
-            Object {
-              "height": "40px",
-              "margin": ".2rem",
-            }
-          }
-          title="P for Products"
         />
       </a>
     </div>
