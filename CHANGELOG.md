@@ -16,6 +16,7 @@ Changes:
   - Use light style on un-selected unit button.
   - Disable active highlighting on region dropdown links.
   - Update footer to remove other RAs.
+- Add storybook build test before merging to master.
 
 Fixes:
 

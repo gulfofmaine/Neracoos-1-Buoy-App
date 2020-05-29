@@ -26,7 +26,7 @@ describe("Platfrom M01", () => {
   it("Shows current conditions", () => {
     cy.visit(platformUrl)
 
-    cy.contains("Current Conditions")
+    cy.contains("Latest Conditions")
     cy.contains("Winds -")
 
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row").children().its("length").should("be.gte", 4)
