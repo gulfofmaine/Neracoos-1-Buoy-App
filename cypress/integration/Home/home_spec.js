@@ -22,9 +22,9 @@ describe("Home page", function () {
     cy.get(".footer").contains("Copyright").contains("NERACOOS")
 
     cy.get(".footer").contains(
-      "Product of NERACOOS.org developed and maintained by the Gulf of Maine Research Institute"
+      "Product of NERACOOS.org - Developed by the Gulf of Maine Research Institute Ocean Data Products Team"
     )
 
-    cy.get(".footer img").its("length").should("be.equal", 4)
+    cy.get(".footer img").its("length").should("be.equal", 2)
   })
 })
