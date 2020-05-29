@@ -34,7 +34,7 @@ export const prefferedDataTypesList = [
   "barometric_pressure",
   "sea_water_temperature",
   "sea_level_pressure",
-  "visibility_in_air"
+  "visibility_in_air",
 ]
 
 /** Data types that we wish to display on the current conditions page */
@@ -47,8 +47,8 @@ const cardProps = {
   md: "4",
   sm: "6",
   style: {
-    paddingTop: "1rem"
-  }
+    paddingTop: "1rem",
+  },
 }
 
 export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform, unit_system }) => {
@@ -56,17 +56,17 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform, un
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
   const windDatasets = platform.properties.readings
-    .filter(dataset => windDataTypes.has(dataset.data_type.standard_name))
-    .map(dataset => ({
+    .filter((dataset) => windDataTypes.has(dataset.data_type.standard_name))
+    .map((dataset) => ({
       ...dataset,
-      readings: dataset.readings.filter(r => r.time > aDayAgo)
+      readings: dataset.readings.filter((r) => r.time > aDayAgo),
     }))
 
   const filteredDatasets = platform.properties.readings
-    .filter(dataset => prefferedDataTypes.has(dataset.data_type.standard_name) && dataset.depth < 2)
-    .map(dataset => ({
+    .filter((dataset) => prefferedDataTypes.has(dataset.data_type.standard_name) && dataset.depth < 2)
+    .map((dataset) => ({
       ...dataset,
-      readings: dataset.readings.filter(r => r.time > aDayAgo)
+      readings: dataset.readings.filter((r) => r.time > aDayAgo),
     }))
 
   filteredDatasets.sort(
@@ -81,8 +81,8 @@ export const ErddapCurrentPlatformConditions: React.SFC<Props> = ({ platform, un
       <ErddapDatasetLoader datasets={[...filteredDatasets, ...windDatasets]} platformId={platform.id as string}>
         <Row>
           <CurrentConditions
-            wind_datasets={windDatasets.filter(dataset => dataset.readings.length > 0)}
-            filtered_datasets={filteredDatasets.filter(dataset => dataset.readings.length > 0)}
+            wind_datasets={windDatasets.filter((dataset) => dataset.readings.length > 0)}
+            filtered_datasets={filteredDatasets.filter((dataset) => dataset.readings.length > 0)}
             platform={platform}
             unit_system={unit_system}
           />
@@ -106,7 +106,7 @@ export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
   wind_datasets,
   filtered_datasets,
   platform,
-  unit_system
+  unit_system,
 }) => {
   if (wind_datasets.length === 0 && filtered_datasets.length === 0) {
     return (
@@ -124,9 +124,9 @@ export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
   }
 
   // Data cards
-  const dataCards = filtered_datasets.map(reading => {
+  const dataCards = filtered_datasets.map((reading) => {
     let depth: string
-    if (reading.depth === undefined || reading.depth === 0) {
+    if (reading.depth === undefined || reading.depth <= 5) {
       depth = ""
     } else if (reading.depth > 0) {
       depth = " @ " + reading.depth + "m"
@@ -152,9 +152,9 @@ export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
 
     const data_converter = converter(reading.data_type.standard_name)
 
-    data = data.map(r => ({
+    data = data.map((r) => ({
       ...r,
-      reading: round(data_converter.convertTo(r.reading, unit_system) as number, 2)
+      reading: round(data_converter.convertTo(r.reading, unit_system) as number, 2),
     }))
 
     return (
