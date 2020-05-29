@@ -15,6 +15,7 @@ Changes:
   - Add home to navbar.
   - Use light style on un-selected unit button.
   - Disable active highlighting on region dropdown links.
+  - Update footer to remove other RAs.
 
 Fixes:
 
