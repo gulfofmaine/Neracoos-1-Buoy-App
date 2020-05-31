@@ -22,6 +22,7 @@ Fixes:
 
 - Less strict checks on number of buoys in the Long Island region in Cypress tests.
 - Less strict checks on number of current conditions cards on M01.
+- Add polyfill to support IE 11
 
 ## 0.4.0 - Narwhal Tinder - 2/14/2020
 

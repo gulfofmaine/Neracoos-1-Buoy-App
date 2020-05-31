@@ -25,6 +25,7 @@
     "ol": "5.3.3",
     "prop-types": "^15.0.0",
     "react": "16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "16.13.1",
     "react-jsx-highcharts": "3.6.1",
     "react-redux": "7.2.0",
@@ -87,7 +88,8 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "ie 11"
     ],
     "development": [
       "last 1 chrome version",
