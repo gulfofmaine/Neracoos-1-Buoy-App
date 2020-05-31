@@ -12,7 +12,7 @@ import { RegionDropdown } from "./regionDropdown"
 import "./nav.css"
 
 const initialState = {
-  isOpen: false
+  isOpen: false,
 }
 
 type State = Readonly<typeof initialState>
@@ -40,6 +40,10 @@ export default class NeracoosNavBar extends React.Component<object, State> {
 
           <Collapse isOpen={this.state.isOpen} navbar={true}>
             <Nav className="ml-auto" navbar={true}>
+              <NavLink className="nav-link" activeClassName="active" to={paths.home} exact={true}>
+                Home
+              </NavLink>
+
               <RegionDropdown />
               {/* 
               <NavItem>
@@ -63,7 +67,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
   /** Toggle the navbar open and closed when viewed on mobile. */
   private toggle() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     })
   }
 }

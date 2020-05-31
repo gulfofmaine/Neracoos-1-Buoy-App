@@ -18,14 +18,14 @@ export interface ReduxProps {
 
 const mapStateToProps = ({ unit }: StoreState): Pick<ReduxProps, "system"> => {
   return {
-    system: unit.system
+    system: unit.system,
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      switchUnits: unitSwitch
+      switchUnits: unitSwitch,
     },
     dispatch
   )
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export class UnitSelectorBase extends React.Component<ReduxProps, object> {
   public render(): React.ReactNode {
     return (
-      <ButtonGroup>
+      <ButtonGroup className="unit-selector">
         {this.unitButton(UnitSystem.metric)}
         {this.unitButton(UnitSystem.english)}
       </ButtonGroup>
@@ -45,7 +45,7 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
 
     return (
       <Button
-        color="primary"
+        color={system === buttonSystem ? "primary" : "light"}
         size="sm"
         id={buttonSystem}
         active={system === buttonSystem}

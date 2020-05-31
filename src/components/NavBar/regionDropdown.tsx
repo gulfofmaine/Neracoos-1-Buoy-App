@@ -6,7 +6,7 @@ import { paths } from "Shared/constants"
 import { regionList } from "Shared/regions"
 
 const initialState = {
-  dropdownOpen: false
+  dropdownOpen: false,
 }
 
 type State = Readonly<typeof initialState>
@@ -25,7 +25,7 @@ export class RegionDropdown extends React.Component<object, State> {
     const regions = regionList.map((region, key) => {
       const to = paths.platforms.root + "?region=" + region.slug
       return (
-        <NavLink key={key} className="nav-link dropdown-item btn" activeClassName="active" to={to} onClick={this.close}>
+        <NavLink key={key} className="nav-link dropdown-item btn" activeClassName="" to={to} onClick={this.close}>
           {region.name}
         </NavLink>
       )
@@ -44,13 +44,13 @@ export class RegionDropdown extends React.Component<object, State> {
 
   private toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     })
   }
 
   private close() {
     this.setState({
-      dropdownOpen: false
+      dropdownOpen: false,
     })
   }
 }

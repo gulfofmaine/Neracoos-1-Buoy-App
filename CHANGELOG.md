@@ -8,6 +8,15 @@ Changes:
 
 - Setup Storybook docs.
 - Deploy Storybook docs to Github Pages.
+- Style updates.
+  - Add space after Lat in platform info panel.
+  - Hide depth on current conditions for near surface.
+  - Rename Current Conditions tab to Latest Conditions.
+  - Add home to navbar.
+  - Use light style on un-selected unit button.
+  - Disable active highlighting on region dropdown links.
+  - Update footer to remove other RAs.
+- Add storybook build test before merging to master.
 
 Fixes:
 

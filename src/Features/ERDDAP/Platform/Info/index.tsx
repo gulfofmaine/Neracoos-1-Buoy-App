@@ -20,8 +20,7 @@ export const ErddapPlatformInfoPanel: React.SFC<RenderProps> = ({ platform }) =>
       <CardText>
         {platform.properties.mooring_site_desc}
         <br />
-        <b>Lat:</b>
-        {round((platform.geometry as Geometry).coordinates[1] as number)} <b>Lon:</b>{" "}
+        <b>Lat:</b> {round((platform.geometry as Geometry).coordinates[1] as number)} <b>Lon:</b>{" "}
         {round((platform.geometry as Geometry).coordinates[0] as number)}
         <br />
         {platform.properties.attribution.map((attr, key) => (

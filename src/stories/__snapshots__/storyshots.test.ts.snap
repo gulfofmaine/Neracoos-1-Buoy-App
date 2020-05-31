@@ -32,12 +32,18 @@ exports[`Storyshots Components|Footer Footer 1`] = `
     <div
       className="mx-auto text-center col-md-10"
     >
-      Website and products developed and managed by
+      Product of 
+      <a
+        href="http://www.neracoos.org/"
+      >
+        NERACOOS.org
+      </a>
+       - Developed by the
        
       <a
         href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
       >
-        The Gulf of Maine Research Institute's Ocean Data Products team
+        Gulf of Maine Research Institute Ocean Data Products Team
       </a>
     </div>
   </div>
@@ -54,11 +60,27 @@ exports[`Storyshots Components|Footer Footer 1`] = `
       className="mx-auto text-center col-md-10"
     >
       <a
-        href="https://www.gmri.org/"
+        href="http://neracoos.org"
+      >
+        <img
+          alt="NERACOOS"
+          src="NERACOOS_horizontal_logo_acronym title_yellowline.png"
+          style={
+            Object {
+              "height": "80px",
+              "margin": ".2rem",
+              "marginRight": ".5rem",
+            }
+          }
+          title="NERACOOS"
+        />
+      </a>
+      <a
+        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
       >
         <img
           alt="Gulf of Maine Research Institute"
-          src="http://gmri.org/sites/default/files/gmri_logo_tag.jpg"
+          src="gmri.jpg"
           style={
             Object {
               "height": "80px",
@@ -68,246 +90,6 @@ exports[`Storyshots Components|Footer Footer 1`] = `
           }
           title="Gulf of Maine Research Institute"
         />
-      </a>
-      <a
-        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
-      >
-        <img
-          alt="O for Ocean"
-          src={
-            Object {
-              "ReactComponent": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "render": [Function],
-              },
-              "__esModule": true,
-              "default": "o.svg",
-            }
-          }
-          style={
-            Object {
-              "height": "40px",
-              "margin": ".2rem",
-            }
-          }
-          title="O for Ocean"
-        />
-        <img
-          alt="D for Data"
-          src={
-            Object {
-              "ReactComponent": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "render": [Function],
-              },
-              "__esModule": true,
-              "default": "d.svg",
-            }
-          }
-          style={
-            Object {
-              "height": "40px",
-              "margin": ".2rem",
-            }
-          }
-          title="D for Data"
-        />
-        <img
-          alt="P for Products"
-          src={
-            Object {
-              "ReactComponent": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "render": [Function],
-              },
-              "__esModule": true,
-              "default": "p.svg",
-            }
-          }
-          style={
-            Object {
-              "height": "40px",
-              "margin": ".2rem",
-            }
-          }
-          title="P for Products"
-        />
-      </a>
-    </div>
-  </div>
-  <div
-    className="row"
-    style={
-      Object {
-        "fontSize": ".8rem",
-        "padding": ".25rem",
-      }
-    }
-  >
-    <div
-      className="mx-auto text-center col-md-10"
-    >
-      <strong>
-        Regional Coastal Observing Systems:
-      </strong>
-       
-      <a
-        href="http://www.aoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Alaska Ocean Observing System"
-      >
-        Alaska
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.nanoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Pacific Northwest Regional Ocean Observing System"
-      >
-        Pacific Northwest
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.cencoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Central and Northern California Ocean Observing"
-      >
-        Central and Northern California
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.sccoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Southern California Coastal Ocean Observing System"
-      >
-        Southern California
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.pacioos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Pacific Islands Ocean Observing System"
-      >
-        Pacific Islands
-      </a>
-       
-      •
-       
-      <a
-        href="http://glos.us/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Great Lakes Observing System"
-      >
-        Great Lakes
-         
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.neracoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Northeastern Regional Association of Coastal Ocean Observing Systems"
-      >
-        Atlantic-Northeast
-      </a>
-       
-      •
-       
-      <a
-        href="http://maracoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Mid-Atlantic Regional Association Coastal Ocean Observing System"
-      >
-        Mid-Atlantic
-      </a>
-       
-      •
-       
-      <a
-        href="http://secoora.org"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Southeast Coastal Ocean Observing Regional Association"
-      >
-        Atlantic-Southeast
-      </a>
-       
-      •
-       
-      <a
-        href="http://gcoos.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Gulf of Mexico Coastal Ocean Observing System"
-      >
-        Gulf of Mexico
-      </a>
-       
-      •
-       
-      <a
-        href="http://cara.uprm.edu/"
-        rel="noopener noreferrer"
-        title="Caribbean Coastal Ocean Observing System"
-      >
-        Caribbean
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.ioosassociation.org/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="IOOS Association"
-      >
-        IOOS Association
-      </a>
-      <br />
-      <strong>
-        National Observing System Partners:
-      </strong>
-       
-      <a
-        href="http://www.act-us.info/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Alliance for Coastal Technologies ACT"
-      >
-        Alliance for Coastal Technologies (ACT)
-      </a>
-       
-      •
-       
-      <a
-        href="http://www.sura.org/home/"
-        rel="noopener noreferrer"
-        target="_blank"
-        title="Southeastern Universities Research Association SURA"
-      >
-        Southeastern Universities Research Association (SURA)
       </a>
     </div>
   </div>
@@ -346,6 +128,15 @@ exports[`Storyshots Components|NavBar Nav Bar 1`] = `
       <ul
         className="ml-auto navbar-nav"
       >
+        <a
+          aria-current="page"
+          className="nav-link active"
+          href="/"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          Home
+        </a>
         <li
           className="dropdown nav-item"
           onKeyDown={[Function]}
@@ -623,7 +414,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
         <div
           className="card-header"
         >
-          Water Temperature @ 1m
+          Water Temperature
            -
            
           41.3
@@ -894,7 +685,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
         <div
           className="card-header"
         >
-          Water Temperature @ 1m
+          Water Temperature
            -
            
           41.3
@@ -1165,7 +956,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
         <div
           className="card-header"
         >
-          Water Temperature @ 1m
+          Water Temperature
            -
            
           5.2
@@ -1270,6 +1061,47 @@ exports[`Storyshots ERDDAP|Forecast/Configurable Metric 1`] = `
 <div
   className="chart "
 />
+`;
+
+exports[`Storyshots ERDDAP|Info/Panel Platform Info 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="card-body"
+  >
+    <div
+      className="card-title"
+    >
+      Station 
+      M01
+    </div>
+    <p
+      className="card-text"
+    >
+      Jordan Basin
+      <br />
+      <b>
+        Lat:
+      </b>
+       
+      43.5
+       
+      <b>
+        Lon:
+      </b>
+       
+      -67.87
+      <br />
+      <a
+        href="http://gyre.umeoce.maine.edu/gomoos.php"
+      >
+        University of Maine
+      </a>
+      <br />
+    </p>
+  </div>
+</div>
 `;
 
 exports[`Storyshots ERDDAP|ObservationTable/All Configurable 1`] = `
@@ -3473,12 +3305,12 @@ exports[`Storyshots ERDDAP|ObservedWindCondition Metric 1`] = `
 
 exports[`Storyshots Units|UnitSelector/configurable Configurable 1`] = `
 <div
-  className="btn-group"
+  className="unit-selector btn-group"
   role="group"
 >
   <button
     aria-label={null}
-    className="btn btn-primary btn-sm"
+    className="btn btn-light btn-sm"
     id="Metric"
     onClick={[Function]}
     type="button"
@@ -3499,12 +3331,12 @@ exports[`Storyshots Units|UnitSelector/configurable Configurable 1`] = `
 
 exports[`Storyshots Units|UnitSelector/configurable English 1`] = `
 <div
-  className="btn-group"
+  className="unit-selector btn-group"
   role="group"
 >
   <button
     aria-label={null}
-    className="btn btn-primary btn-sm"
+    className="btn btn-light btn-sm"
     id="Metric"
     onClick={[Function]}
     type="button"
@@ -3525,7 +3357,7 @@ exports[`Storyshots Units|UnitSelector/configurable English 1`] = `
 
 exports[`Storyshots Units|UnitSelector/configurable Metric 1`] = `
 <div
-  className="btn-group"
+  className="unit-selector btn-group"
   role="group"
 >
   <button
@@ -3539,7 +3371,7 @@ exports[`Storyshots Units|UnitSelector/configurable Metric 1`] = `
   </button>
   <button
     aria-label={null}
-    className="btn btn-primary btn-sm"
+    className="btn btn-light btn-sm"
     id="English"
     onClick={[Function]}
     type="button"

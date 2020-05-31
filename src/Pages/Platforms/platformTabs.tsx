@@ -15,7 +15,7 @@ import {
   ErddapObservedDropdown,
   ErddapPlatformGetter,
   ForecastDropdown,
-  ForecastMetadataLoader
+  ForecastMetadataLoader,
 } from "Features/ERDDAP"
 
 import { CurrentConditionsPage } from "./currentConditions"
@@ -37,14 +37,14 @@ export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
 
   return (
     <ErddapPlatformGetter platformId={id}>
-      {platform_props => (
+      {(platform_props) => (
         <React.Fragment>
           <Row style={{ paddingBottom: "1rem" }}>
             <Col>
               <Nav tabs={true}>
                 <ErddapObservedDropdown {...platform_props} />
 
-                <Tab to={paths.platforms.platform} path={path} name="Current Conditions" id={id} />
+                <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={id} />
                 <ForecastMetadataLoader>
                   <React.Fragment>
                     <ForecastDropdown platformId={platform_props.platform.id as string} />
@@ -58,15 +58,15 @@ export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
 
           {/* Display our pages for the platform. */}
           <Switch>
-            <Route path={paths.platforms.all}>{props => <ErddapAllObservationsTable {...platform_props} />}</Route>
+            <Route path={paths.platforms.all}>{(props) => <ErddapAllObservationsTable {...platform_props} />}</Route>
             <Route path={paths.platforms.observationsWind}>
               <WindObservationsPage {...platform_props} />
             </Route>
             <Route path={paths.platforms.observations}>
-              {route_props => <ObservationsPage {...(route_props as ObservationPageProps)} {...platform_props} />}
+              {(route_props) => <ObservationsPage {...(route_props as ObservationPageProps)} {...platform_props} />}
             </Route>
             <Route path={paths.platforms.forecastType}>
-              {route_props => <ForecastTypePage {...(route_props as ForecastTypePageProps)} {...platform_props} />}
+              {(route_props) => <ForecastTypePage {...(route_props as ForecastTypePageProps)} {...platform_props} />}
             </Route>
             <Route path={paths.platforms.platform}>
               <CurrentConditionsPage {...platform_props} />

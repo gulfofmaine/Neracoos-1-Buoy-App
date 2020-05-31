@@ -1,13 +1,14 @@
 .App {
-  --primary: #114A6E;
+  --primary: #114a6e;
 }
 
 .App .alert-primary {
-  color: #114A6E; /* #004085; */
+  color: #114a6e; /* #004085; */
   /* background-color: #cce5ff; */
   /* border-color: #114A6E #b8daff; */
 }
 
-.App .nav-link, .App .nav-tabs .nav-item {
-  color: #114A6E
+.App .nav-link,
+.App .nav-tabs .nav-item {
+  color: #114a6e;
 }

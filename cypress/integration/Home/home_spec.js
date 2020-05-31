@@ -1,7 +1,7 @@
 /*global cy*/
 
-describe("Home page", function() {
-  it("Loads Drupal content", function() {
+describe("Home page", function () {
+  it("Loads Drupal content", function () {
     cy.visit("/")
 
     cy.contains("The Mariners' Dashboard provides near real-time data for buoys and sensors in the Northeast.")
@@ -19,18 +19,12 @@ describe("Home page", function() {
   it("Has a footer", () => {
     cy.visit("/")
 
-    cy.get(".footer")
-      .contains("Copyright")
-      .contains("NERACOOS")
+    cy.get(".footer").contains("Copyright").contains("NERACOOS")
 
-    cy.get(".footer").contains("Website and products developed")
+    cy.get(".footer").contains(
+      "Product of NERACOOS.org - Developed by the Gulf of Maine Research Institute Ocean Data Products Team"
+    )
 
-    cy.get(".footer img")
-      .its("length")
-      .should("be.equal", 4)
-
-    cy.get(".footer").contains("Regional Coastal Observing Systems")
-
-    cy.get(".footer").contains("National Observing System Partners")
+    cy.get(".footer img").its("length").should("be.equal", 2)
   })
 })
