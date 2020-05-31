@@ -6,6 +6,12 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.4.1 - 5/31/2020
+
+Changes:
+
 - Setup Storybook docs.
 - Deploy Storybook docs to Github Pages.
 - Style updates.
@@ -17,6 +23,42 @@ Changes:
   - Disable active highlighting on region dropdown links.
   - Update footer to remove other RAs.
 - Add storybook build test before merging to master.
+- Update dependencies
+  - Cypress from 3.8.3 to 4.5.0
+  - Node from 13.8.0 to 14.3.0
+  - Nginx from 1.17.8 to 1.17.9
+  - Sentry
+    - Browser 5.12.1 to 5.13.2
+  - Types
+    - React router DOM from 5.1.3 to 5.1.5
+    - Reactstrap from 8.4.1 to 8.4.2
+    - Enzyme from 3.10.4 to 3.10.5
+    - Jest from 25.1.1 to 25.2.1
+    - Node from 13.7.1 to 13.13.5
+    - React from 16.9.19 to 16.9.34
+    - React DOM from 16.9.5 to 16.9.8
+  - Moment from 2.24.0 to 2.25.3
+  - Moment timezone from 0.5.27 to 0.5.28
+  - React from 16.12.0 to 16.13.1
+  - React DOM from 16.12.0 to 16.13.1
+  - React Redux from 7.1.3 to 7.2.0
+  - React Router DOM from 5.1.2 to 5.2.0
+  - React Scripts from 3.3.1 to 3.4.0
+  - Stoybook
+    - Addon A11y from 5.3.10 to 5.3.18
+    - Addon actions 5.3.13 to 5.3.19
+    - Addon docs from 5.3.10 to 5.3.18
+    - Addon knobs from 5.3.13 to 5.3.19
+    - Addon links from 5.3.13 to 5.3.18
+    - Addon storyshots from 5.3.13 to 5.3.18
+    - Addons from 5.3.10 to 5.3.14
+    - Preset create react app from 1.5.2. to 2.1.1
+    - React from 5.3.13 to 5.3.18
+  - Jest fetch mock from 3.0.1 to 3.0.3
+  - React test render from 16.12.0 to 16.13.1
+  - Typedoc from 0.16.9 to 0.17.7
+  - Typescript from 3.7.5 to 3.8.3
+  - Wait on 4.0.0 to 5.0.0
 
 Fixes:
 
