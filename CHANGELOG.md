@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Remove signal flags
+
 Fixes:
 
 ## 0.4.1 - 5/31/2020

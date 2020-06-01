@@ -34,8 +34,7 @@
     "react-sizeme": "2.6.12",
     "reactstrap": "8.4.1",
     "redux": "4.0.5",
-    "redux-thunk": "2.3.0",
-    "svg-signal-flags": "https://github.com/stuyam/svg-signal-flags.git"
+    "redux-thunk": "2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
