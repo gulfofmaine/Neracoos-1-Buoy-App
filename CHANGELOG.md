@@ -6,7 +6,8 @@ Additions:
 
 Changes:
 
-- Remove signal flags
+- Remove signal flags.
+- Allow multiple data types to be specified in current conditions table and show only the first one matched.
 
 Fixes:
 

@@ -16,7 +16,7 @@ interface Props {
  * @param platform
  */
 export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platform, unitSelector, unit_system }) => {
-  const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
+  const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   return (
@@ -33,24 +33,22 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
 
       <TableItem
         platform={platform}
-        data_type="sea_surface_wave_significant_height"
-        name="Wave Height"
-        unit_system={unit_system}
-      />
-      <TableItem
-        platform={platform}
-        data_type="significant_height_of_wind_and_swell_waves"
+        data_type={[
+          "sea_surface_wave_significant_height",
+          "significant_wave_height",
+          "significant_height_of_wind_and_swell_waves",
+          "significant_height_of_wind_and_swell_waves_3",
+        ]}
         name="Wave Height"
         unit_system={unit_system}
       />
 
       <TableItem
         platform={platform}
-        data_type="sea_surface_swell_wave_period"
+        data_type={["sea_surface_swell_wave_period", "dominant_wave_period"]}
         name="Wave Period"
         unit_system={unit_system}
       />
-      <TableItem platform={platform} data_type="dominant_wave_period" name="Wave Period" unit_system={unit_system} />
 
       <TableItem platform={platform} data_type="mean_wave_direction" name="Wave Direction" unit_system={unit_system} />
       <TableItem platform={platform} data_type="air_temperature" name="Air Temperature" unit_system={unit_system} />

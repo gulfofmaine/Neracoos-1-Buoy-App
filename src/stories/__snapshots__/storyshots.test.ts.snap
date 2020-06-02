@@ -2769,6 +2769,27 @@ exports[`Storyshots ERDDAP|ObservationTable/Current Configurable 1`] = `
   </a>
   <a
     className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Height
+      :
+    </b>
+     
+    4.6
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
     href="/platform/M01/observations/dominant_wave_period"
     onClick={[Function]}
     style={
@@ -2941,6 +2962,27 @@ exports[`Storyshots ERDDAP|ObservationTable/Current English 1`] = `
   </a>
   <a
     className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Height
+      :
+    </b>
+     
+    4.6
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
     href="/platform/M01/observations/dominant_wave_period"
     onClick={[Function]}
     style={
@@ -3092,6 +3134,27 @@ exports[`Storyshots ERDDAP|ObservationTable/Current Metric 1`] = `
     44.5
      
     Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Height
+      :
+    </b>
+     
+    1.4
+     
+    Meters
   </a>
   <a
     className="list-group-item"
