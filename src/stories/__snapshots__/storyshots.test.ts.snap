@@ -296,8 +296,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Air Temperature
-           -
-           
+           - 
           38.9
            
           Fahrenheit
@@ -338,8 +337,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Barometric Pressure
-           -
-           
+           - 
           14.7
            
           psi
@@ -380,8 +378,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Significant Wave Height
-           -
-           
+           - 
           5.2
            
           Feet
@@ -422,8 +419,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Dominant Wave Period
-           -
-           
+           - 
           6.3
            
           Seconds
@@ -484,8 +480,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Visibility
-           -
-           
+           - 
           1.7
            
           Nautical Miles
@@ -567,8 +562,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Air Temperature
-           -
-           
+           - 
           38.9
            
           Fahrenheit
@@ -609,8 +603,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Barometric Pressure
-           -
-           
+           - 
           14.7
            
           psi
@@ -651,8 +644,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Significant Wave Height
-           -
-           
+           - 
           5.2
            
           Feet
@@ -693,8 +685,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Dominant Wave Period
-           -
-           
+           - 
           6.3
            
           Seconds
@@ -755,8 +746,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Visibility
-           -
-           
+           - 
           1.7
            
           Nautical Miles
@@ -838,8 +828,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Air Temperature
-           -
-           
+           - 
           3.9
            
           Celsius
@@ -880,8 +869,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Barometric Pressure
-           -
-           
+           - 
           1012.9
            
           hPa
@@ -922,8 +910,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Significant Wave Height
-           -
-           
+           - 
           1.6
            
           Meters
@@ -964,8 +951,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Dominant Wave Period
-           -
-           
+           - 
           6.3
            
           Seconds
@@ -1026,8 +1012,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Visibility
-           -
-           
+           - 
           3
            
           Kilometers
@@ -1072,8 +1057,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Data Card Configurable 1`] = `
         className="card-header"
       >
         Significant Wave Height
-         -
-         
+         - 
         5.2
          
         Feet

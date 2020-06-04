@@ -44,15 +44,6 @@ export const DataCard: React.SFC<DataCardProps> = ({ platform, data_types, unit_
 
   let reading = filtered_datasets[0]
 
-  let depth: string
-  if (reading.depth === undefined || reading.depth <= 5) {
-    depth = ""
-  } else if (reading.depth > 0) {
-    depth = " @ " + reading.depth + "m"
-  } else {
-    depth = " @ " + -reading.depth + "m"
-  }
-
   let data = reading.readings
 
   // If there is no current data, display a card letting us know
@@ -87,8 +78,7 @@ export const DataCard: React.SFC<DataCardProps> = ({ platform, data_types, unit_
       >
         <Card>
           <CardHeader>
-            {reading.data_type.long_name + depth} -{" "}
-            {round(data_converter.convertTo(latest.reading, unit_system) as number, 1)}{" "}
+            {reading.data_type.long_name} - {round(data_converter.convertTo(latest.reading, unit_system) as number, 1)}{" "}
             {data_converter.displayName(unit_system)} {convertUnit(reading.data_type.units, latest.reading)}
           </CardHeader>
           <CardBody style={{ padding: ".2rem" }}>
