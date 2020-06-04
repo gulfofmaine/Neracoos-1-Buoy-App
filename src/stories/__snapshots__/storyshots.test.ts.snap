@@ -52,6 +52,8 @@ exports[`Storyshots Components|Footer Footer 1`] = `
     style={
       Object {
         "fontSize": ".8rem",
+        "marginBottom": "1rem",
+        "marginTop": "1rem",
         "padding": ".25rem",
       }
     }
@@ -61,6 +63,11 @@ exports[`Storyshots Components|Footer Footer 1`] = `
     >
       <a
         href="http://neracoos.org"
+        style={
+          Object {
+            "paddingRight": "1rem",
+          }
+        }
       >
         <img
           alt="NERACOOS"
@@ -279,48 +286,6 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
     }
   >
     <a
-      href="/platform/M01/observations/dominant_wave_period"
-      onClick={[Function]}
-    >
-      <div
-        className="card"
-      >
-        <div
-          className="card-header"
-        >
-          Dominant Wave Period
-           -
-           
-          6.3
-           
-          Seconds
-           
-          
-        </div>
-        <div
-          className="card-body"
-          style={
-            Object {
-              "padding": ".2rem",
-            }
-          }
-        >
-          <div
-            className="chart "
-          />
-        </div>
-      </div>
-    </a>
-  </div>
-  <div
-    className="col-sm-6 col-md-4"
-    style={
-      Object {
-        "paddingTop": "1rem",
-      }
-    }
-  >
-    <a
       href="/platform/M01/observations/air_temperature"
       onClick={[Function]}
     >
@@ -331,8 +296,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Air Temperature
-           -
-           
+           - 
           38.9
            
           Fahrenheit
@@ -373,8 +337,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Barometric Pressure
-           -
-           
+           - 
           14.7
            
           psi
@@ -405,7 +368,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
     }
   >
     <a
-      href="/platform/M01/observations/sea_water_temperature"
+      href="/platform/M01/observations/significant_wave_height"
       onClick={[Function]}
     >
       <div
@@ -414,12 +377,52 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
         <div
           className="card-header"
         >
-          Water Temperature
-           -
+          Significant Wave Height
+           - 
+          5.2
            
-          41.3
+          Feet
            
-          Fahrenheit
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           - 
+          6.3
+           
+          Seconds
            
           
         </div>
@@ -477,8 +480,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
           className="card-header"
         >
           Visibility
-           -
-           
+           - 
           1.7
            
           Nautical Miles
@@ -550,48 +552,6 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
     }
   >
     <a
-      href="/platform/M01/observations/dominant_wave_period"
-      onClick={[Function]}
-    >
-      <div
-        className="card"
-      >
-        <div
-          className="card-header"
-        >
-          Dominant Wave Period
-           -
-           
-          6.3
-           
-          Seconds
-           
-          
-        </div>
-        <div
-          className="card-body"
-          style={
-            Object {
-              "padding": ".2rem",
-            }
-          }
-        >
-          <div
-            className="chart "
-          />
-        </div>
-      </div>
-    </a>
-  </div>
-  <div
-    className="col-sm-6 col-md-4"
-    style={
-      Object {
-        "paddingTop": "1rem",
-      }
-    }
-  >
-    <a
       href="/platform/M01/observations/air_temperature"
       onClick={[Function]}
     >
@@ -602,8 +562,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Air Temperature
-           -
-           
+           - 
           38.9
            
           Fahrenheit
@@ -644,8 +603,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Barometric Pressure
-           -
-           
+           - 
           14.7
            
           psi
@@ -676,7 +634,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
     }
   >
     <a
-      href="/platform/M01/observations/sea_water_temperature"
+      href="/platform/M01/observations/significant_wave_height"
       onClick={[Function]}
     >
       <div
@@ -685,12 +643,52 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
         <div
           className="card-header"
         >
-          Water Temperature
-           -
+          Significant Wave Height
+           - 
+          5.2
            
-          41.3
+          Feet
            
-          Fahrenheit
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           - 
+          6.3
+           
+          Seconds
            
           
         </div>
@@ -748,8 +746,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
           className="card-header"
         >
           Visibility
-           -
-           
+           - 
           1.7
            
           Nautical Miles
@@ -821,48 +818,6 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
     }
   >
     <a
-      href="/platform/M01/observations/dominant_wave_period"
-      onClick={[Function]}
-    >
-      <div
-        className="card"
-      >
-        <div
-          className="card-header"
-        >
-          Dominant Wave Period
-           -
-           
-          6.3
-           
-          Seconds
-           
-          
-        </div>
-        <div
-          className="card-body"
-          style={
-            Object {
-              "padding": ".2rem",
-            }
-          }
-        >
-          <div
-            className="chart "
-          />
-        </div>
-      </div>
-    </a>
-  </div>
-  <div
-    className="col-sm-6 col-md-4"
-    style={
-      Object {
-        "paddingTop": "1rem",
-      }
-    }
-  >
-    <a
       href="/platform/M01/observations/air_temperature"
       onClick={[Function]}
     >
@@ -873,8 +828,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Air Temperature
-           -
-           
+           - 
           3.9
            
           Celsius
@@ -915,8 +869,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Barometric Pressure
-           -
-           
+           - 
           1012.9
            
           hPa
@@ -947,7 +900,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
     }
   >
     <a
-      href="/platform/M01/observations/sea_water_temperature"
+      href="/platform/M01/observations/significant_wave_height"
       onClick={[Function]}
     >
       <div
@@ -956,12 +909,52 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
         <div
           className="card-header"
         >
-          Water Temperature
-           -
+          Significant Wave Height
+           - 
+          1.6
            
-          5.2
+          Meters
            
-          Celsius
+          
+        </div>
+        <div
+          className="card-body"
+          style={
+            Object {
+              "padding": ".2rem",
+            }
+          }
+        >
+          <div
+            className="chart "
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="col-sm-6 col-md-4"
+    style={
+      Object {
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <a
+      href="/platform/M01/observations/dominant_wave_period"
+      onClick={[Function]}
+    >
+      <div
+        className="card"
+      >
+        <div
+          className="card-header"
+        >
+          Dominant Wave Period
+           - 
+          6.3
+           
+          Seconds
            
           
         </div>
@@ -1019,8 +1012,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
           className="card-header"
         >
           Visibility
-           -
-           
+           - 
           3
            
           Kilometers
@@ -1042,6 +1034,50 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
       </div>
     </a>
   </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP|CurrentConditions/Data Card Configurable 1`] = `
+<div
+  className="col-sm-6 col-md-4"
+  style={
+    Object {
+      "paddingTop": "1rem",
+    }
+  }
+>
+  <a
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-header"
+      >
+        Significant Wave Height
+         - 
+        5.2
+         
+        Feet
+         
+        
+      </div>
+      <div
+        className="card-body"
+        style={
+          Object {
+            "padding": ".2rem",
+          }
+        }
+      >
+        <div
+          className="chart "
+        />
+      </div>
+    </div>
+  </a>
 </div>
 `;
 
@@ -2769,6 +2805,27 @@ exports[`Storyshots ERDDAP|ObservationTable/Current Configurable 1`] = `
   </a>
   <a
     className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Height
+      :
+    </b>
+     
+    4.6
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
     href="/platform/M01/observations/dominant_wave_period"
     onClick={[Function]}
     style={
@@ -2941,6 +2998,27 @@ exports[`Storyshots ERDDAP|ObservationTable/Current English 1`] = `
   </a>
   <a
     className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Height
+      :
+    </b>
+     
+    4.6
+     
+    Feet
+  </a>
+  <a
+    className="list-group-item"
     href="/platform/M01/observations/dominant_wave_period"
     onClick={[Function]}
     style={
@@ -3092,6 +3170,27 @@ exports[`Storyshots ERDDAP|ObservationTable/Current Metric 1`] = `
     44.5
      
     Degrees
+  </a>
+  <a
+    className="list-group-item"
+    href="/platform/M01/observations/significant_wave_height"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "black",
+        "padding": ".5rem",
+        "paddingLeft": "1rem",
+      }
+    }
+  >
+    <b>
+      Wave Height
+      :
+    </b>
+     
+    1.4
+     
+    Meters
   </a>
   <a
     className="list-group-item"

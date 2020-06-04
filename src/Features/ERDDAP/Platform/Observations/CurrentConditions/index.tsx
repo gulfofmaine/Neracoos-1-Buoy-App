@@ -1,20 +1,16 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Alert, Card, CardBody, CardHeader, Col, Row } from "reactstrap"
+import { Alert, Col, Row } from "reactstrap"
 
-import { SmallTimeSeriesChart } from "components/Charts"
 import { paths } from "Shared/constants"
 
-import { naturalBounds } from "Shared/dataTypes"
-import { round } from "Shared/math"
-import { convertUnit } from "Shared/unitConversion"
 import { urlPartReplacer } from "Shared/urlParams"
 import { UnitSystem } from "Features/Units/types"
-import { converter } from "Features/Units/Converter"
 
 import { PlatformFeatureWithDatasets, PlatformDataset } from "../../../types"
 import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
 
+import { DataCard } from "./data_card"
 import { WindCard } from "./wind"
 
 interface Props {
@@ -24,16 +20,29 @@ interface Props {
 }
 
 export const prefferedDataTypesList = [
+  "air_temperature",
+  "air_temperature_1m",
+  "air_pressure",
+  "barometric_pressure",
+  "sea_level_pressure",
+  "air_pressure_at_sea_level",
+
   "significant_height_of_wind_and_swell_waves",
   "sea_surface_wave_significant_height",
+  "significant_height_of_wind_and_swell_waves_3",
+  "significant_wave_height",
+
   "dominant_wave_period",
+  "average_wave_period",
   "sea_surface_swell_wave_period",
   "period",
+  "dominant_wave_period_3",
+
   "mean_wave_direction",
-  "air_temperature",
-  "barometric_pressure",
+  "sea_surface_wave_to_direction",
+
+  "sea_surface_temperature",
   "sea_water_temperature",
-  "sea_level_pressure",
   "visibility_in_air",
 ]
 
@@ -123,71 +132,7 @@ export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
     }
   }
 
-  // Data cards
-  const dataCards = filtered_datasets.map((reading) => {
-    let depth: string
-    if (reading.depth === undefined || reading.depth <= 5) {
-      depth = ""
-    } else if (reading.depth > 0) {
-      depth = " @ " + reading.depth + "m"
-    } else {
-      depth = " @ " + -reading.depth + "m"
-    }
-
-    let data = reading.readings
-
-    // If there is no current data, display a card letting us know
-    if (data.length === 0) {
-      return (
-        <Col {...cardProps} key={reading.data_type.standard_name}>
-          <Card>
-            <CardBody>No data for {reading.data_type.long_name} in the last day.</CardBody>
-          </Card>
-        </Col>
-      )
-    }
-
-    const latest = data[data.length - 1]
-    const bounds = naturalBounds(reading.data_type.standard_name)
-
-    const data_converter = converter(reading.data_type.standard_name)
-
-    data = data.map((r) => ({
-      ...r,
-      reading: round(data_converter.convertTo(r.reading, unit_system) as number, 2),
-    }))
-
-    return (
-      <Col key={reading.data_type.standard_name} {...cardProps}>
-        <Link
-          to={urlPartReplacer(
-            urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-            ":type",
-            reading.data_type.standard_name
-          )}
-        >
-          <Card>
-            <CardHeader>
-              {reading.data_type.long_name + depth} -{" "}
-              {round(data_converter.convertTo(latest.reading, unit_system) as number, 1)}{" "}
-              {data_converter.displayName(unit_system)} {convertUnit(reading.data_type.units, latest.reading)}
-            </CardHeader>
-            <CardBody style={{ padding: ".2rem" }}>
-              <SmallTimeSeriesChart
-                name={reading.data_type.standard_name}
-                timeSeries={data}
-                unit={data_converter.displayName(unit_system)}
-                softMin={bounds[0]}
-                softMax={bounds[1]}
-                unit_system={unit_system}
-                data_type={reading.data_type.standard_name}
-              />
-            </CardBody>
-          </Card>
-        </Link>
-      </Col>
-    )
-  })
+  const commonDataCardProps = { platform, unit_system }
 
   return (
     <React.Fragment>
@@ -200,7 +145,34 @@ export const CurrentConditions: React.SFC<CurrentConditionsProps> = ({
           </Col>
         ) : null}
       </React.Fragment>
-      {dataCards}
+
+      <DataCard {...commonDataCardProps} data_types={["air_temperature", "air_temperature_1m"]} />
+      <DataCard
+        {...commonDataCardProps}
+        data_types={["air_pressure", "barometric_pressure", "sea_level_pressure", "air_pressure_at_sea_level"]}
+      />
+      <DataCard
+        {...commonDataCardProps}
+        data_types={[
+          "sea_surface_wave_significant_height",
+          "significant_height_of_wind_and_swell_waves",
+          "significant_wave_height",
+          "significant_height_of_wind_and_swell_waves_3",
+        ]}
+      />
+      <DataCard
+        {...commonDataCardProps}
+        data_types={[
+          "period",
+          "sea_surface_swell_wave_period",
+          "dominant_wave_period",
+          "average_wave_period",
+          "dominant_wave_period_3",
+        ]}
+      />
+      <DataCard {...commonDataCardProps} data_types={["mean_wave_direction", "sea_surface_wave_to_direction"]} />
+      <DataCard {...commonDataCardProps} data_types={["sea_surface_temperature", "sea_water_temperature"]} />
+      <DataCard {...commonDataCardProps} data_types={["visibility_in_air"]} />
     </React.Fragment>
   )
 }
