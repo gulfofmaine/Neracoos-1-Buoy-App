@@ -26,9 +26,9 @@ export const Footer: React.SFC = () => (
         </a>
       </Col>
     </Row>
-    <Row style={textStyle}>
+    <Row style={{ marginTop: "1rem", marginBottom: "1rem", ...textStyle }}>
       <Col md={colSize} className="mx-auto text-center">
-        <a href="http://neracoos.org">
+        <a href="http://neracoos.org" style={{ paddingRight: "1rem" }}>
           <img src={neracoos} style={logoStyle} alt="NERACOOS" title="NERACOOS" />
         </a>
         <a href="https://www.gmri.org/our-work/research/our-approach/ocean-data">

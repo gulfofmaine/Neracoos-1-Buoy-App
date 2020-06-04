@@ -8,8 +8,11 @@ Changes:
 
 - Remove signal flags.
 - Allow multiple data types to be specified in current conditions table and show only the first one matched.
+- Show only one of a group of data types in the current (latest) conditions view.
 
 Fixes:
+
+- A little extra breathing space withing the footer.
 
 ## 0.4.1 - 5/31/2020
 
