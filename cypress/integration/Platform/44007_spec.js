@@ -20,7 +20,7 @@ describe("Platfrom 44007", () => {
     cy.contains("Lat:")
     cy.contains("Lon:")
 
-    cy.contains("Last updated at:")
+    cy.contains("Last updated around:")
   })
 
   it("Shows current conditions", () => {
@@ -83,6 +83,9 @@ describe("Platfrom 44007", () => {
 
   it("Updated recently", () => {
     cy.visit(platformUrl)
+
+    cy.contains("Observations").click()
+    cy.contains("All Observations").click()
 
     cy.contains("Last updated at:").then(($element) => {
       const text = $element[0].parentElement.innerText
