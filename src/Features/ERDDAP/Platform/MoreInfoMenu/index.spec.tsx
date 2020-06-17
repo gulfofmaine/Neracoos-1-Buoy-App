@@ -13,8 +13,8 @@ describe("ErddapMoreInfoDropdown", () => {
     const dropdownDiv = wrapper.find("div.dropdown-menu")
     const items = dropdownDiv.children()
 
-    expect(items.length).toEqual(10)
-    expect(dropdownDiv.childAt(8).html()).toContain("https://marine.weather.gov/MapClick.php?lon=-73.73&amp;lat=40.88")
+    expect(items.length).toEqual(2)
+    expect(dropdownDiv.childAt(0).html()).toContain("https://marine.weather.gov/MapClick.php?lon=-73.73&amp;lat=40.88")
   })
 })
 
@@ -22,7 +22,7 @@ describe("ErddapMoreInfoDropdown", () => {
 const platform: PlatformFeatureWithDatasets = {
   geometry: {
     type: "Point",
-    coordinates: [-73.73, 40.88]
+    coordinates: [-73.73, 40.88],
   },
   id: "EXRX",
   type: "Feature",
@@ -36,6 +36,6 @@ const platform: PlatformFeatureWithDatasets = {
     uscg_light_letter: null,
     uscg_light_num: null,
     watch_circle_radius: null,
-    programs: []
-  }
+    programs: [],
+  },
 }

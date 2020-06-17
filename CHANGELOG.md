@@ -9,6 +9,7 @@ Changes:
 - Remove signal flags.
 - Allow multiple data types to be specified in current conditions table and show only the first one matched.
 - Show only one of a group of data types in the current (latest) conditions view.
+- Remove old NERACOOS links from More Info.
 
 Fixes:
 
