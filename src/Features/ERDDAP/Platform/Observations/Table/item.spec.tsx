@@ -39,6 +39,10 @@ describe("TableItem", () => {
   })
 
   it("Returns only the first selected datatype", () => {
+    // Need to have a div in the body for the tooltip to attach to
+    const div = document.createElement("div")
+    document.body.appendChild(div)
+
     const wrapper = mount(
       <MemoryRouter>
         <TableItem
@@ -47,7 +51,8 @@ describe("TableItem", () => {
           unit_system={UnitSystem.english}
           name="Wave Height"
         />
-      </MemoryRouter>
+      </MemoryRouter>,
+      { attachTo: div }
     )
 
     expect(wrapper.text()).toContain("Wave Height: 0.8 Feet")

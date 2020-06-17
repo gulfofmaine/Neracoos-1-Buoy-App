@@ -10,6 +10,11 @@ import { platform } from "stories/platform"
 export default {
   component: ErddapAllObservationsTable,
   title: "ERDDAP|ObservationTable/All",
+  parameters: {
+    storyshots: {
+      disable: true,
+    },
+  },
 }
 
 export const configurable = () => {

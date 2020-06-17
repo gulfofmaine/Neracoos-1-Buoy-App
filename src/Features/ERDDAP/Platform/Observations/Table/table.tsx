@@ -11,6 +11,8 @@ interface Props {
   unitSelector?: React.ReactNode
 }
 
+const timeDelta = 15 * 60 * 1000
+
 /**
  * Recent platform observation values
  * @param platform
@@ -19,17 +21,47 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
   const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
+  debugger
+
+  /** Fifteen minute window for updated times */
+  const timeWindow = times.length > 0 ? new Date(times[times.length - 1].getTime() - timeDelta) : undefined
+
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
       {times.length > 0 ? (
         <ListGroupItem style={itemStyle}>
-          <b>Last updated at:</b> {times[times.length - 1].toLocaleString()}
+          <b>Last updated around:</b>{" "}
+          {times[times.length - 1].toLocaleString(undefined, {
+            hour: "2-digit",
+            hour12: true,
+            minute: "2-digit",
+            // month: "short",
+            // day: "numeric",
+          })}
         </ListGroupItem>
       ) : null}
 
-      <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={unit_system} />
-      <TableItem platform={platform} data_type="wind_gust" name="Wind Gusts" unit_system={unit_system} />
-      <TableItem platform={platform} data_type="wind_from_direction" name="Wind Direction" unit_system={unit_system} />
+      <TableItem
+        platform={platform}
+        data_type="wind_speed"
+        name="Wind Speed"
+        unit_system={unit_system}
+        later_then={timeWindow}
+      />
+      <TableItem
+        platform={platform}
+        data_type="wind_gust"
+        name="Wind Gusts"
+        unit_system={unit_system}
+        later_then={timeWindow}
+      />
+      <TableItem
+        platform={platform}
+        data_type="wind_from_direction"
+        name="Wind Direction"
+        unit_system={unit_system}
+        later_then={timeWindow}
+      />
 
       <TableItem
         platform={platform}
@@ -41,6 +73,7 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
         ]}
         name="Wave Height"
         unit_system={unit_system}
+        later_then={timeWindow}
       />
 
       <TableItem
@@ -48,17 +81,37 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
         data_type={["sea_surface_swell_wave_period", "dominant_wave_period"]}
         name="Wave Period"
         unit_system={unit_system}
+        later_then={timeWindow}
       />
 
-      <TableItem platform={platform} data_type="mean_wave_direction" name="Wave Direction" unit_system={unit_system} />
-      <TableItem platform={platform} data_type="air_temperature" name="Air Temperature" unit_system={unit_system} />
+      <TableItem
+        platform={platform}
+        data_type="mean_wave_direction"
+        name="Wave Direction"
+        unit_system={unit_system}
+        later_then={timeWindow}
+      />
+      <TableItem
+        platform={platform}
+        data_type="air_temperature"
+        name="Air Temperature"
+        unit_system={unit_system}
+        later_then={timeWindow}
+      />
       <TableItem
         platform={platform}
         data_type="sea_water_temperature"
         name="Water Temperature"
         unit_system={unit_system}
+        later_then={timeWindow}
       />
-      <TableItem platform={platform} data_type="visibility_in_air" name="Visibility" unit_system={unit_system} />
+      <TableItem
+        platform={platform}
+        data_type="visibility_in_air"
+        name="Visibility"
+        unit_system={unit_system}
+        later_then={timeWindow}
+      />
 
       {unitSelector ? (
         <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>

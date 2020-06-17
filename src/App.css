@@ -12,3 +12,12 @@
 .App .nav-tabs .nav-item {
   color: #114a6e;
 }
+
+.condition-tooltip > div > div {
+  background-color: #114a6e;
+}
+
+.condition-tooltip > div.tooltip > span.arrow::before {
+  border-top-color: #114a6e;
+  border-bottom-color: #114a6e;
+}

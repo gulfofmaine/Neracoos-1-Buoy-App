@@ -9,7 +9,12 @@ import { platform } from "stories/platform"
 
 export default {
   component: ErddapObservationTable,
-  title: "ERDDAP|ObservationTable/Current"
+  title: "ERDDAP|ObservationTable/Current",
+  parameters: {
+    storyshots: {
+      disable: true,
+    },
+  },
 }
 
 export const configurable = () => {
