@@ -68,15 +68,8 @@ describe("Platfrom M01", () => {
     cy.visit(platformUrl)
 
     cy.contains("More info").click()
-    cy.contains("More info").parent().children().last().children().should("have.length", 10)
+    cy.contains("More info").parent().children().last().children().should("have.length", 2)
 
-    cy.contains("All Data From This Station")
-    cy.contains("Compare Stations")
-    cy.contains("Graphing and Download")
-    cy.contains("12 Hour History")
-    cy.contains("Station Description")
-    cy.contains("Quick History")
-    cy.contains("Explanation of Data Types")
     cy.contains("Marine Forecast")
     cy.contains("Tides")
   })

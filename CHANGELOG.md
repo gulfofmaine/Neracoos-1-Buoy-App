@@ -11,6 +11,7 @@ Changes:
 - Show only one of a group of data types in the current (latest) conditions view.
 - Show only a 15 min range of time in the current conditions table.
 - Adds a tooltip popup for condition tables with the time of reading.
+- Remove old NERACOOS links from More Info.
 
 Fixes:
 
