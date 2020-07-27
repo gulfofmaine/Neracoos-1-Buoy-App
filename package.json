@@ -22,7 +22,7 @@
     "history": "4.10.1",
     "moment": "2.27.0",
     "moment-timezone": "0.5.31",
-    "ol": "5.3.3",
+    "ol": "6.4.0",
     "prop-types": "^15.0.0",
     "react": "16.13.1",
     "react-app-polyfill": "^1.0.6",
