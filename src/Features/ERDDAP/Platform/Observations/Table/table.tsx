@@ -21,8 +21,6 @@ export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platfor
   const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
-  debugger
-
   /** Fifteen minute window for updated times */
   const timeWindow = times.length > 0 ? new Date(times[times.length - 1].getTime() - timeDelta) : undefined
 
