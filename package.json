@@ -19,7 +19,7 @@
     "connected-react-router": "6.6.1",
     "convert-units": "2.3.4",
     "highcharts": "7.2.1",
-    "history": "4.10.1",
+    "history": "5.0.0",
     "moment": "2.27.0",
     "moment-timezone": "0.5.31",
     "ol": "5.3.3",
