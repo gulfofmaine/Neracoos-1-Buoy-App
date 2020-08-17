@@ -61,7 +61,7 @@
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "26.0.9",
     "@types/node": "14.0.27",
-    "@types/react": "16.9.44",
+    "@types/react": "16.9.46",
     "@types/react-dom": "16.9.8",
     "@types/react-test-renderer": "16.9.3",
     "codacy-coverage": "3.4.0",
