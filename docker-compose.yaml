@@ -5,6 +5,7 @@ services:
     build: .
     image: gmri/neracoos-mariners-dashboard
     command: "yarn start"
+    stdin_open: true
     ports:
       - "3000:3000"
     environment:
