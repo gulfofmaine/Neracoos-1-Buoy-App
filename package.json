@@ -54,7 +54,7 @@
     "@storybook/addon-knobs": "^6.0.10",
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addon-storyshots": "^5.3.19",
-    "@storybook/addons": "^5.3.14",
+    "@storybook/addons": "^6.0.12",
     "@storybook/preset-create-react-app": "^3.0.1",
     "@storybook/react": "^5.3.19",
     "@types/enzyme": "3.10.5",
