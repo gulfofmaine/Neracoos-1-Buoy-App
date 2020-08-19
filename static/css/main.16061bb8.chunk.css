@@ -1,0 +1,26 @@
+.App {
+  --primary: #114a6e;
+}
+
+.App .alert-primary {
+  color: #114a6e; /* #004085; */
+  /* background-color: #cce5ff; */
+  /* border-color: #114A6E #b8daff; */
+}
+
+.App .nav-link,
+.App .nav-tabs .nav-item {
+  color: #114a6e;
+}
+
+.condition-tooltip > div > div {
+  background-color: #114a6e;
+}
+
+.condition-tooltip > div.tooltip > span.arrow::before {
+  border-top-color: #114a6e;
+  border-bottom-color: #114a6e;
+}
+
+
+/*# sourceMappingURL=main.16061bb8.chunk.css.map*/
