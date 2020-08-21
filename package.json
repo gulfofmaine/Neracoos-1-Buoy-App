@@ -52,7 +52,7 @@
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-docs": "^5.3.19",
     "@storybook/addon-knobs": "^6.0.13",
-    "@storybook/addon-links": "^6.0.13",
+    "@storybook/addon-links": "^6.0.16",
     "@storybook/addon-storyshots": "^6.0.13",
     "@storybook/addons": "^6.0.12",
     "@storybook/preset-create-react-app": "^3.0.1",
