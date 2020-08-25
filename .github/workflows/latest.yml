@@ -1,0 +1,45 @@
+name: "Latest"
+
+on:
+  workflow_run:
+    workflows: ["Push"]
+    branches: [master, main]
+    types:
+      - completed
+env:
+  LATEST_IMAGE: gmri/neracoos-mariners-dashboard:latest
+  TAGGED_IMAGE: gmri/neracoos-mariners-dashboard:${{ github.sha }}
+
+jobs:
+  latest:
+    name: Tag latest Docker image and Github Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "Login to Docker Hub"
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Pull Docker image
+        run: docker pull ${TAGGED_IMAGE}
+
+      - name: Tag Docker image
+        run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
+
+      - name: Push Docker image
+        run: docker push ${LATEST_IMAGE}
+
+      - name: Build Storybook Pages
+        run: docker-compose run client yarn build-storybook
+
+      - name: Deploy Storybook to Github Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@3.4.8
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: storybook-public
