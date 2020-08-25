@@ -6,7 +6,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: ErddapPlatformInfoPanel,
-  title: "ERDDAP|Info/Panel",
+  title: 'ERDDAP/Info/Panel',
 }
 
 export const platformInfo = () => <ErddapPlatformInfoPanel platform={platform} />

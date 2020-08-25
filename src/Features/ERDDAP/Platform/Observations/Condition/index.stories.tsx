@@ -8,7 +8,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: ObservedConditionsDatasets,
-  title: "ERDDAP|ObservedCondition",
+  title: 'ERDDAP/ObservedCondition',
   includeStories: [],
 }
 

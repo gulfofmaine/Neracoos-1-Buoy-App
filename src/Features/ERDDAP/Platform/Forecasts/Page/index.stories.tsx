@@ -9,7 +9,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: ForecastChart,
-  title: "ERDDAP|Forecast",
+  title: "ERDDAP/Forecast",
   includeStories: [],
 }
 

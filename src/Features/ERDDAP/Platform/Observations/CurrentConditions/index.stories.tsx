@@ -9,7 +9,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: CurrentConditions,
-  title: "ERDDAP|CurrentConditions",
+  title: 'ERDDAP/CurrentConditions',
   includeStories: [],
 }
 

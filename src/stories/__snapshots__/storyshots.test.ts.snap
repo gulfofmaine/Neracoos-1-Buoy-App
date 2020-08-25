@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Components|Footer Footer 1`] = `
+exports[`Storyshots Components/Footer Footer 1`] = `
 <div
   className="footer"
 >
@@ -103,7 +103,7 @@ exports[`Storyshots Components|Footer Footer 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components|NavBar Nav Bar 1`] = `
+exports[`Storyshots Components/NavBar Nav Bar 1`] = `
 <div>
   <nav
     className="navbar navbar-expand-md navbar-dark"
@@ -239,7 +239,7 @@ exports[`Storyshots Components|NavBar Nav Bar 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
+exports[`Storyshots ERDDAP/CurrentConditions/Configurable Configurable 1`] = `
 <div
   className="row"
 >
@@ -505,7 +505,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
+exports[`Storyshots ERDDAP/CurrentConditions/Configurable English 1`] = `
 <div
   className="row"
 >
@@ -771,7 +771,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable English 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
+exports[`Storyshots ERDDAP/CurrentConditions/Configurable Metric 1`] = `
 <div
   className="row"
 >
@@ -1037,7 +1037,7 @@ exports[`Storyshots ERDDAP|CurrentConditions/Configurable Metric 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|CurrentConditions/Data Card Configurable 1`] = `
+exports[`Storyshots ERDDAP/CurrentConditions/Data Card Configurable 1`] = `
 <div
   className="col-sm-6 col-md-4"
   style={
@@ -1081,25 +1081,25 @@ exports[`Storyshots ERDDAP|CurrentConditions/Data Card Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|Forecast/Configurable Configurable 1`] = `
+exports[`Storyshots ERDDAP/Forecast/Configurable Configurable 1`] = `
 <div
   className="chart "
 />
 `;
 
-exports[`Storyshots ERDDAP|Forecast/Configurable English 1`] = `
+exports[`Storyshots ERDDAP/Forecast/Configurable English 1`] = `
 <div
   className="chart "
 />
 `;
 
-exports[`Storyshots ERDDAP|Forecast/Configurable Metric 1`] = `
+exports[`Storyshots ERDDAP/Forecast/Configurable Metric 1`] = `
 <div
   className="chart "
 />
 `;
 
-exports[`Storyshots ERDDAP|Info/Panel Platform Info 1`] = `
+exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
 <div
   className="card"
 >
@@ -1140,7 +1140,7 @@ exports[`Storyshots ERDDAP|Info/Panel Platform Info 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition/Configurable Configurable 1`] = `
+exports[`Storyshots ERDDAP/ObservedCondition/Configurable Configurable 1`] = `
 <div
   className="row"
 >
@@ -1159,7 +1159,7 @@ exports[`Storyshots ERDDAP|ObservedCondition/Configurable Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition/Configurable English 1`] = `
+exports[`Storyshots ERDDAP/ObservedCondition/Configurable English 1`] = `
 <div
   className="row"
 >
@@ -1178,7 +1178,7 @@ exports[`Storyshots ERDDAP|ObservedCondition/Configurable English 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedCondition/Configurable Metric 1`] = `
+exports[`Storyshots ERDDAP/ObservedCondition/Configurable Metric 1`] = `
 <div
   className="row"
 >
@@ -1197,7 +1197,7 @@ exports[`Storyshots ERDDAP|ObservedCondition/Configurable Metric 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedWindCondition Configurable 1`] = `
+exports[`Storyshots ERDDAP/ObservedWindCondition Configurable 1`] = `
 <div
   className="row"
 >
@@ -1211,7 +1211,7 @@ exports[`Storyshots ERDDAP|ObservedWindCondition Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedWindCondition English 1`] = `
+exports[`Storyshots ERDDAP/ObservedWindCondition English 1`] = `
 <div
   className="row"
 >
@@ -1225,7 +1225,7 @@ exports[`Storyshots ERDDAP|ObservedWindCondition English 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP|ObservedWindCondition Metric 1`] = `
+exports[`Storyshots ERDDAP/ObservedWindCondition Metric 1`] = `
 <div
   className="row"
 >
@@ -1239,7 +1239,7 @@ exports[`Storyshots ERDDAP|ObservedWindCondition Metric 1`] = `
 </div>
 `;
 
-exports[`Storyshots Units|UnitSelector/configurable Configurable 1`] = `
+exports[`Storyshots Units/UnitSelector/configurable Configurable 1`] = `
 <div
   className="unit-selector btn-group"
   role="group"
@@ -1265,7 +1265,7 @@ exports[`Storyshots Units|UnitSelector/configurable Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots Units|UnitSelector/configurable English 1`] = `
+exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
 <div
   className="unit-selector btn-group"
   role="group"
@@ -1291,7 +1291,7 @@ exports[`Storyshots Units|UnitSelector/configurable English 1`] = `
 </div>
 `;
 
-exports[`Storyshots Units|UnitSelector/configurable Metric 1`] = `
+exports[`Storyshots Units/UnitSelector/configurable Metric 1`] = `
 <div
   className="unit-selector btn-group"
   role="group"

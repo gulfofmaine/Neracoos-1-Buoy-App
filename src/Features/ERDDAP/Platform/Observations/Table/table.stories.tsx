@@ -1,5 +1,4 @@
 import React from "react"
-import { select } from "@storybook/addon-knobs"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -9,7 +8,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: ErddapObservationTable,
-  title: "ERDDAP|ObservationTable/Current",
+  title: "ERDDAP/ObservationTable/Current",
   parameters: {
     storyshots: {
       disable: true,
@@ -17,10 +16,13 @@ export default {
   },
 }
 
-export const configurable = () => {
-  const options = [UnitSystem.english, UnitSystem.metric]
-  const unit = select("Unit System", options, options[0], "unit-system-0")
-  return <ErddapObservationTable platform={platform} unit_system={unit} unitSelector={<i>Unit selector goes here</i>} />
+export const configurable = (args) => <ErddapObservationTable {...args} unitSelector={<i>Unit selector goes here</i>} />
+configurable.args = {
+  unit_system: UnitSystem.english,
+  platform,
+}
+configurable.argTypes = {
+  unitSelector: { control: { disable: true } },
 }
 
 export const english = () => {
