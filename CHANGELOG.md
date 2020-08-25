@@ -16,7 +16,11 @@ Changes:
 Fixes:
 
 - A little extra breathing space withing the footer.
+
+Testing:
+
 - Test A01 and skip M01 wind test.
+- Separate push actions from those only supposed to run on master/main branch.
 
 ## 0.4.1 - 5/31/2020
 
@@ -54,7 +58,7 @@ Changes:
   - React Redux from 7.1.3 to 7.2.0
   - React Router DOM from 5.1.2 to 5.2.0
   - React Scripts from 3.3.1 to 3.4.0
-  - Stoybook
+  - Storybook
     - Addon A11y from 5.3.10 to 5.3.18
     - Addon actions 5.3.13 to 5.3.19
     - Addon docs from 5.3.10 to 5.3.18
