@@ -16,6 +16,7 @@ Changes:
 Fixes:
 
 - A little extra breathing space withing the footer.
+- Test A01 and skip M01 wind test.
 
 ## 0.4.1 - 5/31/2020
 
