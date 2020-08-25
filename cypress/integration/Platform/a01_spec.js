@@ -1,17 +1,17 @@
 /*global cy*/
 
-const platformUrl = "/platform/M01%20-%2044037"
+const platformUrl = "/platform/A01%20-%2044029"
 
-describe("Platfrom M01", () => {
+describe("Platfrom A01", () => {
   it("Can get to from Home Page", () => {
     cy.visit("/")
 
     cy.contains("Regions").click()
     cy.contains("Gulf Of Maine").click()
 
-    cy.contains("M01").click()
+    cy.contains("A01").click()
 
-    cy.contains("Station M01")
+    cy.contains("Station A01")
   })
 
   it("Shows platform status", () => {
@@ -32,11 +32,11 @@ describe("Platfrom M01", () => {
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row").children().its("length").should("be.gte", 4)
   })
 
-  xit("Shows wind plot", () => {
+  it("Shows wind plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
-    cy.get('[href="/platform/M01 - 44037/observations/wind"]').first().click()
+    cy.get('[href="/platform/A01 - 44029/observations/wind"]').first().click()
     cy.get("h4").contains("Wind")
     cy.get("svg.highcharts-root")
     cy.get("svg.highcharts-root").contains("Gust").click()
@@ -50,7 +50,7 @@ describe("Platfrom M01", () => {
 
     cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get("[href='/platform/M01 - 44037/forecast/wave_height']").click()
+    cy.get("[href='/platform/A01 - 44029/forecast/wave_height']").click()
     cy.get("h4").contains("Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Feet")
@@ -96,6 +96,6 @@ describe("Platfrom M01", () => {
     cy.contains("Observations").click()
     cy.contains("All Observations").click()
 
-    cy.contains("Sigma-T @ 100m")
+    cy.contains("Sigma-T")
   })
 })
