@@ -8,8 +8,13 @@ export default {
   component: UnitSelectorBase,
   title: "Units/UnitSelector",
   includeStories: [],
+  argTypes: {
+    switchUnits: { action: "switch-units" },
+  },
 }
 
-export const english = () => <UnitSelectorBase system={UnitSystem.english} switchUnits={action("switch-units")} />
+export const english = (args) => <UnitSelectorBase {...args} />
+english.args = { system: UnitSystem.english }
 
-export const metric = () => <UnitSelectorBase system={UnitSystem.metric} switchUnits={action("switch-units")} />
+export const metric = (args) => <UnitSelectorBase {...args} />
+metric.args = { system: UnitSystem.metric }

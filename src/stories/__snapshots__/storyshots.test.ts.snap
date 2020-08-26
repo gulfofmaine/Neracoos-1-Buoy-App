@@ -1239,32 +1239,6 @@ exports[`Storyshots ERDDAP/ObservedWindCondition Metric 1`] = `
 </div>
 `;
 
-exports[`Storyshots Units/UnitSelector/configurable Configurable 1`] = `
-<div
-  className="unit-selector btn-group"
-  role="group"
->
-  <button
-    aria-label={null}
-    className="btn btn-light btn-sm"
-    id="Metric"
-    onClick={[Function]}
-    type="button"
-  >
-    Metric
-  </button>
-  <button
-    aria-label={null}
-    className="btn btn-primary btn-sm active"
-    id="English"
-    onClick={[Function]}
-    type="button"
-  >
-    English
-  </button>
-</div>
-`;
-
 exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
 <div
   className="unit-selector btn-group"
