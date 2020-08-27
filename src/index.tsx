@@ -4,7 +4,7 @@
 import "react-app-polyfill/ie11" // Polyfill for Internet Explorer compatability
 import "react-app-polyfill/stable"
 
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import { Event } from "@sentry/types"
 import { ConnectedRouter } from "connected-react-router"
 

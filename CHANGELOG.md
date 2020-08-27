@@ -23,6 +23,7 @@ Testing:
 - Separate push actions from those only supposed to run on master/main branch.
 - Update Storybook to 6.0.
   - Disable links addon, enable a11y.
+- Switch sentry browers for react specific package
 
 ## 0.4.1 - 5/31/2020
 

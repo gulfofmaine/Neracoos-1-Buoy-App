@@ -1,7 +1,7 @@
 /**
  * Wagtail content actions
  */
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
@@ -38,7 +38,7 @@ export function wagtailSuccess(pageId: string, content: WagtailContent): Wagtail
   return {
     content,
     pageId,
-    type: actionTypes.WAGTAIL_LOAD_SUCCESS
+    type: actionTypes.WAGTAIL_LOAD_SUCCESS,
   }
 }
 
@@ -51,7 +51,7 @@ export function wagtailSuccess(pageId: string, content: WagtailContent): Wagtail
 export function wagtailError(pageId: string): WagtailError {
   return {
     pageId,
-    type: actionTypes.WAGTAIL_LOAD_ERROR
+    type: actionTypes.WAGTAIL_LOAD_ERROR,
   }
 }
 
@@ -68,9 +68,9 @@ export const wagtailLoadContent: ActionCreator<ThunkAction<Promise<Action>, Stor
       Sentry.addBreadcrumb({
         category: "Wagtail API",
         data: {
-          pageId
+          pageId,
         },
-        message: "Loading Wagtail API page"
+        message: "Loading Wagtail API page",
       })
 
       const url = "https://content.gmri.io/api/pages/" + pageId + "/?format=json"
@@ -82,7 +82,7 @@ export const wagtailLoadContent: ActionCreator<ThunkAction<Promise<Action>, Stor
     } catch (error) {
       // tslint:disable-next-line:no-console
       console.log(error)
-      Sentry.configureScope(scope => {
+      Sentry.configureScope((scope) => {
         scope.setExtra("skipDialog", true)
         Sentry.captureException(error)
       })

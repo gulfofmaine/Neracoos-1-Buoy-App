@@ -1,7 +1,7 @@
 /**
  * Wind Observed conditions component
  */
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import * as React from "react"
 import { SizeMeProps, withSize } from "react-sizeme"
 import { Alert, Col, Row } from "reactstrap"
