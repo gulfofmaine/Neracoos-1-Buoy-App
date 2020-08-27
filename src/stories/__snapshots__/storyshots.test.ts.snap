@@ -38,65 +38,12 @@ exports[`Storyshots Components/Footer Footer 1`] = `
       >
         NERACOOS.org
       </a>
-       - Developed by the
+       - Developed and maintained by the
        
       <a
-        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
+        href="https://gmri.org/commitments/science/ocean-data-products/"
       >
-        Gulf of Maine Research Institute Ocean Data Products Team
-      </a>
-    </div>
-  </div>
-  <div
-    className="row"
-    style={
-      Object {
-        "fontSize": ".8rem",
-        "marginBottom": "1rem",
-        "marginTop": "1rem",
-        "padding": ".25rem",
-      }
-    }
-  >
-    <div
-      className="mx-auto text-center col-md-10"
-    >
-      <a
-        href="http://neracoos.org"
-        style={
-          Object {
-            "paddingRight": "1rem",
-          }
-        }
-      >
-        <img
-          alt="NERACOOS"
-          src="NERACOOS_horizontal_logo_acronym title_yellowline.png"
-          style={
-            Object {
-              "height": "80px",
-              "margin": ".2rem",
-              "marginRight": ".5rem",
-            }
-          }
-          title="NERACOOS"
-        />
-      </a>
-      <a
-        href="https://www.gmri.org/our-work/research/our-approach/ocean-data"
-      >
-        <img
-          alt="Gulf of Maine Research Institute"
-          src="gmri.jpg"
-          style={
-            Object {
-              "height": "80px",
-              "margin": ".2rem",
-              "marginRight": ".5rem",
-            }
-          }
-          title="Gulf of Maine Research Institute"
-        />
+        Gulf of Maine Research Institute
       </a>
     </div>
   </div>

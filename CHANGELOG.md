@@ -12,10 +12,11 @@ Changes:
 - Show only a 15 min range of time in the current conditions table.
 - Adds a tooltip popup for condition tables with the time of reading.
 - Remove old NERACOOS links from More Info.
+- Remove logos and update GMRI/ODP url in footer.
 
 Fixes:
 
-- A little extra breathing space withing the footer.
+- A little extra breathing space within the footer.
 
 Testing:
 
