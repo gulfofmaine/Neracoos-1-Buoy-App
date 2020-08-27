@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import { Point } from "@turf/helpers"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
@@ -38,7 +38,7 @@ export function forecastLoadStarted(platformId: string, forecast: ForecastSource
   return {
     forecast,
     platformId,
-    type: actionTypes.ERDDAP_FORECAST_LOAD_STARTED
+    type: actionTypes.ERDDAP_FORECAST_LOAD_STARTED,
   }
 }
 
@@ -51,7 +51,7 @@ export function forecastLoadError(
     forecast,
     message,
     platformId,
-    type: actionTypes.ERDDAP_FORECAST_LOAD_ERROR
+    type: actionTypes.ERDDAP_FORECAST_LOAD_ERROR,
   }
 }
 
@@ -64,7 +64,7 @@ export function forecastLoadSuccess(
     forecast,
     platformId,
     readings,
-    type: actionTypes.ERDDAP_FORECAST_LOAD_SUCCESS
+    type: actionTypes.ERDDAP_FORECAST_LOAD_SUCCESS,
   }
 }
 
@@ -86,9 +86,9 @@ export const forecastLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
         data: {
           forecast,
           platformId: platform.id,
-          url
+          url,
         },
-        message: "Loading forecast"
+        message: "Loading forecast",
       })
 
       const result = await fetch(url)
@@ -98,7 +98,7 @@ export const forecastLoad: ActionCreator<ThunkAction<Promise<Action>, StoreState
         forecastLoadSuccess(
           platform.id as string,
           forecast,
-          json.time_series.map(ts => ({ ...ts, time: new Date(ts.time) }))
+          json.time_series.map((ts) => ({ ...ts, time: new Date(ts.time) }))
         )
       )
     } catch (error) {

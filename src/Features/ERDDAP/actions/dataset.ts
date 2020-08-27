@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
@@ -46,7 +46,7 @@ export function erddapDatasetLoadSuccess(
     data,
     datasets,
     platformId,
-    type: actionTypes.ERDDAP_DATASET_LOAD_SUCCESS
+    type: actionTypes.ERDDAP_DATASET_LOAD_SUCCESS,
   }
 }
 
@@ -59,7 +59,7 @@ export function erddapDatasetLoadStarted(
     datasets,
     platformId,
     time,
-    type: actionTypes.ERDDAP_DATASET_LOAD_STARTED
+    type: actionTypes.ERDDAP_DATASET_LOAD_STARTED,
   }
 }
 
@@ -72,7 +72,7 @@ export function erddapDatasetLoadError(
     datasets,
     message,
     platformId,
-    type: actionTypes.ERDDAP_DATASET_LOAD_ERROR
+    type: actionTypes.ERDDAP_DATASET_LOAD_ERROR,
   }
 }
 
@@ -92,7 +92,7 @@ export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>,
       const firstDataset = datasets[0]
       const constraints = {
         ...firstDataset.constraints,
-        "time>=": startTime.toISOString()
+        "time>=": startTime.toISOString(),
       }
       if (endTime) {
         constraints["time<="] = firstDataset.time
@@ -100,7 +100,7 @@ export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>,
         constraints["time<="] = firstDataset.time
       }
 
-      const variables = datasets.map(d => d.variable)
+      const variables = datasets.map((d) => d.variable)
 
       const url = tabledapUrl(firstDataset.server, firstDataset.dataset, variables, constraints)
       const proxyUrl = proxytizeUrl(url)
@@ -109,9 +109,9 @@ export const erddapDatasetsLoadGroup: ActionCreator<ThunkAction<Promise<Action>,
         category: "ERDDAP Service",
         data: {
           proxyUrl,
-          url
+          url,
         },
-        message: "Loading ERDDAP datasets"
+        message: "Loading ERDDAP datasets",
       })
 
       const result = await fetch(proxyUrl)
@@ -178,7 +178,7 @@ export function groupByServerDatasetConstraint(readings: PlatformDataset[]): Fet
                 constraints: constraints[constraint][0].constraints,
                 dataset,
                 datasets: constraints[constraint],
-                server
+                server,
               })
             }
           }

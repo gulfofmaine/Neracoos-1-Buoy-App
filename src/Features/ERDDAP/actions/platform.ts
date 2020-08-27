@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
@@ -33,7 +33,7 @@ export type ErddapPlatformActions = ErddapPlatformLoadSuccess | ErddapPlatformLo
 export function erddapPlatformLoadSuccess(geojson: PlatformFeatureCollection): ErddapPlatformLoadSuccess {
   return {
     geojson,
-    type: actionTypes.ERDDAP_PLATFORM_LOAD_SUCCESS
+    type: actionTypes.ERDDAP_PLATFORM_LOAD_SUCCESS,
   }
 }
 
@@ -44,7 +44,7 @@ export function erddapPlatformLoadSuccess(geojson: PlatformFeatureCollection): E
 export function erddapPlatformLoadError(message: string): ErddapPlatformLoadError {
   return {
     message,
-    type: actionTypes.ERDDAP_PLATFORM_LOAD_ERROR
+    type: actionTypes.ERDDAP_PLATFORM_LOAD_ERROR,
   }
 }
 
@@ -53,7 +53,7 @@ export function erddapPlatformLoadError(message: string): ErddapPlatformLoadErro
  */
 export function erddapPlatformLoadStarted(): ErddapPlatformLoadStarted {
   return {
-    type: actionTypes.ERDDAP_PLATFORM_LOAD_STARTED
+    type: actionTypes.ERDDAP_PLATFORM_LOAD_STARTED,
   }
 }
 
@@ -70,9 +70,9 @@ export const erddapPlatformLoad: ActionCreator<ThunkAction<Promise<Action>, Stor
       Sentry.addBreadcrumb({
         category: "ERDDAP Service",
         data: {
-          url
+          url,
         },
-        message: "Loading platform GeoJSON"
+        message: "Loading platform GeoJSON",
       })
 
       const result = await fetch(url)

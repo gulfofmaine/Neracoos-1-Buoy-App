@@ -2,7 +2,7 @@
  * Utilities to translate some of our data source names to much more pronouncable names.
  */
 
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 
 export const humanDataNameDict = {
   air_temperature: "Air Temperature",
@@ -53,7 +53,7 @@ export const humanDataNameDict = {
 
   wind_from_direction: "Wind Direction",
   wind_gust: "Wind Gust",
-  wind_speed: "Wind Speed"
+  wind_speed: "Wind Speed",
 }
 
 /**
@@ -122,7 +122,7 @@ export const humanUnitNamesDict = {
 
   "siemens/m": "Siemens / Meter",
 
-  uatm: "Microatmospheres (uATM)"
+  uatm: "Microatmospheres (uATM)",
 }
 
 /**
@@ -181,7 +181,7 @@ export const dataBounds = {
 
   wind_from_direction: [undefined, undefined],
   wind_gust: [0, 10],
-  wind_speed: [0, 10]
+  wind_speed: [0, 10],
 }
 
 /**

@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser"
+import * as Sentry from "@sentry/react"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { ThunkAction } from "redux-thunk"
 
@@ -34,7 +34,7 @@ export type ErddapForecastMetadataActions =
  */
 export function erddapForecastMetadataLoadStarted(): ErddapForecastMetadataLoadStarted {
   return {
-    type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_STARTED
+    type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_STARTED,
   }
 }
 
@@ -45,7 +45,7 @@ export function erddapForecastMetadataLoadStarted(): ErddapForecastMetadataLoadS
 export function erddapForecastMetadataLoadError(message: string): ErddapForecastMetadataLoadError {
   return {
     message,
-    type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_ERROR
+    type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_ERROR,
   }
 }
 
@@ -56,7 +56,7 @@ export function erddapForecastMetadataLoadError(message: string): ErddapForecast
 export function erddapForecastMetadataLoadSuccess(forecasts: ForecastSource[]): ErddapForecastMetadataLoadSuccess {
   return {
     forecasts,
-    type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_SUCCESS
+    type: actionTypes.ERDDAP_FORECAST_METADATA_LOAD_SUCCESS,
   }
 }
 
@@ -73,9 +73,9 @@ export const forecastMetadataLoad: ActionCreator<ThunkAction<Promise<Action>, St
       Sentry.addBreadcrumb({
         category: "ERDDAP Service",
         data: {
-          url
+          url,
         },
-        message: "Loading forecast metadata"
+        message: "Loading forecast metadata",
       })
 
       const result = await fetch(url)
