@@ -4,7 +4,7 @@ import { Footer } from "./index"
 
 export default {
   component: Footer,
-  title: "Components|Footer",
+  title: 'Components/Footer',
 }
 
 export const footer = () => <Footer />

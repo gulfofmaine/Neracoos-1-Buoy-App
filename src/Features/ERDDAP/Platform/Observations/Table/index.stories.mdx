@@ -1,10 +1,18 @@
-import { Meta, Story } from "@storybook/addon-docs/blocks"
+import { ArgsTable, Meta, Story } from "@storybook/addon-docs/blocks"
+
+import { UnitSystem } from "Features/Units/types"
+import { platform } from "stories/platform"
 
 import { ErddapObservationTable } from "./table"
-import * as table from "./table.stories"
-import * as all from "./all.stories"
+import { ErddapAllObservationsTable } from "./all"
 
-<Meta title="ERDDAP|ObservationTable/docs" component={ErddapObservationTable} />
+<Meta
+  title="ERDDAP/ObservationTable"
+  component={ErddapObservationTable}
+  argTypes={{
+    unitSelector: { control: { disable: true } },
+  }}
+/>
 
 # Observation Tables
 
@@ -15,26 +23,38 @@ and a view that will show the complete set of latest observations.
 
 It honors the set unit system, and if you switch
 unit system while it is displayed it will smoothly transition.
-To see the transition, switch to the **Canvas** tab and select the story for the varient.
 
 ## Current
 
 [`src/Features/ERDDAP/Platform/Observations/Table/table.tsx`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Observations/Table/table.tsx) - [M01 - Current Conditions](https://mariners.neracoos.org/platform/M01)
 
-There are just a subset of different observations that are most relevant that are showed in this variant.
+There is a subset of different observations that are most relevant that are showed in this variant.
 
-<Story name="Current - English units">{table.english()}</Story>
+<Story name="Current Observations" args={{ unit_system: UnitSystem.english, platform }}>
+  {CurrentTemplate.bind()}
+</Story>
+
+<ArgsTable story="Current Observations" />
 
 ```tsx
 <ErddapObservationTable platform={platform} unit_system={UnitSystem.english} />
 ```
 
+export const CurrentTemplate = (args) => <ErddapObservationTable {...args} />
+
 ## All
 
 [`src/Features/ERDDAP/Platform/Observations/Table/all.tsx`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Observations/Table/all.tsx) - [M01 - All Observations](https://mariners.neracoos.org/platform/M01/observations/all)
 
-<Story name="All - English units">{all.english()}</Story>
+<Story name="All Observations" args={{ unit_system: UnitSystem.english, platform }}>
+  {AllTemplate.bind()}
+</Story>
+
+<ArgsTable story="All Observations" />
 
 ```tsx
 <ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.english} />
 ```
+
+export const AllTemplate = (args) => <ErddapAllObservationsTable {...args} /
+>

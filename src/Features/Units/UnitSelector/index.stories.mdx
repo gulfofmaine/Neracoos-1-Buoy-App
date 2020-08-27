@@ -1,9 +1,9 @@
-import { Meta, Story } from "@storybook/addon-docs/blocks"
+import { ArgsTable, Meta, Story } from "@storybook/addon-docs/blocks"
 
 import { UnitSelectorBase } from "./index"
-import * as stories from "./index.stories"
+import { UnitSystem } from "Features/Units/types"
 
-<Meta title="Units|UnitSelector" component={UnitSelectorBase} />
+<Meta title="Units/UnitSelector" component={UnitSelectorBase} argTypes={{ switchUnits: { action: "switch-units" } }} />
 
 # Unit Selector
 
@@ -12,7 +12,23 @@ import * as stories from "./index.stories"
 As part of the Mariner's dashboard we keep track of which unit system a user
 would prefer to have the data displayed in.
 
+<Story name="Unit Selector" args={{ system: UnitSystem.english }}>
+  {Template.bind()}
+</Story>
+
 The unit selector lives at the bottom of the current conditions table
 on each platform page, so it's accessable from any tab.
 
-<Story name="English units">{stories.english()}</Story>
+It's usually wrapped up in a Redux `connect()` so it's called as
+`<UnitSelector />` instead of more directly as shown.
+
+<ArgsTable story="Unit Selector" />
+
+```tsx
+<UnitSelectorBase
+    system={UnitSystem.english}
+    switchUnits={(system: UnitSystem) => void}
+/>
+```
+
+export const Template = (args) => <UnitSelectorBase {...args} />

@@ -1,9 +1,11 @@
-import { Meta, Story } from "@storybook/addon-docs/blocks"
+import { Meta, Story, ArgsTable } from "@storybook/addon-docs/blocks"
+
+import { UnitSystem } from "Features/Units/types"
+import { platform } from "stories/platform"
 
 import { ObservedConditionsDatasets } from "./index"
-import * as stories from "./index.stories"
 
-<Meta title="ERDDAP|ObservedCondition" component={ObservedConditionsDatasets} />
+<Meta title="ERDDAP/ObservedCondition" component={ObservedConditionsDatasets} />
 
 # Observed Conditions
 
@@ -12,32 +14,27 @@ import * as stories from "./index.stories"
 The observed conditions charts are used to display 7 (or in the future more!)
 days worth of data queried from ERDDAP.
 
+<Story
+  name="Observed Conditions"
+  args={{ unit_system: UnitSystem.english, standardName: standard_name, datasets, platform }}
+>
+  {Template.bind()}
+</Story>
+
 It honors the set unit system, and if you switch
 unit system while it is displayed it will smoothly transition.
-To see the transition, switch to the **Canvas** tab and select the **Configurable** story.
 
-## English Units
-
-<Story name="English units">{stories.english()}</Story>
+<ArgsTable story="Observed Conditions" />
 
 ```tsx
 <ObservedConditionsDatasets
   platform={platform}
-  standardName="visibility_in_air"
+  standardName={standard_name}
   unit_system={UnitSystem.english}
   datasets={datasets}
 />
 ```
 
-## Metric units
-
-<Story name="Metric units">{stories.metric()}</Story>
-
-```tsx
-<ObservedConditionsDatasets
-  platform={platform}
-  standardName="visibility_in_air"
-  unit_system={UnitSystem.metric}
-  datasets={datasets}
-/>
-```
+export const Template = (args) => <ObservedConditionsDatasets {...args} />
+const standard_name = "visibility_in_air"
+const datasets = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standard_name)
