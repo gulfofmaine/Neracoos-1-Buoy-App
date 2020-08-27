@@ -22,6 +22,7 @@ Testing:
 - Test A01 and skip M01 wind test.
 - Separate push actions from those only supposed to run on master/main branch.
 - Update Storybook to 6.0.
+  - Disable links addon, enable a11y.
 
 ## 0.4.1 - 5/31/2020
 
