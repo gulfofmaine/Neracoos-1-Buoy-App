@@ -27,22 +27,22 @@ export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = (
     barbsPerDay = 2
   }
 
-  const windDatasets = platform.properties.readings.filter(reading =>
+  const windDatasets = platform.properties.readings.filter((reading) =>
     windStandards.has(reading.data_type.standard_name)
   )
 
-  const windTimeSeries: DataTimeSeries[] = windDatasets.map(reading => ({
+  const windTimeSeries: DataTimeSeries[] = windDatasets.map((reading) => ({
     name: reading.data_type.long_name,
     timeSeries: reading.readings,
-    unit: reading.data_type.units
+    unit: reading.data_type.units,
   }))
 
   Sentry.addBreadcrumb({
     category: "ERDDAP Wind",
     data: {
       platformId: platform.id as string,
-      windDatasets
-    }
+      windDatasets,
+    },
   })
 
   if (windDatasets.length === 0) {
@@ -80,7 +80,7 @@ interface WindChartProps {
   unit_system: UnitSystem
 }
 
-export const WindChart: React.SFC<WindChartProps> = props => (
+export const WindChart: React.SFC<WindChartProps> = (props) => (
   <Row>
     <Col>
       <h4>Wind</h4>

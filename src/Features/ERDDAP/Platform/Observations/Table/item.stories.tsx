@@ -13,20 +13,29 @@ export default {
       disable: true,
     },
   },
+  argTypes: {
+    later_then: {
+      control: {
+        type: "date",
+      },
+    },
+  },
 }
 
-export const Configurable = (args) => <TableItem {...args} />
-Configurable.args = {
+export const english = (args) => <TableItem {...args} />
+english.args = {
   unit_system: UnitSystem.english,
   later_then: new Date("2/3/2020"),
   data_type: "wind_speed",
   name: "Wind Speed",
   platform,
 }
-Configurable.argTypes = {
-  later_then: {
-    control: {
-      type: "date",
-    },
-  },
+
+export const metric = (args) => <TableItem {...args} />
+metric.args = {
+  unit_system: UnitSystem.metric,
+  later_then: new Date("2/3/2020"),
+  data_type: "wind_speed",
+  name: "Wind Speed",
+  platform,
 }

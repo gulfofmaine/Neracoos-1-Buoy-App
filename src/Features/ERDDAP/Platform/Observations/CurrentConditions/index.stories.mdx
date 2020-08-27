@@ -1,7 +1,11 @@
-import { Meta, Story } from "@storybook/addon-docs/blocks"
+import { ArgsTable, Meta, Story } from "@storybook/addon-docs/blocks"
+import { Row } from "reactstrap"
+
+import { UnitSystem } from "Features/Units/types"
+import { platform } from "stories/platform"
 
 import { CurrentConditions } from "./index"
-import * as stories from "./index.stories"
+import { wind_datasets, filtered_datasets } from "./test_data"
 
 <Meta title="ERDDAP/CurrentConditions" component={CurrentConditions} />
 
@@ -12,34 +16,19 @@ import * as stories from "./index.stories"
 The current conditions page is designed to give the user a quick view
 of the last 24 hours of data.
 
+<Story name="Current Conditions" args={{ unit_system: UnitSystem.english, filtered_datasets, wind_datasets, platform }}>
+  {Template.bind()}
+</Story>
+
 It honors the set unit system, and if you switch
 unit system while it is displayed it will smoothly transition.
-To see the transition, switch to the **Canvas** tab and select the **Configurable** story.
 
 _Note: the Wind does not display correctly in Storybooks_
 
-## English units
+<ArgsTable story="Current Conditions" />
 
-<Story name="English units">{stories.english()}</Story>
-
-```tsx
-<CurrentConditions
-  unit_system={UnitSystem.english}
-  platform={platform}
-  wind_datasets={wind_datasets}
-  filtered_datasets={filtered_datasets}
-/>
-```
-
-## Metric units
-
-<Story name="Metric units">{stories.metric()}</Story>
-
-```tsx
-<CurrentConditions
-  unit_system={UnitSystem.metric}
-  platform={platform}
-  wind_datasets={wind_datasets}
-  filtered_datasets={filtered_datasets}
-/>
-```
+export const Template = (args) => (
+  <Row>
+    <CurrentConditions {...args} />
+  </Row>
+)

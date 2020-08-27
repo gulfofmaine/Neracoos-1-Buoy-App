@@ -16,12 +16,14 @@ export default {
   },
 }
 
-export const configurable = (args) => <ErddapAllObservationsTable {...args} />
-configurable.args = {
+export const english = (args) => <ErddapAllObservationsTable {...args} />
+english.args = {
   unit_system: UnitSystem.english,
   platform,
 }
 
-export const english = () => <ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.english} />
-
-export const metric = () => <ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.metric} />
+export const metric = (args) => <ErddapAllObservationsTable {...args} />
+metric.args = {
+  unit_system: UnitSystem.metric,
+  platform,
+}

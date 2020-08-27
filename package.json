@@ -62,10 +62,12 @@
     "@types/react": "16.9.46",
     "@types/react-dom": "16.9.8",
     "@types/react-test-renderer": "16.9.3",
+    "babel-loader": "^8.1.0",
     "codacy-coverage": "3.4.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.3",
     "jest-fetch-mock": "3.0.3",
+    "react-is": "^16.13.1",
     "react-test-renderer": "16.13.1",
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.4",
@@ -97,7 +99,7 @@
   "jest": {
     "transform": {
       "^.+\\.[tj]sx?$": "babel-jest",
-      "^.+\\.mdx$": "@storybook/addon-docs/jest-transform-mdx"
+      "^.+\\.mdx?$": "@storybook/addon-docs/jest-transform-mdx"
     }
   }
 }

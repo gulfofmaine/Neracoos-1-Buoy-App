@@ -14,28 +14,18 @@ export default {
 const standard_name = "visibility_in_air"
 const datasets = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standard_name)
 
-export const configurable = (args) => <ObservedConditionsDatasets {...args} />
-configurable.args = {
+export const english = (args) => <ObservedConditionsDatasets {...args} />
+english.args = {
   unit_system: UnitSystem.english,
   platform,
   standardName: standard_name,
   datasets,
 }
 
-export const english = () => (
-  <ObservedConditionsDatasets
-    platform={platform}
-    standardName={standard_name}
-    unit_system={UnitSystem.english}
-    datasets={datasets}
-  />
-)
-
-export const metric = () => (
-  <ObservedConditionsDatasets
-    platform={platform}
-    standardName={standard_name}
-    unit_system={UnitSystem.metric}
-    datasets={datasets}
-  />
-)
+export const metric = (args) => <ObservedConditionsDatasets {...args} />
+metric.args = {
+  unit_system: UnitSystem.metric,
+  platform,
+  standardName: standard_name,
+  datasets,
+}

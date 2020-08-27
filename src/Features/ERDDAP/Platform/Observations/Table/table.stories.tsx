@@ -14,21 +14,19 @@ export default {
       disable: true,
     },
   },
+  argTypes: {
+    unitSelector: { control: { disable: true } },
+  },
 }
 
-export const configurable = (args) => <ErddapObservationTable {...args} unitSelector={<i>Unit selector goes here</i>} />
-configurable.args = {
+export const english = (args) => <ErddapObservationTable {...args} unitSelector={<i>Unit selector goes here</i>} />
+english.args = {
   unit_system: UnitSystem.english,
   platform,
 }
-configurable.argTypes = {
-  unitSelector: { control: { disable: true } },
-}
 
-export const english = () => {
-  return <ErddapObservationTable platform={platform} unit_system={UnitSystem.english} />
-}
-
-export const metric = () => {
-  return <ErddapObservationTable platform={platform} unit_system={UnitSystem.metric} />
+export const metric = (args) => <ErddapObservationTable {...args} unitSelector={<i>Unit selector goes here</i>} />
+metric.args = {
+  unit_system: UnitSystem.metric,
+  platform,
 }
