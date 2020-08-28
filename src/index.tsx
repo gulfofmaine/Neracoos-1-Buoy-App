@@ -13,6 +13,8 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 
+import GAListener from "Shared/google-analytics"
+
 import App from "./App"
 import "./index.css"
 import { history, store } from "./store"
@@ -59,7 +61,9 @@ if (!(window as any).Cypress) {
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-775587-9" : undefined}>
+        <App />
+      </GAListener>
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root") as HTMLElement
