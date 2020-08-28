@@ -13,6 +13,7 @@ Changes:
 - Adds a tooltip popup for condition tables with the time of reading.
 - Remove old NERACOOS links from More Info.
 - Remove logos and update GMRI/ODP url in footer.
+- Tracking page visits with Google Analytics.
 
 Fixes:
 
