@@ -50,7 +50,7 @@
   "devDependencies": {
     "@storybook/addon-a11y": "^6.0.19",
     "@storybook/addon-essentials": "^6.0.18",
-    "@storybook/addon-storyshots": "^6.0.19",
+    "@storybook/addon-storyshots": "^6.0.20",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.20",
     "@types/enzyme": "3.10.5",
