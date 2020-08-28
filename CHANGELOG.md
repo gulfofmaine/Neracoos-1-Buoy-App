@@ -17,6 +17,7 @@ Changes:
 Fixes:
 
 - A little extra breathing space within the footer.
+- Return null from the wind card early before throwing exceptions.
 
 Testing:
 

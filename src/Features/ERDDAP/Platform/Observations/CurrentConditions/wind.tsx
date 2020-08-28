@@ -1,7 +1,7 @@
 /**
  * Wind specific current conditions card
  */
-import * as React from "react"
+import React from "react"
 import { Card, CardBody, CardHeader } from "reactstrap"
 
 import { round } from "Shared/math"
@@ -24,17 +24,22 @@ export const WindCard: React.SFC<Props> = ({ datasets, unit_system }) => {
     return null
   }
 
-  const data: DataTimeSeries[] = datasets.map(dataset => ({
+  const data: DataTimeSeries[] = datasets.map((dataset) => ({
     name: dataset.data_type.long_name,
     timeSeries: dataset.readings,
-    unit: dataset.data_type.units
+    unit: dataset.data_type.units,
   }))
 
-  const speed = datasets.filter(dataset => dataset.data_type.standard_name.includes("speed"))
-  const gust = datasets.filter(dataset => dataset.data_type.standard_name.includes("gust"))
-  const direction = datasets.filter(dataset => dataset.data_type.standard_name.includes("direction"))
+  const speed = datasets.filter((dataset) => dataset.data_type.standard_name.includes("speed"))
+  const gust = datasets.filter((dataset) => dataset.data_type.standard_name.includes("gust"))
+  const direction = datasets.filter((dataset) => dataset.data_type.standard_name.includes("direction"))
 
-  const data_converter = converter([...speed, ...gust][0].data_type.standard_name)
+  const speedAndGust = [...speed, ...gust]
+  if (speedAndGust.length < 1) {
+    return null
+  }
+
+  const data_converter = converter(speedAndGust[0].data_type.standard_name)
 
   let speedTitle: string = ""
   if (speed.length > 0 && speed[0].readings.length > 0) {
