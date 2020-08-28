@@ -2,7 +2,7 @@
  * Single large time series chart component
  */
 import Highcharts from "highcharts"
-import * as React from "react"
+import React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
 
 import { round } from "Shared/math"
@@ -14,8 +14,8 @@ import { pointFormatMaker } from "./formatter"
 
 const plotOptions = {
   time: {
-    useUTC: false
-  }
+    useUTC: false,
+  },
 }
 
 interface Props {
@@ -42,9 +42,9 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
 
     const data_converter = converter(data_type)
 
-    const data = timeSeries.map(r => [
+    const data = timeSeries.map((r) => [
       r.time.valueOf(),
-      round(data_converter.convertTo(r.reading as number, unit_system) as number, 2)
+      round(data_converter.convertToNumber(r.reading as number, unit_system) as number, 2),
     ])
 
     return (

@@ -4,7 +4,7 @@
  */
 import Highcharts from "highcharts"
 import addWindBarbModule from "highcharts/modules/windbarb"
-import * as React from "react"
+import React from "react"
 import {
   Chart,
   HighchartsChart,
@@ -14,7 +14,7 @@ import {
   WindBarbSeries,
   withHighcharts,
   XAxis,
-  YAxis
+  YAxis,
 } from "react-jsx-highcharts"
 
 import { converter } from "Features/Units/Converter"
@@ -36,13 +36,13 @@ function pointFormatterMaker(unit_system: UnitSystem) {
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
       this.points
-        .map(p => {
+        .map((p) => {
           if (p.series.name === "Direction") {
             const direction = compassDirection(p.point.direction)
             return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
           }
           return `<b>${p.series.name}:</b> ${p.y} knots ${round(
-            data_converter.convertTo(p.y, unit_system) as number,
+            data_converter.convertToNumber(p.y, unit_system),
             1
           )} ${data_converter.displayName(unit_system)}`
         })
@@ -53,8 +53,8 @@ function pointFormatterMaker(unit_system: UnitSystem) {
 
 const plotOptions = {
   time: {
-    useUTC: false
-  }
+    useUTC: false,
+  },
 }
 
 interface Props {
@@ -82,16 +82,16 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
   public render() {
     const { unit_system } = this.props
     // Extract wind direction from windspeed data
-    const speeds = this.props.data.filter(d => !d.name.toLowerCase().includes("direction"))
-    const directions = this.props.data.filter(d => d.name.toLowerCase().includes("direction"))
+    const speeds = this.props.data.filter((d) => !d.name.toLowerCase().includes("direction"))
+    const directions = this.props.data.filter((d) => d.name.toLowerCase().includes("direction"))
 
     const daysAgo = new Date()
     daysAgo.setDate(daysAgo.getDate() - this.props.days)
 
     const filteredSpeeds = speeds.map((d, index) => {
       const data = d.timeSeries
-        .filter(r => r.time > daysAgo)
-        .map(r => [r.time.valueOf(), round(data_converter.convertTo(r.reading, unit_system) as number, 1)])
+        .filter((r) => r.time > daysAgo)
+        .map((r) => [r.time.valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)])
       return data
     })
 
@@ -101,10 +101,10 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
     const speedsSeries = speeds.map((d, index) => {
       // Filter windspeeds to only include data from the time range
       const data = d.timeSeries
-        .filter(reading => reading.time > daysAgo)
+        .filter((reading) => reading.time > daysAgo)
         .map(
           // Return Highcharts Spline dataformat [date, reading]
-          r => [r.time.valueOf(), round(data_converter.convertTo(r.reading, unit_system) as number, 1)]
+          (r) => [r.time.valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)]
         )
 
       const nameParts = d.name.split("_")
@@ -122,14 +122,14 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
       const speed = speeds[0]
       const direction = directions[0]
 
-      let speedTs = speed.timeSeries.filter(r => r.time > daysAgo)
-      let directionTs = direction.timeSeries.filter(r => r.time > daysAgo)
+      let speedTs = speed.timeSeries.filter((r) => r.time > daysAgo)
+      let directionTs = direction.timeSeries.filter((r) => r.time > daysAgo)
 
       // cross filter our time series so that we only have matching times
-      const directionTimes = directionTs.map(r => r.time.toISOString())
-      speedTs = speedTs.filter(r => directionTimes.filter(d => d === r.time.toISOString()).length > 0)
-      const speedTimes = speedTs.map(r => r.time.toISOString())
-      directionTs = directionTs.filter(r => speedTimes.filter(d => d === r.time.toISOString()).length > 0)
+      const directionTimes = directionTs.map((r) => r.time.toISOString())
+      speedTs = speedTs.filter((r) => directionTimes.filter((d) => d === r.time.toISOString()).length > 0)
+      const speedTimes = speedTs.map((r) => r.time.toISOString())
+      directionTs = directionTs.filter((r) => speedTimes.filter((d) => d === r.time.toISOString()).length > 0)
 
       if (speedTs.length === directionTs.length) {
         // Figure out how many samples should be skipped between readings to manage chart density
@@ -140,7 +140,7 @@ export class WindTimeSeriesChartBase extends React.Component<Props, object> {
             windData.push([
               directionTs[index].time.valueOf(),
               round(speedTs[index].reading, 1),
-              directionTs[index].reading
+              directionTs[index].reading,
             ])
           }
         }

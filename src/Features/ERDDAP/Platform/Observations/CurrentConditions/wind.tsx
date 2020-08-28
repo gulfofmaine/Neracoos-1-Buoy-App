@@ -45,10 +45,7 @@ export const WindCard: React.SFC<Props> = ({ datasets, unit_system }) => {
   if (speed.length > 0 && speed[0].readings.length > 0) {
     speedTitle =
       " - " +
-      round(
-        data_converter.convertTo(speed[0].readings[speed[0].readings.length - 1].reading, unit_system) as number,
-        1
-      ) +
+      round(data_converter.convertToNumber(speed[0].readings[speed[0].readings.length - 1].reading, unit_system), 1) +
       " " +
       data_converter.displayName(unit_system)
   }
@@ -57,7 +54,7 @@ export const WindCard: React.SFC<Props> = ({ datasets, unit_system }) => {
   if (gust.length > 0) {
     gustTitle =
       " gusting to " +
-      round(data_converter.convertTo(gust[0].readings[gust[0].readings.length - 1].reading, unit_system) as number, 1) +
+      round(data_converter.convertToNumber(gust[0].readings[gust[0].readings.length - 1].reading, unit_system), 1) +
       " " +
       data_converter.displayName(unit_system)
   }

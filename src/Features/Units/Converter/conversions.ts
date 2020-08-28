@@ -31,11 +31,11 @@ export class DataTypeConversion {
   constructor(
     public data_type: string,
     public display_name: string,
-    private source_unit: string,
-    private metric_unit: string,
-    private english_unit: string,
-    private metric_unit_display?: string,
-    private english_unit_display?: string
+    protected source_unit: string,
+    protected metric_unit: string,
+    protected english_unit: string,
+    protected metric_unit_display?: string,
+    protected english_unit_display?: string
   ) {}
 
   /**
@@ -47,6 +47,16 @@ export class DataTypeConversion {
   public convertTo(value: number | string, unitSystem: UnitSystem): number | string {
     const to = this.toUnitSystem(unitSystem)
     return this.convertFrom(value).to(to)
+  }
+
+  /**
+   * Convert a value from it's source to a given unit system as a number
+   *
+   * @param value Value that should be converted to a number
+   * @param unitSystem Unit system that the value should be converted to
+   */
+  public convertToNumber(value: number | string, unitSystem: UnitSystem): number {
+    return Number(this.convertTo(value, unitSystem))
   }
 
   /**

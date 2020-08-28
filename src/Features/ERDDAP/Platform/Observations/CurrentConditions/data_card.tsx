@@ -64,7 +64,7 @@ export const DataCard: React.SFC<DataCardProps> = ({ platform, data_types, unit_
 
   data = data.map((r) => ({
     ...r,
-    reading: round(data_converter.convertTo(r.reading, unit_system) as number, 2),
+    reading: round(data_converter.convertToNumber(r.reading, unit_system), 2),
   }))
 
   return (
@@ -78,7 +78,7 @@ export const DataCard: React.SFC<DataCardProps> = ({ platform, data_types, unit_
       >
         <Card>
           <CardHeader>
-            {reading.data_type.long_name} - {round(data_converter.convertTo(latest.reading, unit_system) as number, 1)}{" "}
+            {reading.data_type.long_name} - {round(data_converter.convertToNumber(latest.reading, unit_system), 1)}{" "}
             {data_converter.displayName(unit_system)} {convertUnit(reading.data_type.units, latest.reading)}
           </CardHeader>
           <CardBody style={{ padding: ".2rem" }}>

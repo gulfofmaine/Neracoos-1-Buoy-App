@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Stop trying to plot cardinal directions, when raw degrees would do better.
+
 ## 0.4.2 - 8/28/2020
 
 Changes:
