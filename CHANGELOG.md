@@ -6,6 +6,12 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.4.2 - 8/28/2020
+
+Changes:
+
 - Remove signal flags.
 - Allow multiple data types to be specified in current conditions table and show only the first one matched.
 - Show only one of a group of data types in the current (latest) conditions view.
@@ -14,6 +20,32 @@ Changes:
 - Remove old NERACOOS links from More Info.
 - Remove logos and update GMRI/ODP url in footer.
 - Tracking page visits with Google Analytics.
+- Dependency updates:
+  - Cypress from 4.5.0 to 5.0.0
+  - Node from 14.3.0 to 14.8.0
+  - Nginx from 1.17.9 to 1.19.2
+  - Types
+    - History from 4.7.5 to 4.7.7
+    - OpenLayers fro 6.1.0 to 6.3.0
+    - React Redux from 7.1.7 to 7.1.9
+    - Reactstrap from 8.4.2 to 8.5.1
+    - Jest from 25.2.1 to 26.0.10
+    - Node from 13.13.5 to 14.6.1
+    - React from 16.9.34 to 16.9.48
+    - React test loader from 16.9.2 to 16.9.3
+  - Bootstrap from 4.4.1 to 4.5.2
+  - Moment from 2.25.3 to 2.27.0
+  - Moment-timezone from 0.5.28 to 0.5.31
+  - React Redux from 7.2.0 to 7.2.1
+  - React Scripts from 3.4.0 to 3.4.3
+  - Reactstrap from 8.4.1 to 8.5.1
+  - Storybook
+    - A11y from 5.3.18 to 6.0.20
+    - Storyshots from 5.3.18 to 6.0.20
+    - Preset Create React App from 2.1.1 to 3.1.4
+    - React from 5.3.18 to 6.0.20
+  - Typedoc from 0.17.7 to 0.18.0
+  - Wait on from 5.0.0 to 5.2.0
 
 Fixes:
 
@@ -26,6 +58,7 @@ Testing:
 - Separate push actions from those only supposed to run on master/main branch.
 - Update Storybook to 6.0.
   - Disable links addon, enable a11y.
+  - Use Storybook essentials package rather than seperate actions, controls, docs...
 - Switch sentry browers for react specific package
 
 ## 0.4.1 - 5/31/2020
