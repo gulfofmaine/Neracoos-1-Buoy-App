@@ -21,4 +21,17 @@ export class CardinalDirection extends DataTypeConversion {
         return compassDirection(value)[1]
     }
   }
+
+  public convertToNumber(value: number, unitSystem: UnitSystem): number {
+    return value
+  }
+
+  public displayName(unitSystem: UnitSystem): string {
+    switch (unitSystem) {
+      case UnitSystem.metric:
+        return this.metric_unit_display ? this.metric_unit_display : this.metric_unit
+      default:
+        return ""
+    }
+  }
 }

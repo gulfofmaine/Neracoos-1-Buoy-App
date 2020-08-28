@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { connect } from "react-redux"
 
 import { MultipleLargeTimeSeriesChart } from "components/Charts"
@@ -24,7 +24,7 @@ export interface ReduxProps {
 
 function mapStateToProps({ erddap }: StoreState): ReduxProps {
   return {
-    forecasts: erddap.forecasts.forecasts
+    forecasts: erddap.forecasts.forecasts,
   }
 }
 
@@ -46,18 +46,18 @@ export const forecastToStandardNames: { [key: string]: Set<string> } = {
     "sea_surface_wave_significant_height",
     "significant_height_of_wind_and_swell_waves",
     "significant_wave_height",
-    "max_wave_height"
+    "max_wave_height",
   ]),
   wave_period: new Set(["sea_surface_swell_wave_period", "period"]),
   wind_direction: new Set(["wind_from_direction"]),
-  wind_speed: new Set(["wind_speed"])
+  wind_speed: new Set(["wind_speed"]),
 }
 
 const direction_forecast_types = new Set(["wave_direction", "wind_direction"])
 
 export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, forecasts, unit_system }) => {
   const filteredForecasts = forecasts.filter(
-    forecast => forecast.forecast_type.toLowerCase().replace(" ", "_") === type
+    (forecast) => forecast.forecast_type.toLowerCase().replace(" ", "_") === type
   )
 
   if (filteredForecasts.length < 1) {
@@ -66,26 +66,26 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
 
   const standardNames = forecastToStandardNames[type]
 
-  const datasets = platform.properties.readings.filter(dataset => standardNames.has(dataset.data_type.standard_name))
+  const datasets = platform.properties.readings.filter((dataset) => standardNames.has(dataset.data_type.standard_name))
   const platformForecasts = platform.properties.forecasts.filter(
-    forecast => forecast.source.forecast_type.toLowerCase().replace(" ", "_") === type
+    (forecast) => forecast.source.forecast_type.toLowerCase().replace(" ", "_") === type
   )
 
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
-  let data: DataTimeSeries[] = datasets.map(dataset => ({
+  let data: DataTimeSeries[] = datasets.map((dataset) => ({
     name: dataset.data_type.long_name + " observed",
-    timeSeries: dataset.readings.filter(reading => reading.time > aDayAgo),
-    unit: dataset.data_type.units
+    timeSeries: dataset.readings.filter((reading) => reading.time > aDayAgo),
+    unit: dataset.data_type.units,
   }))
 
-  platformForecasts.forEach(forecast => {
+  platformForecasts.forEach((forecast) => {
     if (forecast.readings.length > 0) {
       data.push({
         name: forecast.source.name,
         timeSeries: forecast.readings,
-        unit: forecast.source.units
+        unit: forecast.source.units,
       })
     }
   })
@@ -118,17 +118,17 @@ export const ForecastChart: React.SFC<ForecastChartProps> = ({ data, type, unit_
   if (!direction_forecast_types.has(type)) {
     const data_converter = converter(Array.from(standardNames)[0])
 
-    data = data.map(d => ({
+    data = data.map((d) => ({
       ...d,
       unit: data_converter.displayName(unit_system),
-      timeSeries: d.timeSeries.map(r => ({
+      timeSeries: d.timeSeries.map((r) => ({
         ...r,
-        reading: round(data_converter.convertTo(r.reading, unit_system) as number, 2)
-      }))
+        reading: round(data_converter.convertToNumber(r.reading, unit_system), 2),
+      })),
     }))
   }
 
-  const units = Array.from(new Set(data.map(ts => ts.unit)))
+  const units = Array.from(new Set(data.map((ts) => ts.unit)))
 
   if (units.length > 0) {
     return <MultipleLargeTimeSeriesChart unit={units[0]} data={data} />

@@ -11,13 +11,18 @@ describe("sea_surface_wave_to_direction conversions", () => {
     expect(result).toBe("NE")
   })
 
+  it("to english number", () => {
+    const result = sea_surface_wave_to_direction.convertToNumber(source_value, UnitSystem.english)
+    expect(result).toBe(source_value)
+  })
+
   it("to metric", () => {
     const result = sea_surface_wave_to_direction.convertTo(source_value, UnitSystem.metric)
     expect(result).toBeCloseTo(source_value)
   })
 
   it("display names", () => {
-    expect(sea_surface_wave_to_direction.displayName(UnitSystem.english)).toBe("Cardinal Direction")
+    expect(sea_surface_wave_to_direction.displayName(UnitSystem.english)).toBe("")
     expect(sea_surface_wave_to_direction.displayName(UnitSystem.metric)).toBe("Degrees")
   })
 })
