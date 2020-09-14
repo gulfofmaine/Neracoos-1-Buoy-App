@@ -36,5 +36,5 @@ const getPageById = async (key, { pageId }) => {
  * @param pageId string identifier of page to load
  */
 export function usePage(pageId: string) {
-  return useQuery(["wagtail-page", { pageId }], getPageById)
+  return useQuery(["wagtail-page", { pageId }], getPageById, { staleTime: 15 * 60 * 1000, cacheTime: 60 * 60 * 1000 })
 }

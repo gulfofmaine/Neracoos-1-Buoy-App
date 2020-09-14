@@ -2,7 +2,7 @@
  * Tabs that are displayed on a platform page.
  */
 
-import * as React from "react"
+import React from "react"
 import { Link, match, Route, RouteComponentProps, Switch } from "react-router-dom"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
@@ -17,6 +17,7 @@ import {
   ForecastDropdown,
   ForecastMetadataLoader,
 } from "Features/ERDDAP"
+import { useUnitSystem } from "Features/Units"
 
 import { CurrentConditionsPage } from "./currentConditions"
 import { ForecastTypePage, ForecastTypePageProps } from "./forecastType"
@@ -34,6 +35,7 @@ export interface PlatformTabsProps extends RouteComponentProps {
 export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
   const { id } = match.params
   const { path } = match
+  const unit_system = useUnitSystem()
 
   return (
     <ErddapPlatformGetter platformId={id}>
@@ -58,7 +60,9 @@ export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
 
           {/* Display our pages for the platform. */}
           <Switch>
-            <Route path={paths.platforms.all}>{(props) => <ErddapAllObservationsTable {...platform_props} />}</Route>
+            <Route path={paths.platforms.all}>
+              {(props) => <ErddapAllObservationsTable {...platform_props} unit_system={unit_system} />}
+            </Route>
             <Route path={paths.platforms.observationsWind}>
               <WindObservationsPage {...platform_props} />
             </Route>

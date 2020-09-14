@@ -2,7 +2,7 @@
  * Platform info panel
  */
 import { Geometry } from "@turf/helpers"
-import * as React from "react"
+import React from "react"
 import { Card, CardBody, CardText, CardTitle } from "reactstrap"
 
 import { round } from "Shared/math"

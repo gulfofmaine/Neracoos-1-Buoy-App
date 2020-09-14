@@ -4,11 +4,17 @@
 import * as React from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
 
+import { UnitSystem } from "Features/Units/types"
+
 import { RenderProps } from "../../Grabber"
 import { itemStyle, TableItem } from "./item"
 
-export const ErddapAllObservationsTable: React.SFC<RenderProps> = ({ platform, unit_system }: RenderProps) => {
-  const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
+interface Props extends RenderProps {
+  unit_system: UnitSystem
+}
+
+export const ErddapAllObservationsTable: React.SFC<Props> = ({ platform, unit_system }) => {
+  const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   const datasets = platform.properties.readings

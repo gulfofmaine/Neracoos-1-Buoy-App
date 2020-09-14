@@ -1,14 +1,17 @@
 /**
  * Current observations table component
  */
-import * as React from "react"
+import React from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
+
+import { UnitSystem } from "Features/Units/types"
 
 import { RenderProps } from "../../Grabber"
 import { itemStyle, TableItem } from "./item"
 
-interface Props {
+interface Props extends RenderProps {
   unitSelector?: React.ReactNode
+  unit_system: UnitSystem
 }
 
 const timeDelta = 15 * 60 * 1000
@@ -17,7 +20,7 @@ const timeDelta = 15 * 60 * 1000
  * Recent platform observation values
  * @param platform
  */
-export const ErddapObservationTable: React.SFC<Props & RenderProps> = ({ platform, unitSelector, unit_system }) => {
+export const ErddapObservationTable: React.SFC<Props> = ({ platform, unitSelector, unit_system }) => {
   const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
