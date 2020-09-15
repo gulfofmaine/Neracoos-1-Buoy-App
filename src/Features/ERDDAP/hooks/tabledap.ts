@@ -3,7 +3,6 @@ import { useQuery, QueryResult } from "react-query"
 
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
-import { groupBy } from "Shared/groupBy"
 import { proxytizeUrl } from "Shared/proxyUrl"
 import { DataTimeSeries } from "Shared/timeSeries"
 
