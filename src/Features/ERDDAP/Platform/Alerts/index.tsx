@@ -1,10 +1,10 @@
-import * as React from "react"
+import React from "react"
 import { UncontrolledAlert } from "reactstrap"
 
-import { PlatformFeatureWithDatasets } from "../../types"
+import { PlatformFeature } from "../../types"
 
 interface Props {
-  platform: PlatformFeatureWithDatasets
+  platform: PlatformFeature
 }
 
 export const PlatformAlerts: React.SFC<Props> = ({ platform }) => (

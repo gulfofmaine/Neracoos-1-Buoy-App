@@ -13,6 +13,7 @@ import { useUnitSystem } from "Features/Units"
  */
 export const CurrentConditionsPage: React.SFC<RenderProps> = ({ platform }) => {
   const unit_system = useUnitSystem()
+
   return (
     <div>
       <ErddapCurrentPlatformConditions platform={platform} unit_system={unit_system} />

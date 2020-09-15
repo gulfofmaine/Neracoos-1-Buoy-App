@@ -22,7 +22,6 @@ dist/
 node_modules/
 tmp/
 temp/
-hooks/
 plugins/
 plugins/android.json
 plugins/ios.json

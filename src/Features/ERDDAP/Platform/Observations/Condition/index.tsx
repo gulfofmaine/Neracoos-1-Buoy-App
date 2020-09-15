@@ -1,55 +1,67 @@
-import * as React from "react"
+/**
+ * Display all timeseries for a specific standard name
+ */
+import React from "react"
 import { Col, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts"
 import { naturalBounds } from "Shared/dataTypes"
-import { UnitSystem } from "Features/Units/types"
+import { useUnitSystem } from "Features/Units"
 
-import { PlatformFeatureWithDatasets, PlatformDataset } from "../../../types"
-import { ErddapDatasetFinder, ErddapDatasetLoader } from "../../Dataset"
+import { useDataset } from "../../../hooks"
+import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 interface Props {
-  platform: PlatformFeatureWithDatasets
+  /** Platform to display */
+  platform: PlatformFeature
+  /** Standard name to display */
   standardName: string
-  unit_system: UnitSystem
 }
 
-export const ErddapObservedCondition: React.SFC<Props> = props => (
-  <ErddapDatasetFinder platform={props.platform} standardName={props.standardName}>
-    {({ datasets }) => (
-      <ErddapDatasetLoader platformId={props.platform.id as string} datasets={datasets}>
-        <ObservedConditionsDatasets {...props} datasets={datasets} />
-      </ErddapDatasetLoader>
-    )}
-  </ErddapDatasetFinder>
-)
+/**
+ *
+ * @param platform
+ * @param standardName
+ */
+export const ErddapObservedCondition: React.SFC<Props> = ({ platform, standardName }) => {
+  const timeSeries = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
 
-interface ObservedConditionsDatasetsProps extends Props {
-  datasets: PlatformDataset[]
+  timeSeries.sort((a, b) => a.depth - b.depth)
+
+  const charts = timeSeries.map((ts, index) => (
+    <ChartTimeSeries key={index} timeSeries={ts} standardName={standardName} />
+  ))
+
+  return <React.Fragment>{charts}</React.Fragment>
 }
 
-export const ObservedConditionsDatasets: React.SFC<ObservedConditionsDatasetsProps> = ({
-  datasets,
-  platform,
-  unit_system,
-  standardName
-}) => {
-  datasets.sort((a, b) => a.depth - b.depth)
+interface ChartTimeSeriesProps {
+  timeSeries: PlatformTimeSeries
+  standardName: string
+}
 
-  const charts = datasets.map((d, index) => {
-    const depth = d.depth > 0 ? " at " + d.depth + "m below" : ""
+const ChartTimeSeries: React.SFC<ChartTimeSeriesProps> = ({ timeSeries, standardName }) => {
+  const unit_system = useUnitSystem()
+  const { isLoading, data } = useDataset(timeSeries)
 
-    const bounds = naturalBounds(d.data_type.standard_name)
+  if (isLoading) {
+    return <h4>Loading {timeSeries.data_type.long_name} data</h4>
+  }
+
+  if (data) {
+    const depth = timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
+
+    const bounds = naturalBounds(timeSeries.data_type.standard_name)
 
     return (
-      <Row key={index}>
+      <Row>
         <Col>
           <h4>
-            {d.data_type.long_name} {depth}
+            {timeSeries.data_type.long_name} {depth}
           </h4>
           <LargeTimeSeriesChart
-            timeSeries={d.readings}
-            name={d.data_type.long_name}
+            timeSeries={data.timeSeries}
+            name={timeSeries.data_type.long_name}
             softMin={bounds[0]}
             softMax={bounds[1]}
             unit_system={unit_system}
@@ -58,7 +70,7 @@ export const ObservedConditionsDatasets: React.SFC<ObservedConditionsDatasetsPro
         </Col>
       </Row>
     )
-  })
+  }
 
-  return <React.Fragment>{charts}</React.Fragment>
+  return <h4>Error loading {timeSeries.data_type.long_name}</h4>
 }

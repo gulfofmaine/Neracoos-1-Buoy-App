@@ -6,41 +6,29 @@ import VectorLayer from "ol/layer/Vector"
 import { AttributionLike } from "ol/source/Source"
 import VectorSource from "ol/source/Vector"
 import { Circle, Fill, Stroke, Style } from "ol/style"
-import * as React from "react"
-import { connect } from "react-redux"
-import { bindActionCreators, Dispatch } from "redux"
+import React from "react"
+import { useDispatch } from "react-redux"
 
 import { BaseMap, esriLayers } from "components/Map"
 import { paths } from "Shared/constants"
-import { StoreState } from "Shared/constants/store"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { PlatformFeatureWithDatasets } from "../types"
+import { usePlatforms } from "../hooks"
+import { PlatformFeature, PlatformFeatureCollection } from "../types"
 
 export interface Props {
   boundingBox?: BoundingBox
   platformId: string
 }
 
+interface BaseProps extends Props {
+  platforms: PlatformFeature[]
+}
+
 export interface ReduxProps {
-  platforms: PlatformFeatureWithDatasets[]
   push: (url: string) => void
 }
-
-export function mapStateToProps({ erddap }: StoreState) {
-  return {
-    platforms: erddap.platforms
-  }
-}
-
-export const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      push
-    },
-    dispatch
-  )
 
 /** If the window is narrower than 800px we should increase object sizes */
 const adjustPxWidth = 800
@@ -61,14 +49,14 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
   return new Style({
     image: new Circle({
       fill: new Fill({
-        color: old ? "grey" : `rgba(255, 153, 0, ${opacity})`
+        color: old ? "grey" : `rgba(255, 153, 0, ${opacity})`,
       }),
       radius,
       stroke: new Stroke({
         color: old ? "grey" : "red",
-        width: 1
-      })
-    })
+        width: 1,
+      }),
+    }),
   })
 }
 
@@ -77,7 +65,7 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
  * @param platforms Array of platform features
  * @param style Should the layer be fore selected platforms
  */
-function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Style): VectorLayer {
+function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLayer {
   const attribution: AttributionLike = "NERACOOS"
 
   const platformSource = new VectorSource({
@@ -85,18 +73,18 @@ function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Styl
     features: new GeoJSON().readFeatures(
       {
         features: platforms,
-        type: "FeatureCollection"
+        type: "FeatureCollection",
       },
       {
         dataProjection: "EPSG:4326",
-        featureProjection: "EPSG:3857"
+        featureProjection: "EPSG:3857",
       }
-    )
+    ),
   })
 
   return new VectorLayer({
     source: platformSource,
-    style
+    style,
   })
 }
 
@@ -106,7 +94,7 @@ function makePlatformLayer(platforms: PlatformFeatureWithDatasets[], style: Styl
  * @param platforms Array of platform features
  * @param platformId Selected platform ID name
  */
-export function makeLayers(layers: Layer[], platforms: PlatformFeatureWithDatasets[], platformId: string): Layer[] {
+export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platformId: string): Layer[] {
   /** platform styles */
   layers = [...layers]
   const platformStyle = makeStyle(false)
@@ -116,11 +104,13 @@ export function makeLayers(layers: Layer[], platforms: PlatformFeatureWithDatase
   // tslint:disable-next-line:no-debugger
   //   debugger
 
-  const oldPlatforms = platforms.filter(p => p.id !== platformId && p.properties.readings.every(r => r.time === null))
-  const filteredPlatforms = platforms.filter(
-    p => p.id !== platformId && p.properties.readings.some(r => r.time !== null)
+  const oldPlatforms = platforms.filter(
+    (p) => p.id !== platformId && p.properties.readings.every((r) => r.time === null)
   )
-  const selectedPlatforms = platforms.filter(p => p.id === platformId)
+  const filteredPlatforms = platforms.filter(
+    (p) => p.id !== platformId && p.properties.readings.some((r) => r.time !== null)
+  )
+  const selectedPlatforms = platforms.filter((p) => p.id === platformId)
 
   if (oldPlatforms.length > 0) {
     layers.push(makePlatformLayer(oldPlatforms, oldStyle))
@@ -142,8 +132,8 @@ const baseLayers: Layer[] = [esriLayers.EsriOceanBasemapLayer, esriLayers.EsriOc
 /**
  * ErddapMapBase provides a map with platforms focused on the Gulf of Maine by default
  */
-export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
-  constructor(props: Props & ReduxProps) {
+export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, object> {
+  constructor(props: BaseProps & ReduxProps) {
     super(props)
 
     this.onClick = this.onClick.bind(this)
@@ -177,9 +167,23 @@ export class ErddapMapBase extends React.Component<Props & ReduxProps, object> {
   }
 }
 
-/** Redux connected ErddapMap. See [[ErddapMapBase]] for details. */
-export const ErddapMap = connect(
-  mapStateToProps,
-  mapDispatchToProps
-  // @ts-ignore
-)(ErddapMapBase)
+export const ErddapMap: React.SFC<Props> = ({ platformId }) => {
+  const dispatch = useDispatch()
+  const { isLoading, data } = usePlatforms()
+
+  if (isLoading) {
+    return <h4>Loading platforms</h4>
+  }
+
+  if (data) {
+    return (
+      <ErddapMapBase
+        platforms={(data as PlatformFeatureCollection).features}
+        platformId={platformId}
+        push={(url: string) => dispatch(push(url))}
+      />
+    )
+  }
+
+  return <h4>Error loading platform data</h4>
+}

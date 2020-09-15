@@ -12,9 +12,7 @@ import NavBar from "components/NavBar"
 
 import AboutPage from "Pages/About"
 import HomePage from "Pages/Home"
-// import MapPage from 'Pages/Map'
 import PlatformsPage from "Pages/Platforms"
-import RadarMapPage from "Pages/RadarMap"
 
 import "./App.css"
 import { paths } from "./Shared/constants"
@@ -32,7 +30,6 @@ class App extends React.Component {
             <Route exact={true} path={paths.home} component={HomePage} />
             <Route path={paths.platforms.platform} component={PlatformsPage} />
             <Route path={paths.platforms.root} component={PlatformsPage} />
-            <Route path={paths.map} component={RadarMapPage} />
             <Route path={paths.about} component={AboutPage} />
           </Switch>
 
