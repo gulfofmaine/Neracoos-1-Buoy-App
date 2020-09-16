@@ -8,6 +8,7 @@ import { Card, CardBody, CardHeader, Col } from "reactstrap"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion"
+import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
@@ -15,20 +16,23 @@ import { WindTimeSeriesChart } from "components/Charts"
 
 import { useDatasets } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { cardProps, observationLink } from "./common_card"
-import { useUnitSystem } from "Features/Units"
 
 interface WindCardProps {
   platform: PlatformFeature
 }
 
+/**
+ * If there are wind time series for a platform load and display recent data.
+ *
+ * @param platform Platform GeoJSON feature to display wind data from
+ */
 export const WindCard: React.FC<WindCardProps> = ({ platform }) => {
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
-  const windTimeSeries = platform.properties.readings.filter((timeSeries) =>
-    timeSeries.data_type.standard_name.includes("wind") && timeSeries.time ? aDayAgo < new Date(timeSeries.time) : false
-  )
+  const { windTimeSeries, timeSeries } = pickWindTimeSeries(platform, aDayAgo)
 
   // No current data or wind data don't exist for the platform
   if (windTimeSeries.length < 1) {
@@ -43,25 +47,6 @@ export const WindCard: React.FC<WindCardProps> = ({ platform }) => {
     return <OtherWindCard platform={platform}>No recent wind data available.</OtherWindCard>
   }
 
-  const speed = windTimeSeries.find(
-    (timeSeries) =>
-      timeSeries.data_type.standard_name.includes("speed") && !timeSeries.data_type.standard_name.includes("gust")
-  )
-  const gust = windTimeSeries.find((timeSeries) => timeSeries.data_type.standard_name.includes("gust"))
-  const direction = windTimeSeries.find((timeSeries) => timeSeries.data_type.standard_name.includes("direction"))
-
-  const timeSeries: PlatformTimeSeries[] = []
-
-  if (speed) {
-    timeSeries.push(speed)
-  }
-  if (gust) {
-    timeSeries.push(gust)
-  }
-  if (direction) {
-    timeSeries.push(direction)
-  }
-
   if (timeSeries.length < 0) {
     return <OtherWindCard platform={platform}>No wind data</OtherWindCard>
   }
@@ -73,6 +58,9 @@ interface LoadWindCardProps extends WindCardProps {
   timeSeries: PlatformTimeSeries[]
 }
 
+/**
+ * Load data for wind time series, and connect currently selected unit_system
+ */
 const LoadWindCard: React.FC<LoadWindCardProps> = ({ platform, timeSeries }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDatasets(timeSeries)
@@ -112,14 +100,14 @@ interface DisplayWindCardProps extends LoadWindCardProps {
   unit_system: UnitSystem
 }
 
-export const DisplayWindCard: React.FC<DisplayWindCardProps> = ({ platform, timeSeries, datasets, unit_system }) => {
-  const speed = datasets.find((ds) => ds.name.includes("speed") && !ds.name.includes("gust"))
-  const gust = datasets.find((ds) => ds.name.includes("gust"))
-  const direction = datasets.find((ds) => ds.name.includes("direction"))
+/**
+ * Display wind datasets on a current conditions card
+ */
+export const DisplayWindCard: React.FC<DisplayWindCardProps> = ({ platform, datasets, unit_system }) => {
+  const { speed, gust, direction } = pickWindDatasets(platform, datasets)
+  const { speed: speedTimeSeries, gust: gustTimeSeries } = pickWindTimeSeries(platform)
 
-  const speedTimeSeries = timeSeries.find((ts) => ts.data_type.standard_name.includes("speed"))
-
-  if ((!speed && !gust) || !speedTimeSeries) {
+  if ((!speed && !gust) || !(speedTimeSeries || gustTimeSeries)) {
     return null
   }
 
@@ -160,7 +148,13 @@ export const DisplayWindCard: React.FC<DisplayWindCardProps> = ({ platform, time
             {directionTitle}
           </CardHeader>
           <CardBody>
-            <WindTimeSeriesChart days={1} barbsPerDay={10} data={datasets} height={150} unit_system={unit_system} />
+            <WindTimeSeriesChart
+              days={1}
+              barbsPerDay={10}
+              data={datasets}
+              height={150}
+              {...{ speed, gust, direction, unit_system }}
+            />
           </CardBody>
         </Card>
       </Link>

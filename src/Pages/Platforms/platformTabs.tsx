@@ -32,7 +32,7 @@ export interface PlatformTabsProps extends RouteComponentProps {
  * Display tab bar and tab data for individual platforms
  * @param param0 React-Router props
  */
-export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
+export const PlatformTabs: React.FC<PlatformTabsProps> = ({ match }) => {
   const { id } = match.params
   const { path } = match
   const unit_system = useUnitSystem()
