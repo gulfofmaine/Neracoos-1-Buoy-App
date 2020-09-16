@@ -35,7 +35,7 @@ interface DataCardProps {
  * @param data_types Data Type standard names to display
  * @param platform Platform to display
  */
-export const DataCard: React.SFC<DataCardProps> = ({ data_types, platform }) => {
+export const DataCard: React.FC<DataCardProps> = ({ data_types, platform }) => {
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
@@ -82,7 +82,7 @@ interface LoadDataCardProps {
  * @param platform
  * @param timeSeries Time series to load data for
  */
-const LoadDataCard: React.SFC<LoadDataCardProps> = ({ platform, timeSeries }) => {
+const LoadDataCard: React.FC<LoadDataCardProps> = ({ platform, timeSeries }) => {
   const { isLoading, data } = useDataset(timeSeries)
   const unit_system = useUnitSystem()
 
@@ -118,7 +118,7 @@ interface DataCardDisplayProps {
 /**
  * Format and display a data card
  */
-export const DataCardDisplay: React.SFC<DataCardDisplayProps> = ({ platform, readings, timeSeries, unit_system }) => {
+export const DataCardDisplay: React.FC<DataCardDisplayProps> = ({ platform, readings, timeSeries, unit_system }) => {
   const url = cardUrl(platform, timeSeries)
   const data_converter = converter(timeSeries.data_type.standard_name)
   const bounds = naturalBounds(timeSeries.data_type.standard_name)

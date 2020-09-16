@@ -11,19 +11,7 @@ import { defaultQueryConfig } from "./hookConfig"
 
 const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
   return async () => {
-    const sevenDaysAgo = new Date()
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
-
-    startTime = startTime ? startTime : sevenDaysAgo
-
-    const constraints = {
-      ...timeSeries.constraints,
-      "time>=": startTime.toISOString(),
-    }
-
-    const variables = [timeSeries.variable]
-
-    const url = tabledapUrl(timeSeries.server, timeSeries.dataset, variables, constraints)
+    const url = urlBuilder(timeSeries, startTime)
     const proxyUrl = proxytizeUrl(url)
 
     Sentry.addBreadcrumb({
@@ -43,6 +31,46 @@ const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
   }
 }
 
+function urlBuilder(timeSeries: PlatformTimeSeries, startTime?: Date): string {
+  const sevenDaysAgo = new Date()
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+
+  startTime = startTime ? startTime : sevenDaysAgo
+
+  const constraints = {
+    ...timeSeries.constraints,
+    "time>=": startTime.toISOString(),
+  }
+
+  const variables = [timeSeries.variable]
+
+  return tabledapUrl(timeSeries.server, timeSeries.dataset, variables, constraints)
+}
+
+/** Fetch a single dataset given a time series */
 export function useDataset(timeSeries: PlatformTimeSeries, startTime?: Date): QueryResult<DataTimeSeries, Error> {
   return useQuery(["erddap-dataset", timeSeries, startTime], getDataset(timeSeries, startTime), defaultQueryConfig)
+}
+
+const getDatasets = (timeSeries: PlatformTimeSeries[], startTime?: Date) => {
+  return async () => {
+    const results: DataTimeSeries[] = []
+
+    for (let i = 0; i < timeSeries.length; i++) {
+      const data = await getDataset(timeSeries[i], startTime)()
+
+      results.push(data)
+    }
+
+    return results
+  }
+}
+
+/** Fetch multiple datasets given multiple time series */
+export function useDatasets(timeSeries: PlatformTimeSeries[], startTime?: Date): QueryResult<DataTimeSeries[], Error> {
+  return useQuery(
+    ["erddap-datasets", { timeSeries, startTime }],
+    getDatasets(timeSeries, startTime),
+    defaultQueryConfig
+  )
 }

@@ -1,2 +1,2 @@
 export { usePlatforms } from "./buoyBarn"
-export { useDataset } from "./tabledap"
+export { useDataset, useDatasets } from "./tabledap"

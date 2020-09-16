@@ -13,15 +13,24 @@ export const cardProps = {
 }
 
 /**
+ *
+ * @param platform
+ * @param timeSeries
+ */
+export function observationLink(platform: PlatformFeature, observationSlug: string): string {
+  return urlPartReplacer(
+    urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
+    ":type",
+    observationSlug
+  )
+}
+
+/**
  * URL to the observation page for a data type
  *
  * @param platform
  * @param timeSeries
  */
 export function cardUrl(platform: PlatformFeature, timeSeries: PlatformTimeSeries): string {
-  return urlPartReplacer(
-    urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-    ":type",
-    timeSeries.data_type.standard_name
-  )
+  return observationLink(platform, timeSeries.data_type.standard_name)
 }

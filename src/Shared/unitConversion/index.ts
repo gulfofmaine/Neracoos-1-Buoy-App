@@ -10,7 +10,7 @@ const unitNames = {
   "Deg C": "C",
   Meters: "m",
   celsius: "C",
-  meters: "m"
+  meters: "m",
 }
 
 function compatabile_name(unit): string {
@@ -29,12 +29,7 @@ function compatabile_name(unit): string {
  * @param to Destination unit
  */
 export function conversion(value: number, from: string, to: string): number {
-  return round(
-    convert(value)
-      .from(compatabile_name(from))
-      .to(to),
-    1
-  )
+  return round(convert(value).from(compatabile_name(from)).to(to), 1)
 }
 
 /**
@@ -117,7 +112,7 @@ const compass = {
   30: ["Northwest by north", "NWbN"],
   31: ["North-northwest", "NNW"],
   32: ["North by west", "NbW"],
-  33: ["North", "N"]
+  33: ["North", "N"],
 }
 
 /**
@@ -125,7 +120,7 @@ const compass = {
  * @param degrees decimal degrees from 0 to 360
  * @returns array of strings. First string is the long name, ala North-northeast, the second is the short name NNE
  */
-export function compassDirection(degrees: number): string[] {
+export function compassDirection(degrees: number): [string, string] {
   const pointNumber = Math.floor((degrees + spaceBetweenCompassPoints / 2.0) / spaceBetweenCompassPoints) + 1
 
   return compass[pointNumber]
