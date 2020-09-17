@@ -14,8 +14,8 @@ interface Props {
  * Display the current loading and error status of datasets
  * @param datasets
  */
-export const ErddapDatasetStatus: React.SFC<Props> = ({ datasets }) => {
-  const loading = Array.from(new Set(datasets.filter(d => d.loading).map(d => d.data_type.long_name)))
+export const ErddapDatasetStatus: React.FunctionComponent<Props> = ({ datasets }) => {
+  const loading = Array.from(new Set(datasets.filter((d) => d.loading).map((d) => d.data_type.long_name)))
   let loadingString: string
   if (loading.length > 1) {
     loadingString = `Currently loading ${loading.slice(0, -1).join(", ")}, and ${loading.slice(-1)[0]} datasets.`
@@ -26,7 +26,7 @@ export const ErddapDatasetStatus: React.SFC<Props> = ({ datasets }) => {
   }
 
   const errors = datasets
-    .filter(d => d.error.length > 0)
+    .filter((d) => d.error.length > 0)
     .map((d, key) => (
       <Alert key={key} color="warning">
         Error loading {d.data_type.long_name}: {d.error}

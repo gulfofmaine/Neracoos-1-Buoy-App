@@ -4,7 +4,7 @@
  */
 import Highcharts from "highcharts"
 import addWindBarbModule from "highcharts/modules/windbarb"
-import React from "react"
+import * as React from "react"
 import {
   Chart,
   HighchartsChart,
@@ -82,7 +82,7 @@ addWindBarbModule(Highcharts)
  */
 // export class WindTimeSeriesChartBase extends React.Component<Props, object> {
 //   public render() {
-export const WindTimeSeriesChartBase: React.FC<Props> = ({
+export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
   unit_system,
   speed,
   gust,

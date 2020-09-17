@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { Row } from "reactstrap"
 
 import { UnitSystem } from "Features/Units/types"

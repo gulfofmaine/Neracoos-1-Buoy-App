@@ -1,7 +1,7 @@
 /**
  * Wind Observed conditions component
  */
-import React from "react"
+import * as React from "react"
 import { Alert, Col, Row } from "reactstrap"
 
 import { WindTimeSeriesChart } from "components/Charts"
@@ -26,7 +26,7 @@ interface DisplayProps extends LoadingProps {
   datasets: DataTimeSeries[]
 }
 
-export const ErddapWindObservedCondition: React.FC<Props> = ({ platform }) => {
+export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }) => {
   const { timeSeries } = pickWindTimeSeries(platform)
 
   if (timeSeries.length < 0) {
@@ -36,7 +36,7 @@ export const ErddapWindObservedCondition: React.FC<Props> = ({ platform }) => {
   return <LoadWindObservedConditionDisplay platform={platform} timeSeries={timeSeries} />
 }
 
-export const LoadWindObservedConditionDisplay: React.FC<LoadingProps> = ({ platform, timeSeries }) => {
+export const LoadWindObservedConditionDisplay: React.FunctionComponent<LoadingProps> = ({ platform, timeSeries }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDatasets(timeSeries)
 
@@ -57,7 +57,11 @@ export const LoadWindObservedConditionDisplay: React.FC<LoadingProps> = ({ platf
   return <WindError message="Error loading wind data" />
 }
 
-export const ErddapWindObservedConditionDisplay: React.FC<DisplayProps> = ({ platform, unit_system, datasets }) => {
+export const ErddapWindObservedConditionDisplay: React.FunctionComponent<DisplayProps> = ({
+  platform,
+  unit_system,
+  datasets,
+}) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
 
   return (
@@ -79,7 +83,7 @@ interface WindErrorProps {
   message: string
 }
 
-const WindError: React.FC<WindErrorProps> = ({ message }) => (
+const WindError: React.FunctionComponent<WindErrorProps> = ({ message }) => (
   <Row>
     <Col>
       <Alert color="warning">{message}</Alert>

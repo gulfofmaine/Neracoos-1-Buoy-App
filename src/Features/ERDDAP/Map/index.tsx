@@ -6,7 +6,7 @@ import VectorLayer from "ol/layer/Vector"
 import { AttributionLike } from "ol/source/Source"
 import VectorSource from "ol/source/Vector"
 import { Circle, Fill, Stroke, Style } from "ol/style"
-import React from "react"
+import * as React from "react"
 import { useDispatch } from "react-redux"
 
 import { BaseMap, esriLayers } from "components/Map"
@@ -167,7 +167,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
   }
 }
 
-export const ErddapMap: React.SFC<Props> = ({ platformId }) => {
+export const ErddapMap: React.FunctionComponent<Props> = ({ platformId }) => {
   const dispatch = useDispatch()
   const { isLoading, data } = usePlatforms()
 

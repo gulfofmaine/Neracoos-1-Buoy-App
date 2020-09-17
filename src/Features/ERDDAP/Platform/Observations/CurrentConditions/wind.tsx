@@ -1,7 +1,7 @@
 /**
  * Wind specific current conditions card
  */
-import React from "react"
+import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
@@ -28,7 +28,7 @@ interface WindCardProps {
  *
  * @param platform Platform GeoJSON feature to display wind data from
  */
-export const WindCard: React.FC<WindCardProps> = ({ platform }) => {
+export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) => {
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
@@ -61,7 +61,7 @@ interface LoadWindCardProps extends WindCardProps {
 /**
  * Load data for wind time series, and connect currently selected unit_system
  */
-const LoadWindCard: React.FC<LoadWindCardProps> = ({ platform, timeSeries }) => {
+const LoadWindCard: React.FunctionComponent<LoadWindCardProps> = ({ platform, timeSeries }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDatasets(timeSeries)
 
@@ -103,7 +103,7 @@ interface DisplayWindCardProps extends LoadWindCardProps {
 /**
  * Display wind datasets on a current conditions card
  */
-export const DisplayWindCard: React.FC<DisplayWindCardProps> = ({ platform, datasets, unit_system }) => {
+export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({ platform, datasets, unit_system }) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
   const { speed: speedTimeSeries, gust: gustTimeSeries } = pickWindTimeSeries(platform)
 
@@ -167,7 +167,7 @@ interface OtherWindCardProps {
   children: React.ReactNode
 }
 
-const OtherWindCard: React.FC<OtherWindCardProps> = ({ platform, children }) => (
+const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, children }) => (
   <Col {...cardProps}>
     <Link to={observationLink(platform, "wind")}>
       <Card>

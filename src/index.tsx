@@ -9,7 +9,7 @@ import { Event } from "@sentry/types"
 import { ConnectedRouter } from "connected-react-router"
 
 import moment from "moment-timezone"
-import React from "react"
+import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { ReactQueryDevtools } from "react-query-devtools"

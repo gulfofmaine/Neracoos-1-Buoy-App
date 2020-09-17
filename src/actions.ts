@@ -4,10 +4,9 @@
 
 import { LocationChangeAction } from "connected-react-router"
 
-import { ErddapActions } from "Features/ERDDAP/actions"
 import { UnitActions } from "Features/Units/actions"
 
 /**
  * Redux action that incorporates all the different possible shapes of the included actions.
  */
-export type Action = ErddapActions | LocationChangeAction | UnitActions
+export type Action = LocationChangeAction | UnitActions

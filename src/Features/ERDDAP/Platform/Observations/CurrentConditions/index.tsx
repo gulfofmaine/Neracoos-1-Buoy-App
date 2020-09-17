@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { Row } from "reactstrap"
 
 import { PlatformFeature } from "../../../types"
@@ -10,7 +10,7 @@ interface Props {
   platform: PlatformFeature
 }
 
-export const ErddapCurrentPlatformConditions: React.FC<Props> = ({ platform }) => (
+export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = ({ platform }) => (
   <Row>
     <WindCard platform={platform} />
 

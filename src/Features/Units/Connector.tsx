@@ -1,7 +1,7 @@
 /**
  * Connect to the current unit system from Redux store
  */
-import React from "react"
+import * as React from "react"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -18,7 +18,7 @@ interface RenderProps {
 /**
  * Connect to the current unit system from Redux store
  */
-export const UnitSystemConnector: React.SFC<Props> = ({ children }) => {
+export const UnitSystemConnector: React.FunctionComponent<Props> = ({ children }) => {
   const unit_system = useUnitSystem()
 
   return children({ unit_system })

@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, Col } from "reactstrap"
 
@@ -11,7 +11,7 @@ interface ErrorDataCardProps {
   platform: PlatformFeature
 }
 
-export const ErrorDataCard: React.SFC<ErrorDataCardProps> = ({ timeSeries, platform }) => {
+export const ErrorDataCard: React.FunctionComponent<ErrorDataCardProps> = ({ timeSeries, platform }) => {
   const url = cardUrl(platform, timeSeries)
 
   return (

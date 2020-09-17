@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import * as React from "react"
 import { Link } from "react-router-dom"
 import { Tooltip } from "reactstrap"
 
@@ -21,14 +21,14 @@ interface TableItemProps {
   later_then?: Date
 }
 
-export const TableItem: React.SFC<TableItemProps> = ({
+export const TableItem: React.FunctionComponent<TableItemProps> = ({
   platform,
   data_type,
   name,
   unit_system,
   later_then,
 }: TableItemProps) => {
-  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false)
+  const [tooltipOpen, setTooltipOpen] = React.useState<boolean>(false)
 
   const toggleTooltip = () => setTooltipOpen(!tooltipOpen)
 

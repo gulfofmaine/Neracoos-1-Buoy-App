@@ -2,7 +2,7 @@
  * Platform info panel
  */
 import { Geometry } from "@turf/helpers"
-import React from "react"
+import * as React from "react"
 import { Card, CardBody, CardText, CardTitle } from "reactstrap"
 
 import { round } from "Shared/math"
@@ -13,7 +13,7 @@ import { RenderProps } from "../Grabber"
  * Platform info panel
  * @param platform
  */
-export const ErddapPlatformInfoPanel: React.SFC<RenderProps> = ({ platform }) => (
+export const ErddapPlatformInfoPanel: React.FunctionComponent<RenderProps> = ({ platform }) => (
   <Card>
     <CardBody>
       <CardTitle>Station {platform.id}</CardTitle>

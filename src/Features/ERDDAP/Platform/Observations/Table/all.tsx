@@ -13,7 +13,7 @@ interface Props extends RenderProps {
   unit_system: UnitSystem
 }
 
-export const ErddapAllObservationsTable: React.SFC<Props> = ({ platform, unit_system }) => {
+export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ platform, unit_system }) => {
   const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 

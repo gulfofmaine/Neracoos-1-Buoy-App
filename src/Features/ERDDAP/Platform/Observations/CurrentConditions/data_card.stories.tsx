@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 
 import { DataCard } from "./data_card"
 import { UnitSystem } from "Features/Units/types"

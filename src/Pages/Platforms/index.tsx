@@ -2,7 +2,7 @@ import * as React from "react"
 import { Route, RouteComponentProps, Switch } from "react-router"
 import { Col, Row } from "reactstrap"
 
-import { ErddapMap, ErddapPlatformList, ErddapPlatformsLoader } from "Features/ERDDAP"
+import { ErddapMap, ErddapPlatformList } from "Features/ERDDAP"
 
 import { paths, regionList } from "Shared/constants"
 import { Region } from "Shared/regions"
@@ -27,14 +27,14 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
     let regions: Region[] = []
 
     if (params.region !== undefined) {
-      regions = regionList.filter(r => r.slug === params.region)
+      regions = regionList.filter((r) => r.slug === params.region)
     }
 
     return (
-      <ErddapPlatformsLoader>
+      <React.Fragment>
         <Row>
           <Col sm={{ size: true, order: 6 }}>
-            {/* Show list of platfroms in a region if no platform is selected */}
+            {/* Show list of platforms in a region if no platform is selected */}
             <Switch>
               <Route path={paths.platforms.root} exact={true}>
                 <div>
@@ -52,19 +52,13 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
         </Row>
 
         <div style={{ marginTop: "1rem" }}>
-          {/* Show general platform info if no platform is selected */}
           <Switch>
-            <Route path={paths.platforms.observations}>
-              {props => <PlatformTabs {...(props as PlatformTabsProps)} />}
-            </Route>
-            <Route path={paths.platforms.forecast}>{props => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-            <Route path={paths.platforms.platform}>{props => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-            <Route path={paths.platforms.all}>{props => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-
             <Route path={paths.platforms.root} exact={true} component={RootInfo} />
+
+            <Route>{(props) => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
           </Switch>
         </div>
-      </ErddapPlatformsLoader>
+      </React.Fragment>
     )
   }
 }

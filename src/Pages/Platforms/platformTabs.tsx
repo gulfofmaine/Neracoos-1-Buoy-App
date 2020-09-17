@@ -2,7 +2,7 @@
  * Tabs that are displayed on a platform page.
  */
 
-import React from "react"
+import * as React from "react"
 import { Link, match, Route, RouteComponentProps, Switch } from "react-router-dom"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
@@ -15,7 +15,6 @@ import {
   ErddapObservedDropdown,
   ErddapPlatformGetter,
   ForecastDropdown,
-  ForecastMetadataLoader,
 } from "Features/ERDDAP"
 import { useUnitSystem } from "Features/Units"
 
@@ -32,7 +31,7 @@ export interface PlatformTabsProps extends RouteComponentProps {
  * Display tab bar and tab data for individual platforms
  * @param param0 React-Router props
  */
-export const PlatformTabs: React.FC<PlatformTabsProps> = ({ match }) => {
+export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match }) => {
   const { id } = match.params
   const { path } = match
   const unit_system = useUnitSystem()
@@ -45,14 +44,8 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({ match }) => {
             <Col>
               <Nav tabs={true}>
                 <ErddapObservedDropdown {...platform_props} />
-
                 <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={id} />
-                <ForecastMetadataLoader>
-                  <React.Fragment>
-                    <ForecastDropdown platformId={platform_props.platform.id as string} />
-                  </React.Fragment>
-                </ForecastMetadataLoader>
-
+                <ForecastDropdown platformId={platform_props.platform.id as string} />
                 <ErddapMoreInfoDropdown {...platform_props} />
               </Nav>
             </Col>

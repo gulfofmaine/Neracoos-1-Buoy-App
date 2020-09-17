@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { Alert } from "reactstrap"
 
 import ContentBlock from "components/ContentBlock"
@@ -10,7 +10,7 @@ export interface Props {
   pageId: string
 }
 
-export const WagtailBlock: React.SFC<Props> = ({ pageId }) => {
+export const WagtailBlock: React.FunctionComponent<Props> = ({ pageId }) => {
   const { isLoading, data } = usePage(pageId)
 
   if (isLoading) {

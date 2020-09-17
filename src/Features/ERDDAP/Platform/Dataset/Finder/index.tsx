@@ -14,8 +14,8 @@ export interface RenderProps {
   datasets: PlatformDataset[]
 }
 
-export const ErddapDatasetFinder: React.SFC<Props> = ({ children, standardName, platform }) => {
-  const datasets = platform.properties.readings.filter(r => r.data_type.standard_name === standardName)
+export const ErddapDatasetFinder: React.FunctionComponent<Props> = ({ children, standardName, platform }) => {
+  const datasets = platform.properties.readings.filter((r) => r.data_type.standard_name === standardName)
 
   if (datasets.length === 0) {
     return (

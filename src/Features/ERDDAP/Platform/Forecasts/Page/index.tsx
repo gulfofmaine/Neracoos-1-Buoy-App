@@ -1,32 +1,36 @@
-import React from "react"
-import { connect } from "react-redux"
+import * as React from "react"
+// import { connect } from "react-redux"
 
 import { MultipleLargeTimeSeriesChart } from "components/Charts"
-import { StoreState } from "Shared/constants/store"
+// import { StoreState } from "Shared/constants/store"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { ForecastSource, PlatformFeatureWithDatasets } from "../../../types"
-import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
-import { ForecastLoader } from "../Loader"
+import { ForecastSource, PlatformFeature } from "../../../types"
+// import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
+// import { ForecastLoader } from "../Loader"
 
 export interface Props {
-  platform: PlatformFeatureWithDatasets
+  platform: PlatformFeature
   type: string
   unit_system: UnitSystem
+}
+
+export const Forecast: React.FunctionComponent<Props> = () => {
+  return <h4>Coming soon</h4>
 }
 
 export interface ReduxProps {
   forecasts: ForecastSource[]
 }
 
-function mapStateToProps({ erddap }: StoreState): ReduxProps {
-  return {
-    forecasts: erddap.forecasts.forecasts,
-  }
-}
+// function mapStateToProps({ erddap }: StoreState): ReduxProps {
+//   return {
+//     forecasts: erddap.forecasts.forecasts,
+//   }
+// }
 
 // "northward_wind", "eastward_wind", "sea_surface_temperature", "wind_speed_of_gust",
 // , , "tendency_of_air_pressure",
@@ -55,7 +59,12 @@ export const forecastToStandardNames: { [key: string]: Set<string> } = {
 
 const direction_forecast_types = new Set(["wave_direction", "wind_direction"])
 
-export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, forecasts, unit_system }) => {
+export const ForecastBase: React.FunctionComponent<Props & ReduxProps> = ({
+  platform,
+  type,
+  forecasts,
+  unit_system,
+}) => {
   const filteredForecasts = forecasts.filter(
     (forecast) => forecast.forecast_type.toLowerCase().replace(" ", "_") === type
   )
@@ -74,31 +83,33 @@ export const ForecastBase: React.SFC<Props & ReduxProps> = ({ platform, type, fo
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
-  let data: DataTimeSeries[] = datasets.map((dataset) => ({
-    name: dataset.data_type.long_name + " observed",
-    timeSeries: dataset.readings.filter((reading) => reading.time > aDayAgo),
-    unit: dataset.data_type.units,
-  }))
+  // let data: DataTimeSeries[] = datasets.map((dataset) => ({
+  //   name: dataset.data_type.long_name + " observed",
+  //   timeSeries: dataset.readings.filter((reading) => reading.time > aDayAgo),
+  //   unit: dataset.data_type.units,
+  // }))
 
-  platformForecasts.forEach((forecast) => {
-    if (forecast.readings.length > 0) {
-      data.push({
-        name: forecast.source.name,
-        timeSeries: forecast.readings,
-        unit: forecast.source.units,
-      })
-    }
-  })
+  // platformForecasts.forEach((forecast) => {
+  //   if (forecast.readings.length > 0) {
+  //     data.push({
+  //       name: forecast.source.name,
+  //       timeSeries: forecast.readings,
+  //       unit: forecast.source.units,
+  //     })
+  //   }
+  // })
 
   return (
     <React.Fragment>
       <h4>{filteredForecasts[0].forecast_type} Forecast</h4>
-      <ErddapDatasetLoader platformId={platform.id as string} datasets={datasets}>
+
+      <h4>In progress</h4>
+      {/* <ErddapDatasetLoader platformId={platform.id as string} datasets={datasets}>
         <ErddapDatasetStatus datasets={datasets} />
         <ForecastLoader platform={platform} forecasts={filteredForecasts}>
           <ForecastChart data={data} unit_system={unit_system} type={type} />
         </ForecastLoader>
-      </ErddapDatasetLoader>
+      </ErddapDatasetLoader> */}
     </React.Fragment>
   )
 }
@@ -112,7 +123,7 @@ interface ForecastChartProps {
 }
 
 /** Forecast chart component */
-export const ForecastChart: React.SFC<ForecastChartProps> = ({ data, type, unit_system }) => {
+export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ data, type, unit_system }) => {
   const standardNames = forecastToStandardNames[type]
 
   if (!direction_forecast_types.has(type)) {
@@ -137,4 +148,4 @@ export const ForecastChart: React.SFC<ForecastChartProps> = ({ data, type, unit_
 }
 
 // @ts-ignore
-export const Forecast = connect(mapStateToProps)(ForecastBase)
+// export const Forecast = connect(mapStateToProps)(ForecastBase)

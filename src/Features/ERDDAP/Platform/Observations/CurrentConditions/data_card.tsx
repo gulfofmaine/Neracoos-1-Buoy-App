@@ -1,7 +1,7 @@
 /**
  * Generalized single time series data card
  */
-import React from "react"
+import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
@@ -35,7 +35,7 @@ interface DataCardProps {
  * @param data_types Data Type standard names to display
  * @param platform Platform to display
  */
-export const DataCard: React.FC<DataCardProps> = ({ data_types, platform }) => {
+export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }) => {
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
@@ -82,7 +82,7 @@ interface LoadDataCardProps {
  * @param platform
  * @param timeSeries Time series to load data for
  */
-const LoadDataCard: React.FC<LoadDataCardProps> = ({ platform, timeSeries }) => {
+const LoadDataCard: React.FunctionComponent<LoadDataCardProps> = ({ platform, timeSeries }) => {
   const { isLoading, data } = useDataset(timeSeries)
   const unit_system = useUnitSystem()
 
@@ -118,7 +118,12 @@ interface DataCardDisplayProps {
 /**
  * Format and display a data card
  */
-export const DataCardDisplay: React.FC<DataCardDisplayProps> = ({ platform, readings, timeSeries, unit_system }) => {
+export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
+  platform,
+  readings,
+  timeSeries,
+  unit_system,
+}) => {
   const url = cardUrl(platform, timeSeries)
   const data_converter = converter(timeSeries.data_type.standard_name)
   const bounds = naturalBounds(timeSeries.data_type.standard_name)

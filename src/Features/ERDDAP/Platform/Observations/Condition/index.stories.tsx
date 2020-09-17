@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -8,7 +8,7 @@ import { platform } from "stories/platform"
 
 export default {
   component: ObservedConditionsDatasets,
-  title: 'ERDDAP/ObservedCondition',
+  title: "ERDDAP/ObservedCondition",
   includeStories: [],
 }
 

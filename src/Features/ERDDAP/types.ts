@@ -6,28 +6,6 @@ import { Feature } from "@turf/helpers"
 
 import { ReadingTimeSeries } from "Shared/timeSeries"
 
-export interface ERDDAPStoreState {
-  errorMessage?: string
-  loading: boolean
-  platforms: PlatformFeatureWithDatasets[]
-  forecasts: ForecastStore
-}
-
-export interface ForecastStore {
-  forecasts: ForecastSource[]
-  loading: boolean
-  errorMessage?: string
-}
-
-export const initialStoreState: ERDDAPStoreState = {
-  forecasts: {
-    forecasts: [],
-    loading: false
-  },
-  loading: false,
-  platforms: []
-}
-
 export interface PlatformFeatureCollection {
   features: PlatformFeature[]
 }
@@ -88,7 +66,7 @@ export enum ForecastType {
   waveDirection = "Wave Direction",
   airTemperature = "Air Temperature",
   windSpeed = "Wind Speed",
-  windDirection = "Wind Direction"
+  windDirection = "Wind Direction",
 }
 
 export interface ForecastSource {

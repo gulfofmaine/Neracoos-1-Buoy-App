@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
 import { ErddapObservationTable, ErddapPlatformGetter, ErddapPlatformInfoPanel, PlatformAlerts } from "Features/ERDDAP"
@@ -9,7 +9,7 @@ import { PlatformMatchParams } from "./types"
 /**
  * Display our platform info panel for the select platform.
  */
-export const PlatformInfo: React.SFC<RouteComponentProps> = ({ match }) => {
+export const PlatformInfo: React.FunctionComponent<RouteComponentProps> = ({ match }) => {
   const { id } = match.params as PlatformMatchParams
   const unit_system = useUnitSystem()
 

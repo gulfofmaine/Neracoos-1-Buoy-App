@@ -1,7 +1,7 @@
 /**
  * Display all timeseries for a specific standard name
  */
-import React from "react"
+import * as React from "react"
 import { Col, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts"
@@ -23,7 +23,7 @@ interface Props {
  * @param platform
  * @param standardName
  */
-export const ErddapObservedCondition: React.SFC<Props> = ({ platform, standardName }) => {
+export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }) => {
   const timeSeries = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
 
   timeSeries.sort((a, b) => a.depth - b.depth)
@@ -40,7 +40,7 @@ interface ChartTimeSeriesProps {
   standardName: string
 }
 
-const ChartTimeSeries: React.SFC<ChartTimeSeriesProps> = ({ timeSeries, standardName }) => {
+const ChartTimeSeries: React.FunctionComponent<ChartTimeSeriesProps> = ({ timeSeries, standardName }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDataset(timeSeries)
 

@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, Col } from "reactstrap"
 
@@ -11,7 +11,7 @@ interface NoDataCardProps {
   platform: PlatformFeature
 }
 
-export const NoDataCard: React.SFC<NoDataCardProps> = ({ timeSeries, platform }) => {
+export const NoDataCard: React.FunctionComponent<NoDataCardProps> = ({ timeSeries, platform }) => {
   const url = cardUrl(platform, timeSeries)
 
   return (
