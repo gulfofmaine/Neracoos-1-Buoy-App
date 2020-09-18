@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/react"
 import { useQuery } from "react-query"
 
-import { ForecastSource, PlatformFeatureCollection } from "../types"
+import { ForecastJson, ForecastSource, PlatformFeatureCollection } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
 
 /**
@@ -56,4 +56,43 @@ const getForecasts = async () => {
  */
 export function useForecasts() {
   return useQuery("buoybarn-forecasts", getForecasts, defaultQueryConfig)
+}
+
+/**
+ * Load forecast for a given lat, lon
+ */
+const getForecast = (forecast: ForecastSource, lat: number, lon: number) => {
+  return async () => {
+    const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
+
+    Sentry.addBreadcrumb({
+      category: "Buoy Barn",
+      data: {
+        forecast,
+        lat,
+        lon,
+        url,
+      },
+      message: "Loading forecast",
+    })
+
+    const result = await fetch(url)
+    const json = (await result.json()) as ForecastJson
+
+    return json.time_series.map((ts) => ({ ...ts, time: new Date(ts.time) }))
+  }
+}
+
+/**
+ * Load forecast dataset for a given point
+ *
+ * @param lat
+ * @param lon
+ * @param forecast
+ */
+export function useForecast(lat: number, lon: number, forecast?: ForecastSource) {
+  return useQuery(["buoybarn-forecast", { forecast, lat, lon }], getForecast(forecast!, lat, lon), {
+    ...defaultQueryConfig,
+    enabled: forecast,
+  })
 }

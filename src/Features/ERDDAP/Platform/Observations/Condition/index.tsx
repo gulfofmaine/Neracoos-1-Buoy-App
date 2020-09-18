@@ -10,6 +10,8 @@ import { useUnitSystem } from "Features/Units"
 
 import { useDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { UnitSystem } from "Features/Units/types"
 
 interface Props {
   /** Platform to display */
@@ -40,7 +42,7 @@ interface ChartTimeSeriesProps {
   standardName: string
 }
 
-const ChartTimeSeries: React.FunctionComponent<ChartTimeSeriesProps> = ({ timeSeries, standardName }) => {
+export const ChartTimeSeries: React.FunctionComponent<ChartTimeSeriesProps> = ({ timeSeries, standardName }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDataset(timeSeries)
 
@@ -49,28 +51,42 @@ const ChartTimeSeries: React.FunctionComponent<ChartTimeSeriesProps> = ({ timeSe
   }
 
   if (data) {
-    const depth = timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
-
-    const bounds = naturalBounds(timeSeries.data_type.standard_name)
-
-    return (
-      <Row>
-        <Col>
-          <h4>
-            {timeSeries.data_type.long_name} {depth}
-          </h4>
-          <LargeTimeSeriesChart
-            timeSeries={data.timeSeries}
-            name={timeSeries.data_type.long_name}
-            softMin={bounds[0]}
-            softMax={bounds[1]}
-            unit_system={unit_system}
-            data_type={standardName}
-          />
-        </Col>
-      </Row>
-    )
+    return <ChartTimeSeriesDisplay dataset={data} {...{ unit_system, timeSeries, standardName }} />
   }
 
   return <h4>Error loading {timeSeries.data_type.long_name}</h4>
+}
+
+interface ChartTimeSeriesDisplayProps extends ChartTimeSeriesProps {
+  dataset: DataTimeSeries
+  unit_system: UnitSystem
+}
+
+export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
+  timeSeries,
+  dataset,
+  standardName,
+  unit_system,
+}) => {
+  const depth = timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
+
+  const bounds = naturalBounds(timeSeries.data_type.standard_name)
+
+  return (
+    <Row>
+      <Col>
+        <h4>
+          {timeSeries.data_type.long_name} {depth}
+        </h4>
+        <LargeTimeSeriesChart
+          timeSeries={dataset.timeSeries}
+          name={timeSeries.data_type.long_name}
+          softMin={bounds[0]}
+          softMax={bounds[1]}
+          unit_system={unit_system}
+          data_type={standardName}
+        />
+      </Col>
+    </Row>
+  )
 }

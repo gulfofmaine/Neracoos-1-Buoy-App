@@ -7,11 +7,12 @@ import {
   Chart,
   HighchartsChart,
   Legend,
+  ScatterSeries,
   SplineSeries,
   Tooltip,
   withHighcharts,
   XAxis,
-  YAxis
+  YAxis,
 } from "react-jsx-highcharts"
 
 import { round } from "Shared/math"
@@ -19,17 +20,22 @@ import { DataTimeSeries } from "Shared/timeSeries"
 
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
+    if (this.point) {
+      const p = this.point
+      return `${new Date(this.x).toLocaleString()}<br /> <b>${p.series.name}:</b> ${p.y} ${unit}`
+    }
+
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
-      this.points.map(p => `<b>${p.series.name}:</b> ${p.y} ${unit}`).join("<br />")
+      this.points.map((p) => `<b>${p.series.name}:</b> ${p.y} ${unit}`).join("<br />")
     )
   }
 }
 
 const plotOptions = {
   time: {
-    useUTC: false
-  }
+    useUTC: false,
+  },
 }
 
 interface Props {
@@ -37,22 +43,41 @@ interface Props {
   data: DataTimeSeries[]
   /** Units to display on chart */
   unit: string
+  /** Use scatter points rather than splines */
+  scatter: boolean
 }
 
 /**
  * Time series chart component for displaying multiple sets of time series data
  */
 class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
+  static defaultProps = {
+    scatter: false,
+  }
+
   public render() {
     const series = this.props.data.map((d, index) => {
-      const data = d.timeSeries.map(r => [r.time.valueOf(), round(r.reading, 1)])
+      const data = d.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 1)])
+
+      if (this.props.scatter) {
+        return (
+          <ScatterSeries
+            key={index}
+            name={d.name}
+            // marker={{
+            //   enabled: false,
+            // }}
+            data={data}
+          />
+        )
+      }
 
       return (
         <SplineSeries
           key={index}
           name={d.name}
           marker={{
-            enabled: false
+            enabled: false,
           }}
           data={data}
         />

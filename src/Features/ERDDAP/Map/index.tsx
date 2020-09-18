@@ -14,8 +14,8 @@ import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { usePlatforms } from "../hooks"
-import { PlatformFeature, PlatformFeatureCollection } from "../types"
+import { PlatformFeature } from "../types"
+import { ErddapPlatformsGrabber } from "../Platform/Grabber"
 
 export interface Props {
   boundingBox?: BoundingBox
@@ -169,21 +169,12 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
 
 export const ErddapMap: React.FunctionComponent<Props> = ({ platformId }) => {
   const dispatch = useDispatch()
-  const { isLoading, data } = usePlatforms()
 
-  if (isLoading) {
-    return <h4>Loading platforms</h4>
-  }
-
-  if (data) {
-    return (
-      <ErddapMapBase
-        platforms={(data as PlatformFeatureCollection).features}
-        platformId={platformId}
-        push={(url: string) => dispatch(push(url))}
-      />
-    )
-  }
-
-  return <h4>Error loading platform data</h4>
+  return (
+    <ErddapPlatformsGrabber>
+      {({ platforms }) => (
+        <ErddapMapBase platforms={platforms} platformId={platformId} push={(url: string) => dispatch(push(url))} />
+      )}
+    </ErddapPlatformsGrabber>
+  )
 }

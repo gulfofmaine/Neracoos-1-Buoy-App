@@ -5,12 +5,10 @@ import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import { Feature } from "@turf/helpers"
 import * as React from "react"
-import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { ListGroup } from "reactstrap"
 
 import { paths } from "Shared/constants"
-import { StoreState } from "Shared/constants/store"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 

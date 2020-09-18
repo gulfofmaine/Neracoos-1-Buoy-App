@@ -4,7 +4,7 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
-// import { Forecast } from "Features/ERDDAP"
+import { Forecast } from "Features/ERDDAP"
 import { RenderProps } from "Features/ERDDAP/Platform/Grabber"
 import { useUnitSystem } from "Features/Units"
 
@@ -16,6 +16,5 @@ export const ForecastTypePage: React.FunctionComponent<ForecastTypePageProps> = 
   const { type } = match.params as PlatformObservationMatchParams
   const unit_system = useUnitSystem()
 
-  return <h4>In progress</h4>
-  // return <Forecast platform={platform} type={type} unit_system={unit_system} />
+  return <Forecast platform={platform} forecast_type={type} unit_system={unit_system} />
 }

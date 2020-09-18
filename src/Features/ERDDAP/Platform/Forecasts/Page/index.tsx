@@ -1,47 +1,116 @@
+/**
+ * Load and display forecasts
+ */
+import { Point } from "@turf/helpers"
 import * as React from "react"
-// import { connect } from "react-redux"
+import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChart } from "components/Charts"
-// import { StoreState } from "Shared/constants/store"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { ForecastSource, PlatformFeature } from "../../../types"
-// import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
-// import { ForecastLoader } from "../Loader"
+import { useDataset, useForecast, useForecasts } from "../../../hooks"
+import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../types"
 
-export interface Props {
+interface Props {
   platform: PlatformFeature
-  type: string
+  forecast_type: string
   unit_system: UnitSystem
 }
 
-export const Forecast: React.FunctionComponent<Props> = () => {
-  return <h4>Coming soon</h4>
+/**
+ * Match relevant forecast to platform datasets
+ */
+export const Forecast: React.FunctionComponent<Props> = ({ platform, forecast_type, ...props }) => {
+  const standardNames = forecastToStandardNames[forecast_type]
+  const timeSeries = platform.properties.readings.find((r) => standardNames.has(r.data_type.standard_name))
+
+  return <LoadForecastInfo {...props} {...{ platform, forecast_type, timeSeries }} />
 }
 
-export interface ReduxProps {
-  forecasts: ForecastSource[]
+interface LoadInfoProps extends Props {
+  timeSeries?: PlatformTimeSeries
 }
 
-// function mapStateToProps({ erddap }: StoreState): ReduxProps {
-//   return {
-//     forecasts: erddap.forecasts.forecasts,
-//   }
-// }
+/**
+ * Load all the forecasts, and load a matching time series if available.
+ */
+const LoadForecastInfo: React.FunctionComponent<LoadInfoProps> = ({ timeSeries, forecast_type, ...props }) => {
+  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecasts()
+  const { data: dataset } = useDataset(timeSeries)
 
-// "northward_wind", "eastward_wind", "sea_surface_temperature", "wind_speed_of_gust",
-// , , "tendency_of_air_pressure",
-// "dew_point_temperature", , "air_pressure_at_sea_level",
-// , ,
-// "visibility_in_air", , "sea_water_salinity",
-// "sea_water_density", "sea_water_electrical_conductivity", "sea_water_temperature",
-// , , "barometric_pressure",
-// "sea_water_velocity", "direction_of_sea_water_velocity",
-// "volume_fraction_of_oxygen_in_sea_water", "oxygen_saturation",
-// "fractional_saturation_of_oxygen_in_sea_water"
+  const forecastInfo = forecastsInfo?.find((f) => f.forecast_type.toLowerCase().replace(" ", "_") === forecast_type)
+
+  if (isLoadingForecasts) {
+    return <Alert>Loading forecast metadata</Alert>
+  }
+
+  if (forecastInfo) {
+    return <LoadForecast {...props} {...{ timeSeries, dataset, forecast_type, forecastInfo }} />
+  }
+
+  return <Alert color="warning">Error loading forecast info</Alert>
+}
+
+interface LoadForecastProps extends LoadInfoProps {
+  forecastInfo: ForecastSource
+  dataset?: DataTimeSeries
+}
+
+/**
+ * Load the forecast itself
+ */
+const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
+  forecastInfo,
+  platform,
+  unit_system,
+  timeSeries,
+  dataset,
+  forecast_type,
+}) => {
+  const point = platform.geometry as Point
+  const [lon, lat] = point.coordinates
+
+  const { isLoading, data } = useForecast(lat, lon, forecastInfo)
+
+  if (isLoading) {
+    return <Alert>Loading forecast</Alert>
+  }
+
+  if (data) {
+    const forecastDataset: DataTimeSeries = {
+      timeSeries: data,
+      name: forecastInfo.name,
+      unit: forecastInfo.units,
+    }
+
+    const datasets = [forecastDataset]
+
+    if (timeSeries && dataset) {
+      const aDayAgo = new Date()
+      aDayAgo.setDate(aDayAgo.getDate() - 1)
+
+      datasets.push({
+        ...dataset,
+        timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
+        name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name}`,
+      })
+    }
+
+    return (
+      <Row>
+        <Col>
+          <h4>{forecastInfo.forecast_type} Forecast</h4>
+          <ForecastChart data={datasets} unit_system={unit_system} type={forecast_type} />
+        </Col>
+      </Row>
+    )
+  }
+
+  return <Alert color="warning">Unable to load forecasts</Alert>
+}
 
 export const forecastToStandardNames: { [key: string]: Set<string> } = {
   air_temperature: new Set(["air_temperature"]),
@@ -58,61 +127,6 @@ export const forecastToStandardNames: { [key: string]: Set<string> } = {
 }
 
 const direction_forecast_types = new Set(["wave_direction", "wind_direction"])
-
-export const ForecastBase: React.FunctionComponent<Props & ReduxProps> = ({
-  platform,
-  type,
-  forecasts,
-  unit_system,
-}) => {
-  const filteredForecasts = forecasts.filter(
-    (forecast) => forecast.forecast_type.toLowerCase().replace(" ", "_") === type
-  )
-
-  if (filteredForecasts.length < 1) {
-    return <p>There are no forecasts for the selected type avaliable. Not completely sure how you got here.</p>
-  }
-
-  const standardNames = forecastToStandardNames[type]
-
-  const datasets = platform.properties.readings.filter((dataset) => standardNames.has(dataset.data_type.standard_name))
-  const platformForecasts = platform.properties.forecasts.filter(
-    (forecast) => forecast.source.forecast_type.toLowerCase().replace(" ", "_") === type
-  )
-
-  const aDayAgo = new Date()
-  aDayAgo.setDate(aDayAgo.getDate() - 1)
-
-  // let data: DataTimeSeries[] = datasets.map((dataset) => ({
-  //   name: dataset.data_type.long_name + " observed",
-  //   timeSeries: dataset.readings.filter((reading) => reading.time > aDayAgo),
-  //   unit: dataset.data_type.units,
-  // }))
-
-  // platformForecasts.forEach((forecast) => {
-  //   if (forecast.readings.length > 0) {
-  //     data.push({
-  //       name: forecast.source.name,
-  //       timeSeries: forecast.readings,
-  //       unit: forecast.source.units,
-  //     })
-  //   }
-  // })
-
-  return (
-    <React.Fragment>
-      <h4>{filteredForecasts[0].forecast_type} Forecast</h4>
-
-      <h4>In progress</h4>
-      {/* <ErddapDatasetLoader platformId={platform.id as string} datasets={datasets}>
-        <ErddapDatasetStatus datasets={datasets} />
-        <ForecastLoader platform={platform} forecasts={filteredForecasts}>
-          <ForecastChart data={data} unit_system={unit_system} type={type} />
-        </ForecastLoader>
-      </ErddapDatasetLoader> */}
-    </React.Fragment>
-  )
-}
 
 interface ForecastChartProps {
   data: DataTimeSeries[]
@@ -142,10 +156,7 @@ export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ dat
   const units = Array.from(new Set(data.map((ts) => ts.unit)))
 
   if (units.length > 0) {
-    return <MultipleLargeTimeSeriesChart unit={units[0]} data={data} />
+    return <MultipleLargeTimeSeriesChart unit={units[0]} data={data} scatter={direction_forecast_types.has(type)} />
   }
   return null
 }
-
-// @ts-ignore
-// export const Forecast = connect(mapStateToProps)(ForecastBase)

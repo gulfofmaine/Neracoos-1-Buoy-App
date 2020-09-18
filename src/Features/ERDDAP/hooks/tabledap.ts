@@ -48,8 +48,11 @@ function urlBuilder(timeSeries: PlatformTimeSeries, startTime?: Date): string {
 }
 
 /** Fetch a single dataset given a time series */
-export function useDataset(timeSeries: PlatformTimeSeries, startTime?: Date): QueryResult<DataTimeSeries, Error> {
-  return useQuery(["erddap-dataset", timeSeries, startTime], getDataset(timeSeries, startTime), defaultQueryConfig)
+export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date): QueryResult<DataTimeSeries, Error> {
+  return useQuery(["erddap-dataset", timeSeries, startTime], getDataset(timeSeries!, startTime), {
+    ...defaultQueryConfig,
+    enabled: timeSeries,
+  })
 }
 
 const getDatasets = (timeSeries: PlatformTimeSeries[], startTime?: Date) => {
