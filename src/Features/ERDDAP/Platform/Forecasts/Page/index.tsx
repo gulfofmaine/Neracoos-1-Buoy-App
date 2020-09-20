@@ -112,6 +112,9 @@ const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
   return <Alert color="warning">Unable to load forecasts</Alert>
 }
 
+/**
+ * Which forecasts match up with which standard names
+ */
 export const forecastToStandardNames: { [key: string]: Set<string> } = {
   air_temperature: new Set(["air_temperature"]),
   wave_direction: new Set(["sea_surface_wave_to_direction"]),

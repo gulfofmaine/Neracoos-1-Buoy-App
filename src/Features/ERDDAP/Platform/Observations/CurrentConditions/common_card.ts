@@ -1,3 +1,6 @@
+/**
+ * Shared utilities and configuration for current conditions cards
+ */
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
@@ -13,9 +16,10 @@ export const cardProps = {
 }
 
 /**
+ * Link to a given platforms observation
  *
  * @param platform
- * @param timeSeries
+ * @param observationSlug slug of observation, usually timeSeries.data_type.standard_name
  */
 export function observationLink(platform: PlatformFeature, observationSlug: string): string {
   return urlPartReplacer(

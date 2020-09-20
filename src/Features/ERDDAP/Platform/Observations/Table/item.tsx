@@ -1,3 +1,6 @@
+/**
+ * A single row in the current or all conditions tables
+ */
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Tooltip } from "reactstrap"
@@ -21,6 +24,9 @@ interface TableItemProps {
   later_then?: Date
 }
 
+/**
+ * A single item in the current or all conditions tables
+ */
 export const TableItem: React.FunctionComponent<TableItemProps> = ({
   platform,
   data_type,
@@ -54,7 +60,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
     }
 
     if (data.length === 0) {
-      return <div className="list-group-item">No data avaliable for {name} recently</div>
+      return <div className="list-group-item">No data available for {name} recently</div>
     }
 
     const selected = data[0]

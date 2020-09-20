@@ -1,5 +1,5 @@
 /**
- * Display all timeseries for a specific standard name
+ * Display all time series for a specific standard name
  */
 import * as React from "react"
 import { Col, Row } from "reactstrap"
@@ -42,6 +42,9 @@ interface ChartTimeSeriesProps {
   standardName: string
 }
 
+/**
+ * Load a time series and connect to the current unit system
+ */
 export const ChartTimeSeries: React.FunctionComponent<ChartTimeSeriesProps> = ({ timeSeries, standardName }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDataset(timeSeries)
@@ -62,6 +65,9 @@ interface ChartTimeSeriesDisplayProps extends ChartTimeSeriesProps {
   unit_system: UnitSystem
 }
 
+/**
+ * Display a loaded time series
+ */
 export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
   timeSeries,
   dataset,

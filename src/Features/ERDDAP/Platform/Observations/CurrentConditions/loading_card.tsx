@@ -1,3 +1,6 @@
+/**
+ * Card to show when loading data for current conditions
+ */
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, Col } from "reactstrap"
@@ -11,6 +14,9 @@ interface LoadingDataCardProps {
   platform: PlatformFeature
 }
 
+/**
+ * Card to show when loading data for current conditions
+ */
 export const LoadingDataCard: React.FunctionComponent<LoadingDataCardProps> = ({ timeSeries, platform }) => {
   const url = cardUrl(platform, timeSeries)
 

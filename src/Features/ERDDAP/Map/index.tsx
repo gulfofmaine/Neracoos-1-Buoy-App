@@ -1,3 +1,6 @@
+/**
+ * Map that shows all active platforms and can be focused on a specific bounding box.
+ */
 import { push } from "connected-react-router"
 import Feature from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
@@ -15,7 +18,7 @@ import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeature } from "../types"
-import { ErddapPlatformsGrabber } from "../Platform/Grabber"
+import { UsePlatforms } from "../hooks"
 
 export interface Props {
   boundingBox?: BoundingBox
@@ -167,14 +170,17 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
   }
 }
 
+/**
+ * Map that is focused on the Gulf of Maine with the selected platform highlighted
+ */
 export const ErddapMap: React.FunctionComponent<Props> = ({ platformId }) => {
   const dispatch = useDispatch()
 
   return (
-    <ErddapPlatformsGrabber>
+    <UsePlatforms>
       {({ platforms }) => (
         <ErddapMapBase platforms={platforms} platformId={platformId} push={(url: string) => dispatch(push(url))} />
       )}
-    </ErddapPlatformsGrabber>
+    </UsePlatforms>
   )
 }

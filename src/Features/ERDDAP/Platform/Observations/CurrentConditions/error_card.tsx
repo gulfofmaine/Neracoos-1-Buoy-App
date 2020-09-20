@@ -1,3 +1,6 @@
+/**
+ * Card to wrap errors loading datasets
+ */
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, Col } from "reactstrap"
@@ -11,6 +14,9 @@ interface ErrorDataCardProps {
   platform: PlatformFeature
 }
 
+/**
+ * Card to display when there are errors loading datasets
+ */
 export const ErrorDataCard: React.FunctionComponent<ErrorDataCardProps> = ({ timeSeries, platform }) => {
   const url = cardUrl(platform, timeSeries)
 

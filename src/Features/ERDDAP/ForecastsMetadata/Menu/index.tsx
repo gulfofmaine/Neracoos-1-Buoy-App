@@ -1,3 +1,6 @@
+/**
+ * Dropdown menu for accessing forecasts via buoy barn
+ */
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
@@ -12,6 +15,9 @@ export interface Props {
   platformId: string
 }
 
+/**
+ * Wraps and loads the forecast menu
+ */
 export const ForecastDropdown: React.FunctionComponent<Props> = ({ platformId }) => {
   const { isLoading, data } = useForecasts()
 
@@ -44,6 +50,9 @@ interface BaseProps extends Props {
   forecasts: ForecastSource[]
 }
 
+/**
+//  * Dropdown menu with links to the available forecasts.
+ */
 export class ForecastDropdownBase extends React.Component<BaseProps, State> {
   public state: State = initialState
 

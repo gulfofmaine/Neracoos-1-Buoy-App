@@ -1,3 +1,7 @@
+/**
+ * Collection of cards to display a summary of
+ * current conditions that a platform is experiencing.
+ */
 import * as React from "react"
 import { Row } from "reactstrap"
 
@@ -10,6 +14,11 @@ interface Props {
   platform: PlatformFeature
 }
 
+/**
+ * Collection of cards to display a summary of the current conditions that a platform is experiencing.
+ *
+ * @param platform Platform to display data for
+ */
 export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = ({ platform }) => (
   <Row>
     <WindCard platform={platform} />

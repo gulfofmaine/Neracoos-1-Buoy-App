@@ -1,7 +1,7 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
-import { ErddapObservationTable, ErddapPlatformGetter, ErddapPlatformInfoPanel, PlatformAlerts } from "Features/ERDDAP"
+import { ErddapObservationTable, ErddapPlatformInfoPanel, PlatformAlerts, UsePlatform } from "Features/ERDDAP"
 import { UnitSelector, useUnitSystem } from "Features/Units"
 
 import { PlatformMatchParams } from "./types"
@@ -14,7 +14,7 @@ export const PlatformInfo: React.FunctionComponent<RouteComponentProps> = ({ mat
   const unit_system = useUnitSystem()
 
   return (
-    <ErddapPlatformGetter platformId={id}>
+    <UsePlatform platformId={id}>
       {({ platform }) => (
         <React.Fragment>
           <PlatformAlerts platform={platform} />
@@ -22,6 +22,6 @@ export const PlatformInfo: React.FunctionComponent<RouteComponentProps> = ({ mat
           <ErddapObservationTable platform={platform} unitSelector={<UnitSelector />} unit_system={unit_system} />
         </React.Fragment>
       )}
-    </ErddapPlatformGetter>
+    </UsePlatform>
   )
 }

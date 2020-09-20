@@ -1,3 +1,6 @@
+/**
+ * Card to display when their is no data available
+ */
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, Col } from "reactstrap"
@@ -11,6 +14,9 @@ interface NoDataCardProps {
   platform: PlatformFeature
 }
 
+/**
+ * Card to display when their is no data available
+ */
 export const NoDataCard: React.FunctionComponent<NoDataCardProps> = ({ timeSeries, platform }) => {
   const url = cardUrl(platform, timeSeries)
 

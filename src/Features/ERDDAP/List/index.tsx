@@ -12,7 +12,7 @@ import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { ErddapPlatformsGrabber } from "../Platform/Grabber"
+import { UsePlatforms } from "../hooks"
 
 interface Props {
   /** Bounding box to filter platforms by */
@@ -65,7 +65,7 @@ export class ErddapPlatformListBase extends React.Component<BaseProps, object> {
 // export const ErddapPlatformList = connect(mapStateToProps)(ErddapPlatformListBase)
 
 export const ErddapPlatformList: React.FunctionComponent<Props> = ({ boundingBox }) => (
-  <ErddapPlatformsGrabber>
+  <UsePlatforms>
     {({ platforms }) => <ErddapPlatformListBase platforms={platforms} boundingBox={boundingBox} />}
-  </ErddapPlatformsGrabber>
+  </UsePlatforms>
 )

@@ -13,8 +13,8 @@ import {
   ErddapAllObservationsTable,
   ErddapMoreInfoDropdown,
   ErddapObservedDropdown,
-  ErddapPlatformGetter,
   ForecastDropdown,
+  UsePlatform,
 } from "Features/ERDDAP"
 import { useUnitSystem } from "Features/Units"
 
@@ -37,7 +37,7 @@ export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match
   const unit_system = useUnitSystem()
 
   return (
-    <ErddapPlatformGetter platformId={id}>
+    <UsePlatform platformId={id}>
       {(platform_props) => (
         <React.Fragment>
           <Row style={{ paddingBottom: "1rem" }}>
@@ -71,7 +71,7 @@ export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match
           </Switch>
         </React.Fragment>
       )}
-    </ErddapPlatformGetter>
+    </UsePlatform>
   )
 }
 

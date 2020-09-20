@@ -167,6 +167,9 @@ interface OtherWindCardProps {
   children: React.ReactNode
 }
 
+/**
+ * Card to display various information when the wind data is not avaliable or loaded
+ */
 const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, children }) => (
   <Col {...cardProps}>
     <Link to={observationLink(platform, "wind")}>

@@ -26,6 +26,9 @@ interface DisplayProps extends LoadingProps {
   datasets: DataTimeSeries[]
 }
 
+/**
+ * Wind Observed conditions component
+ */
 export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }) => {
   const { timeSeries } = pickWindTimeSeries(platform)
 
@@ -36,6 +39,9 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   return <LoadWindObservedConditionDisplay platform={platform} timeSeries={timeSeries} />
 }
 
+/**
+ * Load wind data
+ */
 export const LoadWindObservedConditionDisplay: React.FunctionComponent<LoadingProps> = ({ platform, timeSeries }) => {
   const unit_system = useUnitSystem()
   const { isLoading, data } = useDatasets(timeSeries)
@@ -57,6 +63,9 @@ export const LoadWindObservedConditionDisplay: React.FunctionComponent<LoadingPr
   return <WindError message="Error loading wind data" />
 }
 
+/**
+ * Display wind datasets
+ */
 export const ErddapWindObservedConditionDisplay: React.FunctionComponent<DisplayProps> = ({
   platform,
   unit_system,

@@ -6,7 +6,13 @@ Additions:
 
 Changes:
 
+- Only use Redux to keep track of selected units and routed location.
+  React-query cleans up, simplifies, caches, and auto-reloads remote data.
+
 Fixes:
+
+- Some spelling of available.
+- React.SFC has been deprecated as it isn't an accurate name, so using React.FunctionalComponent.
 
 ## 0.4.3 - 8/28/2020
 
