@@ -88,7 +88,7 @@ jobs:
         run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
 
       - name: Get Cypress version from package.json
-        run: ::set-env name=CYPRESS_VERSION::$(cat package.json| jq '.optionalDependencies.cypress')
+        run: echo ::set-env name=CYPRESS_VERSION::$(cat package.json| jq '.optionalDependencies.cypress')
 
       - name: Cache Cypress
         uses: actions/cache@v1
