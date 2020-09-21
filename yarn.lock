@@ -13140,10 +13140,12 @@ react-query-devtools@^2.4.7:
   dependencies:
     match-sorter "^4.1.0"
 
-react-query@^2.16.0:
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.16.0.tgz#21771d020fdaeedd60e55c7df27b7339f93db4ce"
-  integrity sha512-P70M+BzpHXG4quyAHQOkL0DDMvXFCWoRJpw+6L+gfufIisNodYfuo0K0m9/Bw3Xmg5IvJLFdDSKdFjA/y/omeQ==
+react-query@^2.23.0:
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.23.0.tgz#9f9552a30380dfc1da2c165b5011465a78128ace"
+  integrity sha512-LHBhrr7ntstjpt85ssEaW3cGJx4BqQBFleTM3fXMO0MFzaMDQx0oxdUur+iQSOpLGPlrpToJbrjFNMQTpEExdA==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
 
 react-redux@7.2.1:
   version "7.2.1"
