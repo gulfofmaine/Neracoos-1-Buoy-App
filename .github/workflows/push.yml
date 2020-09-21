@@ -71,9 +71,6 @@ jobs:
     needs: build
     timeout-minutes: 30
 
-    env:
-      CYPRESS_VERSION: "5.0.0"
-
     steps:
       - name: "Checkout"
         uses: actions/checkout@v1
@@ -90,6 +87,9 @@ jobs:
       - name: Tag Docker image
         run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
 
+      - name: Get Cypress version from package.json
+        run: echo ::set-env name=CYPRESS_VERSION::$(cat package.json| jq -r '.optionalDependencies.cypress')
+
       - name: Cache Cypress
         uses: actions/cache@v1
         with:
@@ -102,7 +102,7 @@ jobs:
       - name: Start container
         run: docker-compose up -d client
 
-      - name: Wait for container to become avaliable
+      - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
         timeout-minutes: 1
 
