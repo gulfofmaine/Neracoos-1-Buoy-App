@@ -1,38 +1,62 @@
+/**
+ * Dropdown menu for accessing forecasts via buoy barn
+ */
 import * as React from "react"
-import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
-import { StoreState } from "Shared/constants/store"
 import { urlPartReplacer } from "Shared/urlParams"
 
+import { useForecasts } from "../../hooks"
 import { ForecastSource } from "../../types"
-
-const initialState = {
-  dropdownOpen: false
-}
-
-type State = Readonly<typeof initialState>
 
 export interface Props {
   platformId: string
 }
 
-export interface ReduxProps {
+/**
+ * Wraps and loads the forecast menu
+ */
+export const ForecastDropdown: React.FunctionComponent<Props> = ({ platformId }) => {
+  const { isLoading, data } = useForecasts()
+
+  if (isLoading) {
+    return (
+      <NavItem>
+        <div className="nav-link">Forecasts loading</div>
+      </NavItem>
+    )
+  }
+
+  if (data) {
+    return <ForecastDropdownBase platformId={platformId} forecasts={data} />
+  }
+
+  return (
+    <NavItem>
+      <div className="nav-link">Unable to load forecasts</div>
+    </NavItem>
+  )
+}
+
+const initialState = {
+  dropdownOpen: false,
+}
+
+type State = Readonly<typeof initialState>
+
+interface BaseProps extends Props {
   forecasts: ForecastSource[]
 }
 
-function mapStateToProps({ erddap }: StoreState): ReduxProps {
-  return {
-    forecasts: erddap.forecasts.forecasts
-  }
-}
-
-export class ForecastDropdownBase extends React.Component<Props & ReduxProps, State> {
+/**
+//  * Dropdown menu with links to the available forecasts.
+ */
+export class ForecastDropdownBase extends React.Component<BaseProps, State> {
   public state: State = initialState
 
-  constructor(props: Props & ReduxProps) {
+  constructor(props: BaseProps) {
     super(props)
 
     this.toggle = this.toggle.bind(this)
@@ -42,10 +66,10 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
   public render() {
     const { forecasts, platformId } = this.props
 
-    const forecastNames = Array.from(new Set(forecasts.map(forecast => forecast.forecast_type)))
+    const forecastNames = Array.from(new Set(forecasts.map((forecast) => forecast.forecast_type)))
     forecastNames.sort()
 
-    const forecastItems = forecastNames.map(forecastType => (
+    const forecastItems = forecastNames.map((forecastType) => (
       <Link
         key={forecastType}
         className="dropdown-item nav-item"
@@ -73,15 +97,13 @@ export class ForecastDropdownBase extends React.Component<Props & ReduxProps, St
 
   private toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     })
   }
 
   private close() {
     this.setState({
-      dropdownOpen: false
+      dropdownOpen: false,
     })
   }
 }
-
-export const ForecastDropdown = connect(mapStateToProps)(ForecastDropdownBase)

@@ -1,90 +1,90 @@
 /**
  * Wind Observed conditions component
  */
-import * as Sentry from "@sentry/react"
 import * as React from "react"
-import { SizeMeProps, withSize } from "react-sizeme"
 import { Alert, Col, Row } from "reactstrap"
 
 import { WindTimeSeriesChart } from "components/Charts"
+import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
 
-import { PlatformFeatureWithDatasets } from "../../../types"
-import { ErddapDatasetLoader, ErddapDatasetStatus } from "../../Dataset"
+import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
+import { UseDatasets } from "Features/ERDDAP/hooks"
 
 interface Props {
-  platform: PlatformFeatureWithDatasets
-  unit_system: UnitSystem
+  platform: PlatformFeature
 }
 
-export const windStandards = new Set(["wind_from_direction", "wind_speed", "wind_speed_of_gust"])
+interface DisplayProps extends Props {
+  unit_system: UnitSystem
+  datasets: DataTimeSeries[]
+  timeSeries: PlatformTimeSeries[]
+}
 
-export const ErddapWindObservedConditionBase: React.SFC<Props & SizeMeProps> = ({ platform, size, unit_system }) => {
-  // adjust number of barbs based on width
-  let barbsPerDay = 5
-  if (size && size.width && size.width < 800) {
-    barbsPerDay = 2
-  }
+/**
+ * Wind Observed conditions component
+ */
+export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }) => {
+  const unit_system = useUnitSystem()
 
-  const windDatasets = platform.properties.readings.filter((reading) =>
-    windStandards.has(reading.data_type.standard_name)
-  )
+  const { timeSeries } = pickWindTimeSeries(platform)
 
-  const windTimeSeries: DataTimeSeries[] = windDatasets.map((reading) => ({
-    name: reading.data_type.long_name,
-    timeSeries: reading.readings,
-    unit: reading.data_type.units,
-  }))
-
-  Sentry.addBreadcrumb({
-    category: "ERDDAP Wind",
-    data: {
-      platformId: platform.id as string,
-      windDatasets,
-    },
-  })
-
-  if (windDatasets.length === 0) {
-    Sentry.captureMessage(("Unable to display wind data for " + platform.id) as string)
-    return noWind
+  if (timeSeries.length < 0) {
+    return <WindError message="No wind data" />
   }
 
   return (
-    <React.Fragment>
-      <ErddapDatasetStatus datasets={windDatasets} />
-      <ErddapDatasetLoader platformId={platform.id as string} datasets={windDatasets}>
-        <React.Fragment>
-          {windTimeSeries[0].timeSeries !== undefined && windTimeSeries[0].timeSeries.length > 0 ? (
-            <WindChart barbsPerDay={barbsPerDay} data={windTimeSeries} unit_system={unit_system} />
-          ) : null}
-        </React.Fragment>
-      </ErddapDatasetLoader>
-    </React.Fragment>
+    <UseDatasets
+      timeSeries={timeSeries}
+      error={<WindError message="Error loading wind data" />}
+      loading={
+        <Row>
+          <Col>
+            <h5>Loading wind data in progress</h5>
+          </Col>
+        </Row>
+      }
+    >
+      {({ datasets }) => <ErddapWindObservedConditionDisplay {...{ platform, unit_system, timeSeries, datasets }} />}
+    </UseDatasets>
   )
 }
 
-const noWind = (
-  <Row>
-    <Col>
-      <Alert color="warning">Unable to display wind info</Alert>
-    </Col>
-  </Row>
-)
+/**
+ * Display wind datasets
+ */
+export const ErddapWindObservedConditionDisplay: React.FunctionComponent<DisplayProps> = ({
+  platform,
+  unit_system,
+  datasets,
+}) => {
+  const { speed, gust, direction } = pickWindDatasets(platform, datasets)
 
-export const ErddapWindObservedCondition = withSize()(ErddapWindObservedConditionBase)
-
-interface WindChartProps {
-  barbsPerDay: number
-  data: DataTimeSeries[]
-  unit_system: UnitSystem
+  return (
+    <Row>
+      <Col>
+        <h4>Wind</h4>
+        <WindTimeSeriesChart
+          barbsPerDay={5}
+          data={datasets}
+          legend={true}
+          {...{ speed, gust, direction, unit_system }}
+        />
+      </Col>
+    </Row>
+  )
 }
 
-export const WindChart: React.SFC<WindChartProps> = (props) => (
+interface WindErrorProps {
+  message: string
+}
+
+const WindError: React.FunctionComponent<WindErrorProps> = ({ message }) => (
   <Row>
     <Col>
-      <h4>Wind</h4>
-      <WindTimeSeriesChart days={7} {...props} legend={true} />
+      <Alert color="warning">{message}</Alert>
     </Col>
   </Row>
 )

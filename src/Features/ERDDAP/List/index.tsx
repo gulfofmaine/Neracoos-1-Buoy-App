@@ -5,46 +5,40 @@ import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import { Feature } from "@turf/helpers"
 import * as React from "react"
-import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { ListGroup } from "reactstrap"
 
 import { paths } from "Shared/constants"
-import { StoreState } from "Shared/constants/store"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
-export interface Props {
+import { UsePlatforms } from "../hooks"
+
+interface Props {
   /** Bounding box to filter platforms by */
   boundingBox?: BoundingBox
 }
 
-export interface ReduxProps {
+interface BaseProps extends Props {
   platforms: Feature[]
-}
-
-function mapStateToProps({ erddap }: StoreState): ReduxProps {
-  return {
-    platforms: erddap.platforms
-  }
 }
 
 /**
  * Display platforms filtered by a given bounding box
  */
-export class ErddapPlatformListBase extends React.Component<Props & ReduxProps, object> {
+export class ErddapPlatformListBase extends React.Component<BaseProps, object> {
   public render() {
     if (this.props.boundingBox && this.props.platforms.length > 0) {
       const bbox = this.props.boundingBox
       const polygon = bboxPolygon([bbox.west, bbox.south, bbox.east, bbox.north])
 
       const filteredPlatforms = this.props.platforms.filter(
-        platform =>
+        (platform) =>
           platform.geometry !== null && booleanContains(polygon, platform as any) && platform.properties !== null
       )
 
       if (filteredPlatforms.length > 0) {
-        const listItems = filteredPlatforms.map(platform => {
+        const listItems = filteredPlatforms.map((platform) => {
           const { id } = platform
 
           return (
@@ -68,4 +62,10 @@ export class ErddapPlatformListBase extends React.Component<Props & ReduxProps, 
 }
 
 /** Redux connected Platform List. See [[ErddapPlatformListBase]] for details */
-export const ErddapPlatformList = connect(mapStateToProps)(ErddapPlatformListBase)
+// export const ErddapPlatformList = connect(mapStateToProps)(ErddapPlatformListBase)
+
+export const ErddapPlatformList: React.FunctionComponent<Props> = ({ boundingBox }) => (
+  <UsePlatforms>
+    {({ platforms }) => <ErddapPlatformListBase platforms={platforms} boundingBox={boundingBox} />}
+  </UsePlatforms>
+)

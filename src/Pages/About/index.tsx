@@ -5,7 +5,7 @@ import { WagtailBlock } from "Features/WagtailApi"
 /**
  * The about page displays content from the drupal content server.
  */
-export const AboutPage: React.StatelessComponent<{}> = () => {
+export const AboutPage: React.FunctionComponent<{}> = () => {
   return (
     <div className="row">
       <div className="col">

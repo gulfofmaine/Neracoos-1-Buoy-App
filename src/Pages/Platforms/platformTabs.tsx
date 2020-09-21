@@ -13,10 +13,10 @@ import {
   ErddapAllObservationsTable,
   ErddapMoreInfoDropdown,
   ErddapObservedDropdown,
-  ErddapPlatformGetter,
   ForecastDropdown,
-  ForecastMetadataLoader,
+  UsePlatform,
 } from "Features/ERDDAP"
+import { useUnitSystem } from "Features/Units"
 
 import { CurrentConditionsPage } from "./currentConditions"
 import { ForecastTypePage, ForecastTypePageProps } from "./forecastType"
@@ -31,26 +31,21 @@ export interface PlatformTabsProps extends RouteComponentProps {
  * Display tab bar and tab data for individual platforms
  * @param param0 React-Router props
  */
-export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
+export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match }) => {
   const { id } = match.params
   const { path } = match
+  const unit_system = useUnitSystem()
 
   return (
-    <ErddapPlatformGetter platformId={id}>
+    <UsePlatform platformId={id}>
       {(platform_props) => (
         <React.Fragment>
           <Row style={{ paddingBottom: "1rem" }}>
             <Col>
               <Nav tabs={true}>
                 <ErddapObservedDropdown {...platform_props} />
-
                 <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={id} />
-                <ForecastMetadataLoader>
-                  <React.Fragment>
-                    <ForecastDropdown platformId={platform_props.platform.id as string} />
-                  </React.Fragment>
-                </ForecastMetadataLoader>
-
+                <ForecastDropdown platformId={platform_props.platform.id as string} />
                 <ErddapMoreInfoDropdown {...platform_props} />
               </Nav>
             </Col>
@@ -58,7 +53,9 @@ export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
 
           {/* Display our pages for the platform. */}
           <Switch>
-            <Route path={paths.platforms.all}>{(props) => <ErddapAllObservationsTable {...platform_props} />}</Route>
+            <Route path={paths.platforms.all}>
+              {(props) => <ErddapAllObservationsTable {...platform_props} unit_system={unit_system} />}
+            </Route>
             <Route path={paths.platforms.observationsWind}>
               <WindObservationsPage {...platform_props} />
             </Route>
@@ -74,7 +71,7 @@ export const PlatformTabs: React.SFC<PlatformTabsProps> = ({ match }) => {
           </Switch>
         </React.Fragment>
       )}
-    </ErddapPlatformGetter>
+    </UsePlatform>
   )
 }
 

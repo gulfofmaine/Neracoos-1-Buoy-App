@@ -1,30 +1,27 @@
 import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
-import { ErddapObservationTable, ErddapPlatformGetter, ErddapPlatformInfoPanel, PlatformAlerts } from "Features/ERDDAP"
-import { UnitSelector } from "Features/Units"
+import { ErddapObservationTable, ErddapPlatformInfoPanel, PlatformAlerts, UsePlatform } from "Features/ERDDAP"
+import { UnitSelector, useUnitSystem } from "Features/Units"
 
 import { PlatformMatchParams } from "./types"
 
 /**
  * Display our platform info panel for the select platform.
  */
-export class PlatformInfo extends React.Component<RouteComponentProps, object> {
-  public render() {
-    const { id } = this.props.match.params as PlatformMatchParams
+export const PlatformInfo: React.FunctionComponent<RouteComponentProps> = ({ match }) => {
+  const { id } = match.params as PlatformMatchParams
+  const unit_system = useUnitSystem()
 
-    return (
-      <div>
-        <ErddapPlatformGetter platformId={id}>
-          {({ platform, unit_system }) => (
-            <React.Fragment>
-              <PlatformAlerts platform={platform} />
-              <ErddapPlatformInfoPanel platform={platform} unit_system={unit_system} />
-              <ErddapObservationTable platform={platform} unit_system={unit_system} unitSelector={<UnitSelector />} />
-            </React.Fragment>
-          )}
-        </ErddapPlatformGetter>
-      </div>
-    )
-  }
+  return (
+    <UsePlatform platformId={id}>
+      {({ platform }) => (
+        <React.Fragment>
+          <PlatformAlerts platform={platform} />
+          <ErddapPlatformInfoPanel platform={platform} />
+          <ErddapObservationTable platform={platform} unitSelector={<UnitSelector />} unit_system={unit_system} />
+        </React.Fragment>
+      )}
+    </UsePlatform>
+  )
 }

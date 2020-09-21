@@ -4,11 +4,20 @@
 import * as React from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
 
-import { RenderProps } from "../../Grabber"
+import { UnitSystem } from "Features/Units/types"
+
+import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { itemStyle, TableItem } from "./item"
 
-export const ErddapAllObservationsTable: React.SFC<RenderProps> = ({ platform, unit_system }: RenderProps) => {
-  const times = platform.properties.readings.filter(d => d.time !== null).map(d => new Date(d.time as string))
+interface Props extends UsePlatformRenderProps {
+  unit_system: UnitSystem
+}
+
+/**
+ * Display all current conditions
+ */
+export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ platform, unit_system }) => {
+  const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   const datasets = platform.properties.readings

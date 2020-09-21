@@ -2,7 +2,7 @@
  * Single large time series chart component
  */
 import Highcharts from "highcharts"
-import React from "react"
+import * as React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
 
 import { round } from "Shared/math"

@@ -390,7 +390,7 @@ For example:
 ### `Button.js`
 
 ```js
-import React, { Component } from "react"
+import * as React, { Component } from "react"
 
 class Button extends Component {
   render() {
@@ -404,7 +404,7 @@ export default Button // Don’t forget to use export default!
 ### `DangerButton.js`
 
 ```js
-import React, { Component } from "react"
+import * as React, { Component } from "react"
 import Button from "./Button" // Import a component from another file
 
 class DangerButton extends Component {
@@ -447,7 +447,7 @@ export { moduleA }
 ### `App.js`
 
 ```js
-import React, { Component } from "react"
+import * as React, { Component } from "react"
 
 class App extends Component {
   handleClick = () => {
@@ -497,7 +497,7 @@ This project setup uses [Webpack](https://webpack.js.org/) for handling all asse
 ### `Button.js`
 
 ```js
-import React, { Component } from "react"
+import * as React, { Component } from "react"
 import "./Button.css" // Tell Webpack that Button.js uses these styles
 
 class Button extends Component {
@@ -669,7 +669,7 @@ In this case, we've added several image file extensions as valid module formats.
 Now that the compiler is configured, here is an example of importing an image file:
 
 ```js
-import React from "react"
+import * as React from "react"
 import logo from "./logo.svg" // Tell Webpack this JS file uses this image
 
 console.log(logo) // /logo.84287d09.png
@@ -1474,7 +1474,7 @@ For example:
 const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
-  clear: jest.fn()
+  clear: jest.fn(),
 }
 global.localStorage = localStorageMock
 ```
@@ -1520,11 +1520,7 @@ Example package.json:
 {
   "name": "your-package",
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx}", "!<rootDir>/node_modules/", "!<rootDir>/path/to/dir/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,
@@ -1984,7 +1980,7 @@ const app = express()
 
 app.use(express.static(path.join(__dirname, "build")))
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"))
 })
 

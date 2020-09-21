@@ -7,13 +7,13 @@ import { Card, CardBody, CardText, CardTitle } from "reactstrap"
 
 import { round } from "Shared/math"
 
-import { RenderProps } from "../Grabber"
+import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 
 /**
  * Platform info panel
  * @param platform
  */
-export const ErddapPlatformInfoPanel: React.SFC<RenderProps> = ({ platform }) => (
+export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderProps> = ({ platform }) => (
   <Card>
     <CardBody>
       <CardTitle>Station {platform.id}</CardTitle>

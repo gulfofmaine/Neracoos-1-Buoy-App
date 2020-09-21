@@ -1,13 +1,19 @@
+/**
+ * Show alert messages based on data from buoy barn
+ */
 import * as React from "react"
 import { UncontrolledAlert } from "reactstrap"
 
-import { PlatformFeatureWithDatasets } from "../../types"
+import { PlatformFeature } from "../../types"
 
 interface Props {
-  platform: PlatformFeatureWithDatasets
+  platform: PlatformFeature
 }
 
-export const PlatformAlerts: React.SFC<Props> = ({ platform }) => (
+/**
+ * Show alert messages based on data from buoy barn for platforms.
+ */
+export const PlatformAlerts: React.FunctionComponent<Props> = ({ platform }) => (
   <React.Fragment>
     {platform.properties.alerts.map((alert, index) => (
       <UncontrolledAlert key={index} color={alert.level.toLowerCase()}>

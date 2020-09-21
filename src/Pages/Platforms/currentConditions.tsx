@@ -4,14 +4,16 @@
 import * as React from "react"
 
 import { ErddapCurrentPlatformConditions } from "Features/ERDDAP"
-import { RenderProps } from "Features/ERDDAP/Platform/Grabber"
+import { UsePlatformRenderProps } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 
 /**
  * Display current conditions for selected platform
  * @param platform ERDDAP platform object
  */
-export const CurrentConditionsPage: React.SFC<RenderProps> = ({ platform, unit_system }) => (
-  <div>
-    <ErddapCurrentPlatformConditions platform={platform} unit_system={unit_system} />
-  </div>
-)
+export const CurrentConditionsPage: React.FunctionComponent<UsePlatformRenderProps> = ({ platform }) => {
+  return (
+    <div>
+      <ErddapCurrentPlatformConditions platform={platform} />
+    </div>
+  )
+}

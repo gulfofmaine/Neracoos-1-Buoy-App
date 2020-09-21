@@ -12,6 +12,7 @@ import moment from "moment-timezone"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
+import { ReactQueryDevtools } from "react-query-devtools"
 
 import GAListener from "Shared/google-analytics"
 
@@ -65,6 +66,7 @@ ReactDOM.render(
         <App />
       </GAListener>
     </ConnectedRouter>
+    <ReactQueryDevtools />
   </Provider>,
   document.getElementById("root") as HTMLElement
 )

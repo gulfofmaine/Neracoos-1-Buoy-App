@@ -4,7 +4,7 @@
  */
 import Highcharts from "highcharts"
 import addWindBarbModule from "highcharts/modules/windbarb"
-import React from "react"
+import * as React from "react"
 import {
   Chart,
   HighchartsChart,
@@ -59,9 +59,11 @@ const plotOptions = {
 
 interface Props {
   /** Wind data to display */
-  data: DataTimeSeries[]
+  speed?: DataTimeSeries
+  gust?: DataTimeSeries
+  direction?: DataTimeSeries
   /** Number of days back to filter dataset by */
-  days: number
+  days?: number
   /** Hight to try to limit chart to */
   height: number
   /** Should the chart show a legend */
@@ -78,96 +80,112 @@ addWindBarbModule(Highcharts)
  * Wind time series chart component that can display steady and gust speeds
  * in addition to wind barbs for wind direction
  */
-export class WindTimeSeriesChartBase extends React.Component<Props, object> {
-  public render() {
-    const { unit_system } = this.props
-    // Extract wind direction from windspeed data
-    const speeds = this.props.data.filter((d) => !d.name.toLowerCase().includes("direction"))
-    const directions = this.props.data.filter((d) => d.name.toLowerCase().includes("direction"))
+// export class WindTimeSeriesChartBase extends React.Component<Props, object> {
+//   public render() {
+export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
+  unit_system,
+  speed,
+  gust,
+  direction,
+  days,
+  barbsPerDay,
+  height,
+  legend,
+}) => {
+  const speeds: DataTimeSeries[] = []
+  if (speed) {
+    speeds.push(speed)
+  }
+  if (gust) {
+    speeds.push(gust)
+  }
 
-    const daysAgo = new Date()
-    daysAgo.setDate(daysAgo.getDate() - this.props.days)
+  const speedsSeries = speeds.map((d, index) => {
+    // Filter windspeeds to only include data from the time range
+    let data: number[][] = []
+    if (days) {
+      const daysAgo = new Date()
+      daysAgo.setDate(daysAgo.getDate() - days)
 
-    const filteredSpeeds = speeds.map((d, index) => {
-      const data = d.timeSeries
-        .filter((r) => r.time > daysAgo)
-        .map((r) => [r.time.valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)])
-      return data
-    })
-
-    if (filteredSpeeds[0].length < 1) {
-      return null
-    }
-    const speedsSeries = speeds.map((d, index) => {
-      // Filter windspeeds to only include data from the time range
-      const data = d.timeSeries
+      data = d.timeSeries
         .filter((reading) => reading.time > daysAgo)
         .map(
           // Return Highcharts Spline dataformat [date, reading]
-          (r) => [r.time.valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)]
+          (r) => [new Date(r.time).valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)]
         )
+    } else {
+      data = d.timeSeries.map(
+        // Return Highcharts Spline dataformat [date, reading]
+        (r) => [new Date(r.time).valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)]
+      )
+    }
 
-      const nameParts = d.name.split("_")
-      const name = nameParts[nameParts.length - 1]
-      const nameCaps = name[0].toUpperCase() + name.slice(1)
+    const nameParts = d.name.split("_")
+    const name = nameParts[nameParts.length - 1]
+    const nameCaps = name[0].toUpperCase() + name.slice(1)
 
-      return <SplineSeries key={index} name={nameCaps} marker={{ enabled: false }} data={data} />
-    })
+    return <SplineSeries key={index} name={nameCaps} marker={{ enabled: false }} data={data} />
+  })
 
-    /** Array of wind data. Highcharts uses [time, speed, direction] for each reading */
-    const windData: number[][] = []
+  /** Array of wind data. Highcharts uses [time, speed, direction] for each reading */
+  const windData: number[][] = []
 
-    /** Make sure our speed and direction data actually exists */
-    if (speeds.length > 0 && directions.length > 0) {
-      const speed = speeds[0]
-      const direction = directions[0]
+  /** Make sure our speed and direction data actually exists */
+  if (speed && direction) {
+    let speedTs = speed.timeSeries
 
-      let speedTs = speed.timeSeries.filter((r) => r.time > daysAgo)
-      let directionTs = direction.timeSeries.filter((r) => r.time > daysAgo)
+    let directionTs = direction.timeSeries
+    if (days) {
+      const daysAgo = new Date()
+      daysAgo.setDate(daysAgo.getDate() - days)
 
-      // cross filter our time series so that we only have matching times
-      const directionTimes = directionTs.map((r) => r.time.toISOString())
-      speedTs = speedTs.filter((r) => directionTimes.filter((d) => d === r.time.toISOString()).length > 0)
-      const speedTimes = speedTs.map((r) => r.time.toISOString())
-      directionTs = directionTs.filter((r) => speedTimes.filter((d) => d === r.time.toISOString()).length > 0)
+      speedTs = speedTs.filter((r) => new Date(r.time) > daysAgo)
+      directionTs = directionTs.filter((r) => new Date(r.time) > daysAgo)
+    }
 
-      if (speedTs.length === directionTs.length) {
-        // Figure out how many samples should be skipped between readings to manage chart density
-        const stride = Math.round(speedTs.length / (this.props.barbsPerDay * this.props.days))
+    // cross filter our time series so that we only have matching times
+    const directionTimes = directionTs.map((r) => r.time.toISOString())
+    speedTs = speedTs.filter((r) => directionTimes.filter((d) => d === r.time.toISOString()).length > 0)
+    const speedTimes = speedTs.map((r) => r.time.toISOString())
+    directionTs = directionTs.filter((r) => speedTimes.filter((d) => d === r.time.toISOString()).length > 0)
 
-        for (let index = 0; index <= speedTs.length; index += stride) {
-          if (speedTs[index] !== undefined && directionTs[index] !== undefined) {
-            windData.push([
-              directionTs[index].time.valueOf(),
-              round(speedTs[index].reading, 1),
-              directionTs[index].reading,
-            ])
-          }
+    if (speedTs.length === directionTs.length) {
+      // Figure out how many samples should be skipped between readings to manage chart density
+      const days = speedTs[speedTs.length - 1].time.getDate() - speedTs[0].time.getDate()
+      const stride = Math.round(speedTs.length / (barbsPerDay * days))
+
+      for (let index = 0; index <= speedTs.length; index += stride) {
+        if (speedTs[index] !== undefined && directionTs[index] !== undefined) {
+          windData.push([
+            directionTs[index].time.valueOf(),
+            round(speedTs[index].reading, 1),
+            directionTs[index].reading,
+          ])
         }
       }
     }
-
-    const pointFormatter = pointFormatterMaker(unit_system)
-
-    return (
-      <HighchartsChart time={plotOptions.time}>
-        <Chart height={this.props.height} />
-
-        <XAxis type="datetime" />
-
-        <YAxis softMin={0}>
-          <YAxis.Title>{data_converter.displayName(unit_system)}</YAxis.Title>
-          {speedsSeries}
-
-          {windData.length > 0 ? <WindBarbSeries name="Direction" color="red" data={windData} /> : null}
-        </YAxis>
-
-        {this.props.legend ? <Legend /> : null}
-
-        <Tooltip formatter={pointFormatter} shared={true} />
-      </HighchartsChart>
-    )
   }
+
+  const pointFormatter = pointFormatterMaker(unit_system)
+
+  return (
+    <HighchartsChart time={plotOptions.time}>
+      <Chart height={height} />
+
+      <XAxis type="datetime" />
+
+      <YAxis softMin={0}>
+        <YAxis.Title>{data_converter.displayName(unit_system)}</YAxis.Title>
+        {speedsSeries}
+
+        {windData.length > 0 ? <WindBarbSeries name="Direction" color="red" data={windData} /> : null}
+      </YAxis>
+
+      {legend ? <Legend /> : null}
+
+      <Tooltip formatter={pointFormatter} shared={true} />
+    </HighchartsChart>
+  )
 }
 
 /** Highcharts enabled WindTimeSeriesChart. See [[WindTimeSeriesChartBase]] for details */

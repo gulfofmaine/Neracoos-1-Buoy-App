@@ -1,4 +1,7 @@
-import React, { useState } from "react"
+/**
+ * A single row in the current or all conditions tables
+ */
+import * as React from "react"
 import { Link } from "react-router-dom"
 import { Tooltip } from "reactstrap"
 
@@ -8,12 +11,12 @@ import { urlPartReplacer } from "Shared/urlParams"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { PlatformFeatureWithDatasets, PlatformDataset } from "../../../types"
+import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 export const itemStyle = { padding: ".5rem", paddingLeft: "1rem", color: "black" }
 
 interface TableItemProps {
-  platform: PlatformFeatureWithDatasets
+  platform: PlatformFeature
   data_type: string | string[]
   name: string
   unit_system: UnitSystem
@@ -21,14 +24,17 @@ interface TableItemProps {
   later_then?: Date
 }
 
-export const TableItem: React.SFC<TableItemProps> = ({
+/**
+ * A single item in the current or all conditions tables
+ */
+export const TableItem: React.FunctionComponent<TableItemProps> = ({
   platform,
   data_type,
   name,
   unit_system,
   later_then,
 }: TableItemProps) => {
-  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false)
+  const [tooltipOpen, setTooltipOpen] = React.useState<boolean>(false)
 
   const toggleTooltip = () => setTooltipOpen(!tooltipOpen)
 
@@ -40,10 +46,12 @@ export const TableItem: React.SFC<TableItemProps> = ({
     data_type_list = data_type
   }
 
-  let data: PlatformDataset[] = []
+  let data: PlatformTimeSeries[] = []
 
   data_type_list.forEach((data_type) => {
-    platform.properties.readings.filter((ts) => data_type === ts.data_type.standard_name).forEach((ts) => data.push(ts))
+    platform.properties.readings
+      .filter((ts) => data_type === ts.data_type.standard_name && ts.depth < 2)
+      .forEach((ts) => data.push(ts))
   })
 
   if (data.length > 0) {
@@ -52,7 +60,7 @@ export const TableItem: React.SFC<TableItemProps> = ({
     }
 
     if (data.length === 0) {
-      return <div className="list-group-item">No data avaliable for {name} recently</div>
+      return <div className="list-group-item">No data available for {name} recently</div>
     }
 
     const selected = data[0]
