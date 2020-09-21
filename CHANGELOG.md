@@ -6,6 +6,12 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.4.5 - 9/21/2020
+
+Changes:
+
 - Increases time window for recent updates from 15 minutes to an hour.
 - Dependency updates:
   - Cypress from 5.0.0 to 5.2.0
