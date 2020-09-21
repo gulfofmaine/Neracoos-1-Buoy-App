@@ -6,8 +6,35 @@ Additions:
 
 Changes:
 
+Fixes
+
+## 0.4.4 - 9/21/2020
+
+Changes:
+
 - Only use Redux to keep track of selected units and routed location.
-  React-query cleans up, simplifies, caches, and auto-reloads remote data.
+  Use React-Query instead to manage remote data. React-Query cleans up,
+  simplifies, caches, and auto-reloads remote data instead of trying to
+  manage those things manually with Redux.
+- Dependency Updates
+  - Node from 14.8.0 to 14.11.0
+  - Sentry/react from 5.22.2 to 5.24.2
+  - HighCharts from 7.2.1 to 7.2.2
+  - Moment from 2.27.0 to 2.28.0
+  - Reactstrap from 8.5.1 to 8.6.0
+  - Enzyme adapter react 16 from 1.15.3 to 1.15.4
+  - Storybook
+    - Addon A11y from 6.0.20 to 6.0.21
+    - Addon essentials from 6.0.20 to 6.0.21
+    - Addon storyshots from 6.0.20 to 6.0.21
+    - React from 6.0.20 to 6.0.21
+  - Types
+    - History from 4.7.7 to 4.7.8
+    - OpenLayers from 6.3.1 to 6.4.1
+    - Jest from 26.0.10 to 26.0.14
+    - Node from 15.6.1 to 14.11.1
+    - React from 16.9.48 to 16.9.49
+    - Enzyme from 3.10.5 to 3.10.6
 
 Fixes:
 
