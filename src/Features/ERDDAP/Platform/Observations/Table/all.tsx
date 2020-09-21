@@ -6,10 +6,10 @@ import { ListGroup, ListGroupItem } from "reactstrap"
 
 import { UnitSystem } from "Features/Units/types"
 
-import { RenderProps } from "../../Grabber"
+import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { itemStyle, TableItem } from "./item"
 
-interface Props extends RenderProps {
+interface Props extends UsePlatformRenderProps {
   unit_system: UnitSystem
 }
 

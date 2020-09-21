@@ -1,8 +1,11 @@
+/**
+ * Show more info about a platform
+ */
 import { Geometry } from "@turf/helpers"
 import * as React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
-import { RenderProps } from "../Grabber"
+import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 
 const initialState = {
   dropdownOpen: false,
@@ -10,10 +13,13 @@ const initialState = {
 
 type State = Readonly<typeof initialState>
 
-export class ErddapMoreInfoDropdown extends React.Component<RenderProps, State> {
+/**
+ * Dropdown menu to more info about a platform
+ */
+export class ErddapMoreInfoDropdown extends React.Component<UsePlatformRenderProps, State> {
   public state: State = initialState
 
-  constructor(props: RenderProps) {
+  constructor(props: UsePlatformRenderProps) {
     super(props)
 
     this.toggle = this.toggle.bind(this)

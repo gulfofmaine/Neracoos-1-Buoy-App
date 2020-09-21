@@ -5,11 +5,11 @@ import * as React from "react"
 import { RouteComponentProps } from "react-router-dom"
 
 import { ErddapObservedCondition } from "Features/ERDDAP"
-import { RenderProps } from "Features/ERDDAP/Platform/Grabber"
+import { UsePlatformRenderProps } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 
 import { PlatformObservationMatchParams } from "./types"
 
-export type ObservationPageProps = RenderProps & RouteComponentProps
+export type ObservationPageProps = UsePlatformRenderProps & RouteComponentProps
 
 /**
  * General observation data page

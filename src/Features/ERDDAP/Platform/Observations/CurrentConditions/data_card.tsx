@@ -8,13 +8,13 @@ import { Card, CardBody, CardHeader, Col } from "reactstrap"
 import { SmallTimeSeriesChart } from "components/Charts"
 import { naturalBounds } from "Shared/dataTypes"
 import { round } from "Shared/math"
-import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { ReadingTimeSeries } from "Shared/timeSeries"
 import { convertUnit } from "Shared/unitConversion"
 import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { useDataset } from "../../../hooks"
+import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 import { cardProps, cardUrl } from "./common_card"
@@ -36,6 +36,8 @@ interface DataCardProps {
  * @param platform Platform to display
  */
 export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }) => {
+  const unit_system = useUnitSystem()
+
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
@@ -67,45 +69,29 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
 
   const timeSeries = filteredTimeSeries[0]
 
-  return <LoadDataCard timeSeries={timeSeries} platform={platform} />
-}
+  return (
+    <UseDataset
+      timeSeries={timeSeries}
+      loading={<LoadingDataCard platform={platform} timeSeries={timeSeries} />}
+      error={<ErrorDataCard platform={platform} timeSeries={timeSeries} />}
+    >
+      {({ dataset }) => {
+        const readings: ReadingTimeSeries[] = dataset.timeSeries.filter((reading) => aDayAgo < reading.time)
 
-interface LoadDataCardProps {
-  platform: PlatformFeature
-  timeSeries: PlatformTimeSeries
-}
-
-/**
- * Load the data for a time series and connect units to the data card to display
- * additionally filter data to the last day
- *
- * @param platform
- * @param timeSeries Time series to load data for
- */
-const LoadDataCard: React.FunctionComponent<LoadDataCardProps> = ({ platform, timeSeries }) => {
-  const { isLoading, data } = useDataset(timeSeries)
-  const unit_system = useUnitSystem()
-
-  if (isLoading) {
-    return <LoadingDataCard platform={platform} timeSeries={timeSeries} />
-  }
-
-  if (data) {
-    const aDayAgo = new Date()
-    aDayAgo.setDate(aDayAgo.getDate() - 1)
-
-    const readings: ReadingTimeSeries[] = (data as DataTimeSeries).timeSeries.filter(
-      (reading) => aDayAgo < reading.time
-    )
-
-    if (readings.length > 0) {
-      return (
-        <DataCardDisplay readings={readings} unit_system={unit_system} timeSeries={timeSeries} platform={platform} />
-      )
-    }
-  }
-
-  return <ErrorDataCard platform={platform} timeSeries={timeSeries} />
+        if (readings.length > 1) {
+          return (
+            <DataCardDisplay
+              readings={readings}
+              unit_system={unit_system}
+              timeSeries={timeSeries}
+              platform={platform}
+            />
+          )
+        }
+        return <ErrorDataCard platform={platform} timeSeries={timeSeries} />
+      }}
+    </UseDataset>
+  )
 }
 
 interface DataCardDisplayProps {

@@ -11,56 +11,45 @@ import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
-import { useDatasets } from "Features/ERDDAP/hooks"
+import { UseDatasets } from "Features/ERDDAP/hooks"
 
 interface Props {
   platform: PlatformFeature
 }
 
-interface LoadingProps extends Props {
-  timeSeries: PlatformTimeSeries[]
-}
-
-interface DisplayProps extends LoadingProps {
+interface DisplayProps extends Props {
   unit_system: UnitSystem
   datasets: DataTimeSeries[]
+  timeSeries: PlatformTimeSeries[]
 }
 
 /**
  * Wind Observed conditions component
  */
 export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }) => {
+  const unit_system = useUnitSystem()
+
   const { timeSeries } = pickWindTimeSeries(platform)
 
   if (timeSeries.length < 0) {
     return <WindError message="No wind data" />
   }
 
-  return <LoadWindObservedConditionDisplay platform={platform} timeSeries={timeSeries} />
-}
-
-/**
- * Load wind data
- */
-export const LoadWindObservedConditionDisplay: React.FunctionComponent<LoadingProps> = ({ platform, timeSeries }) => {
-  const unit_system = useUnitSystem()
-  const { isLoading, data } = useDatasets(timeSeries)
-
-  if (isLoading) {
-    return (
-      <Row>
-        <Col>
-          <h5>Loading wind data in progress</h5>
-        </Col>
-      </Row>
-    )
-  }
-
-  if (data) {
-    return <ErddapWindObservedConditionDisplay {...{ platform, unit_system, timeSeries }} datasets={data} />
-  }
-
-  return <WindError message="Error loading wind data" />
+  return (
+    <UseDatasets
+      timeSeries={timeSeries}
+      error={<WindError message="Error loading wind data" />}
+      loading={
+        <Row>
+          <Col>
+            <h5>Loading wind data in progress</h5>
+          </Col>
+        </Row>
+      }
+    >
+      {({ datasets }) => <ErddapWindObservedConditionDisplay {...{ platform, unit_system, timeSeries, datasets }} />}
+    </UseDatasets>
+  )
 }
 
 /**

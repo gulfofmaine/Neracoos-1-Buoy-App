@@ -14,7 +14,7 @@ import { converter } from "Features/Units/Converter"
 
 import { WindTimeSeriesChart } from "components/Charts"
 
-import { useDatasets } from "../../../hooks"
+import { UseDatasets } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { cardProps, observationLink } from "./common_card"
@@ -29,6 +29,8 @@ interface WindCardProps {
  * @param platform Platform GeoJSON feature to display wind data from
  */
 export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) => {
+  const unit_system = useUnitSystem()
+
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
 
@@ -51,53 +53,33 @@ export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) =
     return <OtherWindCard platform={platform}>No wind data</OtherWindCard>
   }
 
-  return <LoadWindCard platform={platform} timeSeries={timeSeries} />
+  return (
+    <UseDatasets
+      timeSeries={timeSeries}
+      loading={<OtherWindCard platform={platform}>Loading wind data</OtherWindCard>}
+      error={<OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>}
+    >
+      {({ datasets }) => {
+        const filteredDatasets = datasets
+          .map((ds) => ({
+            ...ds,
+            timeSeries: ds.timeSeries.filter((r) => aDayAgo < r.time),
+          }))
+          .filter((ds) => ds.timeSeries.length > 0)
+
+        if (filteredDatasets.length > 0) {
+          return <DisplayWindCard {...{ platform, timeSeries, unit_system }} datasets={filteredDatasets} />
+        }
+        return <OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>
+      }}
+    </UseDatasets>
+  )
 }
 
-interface LoadWindCardProps extends WindCardProps {
-  timeSeries: PlatformTimeSeries[]
-}
-
-/**
- * Load data for wind time series, and connect currently selected unit_system
- */
-const LoadWindCard: React.FunctionComponent<LoadWindCardProps> = ({ platform, timeSeries }) => {
-  const unit_system = useUnitSystem()
-  const { isLoading, data } = useDatasets(timeSeries)
-
-  if (isLoading) {
-    return <OtherWindCard platform={platform}>Loading wind data</OtherWindCard>
-  }
-
-  if (data) {
-    const aDayAgo = new Date()
-    aDayAgo.setDate(aDayAgo.getDate() - 1)
-
-    const filteredDatasets = (data as DataTimeSeries[])
-      .map((ds) => ({
-        ...ds,
-        timeSeries: ds.timeSeries.filter((r) => aDayAgo < r.time),
-      }))
-      .filter((ds) => ds.timeSeries.length > 0)
-
-    if (filteredDatasets.length > 0) {
-      return (
-        <DisplayWindCard
-          platform={platform}
-          timeSeries={timeSeries}
-          datasets={filteredDatasets}
-          unit_system={unit_system}
-        />
-      )
-    }
-  }
-
-  return <OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>
-}
-
-interface DisplayWindCardProps extends LoadWindCardProps {
+interface DisplayWindCardProps extends WindCardProps {
   datasets: DataTimeSeries[]
   unit_system: UnitSystem
+  timeSeries: PlatformTimeSeries[]
 }
 
 /**

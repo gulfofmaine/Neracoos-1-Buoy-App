@@ -1,5 +1,5 @@
 /**
- *
+ * Components to use React-Query in a common way
  */
 import * as React from "react"
 import { Alert } from "reactstrap"
@@ -20,7 +20,7 @@ interface UsePlatformsProps extends BaseProps {
   children: (props: UsePlatformsRenderProps) => JSX.Element
 }
 
-interface UsePlatformsRenderProps {
+export interface UsePlatformsRenderProps {
   /** Array of platforms */
   platforms: PlatformFeature[]
 }
@@ -63,7 +63,7 @@ interface UsePlatformProps extends BaseProps {
   platformId: string
 }
 
-interface UsePlatformRenderProps {
+export interface UsePlatformRenderProps {
   /** Selected platform information */
   platform: PlatformFeature
 }

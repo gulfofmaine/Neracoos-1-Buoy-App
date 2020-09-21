@@ -1,3 +1,6 @@
+/**
+ * Hooks to acquire data from ERDDAP TableDAP datasets
+ */
 import * as Sentry from "@sentry/react"
 import { useQuery, QueryResult } from "react-query"
 
