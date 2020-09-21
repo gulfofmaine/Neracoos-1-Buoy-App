@@ -26,7 +26,7 @@ jobs:
         continue-on-error: true
 
       - name: Build Docker image
-        run: docker build --cache-from ${LATEST_IMAGE} --tag ${TAGGED_IMAGE} .
+        run: docker build --cache-from ${LATEST_IMAGE} --tag ${TAGGED_IMAGE} --target develop .
 
       - name: Push Docker image
         run: docker push ${TAGGED_IMAGE}
