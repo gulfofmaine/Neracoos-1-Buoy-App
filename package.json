@@ -18,7 +18,7 @@
     "bootstrap": "4.5.2",
     "connected-react-router": "6.6.1",
     "convert-units": "2.3.4",
-    "highcharts": "7.2.1",
+    "highcharts": "7.2.2",
     "history": "4.10.1",
     "moment": "2.27.0",
     "moment-timezone": "0.5.31",
