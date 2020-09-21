@@ -6,7 +6,13 @@ Additions:
 
 Changes:
 
-Fixes
+- Increases time window for recent updates from 15 minutes to an hour.
+- Dependency updates:
+  - Cypress from 5.0.0 to 5.2.0
+
+Fixes:
+
+- Deployment issue, consolidated onto a single multi-stage build dockerfile as it was caching the wrong data.
 
 ## 0.4.4 - 9/21/2020
 
