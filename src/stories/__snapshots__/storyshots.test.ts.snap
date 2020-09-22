@@ -298,6 +298,19 @@ exports[`Storyshots ERDDAP/ObservedCondition/Configurable English 1`] = `
     <div
       className="chart "
     />
+    <p>
+      Data from the 
+      visibility
+       variable in the
+       
+      <a
+        href="http://www.neracoos.org/erddap/tabledap/M01_met_all.html?time,visibility&visibility_qc=0"
+      >
+        M01_met_all
+         dataset
+      </a>
+      .
+    </p>
   </div>
 </div>
 `;

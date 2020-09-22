@@ -104,9 +104,6 @@ export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platfo
   const selectedStyle = makeStyle(true)
   const oldStyle = makeStyle(false, true)
 
-  // tslint:disable-next-line:no-debugger
-  //   debugger
-
   const oldPlatforms = platforms.filter(
     (p) => p.id !== platformId && p.properties.readings.every((r) => r.time === null)
   )

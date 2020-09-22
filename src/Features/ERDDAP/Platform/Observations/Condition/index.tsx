@@ -6,12 +6,13 @@ import { Col, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts"
 import { naturalBounds } from "Shared/dataTypes"
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { DataTimeSeries } from "Shared/timeSeries"
-import { UnitSystem } from "Features/Units/types"
 
 interface Props {
   /** Platform to display */
@@ -74,6 +75,15 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
           unit_system={unit_system}
           data_type={standardName}
         />
+        <p>
+          Data from the {timeSeries.variable} variable in the{" "}
+          <a
+            href={tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints)}
+          >
+            {timeSeries.dataset} dataset
+          </a>
+          .
+        </p>
       </Col>
     </Row>
   )

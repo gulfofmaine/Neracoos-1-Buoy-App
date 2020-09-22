@@ -8,6 +8,7 @@ import { Constraints, ErddapJson } from "./types"
 
 /**
  * Transform ERDDAP constraints from a object into a URL valid string
+ *
  * @param constraints ERDDAP constraints
  */
 export function constraintsToString(constraints: Constraints): string {
@@ -37,35 +38,47 @@ export function variableString(variables: string[]): string {
 }
 
 /**
- * Format the tableDAP URL for a dataset
+ * Return the base URL for a tabledap dataset
+ *
+ * @param server ERDDAP server root
+ * @param dataset ERDDAP dataset
+ */
+export function baseTabledapUrl(server: string, dataset: string): string {
+  return `${server}/tabledap/${dataset}`
+}
+
+/**
+ * Tabledap HTML URL
+ *
+ * @param server
+ * @param dataset
+ * @param variables
+ * @param constraints
+ */
+export function tabledapHtmlUrl(
+  server: string,
+  dataset: string,
+  variables: string[],
+  constraints: Constraints
+): string {
+  return `${baseTabledapUrl(server, dataset)}.html?${variableString(variables)}${constraintsToString(constraints)}`
+}
+
+/**
+ * Format the tableDAP URL for a dataset json
+ *
  * @param server ERDDAP server root
  * @param dataset ERDDAP dataset
  * @param variables Array of variable strings to get from dataset
  * @param constraints Constraint object to filter dataset with.
  */
 export function tabledapUrl(server: string, dataset: string, variables: string[], constraints: Constraints): string {
-  return `${server}/tabledap/${dataset}.json?${variableString(variables)}${constraintsToString(constraints)}`
+  return `${baseTabledapUrl(server, dataset)}.json?${variableString(variables)}${constraintsToString(constraints)}`
 }
-
-// export async function fetchDataset(
-//   server: string,
-//   dataset: string,
-//   variables: string[],
-//   constraints: Constraints
-// ): Promise<ErddapJson> {
-//   const url = tabledapUrl(server, dataset, variables, constraints)
-//   const proxyUrl = proxytizeUrl(url)
-
-//   // tslint:disable-next-line:no-console
-//   console.log(url, proxyUrl)
-
-//   const result = await fetch(proxyUrl)
-
-//   return result.json()
-// }
 
 /**
  * Reformat ERDDAP tableDAP JSON into TimeSeries.
+ *
  * @param result JSON from ERDDAP dataset
  * @param variables Array of variable strings requested from dataset
  */
@@ -79,11 +92,11 @@ export function resultToTimeseries(result: ErddapJson, variables: string[]): Dat
 
     output.push({
       name: variable,
-      timeSeries: result.table.rows.map(row => ({
+      timeSeries: result.table.rows.map((row) => ({
         reading: row[varIndex] as number,
-        time: new Date(row[timeIndex])
+        time: new Date(row[timeIndex]),
       })),
-      unit: result.table.columnUnits[varIndex]
+      unit: result.table.columnUnits[varIndex],
     })
   }
 

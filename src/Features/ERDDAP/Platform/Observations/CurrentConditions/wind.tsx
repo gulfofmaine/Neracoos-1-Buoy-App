@@ -38,19 +38,11 @@ export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) =
 
   // No current data or wind data don't exist for the platform
   if (windTimeSeries.length < 1) {
-    const noWindTimeSeries = platform.properties.readings.filter((timeSeries) =>
-      timeSeries.data_type.standard_name.includes("wind")
-    )
-
-    if (noWindTimeSeries.length < 1) {
-      return null
-    }
-
-    return <OtherWindCard platform={platform}>No recent wind data available.</OtherWindCard>
+    return null
   }
 
   if (timeSeries.length < 0) {
-    return <OtherWindCard platform={platform}>No wind data</OtherWindCard>
+    return <OtherWindCard platform={platform}>No recent wind data available.</OtherWindCard>
   }
 
   return (
