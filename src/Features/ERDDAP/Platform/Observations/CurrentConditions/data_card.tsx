@@ -44,10 +44,10 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
   let filteredTimeSeries: PlatformTimeSeries[] = []
 
   data_types.forEach((dataType) => {
-    platform.properties.readings
-      .filter((reading) => dataType === reading.data_type.standard_name) // match any that are the current data type
-      .filter((reading) => (reading.time ? aDayAgo < new Date(reading.time) : false) && reading.depth < 2) // that have data in the last day, and that are near-surface
-      .forEach((reading) => filteredTimeSeries.push(reading))
+    const matchStandard = platform.properties.readings.filter((reading) => dataType === reading.data_type.standard_name) // match any that are the current data type
+    const matchTime = matchStandard.filter((reading) => (reading.time ? aDayAgo < new Date(reading.time) : false)) // that have data in the last day
+    const matchDepth = matchTime.filter((reading) => (reading.depth ? reading.depth < 2 : true)) // are near-surface
+    matchDepth.forEach((reading) => filteredTimeSeries.push(reading))
   })
 
   // No current data or data types don't exist for platform

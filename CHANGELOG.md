@@ -6,7 +6,11 @@ Additions:
 
 Changes:
 
+- Added link to ERDDAP datasets on observation pages.
+
 Fixes:
+
+- Errors showing and loading wind data.
 
 ## 0.4.5 - 9/21/2020
 
