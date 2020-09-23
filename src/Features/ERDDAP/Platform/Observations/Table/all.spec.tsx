@@ -15,7 +15,7 @@ describe("<ErddapAllObservationsTable>", () => {
 
     const enzymeWrapper = mount(
       <MemoryRouter>
-        <ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.english} />
+        <ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />
       </MemoryRouter>,
       { attachTo: div }
     )

@@ -11,7 +11,7 @@ describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={UnitSystem.english} />
+        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.english} />
       </MemoryRouter>
     )
 
@@ -21,7 +21,7 @@ describe("TableItem", () => {
   it("Rounds the wind speed", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unit_system={UnitSystem.metric} />
+        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.metric} />
       </MemoryRouter>
     )
 
@@ -31,7 +31,7 @@ describe("TableItem", () => {
   it("Returns null when there is not a matching datatype", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="air_temp" unit_system={UnitSystem.english} name="Air Temp" />
+        <TableItem platform={platform} data_type="air_temp" unitSystem={UnitSystem.english} name="Air Temp" />
       </MemoryRouter>
     )
 
@@ -48,7 +48,7 @@ describe("TableItem", () => {
         <TableItem
           platform={platform}
           data_type={["significant_wave_height", "significant_height_of_wind_and_swell_waves_3"]}
-          unit_system={UnitSystem.english}
+          unitSystem={UnitSystem.english}
           name="Wave Height"
         />
       </MemoryRouter>,

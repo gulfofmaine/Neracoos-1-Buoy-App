@@ -18,7 +18,7 @@ export const english = (args) => <ChartTimeSeriesDisplay {...args} />
 english.args = {
   standardName: standard_name,
   timeSeries: dataset,
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   platform,
   dataset: { timeSeries: dataset.readings },
 }

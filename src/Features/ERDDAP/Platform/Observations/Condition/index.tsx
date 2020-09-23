@@ -27,14 +27,14 @@ interface Props {
  * @param standardName
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }) => {
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
   const timeSeries = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
 
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
   const charts = timeSeries.map((ts, index) => (
     <UseDataset key={index} timeSeries={ts}>
-      {({ dataset }) => <ChartTimeSeriesDisplay {...{ dataset, standardName, unit_system }} timeSeries={ts} />}
+      {({ dataset }) => <ChartTimeSeriesDisplay {...{ dataset, standardName, unitSystem }} timeSeries={ts} />}
     </UseDataset>
   ))
 
@@ -43,7 +43,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   standardName: string
 }
@@ -55,7 +55,7 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   timeSeries,
   dataset,
   standardName,
-  unit_system,
+  unitSystem,
 }) => {
   const depth = timeSeries.depth && timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
 
@@ -72,7 +72,7 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
           name={timeSeries.data_type.long_name}
           softMin={bounds[0]}
           softMax={bounds[1]}
-          unit_system={unit_system}
+          unitSystem={unitSystem}
           data_type={standardName}
         />
         <p>

@@ -30,14 +30,14 @@ unit system while it is displayed it will smoothly transition.
 
 There is a subset of different observations that are most relevant that are showed in this variant.
 
-<Story name="Current Observations" args={{ unit_system: UnitSystem.english, platform }}>
+<Story name="Current Observations" args={{ unitSystem: UnitSystem.english, platform }}>
   {CurrentTemplate.bind()}
 </Story>
 
 <ArgsTable story="Current Observations" />
 
 ```tsx
-<ErddapObservationTable platform={platform} unit_system={UnitSystem.english} />
+<ErddapObservationTable platform={platform} unitSystem={UnitSystem.english} />
 ```
 
 export const CurrentTemplate = (args) => <ErddapObservationTable {...args} />
@@ -46,15 +46,14 @@ export const CurrentTemplate = (args) => <ErddapObservationTable {...args} />
 
 [`src/Features/ERDDAP/Platform/Observations/Table/all.tsx`](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Observations/Table/all.tsx) - [M01 - All Observations](https://mariners.neracoos.org/platform/M01/observations/all)
 
-<Story name="All Observations" args={{ unit_system: UnitSystem.english, platform }}>
+<Story name="All Observations" args={{ unitSystem: UnitSystem.english, platform }}>
   {AllTemplate.bind()}
 </Story>
 
 <ArgsTable story="All Observations" />
 
 ```tsx
-<ErddapAllObservationsTable platform={platform} unit_system={UnitSystem.english} />
+<ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />
 ```
 
-export const AllTemplate = (args) => <ErddapAllObservationsTable {...args} /
->
+export const AllTemplate = (args) => <ErddapAllObservationsTable {...args} />

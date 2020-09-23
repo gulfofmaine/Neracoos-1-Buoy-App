@@ -19,7 +19,7 @@ interface TableItemProps {
   platform: PlatformFeature
   data_type: string | string[]
   name: string
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   /** Show only data later than the selected date */
   later_then?: Date
 }
@@ -31,7 +31,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
   platform,
   data_type,
   name,
-  unit_system,
+  unitSystem,
   later_then,
 }: TableItemProps) => {
   const [tooltipOpen, setTooltipOpen] = React.useState<boolean>(false)
@@ -67,7 +67,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
 
     const unit_converter = converter(typeof data_type === "string" ? data_type : data_type[0])
 
-    const value = unit_converter.convertTo(selected.value as number, unit_system)
+    const value = unit_converter.convertTo(selected.value as number, unitSystem)
 
     const tooltipId = `${selected.data_type.standard_name}-tooltip`
 
@@ -87,7 +87,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
             id={tooltipId}
           >
             <b>{name}:</b> {typeof value === "number" ? round(value as number, 1) : value}{" "}
-            {unit_converter.displayName(unit_system)}
+            {unit_converter.displayName(unitSystem)}
           </span>
         </Link>
         {selected.time ? (

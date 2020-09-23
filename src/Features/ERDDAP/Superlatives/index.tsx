@@ -23,21 +23,21 @@ const windSpeed = new Set(conditions.windSpeed)
  * Superlatives, or what platforms experiencing the most extreme conditions right now
  */
 export const Superlatives: React.FunctionComponent = () => {
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
   const lastHour = new Date()
   lastHour.setUTCHours(lastHour.getUTCHours() - 1)
 
   return (
     <UsePlatforms>
-      {({ platforms }) => <ShowSuperlatives laterThan={lastHour} {...{ platforms, unit_system }} />}
+      {({ platforms }) => <ShowSuperlatives laterThan={lastHour} {...{ platforms, unitSystem }} />}
     </UsePlatforms>
   )
 }
 
 interface ShowSuperlativesProps {
   platforms: PlatformFeature[]
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   laterThan: Date
 }
 
@@ -45,12 +45,12 @@ interface ShowSuperlativesProps {
  * Show the highest winds and biggest waves for selected platforms
  *
  * @param platforms A selection of PlatformFeatures
- * @param unit_system unit system to display with
+ * @param unitSystem unit system to display with
  * @param laterThan a date to make sure all the readings are more recent then
  */
 export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({
   platforms,
-  unit_system,
+  unitSystem,
   laterThan,
 }) => (
   <Card style={{ marginTop: "1rem" }}>
@@ -61,11 +61,11 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
     <CardBody>
       <Row>
         <Col>
-          <HighestConditions title="Highest Winds" compareSet={windSpeed} {...{ platforms, unit_system, laterThan }} />
+          <HighestConditions title="Highest Winds" compareSet={windSpeed} {...{ platforms, unitSystem, laterThan }} />
         </Col>
 
         <Col>
-          <HighestConditions title="Biggest Waves" compareSet={waveHeight} {...{ platforms, unit_system, laterThan }} />
+          <HighestConditions title="Biggest Waves" compareSet={waveHeight} {...{ platforms, unitSystem, laterThan }} />
         </Col>
       </Row>
     </CardBody>
@@ -81,20 +81,20 @@ interface HighestConditionsProps extends ShowSuperlativesProps {
  * Find the platform experiencing the most extreme condition
  *
  * @param platforms Selection of platforms to search through
- * @param unit_system Unit system to display values in
+ * @param unitSystem Unit system to display values in
  * @param laterThan Earliest that a reading can be
  * @param title Title to display
  * @param compareSet Set of CF standard name strings to find standards for
  */
 const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
   platforms,
-  unit_system,
+  unitSystem,
   laterThan,
   title,
   compareSet,
 }) => {
-  let highestPlatform: PlatformFeature | undefined = undefined
-  let highestReading: PlatformTimeSeries | undefined = undefined
+  let highestPlatform: PlatformFeature | null = null
+  let highestReading: PlatformTimeSeries | null = null
 
   platforms.forEach((platform) => {
     platform.properties.readings.forEach((reading) => {
@@ -120,8 +120,8 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
           <h6>{title}</h6>
         </Link>
         <div>
-          {round(dataConverter.convertToNumber(highestReading!.value!, unit_system), 1)}{" "}
-          {dataConverter.displayName(unit_system)}
+          {round(dataConverter.convertToNumber(highestReading!.value!, unitSystem), 1)}{" "}
+          {dataConverter.displayName(unitSystem)}
         </div>
         <Link to={url}>
           <div>

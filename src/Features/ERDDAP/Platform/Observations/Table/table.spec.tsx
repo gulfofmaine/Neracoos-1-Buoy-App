@@ -17,7 +17,7 @@ describe("<ErddapObservationTable>", () => {
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
-          unit_system={UnitSystem.english}
+          unitSystem={UnitSystem.english}
           unitSelector={<b>Fake unit selector</b>}
         />
       </MemoryRouter>,
@@ -38,7 +38,7 @@ describe("<ErddapObservationTable>", () => {
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
-          unit_system={UnitSystem.metric}
+          unitSystem={UnitSystem.metric}
           unitSelector={<b>Fake unit selector</b>}
         />
       </MemoryRouter>,

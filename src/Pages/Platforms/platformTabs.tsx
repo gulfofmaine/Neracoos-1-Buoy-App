@@ -34,7 +34,7 @@ export interface PlatformTabsProps extends RouteComponentProps {
 export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match }) => {
   const { id } = match.params
   const { path } = match
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
   return (
     <UsePlatform platformId={id}>
@@ -54,7 +54,7 @@ export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match
           {/* Display our pages for the platform. */}
           <Switch>
             <Route path={paths.platforms.all}>
-              {(props) => <ErddapAllObservationsTable {...platform_props} unit_system={unit_system} />}
+              {(props) => <ErddapAllObservationsTable {...platform_props} unitSystem={unitSystem} />}
             </Route>
             <Route path={paths.platforms.observationsWind}>
               <WindObservationsPage {...platform_props} />

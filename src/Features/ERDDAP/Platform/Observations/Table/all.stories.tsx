@@ -18,12 +18,12 @@ export default {
 
 export const english = (args) => <ErddapAllObservationsTable {...args} />
 english.args = {
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   platform,
 }
 
 export const metric = (args) => <ErddapAllObservationsTable {...args} />
 metric.args = {
-  unit_system: UnitSystem.metric,
+  unitSystem: UnitSystem.metric,
   platform,
 }

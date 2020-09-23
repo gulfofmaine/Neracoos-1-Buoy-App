@@ -13,7 +13,7 @@ export default {
 
 export const configureable = (args) => <ShowSuperlatives {...args} />
 configureable.args = {
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   platforms,
   laterThan: new Date("2020-09-23T19:49:02.212Z"),
 }
