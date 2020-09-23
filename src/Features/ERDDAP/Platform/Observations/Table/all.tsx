@@ -22,7 +22,7 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
 
   const datasets = platform.properties.readings
 
-  datasets.sort((a, b) => a.depth - b.depth)
+  datasets.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
   datasets.sort((a, b) => (a.data_type.long_name < b.data_type.long_name ? -1 : 1))
 
   return (

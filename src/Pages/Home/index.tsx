@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Col, Row } from "reactstrap"
 
-import { ErddapMap } from "Features/ERDDAP"
+import { ErddapMap, Superlatives } from "Features/ERDDAP"
 import { WagtailBlock } from "Features/WagtailApi"
 
 /**
@@ -12,6 +12,7 @@ export const HomePage: React.FunctionComponent<{}> = () => {
     <Row>
       <Col sm={6}>
         <ErddapMap platformId="" />
+        <Superlatives />
       </Col>
       <Col sm={6}>
         <WagtailBlock pageId="4" />

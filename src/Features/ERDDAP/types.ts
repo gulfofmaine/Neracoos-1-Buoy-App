@@ -11,6 +11,7 @@ export interface PlatformFeatureCollection {
 }
 
 export type PlatformFeature = Feature & {
+  id: string
   properties: PlatformProperties & {
     readings: PlatformTimeSeries[]
   }
@@ -42,7 +43,7 @@ export interface PlatformAlert {
 export interface PlatformTimeSeries {
   value?: number
   time?: string
-  depth: number
+  depth?: number
   data_type: DataType
   server: string
   variable: string
@@ -113,7 +114,7 @@ export interface PlatformProgram {
 
 export interface DataType {
   standard_name: string
-  short_name: string
+  short_name?: string
   long_name: string
   units: string
 }

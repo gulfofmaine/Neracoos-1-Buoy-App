@@ -6,4 +6,6 @@ export const defaultQueryConfig = {
   staleTime: 5 * 60 * 1000,
   /** Cache for a maximum of 15 minutes */
   cacheTime: 15 * 60 * 1000,
+  /** Refresh even when the window isn't the focus */
+  refetchIntervalInBackground: true,
 }

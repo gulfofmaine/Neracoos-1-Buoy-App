@@ -50,7 +50,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
 
   data_type_list.forEach((data_type) => {
     platform.properties.readings
-      .filter((ts) => data_type === ts.data_type.standard_name && ts.depth < 2)
+      .filter((ts) => data_type === ts.data_type.standard_name && (ts.depth ? ts.depth < 2 : true))
       .forEach((ts) => data.push(ts))
   })
 

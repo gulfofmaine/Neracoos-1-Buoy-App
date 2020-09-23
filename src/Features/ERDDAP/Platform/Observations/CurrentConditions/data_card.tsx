@@ -55,7 +55,7 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
     let noFilteredTimeSeries: PlatformTimeSeries[] = []
     data_types.forEach((dataType) => {
       platform.properties.readings
-        .filter((reading) => dataType === reading.data_type.standard_name && reading.depth < 2)
+        .filter((reading) => dataType === reading.data_type.standard_name && (reading.depth ? reading.depth < 2 : true))
         .forEach((reading) => noFilteredTimeSeries.push(reading))
     })
 

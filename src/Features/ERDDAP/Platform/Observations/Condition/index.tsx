@@ -30,7 +30,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const unit_system = useUnitSystem()
   const timeSeries = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
 
-  timeSeries.sort((a, b) => a.depth - b.depth)
+  timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
   const charts = timeSeries.map((ts, index) => (
     <UseDataset key={index} timeSeries={ts}>
@@ -57,7 +57,7 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   standardName,
   unit_system,
 }) => {
-  const depth = timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
+  const depth = timeSeries.depth && timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
 
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
 
