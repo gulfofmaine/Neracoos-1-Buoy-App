@@ -7,6 +7,7 @@ Additions:
 Changes:
 
 - Added link to ERDDAP datasets on observation pages.
+- Add Mayflower data types.
 
 Fixes:
 

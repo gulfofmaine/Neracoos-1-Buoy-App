@@ -83,6 +83,7 @@ export const data_types: DataTypesObject = {
   period: new Passthrough("period", "Dominant Wave Period", "s", "Seconds"),
   predicted_sea_water_level: new WaveHeight("predicted_sea_water_level", "Predicted level of sea water"),
   pressure_tendency: new Passthrough("pressure_tendency", "Pressure Tendency", "degrees", "Degrees"),
+  relative_humidity: new Passthrough("relative_humidity", "Relative Humidity", "percent", "Percent"),
   sea_level_pressure: new AirPressureHpa("sea_level_pressure", "Sea Level Pressure"),
   sea_surface_swell_wave_period: new Passthrough(
     "sea_surface_swell_wave_period",
@@ -93,6 +94,7 @@ export const data_types: DataTypesObject = {
   sea_surface_temperature: new Temperature("sea_surface_temperature", "Sea Surface Temperature"),
   sea_water_temperature: new Temperature("sea_water_temperature", "Water Temperature"),
   sea_surface_wave_significant_height: new WaveHeight("max_wave_height", "Wave Height"),
+  sea_surface_wave_from_direction: new CardinalDirection("sea_surface_wave_from direction", "Waves from Direction"),
   sea_surface_wave_to_direction: new CardinalDirection("sea_surface_wave_to_direction", "Wave Direction"),
   sea_water_alkalinity_expressed_as_mole_equivalent: new Passthrough(
     "sea_water_alkalinity_expressed_as_mole_equivalent",
@@ -118,6 +120,15 @@ export const data_types: DataTypesObject = {
   sea_water_salinity: new Passthrough("sea_water_salinity", "Salinity", "psu", "PSU"),
   sea_water_speed: new CmsVelocity("sea_water_speed", "Current Speed"),
   sea_water_velocity: new CmsVelocity("sea_water_velocity", "Current Speed"),
+  sea_water_velocity_m: new DataTypeConversion(
+    "sea_water_velocity_m",
+    "Sea Water Velocity",
+    "m/s",
+    "m/s",
+    "knot",
+    "Meters/Second",
+    "Knots"
+  ),
   significant_height_of_wind_and_swell_waves: new WaveHeight("max_wave_height", "Significant Wave Height"),
   significant_height_of_wind_and_swell_waves_3: new WaveHeight("max_wave_height", "Significant Wave Height"),
   significant_wave_height: new WaveHeight("max_wave_height", "Significant Wave Height"),
@@ -183,5 +194,5 @@ export const data_types: DataTypesObject = {
   wind_speed_of_gust: new WindSpeed("wind_speed_of_gust", "Wind Gust"),
   wind_speed_sc: new WindSpeed("wind_speed_sc", "Scalar Average Wind Speed"),
   wind_speed_ve: new WindSpeed("wind_speed_ve", "Vector Average Wind Speed"),
-  wind_speed: new WindSpeed("wind_speed", "Wind Speed")
+  wind_speed: new WindSpeed("wind_speed", "Wind Speed"),
 }
