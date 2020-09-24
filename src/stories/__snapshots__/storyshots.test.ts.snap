@@ -304,7 +304,7 @@ exports[`Storyshots ERDDAP/ObservedCondition/Configurable English 1`] = `
        variable in the
        
       <a
-        href="http://www.neracoos.org/erddap/tabledap/M01_met_all.html?time,visibility&visibility_qc=0"
+        href="http://www.neracoos.org/erddap/tabledap/M01_met_all.html?time%2Cvisibility&visibility_qc=0"
       >
         M01_met_all
          dataset
@@ -395,6 +395,8 @@ exports[`Storyshots ERDDAP/Superlatives Configureable 1`] = `
   </div>
 </div>
 `;
+
+exports[`Storyshots ERDDAP/Superlatives Should Not Show Outdated Data 1`] = `null`;
 
 exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
 <div

@@ -5,6 +5,10 @@ import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 
+import { conditions } from "./conditions"
+
+const windConditions = new Set([...conditions.windDirection, ...conditions.windGust, ...conditions.windSpeed])
+
 /**
  * Select the overall wind related time series, and optionally only the ones that have recent data available.
  * Returns speed, gust, and direction individual time series also.
@@ -13,9 +17,8 @@ import { PlatformFeature, PlatformTimeSeries } from "../types"
  * @param afterDate Optional date to only select time series that are more recent than
  */
 export function pickWindTimeSeries(platform: PlatformFeature, afterDate?: Date) {
-  let windTimeSeries = platform.properties.readings.filter(
-    (timeSeries) =>
-      timeSeries.data_type.standard_name.includes("wind") && !timeSeries.data_type.standard_name.includes("wave")
+  let windTimeSeries = platform.properties.readings.filter((timeSeries) =>
+    windConditions.has(timeSeries.data_type.standard_name)
   )
 
   let filteredTimeSeries = windTimeSeries
@@ -26,12 +29,15 @@ export function pickWindTimeSeries(platform: PlatformFeature, afterDate?: Date) 
     )
   }
 
-  const speed = filteredTimeSeries.find(
-    (timeSeries) =>
-      timeSeries.data_type.standard_name.includes("speed") && !timeSeries.data_type.standard_name.includes("gust")
+  const speed = filteredTimeSeries.find((timeSeries) =>
+    new Set(conditions.windSpeed).has(timeSeries.data_type.standard_name)
   )
-  const gust = filteredTimeSeries.find((timeSeries) => timeSeries.data_type.standard_name.includes("gust"))
-  const direction = filteredTimeSeries.find((timeSeries) => timeSeries.data_type.standard_name.includes("direction"))
+  const gust = filteredTimeSeries.find((timeSeries) =>
+    new Set(conditions.windGust).has(timeSeries.data_type.standard_name)
+  )
+  const direction = filteredTimeSeries.find((timeSeries) =>
+    new Set(conditions.windDirection).has(timeSeries.data_type.standard_name)
+  )
 
   const timeSeries: PlatformTimeSeries[] = []
 

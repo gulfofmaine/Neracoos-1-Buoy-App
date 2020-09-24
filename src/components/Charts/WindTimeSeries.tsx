@@ -23,7 +23,7 @@ import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion"
 
-const data_converter = converter("wind_speed")
+const dataConverter = converter("wind_speed")
 
 function pointFormatterMaker(unitSystem: UnitSystem) {
   /**
@@ -42,9 +42,9 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
             return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
           }
           return `<b>${p.series.name}:</b> ${p.y} knots ${round(
-            data_converter.convertToNumber(p.y, unitSystem),
+            dataConverter.convertToNumber(p.y, unitSystem),
             1
-          )} ${data_converter.displayName(unitSystem)}`
+          )} ${dataConverter.displayName(unitSystem)}`
         })
         .join("<br />")
     )
@@ -111,12 +111,12 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
         .filter((reading) => reading.time > daysAgo)
         .map(
           // Return Highcharts Spline dataformat [date, reading]
-          (r) => [new Date(r.time).valueOf(), round(data_converter.convertToNumber(r.reading, unitSystem), 1)]
+          (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)]
         )
     } else {
       data = d.timeSeries.map(
         // Return Highcharts Spline dataformat [date, reading]
-        (r) => [new Date(r.time).valueOf(), round(data_converter.convertToNumber(r.reading, unitSystem), 1)]
+        (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)]
       )
     }
 
@@ -175,7 +175,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
       <XAxis type="datetime" />
 
       <YAxis softMin={0}>
-        <YAxis.Title>{data_converter.displayName(unitSystem)}</YAxis.Title>
+        <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
         {speedsSeries}
 
         {windData.length > 0 ? <WindBarbSeries name="Direction" color="red" data={windData} /> : null}

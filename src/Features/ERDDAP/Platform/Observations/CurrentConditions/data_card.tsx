@@ -106,14 +106,14 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
   unitSystem,
 }) => {
   const url = cardUrl(platform, timeSeries)
-  const data_converter = converter(timeSeries.data_type.standard_name)
+  const dataConverter = converter(timeSeries.data_type.standard_name)
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
 
   const latest = readings[readings.length - 1]
 
   const data = readings.map((r) => ({
     ...r,
-    reading: round(data_converter.convertToNumber(r.reading, unitSystem), 2),
+    reading: round(dataConverter.convertToNumber(r.reading, unitSystem), 2),
   }))
 
   return (
@@ -121,15 +121,15 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
       <Link to={url}>
         <Card>
           <CardHeader>
-            {timeSeries.data_type.long_name} - {round(data_converter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
-            {data_converter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+            {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
+            {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
           </CardHeader>
 
           <CardBody style={{ padding: ".2rem" }}>
             <SmallTimeSeriesChart
               name={timeSeries.data_type.standard_name}
               timeSeries={data}
-              unit={data_converter.displayName(unitSystem)}
+              unit={dataConverter.displayName(unitSystem)}
               softMin={bounds[0]}
               softMax={bounds[1]}
               unitSystem={unitSystem}

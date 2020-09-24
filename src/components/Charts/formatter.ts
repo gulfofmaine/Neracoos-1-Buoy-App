@@ -10,8 +10,8 @@ import { converter } from "Features/Units/Converter"
  */
 export function pointFormatMaker(unitSystem: UnitSystem, data_type: string): (this: any) => string {
   return function pointFormatter(this: any): string {
-    const data_converter = converter(data_type)
+    const dataConverter = converter(data_type)
 
-    return `${new Date(this.x).toLocaleString()}<br />${this.y} ${data_converter.displayName(unitSystem)}`
+    return `${new Date(this.x).toLocaleString()}<br />${this.y} ${dataConverter.displayName(unitSystem)}`
   }
 }

@@ -99,7 +99,7 @@ export interface FetchGroup {
   constraints: {
     [key: string]: string | number
   }
-  datasets: PlatformDataset[]
+  datasets: PlatformTimeSeries[]
 }
 
 export interface PlatformAttribution {

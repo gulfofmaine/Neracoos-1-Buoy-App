@@ -34,7 +34,7 @@ export function constraintsToString(constraints: Constraints): string {
  */
 export function variableString(variables: string[]): string {
   const vars = ["time", ...variables]
-  return vars.join(",")
+  return encodeURIComponent(vars.join(","))
 }
 
 /**

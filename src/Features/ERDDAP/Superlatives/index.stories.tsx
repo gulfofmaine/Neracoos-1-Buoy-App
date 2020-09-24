@@ -17,3 +17,10 @@ configureable.args = {
   platforms,
   laterThan: new Date("2020-09-23T19:49:02.212Z"),
 }
+
+export const shouldNotShowOutdatedData = (args) => <ShowSuperlatives {...args} />
+shouldNotShowOutdatedData.args = {
+  unitSystem: UnitSystem.english,
+  platforms,
+  laterThan: new Date("2020-09-30T19:49:02.212Z"),
+}

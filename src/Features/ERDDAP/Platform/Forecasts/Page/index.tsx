@@ -7,6 +7,7 @@ import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChart } from "components/Charts"
 import { round } from "Shared/math"
+import { aDayAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
@@ -89,8 +90,7 @@ const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
     const datasets = [forecastDataset]
 
     if (timeSeries && dataset) {
-      const aDayAgo = new Date()
-      aDayAgo.setDate(aDayAgo.getDate() - 1)
+      const aDayAgo = aDayAgoRounded()
 
       datasets.push({
         ...dataset,
@@ -144,14 +144,14 @@ export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ dat
   const standardNames = forecastToStandardNames[type]
 
   if (!direction_forecast_types.has(type)) {
-    const data_converter = converter(Array.from(standardNames)[0])
+    const dataConverter = converter(Array.from(standardNames)[0])
 
     data = data.map((d) => ({
       ...d,
-      unit: data_converter.displayName(unitSystem),
+      unit: dataConverter.displayName(unitSystem),
       timeSeries: d.timeSeries.map((r) => ({
         ...r,
-        reading: round(data_converter.convertToNumber(r.reading, unitSystem), 2),
+        reading: round(dataConverter.convertToNumber(r.reading, unitSystem), 2),
       })),
     }))
   }

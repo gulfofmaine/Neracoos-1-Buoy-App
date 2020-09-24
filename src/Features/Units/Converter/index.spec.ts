@@ -6,9 +6,9 @@ describe("Unit converter", () => {
     const data_type = "wind_gust"
     const source_value = 1000
 
-    const data_converter = converter(data_type)
+    const dataConverter = converter(data_type)
 
-    expect(data_converter.convertTo(source_value, UnitSystem.english)).toBeCloseTo(19.4384)
-    expect(data_converter.displayName(UnitSystem.english)).toBe("Knots")
+    expect(dataConverter.convertTo(source_value, UnitSystem.english)).toBeCloseTo(19.4384)
+    expect(dataConverter.displayName(UnitSystem.english)).toBe("Knots")
   })
 })

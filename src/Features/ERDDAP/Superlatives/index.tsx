@@ -10,11 +10,12 @@ import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
+import { anHourAgoRounded } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { UsePlatforms } from "../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
-import { conditions } from "../Platform/Observations/CurrentConditions/conditions"
+import { conditions } from "../utils/conditions"
 
 const waveHeight = new Set(conditions.waveHeight)
 const windSpeed = new Set(conditions.windSpeed)
@@ -25,8 +26,7 @@ const windSpeed = new Set(conditions.windSpeed)
 export const Superlatives: React.FunctionComponent = () => {
   const unitSystem = useUnitSystem()
 
-  const lastHour = new Date()
-  lastHour.setUTCHours(lastHour.getUTCHours() - 1)
+  const lastHour = anHourAgoRounded()
 
   return (
     <UsePlatforms>
@@ -44,6 +44,8 @@ interface ShowSuperlativesProps {
 /**
  * Show the highest winds and biggest waves for selected platforms
  *
+ * Only shows if both wind and wave data is available
+ *
  * @param platforms A selection of PlatformFeatures
  * @param unitSystem unit system to display with
  * @param laterThan a date to make sure all the readings are more recent then
@@ -52,56 +54,66 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
   platforms,
   unitSystem,
   laterThan,
-}) => (
-  <Card style={{ marginTop: "1rem" }}>
-    <CardHeader>
-      <h5>Latest Conditions</h5>
-    </CardHeader>
+}) => {
+  const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(platforms, laterThan, windSpeed)
+  const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(platforms, laterThan, waveHeight)
 
-    <CardBody>
-      <Row>
-        <Col>
-          <HighestConditions title="Highest Winds" compareSet={windSpeed} {...{ platforms, unitSystem, laterThan }} />
-        </Col>
+  if (windPlatform && windTimeSeries && wavePlatform && waveTimeSeries) {
+    return (
+      <Card style={{ marginTop: "1rem" }}>
+        <CardHeader>
+          <h5>Latest Conditions</h5>
+        </CardHeader>
 
-        <Col>
-          <HighestConditions title="Biggest Waves" compareSet={waveHeight} {...{ platforms, unitSystem, laterThan }} />
-        </Col>
-      </Row>
-    </CardBody>
-  </Card>
-)
+        <CardBody>
+          <Row>
+            <Col>
+              <HighestConditions
+                title="Highest Winds"
+                platform={windPlatform}
+                timeSeries={windTimeSeries}
+                unitSystem={unitSystem}
+              />
+            </Col>
 
-interface HighestConditionsProps extends ShowSuperlativesProps {
-  title: string
-  compareSet: Set<string>
+            <Col>
+              <HighestConditions
+                title="Biggest Waves"
+                platform={wavePlatform}
+                timeSeries={waveTimeSeries}
+                unitSystem={unitSystem}
+              />
+            </Col>
+          </Row>
+        </CardBody>
+      </Card>
+    )
+  }
+
+  return null
 }
 
 /**
- * Find the platform experiencing the most extreme condition
+ * Filter down and find the most extreme values from the selected set of standard names
  *
- * @param platforms Selection of platforms to search through
- * @param unitSystem Unit system to display values in
- * @param laterThan Earliest that a reading can be
- * @param title Title to display
- * @param compareSet Set of CF standard name strings to find standards for
+ * @param platforms Platforms to search through
+ * @param laterThan Time window to make sure found timeSeries are before
+ * @param compareSet Set of standard names to include in search
  */
-const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
-  platforms,
-  unitSystem,
-  laterThan,
-  title,
-  compareSet,
-}) => {
-  let highestPlatform: PlatformFeature | null = null
-  let highestReading: PlatformTimeSeries | null = null
+function findHighestCondition(
+  platforms: PlatformFeature[],
+  laterThan: Date,
+  compareSet: Set<string>
+): { platform?: PlatformFeature; timeSeries?: PlatformTimeSeries } {
+  let highestPlatform: PlatformFeature | undefined = undefined
+  let highestTimeSeries: PlatformTimeSeries | undefined = undefined
 
   platforms.forEach((platform) => {
     platform.properties.readings.forEach((reading) => {
       if (compareSet.has(reading.data_type.standard_name) && reading.value) {
         if (reading.time ? laterThan < new Date(reading.time) : false) {
-          if (highestReading ? (highestReading.value ? highestReading.value < reading.value : true) : true) {
-            highestReading = reading
+          if (highestTimeSeries ? (highestTimeSeries.value ? highestTimeSeries.value < reading.value : true) : true) {
+            highestTimeSeries = reading
             highestPlatform = platform
           }
         }
@@ -109,28 +121,50 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
     })
   })
 
-  if (highestPlatform && highestReading) {
-    const dataConverter = converter(highestReading!.data_type.standard_name)
-
-    const url = urlPartReplacer(paths.platforms.platform, ":id", highestPlatform!.id! as string)
-
-    return (
-      <React.Fragment>
-        <Link to={url}>
-          <h6>{title}</h6>
-        </Link>
-        <div>
-          {round(dataConverter.convertToNumber(highestReading!.value!, unitSystem), 1)}{" "}
-          {dataConverter.displayName(unitSystem)}
-        </div>
-        <Link to={url}>
-          <div>
-            {highestPlatform!.id} - {highestPlatform!.properties.mooring_site_desc}
-          </div>
-        </Link>
-      </React.Fragment>
-    )
+  return {
+    platform: highestPlatform,
+    timeSeries: highestTimeSeries,
   }
+}
 
-  return null
+interface HighestConditionsProps {
+  title: string
+  platform: PlatformFeature
+  timeSeries: PlatformTimeSeries
+  unitSystem: UnitSystem
+}
+
+/**
+ * Display a summary of a platform's condition
+ *
+ * @param platform to display
+ * @param timeSeries Time series of interest
+ * @param unitSystem Unit system to display values in
+ * @param title Title to display
+ */
+const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
+  platform,
+  timeSeries,
+  unitSystem,
+  title,
+}) => {
+  const dataConverter = converter(timeSeries.data_type.standard_name)
+
+  const url = urlPartReplacer(paths.platforms.platform, ":id", platform.id as string)
+
+  return (
+    <React.Fragment>
+      <Link to={url}>
+        <h6>{title}</h6>
+      </Link>
+      <div>
+        {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
+      </div>
+      <Link to={url}>
+        <div>
+          {platform.id} - {platform.properties.mooring_site_desc}
+        </div>
+      </Link>
+    </React.Fragment>
+  )
 }

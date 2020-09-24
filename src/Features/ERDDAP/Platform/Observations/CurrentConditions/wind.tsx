@@ -85,24 +85,24 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
     return null
   }
 
-  const data_converter = converter(speedTimeSeries!.data_type.standard_name)
+  const dataConverter = converter(speedTimeSeries!.data_type.standard_name)
 
   let speedTitle: string = ""
   if (speed) {
     speedTitle =
       " - " +
-      round(data_converter.convertToNumber(speed.timeSeries[speed.timeSeries.length - 1].reading, unitSystem), 1) +
+      round(dataConverter.convertToNumber(speed.timeSeries[speed.timeSeries.length - 1].reading, unitSystem), 1) +
       " " +
-      data_converter.displayName(unitSystem)
+      dataConverter.displayName(unitSystem)
   }
 
   let gustTitle: string = ""
   if (gust) {
     gustTitle =
       " gusting to " +
-      round(data_converter.convertToNumber(gust.timeSeries[gust.timeSeries.length - 1].reading, unitSystem), 1) +
+      round(dataConverter.convertToNumber(gust.timeSeries[gust.timeSeries.length - 1].reading, unitSystem), 1) +
       " " +
-      data_converter.displayName(unitSystem)
+      dataConverter.displayName(unitSystem)
   }
 
   let directionTitle: string = ""
