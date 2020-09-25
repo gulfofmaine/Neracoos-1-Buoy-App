@@ -12,6 +12,9 @@ Changes:
 
 Fixes:
 
+- Wind datasets and time series were getting their names muddled by `pickWindDatasets`.
+  Changed `pickWindDatasets` to not alter existing data.
+
 ## 0.5.0 - 9/25/2020
 
 Additions:

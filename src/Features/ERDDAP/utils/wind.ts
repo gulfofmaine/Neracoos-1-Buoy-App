@@ -67,17 +67,17 @@ export function pickWindDatasets(platform: PlatformFeature, datasets: DataTimeSe
     afterDate
   )
 
-  const speed = datasets.find((ds) => ds.name === speedTimeSeries?.variable)
+  let speed = datasets.find((ds) => ds.name === speedTimeSeries?.variable)
   if (speed && speedTimeSeries) {
-    speed.name = speedTimeSeries.data_type.long_name
+    speed = { ...speed, name: speedTimeSeries.data_type.long_name }
   }
-  const gust = datasets.find((ds) => ds.name === gustTimeSeries?.variable)
+  let gust = datasets.find((ds) => ds.name === gustTimeSeries?.variable)
   if (gust && gustTimeSeries) {
-    gust.name = gustTimeSeries.data_type.long_name
+    gust = { ...gust, name: gustTimeSeries.data_type.long_name }
   }
-  const direction = datasets.find((ds) => ds.name === directionTimeSeries?.variable)
+  let direction = datasets.find((ds) => ds.name === directionTimeSeries?.variable)
   if (direction && directionTimeSeries) {
-    direction.name = directionTimeSeries.data_type.long_name
+    direction = { ...direction, name: directionTimeSeries.data_type.long_name }
   }
 
   return { speed, gust, direction }
