@@ -10,6 +10,7 @@ import { paths } from "Shared/constants"
 import { RegionDropdown } from "./regionDropdown"
 
 import "./nav.css"
+import neracoosLogo from "./neracoos_logo.png"
 
 const initialState = {
   isOpen: false,
@@ -34,7 +35,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
       <div>
         <Navbar dark={true} expand="md">
           <NavbarBrand tag={Link} to={paths.home}>
-            <img src="http://www.neracoos.org/sites/neracoos.org/files/NERACOOS_logo_white_300x43.png" alt="NERACOOS" />
+            <img src={neracoosLogo} alt="NERACOOS" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
 
@@ -45,12 +46,6 @@ export default class NeracoosNavBar extends React.Component<object, State> {
               </NavLink>
 
               <RegionDropdown />
-              {/* 
-              <NavItem>
-                <NavLink className="nav-link" activeClassName="active" to={paths.map}>
-                  Radar Map
-                </NavLink>
-              </NavItem> */}
 
               <NavItem>
                 <NavLink className="nav-link" activeClassName="active" to={paths.about}>

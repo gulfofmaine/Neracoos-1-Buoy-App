@@ -62,7 +62,7 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
     >
       <img
         alt="NERACOOS"
-        src="http://www.neracoos.org/sites/neracoos.org/files/NERACOOS_logo_white_300x43.png"
+        src="neracoos_logo.png"
       />
     </a>
     <button
