@@ -24,7 +24,7 @@ describe("<ErddapObservationTable>", () => {
       { attachTo: div }
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(3)
+    expect(enzymeWrapper.find("a").length).toBe(4)
     expect(enzymeWrapper.text()).toContain("Last updated around: ")
     expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 Knots")
   })
@@ -45,7 +45,7 @@ describe("<ErddapObservationTable>", () => {
       { attachTo: div }
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(3)
+    expect(enzymeWrapper.find("a").length).toBe(4)
     expect(enzymeWrapper.text()).toContain("Last updated around: ")
     expect(enzymeWrapper.text()).toContain("Wind Speed: 2 Meters/Second")
   })
