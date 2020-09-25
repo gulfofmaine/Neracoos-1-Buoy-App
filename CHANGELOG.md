@@ -10,10 +10,12 @@ Changes:
 
 - Added link to ERDDAP datasets on observation pages.
 - Add Mayflower data types.
+- Bake NERACOOS logos in.
 
 Fixes:
 
 - Errors showing and loading wind data.
+- Group ERDDAP dataset requests better to avoid getting 403'd by Bob.
 
 ## 0.4.5 - 9/21/2020
 
