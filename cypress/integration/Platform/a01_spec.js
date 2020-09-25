@@ -2,7 +2,7 @@
 
 const platformUrl = "/platform/A01%20-%2044029"
 
-describe("Platfrom A01", () => {
+describe("Platform A01", () => {
   it("Can get to from Home Page", () => {
     cy.visit("/")
 
