@@ -36,7 +36,7 @@ interface DataCardProps {
  * @param platform Platform to display
  */
 export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }) => {
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
@@ -55,7 +55,7 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
     let noFilteredTimeSeries: PlatformTimeSeries[] = []
     data_types.forEach((dataType) => {
       platform.properties.readings
-        .filter((reading) => dataType === reading.data_type.standard_name && reading.depth < 2)
+        .filter((reading) => dataType === reading.data_type.standard_name && (reading.depth ? reading.depth < 2 : true))
         .forEach((reading) => noFilteredTimeSeries.push(reading))
     })
 
@@ -80,12 +80,7 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
 
         if (readings.length > 1) {
           return (
-            <DataCardDisplay
-              readings={readings}
-              unit_system={unit_system}
-              timeSeries={timeSeries}
-              platform={platform}
-            />
+            <DataCardDisplay readings={readings} unitSystem={unitSystem} timeSeries={timeSeries} platform={platform} />
           )
         }
         return <ErrorDataCard platform={platform} timeSeries={timeSeries} />
@@ -96,7 +91,7 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
 
 interface DataCardDisplayProps {
   readings: ReadingTimeSeries[]
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   platform: PlatformFeature
 }
@@ -108,17 +103,17 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
   platform,
   readings,
   timeSeries,
-  unit_system,
+  unitSystem,
 }) => {
   const url = cardUrl(platform, timeSeries)
-  const data_converter = converter(timeSeries.data_type.standard_name)
+  const dataConverter = converter(timeSeries.data_type.standard_name)
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
 
   const latest = readings[readings.length - 1]
 
   const data = readings.map((r) => ({
     ...r,
-    reading: round(data_converter.convertToNumber(r.reading, unit_system), 2),
+    reading: round(dataConverter.convertToNumber(r.reading, unitSystem), 2),
   }))
 
   return (
@@ -126,18 +121,18 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
       <Link to={url}>
         <Card>
           <CardHeader>
-            {timeSeries.data_type.long_name} - {round(data_converter.convertToNumber(latest.reading, unit_system), 1)}{" "}
-            {data_converter.displayName(unit_system)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+            {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
+            {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
           </CardHeader>
 
           <CardBody style={{ padding: ".2rem" }}>
             <SmallTimeSeriesChart
               name={timeSeries.data_type.standard_name}
               timeSeries={data}
-              unit={data_converter.displayName(unit_system)}
+              unit={dataConverter.displayName(unitSystem)}
               softMin={bounds[0]}
               softMax={bounds[1]}
-              unit_system={unit_system}
+              unitSystem={unitSystem}
               data_type={timeSeries.data_type.standard_name}
             />
           </CardBody>

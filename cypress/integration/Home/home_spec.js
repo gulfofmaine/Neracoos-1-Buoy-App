@@ -25,4 +25,16 @@ describe("Home page", function () {
       "Product of NERACOOS.org - Developed and maintained by the Gulf of Maine Research Institute"
     )
   })
+
+  it("Has superlatives", () => {
+    cy.visit("/")
+
+    cy.contains("Highest Winds")
+
+    cy.contains("Knots")
+
+    cy.contains("Biggest Waves")
+
+    cy.contains("Feet")
+  })
 })

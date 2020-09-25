@@ -12,7 +12,7 @@ export default {
 
 export const configurable = (args) => <DataCardDisplay {...args} />
 configurable.args = {
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   platform,
   timeSeries: platform.properties.readings[0],
   readings: platform.properties.readings[0].readings,

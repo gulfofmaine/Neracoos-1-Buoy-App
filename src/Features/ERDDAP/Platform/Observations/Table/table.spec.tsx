@@ -17,14 +17,14 @@ describe("<ErddapObservationTable>", () => {
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
-          unit_system={UnitSystem.english}
+          unitSystem={UnitSystem.english}
           unitSelector={<b>Fake unit selector</b>}
         />
       </MemoryRouter>,
       { attachTo: div }
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(3)
+    expect(enzymeWrapper.find("a").length).toBe(4)
     expect(enzymeWrapper.text()).toContain("Last updated around: ")
     expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 Knots")
   })
@@ -38,14 +38,14 @@ describe("<ErddapObservationTable>", () => {
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
-          unit_system={UnitSystem.metric}
+          unitSystem={UnitSystem.metric}
           unitSelector={<b>Fake unit selector</b>}
         />
       </MemoryRouter>,
       { attachTo: div }
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(3)
+    expect(enzymeWrapper.find("a").length).toBe(4)
     expect(enzymeWrapper.text()).toContain("Last updated around: ")
     expect(enzymeWrapper.text()).toContain("Wind Speed: 2 Meters/Second")
   })

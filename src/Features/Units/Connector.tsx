@@ -12,14 +12,14 @@ interface Props {
 }
 
 interface RenderProps {
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
 }
 
 /**
  * Connect to the current unit system from Redux store
  */
 export const UnitSystemConnector: React.FunctionComponent<Props> = ({ children }) => {
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
-  return children({ unit_system })
+  return children({ unitSystem })
 }

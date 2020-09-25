@@ -19,7 +19,7 @@ interface Props {
 }
 
 interface DisplayProps extends Props {
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   datasets: DataTimeSeries[]
   timeSeries: PlatformTimeSeries[]
 }
@@ -28,7 +28,7 @@ interface DisplayProps extends Props {
  * Wind Observed conditions component
  */
 export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }) => {
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
   const { timeSeries } = pickWindTimeSeries(platform)
 
@@ -48,7 +48,7 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
         </Row>
       }
     >
-      {({ datasets }) => <ErddapWindObservedConditionDisplay {...{ platform, unit_system, timeSeries, datasets }} />}
+      {({ datasets }) => <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets }} />}
     </UseDatasets>
   )
 }
@@ -58,7 +58,7 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
  */
 export const ErddapWindObservedConditionDisplay: React.FunctionComponent<DisplayProps> = ({
   platform,
-  unit_system,
+  unitSystem,
   datasets,
 }) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
@@ -72,7 +72,7 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
           barbsPerDay={5}
           data={datasets}
           legend={true}
-          {...{ speed, gust, direction, unit_system }}
+          {...{ speed, gust, direction, unitSystem }}
         />
         {timeSeries.length > 0 ? (
           <p>

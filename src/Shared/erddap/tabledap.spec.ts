@@ -4,7 +4,7 @@ describe("constraintsToString()", () => {
   it("Can create a valid constraints string", () => {
     const constraints = {
       "time>=": "2018-12-15T00:00:00Z",
-      "temperature_qc<": 1
+      "temperature_qc<": 1,
     }
 
     const result = constraintsToString(constraints)
@@ -19,7 +19,7 @@ describe("variableString", () => {
 
     const result = variableString(variables)
 
-    expect(result).toEqual("time,current_speed,current_direction")
+    expect(result).toEqual("time%2Ccurrent_speed%2Ccurrent_direction")
   })
 })
 
@@ -29,13 +29,13 @@ describe("datasetUrl", () => {
     const dataset = "N01_aanderaa_all"
     const variables = ["current_speed", "current_direction"]
     const constraints = {
-      "time>=": "2018-12-15T00:00:00Z"
+      "time>=": "2018-12-15T00:00:00Z",
     }
 
     const result = tabledapUrl(server, dataset, variables, constraints)
 
     expect(result).toEqual(
-      "http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time,current_speed,current_direction&time>=%222018-12-15T00:00:00Z%22"
+      "http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time%2Ccurrent_speed%2Ccurrent_direction&time>=%222018-12-15T00:00:00Z%22"
     )
   })
 })
@@ -76,7 +76,7 @@ const erddapJson = {
     rows: [
       ["2018-12-15T00:00:00Z", 26.1037, 8.9216, 6.22366, 2.0],
       ["2018-12-15T01:00:00Z", 12.3186, 45.488, 6.4490333, 2.0],
-      ["2018-12-15T02:00:00Z", 9.0923, 64.4744, 6.4490333, 2.0]
-    ]
-  }
+      ["2018-12-15T02:00:00Z", 9.0923, 64.4744, 6.4490333, 2.0],
+    ],
+  },
 }

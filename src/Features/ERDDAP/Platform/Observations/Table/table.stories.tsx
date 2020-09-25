@@ -21,12 +21,12 @@ export default {
 
 export const english = (args) => <ErddapObservationTable {...args} unitSelector={<i>Unit selector goes here</i>} />
 english.args = {
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   platform,
 }
 
 export const metric = (args) => <ErddapObservationTable {...args} unitSelector={<i>Unit selector goes here</i>} />
 metric.args = {
-  unit_system: UnitSystem.metric,
+  unitSystem: UnitSystem.metric,
   platform,
 }

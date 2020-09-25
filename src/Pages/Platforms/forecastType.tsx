@@ -14,7 +14,7 @@ export type ForecastTypePageProps = UsePlatformRenderProps & RouteComponentProps
 
 export const ForecastTypePage: React.FunctionComponent<ForecastTypePageProps> = ({ platform, match }) => {
   const { type } = match.params as PlatformObservationMatchParams
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
-  return <Forecast platform={platform} forecast_type={type} unit_system={unit_system} />
+  return <Forecast platform={platform} forecast_type={type} unitSystem={unitSystem} />
 }

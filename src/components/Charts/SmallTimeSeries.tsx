@@ -13,8 +13,8 @@ import { UnitSystem } from "Features/Units/types"
 
 const plotOptions = {
   time: {
-    useUTC: false
-  }
+    useUTC: false,
+  },
 }
 
 interface Props {
@@ -29,7 +29,7 @@ interface Props {
   /** Soft maximum for Y axis */
   softMax: number | undefined
   /** Currently selected unit system */
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   /** Data type being displayed */
   data_type: string
 }
@@ -39,9 +39,9 @@ interface Props {
  */
 class SmallTimeSeriesChartBase extends React.Component<Props, object> {
   public render() {
-    const { name, softMax, softMin, timeSeries, unit_system, data_type } = this.props
+    const { name, softMax, softMin, timeSeries, unitSystem, data_type } = this.props
     let { unit } = this.props
-    let data = timeSeries.map(r => [r.time.valueOf(), round(r.reading, 2)])
+    let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
     return (
       <HighchartsChart time={plotOptions.time}>
@@ -54,7 +54,7 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
           <SplineSeries name={name} marker={{ enabled: false }} data={data} />
         </YAxis>
 
-        <Tooltip formatter={pointFormatMaker(unit_system, data_type)} />
+        <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
       </HighchartsChart>
     )
   }

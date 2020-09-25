@@ -29,7 +29,7 @@ interface WindCardProps {
  * @param platform Platform GeoJSON feature to display wind data from
  */
 export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) => {
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
   const aDayAgo = new Date()
   aDayAgo.setDate(aDayAgo.getDate() - 1)
@@ -60,7 +60,7 @@ export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) =
           .filter((ds) => ds.timeSeries.length > 0)
 
         if (filteredDatasets.length > 0) {
-          return <DisplayWindCard {...{ platform, timeSeries, unit_system }} datasets={filteredDatasets} />
+          return <DisplayWindCard {...{ platform, timeSeries, unitSystem }} datasets={filteredDatasets} />
         }
         return <OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>
       }}
@@ -70,14 +70,14 @@ export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) =
 
 interface DisplayWindCardProps extends WindCardProps {
   datasets: DataTimeSeries[]
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries[]
 }
 
 /**
  * Display wind datasets on a current conditions card
  */
-export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({ platform, datasets, unit_system }) => {
+export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({ platform, datasets, unitSystem }) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
   const { speed: speedTimeSeries, gust: gustTimeSeries } = pickWindTimeSeries(platform)
 
@@ -85,24 +85,24 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
     return null
   }
 
-  const data_converter = converter(speedTimeSeries!.data_type.standard_name)
+  const dataConverter = converter(speedTimeSeries!.data_type.standard_name)
 
   let speedTitle: string = ""
   if (speed) {
     speedTitle =
       " - " +
-      round(data_converter.convertToNumber(speed.timeSeries[speed.timeSeries.length - 1].reading, unit_system), 1) +
+      round(dataConverter.convertToNumber(speed.timeSeries[speed.timeSeries.length - 1].reading, unitSystem), 1) +
       " " +
-      data_converter.displayName(unit_system)
+      dataConverter.displayName(unitSystem)
   }
 
   let gustTitle: string = ""
   if (gust) {
     gustTitle =
       " gusting to " +
-      round(data_converter.convertToNumber(gust.timeSeries[gust.timeSeries.length - 1].reading, unit_system), 1) +
+      round(dataConverter.convertToNumber(gust.timeSeries[gust.timeSeries.length - 1].reading, unitSystem), 1) +
       " " +
-      data_converter.displayName(unit_system)
+      dataConverter.displayName(unitSystem)
   }
 
   let directionTitle: string = ""
@@ -127,7 +127,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
               barbsPerDay={10}
               data={datasets}
               height={150}
-              {...{ speed, gust, direction, unit_system }}
+              {...{ speed, gust, direction, unitSystem }}
             />
           </CardBody>
         </Card>

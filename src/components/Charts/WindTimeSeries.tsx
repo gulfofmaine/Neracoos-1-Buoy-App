@@ -23,9 +23,9 @@ import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion"
 
-const data_converter = converter("wind_speed")
+const dataConverter = converter("wind_speed")
 
-function pointFormatterMaker(unit_system: UnitSystem) {
+function pointFormatterMaker(unitSystem: UnitSystem) {
   /**
    * Allow our tooltip to convert windspeeds to units that people might be more used to.
    *
@@ -42,9 +42,9 @@ function pointFormatterMaker(unit_system: UnitSystem) {
             return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
           }
           return `<b>${p.series.name}:</b> ${p.y} knots ${round(
-            data_converter.convertToNumber(p.y, unit_system),
+            dataConverter.convertToNumber(p.y, unitSystem),
             1
-          )} ${data_converter.displayName(unit_system)}`
+          )} ${dataConverter.displayName(unitSystem)}`
         })
         .join("<br />")
     )
@@ -71,7 +71,7 @@ interface Props {
   /** Home many wind barbs should the chart show for each day */
   barbsPerDay: number
   /** Which unit system should the axis and tooltip be in */
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
 }
 
 addWindBarbModule(Highcharts)
@@ -83,7 +83,7 @@ addWindBarbModule(Highcharts)
 // export class WindTimeSeriesChartBase extends React.Component<Props, object> {
 //   public render() {
 export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
-  unit_system,
+  unitSystem,
   speed,
   gust,
   direction,
@@ -111,12 +111,12 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
         .filter((reading) => reading.time > daysAgo)
         .map(
           // Return Highcharts Spline dataformat [date, reading]
-          (r) => [new Date(r.time).valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)]
+          (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)]
         )
     } else {
       data = d.timeSeries.map(
         // Return Highcharts Spline dataformat [date, reading]
-        (r) => [new Date(r.time).valueOf(), round(data_converter.convertToNumber(r.reading, unit_system), 1)]
+        (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)]
       )
     }
 
@@ -166,7 +166,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
     }
   }
 
-  const pointFormatter = pointFormatterMaker(unit_system)
+  const pointFormatter = pointFormatterMaker(unitSystem)
 
   return (
     <HighchartsChart time={plotOptions.time}>
@@ -175,7 +175,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
       <XAxis type="datetime" />
 
       <YAxis softMin={0}>
-        <YAxis.Title>{data_converter.displayName(unit_system)}</YAxis.Title>
+        <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
         {speedsSeries}
 
         {windData.length > 0 ? <WindBarbSeries name="Direction" color="red" data={windData} /> : null}

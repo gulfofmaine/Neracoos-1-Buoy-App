@@ -4,6 +4,8 @@
 
 Additions:
 
+- Superlatives! Highest wind and wave speed widget for the home page.
+
 Changes:
 
 - Added link to ERDDAP datasets on observation pages.
@@ -24,6 +26,7 @@ Changes:
 Fixes:
 
 - Deployment issue, consolidated onto a single multi-stage build dockerfile as it was caching the wrong data.
+- Some typing of PlatformFeatures that didn't match what the API was actually returning.
 
 ## 0.4.4 - 9/21/2020
 

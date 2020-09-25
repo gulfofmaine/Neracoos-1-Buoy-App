@@ -11,14 +11,14 @@ export default {
 
 export const english = (args) => <ForecastChart {...args} />
 english.args = {
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   data,
   type: forecast_type,
 }
 
 export const metric = (args) => <ForecastChart {...args} />
 metric.args = {
-  unit_system: UnitSystem.metric,
+  unitSystem: UnitSystem.metric,
   data,
   type: forecast_type,
 }

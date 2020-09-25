@@ -28,7 +28,7 @@ interface Props {
   /** Soft maximum for Y axis */
   softMax: number | undefined
   /** Unit system to display in */
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
   /** Data type to display */
   data_type: string
 }
@@ -38,13 +38,13 @@ interface Props {
  */
 class LargeTimeSeriesChartBase extends React.Component<Props, object> {
   public render() {
-    const { name, softMax, softMin, timeSeries, data_type, unit_system } = this.props
+    const { name, softMax, softMin, timeSeries, data_type, unitSystem } = this.props
 
-    const data_converter = converter(data_type)
+    const dataConverter = converter(data_type)
 
     const data = timeSeries.map((r) => [
       r.time.valueOf(),
-      round(data_converter.convertToNumber(r.reading as number, unit_system) as number, 2),
+      round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2),
     ])
 
     return (
@@ -54,11 +54,11 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
         <XAxis type="datetime" />
 
         <YAxis softMin={softMin} softMax={softMax}>
-          <YAxis.Title>{data_converter.displayName(unit_system)}</YAxis.Title>
+          <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries name={name} marker={{ enabled: false }} data={data} />
         </YAxis>
 
-        <Tooltip formatter={pointFormatMaker(unit_system, data_type)} />
+        <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
       </HighchartsChart>
     )
   }

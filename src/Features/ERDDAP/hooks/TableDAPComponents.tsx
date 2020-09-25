@@ -3,6 +3,7 @@
  */
 import * as React from "react"
 import { Alert } from "reactstrap"
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 
 import { DataTimeSeries } from "Shared/timeSeries"
 import { PlatformTimeSeries } from "../types"
@@ -111,5 +112,12 @@ export const UseDataset: React.FunctionComponent<UseDatasetProps> = ({
     return error
   }
 
-  return <Alert color="warning">Error loading {timeSeries.data_type.long_name} data</Alert>
+  return (
+    <Alert color="warning">
+      Error loading {timeSeries.data_type.long_name} data.{" "}
+      <a href={tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints)}>
+        Try accessing dataset directly.
+      </a>
+    </Alert>
+  )
 }

@@ -15,7 +15,7 @@ import { data, forecast_type } from "./story-data"
 A forecast chart combines current data from a platform with
 forecast retrieved through the Buoy Barn API.
 
-<Story name="Forecast Chart" args={{ unit_system: UnitSystem.english, type: forecast_type, data }}>
+<Story name="Forecast Chart" args={{ unitSystem: UnitSystem.english, type: forecast_type, data }}>
   {Template.bind()}
 </Story>
 
@@ -25,7 +25,7 @@ unit system while it is displayed it will smoothly transition.
 <ArgsTable story="Forecast Chart" />
 
 ```tsx
-<ForecastChart data={data} unit_system={UnitSystem.english} type={forecast_type} />
+<ForecastChart data={data} unitSystem={UnitSystem.english} type={forecast_type} />
 ```
 
 export const Template = (args) => <ForecastChart {...args} />

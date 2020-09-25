@@ -7,6 +7,7 @@ import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChart } from "components/Charts"
 import { round } from "Shared/math"
+import { aDayAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
@@ -17,7 +18,7 @@ import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../ty
 interface Props {
   platform: PlatformFeature
   forecast_type: string
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
 }
 
 /**
@@ -65,7 +66,7 @@ interface LoadForecastProps extends LoadInfoProps {
 const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
   forecastInfo,
   platform,
-  unit_system,
+  unitSystem,
   timeSeries,
   dataset,
   forecast_type,
@@ -89,8 +90,7 @@ const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
     const datasets = [forecastDataset]
 
     if (timeSeries && dataset) {
-      const aDayAgo = new Date()
-      aDayAgo.setDate(aDayAgo.getDate() - 1)
+      const aDayAgo = aDayAgoRounded()
 
       datasets.push({
         ...dataset,
@@ -103,7 +103,7 @@ const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
       <Row>
         <Col>
           <h4>{forecastInfo.forecast_type} Forecast</h4>
-          <ForecastChart data={datasets} unit_system={unit_system} type={forecast_type} />
+          <ForecastChart data={datasets} unitSystem={unitSystem} type={forecast_type} />
         </Col>
       </Row>
     )
@@ -136,22 +136,22 @@ interface ForecastChartProps {
   // forecast type
   type: string
   // Unit system to display in
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
 }
 
 /** Forecast chart component */
-export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ data, type, unit_system }) => {
+export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ data, type, unitSystem }) => {
   const standardNames = forecastToStandardNames[type]
 
   if (!direction_forecast_types.has(type)) {
-    const data_converter = converter(Array.from(standardNames)[0])
+    const dataConverter = converter(Array.from(standardNames)[0])
 
     data = data.map((d) => ({
       ...d,
-      unit: data_converter.displayName(unit_system),
+      unit: dataConverter.displayName(unitSystem),
       timeSeries: d.timeSeries.map((r) => ({
         ...r,
-        reading: round(data_converter.convertToNumber(r.reading, unit_system), 2),
+        reading: round(dataConverter.convertToNumber(r.reading, unitSystem), 2),
       })),
     }))
   }

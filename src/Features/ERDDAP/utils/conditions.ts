@@ -20,7 +20,7 @@ export const conditions = {
   waterTemp: ["sea_surface_temperature", "sea_water_temperature"],
 
   windSpeed: ["wind_speed"],
-  windGust: ["wind_gust"],
+  windGust: ["wind_gust", "wind_speed_of_gust"],
   windDirection: ["wind_from_direction"],
 
   visibility: ["visibility_in_air"],

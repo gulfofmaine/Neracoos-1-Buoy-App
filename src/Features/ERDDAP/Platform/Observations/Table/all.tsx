@@ -10,19 +10,19 @@ import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { itemStyle, TableItem } from "./item"
 
 interface Props extends UsePlatformRenderProps {
-  unit_system: UnitSystem
+  unitSystem: UnitSystem
 }
 
 /**
  * Display all current conditions
  */
-export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ platform, unit_system }) => {
+export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ platform, unitSystem }) => {
   const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   const datasets = platform.properties.readings
 
-  datasets.sort((a, b) => a.depth - b.depth)
+  datasets.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
   datasets.sort((a, b) => (a.data_type.long_name < b.data_type.long_name ? -1 : 1))
 
   return (
@@ -44,7 +44,7 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
             platform={platform}
             data_type={dataset.data_type.standard_name}
             name={name}
-            unit_system={unit_system}
+            unitSystem={unitSystem}
           />
         )
       })}

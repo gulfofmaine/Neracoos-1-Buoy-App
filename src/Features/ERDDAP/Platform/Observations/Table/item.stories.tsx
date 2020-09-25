@@ -24,7 +24,7 @@ export default {
 
 export const english = (args) => <TableItem {...args} />
 english.args = {
-  unit_system: UnitSystem.english,
+  unitSystem: UnitSystem.english,
   later_then: new Date("2/3/2020"),
   data_type: "wind_speed",
   name: "Wind Speed",
@@ -33,7 +33,7 @@ english.args = {
 
 export const metric = (args) => <TableItem {...args} />
 metric.args = {
-  unit_system: UnitSystem.metric,
+  unitSystem: UnitSystem.metric,
   later_then: new Date("2/3/2020"),
   data_type: "wind_speed",
   name: "Wind Speed",

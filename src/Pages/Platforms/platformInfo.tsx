@@ -11,7 +11,7 @@ import { PlatformMatchParams } from "./types"
  */
 export const PlatformInfo: React.FunctionComponent<RouteComponentProps> = ({ match }) => {
   const { id } = match.params as PlatformMatchParams
-  const unit_system = useUnitSystem()
+  const unitSystem = useUnitSystem()
 
   return (
     <UsePlatform platformId={id}>
@@ -19,7 +19,7 @@ export const PlatformInfo: React.FunctionComponent<RouteComponentProps> = ({ mat
         <React.Fragment>
           <PlatformAlerts platform={platform} />
           <ErddapPlatformInfoPanel platform={platform} />
-          <ErddapObservationTable platform={platform} unitSelector={<UnitSelector />} unit_system={unit_system} />
+          <ErddapObservationTable platform={platform} unitSelector={<UnitSelector />} unitSystem={unitSystem} />
         </React.Fragment>
       )}
     </UsePlatform>
