@@ -6,6 +6,10 @@ Additions:
 
 Changes:
 
+- Remove redux-thunk since Redux is no longer being used for loading data.
+- Added Cypress test for interaction with unit switcher.
+- Added Sentry Redux integration.
+
 Fixes:
 
 ## 0.5.0 - 9/25/2020
