@@ -4,6 +4,14 @@
 
 Additions:
 
+Changes:
+
+Fixes:
+
+## 0.5.0 - 9/25/2020
+
+Additions:
+
 - Superlatives! Highest wind and wave speed widget for the home page.
 
 Changes:
@@ -11,6 +19,12 @@ Changes:
 - Added link to ERDDAP datasets on observation pages.
 - Add Mayflower data types.
 - Bake NERACOOS logos in.
+- Dependency updates
+  - Moment from 2.28.0 to 2.29.0
+  - Enzyme adapter react 16 from 1.15.4 to 1.15.5
+  - Types
+    - Enzyme from 3.10.6 to 3.10.7
+    - Node from 14.11.1 to 14.11.2
 
 Fixes:
 
