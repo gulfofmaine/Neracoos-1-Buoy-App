@@ -77,7 +77,7 @@
     "wait-on": "5.2.0"
   },
   "optionalDependencies": {
-    "cypress": "5.2.0"
+    "cypress": "5.3.0"
   },
   "prettier": {
     "semi": false,
