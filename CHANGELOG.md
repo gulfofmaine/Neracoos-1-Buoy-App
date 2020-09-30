@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Get the map to zoom to a region's bounding box.
+
 ## 0.5.2 - 9/30/2020
 
 Fixes:

@@ -24,10 +24,10 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
       ? (this.props.match.params as PlatformMatchParams).id
       : ""
 
-    let regions: Region[] = []
+    let region: Region | undefined
 
     if (params.region !== undefined) {
-      regions = regionList.filter((r) => r.slug === params.region)
+      region = regionList.find((r) => r.slug === params.region)
     }
 
     return (
@@ -38,8 +38,8 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
             <Switch>
               <Route path={paths.platforms.root} exact={true}>
                 <div>
-                  <h2>Platforms in {regions.length > 0 ? regions[0].name : ""}</h2>
-                  <ErddapPlatformList boundingBox={regions.length > 0 ? regions[0].bbox : undefined} />
+                  <h2>Platforms in {region ? region.name : ""}</h2>
+                  <ErddapPlatformList boundingBox={region?.bbox} />
                 </div>
               </Route>
               <Route path={paths.platforms.platform} component={PlatformInfo} />
@@ -47,7 +47,7 @@ export class PlatformsPage extends React.Component<RouteComponentProps, object> 
           </Col>
 
           <Col sm={{ size: true, order: 1 }}>
-            <ErddapMap platformId={platformId} boundingBox={regions.length > 0 ? regions[0].bbox : undefined} />
+            <ErddapMap platformId={platformId} boundingBox={region?.bbox} />
           </Col>
         </Row>
 
