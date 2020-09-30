@@ -8,6 +8,10 @@ Changes:
 
 Fixes:
 
+## 0.5.2 - 9/30/2020
+
+Fixes:
+
 - Issue loading significant wave height forecasts due to error in string replacement.
 
 ## 0.5.1 - 9/30/2020
