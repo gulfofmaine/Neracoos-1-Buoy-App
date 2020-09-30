@@ -24,6 +24,10 @@ Changes:
     - React from 6.0.21 to 6.0.22
   - React-query devtools from 2.5.0 to 2.5.1
   - Cypress from 5.2.0 to 5.3.0
+- Change 'last updated around' to 'last updated at'.
+- Change table items text when no information is available recently.
+- Add link to feedback form.
+- Add significant wave height forecast type.
 
 Fixes:
 
