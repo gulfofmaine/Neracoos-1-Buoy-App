@@ -14,6 +14,7 @@ Fixes:
 
 - Wind datasets and time series were getting their names muddled by `pickWindDatasets`.
   Changed `pickWindDatasets` to not alter existing data.
+- Update Cypress tests for new home content.
 
 ## 0.5.0 - 9/25/2020
 

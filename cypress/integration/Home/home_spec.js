@@ -4,7 +4,9 @@ describe("Home page", function () {
   it("Loads Drupal content", function () {
     cy.visit("/")
 
-    cy.contains("The Mariners' Dashboard provides near real-time data for buoys and sensors in the Northeast.")
+    cy.contains(
+      "Welcome to the NERACOOS Mariners' Dashboard, which delivers high-quality, timely data from a growing network of buoys and sensors into the hands of mariners heading to sea."
+    )
   })
 
   it("Has a nav bar", () => {
@@ -12,7 +14,6 @@ describe("Home page", function () {
 
     cy.get(".navbar-brand")
     cy.contains("Regions")
-    // cy.contains("Radar Map")
     cy.contains("About")
   })
 
