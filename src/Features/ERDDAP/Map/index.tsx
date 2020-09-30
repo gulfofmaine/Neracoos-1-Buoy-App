@@ -170,13 +170,18 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FunctionComponent<Props> = ({ platformId }) => {
+export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, boundingBox }) => {
   const dispatch = useDispatch()
 
   return (
     <UsePlatforms>
       {({ platforms }) => (
-        <ErddapMapBase platforms={platforms} platformId={platformId} push={(url: string) => dispatch(push(url))} />
+        <ErddapMapBase
+          platforms={platforms}
+          platformId={platformId}
+          boundingBox={boundingBox}
+          push={(url: string) => dispatch(push(url))}
+        />
       )}
     </UsePlatforms>
   )
