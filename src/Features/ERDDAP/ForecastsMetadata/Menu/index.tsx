@@ -77,7 +77,7 @@ export class ForecastDropdownBase extends React.Component<BaseProps, State> {
         to={urlPartReplacer(
           urlPartReplacer(paths.platforms.forecastType, ":id", platformId),
           ":type",
-          forecastType.toLowerCase().replace(" ", "_")
+          forecastType.toLowerCase().replace(/ /g, "_")
         )}
       >
         {forecastType}

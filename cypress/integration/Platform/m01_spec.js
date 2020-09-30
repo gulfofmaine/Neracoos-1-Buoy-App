@@ -50,8 +50,8 @@ describe("Platfrom M01", () => {
 
     cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get("[href='/platform/M01 - 44037/forecast/wave_height']").click()
-    cy.get("h4").contains("Wave Height Forecast")
+    cy.get("[href='/platform/M01 - 44037/forecast/significant_wave_height']").click()
+    cy.get("h4").contains("Significant Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Feet")
     cy.contains("Metric").click()

@@ -42,7 +42,7 @@ const LoadForecastInfo: React.FunctionComponent<LoadInfoProps> = ({ timeSeries, 
   const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecasts()
   const { data: dataset } = useDataset(timeSeries)
 
-  const forecastInfo = forecastsInfo?.find((f) => f.forecast_type.toLowerCase().replace(" ", "_") === forecast_type)
+  const forecastInfo = forecastsInfo?.find((f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type)
 
   if (isLoadingForecasts) {
     return <Alert>Loading forecast metadata</Alert>
