@@ -6,7 +6,7 @@ import * as React from "react"
 import { Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
-import { aDayAgoRounded } from "Shared/time"
+import { halfADayAgoRounded } from "Shared/time"
 
 import { UseDatasets } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -28,17 +28,17 @@ interface Props {
 export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = ({ platform }) => {
   const unitSystem = useUnitSystem()
 
-  const dayAgo = aDayAgoRounded()
+  const halfDayAgo = halfADayAgoRounded()
 
-  const airTemp = filterTimeSeries(platform.properties.readings, conditions.airTemp, dayAgo)
-  const airPressure = filterTimeSeries(platform.properties.readings, conditions.airPressure, dayAgo)
-  const waveHeight = filterTimeSeries(platform.properties.readings, conditions.waveHeight, dayAgo)
-  const wavePeriod = filterTimeSeries(platform.properties.readings, conditions.wavePeriod, dayAgo)
-  const waveDirection = filterTimeSeries(platform.properties.readings, conditions.waveDirection, dayAgo)
-  const waterTemp = filterTimeSeries(platform.properties.readings, conditions.waterTemp, dayAgo)
-  const visibility = filterTimeSeries(platform.properties.readings, conditions.visibility, dayAgo)
+  const airTemp = filterTimeSeries(platform.properties.readings, conditions.airTemp, halfDayAgo)
+  const airPressure = filterTimeSeries(platform.properties.readings, conditions.airPressure, halfDayAgo)
+  const waveHeight = filterTimeSeries(platform.properties.readings, conditions.waveHeight, halfDayAgo)
+  const wavePeriod = filterTimeSeries(platform.properties.readings, conditions.wavePeriod, halfDayAgo)
+  const waveDirection = filterTimeSeries(platform.properties.readings, conditions.waveDirection, halfDayAgo)
+  const waterTemp = filterTimeSeries(platform.properties.readings, conditions.waterTemp, halfDayAgo)
+  const visibility = filterTimeSeries(platform.properties.readings, conditions.visibility, halfDayAgo)
 
-  const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, dayAgo)
+  const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, halfDayAgo)
 
   const timeSeriesWithNull = [
     airTemp,
@@ -53,43 +53,54 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
   return (
-    <UseDatasets timeSeries={timeSeries} startTime={dayAgo}>
-      {({ datasets }) => (
-        <Row>
-          <DisplayWindCard timeSeries={windTimeSeries} {...{ datasets, platform, unitSystem }} />
+    <UseDatasets timeSeries={timeSeries} startTime={halfDayAgo}>
+      {({ datasets }) => {
+        const times = datasets
+          .map((ds) => ds.timeSeries)
+          .flat()
+          .map((r) => r.time)
+          .sort()
 
-          {datasets
-            .sort((a, b) => {
-              var nameA = a.name.toUpperCase()
-              var nameB = b.name.toUpperCase()
-              if (nameA < nameB) {
-                return -1
-              }
-              if (nameA > nameB) {
-                return 1
-              }
-              return 0
-            })
-            .map((dataset, index) => {
-              const datasetTimeSeries = timeSeries.find((ts) => ts.variable === dataset.name)
-              if (
-                !datasetTimeSeries ||
-                new Set(windTimeSeries.map((ts) => ts.variable)).has(datasetTimeSeries.variable)
-              ) {
-                return null
-              }
+        const startTime = times[0]
+        const endTime = times[times.length - 1]
 
-              return (
-                <DataCardDisplay
-                  key={index}
-                  timeSeries={datasetTimeSeries}
-                  readings={dataset.timeSeries}
-                  {...{ platform, unitSystem }}
-                />
-              )
-            })}
-        </Row>
-      )}
+        return (
+          <Row>
+            <DisplayWindCard timeSeries={windTimeSeries} {...{ datasets, platform, unitSystem, startTime, endTime }} />
+
+            {datasets
+              .sort((a, b) => {
+                var nameA = a.name.toUpperCase()
+                var nameB = b.name.toUpperCase()
+                if (nameA < nameB) {
+                  return -1
+                }
+                if (nameA > nameB) {
+                  return 1
+                }
+                return 0
+              })
+              .map((dataset, index) => {
+                const datasetTimeSeries = timeSeries.find((ts) => ts.variable === dataset.name)
+                if (
+                  !datasetTimeSeries ||
+                  new Set(windTimeSeries.map((ts) => ts.variable)).has(datasetTimeSeries.variable)
+                ) {
+                  return null
+                }
+
+                return (
+                  <DataCardDisplay
+                    key={index}
+                    timeSeries={datasetTimeSeries}
+                    readings={dataset.timeSeries}
+                    {...{ platform, unitSystem, startTime, endTime }}
+                  />
+                )
+              })}
+          </Row>
+        )
+      }}
     </UseDatasets>
   )
 }

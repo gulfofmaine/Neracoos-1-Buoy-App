@@ -32,6 +32,10 @@ interface Props {
   unitSystem: UnitSystem
   /** Data type being displayed */
   data_type: string
+  /** Earliest date to show */
+  startTime?: Date
+  /** Maximum date to show */
+  endTime?: Date
 }
 
 /**
@@ -39,7 +43,7 @@ interface Props {
  */
 class SmallTimeSeriesChartBase extends React.Component<Props, object> {
   public render() {
-    const { name, softMax, softMin, timeSeries, unitSystem, data_type } = this.props
+    const { name, softMax, softMin, timeSeries, unitSystem, data_type, startTime, endTime } = this.props
     let { unit } = this.props
     let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
@@ -47,7 +51,7 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
       <HighchartsChart time={plotOptions.time}>
         <Chart height={150} />
 
-        <XAxis type="datetime" />
+        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
         <YAxis softMin={softMin} softMax={softMax}>
           <YAxis.Title>{unit}</YAxis.Title>

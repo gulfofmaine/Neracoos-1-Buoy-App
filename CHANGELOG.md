@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Match the time extents of current conditions loaded.
+
 Fixes:
 
 - Get the map to zoom to a region's bounding box.

@@ -72,12 +72,20 @@ interface DisplayWindCardProps extends WindCardProps {
   datasets: DataTimeSeries[]
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries[]
+  startTime?: Date
+  endTime?: Date
 }
 
 /**
  * Display wind datasets on a current conditions card
  */
-export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({ platform, datasets, unitSystem }) => {
+export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
+  platform,
+  datasets,
+  unitSystem,
+  startTime,
+  endTime,
+}) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
   const { speed: speedTimeSeries, gust: gustTimeSeries } = pickWindTimeSeries(platform)
 
@@ -121,13 +129,13 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
             {gustTitle}
             {directionTitle}
           </CardHeader>
-          <CardBody>
+          <CardBody style={{ padding: ".2rem" }}>
             <WindTimeSeriesChart
               days={1}
               barbsPerDay={10}
               data={datasets}
               height={150}
-              {...{ speed, gust, direction, unitSystem }}
+              {...{ speed, gust, direction, unitSystem, startTime, endTime }}
             />
           </CardBody>
         </Card>
