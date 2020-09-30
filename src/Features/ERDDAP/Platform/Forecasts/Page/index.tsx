@@ -117,6 +117,11 @@ const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
  */
 export const forecastToStandardNames: { [key: string]: Set<string> } = {
   air_temperature: new Set(["air_temperature"]),
+  significant_wave_height: new Set([
+    "sea_surface_wave_significant_height",
+    "significant_height_of_wind_and_swell_waves",
+    "significant_wave_height",
+  ]),
   wave_direction: new Set(["sea_surface_wave_to_direction"]),
   wave_height: new Set([
     "sea_surface_wave_significant_height",

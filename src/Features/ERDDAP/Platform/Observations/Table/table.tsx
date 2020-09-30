@@ -33,13 +33,13 @@ export const ErddapObservationTable: React.FunctionComponent<Props> = ({ platfor
     <ListGroup style={{ paddingTop: "1rem" }}>
       {times.length > 0 ? (
         <ListGroupItem style={itemStyle}>
-          <b>Last updated around:</b>{" "}
+          <b>Last updated at:</b>{" "}
           {times[times.length - 1].toLocaleString(undefined, {
             hour: "2-digit",
             hour12: true,
             minute: "2-digit",
-            // month: "short",
-            // day: "numeric",
+            month: "short",
+            day: "numeric",
           })}
         </ListGroupItem>
       ) : null}

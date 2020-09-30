@@ -10,6 +10,10 @@ Changes:
 - Added Cypress test for interaction with unit switcher.
 - Added Sentry Redux integration.
 - Add oxygen_concentration_in_sea_water data type.
+- Change 'last updated around' to 'last updated at'.
+- Change table items text when no information is available recently.
+- Add link to feedback form.
+- Add significant wave height forecast type.
 
 Fixes:
 

@@ -20,7 +20,7 @@ describe("Platform A01", () => {
     cy.contains("Lat:")
     cy.contains("Lon:")
 
-    cy.contains("Last updated around:")
+    cy.contains("Last updated at:")
   })
 
   it("Shows current conditions", () => {
@@ -78,16 +78,18 @@ describe("Platform A01", () => {
     cy.contains("Observations").click()
     cy.contains("All Observations").click()
 
-    cy.contains("Last updated at:").then(($element) => {
-      const text = $element[0].parentElement.innerText
+    cy.get(".all-observations")
+      .contains("Last updated at:")
+      .then(($element) => {
+        const text = $element[0].parentElement.innerText
 
-      const date = new Date(text.split("Last updated at: "))
+        const date = new Date(text.split("Last updated at: "))
 
-      const threeDaysAgo = new Date()
-      threeDaysAgo.setDate(threeDaysAgo.getDate() - 3)
+        const threeDaysAgo = new Date()
+        threeDaysAgo.setDate(threeDaysAgo.getDate() - 3)
 
-      expect(date).greaterThan(threeDaysAgo)
-    })
+        expect(date).greaterThan(threeDaysAgo)
+      })
   })
 
   it("Can view all observations", () => {
