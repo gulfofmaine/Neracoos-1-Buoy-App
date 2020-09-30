@@ -6,10 +6,24 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.5.1 - 9/30/2020
+
+Changes:
+
 - Remove redux-thunk since Redux is no longer being used for loading data.
 - Added Cypress test for interaction with unit switcher.
 - Added Sentry Redux integration.
 - Add oxygen_concentration_in_sea_water data type.
+- Dependency updates
+  - Storybook
+    - Addon-a11y from 6.0.21 to 6.0.22
+    - Addon-essentials from 6.0.21 to 6.0.22
+    - Addon-storyshots from 6.0.21 to 6.0.22
+    - React from 6.0.21 to 6.0.22
+  - React-query devtools from 2.5.0 to 2.5.1
+  - Cypress from 5.2.0 to 5.3.0
 
 Fixes:
 
