@@ -60,7 +60,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
     }
 
     if (data.length === 0) {
-      return <div className="list-group-item">No data available for {name} recently</div>
+      return <div className="list-group-item">No {name} data received in the last hour</div>
     }
 
     const selected = data[0]

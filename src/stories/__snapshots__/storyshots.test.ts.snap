@@ -32,6 +32,29 @@ exports[`Storyshots Components/Footer Footer 1`] = `
     <div
       className="mx-auto text-center col-md-10"
     >
+      Use
+       
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
+      >
+        this form
+      </a>
+       
+      to send us feedback or bug reports
+    </div>
+  </div>
+  <div
+    className="row"
+    style={
+      Object {
+        "fontSize": ".8rem",
+        "padding": ".25rem",
+      }
+    }
+  >
+    <div
+      className="mx-auto text-center col-md-10"
+    >
       Product of 
       <a
         href="http://www.neracoos.org/"
