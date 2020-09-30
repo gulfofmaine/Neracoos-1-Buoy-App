@@ -9,6 +9,7 @@ Changes:
 - Remove redux-thunk since Redux is no longer being used for loading data.
 - Added Cypress test for interaction with unit switcher.
 - Added Sentry Redux integration.
+- Add oxygen_concentration_in_sea_water data type.
 
 Fixes:
 
