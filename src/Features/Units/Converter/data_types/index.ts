@@ -70,6 +70,12 @@ export const data_types: DataTypesObject = {
   ),
   northward_sea_water_velocity: new CmsVelocity("northward_sea_water_velocity", "North Velocity Component"),
   northward_wind: new WindSpeed("northward_wind", "Wind Speed, Meridional"),
+  oxygen_concentration_in_sea_water: new Passthrough(
+    "oxygen_concentration_in_sea_water",
+    "Oxygen Concentration In Sea Water",
+    "mg/L",
+    "mg/L"
+  ),
   oxygen_saturation: new Passthrough("oxygen_saturation", "Oxygen Saturation", "ml/l", "ml/l"),
   par: new Passthrough("par", "Photosynthetically Available Radiation", "µE/m2/sec", "µE/m2/sec"),
   percent_clear_sky: new Passthrough("percent_clear_sky", "Percent Clear Sky", "percent", "percent"),
