@@ -72,6 +72,10 @@ interface Props {
   barbsPerDay: number
   /** Which unit system should the axis and tooltip be in */
   unitSystem: UnitSystem
+  /** Earliest date to show */
+  startTime?: Date
+  /** Maximum date to show */
+  endTime?: Date
 }
 
 addWindBarbModule(Highcharts)
@@ -91,6 +95,8 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
   barbsPerDay,
   height,
   legend,
+  startTime,
+  endTime,
 }) => {
   const speeds: DataTimeSeries[] = []
   if (speed) {
@@ -172,7 +178,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
     <HighchartsChart time={plotOptions.time}>
       <Chart height={height} />
 
-      <XAxis type="datetime" />
+      <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
       <YAxis softMin={0}>
         <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>

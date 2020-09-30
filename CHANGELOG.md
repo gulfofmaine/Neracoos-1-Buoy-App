@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Match the time extents of current conditions loaded.
+
 Fixes:
 
 ## 0.5.2 - 9/30/2020

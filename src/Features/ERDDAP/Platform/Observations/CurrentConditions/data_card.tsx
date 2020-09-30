@@ -94,6 +94,8 @@ interface DataCardDisplayProps {
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   platform: PlatformFeature
+  startTime?: Date
+  endTime?: Date
 }
 
 /**
@@ -104,6 +106,8 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
   readings,
   timeSeries,
   unitSystem,
+  startTime,
+  endTime,
 }) => {
   const url = cardUrl(platform, timeSeries)
   const dataConverter = converter(timeSeries.data_type.standard_name)
@@ -132,8 +136,8 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
               unit={dataConverter.displayName(unitSystem)}
               softMin={bounds[0]}
               softMax={bounds[1]}
-              unitSystem={unitSystem}
               data_type={timeSeries.data_type.standard_name}
+              {...{ unitSystem, startTime, endTime }}
             />
           </CardBody>
         </Card>

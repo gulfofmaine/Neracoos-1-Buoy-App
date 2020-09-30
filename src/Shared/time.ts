@@ -3,6 +3,7 @@
  */
 
 const HOUR = 1000 * 60 * 60
+const HALF_DAY = HOUR * 12
 const DAY = HOUR * 24
 const WEEK = DAY * 7
 
@@ -51,6 +52,17 @@ export function anHourAgoRounded(): Date {
   roundDate(hourAgo)
 
   return hourAgo
+}
+
+/**
+ * Return a time 12 hours previous
+ */
+export function halfADayAgoRounded(): Date {
+  const halfDay = new Date(Date.now() - HALF_DAY)
+
+  roundDate(halfDay)
+
+  return halfDay
 }
 
 /**
