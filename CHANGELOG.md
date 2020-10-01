@@ -8,6 +8,10 @@ Changes:
 
 Fixes:
 
+- At the beginning of a month, `.getDate()` comparisons produce negatives,
+  which turns out to be rather confusing to things that expect positives,
+  so don't do that. Now those comparisons are using `.valueOf()`.
+
 ## 0.5.3 - 9/30/2020
 
 Changes:
