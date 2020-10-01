@@ -58,11 +58,11 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
         const times = datasets
           .map((ds) => ds.timeSeries)
           .flat()
-          .map((r) => r.time)
-          .sort()
+          .map((r) => r.time.valueOf())
+        times.sort()
 
-        const startTime = times[0]
-        const endTime = times[times.length - 1]
+        const startTime = new Date(times[0])
+        const endTime = new Date(times[times.length - 1])
 
         return (
           <Row>

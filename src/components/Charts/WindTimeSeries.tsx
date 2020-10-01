@@ -157,7 +157,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
 
     if (speedTs.length === directionTs.length) {
       // Figure out how many samples should be skipped between readings to manage chart density
-      const days = speedTs[speedTs.length - 1].time.getDate() - speedTs[0].time.getDate()
+      const days = (speedTs[speedTs.length - 1].time.valueOf() - speedTs[0].time.valueOf()) / 1000 / 60 / 60 / 24
       const stride = Math.round(speedTs.length / (barbsPerDay * days))
 
       for (let index = 0; index <= speedTs.length; index += stride) {
