@@ -6,6 +6,12 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.5.4 - 10/1/2020
+
+Changes:
+
 - Update Google Analytics tracker.
 
 Fixes:
@@ -13,6 +19,10 @@ Fixes:
 - At the beginning of a month, `.getDate()` comparisons produce negatives,
   which turns out to be rather confusing to things that expect positives,
   so don't do that. Now those comparisons are using `.valueOf()`.
+
+Testing:
+
+- Added CodeQL analysis Github Action.
 
 ## 0.5.3 - 9/30/2020
 
