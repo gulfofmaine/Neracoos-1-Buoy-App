@@ -8,6 +8,9 @@ Changes:
 
 Fixes:
 
+- Unit converter in table items now uses the actual data type used rather than
+  the first one of similar types.
+
 ## 0.5.4 - 10/1/2020
 
 Changes:

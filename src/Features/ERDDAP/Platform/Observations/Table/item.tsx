@@ -65,7 +65,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
 
     const selected = data[0]
 
-    const unit_converter = converter(typeof data_type === "string" ? data_type : data_type[0])
+    const unit_converter = converter(selected.data_type.standard_name)
 
     const value = unit_converter.convertTo(selected.value as number, unitSystem)
 
