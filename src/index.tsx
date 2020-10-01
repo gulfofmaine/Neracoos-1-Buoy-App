@@ -62,7 +62,7 @@ if (!(window as any).Cypress) {
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-775587-9" : undefined}>
+      <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
         <App />
       </GAListener>
     </ConnectedRouter>

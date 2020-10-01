@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Update Google Analytics tracker.
+
 Fixes:
 
 - At the beginning of a month, `.getDate()` comparisons produce negatives,
