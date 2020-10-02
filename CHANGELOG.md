@@ -6,7 +6,16 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.5.5 - 10/2/2020
+
+Changes:
+
 - Increase number of wind barbs per day for current conditions.
+- Dependency Updates:
+  - Types
+    - React
 
 Fixes:
 
