@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Increase number of wind barbs per day for current conditions.
+
 Fixes:
 
 - Unit converter in table items now uses the actual data type used rather than
