@@ -6,7 +6,6 @@ import "react-app-polyfill/stable"
 
 import * as Sentry from "@sentry/react"
 import { Event } from "@sentry/types"
-import { ConnectedRouter } from "connected-react-router"
 
 import moment from "moment-timezone"
 import * as React from "react"
@@ -16,9 +15,8 @@ import { ReactQueryDevtools } from "react-query-devtools"
 
 import GAListener from "Shared/google-analytics"
 
-import App from "./App"
 import "./index.css"
-import { history, store } from "./store"
+import { store } from "./store"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -61,11 +59,9 @@ if (!(window as any).Cypress) {
  */
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
-        <App />
-      </GAListener>
-    </ConnectedRouter>
+    <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
+      <h1>Old app</h1>
+    </GAListener>
     <ReactQueryDevtools />
   </Provider>,
   document.getElementById("root") as HTMLElement

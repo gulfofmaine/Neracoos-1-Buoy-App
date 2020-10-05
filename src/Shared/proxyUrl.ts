@@ -11,7 +11,7 @@ export function proxytizeUrl(url: string): string {
   //   }
   // }
   // return "http://www.neracoos.org/proxy2?ajax=1&url=" + encodeURIComponent(url)
-  const proxied = process.env.REACT_APP_PROXY_ROOT + url
+  const proxied = process.env.NEXT_PUBLIC_PROXY_ROOT + url
 
   return proxied
 }

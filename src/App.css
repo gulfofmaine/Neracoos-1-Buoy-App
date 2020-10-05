@@ -21,3 +21,20 @@
   border-top-color: #114a6e;
   border-bottom-color: #114a6e;
 }
+
+.neracoos-nav > nav.navbar {
+  background-color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.neracoos-nav > .navbar-brand > img {
+  height: 30px;
+}
+
+.neracoos-nav > .navbar-dark .navbar-nav .show > .dropdown-menu > a.nav-link {
+  color: var(--primary);
+}
+
+.neracoos-nav > .navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {
+  color: black;
+}

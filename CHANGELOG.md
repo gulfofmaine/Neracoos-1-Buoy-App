@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Convert to using Next.js. This will allow us to do things like Server Side Rendering, and baking in recent data.
+
 Fixes:
 
 ## 0.5.5 - 10/2/2020

@@ -7,8 +7,8 @@ build:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          REACT_APP_PROXY_ROOT: https://proxy.neracoos.org/
-          REACT_APP_ERDDAP_SERVICE: https://buoybarn.neracoos.org
+          NEXT_PUBLIC_ERDDAP_SERVICE: https://buoybarn.neracoos.org
+          NEXT_PUBLIC_PROXY_ROOT: https://proxy.neracoos.org/
 deploy:
   kustomize:
     path: k8s/

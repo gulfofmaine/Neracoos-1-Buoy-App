@@ -1,8 +1,8 @@
 /**
  * Superlatives, or what platforms experiencing the most extreme conditions right now
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
@@ -154,16 +154,20 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
 
   return (
     <React.Fragment>
-      <Link to={url}>
-        <h6>{title}</h6>
+      <Link href={url}>
+        <a>
+          <h6>{title}</h6>
+        </a>
       </Link>
       <div>
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
       </div>
-      <Link to={url}>
-        <div>
-          {platform.id} - {platform.properties.mooring_site_desc}
-        </div>
+      <Link href={url}>
+        <a>
+          <div>
+            {platform.id} - {platform.properties.mooring_site_desc}
+          </div>
+        </a>
       </Link>
     </React.Fragment>
   )

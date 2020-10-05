@@ -22,6 +22,8 @@
     "history": "4.10.1",
     "moment": "2.29.0",
     "moment-timezone": "0.5.31",
+    "next": "^9.5.3",
+    "next-images": "^1.6.0",
     "ol": "5.3.3",
     "prop-types": "^15.0.0",
     "react": "16.13.1",
@@ -38,8 +40,9 @@
     "redux": "4.0.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "next dev src",
+    "start": "node start src",
+    "build": "next build src",
     "test": "react-scripts test",
     "think-before-eject": "react-scripts eject",
     "docs": "typedoc",

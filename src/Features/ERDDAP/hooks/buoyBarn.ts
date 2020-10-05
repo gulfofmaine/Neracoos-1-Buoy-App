@@ -7,8 +7,8 @@ import { defaultQueryConfig } from "./hookConfig"
 /**
  * Load platforms from Buoy Barn
  */
-const getPlatforms = async () => {
-  const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + "/api/platforms/"
+export const getPlatforms = async () => {
+  const url = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE as string) + "/api/platforms/"
 
   Sentry.addBreadcrumb({
     category: "Buoy Barn",
@@ -24,18 +24,20 @@ const getPlatforms = async () => {
   return json
 }
 
+export const BUOY_BARN_PLATFORMS_KEY = "buoybarn-platforms"
+
 /**
  * Load all the platforms
  */
 export function usePlatforms<PlatformFeatureCollection, Error>() {
-  return useQuery("buoybarn-platforms", getPlatforms, defaultQueryConfig)
+  return useQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms, defaultQueryConfig)
 }
 
 /**
  * Load available forecasts from Buoy Barn
  */
 const getForecasts = async () => {
-  const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + "/api/forecasts/"
+  const url = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE as string) + "/api/forecasts/"
 
   Sentry.addBreadcrumb({
     category: "Buoy Barn",
@@ -63,7 +65,7 @@ export function useForecasts() {
  */
 const getForecast = (forecast: ForecastSource, lat: number, lon: number) => {
   return async () => {
-    const url = (process.env.REACT_APP_ERDDAP_SERVICE as string) + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
+    const url = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE as string) + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
 
     Sentry.addBreadcrumb({
       category: "Buoy Barn",

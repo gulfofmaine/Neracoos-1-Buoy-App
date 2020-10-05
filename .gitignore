@@ -38,3 +38,5 @@ build
 docker-hub-secret.yaml
 
 storybook-public
+
+src/.next

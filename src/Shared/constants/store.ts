@@ -1,5 +1,3 @@
-import { RouterState } from "connected-react-router"
-
 import { UnitStoreState } from "Features/Units/types"
 
 /**
@@ -7,5 +5,4 @@ import { UnitStoreState } from "Features/Units/types"
  */
 export interface StoreState {
   unit: UnitStoreState
-  router: RouterState
 }

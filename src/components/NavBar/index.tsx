@@ -1,15 +1,15 @@
 /**
  * Navbar component
  */
+import Link from "next/link"
+import { useRouter } from "next/router"
 import * as React from "react"
-import { Link, NavLink } from "react-router-dom"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
 
 import { RegionDropdown } from "./regionDropdown"
 
-import "./nav.css"
 import neracoosLogo from "./neracoos_logo.png"
 
 const initialState = {
@@ -32,16 +32,18 @@ export default class NeracoosNavBar extends React.Component<object, State> {
 
   public render() {
     return (
-      <div>
+      <div className="neracoos-nav">
         <Navbar dark={true} expand="md">
-          <NavbarBrand tag={Link} to={paths.home}>
-            <img src={neracoosLogo} alt="NERACOOS" />
-          </NavbarBrand>
+          <Link href={"/"} passHref={true}>
+            <NavbarBrand>
+              <img src={neracoosLogo} alt="NERACOOS" />
+            </NavbarBrand>
+          </Link>
           <NavbarToggler onClick={this.toggle} />
 
           <Collapse isOpen={this.state.isOpen} navbar={true}>
             <Nav className="ml-auto" navbar={true}>
-              <NavLink className="nav-link" activeClassName="active" to={paths.home} exact={true}>
+              <NavLink className="nav-link" activeClassName="active" to={paths.home}>
                 Home
               </NavLink>
 
@@ -65,4 +67,20 @@ export default class NeracoosNavBar extends React.Component<object, State> {
       isOpen: !this.state.isOpen,
     })
   }
+}
+
+interface NavLinkProps {
+  to: string
+  className: string
+  activeClassName: string
+}
+
+const NavLink: React.FunctionComponent<NavLinkProps> = ({ to, className, activeClassName, children }) => {
+  const { pathname } = useRouter()
+
+  return (
+    <Link href={to}>
+      <a className={className + (to === pathname ? " " + activeClassName : "")}>{children}</a>
+    </Link>
+  )
 }

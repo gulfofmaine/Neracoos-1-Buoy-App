@@ -12,7 +12,7 @@ import { WagtailContent } from "./constants"
  * @param key unused identifier oof hook
  * @param param1 object with pageId to load from Wagtail content service
  */
-const getPageById = async (key, { pageId }) => {
+export const getWagtailPageById = async (key, { pageId }) => {
   Sentry.addBreadcrumb({
     category: "Wagtail API",
     data: {
@@ -30,11 +30,20 @@ const getPageById = async (key, { pageId }) => {
 }
 
 /**
+ * Generate a query key for loading a Wagtail Content Page
+ *
+ * @param pageId string identifier of the page to load
+ */
+export function wagtailQueryKey(pageId: string) {
+  return ["wagtail-page", { pageId }]
+}
+
+/**
  * React-Query custom hook to load and cache a page from
  * Wagtail content service.
  *
  * @param pageId string identifier of page to load
  */
 export function usePage(pageId: string) {
-  return useQuery(["wagtail-page", { pageId }], getPageById, { staleTime: 15 * 60 * 1000, cacheTime: 60 * 60 * 1000 })
+  return useQuery(wagtailQueryKey(pageId), getWagtailPageById, { staleTime: 15 * 60 * 1000, cacheTime: 60 * 60 * 1000 })
 }

@@ -1,5 +1,6 @@
+import Link from "next/link"
+import { useRouter } from "next/router"
 import * as React from "react"
-import { NavLink } from "react-router-dom"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -53,4 +54,23 @@ export class RegionDropdown extends React.Component<object, State> {
       dropdownOpen: false,
     })
   }
+}
+
+interface NavLinkProps {
+  to: string
+  className: string
+  activeClassName: string
+  onClick: () => void
+}
+
+const NavLink: React.FunctionComponent<NavLinkProps> = ({ to, className, activeClassName, children, onClick }) => {
+  const { pathname } = useRouter()
+
+  return (
+    <Link href={to}>
+      <a className={className + (to === pathname ? " " + activeClassName : "")} onClick={onClick}>
+        {children}
+      </a>
+    </Link>
+  )
 }
