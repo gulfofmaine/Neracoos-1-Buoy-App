@@ -1,11 +1,11 @@
 /**
  * Display platforms filtered by a given bounding box
  */
+import Link from "next/link"
 import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import { Feature } from "@turf/helpers"
 import * as React from "react"
-import { Link } from "react-router-dom"
 import { ListGroup } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -42,12 +42,8 @@ export class ErddapPlatformListBase extends React.Component<BaseProps, object> {
           const { id } = platform
 
           return (
-            <Link
-              key={id}
-              to={urlPartReplacer(paths.platforms.platform, ":id", id as string)}
-              className="list-group-item list-group-item-action"
-            >
-              {id}
+            <Link key={id} href={urlPartReplacer(paths.platforms.platform, ":id", id as string)}>
+              <a className="list-group-item list-group-item-action">{id}</a>
             </Link>
           )
         })

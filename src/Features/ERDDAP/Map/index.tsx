@@ -185,3 +185,5 @@ export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, bounding
     </UsePlatforms>
   )
 }
+
+export default ErddapMap

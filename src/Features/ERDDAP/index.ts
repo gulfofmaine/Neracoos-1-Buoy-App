@@ -1,5 +1,5 @@
 export { ForecastType } from "./types"
-// export { ErddapMap } from "./Map"
+export { ErddapMap } from "./Map/dynamic"
 export { ErddapPlatformList } from "./List"
 export { ErddapPlatformInfoPanel } from "./Platform/Info"
 export { ErddapAllObservationsTable, ErddapObservationTable } from "./Platform/Observations/Table"

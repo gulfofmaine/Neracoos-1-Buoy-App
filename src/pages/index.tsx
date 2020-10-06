@@ -5,12 +5,7 @@ import { dehydrate } from "react-query/hydration"
 import { Col, Row } from "reactstrap"
 
 import { BaseLayout } from "components/Layout"
-import {
-  // ErddapMap,
-  Superlatives,
-  BUOY_BARN_PLATFORMS_KEY,
-  getPlatforms,
-} from "Features/ERDDAP"
+import { ErddapMap, Superlatives, BUOY_BARN_PLATFORMS_KEY, getPlatforms } from "Features/ERDDAP"
 import { WagtailBlock, wagtailQueryKey, getWagtailPageById } from "Features/WagtailApi"
 
 const WAGTAIL_PAGE_ID = "4"
@@ -19,7 +14,7 @@ const Index: React.FunctionComponent = () => (
   <BaseLayout>
     <Row>
       <Col sm={6}>
-        {/* <ErddapMap platformId="" /> */}
+        <ErddapMap platformId="" />
         <Superlatives />
       </Col>
 
