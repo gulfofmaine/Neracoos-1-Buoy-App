@@ -27,6 +27,7 @@ export const PlatformLayout: React.FC<PlatformLayoutProps> = ({ children, pageNa
   return (
     <MapLayout
       pageName={pageName ?? platformId}
+      platformId={platformId}
       rightCol={
         <UsePlatform platformId={platformId}>
           {({ platform }) => (

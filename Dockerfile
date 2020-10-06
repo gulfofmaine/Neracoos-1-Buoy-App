@@ -19,4 +19,4 @@ ARG NEXT_PUBLIC_ERDDAP_SERVICE
 
 RUN yarn build
 
-CMD ["yarn", "serve"]
+CMD ["yarn", "start"]

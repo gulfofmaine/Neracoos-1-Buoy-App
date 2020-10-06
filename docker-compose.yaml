@@ -5,6 +5,9 @@ services:
     build:
       context: .
       target: develop
+      args:
+        NEXT_PUBLIC_ERDDAP_SERVICE: https://buoybarn.neracoos.org
+        NEXT_PUBLIC_PROXY_ROOT: https://proxy.neracoos.org/
     image: gmri/neracoos-mariners-dashboard
     command: "yarn dev"
     stdin_open: true
@@ -16,8 +19,11 @@ services:
       NEXT_PUBLIC_PROXY_ROOT: https://proxy.neracoos.org/
       # REACT_APP_PROXY_ROOT: http://localhost:9090/
     volumes:
-      - .:/usr/src/app:cached
+      - ./src:/usr/src/app/src:cached
+      - ./package.json:/usr/src/app/package.json:cached
+      - ./yarn.lock:/usr/src/app/yarn.lock:cached
       - /usr/src/app/node_modules/
+      - /usr/src/app/src/.next/
   # test:
   #   build: .
   #   image: neracoos-react
