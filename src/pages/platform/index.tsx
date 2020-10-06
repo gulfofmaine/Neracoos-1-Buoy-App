@@ -3,10 +3,9 @@ import { useRouter } from "next/router"
 import React from "react"
 import { QueryCache } from "react-query"
 import { dehydrate } from "react-query/hydration"
-import { Col, Row } from "reactstrap"
 
 import { MapLayout } from "components/Layout"
-import { ErddapPlatformList } from "Features/ERDDAP"
+import { ErddapPlatformList, BUOY_BARN_PLATFORMS_KEY, getPlatforms } from "Features/ERDDAP"
 import { Region } from "Shared/regions"
 import { regionList } from "Shared/constants"
 
@@ -33,6 +32,19 @@ const PlatformPage: React.FunctionComponent = () => {
       {null}
     </MapLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryCache = new QueryCache()
+
+  await queryCache.prefetchQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms)
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryCache),
+    },
+    revalidate: 10 * 60, // Every ten minutes
+  }
 }
 
 export default PlatformPage

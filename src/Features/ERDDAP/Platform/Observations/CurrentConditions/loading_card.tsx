@@ -1,8 +1,8 @@
 /**
  * Card to show when loading data for current conditions
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Card, CardBody, Col } from "reactstrap"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -22,10 +22,12 @@ export const LoadingDataCard: React.FunctionComponent<LoadingDataCardProps> = ({
 
   return (
     <Col {...cardProps}>
-      <Link to={url}>
-        <Card>
-          <CardBody>Loading {timeSeries.data_type.long_name} data</CardBody>
-        </Card>
+      <Link href={url}>
+        <a>
+          <Card>
+            <CardBody>Loading {timeSeries.data_type.long_name} data</CardBody>
+          </Card>
+        </a>
       </Link>
     </Col>
   )

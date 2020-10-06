@@ -121,3 +121,5 @@ function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[],
 
   return null
 }
+
+export default ErddapCurrentPlatformConditions

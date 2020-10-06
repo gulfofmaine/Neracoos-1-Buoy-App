@@ -3,14 +3,19 @@ import React from "react"
 import { Col, Row } from "reactstrap"
 
 import { UsePlatform, PlatformAlerts, ErddapPlatformInfoPanel, ErddapObservationTable } from "Features/ERDDAP"
+import { PlatformFeature } from "Features/ERDDAP/types"
 import { UnitSelector, useUnitSystem } from "Features/Units"
 
 import { MapLayout } from "../Map"
 import { PlatformTabs } from "./Tabs"
-import { platform } from "os"
+
+interface PlatformLayoutRenderProps {
+  platform: PlatformFeature
+}
 
 interface PlatformLayoutProps {
   pageName?: string
+  children: (props: PlatformLayoutRenderProps) => JSX.Element
 }
 
 export const PlatformLayout: React.FC<PlatformLayoutProps> = ({ children, pageName }) => {
@@ -39,8 +44,7 @@ export const PlatformLayout: React.FC<PlatformLayoutProps> = ({ children, pageNa
           <UsePlatform platformId={platformId}>{({ platform }) => <PlatformTabs platform={platform} />}</UsePlatform>
         </Col>
       </Row>
-
-      {children}
+      <UsePlatform platformId={platformId}>{({ platform }) => children({ platform })}</UsePlatform>
     </MapLayout>
   )
 }

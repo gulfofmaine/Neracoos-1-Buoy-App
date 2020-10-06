@@ -1,8 +1,8 @@
 /**
  * Card to display when their is no data available
  */
+import Link from "next/link"
 import * as React from "react"
-import { Link } from "react-router-dom"
 import { Card, CardBody, Col } from "reactstrap"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -22,10 +22,12 @@ export const NoDataCard: React.FunctionComponent<NoDataCardProps> = ({ timeSerie
 
   return (
     <Col {...cardProps}>
-      <Link to={url}>
-        <Card>
-          <CardBody>No data for {timeSeries.data_type.long_name} in the last day</CardBody>
-        </Card>
+      <Link href={url}>
+        <a>
+          <Card>
+            <CardBody>No data for {timeSeries.data_type.long_name} in the last day</CardBody>
+          </Card>
+        </a>
       </Link>
     </Col>
   )

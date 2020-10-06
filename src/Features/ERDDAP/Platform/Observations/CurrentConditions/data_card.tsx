@@ -1,8 +1,8 @@
 /**
  * Generalized single time series data card
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
 import { SmallTimeSeriesChart } from "components/Charts"
@@ -122,25 +122,27 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
 
   return (
     <Col {...cardProps}>
-      <Link to={url}>
-        <Card>
-          <CardHeader>
-            {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
-            {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
-          </CardHeader>
+      <Link href={url}>
+        <a>
+          <Card>
+            <CardHeader>
+              {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
+              {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+            </CardHeader>
 
-          <CardBody style={{ padding: ".2rem" }}>
-            <SmallTimeSeriesChart
-              name={timeSeries.data_type.standard_name}
-              timeSeries={data}
-              unit={dataConverter.displayName(unitSystem)}
-              softMin={bounds[0]}
-              softMax={bounds[1]}
-              data_type={timeSeries.data_type.standard_name}
-              {...{ unitSystem, startTime, endTime }}
-            />
-          </CardBody>
-        </Card>
+            <CardBody style={{ padding: ".2rem" }}>
+              <SmallTimeSeriesChart
+                name={timeSeries.data_type.standard_name}
+                timeSeries={data}
+                unit={dataConverter.displayName(unitSystem)}
+                softMin={bounds[0]}
+                softMax={bounds[1]}
+                data_type={timeSeries.data_type.standard_name}
+                {...{ unitSystem, startTime, endTime }}
+              />
+            </CardBody>
+          </Card>
+        </a>
       </Link>
     </Col>
   )

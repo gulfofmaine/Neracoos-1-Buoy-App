@@ -1,8 +1,8 @@
 /**
  * Wind specific current conditions card
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
 import { round } from "Shared/math"
@@ -122,23 +122,25 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
 
   return (
     <Col {...cardProps}>
-      <Link to={observationLink(platform, "wind")}>
-        <Card>
-          <CardHeader>
-            Winds{speedTitle}
-            {gustTitle}
-            {directionTitle}
-          </CardHeader>
-          <CardBody style={{ padding: ".2rem" }}>
-            <WindTimeSeriesChart
-              days={1}
-              barbsPerDay={24}
-              data={datasets}
-              height={150}
-              {...{ speed, gust, direction, unitSystem, startTime, endTime }}
-            />
-          </CardBody>
-        </Card>
+      <Link href={observationLink(platform, "wind")}>
+        <a>
+          <Card>
+            <CardHeader>
+              Winds{speedTitle}
+              {gustTitle}
+              {directionTitle}
+            </CardHeader>
+            <CardBody style={{ padding: ".2rem" }}>
+              <WindTimeSeriesChart
+                days={1}
+                barbsPerDay={24}
+                data={datasets}
+                height={150}
+                {...{ speed, gust, direction, unitSystem, startTime, endTime }}
+              />
+            </CardBody>
+          </Card>
+        </a>
       </Link>
     </Col>
   )
@@ -154,10 +156,12 @@ interface OtherWindCardProps {
  */
 const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, children }) => (
   <Col {...cardProps}>
-    <Link to={observationLink(platform, "wind")}>
-      <Card>
-        <CardHeader>{children}</CardHeader>
-      </Card>
+    <Link href={observationLink(platform, "wind")}>
+      <a>
+        <Card>
+          <CardHeader>{children}</CardHeader>
+        </Card>
+      </a>
     </Link>
   </Col>
 )
