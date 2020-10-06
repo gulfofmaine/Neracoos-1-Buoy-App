@@ -6,7 +6,12 @@ import { dehydrate } from "react-query/hydration"
 import { Col, Row } from "reactstrap"
 
 import { PlatformLayout } from "components/Layout"
-import { ErddapObservedCondition, BUOY_BARN_PLATFORMS_KEY, getPlatforms } from "Features/ERDDAP"
+import {
+  ErddapObservedCondition,
+  ErddapWindObservedCondition,
+  BUOY_BARN_PLATFORMS_KEY,
+  getPlatforms,
+} from "Features/ERDDAP"
 
 const ObservedCondition: React.FC = () => {
   const { query } = useRouter()
@@ -18,7 +23,11 @@ const ObservedCondition: React.FC = () => {
       {({ platform }) => (
         <Row style={{ marginTop: "1rem" }}>
           <Col>
-            <ErddapObservedCondition platform={platform} standardName={standardName} />
+            {standardName === "wind" ? (
+              <ErddapWindObservedCondition platform={platform} />
+            ) : (
+              <ErddapObservedCondition platform={platform} standardName={standardName} />
+            )}
           </Col>
         </Row>
       )}

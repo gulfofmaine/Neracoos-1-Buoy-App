@@ -43,7 +43,7 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
       loading={
         <Row>
           <Col>
-            <h5>Loading wind data in progress</h5>
+            <Alert>Loading wind data in progress</Alert>
           </Col>
         </Row>
       }
@@ -106,3 +106,5 @@ const WindError: React.FunctionComponent<WindErrorProps> = ({ message }) => (
     </Col>
   </Row>
 )
+
+export default ErddapWindObservedCondition

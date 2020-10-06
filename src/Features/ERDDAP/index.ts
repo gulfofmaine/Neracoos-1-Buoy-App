@@ -6,7 +6,7 @@ export { ErddapAllObservationsTable, ErddapObservationTable } from "./Platform/O
 export { ErddapObservedDropdown } from "./Platform/Observations/Menu"
 export { ErddapMoreInfoDropdown } from "./Platform/MoreInfoMenu"
 export { ErddapObservedCondition } from "./Platform/Observations/Condition/dynamic"
-// export { ErddapWindObservedCondition } from "./Platform/Observations/WindCondition"
+export { ErddapWindObservedCondition } from "./Platform/Observations/WindCondition/dynamic"
 export { ErddapCurrentPlatformConditions } from "./Platform/Observations/CurrentConditions/dynamic"
 export { PlatformAlerts } from "./Platform/Alerts"
 export { ForecastDropdown } from "./ForecastsMetadata"
