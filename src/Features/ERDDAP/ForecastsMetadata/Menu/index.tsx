@@ -5,7 +5,7 @@ import Link from "next/link"
 import React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { useForecasts } from "../../hooks"
@@ -73,8 +73,8 @@ export class ForecastDropdownBase extends React.Component<BaseProps, State> {
       <Link
         key={forecastType}
         href={urlPartReplacer(
-          urlPartReplacer(paths.platforms.forecastType, ":id", platformId),
-          ":type",
+          urlPartReplacer(PATHS.platforms.forecastType, "[id]", platformId),
+          "[type]",
           forecastType.toLowerCase().replace(/ /g, "_")
         )}
       >

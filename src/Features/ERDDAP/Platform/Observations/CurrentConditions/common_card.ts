@@ -1,7 +1,7 @@
 /**
  * Shared utilities and configuration for current conditions cards
  */
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -23,8 +23,8 @@ export const cardProps = {
  */
 export function observationLink(platform: PlatformFeature, observationSlug: string): string {
   return urlPartReplacer(
-    urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-    ":type",
+    urlPartReplacer(PATHS.platforms.observations, "[id]", platform.id as string),
+    "[type]",
     observationSlug
   )
 }

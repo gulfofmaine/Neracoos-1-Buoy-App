@@ -9,6 +9,8 @@ describe("Platfrom 44007", () => {
     cy.contains("Regions").click()
     cy.contains("Gulf Of Maine").click()
 
+    cy.contains("Platforms in Gulf Of Maine")
+
     cy.contains("44007").click()
 
     cy.contains("Station 44007")
@@ -50,7 +52,6 @@ describe("Platfrom 44007", () => {
   it("Shows wave forecast", () => {
     cy.visit(platformUrl)
 
-    cy.contains("Forecasts loading")
     cy.get("#forecast").click()
     cy.get("[href='/platform/44007/forecast/significant_wave_height']").click()
     cy.get("h4").contains("Significant Wave Height Forecast")

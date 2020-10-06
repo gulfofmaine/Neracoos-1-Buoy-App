@@ -10,6 +10,13 @@ export { ErddapWindObservedCondition } from "./Platform/Observations/WindConditi
 export { ErddapCurrentPlatformConditions } from "./Platform/Observations/CurrentConditions/dynamic"
 export { PlatformAlerts } from "./Platform/Alerts"
 export { ForecastDropdown } from "./ForecastsMetadata"
-// export { Forecast } from "./Platform/Forecasts"
-export { UsePlatform, UsePlatforms, getPlatforms, BUOY_BARN_PLATFORMS_KEY } from "./hooks"
+export { Forecast } from "./Platform/Forecasts/dynamic"
+export {
+  UsePlatform,
+  UsePlatforms,
+  getPlatforms,
+  BUOY_BARN_PLATFORMS_KEY,
+  BUOY_BARN_FORECAST_KEY,
+  getForecasts,
+} from "./hooks"
 export { Superlatives } from "./Superlatives"

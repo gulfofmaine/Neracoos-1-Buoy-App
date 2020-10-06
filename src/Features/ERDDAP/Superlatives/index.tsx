@@ -8,7 +8,7 @@ import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 import { useUnitSystem } from "Features/Units"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { round } from "Shared/math"
 import { anHourAgoRounded } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -150,7 +150,7 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
 }) => {
   const dataConverter = converter(timeSeries.data_type.standard_name)
 
-  const url = urlPartReplacer(paths.platforms.platform, ":id", platform.id as string)
+  const url = urlPartReplacer(PATHS.platforms.platform, "[id]", platform.id as string)
 
   return (
     <React.Fragment>

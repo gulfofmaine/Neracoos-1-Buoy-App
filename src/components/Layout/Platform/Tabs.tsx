@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import React from "react"
 import { Nav, NavItem, NavLink } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { ErddapMoreInfoDropdown, ErddapObservedDropdown, ForecastDropdown } from "Features/ERDDAP"
@@ -16,7 +16,7 @@ interface PlatformTabsProps {
 export const PlatformTabs: React.FC<PlatformTabsProps> = ({ platform }) => (
   <Nav tabs={true}>
     <ErddapObservedDropdown platform={platform} />
-    <Tab to={paths.platforms.platform} name="Latest Conditions" id={platform.id} />
+    <Tab to={PATHS.platforms.platform} name="Latest Conditions" id={platform.id} />
     <ForecastDropdown platformId={platform.id} />
     <ErddapMoreInfoDropdown platform={platform} />
   </Nav>
@@ -30,9 +30,7 @@ interface TabProps {
 
 const Tab: React.FC<TabProps> = ({ to, id, name }) => {
   const { pathname } = useRouter()
-  const url = urlPartReplacer(to, ":id", id)
-
-  // TODO: Update paths to use Next.js conventions
+  const url = urlPartReplacer(to, "[id]", id)
 
   return (
     <NavItem>

@@ -5,7 +5,7 @@ import Link from "next/link"
 import React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { DataType } from "../../../types"
@@ -60,8 +60,8 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
       .sort((a, b) => a.long_name.localeCompare(b.long_name))
       .map((d, index) => {
         const url = urlPartReplacer(
-          urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-          ":type",
+          urlPartReplacer(PATHS.platforms.observations, "[id]", platform.id as string),
+          "[type]",
           d.standard_name
         )
 
@@ -75,8 +75,8 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
       })
 
     const windUrl = urlPartReplacer(
-      urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-      ":type",
+      urlPartReplacer(PATHS.platforms.observations, "[id]", platform.id as string),
+      "[type]",
       "wind"
     )
 
@@ -87,7 +87,7 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
         </DropdownToggle>
 
         <DropdownMenu>
-          <Link href={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}>
+          <Link href={urlPartReplacer(PATHS.platforms.all, "[id]", platform.id as string)}>
             <a className="dropdown-item nav-item">
               <b>All Observations</b>
             </a>

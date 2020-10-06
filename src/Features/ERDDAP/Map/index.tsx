@@ -12,7 +12,7 @@ import { Circle, Fill, Stroke, Style } from "ol/style"
 import * as React from "react"
 
 import { BaseMap, esriLayers } from "components/Map"
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
@@ -159,7 +159,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
     const featureId = feature.getId()
     if (featureId) {
       const name: string = featureId.toString()
-      const url = urlPartReplacer(paths.platforms.platform, ":id", name)
+      const url = urlPartReplacer(PATHS.platforms.platform, "[id]", name)
 
       this.props.push(url)
     }

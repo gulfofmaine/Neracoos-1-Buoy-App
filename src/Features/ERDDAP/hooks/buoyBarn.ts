@@ -36,7 +36,7 @@ export function usePlatforms<PlatformFeatureCollection, Error>() {
 /**
  * Load available forecasts from Buoy Barn
  */
-const getForecasts = async () => {
+export const getForecasts = async () => {
   const url = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE as string) + "/api/forecasts/"
 
   Sentry.addBreadcrumb({
@@ -53,11 +53,13 @@ const getForecasts = async () => {
   return json
 }
 
+export const BUOY_BARN_FORECAST_KEY = "buoybarn-forecasts"
+
 /**
  * Load forecasts
  */
 export function useForecasts() {
-  return useQuery("buoybarn-forecasts", getForecasts, defaultQueryConfig)
+  return useQuery(BUOY_BARN_FORECAST_KEY, getForecasts, defaultQueryConfig)
 }
 
 /**

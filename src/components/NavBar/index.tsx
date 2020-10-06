@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import * as React from "react"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 
 import { RegionDropdown } from "./regionDropdown"
 
@@ -43,14 +43,14 @@ export default class NeracoosNavBar extends React.Component<object, State> {
 
           <Collapse isOpen={this.state.isOpen} navbar={true}>
             <Nav className="ml-auto" navbar={true}>
-              <NavLink className="nav-link" activeClassName="active" to={paths.home}>
+              <NavLink className="nav-link" activeClassName="active" to={PATHS.home}>
                 Home
               </NavLink>
 
               <RegionDropdown />
 
               <NavItem>
-                <NavLink className="nav-link" activeClassName="active" to={paths.about}>
+                <NavLink className="nav-link" activeClassName="active" to={PATHS.about}>
                   About
                 </NavLink>
               </NavItem>

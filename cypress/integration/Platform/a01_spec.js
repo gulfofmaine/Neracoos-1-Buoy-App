@@ -9,6 +9,8 @@ describe("Platform A01", () => {
     cy.contains("Regions").click()
     cy.contains("Gulf Of Maine").click()
 
+    cy.contains("Platforms in Gulf Of Maine")
+
     cy.contains("A01").click()
 
     cy.contains("Station A01")
@@ -29,14 +31,14 @@ describe("Platform A01", () => {
     cy.contains("Latest Conditions")
     cy.contains("Air Temperature -")
 
-    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row").children().its("length").should("be.gte", 4)
+    cy.get("#currentConditions > .col > .row").children().its("length").should("be.gte", 4)
   })
 
   it("Shows wind plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
-    cy.get('[href="/platform/A01 - 44029/observations/wind"]').first().click()
+    cy.get('[href="/platform/A01%20-%2044029/observations/wind"]').first().click()
     cy.get("h4").contains("Wind")
     cy.get("svg.highcharts-root")
     cy.get("svg.highcharts-root").contains("Gust").click()
@@ -48,9 +50,8 @@ describe("Platform A01", () => {
   it("Shows wave forecast", () => {
     cy.visit(platformUrl)
 
-    cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get("[href='/platform/A01 - 44029/forecast/significant_wave_height']").click()
+    cy.get("[href='/platform/A01%20-%2044029/forecast/significant_wave_height']").click()
     cy.get("h4").contains("Significant Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Feet")

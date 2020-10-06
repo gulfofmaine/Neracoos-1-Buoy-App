@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import * as React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { regionList } from "Shared/regions"
 
 const initialState = {
@@ -24,7 +24,7 @@ export class RegionDropdown extends React.Component<object, State> {
 
   public render() {
     const regions = regionList.map((region, key) => {
-      const to = paths.platforms.root + "?region=" + region.slug
+      const to = PATHS.platforms.root + "?region=" + region.slug
       return (
         <NavLink key={key} className="nav-link dropdown-item btn" activeClassName="" to={to} onClick={this.close}>
           {region.name}

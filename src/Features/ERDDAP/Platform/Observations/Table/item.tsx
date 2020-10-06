@@ -5,7 +5,7 @@ import Link from "next/link"
 import React from "react"
 import { Tooltip } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { round } from "Shared/math"
 import { urlPartReplacer } from "Shared/urlParams"
 import { UnitSystem } from "Features/Units/types"
@@ -75,8 +75,8 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
       <React.Fragment>
         <Link
           href={urlPartReplacer(
-            urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-            ":type",
+            urlPartReplacer(PATHS.platforms.observations, "[id]", platform.id as string),
+            "[type]",
             selected.data_type.standard_name
           )}
         >

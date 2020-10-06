@@ -7,9 +7,7 @@ import { Col, Row } from "reactstrap"
 
 import { PlatformLayout } from "components/Layout"
 import {
-  ErddapAllObservationsTable,
-  ErddapObservedCondition,
-  ErddapWindObservedCondition,
+  Forecast as ErddapForecast,
   BUOY_BARN_PLATFORMS_KEY,
   getPlatforms,
   BUOY_BARN_FORECAST_KEY,
@@ -17,28 +15,18 @@ import {
 } from "Features/ERDDAP"
 import { useUnitSystem } from "Features/Units"
 
-const ObservedCondition: React.FC = () => {
+const Forecast: React.FC = () => {
   const { query } = useRouter()
   const unitSystem = useUnitSystem()
 
-  const standardName = query.type as string
+  const forecastType = query.type as string
 
   return (
     <PlatformLayout>
       {({ platform }) => (
         <Row style={{ marginTop: "1rem" }}>
           <Col>
-            {standardName === "all" ? (
-              <ErddapAllObservationsTable platform={platform} unitSystem={unitSystem} />
-            ) : (
-              <React.Fragment>
-                {standardName === "wind" ? (
-                  <ErddapWindObservedCondition platform={platform} />
-                ) : (
-                  <ErddapObservedCondition platform={platform} standardName={standardName} />
-                )}
-              </React.Fragment>
-            )}
+            <ErddapForecast platform={platform} forecast_type={forecastType} unitSystem={unitSystem} />
           </Col>
         </Row>
       )}
@@ -67,4 +55,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export default ObservedCondition
+export default Forecast

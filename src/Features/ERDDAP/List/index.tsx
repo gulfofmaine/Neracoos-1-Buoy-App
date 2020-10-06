@@ -8,7 +8,7 @@ import { Feature } from "@turf/helpers"
 import * as React from "react"
 import { ListGroup } from "reactstrap"
 
-import { paths } from "Shared/constants"
+import { PATHS } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
@@ -42,7 +42,7 @@ export class ErddapPlatformListBase extends React.Component<BaseProps, object> {
           const { id } = platform
 
           return (
-            <Link key={id} href={urlPartReplacer(paths.platforms.platform, ":id", id as string)}>
+            <Link key={id} href={urlPartReplacer(PATHS.platforms.platform, "[id]", id as string)}>
               <a className="list-group-item list-group-item-action">{id}</a>
             </Link>
           )
