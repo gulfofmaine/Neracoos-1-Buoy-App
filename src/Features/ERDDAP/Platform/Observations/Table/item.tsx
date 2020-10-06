@@ -1,8 +1,8 @@
 /**
  * A single row in the current or all conditions tables
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Tooltip } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -74,21 +74,21 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
     return (
       <React.Fragment>
         <Link
-          to={urlPartReplacer(
+          href={urlPartReplacer(
             urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
             ":type",
             selected.data_type.standard_name
           )}
-          style={itemStyle}
-          className="list-group-item"
         >
-          <span
-            // href="#"
-            id={tooltipId}
-          >
-            <b>{name}:</b> {typeof value === "number" ? round(value as number, 1) : value}{" "}
-            {unit_converter.displayName(unitSystem)}
-          </span>
+          <a style={itemStyle} className="list-group-item">
+            <span
+              // href="#"
+              id={tooltipId}
+            >
+              <b>{name}:</b> {typeof value === "number" ? round(value as number, 1) : value}{" "}
+              {unit_converter.displayName(unitSystem)}
+            </span>
+          </a>
         </Link>
         {selected.time ? (
           <Tooltip

@@ -5,11 +5,8 @@ import { QueryCache } from "react-query"
 import { dehydrate } from "react-query/hydration"
 import { Col, Row } from "reactstrap"
 
-import { BaseLayout } from "components/Layout"
-import {
-  // ErddapMap,
-  ErddapPlatformList,
-} from "Features/ERDDAP"
+import { MapLayout } from "components/Layout"
+import { ErddapPlatformList } from "Features/ERDDAP"
 import { Region } from "Shared/regions"
 import { regionList } from "Shared/constants"
 
@@ -23,16 +20,18 @@ const PlatformPage: React.FunctionComponent = () => {
   }
 
   return (
-    <BaseLayout>
-      <Row>
-        <Col sm={6}>Map here</Col>
-
-        <Col sm={6}>
+    <MapLayout
+      pageName={region?.name}
+      boundingBox={region?.bbox}
+      rightCol={
+        <React.Fragment>
           <h2>Platforms in {region ? region.name : ""}</h2>
           <ErddapPlatformList boundingBox={region?.bbox} />
-        </Col>
-      </Row>
-    </BaseLayout>
+        </React.Fragment>
+      }
+    >
+      {null}
+    </MapLayout>
   )
 }
 

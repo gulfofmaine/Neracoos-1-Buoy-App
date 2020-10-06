@@ -1,8 +1,8 @@
 /**
  * Dropdown menu for various types of observations
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -66,8 +66,10 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
         )
 
         return (
-          <Link className="dropdown-item nav-item" key={index} to={url} onClick={this.close}>
-            {d.long_name}
+          <Link href={url} key={index}>
+            <a className="dropdown-item nav-item" onClick={this.close}>
+              {d.long_name}
+            </a>
           </Link>
         )
       })
@@ -85,16 +87,17 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
         </DropdownToggle>
 
         <DropdownMenu>
-          <Link
-            className="dropdown-item nav-item"
-            to={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}
-          >
-            <b>All Observations</b>
+          <Link href={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}>
+            <a className="dropdown-item nav-item">
+              <b>All Observations</b>
+            </a>
           </Link>
           {dropdownItems}
           {platform.properties.readings.filter((d) => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
-            <Link className="dropdown-item nav-item" to={windUrl} onClick={this.close}>
-              Wind
+            <Link href={windUrl}>
+              <a className="dropdown-item nav-item" onClick={this.close}>
+                Wind
+              </a>
             </Link>
           ) : null}
         </DropdownMenu>

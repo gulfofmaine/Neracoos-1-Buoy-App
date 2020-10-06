@@ -1,8 +1,8 @@
 /**
  * Dropdown menu for accessing forecasts via buoy barn
  */
-import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
+import React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -72,15 +72,15 @@ export class ForecastDropdownBase extends React.Component<BaseProps, State> {
     const forecastItems = forecastNames.map((forecastType) => (
       <Link
         key={forecastType}
-        className="dropdown-item nav-item"
-        onClick={this.close}
-        to={urlPartReplacer(
+        href={urlPartReplacer(
           urlPartReplacer(paths.platforms.forecastType, ":id", platformId),
           ":type",
           forecastType.toLowerCase().replace(/ /g, "_")
         )}
       >
-        {forecastType}
+        <a className="dropdown-item nav-item" onClick={this.close}>
+          {forecastType}
+        </a>
       </Link>
     ))
 

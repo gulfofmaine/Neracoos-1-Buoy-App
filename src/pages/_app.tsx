@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "react-query-devtools"
 import { store } from "../store"
 
 import "bootstrap/dist/css/bootstrap.min.css"
+import "ol/ol.css"
 import "../App.css"
 
 const queryCache = new QueryCache()

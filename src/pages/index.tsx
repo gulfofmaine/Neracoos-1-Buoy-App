@@ -2,27 +2,17 @@ import { GetStaticProps } from "next"
 import React from "react"
 import { QueryCache } from "react-query"
 import { dehydrate } from "react-query/hydration"
-import { Col, Row } from "reactstrap"
 
-import { BaseLayout } from "components/Layout"
-import { ErddapMap, Superlatives, BUOY_BARN_PLATFORMS_KEY, getPlatforms } from "Features/ERDDAP"
+import { MapLayout } from "components/Layout"
+import { Superlatives, BUOY_BARN_PLATFORMS_KEY, getPlatforms } from "Features/ERDDAP"
 import { WagtailBlock, wagtailQueryKey, getWagtailPageById } from "Features/WagtailApi"
 
 const WAGTAIL_PAGE_ID = "4"
 
 const Index: React.FunctionComponent = () => (
-  <BaseLayout>
-    <Row>
-      <Col sm={6}>
-        <ErddapMap platformId="" />
-        <Superlatives />
-      </Col>
-
-      <Col sm={6}>
-        <WagtailBlock pageId={WAGTAIL_PAGE_ID} />
-      </Col>
-    </Row>
-  </BaseLayout>
+  <MapLayout belowMap={<Superlatives />} rightCol={<WagtailBlock pageId={WAGTAIL_PAGE_ID} />}>
+    {null}
+  </MapLayout>
 )
 
 export const getStaticProps: GetStaticProps = async () => {
