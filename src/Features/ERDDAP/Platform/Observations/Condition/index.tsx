@@ -88,3 +88,5 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     </Row>
   )
 }
+
+export default ErddapObservedCondition
