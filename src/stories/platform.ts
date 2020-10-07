@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { PlatformFeatureWithDatasets } from "Features/ERDDAP/types"
-import { forecastToStandardNames } from "Features/ERDDAP/Platform/Forecasts/Page"
+import { forecastToStandardNames } from "Features/ERDDAP/Platform/Forecasts"
 
 const platform_base = {
   id: "M01",
