@@ -9,6 +9,9 @@ up: down
 down:
 	docker-compose down
 
+build:
+	docker-compose exec client yarn build
+
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)
 	docker system prune -a

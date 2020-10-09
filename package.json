@@ -43,7 +43,7 @@
     "dev": "next dev src",
     "start": "node start src",
     "build": "next build src",
-    "test": "react-scripts test",
+    "test": "jest",
     "think-before-eject": "react-scripts eject",
     "docs": "typedoc",
     "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage",
@@ -57,6 +57,9 @@
     "@storybook/addon-storyshots": "^6.0.26",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.26",
+    "@testing-library/dom": "^7.24.5",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
     "@types/enzyme": "3.10.7",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "26.0.14",
@@ -64,10 +67,13 @@
     "@types/react": "16.9.50",
     "@types/react-dom": "16.9.8",
     "@types/react-test-renderer": "16.9.3",
+    "babel-jest": "^26.5.2",
     "babel-loader": "^8.1.0",
     "codacy-coverage": "3.4.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.5",
+    "jest": "^26.5.2",
+    "jest-dom": "^4.0.0",
     "jest-fetch-mock": "3.0.3",
     "react-is": "^16.13.1",
     "react-query-devtools": "^2.5.1",
@@ -100,9 +106,23 @@
     ]
   },
   "jest": {
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/src/test/__mocks__/fileMock.js"
+    },
     "transform": {
       "^.+\\.[tj]sx?$": "babel-jest",
       "^.+\\.mdx?$": "@storybook/addon-docs/jest-transform-mdx"
-    }
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "setupFiles": [
+      "<rootDir>/src/setupTests.ts"
+    ]
   }
 }

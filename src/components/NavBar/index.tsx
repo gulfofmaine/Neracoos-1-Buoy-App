@@ -4,7 +4,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import * as React from "react"
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
+import { Collapse, Nav, Navbar, NavbarToggler, NavItem } from "reactstrap"
 
 import { PATHS } from "Shared/constants"
 
@@ -35,9 +35,9 @@ export default class NeracoosNavBar extends React.Component<object, State> {
       <div className="neracoos-nav">
         <Navbar dark={true} expand="md">
           <Link href={"/"} passHref={true}>
-            <NavbarBrand>
+            <a className="navbar-brand">
               <img src={neracoosLogo} alt="NERACOOS" />
-            </NavbarBrand>
+            </a>
           </Link>
           <NavbarToggler onClick={this.toggle} />
 

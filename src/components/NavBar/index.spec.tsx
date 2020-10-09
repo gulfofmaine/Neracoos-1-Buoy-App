@@ -1,24 +1,18 @@
 import { mount } from "enzyme"
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 
 import NavBar from "."
 
 import { regions } from "Shared/regions"
+import { withTestRouter } from "test/router"
 
 describe("The NavBar should have our primary links", () => {
   let nav: any
 
   beforeEach(() => {
-    nav = mount(
-      <MemoryRouter>
-        <NavBar />
-      </MemoryRouter>
-    )
+    const navBar = withTestRouter(<NavBar />)
+    nav = mount(navBar)
   })
-  {
-    /* const nav = mount(<MemoryRouter><NavBar /><MemoryRouter></MemoryRouter>) */
-  }
 
   it("Has an about item", () => {
     expect(nav.contains("About")).toEqual(true)
@@ -36,10 +30,10 @@ describe("The NavBar should have our primary links", () => {
       regions.GulfOfMaine,
       regions.LongIslandSound,
       regions.NarragansettBay,
-      regions.Newfoundland
-    ].map(r => r.name)
+      regions.Newfoundland,
+    ].map((r) => r.name)
 
-    ourRegions.forEach(r => {
+    ourRegions.forEach((r) => {
       expect(nav.contains(r)).toEqual(true)
     })
   })
