@@ -67,7 +67,7 @@
     "enzyme-adapter-react-16": "1.15.5",
     "jest-fetch-mock": "3.0.3",
     "react-is": "^16.13.1",
-    "react-query-devtools": "^2.5.1",
+    "react-query-devtools": "^2.6.1",
     "react-test-renderer": "16.13.1",
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.4",
