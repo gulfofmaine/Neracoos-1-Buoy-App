@@ -14,6 +14,7 @@ import { itemStyle, TableItem } from "./item"
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
   unitSystem: UnitSystem
+  laterThan?: Date
 }
 
 const timeDelta = 60 * 60 * 1000
@@ -22,12 +23,27 @@ const timeDelta = 60 * 60 * 1000
  * Recent platform observation values
  * @param platform
  */
-export const ErddapObservationTable: React.FunctionComponent<Props> = ({ platform, unitSelector, unitSystem }) => {
-  const times = platform.properties.readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
+export const ErddapObservationTable: React.FunctionComponent<Props> = ({ platform, unitSelector, unitSystem, laterThan }) => {
+  const readings = platform.properties.readings.filter(d => {
+    if (d.time) {
+      if (laterThan) {
+        return laterThan <= new Date(d.time)
+      }
+
+      return true
+    }
+    return false
+  })
+
+
+
+  const times = readings.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   /** Sixty minute window for updated times */
   const timeWindow = times.length > 0 ? new Date(times[times.length - 1].getTime() - timeDelta) : undefined
+
+  const commonProps = {platform, readings, unitSystem, later_than: timeWindow}
 
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
@@ -42,73 +58,57 @@ export const ErddapObservationTable: React.FunctionComponent<Props> = ({ platfor
             day: "numeric",
           })}
         </ListGroupItem>
-      ) : null}
+      ) : (
+        <ListGroupItem style={itemStyle}>There is no recent data from {platform.id}</ListGroupItem>
+      )}
 
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.windSpeed}
         name="Wind Speed"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.windGust}
         name="Wind Gusts"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.windDirection}
         name="Wind Direction"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
 
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.waveHeight}
         name="Wave Height"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
 
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.wavePeriod}
         name="Wave Period"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
 
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.waveDirection}
         name="Wave Direction"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.airTemp}
         name="Air Temperature"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.waterTemp}
         name="Water Temperature"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
       <TableItem
-        platform={platform}
+        {...commonProps}
         data_type={conditions.visibility}
         name="Visibility"
-        unitSystem={unitSystem}
-        later_then={timeWindow}
       />
 
       {unitSelector ? (

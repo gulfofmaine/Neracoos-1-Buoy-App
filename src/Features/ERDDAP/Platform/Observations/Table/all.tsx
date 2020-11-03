@@ -42,6 +42,7 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
           <TableItem
             key={index}
             platform={platform}
+            readings={platform.properties.readings}
             data_type={dataset.data_type.standard_name}
             name={name}
             unitSystem={unitSystem}
