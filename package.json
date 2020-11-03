@@ -20,7 +20,7 @@
     "convert-units": "2.3.4",
     "highcharts": "7.2.2",
     "history": "4.10.1",
-    "moment": "2.29.0",
+    "moment": "2.29.1",
     "moment-timezone": "0.5.31",
     "ol": "5.3.3",
     "prop-types": "^15.0.0",
