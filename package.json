@@ -22,7 +22,7 @@
     "history": "4.10.1",
     "moment": "2.29.0",
     "moment-timezone": "0.5.31",
-    "next": "^9.5.3",
+    "next": "^10.0.0",
     "next-images": "^1.6.0",
     "ol": "5.3.3",
     "prop-types": "^15.0.0",
@@ -41,7 +41,7 @@
   },
   "scripts": {
     "dev": "next dev src",
-    "start": "node start src",
+    "start": "next start src",
     "build": "next build src",
     "test": "jest",
     "think-before-eject": "react-scripts eject",
@@ -115,7 +115,7 @@
       "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/src/test/__mocks__/fileMock.js"
     },
     "transform": {
-      "^.+\\.[tj]sx?$": "babel-jest",
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
       "^.+\\.mdx?$": "@storybook/addon-docs/jest-transform-mdx"
     },
     "transformIgnorePatterns": [

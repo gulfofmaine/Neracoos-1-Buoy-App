@@ -6,6 +6,12 @@
 
 export const GA_TRACKING_ID = process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined
 
+declare global {
+  interface Window {
+    gtag: any
+  }
+}
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url) => {
   window.gtag("config", GA_TRACKING_ID, {

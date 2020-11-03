@@ -13,8 +13,6 @@ import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { ReactQueryDevtools } from "react-query-devtools"
 
-import GAListener from "Shared/google-analytics"
-
 import "./index.css"
 import { store } from "./store"
 
@@ -59,9 +57,7 @@ if (!(window as any).Cypress) {
  */
 ReactDOM.render(
   <Provider store={store}>
-    <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
-      <h1>Old app</h1>
-    </GAListener>
+    <h1>Old app</h1>
     <ReactQueryDevtools />
   </Provider>,
   document.getElementById("root") as HTMLElement

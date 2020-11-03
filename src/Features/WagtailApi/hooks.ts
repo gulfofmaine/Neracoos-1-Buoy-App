@@ -45,5 +45,5 @@ export function wagtailQueryKey(pageId: string) {
  * @param pageId string identifier of page to load
  */
 export function usePage(pageId: string) {
-  return useQuery(wagtailQueryKey(pageId), getWagtailPageById, { staleTime: 15 * 60 * 1000, cacheTime: 60 * 60 * 1000 })
+  return useQuery<WagtailContent, Error>(wagtailQueryKey(pageId), getWagtailPageById, { staleTime: 15 * 60 * 1000, cacheTime: 60 * 60 * 1000 })
 }

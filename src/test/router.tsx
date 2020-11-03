@@ -27,6 +27,7 @@ export function withTestRouter(tree: React.ReactElement, router: Partial<NextRou
       value={{
         route,
         pathname,
+        basePath: "/",
         query,
         asPath,
         push,
