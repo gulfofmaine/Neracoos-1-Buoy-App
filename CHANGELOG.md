@@ -8,6 +8,9 @@ Changes:
 
 Fixes:
 
+- Filter recent conditions table by date.
+- Filter nulls on the client side from ERDDAP requests rather than using constraints to remove them.
+
 ## 0.5.5 - 10/2/2020
 
 Changes:

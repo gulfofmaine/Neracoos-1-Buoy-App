@@ -4,14 +4,14 @@ import { MemoryRouter } from "react-router-dom"
 
 import { UnitSystem } from "Features/Units/types"
 
-import { PlatformFeatureWithDatasets } from "../../../types"
+import { PlatformFeature } from "../../../types"
 import { TableItem } from "./item"
 
 describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.english} />
+        <TableItem platform={platform} readings={platform.properties.readings} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.english} />
       </MemoryRouter>
     )
 
@@ -21,7 +21,7 @@ describe("TableItem", () => {
   it("Rounds the wind speed", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.metric} />
+        <TableItem platform={platform} readings={platform.properties.readings} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.metric} />
       </MemoryRouter>
     )
 
@@ -31,7 +31,7 @@ describe("TableItem", () => {
   it("Returns null when there is not a matching datatype", () => {
     const wrapper = mount(
       <MemoryRouter>
-        <TableItem platform={platform} data_type="air_temp" unitSystem={UnitSystem.english} name="Air Temp" />
+        <TableItem platform={platform} readings={platform.properties.readings} data_type="air_temp" unitSystem={UnitSystem.english} name="Air Temp" />
       </MemoryRouter>
     )
 
@@ -46,7 +46,7 @@ describe("TableItem", () => {
     const wrapper = mount(
       <MemoryRouter>
         <TableItem
-          platform={platform}
+          platform={platform} readings={platform.properties.readings}
           data_type={["significant_wave_height", "significant_height_of_wind_and_swell_waves_3"]}
           unitSystem={UnitSystem.english}
           name="Wave Height"
@@ -60,7 +60,7 @@ describe("TableItem", () => {
   })
 })
 
-const platform: PlatformFeatureWithDatasets = {
+const platform: PlatformFeature = {
   geometry: {
     coordinates: [0, 0],
     type: "Point",

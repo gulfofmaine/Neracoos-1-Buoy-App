@@ -92,9 +92,9 @@ export function resultToTimeseries(result: ErddapJson, variables: string[]): Dat
 
     output.push({
       name: variable,
-      timeSeries: result.table.rows.map((row) => ({
+      timeSeries: result.table.rows.filter(row => row[varIndex] !== null).map((row) => ({
         reading: row[varIndex] as number,
-        time: new Date(row[timeIndex]),
+        time: new Date(row[timeIndex] as string),
       })),
       unit: result.table.columnUnits[varIndex],
     })
