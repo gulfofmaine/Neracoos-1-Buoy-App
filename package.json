@@ -14,7 +14,6 @@
     "@types/react-redux": "7.1.11",
     "@types/react-responsive": "8.0.2",
     "@types/react-router-dom": "5.1.6",
-    "@types/reactstrap": "8.7.2",
     "bootstrap": "4.5.3",
     "connected-react-router": "6.6.1",
     "convert-units": "2.3.4",
