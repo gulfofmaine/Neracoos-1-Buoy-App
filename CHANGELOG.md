@@ -8,8 +8,45 @@ Changes:
 
 Fixes:
 
+## 0.5.6 - 11/4/2020
+
+Changes:
+
+- Dependency Updates
+  - Sentry react from 5.24.2 to 5.27.2
+  - Moment from 2.29.0 to 2.29.1
+  - React from 16.13.1 to 16.14.0
+  - React app polyfill from 1.0.6 to 2.0.0
+  - React DOM from 16.13.1 to 16.14.0
+  - React GA from 3.1.2 to 3.2.0
+  - React Query from 2.23.0 to 2.26.1
+  - React Redux from 7.21 to 7.2.2
+  - Reactstrap from 8.6.0 to 8.7.1
+  - React Query Devtools from 2.5.1 to 2.6.1
+  - React Test Render from 16.13.1 to 16.14.0
+  - Cypress from 5.3.0 to 5.5.0
+  - Storybook
+    - Addon A11y from 6.0.22 to 6.0.28
+    - Addon Essentials from 6.0.22 to 6.0.28
+    - Addon Storyshots from 6.0.22 to 6.0.28
+    - React from 6.0.22 to 6.0.28
+  - Types
+    - Ol frm 6.4.1 to 6.4.2
+    - React Redux from 7.1.9 to 7.1.11
+    - React-router from 5.1.5 to 5.1.6
+    - Removed Reactstrap types as they are now included
+    - Enzyme from 3.10.7 to 3.10.8
+    - Jest from 26.0.14 to 26.0.15
+    - Node from 14.11.2 to 14.14.6
+    - React from 16.9.50 to 16.9.55
+    - React DOM from 16.9.8 to 16.9.9
+    
+
+Fixes:
+
 - Filter recent conditions table by date.
 - Filter nulls on the client side from ERDDAP requests rather than using constraints to remove them.
+- Update tests to use new method for setting environment variables in Github Actions.
 
 ## 0.5.5 - 10/2/2020
 
