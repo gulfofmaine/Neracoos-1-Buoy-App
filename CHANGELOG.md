@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Catch when there is an invalid data type and send a message to Sentry.
+
 ## 0.5.6 - 11/4/2020
 
 Changes:
