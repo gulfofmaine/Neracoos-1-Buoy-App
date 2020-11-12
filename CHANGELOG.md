@@ -8,6 +8,25 @@ Changes:
 
 Fixes:
 
+## 0.5.7 - 11/12/2020
+
+Changes:
+
+- Dependency Updates:
+  - Node from 14.11.0 to 15.2.0
+  - Nginx from 1.19.2 to 1.19.4
+  - React-GA from 3.2.0 to 3.2.1
+  - React Query from 2.26.1 to 2.26.2
+  - React Query Devtools from 2.6.1 to 2.6.3
+  - Cypress from 5.5.0 to 5.6.0
+  - Storybook
+    - Preset Create React App from 3.1.4 to 3.1.5
+  - Types
+    - Node from 14.14.6 to 14.14.7
+    - React from 16.9.55 to 16.9.56
+
+Fixes:
+
 - Catch when there is an invalid data type and send a message to Sentry.
 
 ## 0.5.6 - 11/4/2020
@@ -42,7 +61,6 @@ Changes:
     - Node from 14.11.2 to 14.14.6
     - React from 16.9.50 to 16.9.55
     - React DOM from 16.9.8 to 16.9.9
-    
 
 Fixes:
 
