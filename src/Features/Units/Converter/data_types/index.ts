@@ -11,6 +11,8 @@ import { WindSpeed } from "./_wind_speed"
 
 import { air_pressure } from "./air_pressure"
 
+export { Passthrough }
+
 interface DataTypesObject {
   [key: string]: DataTypeConversion
 }
