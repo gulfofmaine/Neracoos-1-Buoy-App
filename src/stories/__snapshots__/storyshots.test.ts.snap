@@ -327,7 +327,7 @@ exports[`Storyshots ERDDAP/ObservedCondition/Configurable English 1`] = `
        variable in the
        
       <a
-        href="http://www.neracoos.org/erddap/tabledap/M01_met_all.html?time%2Cvisibility&visibility_qc=0"
+        href="http://www.neracoos.org/erddap/tabledap/M01_met_all.html?time%2Cvisibility&visibility_qc%3D0"
       >
         M01_met_all
          dataset
