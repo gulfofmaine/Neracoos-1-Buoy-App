@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Use appropriate URI encoding for constraints to better support ERDDAP 2.x.
+
 ## 0.5.7 - 11/12/2020
 
 Changes:
