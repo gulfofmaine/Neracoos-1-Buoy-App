@@ -37,17 +37,7 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   }
 
   return (
-    <UseDatasets
-      timeSeries={timeSeries}
-      error={<WindError message="Error loading wind data" />}
-      loading={
-        <Row>
-          <Col>
-            <h5>Loading wind data in progress</h5>
-          </Col>
-        </Row>
-      }
-    >
+    <UseDatasets timeSeries={timeSeries}>
       {({ datasets }) => <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets }} />}
     </UseDatasets>
   )

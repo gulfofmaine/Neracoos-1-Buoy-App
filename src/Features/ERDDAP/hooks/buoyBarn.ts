@@ -93,6 +93,6 @@ const getForecast = (forecast: ForecastSource, lat: number, lon: number) => {
 export function useForecast(lat: number, lon: number, forecast?: ForecastSource) {
   return useQuery(["buoybarn-forecast", { forecast, lat, lon }], getForecast(forecast!, lat, lon), {
     ...defaultQueryConfig,
-    enabled: forecast,
+    enabled: forecast?.source_url ? true : false,
   })
 }

@@ -3,7 +3,7 @@
  */
 import * as Sentry from "@sentry/react"
 import { useState } from "react"
-import { useQuery, QueryResult } from "react-query"
+import { useQuery } from "react-query"
 
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
@@ -17,7 +17,7 @@ import { defaultQueryConfig } from "./hookConfig"
 
 const FORBIDDEN = "Forbidden"
 
-const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
+export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
   return async () => {
     const url = urlBuilder([timeSeries], startTime)
     const proxyUrl = proxytizeUrl(url)
@@ -69,22 +69,26 @@ function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): string 
 }
 
 /** Fetch a single dataset given a time series */
-export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date): QueryResult<DataTimeSeries, Error> {
+export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date) {
   const [enabled, setEnabled] = useState<boolean>(true)
 
   startTime = startTime ?? aWeekAgoRounded()
 
-  return useQuery(["erddap-dataset", timeSeries, startTime], getDataset(timeSeries!, startTime), {
-    ...defaultQueryConfig,
-    enabled,
-    retry: (failureCount: number, error: Error) => {
-      if (error.message === FORBIDDEN) {
-        setEnabled(false)
-        return false
-      }
-      return true
-    },
-  })
+  return useQuery<DataTimeSeries, Error>(
+    ["erddap-dataset", timeSeries, startTime],
+    getDataset(timeSeries!, startTime),
+    {
+      ...defaultQueryConfig,
+      enabled,
+      retry: (failureCount: number, error: Error) => {
+        if (error.message === FORBIDDEN) {
+          setEnabled(false)
+          return false
+        }
+        return true
+      },
+    }
+  )
 }
 
 export function groupByServerDatasetConstraint(readings: PlatformTimeSeries[]): FetchGroup[] {
@@ -114,7 +118,7 @@ export function groupByServerDatasetConstraint(readings: PlatformTimeSeries[]): 
   return results
 }
 
-const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date) => {
+export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date) => {
   const url = urlBuilder(fetchGroup.datasets, startTime)
   const proxyUrl = proxytizeUrl(url)
 
@@ -174,20 +178,24 @@ const getDatasets = (timeSeries: PlatformTimeSeries[], startTime?: Date) => {
 }
 
 /** Fetch multiple datasets given multiple time series */
-export function useDatasets(timeSeries: PlatformTimeSeries[], startTime?: Date): QueryResult<DataTimeSeries[], Error> {
+export function useDatasets(timeSeries: PlatformTimeSeries[], startTime?: Date) {
   const [enabled, setEnabled] = useState<boolean>(true)
 
   startTime = startTime ?? aWeekAgoRounded()
 
-  return useQuery(["erddap-datasets", { timeSeries, startTime }], getDatasets(timeSeries, startTime), {
-    ...defaultQueryConfig,
-    enabled,
-    retry: (failureCount: number, error: Error) => {
-      if (error.message === FORBIDDEN) {
-        setEnabled(false)
-        return false
-      }
-      return true
-    },
-  })
+  return useQuery<DataTimeSeries[], Error>(
+    ["erddap-datasets", { timeSeries, startTime }],
+    getDatasets(timeSeries, startTime),
+    {
+      ...defaultQueryConfig,
+      enabled,
+      retry: (failureCount: number, error: Error) => {
+        if (error.message === FORBIDDEN) {
+          setEnabled(false)
+          return false
+        }
+        return true
+      },
+    }
+  )
 }

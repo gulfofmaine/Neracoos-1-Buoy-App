@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Update React-Query to v3 and use native multi-query support.
+
 Fixes:
 
 ## 0.5.7 - 11/12/2020

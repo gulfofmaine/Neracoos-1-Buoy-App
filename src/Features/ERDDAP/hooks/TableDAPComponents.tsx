@@ -2,22 +2,18 @@
  * Render prop components to standardize the loading of datasets
  */
 import * as React from "react"
+import { useQueries } from "react-query"
 import { Alert } from "reactstrap"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
+import { aWeekAgoRounded } from "Shared/time"
 
 import { DataTimeSeries } from "Shared/timeSeries"
+import { defaultQueryConfig } from "./hookConfig"
 import { PlatformTimeSeries } from "../types"
 
-import { useDataset, useDatasets } from "./tabledap"
+import { groupByServerDatasetConstraint, useDataset, getDatasetGroup } from "./tabledap"
 
-interface BaseProps {
-  /** Override default loading alert */
-  loading?: JSX.Element
-  /** Override default error alert */
-  error?: JSX.Element
-}
-
-interface UseDatasetsProps extends BaseProps {
+interface UseDatasetsProps {
   children: (props: UseDatasetsRenderProps) => JSX.Element
   timeSeries: PlatformTimeSeries[]
   startTime?: Date
@@ -27,46 +23,66 @@ export interface UseDatasetsRenderProps {
   datasets: DataTimeSeries[]
 }
 
+interface UseQueryGroupResult {
+  isLoading: boolean
+  data: DataTimeSeries[] | undefined | unknown
+  error: Error | undefined | null | unknown
+}
+
 /**
  * Load and display multiple datasets for multiple time series
  *
  * @param children Children component to pass the datasets to
  * @param timeSeries Multiple time series to load the dataset for
  * @param startTime Load dataset back to this date
- * @param loading Override loading alert
- * @param error Override error alert
  */
-export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
-  children,
-  timeSeries,
-  startTime,
-  loading,
-  error,
-}) => {
-  const { isLoading, data } = useDatasets(timeSeries, startTime)
+export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({ children, timeSeries, startTime }) => {
+  const fetchGroups = groupByServerDatasetConstraint(timeSeries)
 
-  if (isLoading) {
-    if (loading) {
-      return loading
+  startTime = startTime ?? aWeekAgoRounded()
+
+  const results: UseQueryGroupResult[] | undefined = useQueries(
+    fetchGroups.map((group) => ({
+      ...defaultQueryConfig,
+      queryKey: ["erddap-dataset", group.datasets, startTime],
+      queryFn: () => getDatasetGroup(group, startTime),
+    }))
+  )
+
+  if (results === undefined) {
+    return <h4>Results is not defined</h4>
+  }
+
+  const loadingGroups = results.filter((group) => group.isLoading)
+  const errorGroups = results.filter((group) => group.error)
+  const loadedGroups = results.filter((group) => group.data)
+
+  const loadedDatasets: DataTimeSeries[] = []
+
+  for (let group of loadedGroups) {
+    if (group.data) {
+      for (let dataset of group.data as DataTimeSeries[]) {
+        loadedDatasets.push(dataset)
+      }
     }
-
-    return <Alert color="primary">Loading data</Alert>
   }
 
-  if (data) {
-    const datasets = data as DataTimeSeries[]
+  return (
+    <React.Fragment>
+      {loadingGroups.length > 0 ? <Alert color="primary">Loading data</Alert> : null}
 
-    return children({ datasets })
-  }
+      {errorGroups.length > 0 ? <Alert color="warning">Error loading datasets</Alert> : null}
 
-  if (error) {
-    return error
-  }
-
-  return <Alert color="warning">Error loading datasets</Alert>
+      {loadedDatasets.length > 0 ? children({ datasets: loadedDatasets }) : null}
+    </React.Fragment>
+  )
 }
 
-interface UseDatasetProps extends BaseProps {
+interface UseDatasetProps {
+  /** Override default loading alert */
+  loading?: JSX.Element
+  /** Override default error alert */
+  error?: JSX.Element
   children: (props: UseDatasetRenderProps) => JSX.Element
   timeSeries: PlatformTimeSeries
   startTime?: Date
