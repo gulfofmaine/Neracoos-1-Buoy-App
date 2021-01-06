@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Set proxy.neracoos.org to not be proxied by Cypress.
+
 ## 0.5.7 - 11/12/2020
 
 Changes:
