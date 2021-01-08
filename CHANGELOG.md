@@ -10,6 +10,9 @@ Changes:
 
 Fixes:
 
+- Tests for current conditions to deal with timing of data loading.
+- Added test for a simpler ERDDAP data load.
+
 ## 0.5.7 - 11/12/2020
 
 Changes:

@@ -29,7 +29,7 @@ describe("Platfrom 44007", () => {
     cy.contains("Latest Conditions")
     cy.contains("Winds -")
 
-    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row").children().its("length").should("be.gte", 4)
+    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 4)
 
     cy.contains("Knots")
   })
