@@ -6,8 +6,12 @@ Additions:
 
 Changes:
 
+- Update React-Query to v3 and use native multi-query support.
+
 Fixes:
 
+- Tests for current conditions to deal with timing of data loading.
+- Added test for a simpler ERDDAP data load.
 - Update app manifest to allow users to clip specific pages.
 
 ## 0.5.7 - 11/12/2020

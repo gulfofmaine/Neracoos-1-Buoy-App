@@ -46,11 +46,7 @@ export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) =
   }
 
   return (
-    <UseDatasets
-      timeSeries={timeSeries}
-      loading={<OtherWindCard platform={platform}>Loading wind data</OtherWindCard>}
-      error={<OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>}
-    >
+    <UseDatasets timeSeries={timeSeries}>
       {({ datasets }) => {
         const filteredDatasets = datasets
           .map((ds) => ({

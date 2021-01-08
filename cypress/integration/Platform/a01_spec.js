@@ -29,7 +29,17 @@ describe("Platform A01", () => {
     cy.contains("Latest Conditions")
     cy.contains("Air Temperature -")
 
-    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) > .row").children().its("length").should("be.gte", 4)
+    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 4)
+  })
+
+  it("Shows air temp plot", () => {
+    cy.visit(platformUrl)
+
+    cy.contains("Air Temperature:").click()
+
+    cy.get("h4").contains("Air Temperature")
+
+    cy.contains("Data from the air_temperature variable in the A01_met_all dataset.")
   })
 
   it("Shows wind plot", () => {
