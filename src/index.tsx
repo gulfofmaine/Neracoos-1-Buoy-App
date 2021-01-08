@@ -12,7 +12,8 @@ import moment from "moment-timezone"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import { ReactQueryDevtools } from "react-query-devtools"
+import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 import GAListener from "Shared/google-analytics"
 
@@ -55,18 +56,22 @@ if (!(window as any).Cypress) {
   })
 }
 
+const queryClient = new QueryClient()
+
 /**
  * Render our root element of the App.
  * Everything else descends from this render.
  */
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
-        <App />
-      </GAListener>
-    </ConnectedRouter>
-    <ReactQueryDevtools />
-  </Provider>,
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
+          <App />
+        </GAListener>
+      </ConnectedRouter>
+      <ReactQueryDevtools />
+    </Provider>
+  </QueryClientProvider>,
   document.getElementById("root") as HTMLElement
 )
