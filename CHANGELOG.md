@@ -10,6 +10,7 @@ Changes:
 
 Fixes:
 
+- Use appropriate URI encoding for constraints to better support ERDDAP 2.x.
 - Tests for current conditions to deal with timing of data loading.
 - Added test for a simpler ERDDAP data load.
 - Update app manifest to allow users to clip specific pages.

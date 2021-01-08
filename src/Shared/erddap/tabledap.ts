@@ -18,9 +18,9 @@ export function constraintsToString(constraints: Constraints): string {
     if (constraints.hasOwnProperty(key)) {
       const constraint = constraints[key]
       if (typeof constraint === "number") {
-        constraintStr += "&" + key + constraints[key]
+        constraintStr += "&" + encodeURIComponent(key + constraints[key])
       } else {
-        constraintStr += "&" + key + "%22" + constraints[key] + "%22"
+        constraintStr += "&" + encodeURIComponent(key + '"' + constraints[key] + '"')
       }
     }
   }
@@ -73,7 +73,10 @@ export function tabledapHtmlUrl(
  * @param constraints Constraint object to filter dataset with.
  */
 export function tabledapUrl(server: string, dataset: string, variables: string[], constraints: Constraints): string {
-  return `${baseTabledapUrl(server, dataset)}.json?${variableString(variables)}${constraintsToString(constraints)}`
+  const variableStr = variableString(variables)
+  const constraintStr = constraintsToString(constraints)
+  const url = `${baseTabledapUrl(server, dataset)}.json?${variableStr}${constraintStr}`
+  return url
 }
 
 /**
@@ -92,10 +95,12 @@ export function resultToTimeseries(result: ErddapJson, variables: string[]): Dat
 
     output.push({
       name: variable,
-      timeSeries: result.table.rows.filter(row => row[varIndex] !== null).map((row) => ({
-        reading: row[varIndex] as number,
-        time: new Date(row[timeIndex] as string),
-      })),
+      timeSeries: result.table.rows
+        .filter((row) => row[varIndex] !== null)
+        .map((row) => ({
+          reading: row[varIndex] as number,
+          time: new Date(row[timeIndex] as string),
+        })),
       unit: result.table.columnUnits[varIndex],
     })
   }
