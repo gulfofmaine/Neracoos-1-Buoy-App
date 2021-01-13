@@ -11,7 +11,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^4.7.8",
     "@types/ol": "6.4.2",
-    "@types/react-redux": "7.1.11",
+    "@types/react-redux": "7.1.15",
     "@types/react-responsive": "8.0.2",
     "@types/react-router-dom": "5.1.7",
     "bootstrap": "4.5.3",
@@ -33,7 +33,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "^3.4.3",
     "react-use-dimensions": "^1.2.1",
-    "reactstrap": "8.7.1",
+    "reactstrap": "8.8.1",
     "redux": "4.0.5"
   },
   "scripts": {
@@ -72,7 +72,7 @@
     "storybook-react-router": "^1.0.8",
     "typedoc": "0.18.0",
     "typescript": "3.8.3",
-    "wait-on": "5.2.0"
+    "wait-on": "5.2.1"
   },
   "optionalDependencies": {
     "cypress": "6.2.1"
