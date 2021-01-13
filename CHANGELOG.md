@@ -6,7 +6,39 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.5.8 - 1/13/2021
+
+Changes:
+
+- Update favicon.
 - Update React-Query to v3 and use native multi-query support.
+- Dependency Updates
+  - Node from 15.2.0 to 15.3.0
+  - Sentry React from 5.27.2 to 5.30.0
+  - Moment Timezone from 0.5.31 too 0.5.32
+  - React Google Analytics from 3.2.1 to 3.3.0
+  - React Query from 2.26.2 to 3.5.1
+  - Reactstrap from 8.7.1 to 8.8.1
+  - Wait on from 5.2.0 to 5.2.1
+  - Cypress from 5.6.0 to 6.2.1
+  - Storybook
+    - Addon A11y from 6.0.28 to 6.1.14
+    - Addon Storyshots from 6.0.28 to 6.1.14
+    - React from 6.0.28 to 6.1.14
+  - Turf
+    - BBox-Polygon from 6.0.1 to 6.2.0
+    - Boolean Contains from 6.0.1 to 6.2.0
+    - Helpers from 6.1.4 to 6.2.0
+  - Types
+    - React Redux from 7.1.11 to 7.1.15
+    - React Router DOM from 5.1.6 to 5.1.7
+    - Jest from 26.015 to 26.0.20
+    - Node from 14.14.7 to 14.14.20
+    - React from 16.9.56 to 16.14.2
+    - React DOM from 16.9.9 to 17.0.0
+    - React Test Renderer from 16.9.3 to 17.0.0
 
 Fixes:
 
@@ -15,6 +47,7 @@ Fixes:
 - Added test for a simpler ERDDAP data load.
 - Update app manifest to allow users to clip specific pages.
 - Use a local CORS proxy for testing.
+- Archive Cypress screenshots and videos if there are test failures.
 
 ## 0.5.7 - 11/12/2020
 
