@@ -103,7 +103,7 @@ jobs:
         run: docker run -d -p 9090:9090 -e "ALLOWED=http://localhost:3000" gmri/cors-proxy:latest
 
       - name: Start container
-        run: client docker-compose run -d -e REACT_APP_PROXY_ROOT=http://localhost:9090/ -p 3000:3000 client yarn start
+        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
 
       - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
