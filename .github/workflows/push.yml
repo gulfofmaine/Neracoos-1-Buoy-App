@@ -99,8 +99,11 @@ jobs:
       - name: Install Cypress and wait on
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
+      - name: CORS Proxy container
+        run: docker run -p 9090:9090 -e -d "ALLOWED=http://localhost:3000" gmri/cors-proxy
+
       - name: Start container
-        run: docker-compose up -d client
+        run: client docker-compose run -d -e REACT_APP_PROXY_ROOT=http://localhost:9090/ -p 3000:3000 client yarn start
 
       - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
