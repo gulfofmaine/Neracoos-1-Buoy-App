@@ -14329,10 +14329,10 @@ react-popper@^2.2.4:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
-react-query@^3.5.9:
-  version "3.5.9"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.5.9.tgz#2c001b5235e1afa11166a629c8645c9dd9464741"
-  integrity sha512-thlxrnl7cDg6qmk+N2ADjDVDJkoU3c7ZFJivYph0XoBDgkRIpb3A+tpqH7o6gu7JXZum9lfX1o294UfYfTiwvg==
+react-query@^3.5.12:
+  version "3.5.12"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.5.12.tgz#953b4dc7192cee0cabf9e81e9777630b9417167c"
+  integrity sha512-e7cqRHoEiA8iew9oyC8rrPnGsn/+vCFt2+2TKErWHptY+3lTqhYaETqh621LQcSYX3EhA8iU1sUCijRDQf929g==
   dependencies:
     "@babel/runtime" "^7.5.5"
     match-sorter "^6.0.2"
