@@ -11,7 +11,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^4.7.8",
     "@types/ol": "6.4.2",
-    "@types/react-redux": "7.1.11",
+    "@types/react-redux": "7.1.15",
     "@types/react-responsive": "8.0.2",
     "@types/react-router-dom": "5.1.7",
     "bootstrap": "4.5.3",
