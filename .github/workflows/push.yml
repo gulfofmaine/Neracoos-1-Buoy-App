@@ -99,18 +99,39 @@ jobs:
       - name: Install Cypress and wait on
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
+      - name: CORS Proxy container
+        run: docker run -d -p 9090:9090 -e "ALLOWED=http://localhost:3000" gmri/cors-proxy:latest
+
       - name: Start container
-        run: docker-compose up -d client
+        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
 
       - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
         timeout-minutes: 1
 
       - name: Run Cypress
-        run: npx cypress run
+        run: npx cypress run --config video=false,retries=1 
         timeout-minutes: 15
+      
+      - name: Archive test screenshots
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
 
       - name: Run Cypress and send results to dashboard if the previous run failed
         run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
         if: failure()
+      
+      - name: Archive test videos
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
+      - name: Docker-compose Logs
+        run: docker-compose logs
+        if: always()
