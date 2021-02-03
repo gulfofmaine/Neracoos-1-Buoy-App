@@ -97,7 +97,13 @@
     "transform": {
       "^.+\\.[tj]sx?$": "babel-jest",
       "^.+\\.mdx?$": "@storybook/addon-docs/jest-transform-mdx"
-    }
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}",
+      "!**/node_modules/**",
+      "!**/*.stories.tsx",
+      "!**.storybook/**"
+    ]
   },
   "eslintConfig": {
     "extends": [
