@@ -3,6 +3,8 @@
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
 up: down
+	rm -r node_modules/ || true
+	rm -r .eslintcache || true
 	docker-compose up -d --build
 	docker-compose logs -f
 

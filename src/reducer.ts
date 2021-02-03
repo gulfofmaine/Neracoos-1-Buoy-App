@@ -14,8 +14,10 @@ import { unitReducer as unit } from "Features/Units"
 /**
  * Redux reducer
  */
-export default (history: History) =>
+const reducer = (history: History) =>
   combineReducers<StoreState, Action & LocationChangeAction>({
     router: connectRouter(history),
     unit,
   })
+
+export default reducer

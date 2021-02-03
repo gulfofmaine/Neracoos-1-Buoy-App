@@ -27,8 +27,8 @@ const getPlatforms = async () => {
 /**
  * Load all the platforms
  */
-export function usePlatforms<PlatformFeatureCollection, Error>() {
-  return useQuery("buoybarn-platforms", getPlatforms, defaultQueryConfig)
+export function usePlatforms() {
+  return useQuery<PlatformFeatureCollection, Error>("buoybarn-platforms", getPlatforms, defaultQueryConfig)
 }
 
 /**

@@ -4,7 +4,7 @@ import { UnitSystem } from "./types"
 // Action types
 
 export interface UnitSwitch {
-  type: actionTypes.UNIT_SWITCH
+  type: typeof actionTypes.UNIT_SWITCH
   system: UnitSystem
 }
 
@@ -19,6 +19,6 @@ export type UnitActions = UnitSwitch
 export const unitSwitch = (system: UnitSystem): UnitSwitch => {
   return {
     system,
-    type: actionTypes.UNIT_SWITCH
+    type: actionTypes.UNIT_SWITCH,
   }
 }
