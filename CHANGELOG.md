@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Use the same definition of old data (24 hours) for the map and the platform pages.
+
 Fixes:
 
 ## 0.5.8 - 1/13/2021
