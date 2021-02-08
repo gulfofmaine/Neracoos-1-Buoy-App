@@ -58,12 +58,7 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
     <Row>
       <Col>
         <h4>Wind</h4>
-        <WindTimeSeriesChart
-          barbsPerDay={5}
-          data={datasets}
-          legend={true}
-          {...{ speed, gust, direction, unitSystem }}
-        />
+        <WindTimeSeriesChart barbsPerDay={5} legend={true} {...{ speed, gust, direction, unitSystem }} />
         {timeSeries.length > 0 ? (
           <p>
             Data from the {timeSeries.map((ts) => ts.variable).join(", ")}{" "}

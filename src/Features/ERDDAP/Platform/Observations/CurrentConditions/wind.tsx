@@ -129,7 +129,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
             <WindTimeSeriesChart
               days={1}
               barbsPerDay={24}
-              data={datasets}
+              legend={false}
               height={150}
               {...{ speed, gust, direction, unitSystem, startTime, endTime }}
             />

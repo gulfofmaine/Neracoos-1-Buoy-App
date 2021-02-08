@@ -7,6 +7,7 @@ Additions:
 Changes:
 
 - Use the same definition of old data (24 hours) for the map and the platform pages.
+- Update Highcharts and use native types.
 
 Fixes:
 
