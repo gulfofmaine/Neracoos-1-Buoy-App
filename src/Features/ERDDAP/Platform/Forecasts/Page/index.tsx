@@ -5,7 +5,7 @@ import { Point } from "@turf/helpers"
 import * as React from "react"
 import { Alert, Row, Col } from "reactstrap"
 
-import { MultipleLargeTimeSeriesChart } from "components/Charts"
+import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
 import { round } from "Shared/math"
 import { aDayAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
@@ -164,7 +164,9 @@ export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ dat
   const units = Array.from(new Set(data.map((ts) => ts.unit)))
 
   if (units.length > 0) {
-    return <MultipleLargeTimeSeriesChart unit={units[0]} data={data} scatter={direction_forecast_types.has(type)} />
+    return (
+      <MultipleLargeTimeSeriesChartCurrent unit={units[0]} data={data} scatter={direction_forecast_types.has(type)} />
+    )
   }
   return null
 }
