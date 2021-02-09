@@ -209,62 +209,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP/CurrentConditions/Data Card Configurable 1`] = `
-<div
-  className="col-sm-6 col-md-4"
-  style={
-    Object {
-      "paddingTop": "1rem",
-    }
-  }
->
-  <a
-    href="/platform/M01/observations/max_wave_height"
-    onClick={[Function]}
-  >
-    <div
-      className="card"
-    >
-      <div
-        className="card-header"
-      >
-        Maximum Wave Height
-         - 
-        8.2
-         
-        Feet
-         
-        
-      </div>
-      <div
-        className="card-body"
-        style={
-          Object {
-            "padding": ".2rem",
-          }
-        }
-      >
-        <div
-          className="chart "
-        />
-      </div>
-    </div>
-  </a>
-</div>
-`;
-
-exports[`Storyshots ERDDAP/Forecast/Configurable English 1`] = `
-<div
-  className="chart "
-/>
-`;
-
-exports[`Storyshots ERDDAP/Forecast/Configurable Metric 1`] = `
-<div
-  className="chart "
-/>
-`;
-
 exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
 <div
   className="card"
@@ -301,38 +245,6 @@ exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
         University of Maine
       </a>
       <br />
-    </p>
-  </div>
-</div>
-`;
-
-exports[`Storyshots ERDDAP/ObservedCondition/Configurable English 1`] = `
-<div
-  className="row"
->
-  <div
-    className="col"
-  >
-    <h4>
-      Visibility
-       
-      
-    </h4>
-    <div
-      className="chart "
-    />
-    <p>
-      Data from the 
-      visibility
-       variable in the
-       
-      <a
-        href="http://www.neracoos.org/erddap/tabledap/M01_met_all.html?time%2Cvisibility&visibility_qc%3D0"
-      >
-        M01_met_all
-         dataset
-      </a>
-      .
     </p>
   </div>
 </div>

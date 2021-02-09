@@ -29,6 +29,7 @@ english.args = {
   data_type: "wind_speed",
   name: "Wind Speed",
   platform,
+  readings: platform.properties.readings,
 }
 
 export const metric = (args) => <TableItem {...args} />
@@ -38,4 +39,5 @@ metric.args = {
   data_type: "wind_speed",
   name: "Wind Speed",
   platform,
+  readings: platform.properties.readings,
 }

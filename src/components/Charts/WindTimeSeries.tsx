@@ -25,6 +25,11 @@ import { compassDirection } from "Shared/unitConversion"
 
 const dataConverter = converter("wind_speed")
 
+interface DirectionPoint {
+  direction: number
+  beaufort: string
+}
+
 function pointFormatterMaker(unitSystem: UnitSystem) {
   /**
    * Allow our tooltip to convert windspeeds to units that people might be more used to.
@@ -32,23 +37,25 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
    * @param this Highcharts position value
    */
   // eslint-disable-next-line
-  function pointFormatter(this: any) {
+  function pointFormatter(this: Highcharts.TooltipFormatterContextObject, tooltip: Highcharts.Tooltip): string {
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
-      this.points
-        .map((p) => {
-          if (p.series.name === "Direction") {
-            const direction = compassDirection(p.point.direction)
-            return `<b>${p.series.name}:</b> ${Math.round(p.point.direction)} (${direction[1]}) (${p.point.beaufort})`
-          }
-          return `<b>${p.series.name}:</b> ${p.y} knots ${round(
-            dataConverter.convertToNumber(p.y, unitSystem),
-            1
-          )} ${dataConverter.displayName(unitSystem)}`
-        })
-        .join("<br />")
+      this.points!.map((p) => {
+        if (p.series.name === "Direction") {
+          const direction = compassDirection(((p.point as unknown) as DirectionPoint).direction)
+          return `<b>${p.series.name}:</b> ${Math.round(((p.point as unknown) as DirectionPoint).direction)} (${
+            direction[1]
+          }) (${((p.point as unknown) as DirectionPoint).beaufort})`
+        }
+        return `<b>${p.series.name}:</b> ${p.y} knots ${round(
+          dataConverter.convertToNumber(p.y, unitSystem),
+          1
+        )} ${dataConverter.displayName(unitSystem)}`
+      }).join("<br />")
     )
   }
+
+  return pointFormatter
 }
 
 const plotOptions = {
@@ -65,7 +72,7 @@ interface Props {
   /** Number of days back to filter dataset by */
   days?: number
   /** Hight to try to limit chart to */
-  height: number
+  height?: number
   /** Should the chart show a legend */
   legend: boolean
   /** Home many wind barbs should the chart show for each day */
@@ -155,7 +162,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
     const speedTimes = speedTs.map((r) => r.time.toISOString())
     directionTs = directionTs.filter((r) => speedTimes.filter((d) => d === r.time.toISOString()).length > 0)
 
-    if (speedTs.length === directionTs.length) {
+    if (speedTs.length === directionTs.length && 0 < speedTs.length) {
       // Figure out how many samples should be skipped between readings to manage chart density
       const days = (speedTs[speedTs.length - 1].time.valueOf() - speedTs[0].time.valueOf()) / 1000 / 60 / 60 / 24
       const stride = Math.round(speedTs.length / (barbsPerDay * days))
