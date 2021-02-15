@@ -100,7 +100,8 @@ export function resultToTimeseries(result: ErddapJson, variables: string[]): Dat
         .map((row) => ({
           reading: row[varIndex] as number,
           time: new Date(row[timeIndex] as string),
-        })),
+        }))
+        .sort((a, b) => a.time.valueOf() - b.time.valueOf()),
       unit: result.table.columnUnits[varIndex],
     })
   }
