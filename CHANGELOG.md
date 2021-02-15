@@ -6,8 +6,40 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.5.9 - 2/14/2021
+
+Changes:
+
 - Use the same definition of old data (24 hours) for the map and the platform pages.
 - Update Highcharts and use native types.
+- Dependency Updates:
+  - Bootstrap from 4.5.3 to 4.6.0
+  - Cypress from 6.2.1 to 6.4.0
+  - Enzyme adapter React 16 from 1.15.5 to 1.15.6
+  - Highcharts from 7.2.2 to <9.0.0
+  - Moment Timezone from 0.5.32 to 0.5.33
+  - Node from 15.3.0 to 15.8.0
+  - React JSX Highcharts from 3.5.1 to 4.2.0
+  - React Query from 3.5.12 to 3.8.3
+  - React Scripts from 3.4.3 to 4.0.2
+  - Reactstrap from 8.8.1 to 8.9.0
+  - Sentry React from 5.30.0 to 6.1.0
+  - Storybook
+    - Addon A11y from 6.1.14
+    - Addon Storyshots from 6.1.14 to 6.1.17
+    - React from 6.1.14 to 6.1.17
+  - Turf
+    - BBox Polygon from 6.2.0 to 6.3.0
+    - Boolean Contains from 6.2.0 to 6.3.0
+    - Helpers from 6.2.0 to 6.3.0
+  - Types
+    - Node from 14.14.20 to 14.14.27
+    - React from 16.14.2 to 16.14.3
+    - React Redux from 7.1.15 to 7.1.16
+  - Typedoc from 0.18.0 to 0.20.24
+  - Typescript from 3.8.3 to 4.1.5
 
 Fixes:
 
