@@ -11,6 +11,8 @@ Changes:
 
 Fixes:
 
+- Sort loaded ERDDAP data by time, otherwise Highcharts may explode.
+
 ## 0.5.8 - 1/13/2021
 
 Changes:
