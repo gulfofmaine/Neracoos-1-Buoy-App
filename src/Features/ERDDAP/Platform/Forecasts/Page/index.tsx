@@ -8,12 +8,13 @@ import { Alert, Row, Col } from "reactstrap"
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
 import { round } from "Shared/math"
 import { aDayAgoRounded } from "Shared/time"
-import { DataTimeSeries } from "Shared/timeSeries"
+import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { useDataset, useForecast, useForecastMeta, useForecasts } from "../../../hooks"
+import { useDataset, useForecastMeta, useForecasts } from "../../../hooks"
 import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { useUnitSystem } from "Features/Units"
 
 interface Props {
   platform: PlatformFeature
@@ -26,9 +27,11 @@ interface Props {
  */
 export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   const standardNames = forecastToStandardNames[forecast_type]
-  const timeSeries = platform.properties.readings.find((r) => standardNames.has(r.data_type.standard_name))
+  const timeSeries: PlatformTimeSeries | undefined = platform.properties.readings.find(
+    (r) => standardNames?.has(r.data_type.standard_name) ?? false
+  )
 
-  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecastMeta()
+  const { data: forecastsInfo } = useForecastMeta()
   const { data: dataset } = useDataset(timeSeries)
 
   const forecasts = (forecastsInfo as ForecastSource[])?.filter(
@@ -40,94 +43,56 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
 
   const results = useForecasts(lat, lon, forecasts ?? [])
 
-  // return <h4>Testing</h4>
+  const forecastResults = (forecasts || []).map((f, index) => ({
+    meta: f,
+    result: results[index],
+  }))
 
-  return <LoadForecastInfo {...props} {...{ platform, forecast_type, timeSeries }} />
-}
+  const chartData: DataTimeSeries[] = []
 
-interface LoadInfoProps extends Props {
-  timeSeries?: PlatformTimeSeries
-}
+  if (dataset && timeSeries) {
+    const aDayAgo = aDayAgoRounded()
 
-/**
- * Load all the forecasts, and load a matching time series if available.
- */
-const LoadForecastInfo = ({ timeSeries, forecast_type, ...props }: LoadInfoProps) => {
-  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecastMeta()
-  const { data: dataset } = useDataset(timeSeries)
-
-  const forecasts = (forecastsInfo as ForecastSource[])?.filter(
-    (f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type
-  )
-
-  const forecastInfo = forecastsInfo?.find((f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type)
-
-  if (isLoadingForecasts) {
-    return <Alert>Loading forecast metadata</Alert>
+    chartData.push({
+      ...dataset,
+      timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
+      name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name}`,
+    })
   }
 
-  if (forecastInfo) {
-    return <LoadForecast {...props} {...{ timeSeries, dataset, forecast_type, forecastInfo }} />
-  }
-
-  return <Alert color="warning">Error loading forecast info</Alert>
-}
-
-interface LoadForecastProps extends LoadInfoProps {
-  forecastInfo: ForecastSource
-  dataset?: DataTimeSeries
-}
-
-/**
- * Load the forecast itself
- */
-const LoadForecast = ({
-  forecastInfo,
-  platform,
-  unitSystem,
-  timeSeries,
-  dataset,
-  forecast_type,
-}: LoadForecastProps) => {
-  const point = platform.geometry as Point
-  const [lon, lat] = point.coordinates
-
-  const { isLoading, data } = useForecast(lat, lon, forecastInfo)
-
-  if (isLoading) {
-    return <Alert>Loading forecast</Alert>
-  }
-
-  if (data) {
-    const forecastDataset: DataTimeSeries = {
-      timeSeries: data,
-      name: forecastInfo.name,
-      unit: forecastInfo.units,
-    }
-
-    const datasets = [forecastDataset]
-
-    if (timeSeries && dataset) {
-      const aDayAgo = aDayAgoRounded()
-
-      datasets.push({
-        ...dataset,
-        timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
-        name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name}`,
+  forecastResults.forEach(({ result, meta }) => {
+    if (result?.data) {
+      chartData.push({
+        timeSeries: result.data as ReadingTimeSeries[],
+        name: meta.name,
+        unit: meta.units,
       })
     }
+  })
 
+  const unitSystem = useUnitSystem()
+
+  if (forecasts === undefined || forecasts.length < 1) {
     return (
       <Row>
         <Col>
-          <h4>{forecastInfo.forecast_type} Forecast</h4>
-          <ForecastChart data={datasets} unitSystem={unitSystem} type={forecast_type} />
+          <Alert color="warning">
+            <h4>No forecast available for {forecast_type}</h4>
+          </Alert>
         </Col>
       </Row>
     )
   }
 
-  return <Alert color="warning">Unable to load forecasts</Alert>
+  return (
+    <Row>
+      <Col>
+        <h4>{forecasts[0].forecast_type} Forecast</h4>
+
+        <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
+      </Col>
+    </Row>
+  )
 }
 
 /**
