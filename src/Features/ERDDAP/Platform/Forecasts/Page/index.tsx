@@ -2,7 +2,7 @@
  * Load and display forecasts
  */
 import { Point } from "@turf/helpers"
-import * as React from "react"
+import React from "react"
 import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
@@ -12,7 +12,7 @@ import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { useDataset, useForecast, useForecasts } from "../../../hooks"
+import { useDataset, useForecast, useForecastMeta, useForecasts } from "../../../hooks"
 import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 interface Props {
@@ -24,9 +24,23 @@ interface Props {
 /**
  * Match relevant forecast to platform datasets
  */
-export const Forecast: React.FunctionComponent<Props> = ({ platform, forecast_type, ...props }) => {
+export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   const standardNames = forecastToStandardNames[forecast_type]
   const timeSeries = platform.properties.readings.find((r) => standardNames.has(r.data_type.standard_name))
+
+  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecastMeta()
+  const { data: dataset } = useDataset(timeSeries)
+
+  const forecasts = (forecastsInfo as ForecastSource[])?.filter(
+    (f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type
+  )
+
+  const point = platform.geometry as Point
+  const [lon, lat] = point.coordinates
+
+  const results = useForecasts(lat, lon, forecasts ?? [])
+
+  // return <h4>Testing</h4>
 
   return <LoadForecastInfo {...props} {...{ platform, forecast_type, timeSeries }} />
 }
@@ -38,9 +52,13 @@ interface LoadInfoProps extends Props {
 /**
  * Load all the forecasts, and load a matching time series if available.
  */
-const LoadForecastInfo: React.FunctionComponent<LoadInfoProps> = ({ timeSeries, forecast_type, ...props }) => {
-  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecasts()
+const LoadForecastInfo = ({ timeSeries, forecast_type, ...props }: LoadInfoProps) => {
+  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecastMeta()
   const { data: dataset } = useDataset(timeSeries)
+
+  const forecasts = (forecastsInfo as ForecastSource[])?.filter(
+    (f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type
+  )
 
   const forecastInfo = forecastsInfo?.find((f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type)
 
@@ -63,14 +81,14 @@ interface LoadForecastProps extends LoadInfoProps {
 /**
  * Load the forecast itself
  */
-const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
+const LoadForecast = ({
   forecastInfo,
   platform,
   unitSystem,
   timeSeries,
   dataset,
   forecast_type,
-}) => {
+}: LoadForecastProps) => {
   const point = platform.geometry as Point
   const [lon, lat] = point.coordinates
 

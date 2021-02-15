@@ -8,6 +8,8 @@ Changes:
 
 - Use the same definition of old data (24 hours) for the map and the platform pages.
 - Update Highcharts and use native types.
+- Show the current time on the forecast plots.
+- Support loading multiple forecasts via `useQueries()`.
 
 Fixes:
 
