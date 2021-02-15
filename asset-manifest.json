@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "./static/css/main.0503c6d6.chunk.css",
-    "main.js": "./main.85cd55821f8c6911c087.bundle.js",
+    "main.js": "./main.a39520b8cc5cf46377b1.bundle.js",
     "main.css.map": "./static/css/main.0503c6d6.chunk.css.map",
-    "main.js.map": "./main.85cd55821f8c6911c087.bundle.js.map",
-    "runtime~main.js": "./runtime~main.85cd55821f8c6911c087.bundle.js",
-    "runtime~main.js.map": "./runtime~main.85cd55821f8c6911c087.bundle.js.map",
+    "main.js.map": "./main.a39520b8cc5cf46377b1.bundle.js.map",
+    "runtime~main.js": "./runtime~main.a39520b8cc5cf46377b1.bundle.js",
+    "runtime~main.js.map": "./runtime~main.a39520b8cc5cf46377b1.bundle.js.map",
     "vendors~main.css": "./static/css/vendors~main.5c573378.chunk.css",
-    "vendors~main.js": "./vendors~main.85cd55821f8c6911c087.bundle.js",
+    "vendors~main.js": "./vendors~main.a39520b8cc5cf46377b1.bundle.js",
     "vendors~main.css.map": "./static/css/vendors~main.5c573378.chunk.css.map",
-    "vendors~main.js.map": "./vendors~main.85cd55821f8c6911c087.bundle.js.map",
+    "vendors~main.js.map": "./vendors~main.a39520b8cc5cf46377b1.bundle.js.map",
     "iframe.html": "./iframe.html",
     "static/media/neracoos_logo.adf2f1d6.png": "./static/media/neracoos_logo.adf2f1d6.png",
-    "vendors~main.85cd55821f8c6911c087.bundle.js.LICENSE.txt": "./vendors~main.85cd55821f8c6911c087.bundle.js.LICENSE.txt"
+    "vendors~main.a39520b8cc5cf46377b1.bundle.js.LICENSE.txt": "./vendors~main.a39520b8cc5cf46377b1.bundle.js.LICENSE.txt"
   },
   "entrypoints": [
-    "runtime~main.85cd55821f8c6911c087.bundle.js",
+    "runtime~main.a39520b8cc5cf46377b1.bundle.js",
     "static/css/vendors~main.5c573378.chunk.css",
-    "vendors~main.85cd55821f8c6911c087.bundle.js",
+    "vendors~main.a39520b8cc5cf46377b1.bundle.js",
     "static/css/main.0503c6d6.chunk.css",
-    "main.85cd55821f8c6911c087.bundle.js"
+    "main.a39520b8cc5cf46377b1.bundle.js"
   ]
 }
