@@ -105,7 +105,7 @@ export const forecastToStandardNames: { [key: string]: Set<string> } = {
     "significant_height_of_wind_and_swell_waves",
     "significant_wave_height",
   ]),
-  wave_direction: new Set(["sea_surface_wave_to_direction"]),
+  wave_direction: new Set(["sea_surface_wave_from_direction"]),
   wave_height: new Set([
     "sea_surface_wave_significant_height",
     "significant_height_of_wind_and_swell_waves",
