@@ -6,6 +6,9 @@ Additions:
 
 Changes:
 
+- Show the current time on the forecast plots.
+- Support loading multiple forecasts via `useQueries()`.
+
 Fixes:
 
 ## 0.5.9 - 2/14/2021
