@@ -34,6 +34,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          target: develop
           push: false
           tags: gmri/neracoos-mariners-dashboard:latest
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -113,15 +114,15 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: Cypress${CYPRESS_VERSION}
+      
+      - name: Start container
+        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
 
       - name: Install Cypress and wait on
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
       - name: CORS Proxy container
         run: docker run -d -p 9090:9090 -e "ALLOWED=http://localhost:3000" gmri/cors-proxy:latest
-
-      - name: Start container
-        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
 
       - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
@@ -153,3 +154,34 @@ jobs:
       - name: Docker-compose Logs
         run: docker-compose logs
         if: always()
+  
+  pages:
+    name: Build and deploy Storybook to Github Pages on main branch
+    runs-on: ubuntu-latest
+    needs: [unit_tests, cypress]
+    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && github.repository == ' gulfofmaine/Neracoos-1-Buoy-App'
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2.3.4
+
+      - name: Download Docker Image artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: mariners-dashboard-image
+          path: /tmp
+
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/myimage.tar
+          docker image ls -a
+      
+      - name: Build Storybook Pages
+        run: docker-compose run client yarn build-storybook
+
+      - name: Deploy Storybook to Github Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@3.4.8
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: storybook-public
