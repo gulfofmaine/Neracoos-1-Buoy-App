@@ -1,9 +1,6 @@
 name: "Push"
 
 on: [push]
-env:
-  LATEST_IMAGE: gmri/neracoos-mariners-dashboard:latest
-  TAGGED_IMAGE: gmri/neracoos-mariners-dashboard:${{ github.sha }}
 
 jobs:
   build:
@@ -38,7 +35,7 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${LATEST_IMAGE}
+          tags: gmri/neracoos-mariners-dashboard:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
           outputs: type=docker,dest=/tmp/myimage.tar
