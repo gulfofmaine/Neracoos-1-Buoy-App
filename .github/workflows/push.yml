@@ -13,23 +13,46 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2.3.4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Cache Docker layers
+        uses: actions/cache@v2.1.4
+        with:
+          path: /tmp/.buildx-cache
+          key: mariners-dashboard-buildx-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-buildx-
 
       - name: "Login to Docker Hub"
-        uses: azure/docker-login@v1
+        uses: docker/login-action@v1
+        continue-on-error: true
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Pull latest Docker image
-        run: docker pull ${LATEST_IMAGE}
-        continue-on-error: true
+      - name: Build Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          tags: ${LATEST_IMAGE}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          outputs: type=docker,dest=/tmp/myimage.tar
 
-      - name: Build Docker image
-        run: docker build --cache-from ${LATEST_IMAGE} --tag ${TAGGED_IMAGE} --target develop .
+      - name: Move Docker Cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: Push Docker image
-        run: docker push ${TAGGED_IMAGE}
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: mariners-dashboard-image
+          path: /tmp/myimage.tar
 
   unit_tests:
     name: Unit tests, typecheck and coverage
@@ -39,19 +62,18 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v1
-
-      - name: "Login to Docker Hub"
-        uses: azure/docker-login@v1
+        uses: actions/checkout@v2.3.4
+      
+      - name: Download Docker Image artifact
+        uses: actions/download-artifact@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          name: mariners-dashboard-image
+          path: /tmp
 
-      - name: Pull Docker image
-        run: docker pull ${TAGGED_IMAGE}
-
-      - name: Tag Docker image
-        run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/myimage.tar
+          docker image ls -a
 
       - name: Run unit tests and coverage
         run: docker-compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
@@ -73,19 +95,18 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2.3.4
 
-      - name: "Login to Docker Hub"
-        uses: azure/docker-login@v1
+      - name: Download Docker Image artifact
+        uses: actions/download-artifact@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          name: mariners-dashboard-image
+          path: /tmp
 
-      - name: Pull Docker image
-        run: docker pull ${TAGGED_IMAGE}
-
-      - name: Tag Docker image
-        run: docker tag ${TAGGED_IMAGE} ${LATEST_IMAGE}
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/myimage.tar
+          docker image ls -a
 
       - name: Get Cypress version from package.json
         run: echo "CYPRESS_VERSION=$(cat package.json | jq -r '.optionalDependencies.cypress')" >> $GITHUB_ENV
