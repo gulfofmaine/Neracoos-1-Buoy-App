@@ -23,6 +23,14 @@ jobs:
           restore-keys: |
             mariners-dashboard-buildx-
 
+      - name: Cache Docker image
+        uses: actions/cache@v2.1.4
+        with:
+          path: /tmp/myimage.tar
+          key: mariners-dashboard-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-image-
+
       - name: "Login to Docker Hub"
         uses: docker/login-action@v1
         continue-on-error: true
@@ -46,12 +54,6 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: Upload Docker image artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: mariners-dashboard-image
-          path: /tmp/myimage.tar
-
   unit_tests:
     name: Unit tests, typecheck and coverage
     runs-on: ubuntu-latest
@@ -62,11 +64,13 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v2.3.4
       
-      - name: Download Docker Image artifact
-        uses: actions/download-artifact@v2
+      - name: Cache Docker image
+        uses: actions/cache@v2.1.4
         with:
-          name: mariners-dashboard-image
-          path: /tmp
+          path: /tmp/myimage.tar
+          key: mariners-dashboard-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-image-
 
       - name: Load Docker image
         run: |
@@ -95,11 +99,13 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v2.3.4
 
-      - name: Download Docker Image artifact
-        uses: actions/download-artifact@v2
+      - name: Cache Docker image
+        uses: actions/cache@v2.1.4
         with:
-          name: mariners-dashboard-image
-          path: /tmp
+          path: /tmp/myimage.tar
+          key: mariners-dashboard-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-image-
 
       - name: Load Docker image
         run: |
@@ -159,17 +165,20 @@ jobs:
     name: Build and deploy Storybook to Github Pages on main branch
     runs-on: ubuntu-latest
     needs: [unit_tests, cypress]
+    timeout-minutes: 10
     if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && github.repository == ' gulfofmaine/Neracoos-1-Buoy-App'
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2.3.4
 
-      - name: Download Docker Image artifact
-        uses: actions/download-artifact@v2
+      - name: Cache Docker image
+        uses: actions/cache@v2.1.4
         with:
-          name: mariners-dashboard-image
-          path: /tmp
+          path: /tmp/myimage.tar
+          key: mariners-dashboard-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-image-
 
       - name: Load Docker image
         run: |
