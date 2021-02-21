@@ -7,6 +7,7 @@ import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
 import { round } from "Shared/math"
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aDayAgoRounded } from "Shared/time"
 import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
@@ -20,6 +21,10 @@ interface Props {
   platform: PlatformFeature
   forecast_type: string
   unitSystem: UnitSystem
+}
+
+interface UrlDataTimeSeries extends DataTimeSeries {
+  url: string
 }
 
 /**
@@ -48,7 +53,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     result: results[index],
   }))
 
-  const chartData: DataTimeSeries[] = []
+  const chartData: UrlDataTimeSeries[] = []
 
   if (dataset && timeSeries) {
     const aDayAgo = aDayAgoRounded()
@@ -57,6 +62,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
       ...dataset,
       timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
       name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name}`,
+      url: tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints),
     })
   }
 
@@ -66,6 +72,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
         timeSeries: result.data as ReadingTimeSeries[],
         name: meta.name,
         unit: meta.units,
+        url: meta.source_url,
       })
     }
   })
@@ -90,6 +97,15 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
         <h4>{forecasts[0].forecast_type} Forecast</h4>
 
         <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
+
+        <h6>Data sources</h6>
+        <ul>
+          {chartData.map(({ name, url }) => (
+            <li key={name}>
+              <a href={url}>{name}</a>
+            </li>
+          ))}
+        </ul>
       </Col>
     </Row>
   )
