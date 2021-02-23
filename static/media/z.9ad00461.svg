@@ -1,7 +1,0 @@
-<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
-  <path fill="#fdd13d" d="M0 0 L120 0 L60 60 L0 0 Z"/>
-  <path fill="#053378" d="M120 0 L120 120 L60 60 L120 0 Z"/>
-  <path fill="#b30507" d="M120 120 L0 120 L60 60 L120 120 Z"/>
-  <path fill="#000000" d="M0 120 L0 0 L60 60 L0 120 Z"/>
-  <rect fill="none" stroke-width="2" stroke="#d8d8d8" width="118" height="118" x="1" y="1"/>
-</svg>
