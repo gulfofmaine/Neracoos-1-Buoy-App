@@ -11,6 +11,8 @@ Changes:
 
 Fixes:
 
+- Use Buildx and Github Actions caching.
+
 ## 0.5.9 - 2/14/2021
 
 Changes:
