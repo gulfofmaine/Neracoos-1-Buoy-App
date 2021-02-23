@@ -139,7 +139,7 @@ jobs:
         timeout-minutes: 15
       
       - name: Archive test screenshots
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2.2.2
         if: failure()
         with:
           name: cypress-screenshots
@@ -151,7 +151,7 @@ jobs:
         if: failure()
       
       - name: Archive test videos
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2.2.2
         if: failure()
         with:
           name: cypress-videos
