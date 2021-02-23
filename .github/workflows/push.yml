@@ -98,7 +98,7 @@ jobs:
       - name: Copy Storybook Build to cache directory
         run: |
           rm -rf /tmp/storybook-public
-          cp storybook-public /tmp/storybook-public
+          cp -r storybook-public /tmp/storybook-public
 
   cypress:
     name: Cypress integration tests
