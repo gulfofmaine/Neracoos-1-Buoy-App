@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     name: Build and push Docker image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     timeout-minutes: 10
 
     steps:
@@ -56,7 +56,7 @@ jobs:
 
   unit_tests:
     name: Unit tests, typecheck and coverage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build
     timeout-minutes: 10
 
@@ -89,9 +89,20 @@ jobs:
       - name: Build Storybook Pages
         run: docker-compose run client yarn build-storybook
 
+      - name: Cache Storybook Build
+        uses: actions/cache@v2.1.4
+        with:
+          path: /tmp/storybook-public/
+          key: mariners-dashboard-storybook-${{ github.sha }}
+      
+      - name: Copy Storybook Build to cache directory
+        run: |
+          rm -rf /tmp/storybook-public
+          cp -r storybook-public /tmp/storybook-public
+
   cypress:
     name: Cypress integration tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build
     timeout-minutes: 30
 
@@ -162,35 +173,21 @@ jobs:
         if: always()
   
   pages:
-    name: Build and deploy Storybook to Github Pages on main branch
-    runs-on: ubuntu-latest
+    name: Deploy Storybook to Github Pages on main branch
+    runs-on: ubuntu-20.04
     needs: [unit_tests, cypress]
     timeout-minutes: 10
-    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && github.repository == ' gulfofmaine/Neracoos-1-Buoy-App'
+    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
 
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2.3.4
-
-      - name: Cache Docker image
+      - name: Cache Storybook Build
         uses: actions/cache@v2.1.4
         with:
-          path: /tmp/myimage.tar
-          key: mariners-dashboard-image-${{ github.sha }}
-          restore-keys: |
-            mariners-dashboard-image-
-
-      - name: Load Docker image
-        run: |
-          docker load --input /tmp/myimage.tar
-          docker image ls -a
-      
-      - name: Build Storybook Pages
-        run: docker-compose run client yarn build-storybook
+          path: /tmp/storybook-public/
+          key: mariners-dashboard-storybook-${{ github.sha }}
 
       - name: Deploy Storybook to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@3.4.8
+        uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: storybook-public
+          branch: gh-pages
+          folder: /tmp/storybook-public/
