@@ -6,13 +6,41 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.6.0 - 2/24/2021
+
+Changes:
+
 - Show the current time on the forecast plots.
 - Support loading multiple forecasts via `useQueries()`.
 - Show forecast data sources.
+- Dependency Updates:
+  - Test on Ubuntu 20.04
+  - Actions/checkout from 1 to 2.3.4
+  - Actions/upload-artifact from 1 to 2.2.2
+  - Nginx from 1.19.4 to 1.19.7
+  - Sentry react from 6.1.0 to 6.2.0
+  - Connected React Router from 6.6.1 to 6.9.1
+  - React Query from 3.8.3 to 3.12.0
+  - React Scripts from 4.0.2 to 4.0.3
+  - Storybook
+    - Addon A11y from 6.1.17 to 6.1.20
+    - Addon Storyshots from 6.1.17 to 6.1.20
+    - Preset Create React App from 3.1.5 to 3.1.6
+    - React from 6.1.17 to 6.1.20
+  - Types
+    - Node from 14.14.27 to 14.14.31
+    - React from 16.14.3 to 16.14.4
+    - React DOM from 17.0.0 to 17.0.1
+    - React test renderer from 17.0.0 to 17.0.1
+  - Typedoc from 0.20.24 to 0.20.28
 
 Fixes:
 
 - Use Buildx and Github Actions caching.
+- Use Dependabot to update Github Actions.
+- Remove separate Storybook deployment workflow.
 
 ## 0.5.9 - 2/14/2021
 
