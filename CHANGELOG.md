@@ -8,6 +8,7 @@ Changes:
 
 - Show the current time on the forecast plots.
 - Support loading multiple forecasts via `useQueries()`.
+- Show forecast data sources.
 
 Fixes:
 
