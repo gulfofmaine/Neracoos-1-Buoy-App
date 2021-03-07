@@ -6,6 +6,11 @@ Additions:
 
 Changes:
 
+- Migrate configs to work with Argo CD:
+  - Remove `imagePullSecret` from deployment and Kustomize config.
+  - Remove ingress host and patch.
+  - Remove common labels from `kustomization.yaml`.
+
 Fixes:
 
 ## 0.6.0 - 2/24/2021
