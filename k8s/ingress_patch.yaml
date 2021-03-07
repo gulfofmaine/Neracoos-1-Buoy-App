@@ -1,9 +1,0 @@
-- op: add
-  path: /spec/rules/0/host
-  value: mariners.neracoos.org
-- op: add
-  path: /metadata/annotations/certmanager.k8s.io~1cluster-issuer
-  value: letsencrypt-prod
-- op: add
-  path: /spec/tls
-  value: [{ hosts: [mariners.neracoos.org], secretName: letsencrypt-prod }]
