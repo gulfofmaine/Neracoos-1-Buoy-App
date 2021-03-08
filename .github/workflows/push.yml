@@ -178,8 +178,7 @@ jobs:
     needs: [unit_tests, cypress]
     timeout-minutes: 10
     if: |
-      (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
-      && github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
+      github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
       && contains(github.ref, 'refs/tags/v')
 
     steps:
@@ -205,8 +204,7 @@ jobs:
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |
-      (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
-      && github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
+      github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
       && contains(github.ref, 'refs/tags/v')
     
     steps:

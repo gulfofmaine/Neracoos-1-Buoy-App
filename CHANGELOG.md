@@ -8,6 +8,12 @@ Changes:
 
 Fixes:
 
+## 0.6.2 - 3/8/2021
+
+Fixes:
+
+- Tags mean that the Github ref isn't the master or main branch.
+
 ## 0.6.1 - 3/7/2021
 
 Changes:
