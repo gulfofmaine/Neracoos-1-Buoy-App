@@ -6,6 +6,9 @@ Additions:
 
 Changes:
 
+- Hide dataset links on chart pages.
+- Show observations/forecast next to data types on forecasts.
+
 Fixes:
 
 ## 0.6.6 - 3/8/2021
