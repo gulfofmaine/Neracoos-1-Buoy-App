@@ -8,6 +8,13 @@ Changes:
 
 Fixes:
 
+## 0.6.5 - 3/7/2021
+
+Fixes:
+
+- Push when the production image builds.
+- Include GitOps token when cloning.
+
 ## 0.6.4 - 3/7/2021
 
 Fixes:
