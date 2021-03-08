@@ -3,9 +3,11 @@
  */
 import { Point } from "@turf/helpers"
 import React from "react"
+import { Link } from "react-router-dom"
 import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
+import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aDayAgoRounded } from "Shared/time"
@@ -61,7 +63,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     chartData.push({
       ...dataset,
       timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
-      name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name}`,
+      name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name} - observations`,
       url: tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints),
     })
   }
@@ -70,7 +72,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     if (result?.data) {
       chartData.push({
         timeSeries: result.data as ReadingTimeSeries[],
-        name: meta.name,
+        name: meta.name + " - forecast",
         unit: meta.units,
         url: meta.source_url,
       })
@@ -99,13 +101,10 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
         <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
 
         <h6>Data sources</h6>
-        <ul>
-          {chartData.map(({ name, url }) => (
-            <li key={name}>
-              <a href={url}>{name}</a>
-            </li>
-          ))}
-        </ul>
+        <p>
+          For more information on the models and data used in this plot, visit the{" "}
+          <Link to={paths.about}>about page</Link>.
+        </p>
       </Col>
     </Row>
   )
