@@ -6,6 +6,10 @@ Additions:
 
 Changes:
 
+- Use buildkit to speed up Docker builds with better caching.
+- Update Readme to include deployment with Argo CD.
+- Update Browerslist (CanIUse) to adjust Javascript build targets.
+
 Fixes:
 
 ## 0.6.5 - 3/7/2021

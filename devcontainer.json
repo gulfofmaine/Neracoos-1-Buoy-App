@@ -1,0 +1,5 @@
+{
+  "name": "Mariner's Dashboard",
+  "dockerfile": "Dockerfile",
+  "workspaceFolder": "/usr/src/app"
+}

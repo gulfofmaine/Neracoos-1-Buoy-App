@@ -1,3 +1,4 @@
+#syntax=docker/dockerfile:1.2
 FROM node:15.8.0-alpine@sha256:db3f9c88223ba2491e7d2846a18efe46ecb4b60bf2bcf4b53cdcd39e5f6888b5 as develop
 
 RUN mkdir -p /usr/src/app
@@ -8,7 +9,8 @@ RUN apk add --no-cache git
 COPY ./package.json /usr/src/app/package.json
 COPY ./yarn.lock /usr/src/app/yarn.lock
 
-RUN yarn install --ignore-optional
+RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
+    yarn install --ignore-optional
 
 COPY . /usr/src/app
 

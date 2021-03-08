@@ -11,41 +11,27 @@ If you have Docker installed and running, you can launch the app with `make up` 
 
 When you're done making it more awesome run `make down`.
 
-## Building
-
-You can use `make build` to update the `www` directory with a production build.
-You can run `make serve-build` to view the build locally before deploying.
 
 ## Deploying and Versioning
 
 The site is deployed to the NERACOOS Digital Ocean Kubernetes Cluster.
 
-When you're using the NERACOOS Kubernetes config, to update the deployment run `skaffold run -t VERSION_NUMBER --tail`.
-You probably want to `npm version patch` (or `minor`/`major` depending on changes) first.
+To update the site, tag a commit with a version (`v0.6.5`).
+Github Actions will build and test the development image, then it will build the production image and push it to Docker Hub.
+Then it will update the manifest and image spec used by [Argo CD](https://argo-cd.readthedocs.io/en/stable/) in the [`neracoos-do-cd`](https://github.com/gulfofmaine/neracoos-do-cd/) repo.
 
-You will need to have `docker-hub-secret.yaml` in `/k8s/` for the deploy to work using an account with access to the GMRI Docker Hub repos.
-
-```yaml
-apiVersion: v1
-data:
-  .dockerconfigjson: Some string
-kind: Secret
-metadata:
-  creationTimestamp: null
-  name: docker-hub-secret
-type: kubernetes.io/dockerconfigjson
-```
+Once the Github Actions workflow completes for the tag, Argo CD will pick up the changes and sync the deployment (usually within 3 minutes).
 
 ## Exception Tracking
 
 We're tracking exceptions with Sentry.
 
-## Documention
+## Documentation
 
 We're using Storybook for documentation.
 
 Run `make storybook` to launch it locally,
-or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page) after the master branch builds.
+or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page) after a version tag builds.
 
 ## Testing
 
