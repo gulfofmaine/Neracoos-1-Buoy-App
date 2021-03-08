@@ -232,12 +232,12 @@ jobs:
         uses: olegtarasov/get-tag@v2.1
         id: tagName
 
-      - name: Build and psush Docker Image
+      - name: Build and push Docker Image
         uses: docker/build-push-action@v2
         with:
           context: .
           target: develop
-          tags: gmri/neracoos-mariners-dashboard:$GIT_TAG_NAME
+          tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
@@ -252,8 +252,8 @@ jobs:
       - name: Update GitOps config repo
         working-directory: ./gitops/neracoos-do-cd
         run: |
-          sed -i 's/?ref=.\+/?ref=$GIT_TAG_NAME/' apps/mariners/kustomization.yaml
-          sed -i 's/newTag: .\+/newTag: $GIT_TAG_NAME/' apps/mariners/kustomization.yaml
+          sed -i 's/?ref=.\+/?ref=${{ steps.tagName.outputs.tag }}/' apps/mariners/kustomization.yaml
+          sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' apps/mariners/kustomization.yaml
           git config --global user.email 'neracoos-mariners-ci@gmri.org'
           git config --global user.name 'NERACOOS Mariners Dashboard CI'
           git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard to $GIT_TAG_NAME' && git push)

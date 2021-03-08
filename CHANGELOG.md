@@ -8,7 +8,13 @@ Changes:
 
 Fixes:
 
-## 0.6.2 - 3/8/2021
+## 0.6.3 - 3/7/2021
+
+Fixes:
+
+- Use expressions reference rather than environment variables.
+
+## 0.6.2 - 3/7/2021
 
 Fixes:
 
