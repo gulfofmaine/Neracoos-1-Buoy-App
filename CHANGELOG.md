@@ -6,12 +6,28 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.6.1 - 3/7/2021
+
+Changes:
+
 - Migrate configs to work with Argo CD:
   - Remove `imagePullSecret` from deployment and Kustomize config.
   - Remove ingress host and patch.
   - Remove common labels from `kustomization.yaml`.
-
-Fixes:
+- Build and push production Docker image on release tags.
+- Update GitOps repo on release tags.
+- Dependency Updates:
+  - Github Pages Deploy Action from 4.0.0 to 4.1.0
+  - Sentry React from 6.2.0 to 6.2.1
+  - Storybook
+    - Addon A11y from 6.1.20 to 6.1.21
+    - Addon Storyshots from 6.1.20 to 6.1.21
+    - React from 6.1.20 to 6.1.21
+  - Typedoc from 0.20.28 to 0.20.29
+  - Typescript from 4.1.5 to 4.2.3
+  - Cypress from 6.5.0 to 6.6.0
 
 ## 0.6.0 - 2/24/2021
 
