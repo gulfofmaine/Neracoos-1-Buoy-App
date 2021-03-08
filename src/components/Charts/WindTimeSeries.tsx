@@ -47,7 +47,7 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
             direction[1]
           }) (${((p.point as unknown) as DirectionPoint).beaufort})`
         }
-        return `<b>${p.series.name}:</b> ${p.y} knots ${round(
+        return `<b>${p.series.name}:</b> ${round(
           dataConverter.convertToNumber(p.y, unitSystem),
           1
         )} ${dataConverter.displayName(unitSystem)}`
