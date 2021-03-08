@@ -6,14 +6,26 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.6.6 - 3/8/2021
+
+Changes:
+
 - Use buildkit to speed up Docker builds with better caching.
 - Update Readme to include deployment with Argo CD.
 - Update Browerslist (CanIUse) to adjust Javascript build targets.
 - Tweak the order of current conditions to be: wind data, wave height, wave period, wave direction, barometric pressure, air temp, water temp.
+- Dependency Updates:
+  - Removed Typedoc
+  - Types
+    - Node from 14.14.31
+    - React from 16.14.4 to 16.4.5
 
 Fixes:
 
 - Wind speeds should only display a single value, not a double value.
+- Pushing development image target to Docker Hub rather than the production target.
 
 ## 0.6.5 - 3/7/2021
 

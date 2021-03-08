@@ -236,7 +236,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          target: develop
           push: true
           tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
