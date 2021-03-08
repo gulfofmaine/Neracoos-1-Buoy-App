@@ -8,6 +8,12 @@ Changes:
 
 Fixes:
 
+## 0.6.4 - 3/7/2021
+
+Fixes:
+
+- Make directory for cloning GitOps repo into.
+
 ## 0.6.3 - 3/7/2021
 
 Fixes:

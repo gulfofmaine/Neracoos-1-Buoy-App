@@ -242,6 +242,9 @@ jobs:
           build-args: |
            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
            REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+      
+      - name: Make GitOps directory
+        run: mkdir gitops
 
       - name: Clone GitOps config repo
         run: git clone "https://github.com/gulfofmaine/neracoos-do-cd.git"
