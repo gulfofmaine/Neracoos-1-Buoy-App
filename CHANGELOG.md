@@ -13,6 +13,8 @@ Changes:
 
 Fixes:
 
+- Wind speeds should only display a single value, not a double value.
+
 ## 0.6.5 - 3/7/2021
 
 Fixes:
