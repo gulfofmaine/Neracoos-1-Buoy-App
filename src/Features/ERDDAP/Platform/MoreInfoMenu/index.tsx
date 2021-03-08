@@ -1,8 +1,10 @@
 /**
  * Show more info about a platform
  */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { Geometry } from "@turf/helpers"
-import * as React from "react"
+import React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
@@ -39,6 +41,7 @@ export class ErddapMoreInfoDropdown extends React.Component<UsePlatformRenderPro
         <DropdownMenu>
           <a className="dropdown-item nav-item" href={forecastUrl} target="_blank" rel="noopener noreferrer">
             Marine Forecast
+            <FontAwesomeIcon icon={faExternalLinkAlt} style={{ marginLeft: ".5rem" }} />
           </a>
           <a
             className="dropdown-item nav-item"
@@ -47,6 +50,7 @@ export class ErddapMoreInfoDropdown extends React.Component<UsePlatformRenderPro
             rel="noopener noreferrer"
           >
             Tides
+            <FontAwesomeIcon icon={faExternalLinkAlt} style={{ marginLeft: ".5rem" }} />
           </a>
         </DropdownMenu>
       </Dropdown>

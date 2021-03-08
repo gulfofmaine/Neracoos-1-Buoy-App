@@ -1,7 +1,9 @@
 /**
  * Generalized single time series data card
  */
-import * as React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExpandAlt } from "@fortawesome/free-solid-svg-icons"
+import React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
@@ -35,7 +37,7 @@ interface DataCardProps {
  * @param data_types Data Type standard names to display
  * @param platform Platform to display
  */
-export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }) => {
+export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }: DataCardProps) => {
   const unitSystem = useUnitSystem()
 
   const aDayAgo = new Date()
@@ -139,6 +141,7 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
               data_type={timeSeries.data_type.standard_name}
               {...{ unitSystem, startTime, endTime }}
             />
+            <FontAwesomeIcon icon={faExpandAlt} pull="right" />
           </CardBody>
         </Card>
       </Link>

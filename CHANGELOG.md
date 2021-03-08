@@ -6,6 +6,9 @@ Additions:
 
 Changes:
 
+- Add expand icon to current conditions to show that they are linked to a larger chart.
+- Add outbound link icon to __More Info__ links.
+
 Fixes:
 
 ## 0.6.6 - 3/8/2021
