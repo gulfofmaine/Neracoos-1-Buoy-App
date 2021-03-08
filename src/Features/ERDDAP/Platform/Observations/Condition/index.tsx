@@ -1,12 +1,11 @@
 /**
  * Display all time series for a specific standard name
  */
-import * as React from "react"
+import React from "react"
 import { Col, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts"
 import { naturalBounds } from "Shared/dataTypes"
-import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
@@ -26,7 +25,7 @@ interface Props {
  * @param platform
  * @param standardName
  */
-export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }) => {
+export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
   const timeSeries = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
 
@@ -56,7 +55,7 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   dataset,
   standardName,
   unitSystem,
-}) => {
+}: ChartTimeSeriesDisplayProps) => {
   const depth = timeSeries.depth && timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
 
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
@@ -75,15 +74,6 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
           unitSystem={unitSystem}
           data_type={standardName}
         />
-        <p>
-          Data from the {timeSeries.variable} variable in the{" "}
-          <a
-            href={tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints)}
-          >
-            {timeSeries.dataset} dataset
-          </a>
-          .
-        </p>
       </Col>
     </Row>
   )
