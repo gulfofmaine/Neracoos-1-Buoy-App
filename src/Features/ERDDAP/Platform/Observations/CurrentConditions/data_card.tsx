@@ -2,7 +2,7 @@
  * Generalized single time series data card
  */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExpandAlt } from "@fortawesome/free-solid-svg-icons"
+import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
@@ -141,7 +141,7 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
               data_type={timeSeries.data_type.standard_name}
               {...{ unitSystem, startTime, endTime }}
             />
-            <FontAwesomeIcon icon={faExpandAlt} pull="right" />
+            <FontAwesomeIcon icon={faExpand} pull="right" />
           </CardBody>
         </Card>
       </Link>

@@ -2,7 +2,7 @@
  * Wind specific current conditions card
  */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExpandAlt } from "@fortawesome/free-solid-svg-icons"
+import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
@@ -135,7 +135,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
               height={150}
               {...{ speed, gust, direction, unitSystem, startTime, endTime }}
             />
-            <FontAwesomeIcon icon={faExpandAlt} pull="right" />
+            <FontAwesomeIcon icon={faExpand} pull="right" />
           </CardBody>
         </Card>
       </Link>
