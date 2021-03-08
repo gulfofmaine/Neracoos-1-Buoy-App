@@ -9,6 +9,7 @@ Changes:
 - Use buildkit to speed up Docker builds with better caching.
 - Update Readme to include deployment with Argo CD.
 - Update Browerslist (CanIUse) to adjust Javascript build targets.
+- Tweak the order of current conditions to be: wind data, wave height, wave period, wave direction, barometric pressure, air temp, water temp.
 
 Fixes:
 
