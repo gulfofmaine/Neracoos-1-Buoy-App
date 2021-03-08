@@ -260,4 +260,4 @@ jobs:
           sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' apps/mariners/kustomization.yaml
           git config --global user.email 'neracoos-mariners-ci@gmri.org'
           git config --global user.name 'NERACOOS Mariners Dashboard CI'
-          git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard to $GIT_TAG_NAME' && git push)
+          git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard to ${{ steps.tagName.outputs.tag }}' && git push)

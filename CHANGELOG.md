@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Use buildkit to speed up Docker builds with better caching.
+
 Fixes:
 
 ## 0.6.5 - 3/7/2021
