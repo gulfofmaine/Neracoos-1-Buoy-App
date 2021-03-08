@@ -38,8 +38,6 @@ describe("Platfrom M01", () => {
     cy.contains("Air Temperature:").click()
 
     cy.get("h4").contains("Air Temperature")
-
-    cy.contains("Data from the air_temperature variable in the M01_met_all dataset.")
   })
 
   xit("Shows wind plot", () => {
