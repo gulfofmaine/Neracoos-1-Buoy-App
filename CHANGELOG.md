@@ -6,12 +6,24 @@ Additions:
 
 Changes:
 
-- Add expand icon to current conditions to show that they are linked to a larger chart.
-- Add outbound link icon to __More Info__ links.
-- Hide dataset links on chart pages.
-- Show observations/forecast next to data types on forecasts.
-
 Fixes:
+
+## 0.6.7 - 3/9/2021
+
+Changes:
+
+- Add expand icon to current conditions to show that they are linked to a larger chart. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
+- Add outbound link icon to __More Info__ links. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
+- Hide dataset links on chart pages. [#1119](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1119)
+- Show observations/forecast next to data types on forecasts. [#1119](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1119)
+- Dependency Updates:
+  - Update Node from 15.8.0 to 15.11.0
+  - React-Query from 3.12.0 to 3.12.1
+  - Storybook
+    - Preset Create React App from 3.1.6 to 3.1.7
+  - Types
+    - React DOM from 17.0.1 to 17.0.2
+
 
 ## 0.6.6 - 3/8/2021
 
