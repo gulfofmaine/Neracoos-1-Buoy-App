@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Add expand icon to current conditions to show that they are linked to a larger chart.
+- Add outbound link icon to __More Info__ links.
 - Hide dataset links on chart pages.
 - Show observations/forecast next to data types on forecasts.
 

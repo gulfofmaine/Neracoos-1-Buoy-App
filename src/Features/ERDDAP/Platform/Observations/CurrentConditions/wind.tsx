@@ -1,7 +1,9 @@
 /**
  * Wind specific current conditions card
  */
-import * as React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExpand } from "@fortawesome/free-solid-svg-icons"
+import React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
@@ -28,7 +30,7 @@ interface WindCardProps {
  *
  * @param platform Platform GeoJSON feature to display wind data from
  */
-export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) => {
+export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }: WindCardProps) => {
   const unitSystem = useUnitSystem()
 
   const aDayAgo = new Date()
@@ -81,7 +83,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
   unitSystem,
   startTime,
   endTime,
-}) => {
+}: DisplayWindCardProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
   const { speed: speedTimeSeries, gust: gustTimeSeries } = pickWindTimeSeries(platform)
 
@@ -133,6 +135,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
               height={150}
               {...{ speed, gust, direction, unitSystem, startTime, endTime }}
             />
+            <FontAwesomeIcon icon={faExpand} pull="right" />
           </CardBody>
         </Card>
       </Link>
