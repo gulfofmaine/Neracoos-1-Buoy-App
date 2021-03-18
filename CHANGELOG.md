@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Update Google Analytics tracking method from [ReactGA#122](https://github.com/react-ga/react-ga/issues/122#issuecomment-702230428). Closes [#1135](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1135)
+
 ## 0.6.7 - 3/9/2021
 
 Changes:
