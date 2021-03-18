@@ -8,6 +8,7 @@ Changes:
 
 Fixes:
 
+- Adjust Github Actions workflows so that PRs from Dependabot [can run without secrets](https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/).
 - Update Google Analytics tracking method from [ReactGA#122](https://github.com/react-ga/react-ga/issues/122#issuecomment-702230428). Closes [#1135](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1135)
 
 ## 0.6.7 - 3/9/2021
