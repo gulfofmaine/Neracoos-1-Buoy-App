@@ -4,31 +4,27 @@
  * From https://github.com/react-ga/react-ga/issues/122#issuecomment-521781395
  */
 
-import { useEffect } from "react"
+import React, { useEffect } from "react"
 import ReactGA from "react-ga"
-import { RouteComponentProps, withRouter } from "react-router-dom"
-import { Location, LocationListener, UnregisterCallback } from "history"
+import { useLocation } from "react-router-dom"
 
-const sendPageView: LocationListener = (location: Location): void => {
-  ReactGA.set({ page: location.pathname })
-  ReactGA.pageview(location.pathname)
-}
-
-interface Props extends RouteComponentProps {
+interface Props {
   children: JSX.Element
   trackingId?: string
 }
 
-const GAListener = ({ children, trackingId, history }: Props): JSX.Element => {
-  useEffect((): UnregisterCallback | void => {
+const GAListener: React.FC<Props> = ({ children, trackingId }: Props) => {
+  const location = useLocation<{ pathname: string; search: string }>()
+
+  useEffect(() => {
     if (trackingId) {
       ReactGA.initialize(trackingId)
-      sendPageView(history.location, "REPLACE")
-      return history.listen(sendPageView)
+      ReactGA.set({ page: location.pathname })
+      ReactGA.pageview(`${location.pathname}${location.search}`)
     }
-  }, [history, trackingId])
+  }, [location, trackingId])
 
   return children
 }
 
-export default withRouter(GAListener)
+export default GAListener
