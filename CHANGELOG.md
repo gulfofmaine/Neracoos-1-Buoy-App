@@ -8,6 +8,25 @@ Changes:
 
 Fixes:
 
+## 0.6.8 - 3/18/2021
+
+Changes:
+
+- Dependency Updates:
+  - Font Awesome
+    - SVG Core from 1.2.34 to 1.2.35
+    - Free Solid SVG Icons from 5.15.2 to 5.15.3
+  - Sentry React from 6.2.1 to 6.2.2
+  - Highcharts from 8. to 9.0.1
+  - React JSX Highcharts from 4.2.0 to 4.2.1
+  - React Query from 3.12.1 to 3.12.3
+  - Types
+    - Jest from 26.0.20 to 26.0.21
+  - Wait On from 5.2.1 to 5.3.0
+  - Cypress from 6.6.0 to 6.8.0
+
+Fixes:
+
 - Adjust Github Actions workflows so that PRs from Dependabot [can run without secrets](https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/).
 - Update Google Analytics tracking method from [ReactGA#122](https://github.com/react-ga/react-ga/issues/122#issuecomment-702230428). Closes [#1135](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1135)
 
