@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Adjust Github Actions workflows so that PRs from Dependabot [can run without secrets](https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/).
+
 ## 0.6.7 - 3/9/2021
 
 Changes:
