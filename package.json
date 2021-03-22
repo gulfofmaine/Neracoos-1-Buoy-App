@@ -7,7 +7,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@sentry/react": "^6.2.2",
+    "@sentry/react": "^6.2.3",
     "@turf/bbox-polygon": "6.3.0",
     "@turf/boolean-contains": "6.3.0",
     "@turf/helpers": "6.3.0",
