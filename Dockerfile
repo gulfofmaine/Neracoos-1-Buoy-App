@@ -6,8 +6,7 @@ WORKDIR /usr/src/app
 
 RUN apk add --no-cache git
 
-COPY ./package.json /usr/src/app/package.json
-COPY ./yarn.lock /usr/src/app/yarn.lock
+COPY ./yarn.lock ./package.json /usr/src/app/
 
 RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
     yarn install --ignore-optional
