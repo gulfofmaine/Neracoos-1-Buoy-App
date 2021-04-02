@@ -51,10 +51,10 @@
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^6.2.2",
-    "@storybook/addon-essentials": "^6.0.28",
-    "@storybook/addon-storyshots": "^6.1.21",
+    "@storybook/addon-essentials": "^6.2.2",
+    "@storybook/addon-storyshots": "^6.2.2",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.1.21",
+    "@storybook/react": "^6.2.2",
     "@types/enzyme": "3.10.8",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "26.0.22",
@@ -76,6 +76,9 @@
   },
   "optionalDependencies": {
     "cypress": "6.8.0"
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   },
   "prettier": {
     "semi": false,
