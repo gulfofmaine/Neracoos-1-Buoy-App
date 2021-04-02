@@ -20,7 +20,7 @@ ARG REACT_APP_ERDDAP_SERVICE
 
 RUN yarn build
 
-FROM nginx:1.19.9-alpine@sha256:a033d30ab2c1183a8b865f5ac3d56b10593421340298b89cc7b81ec9d6a4c2ce
+FROM nginx:1.19.9-alpine@sha256:d942e5263869b00ed3174fb76573165dc89e391bfafa43e9134a9c6e0bf0ec87
 
 COPY --from=buildstep /usr/src/app/build /usr/share/nginx/html
 
