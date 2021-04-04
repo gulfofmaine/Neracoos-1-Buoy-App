@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next"
 import React from "react"
-import { QueryCache } from "react-query"
+import { QueryClient } from "react-query"
 import { dehydrate } from "react-query/hydration"
 import { Col, Row } from "reactstrap"
 
@@ -20,13 +20,13 @@ const About: React.FunctionComponent = () => (
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const queryCache = new QueryCache()
+  const queryClient = new QueryClient()
 
-  await queryCache.prefetchQuery(wagtailQueryKey(WAGTAIL_PAGE_ID), getWagtailPageById)
+  await queryClient.prefetchQuery(wagtailQueryKey(WAGTAIL_PAGE_ID), () => getWagtailPageById(WAGTAIL_PAGE_ID))
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 1 * 60 * 60, // Once per hour
   }

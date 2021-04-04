@@ -7,6 +7,11 @@ import { data, forecast_type } from "./story-data"
 export default {
   component: ForecastChart,
   title: "ERDDAP/Forecast/Configurable",
+  parameters: {
+    storyshots: {
+      disable: true,
+    },
+  },
 }
 
 export const english = (args) => <ForecastChart {...args} />

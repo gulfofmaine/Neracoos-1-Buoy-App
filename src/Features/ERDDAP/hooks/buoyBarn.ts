@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/react"
-import { useQuery } from "react-query"
+import { useQuery, useQueries } from "react-query"
 
 import { ForecastJson, ForecastSource, PlatformFeatureCollection } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
@@ -29,8 +29,8 @@ export const BUOY_BARN_PLATFORMS_KEY = "buoybarn-platforms"
 /**
  * Load all the platforms
  */
-export function usePlatforms<PlatformFeatureCollection, Error>() {
-  return useQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms, defaultQueryConfig)
+export function usePlatforms() {
+  return useQuery<PlatformFeatureCollection, Error>(BUOY_BARN_PLATFORMS_KEY, getPlatforms, defaultQueryConfig)
 }
 
 /**
@@ -53,38 +53,36 @@ export const getForecasts = async () => {
   return json
 }
 
-export const BUOY_BARN_FORECAST_KEY = "buoybarn-forecasts"
+export const BUOY_BARN_FORECAST_KEY = "buoybarn-forecasts-meta"
 
 /**
  * Load forecasts
  */
-export function useForecasts() {
+export function useForecastMeta() {
   return useQuery(BUOY_BARN_FORECAST_KEY, getForecasts, defaultQueryConfig)
 }
 
 /**
  * Load forecast for a given lat, lon
  */
-const getForecast = (forecast: ForecastSource, lat: number, lon: number) => {
-  return async () => {
-    const url = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE as string) + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
+const getForecast = async (forecast: ForecastSource, lat: number, lon: number) => {
+  const url = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE as string) + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
 
-    Sentry.addBreadcrumb({
-      category: "Buoy Barn",
-      data: {
-        forecast,
-        lat,
-        lon,
-        url,
-      },
-      message: "Loading forecast",
-    })
+  Sentry.addBreadcrumb({
+    category: "Buoy Barn",
+    data: {
+      forecast,
+      lat,
+      lon,
+      url,
+    },
+    message: "Loading forecast",
+  })
 
-    const result = await fetch(url)
-    const json = (await result.json()) as ForecastJson
+  const result = await fetch(url)
+  const json = (await result.json()) as ForecastJson
 
-    return json.time_series.map((ts) => ({ ...ts, time: new Date(ts.time) }))
-  }
+  return json.time_series.map((ts) => ({ ...ts, time: new Date(ts.time) }))
 }
 
 /**
@@ -95,8 +93,25 @@ const getForecast = (forecast: ForecastSource, lat: number, lon: number) => {
  * @param forecast
  */
 export function useForecast(lat: number, lon: number, forecast?: ForecastSource) {
-  return useQuery(["buoybarn-forecast", { forecast, lat, lon }], getForecast(forecast!, lat, lon), {
+  return useQuery(["buoybarn-forecast", { forecast, lat, lon }], () => getForecast(forecast!, lat, lon), {
     ...defaultQueryConfig,
-    enabled: forecast,
+    enabled: forecast?.source_url ? true : false,
   })
+}
+
+/**
+ * Load multiple forecasts for a given point
+ *
+ * @param lat Latitude in decimal degrees
+ * @param lon Logitude in decimal degrees
+ * @param forecasts Forecast sources to load
+ */
+export function useForecasts(lat: number, lon: number, forecasts: ForecastSource[]) {
+  return useQueries(
+    forecasts.map((forecast) => ({
+      ...defaultQueryConfig,
+      queryKey: ["buoybarn-forecast", { forecast, lat, lon }],
+      queryFn: () => getForecast(forecast, lat, lon),
+    }))
+  )
 }

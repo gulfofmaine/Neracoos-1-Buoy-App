@@ -3,7 +3,10 @@
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
 up: down
-	docker-compose up -d --build
+	rm -r node_modules/ || true
+	rm -r .eslintcache || true
+	docker buildx bake
+	docker-compose up -d
 	docker-compose logs -f
 
 down:
@@ -14,6 +17,7 @@ build:
 
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)
+	docker buildx prune -f
 	docker system prune -a
 
 patch:

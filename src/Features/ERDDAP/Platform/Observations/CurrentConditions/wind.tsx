@@ -3,6 +3,8 @@
  */
 import Link from "next/link"
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
 import { round } from "Shared/math"
@@ -28,7 +30,7 @@ interface WindCardProps {
  *
  * @param platform Platform GeoJSON feature to display wind data from
  */
-export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) => {
+export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }: WindCardProps) => {
   const unitSystem = useUnitSystem()
 
   const aDayAgo = new Date()
@@ -46,11 +48,7 @@ export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }) =
   }
 
   return (
-    <UseDatasets
-      timeSeries={timeSeries}
-      loading={<OtherWindCard platform={platform}>Loading wind data</OtherWindCard>}
-      error={<OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>}
-    >
+    <UseDatasets timeSeries={timeSeries}>
       {({ datasets }) => {
         const filteredDatasets = datasets
           .map((ds) => ({
@@ -85,7 +83,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
   unitSystem,
   startTime,
   endTime,
-}) => {
+}: DisplayWindCardProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
   const { speed: speedTimeSeries, gust: gustTimeSeries } = pickWindTimeSeries(platform)
 
@@ -134,10 +132,11 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
               <WindTimeSeriesChart
                 days={1}
                 barbsPerDay={24}
-                data={datasets}
+                legend={false}
                 height={150}
                 {...{ speed, gust, direction, unitSystem, startTime, endTime }}
               />
+              <FontAwesomeIcon icon={faExpand} style={{ height: "1rem", float: "right" }} />
             </CardBody>
           </Card>
         </a>

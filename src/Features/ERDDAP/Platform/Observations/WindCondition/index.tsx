@@ -1,13 +1,12 @@
 /**
  * Wind Observed conditions component
  */
-import * as React from "react"
+import React from "react"
 import { Alert, Col, Row } from "reactstrap"
 
 import { WindTimeSeriesChart } from "components/Charts"
 import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
-import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -27,7 +26,7 @@ interface DisplayProps extends Props {
 /**
  * Wind Observed conditions component
  */
-export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }) => {
+export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }: Props) => {
   const unitSystem = useUnitSystem()
 
   const { timeSeries } = pickWindTimeSeries(platform)
@@ -60,36 +59,14 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   platform,
   unitSystem,
   datasets,
-}) => {
+}: DisplayProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
-  const { timeSeries } = pickWindTimeSeries(platform)
 
   return (
     <Row>
       <Col>
         <h4>Wind</h4>
-        <WindTimeSeriesChart
-          barbsPerDay={5}
-          data={datasets}
-          legend={true}
-          {...{ speed, gust, direction, unitSystem }}
-        />
-        {timeSeries.length > 0 ? (
-          <p>
-            Data from the {timeSeries.map((ts) => ts.variable).join(", ")}{" "}
-            {timeSeries.length > 1 ? "variables" : "variable"} from{" "}
-            <a
-              href={tabledapHtmlUrl(
-                timeSeries[0].server,
-                timeSeries[0].dataset,
-                timeSeries.map((ts) => ts.variable),
-                timeSeries[0].constraints
-              )}
-            >
-              {timeSeries[0].dataset} dataset.
-            </a>
-          </p>
-        ) : null}
+        <WindTimeSeriesChart barbsPerDay={5} legend={true} {...{ speed, gust, direction, unitSystem }} />
       </Col>
     </Row>
   )

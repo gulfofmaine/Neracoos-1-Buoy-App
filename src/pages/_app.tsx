@@ -2,9 +2,9 @@ import { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import React, { useEffect } from "react"
 import { Provider } from "react-redux"
-import { ReactQueryCacheProvider, QueryCache } from "react-query"
+import { QueryClient, QueryClientProvider } from "react-query"
 import { Hydrate } from "react-query/hydration"
-import { ReactQueryDevtools } from "react-query-devtools"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 import * as gtag from "Shared/google-analytics"
 
@@ -14,9 +14,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "ol/ol.css"
 import "../App.css"
 
-const queryCache = new QueryCache()
+const queryClient = new QueryClient()
 
-const MyApp: React.FunctionComponent<AppProps> = ({ Component, pageProps }) => {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -30,12 +30,12 @@ const MyApp: React.FunctionComponent<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <Provider store={store}>
-      <ReactQueryCacheProvider queryCache={queryCache}>
+      <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <Component {...pageProps} />
-          <ReactQueryDevtools />
         </Hydrate>
-      </ReactQueryCacheProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </Provider>
   )
 }

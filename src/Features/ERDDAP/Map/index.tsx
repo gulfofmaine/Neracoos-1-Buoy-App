@@ -18,6 +18,7 @@ import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeature } from "../types"
 import { UsePlatforms } from "../hooks"
+import { aDayAgoRounded } from "Shared/time"
 
 export interface Props {
   boundingBox?: BoundingBox
@@ -103,13 +104,21 @@ export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platfo
   const selectedStyle = makeStyle(true)
   const oldStyle = makeStyle(false, true)
 
-  const oldPlatforms = platforms.filter(
-    (p) => p.id !== platformId && p.properties.readings.every((r) => r.time === null)
-  )
-  const filteredPlatforms = platforms.filter(
-    (p) => p.id !== platformId && p.properties.readings.some((r) => r.time !== null)
-  )
-  const selectedPlatforms = platforms.filter((p) => p.id === platformId)
+  const aDayAgo = aDayAgoRounded()
+
+  const oldPlatforms: PlatformFeature[] = []
+  const filteredPlatforms: PlatformFeature[] = []
+  const selectedPlatforms: PlatformFeature[] = []
+
+  platforms.forEach((platform: PlatformFeature) => {
+    if (platform.id === platformId) {
+      selectedPlatforms.push(platform)
+    } else if (platform.properties.readings.some((r) => r.time && r.time !== null && aDayAgo < new Date(r.time))) {
+      filteredPlatforms.push(platform)
+    } else {
+      oldPlatforms.push(platform)
+    }
+  })
 
   if (oldPlatforms.length > 0) {
     layers.push(makePlatformLayer(oldPlatforms, oldStyle))

@@ -8,7 +8,7 @@ import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
 import { PATHS } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { useForecasts } from "../../hooks"
+import { useForecastMeta } from "../../hooks"
 import { ForecastSource } from "../../types"
 
 export interface Props {
@@ -19,7 +19,7 @@ export interface Props {
  * Wraps and loads the forecast menu
  */
 export const ForecastDropdown: React.FunctionComponent<Props> = ({ platformId }) => {
-  const { isLoading, data } = useForecasts()
+  const { isLoading, data } = useForecastMeta()
 
   if (isLoading) {
     return (

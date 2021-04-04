@@ -21,5 +21,3 @@ spec:
           ports:
             - containerPort: 3000
               name: http
-      imagePullSecrets:
-        - name: docker-hub-secret

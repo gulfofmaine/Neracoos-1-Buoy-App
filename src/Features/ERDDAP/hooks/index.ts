@@ -2,6 +2,7 @@ export {
   usePlatforms,
   useForecast,
   useForecasts,
+  useForecastMeta,
   getPlatforms,
   BUOY_BARN_PLATFORMS_KEY,
   BUOY_BARN_FORECAST_KEY,

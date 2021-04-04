@@ -8,13 +8,18 @@ export function withTestRouter(tree: React.ReactElement, router: Partial<NextRou
     pathname = "",
     query = {},
     asPath = "",
+    isFallback = false,
+    basePath = "/",
+    isLocaleDomain = true,
     push = async () => true,
     replace = async () => true,
     reload = () => null,
     back = () => null,
     prefetch = async () => undefined,
     beforePopState = () => null,
-    isFallback = false,
+    isReady = true,
+    isPreview = false,
+
     events = {
       on: () => null,
       off: () => null,
@@ -27,7 +32,7 @@ export function withTestRouter(tree: React.ReactElement, router: Partial<NextRou
       value={{
         route,
         pathname,
-        basePath: "/",
+        basePath,
         query,
         asPath,
         push,
@@ -38,6 +43,9 @@ export function withTestRouter(tree: React.ReactElement, router: Partial<NextRou
         beforePopState,
         isFallback,
         events,
+        isLocaleDomain,
+        isReady,
+        isPreview,
       }}
     >
       {tree}

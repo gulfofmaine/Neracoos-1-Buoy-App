@@ -9,6 +9,11 @@ import { platform } from "stories/platform"
 export default {
   component: ErddapObservedCondition,
   title: "ERDDAP/ObservedCondition/Configurable",
+  parameters: {
+    storyshots: {
+      disable: true,
+    },
+  },
 }
 
 const standard_name = "visibility_in_air"

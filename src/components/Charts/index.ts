@@ -1,4 +1,5 @@
-export { SmallTimeSeriesChart } from './SmallTimeSeries'
-export { WindTimeSeriesChart } from './WindTimeSeries'
-export { LargeTimeSeriesChart } from './LargeTimeSeries'
-export { MultipleLargeTimeSeriesChart } from './MultipleLargeTimeSeries'
+export { SmallTimeSeriesChart } from "./SmallTimeSeries"
+export { WindTimeSeriesChart } from "./WindTimeSeries"
+export { LargeTimeSeriesChart } from "./LargeTimeSeries"
+export { MultipleLargeTimeSeriesChart } from "./MultipleLargeTimeSeries"
+export { MultipleLargeTimeSeriesChartCurrent } from "./MultipleLargeTimeSeriesCurrent"

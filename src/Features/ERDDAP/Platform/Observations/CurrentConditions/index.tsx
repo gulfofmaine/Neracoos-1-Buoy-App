@@ -2,7 +2,7 @@
  * Collection of cards to display a summary of
  * current conditions that a platform is experiencing.
  */
-import * as React from "react"
+import React from "react"
 import { Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
@@ -25,7 +25,7 @@ interface Props {
  *
  * @param platform Platform to display data for
  */
-export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = ({ platform }) => {
+export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = ({ platform }: Props) => {
   const unitSystem = useUnitSystem()
 
   const halfDayAgo = halfADayAgoRounded()
@@ -41,11 +41,11 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, halfDayAgo)
 
   const timeSeriesWithNull = [
-    airTemp,
-    airPressure,
     waveHeight,
     wavePeriod,
     waveDirection,
+    airPressure,
+    airTemp,
     waterTemp,
     visibility,
     ...windTimeSeries,
@@ -68,36 +68,24 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
           <Row>
             <DisplayWindCard timeSeries={windTimeSeries} {...{ datasets, platform, unitSystem, startTime, endTime }} />
 
-            {datasets
-              .sort((a, b) => {
-                var nameA = a.name.toUpperCase()
-                var nameB = b.name.toUpperCase()
-                if (nameA < nameB) {
-                  return -1
-                }
-                if (nameA > nameB) {
-                  return 1
-                }
-                return 0
-              })
-              .map((dataset, index) => {
-                const datasetTimeSeries = timeSeries.find((ts) => ts.variable === dataset.name)
-                if (
-                  !datasetTimeSeries ||
-                  new Set(windTimeSeries.map((ts) => ts.variable)).has(datasetTimeSeries.variable)
-                ) {
-                  return null
-                }
+            {datasets.map((dataset, index) => {
+              const datasetTimeSeries = timeSeries.find((ts) => ts.variable === dataset.name)
+              if (
+                !datasetTimeSeries ||
+                new Set(windTimeSeries.map((ts) => ts.variable)).has(datasetTimeSeries.variable)
+              ) {
+                return null
+              }
 
-                return (
-                  <DataCardDisplay
-                    key={index}
-                    timeSeries={datasetTimeSeries}
-                    readings={dataset.timeSeries}
-                    {...{ platform, unitSystem, startTime, endTime }}
-                  />
-                )
-              })}
+              return (
+                <DataCardDisplay
+                  key={index}
+                  timeSeries={datasetTimeSeries}
+                  readings={dataset.timeSeries}
+                  {...{ platform, unitSystem, startTime, endTime }}
+                />
+              )
+            })}
           </Row>
         )
       }}

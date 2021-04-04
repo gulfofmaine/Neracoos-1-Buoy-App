@@ -3,6 +3,8 @@
  */
 import Link from "next/link"
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 
 import { SmallTimeSeriesChart } from "components/Charts"
@@ -35,7 +37,7 @@ interface DataCardProps {
  * @param data_types Data Type standard names to display
  * @param platform Platform to display
  */
-export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }) => {
+export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, platform }: DataCardProps) => {
   const unitSystem = useUnitSystem()
 
   const aDayAgo = new Date()
@@ -140,6 +142,7 @@ export const DataCardDisplay: React.FunctionComponent<DataCardDisplayProps> = ({
                 data_type={timeSeries.data_type.standard_name}
                 {...{ unitSystem, startTime, endTime }}
               />
+              <FontAwesomeIcon icon={faExpand} style={{ height: "1rem", float: "right" }} />
             </CardBody>
           </Card>
         </a>

@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next"
 import React from "react"
-import { QueryCache } from "react-query"
+import { QueryClient } from "react-query"
 import { dehydrate } from "react-query/hydration"
 
 import { MapLayout } from "components/Layout"
@@ -16,14 +16,14 @@ const Index: React.FunctionComponent = () => (
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const queryCache = new QueryCache()
+  const queryClient = new QueryClient()
 
-  await queryCache.prefetchQuery(wagtailQueryKey(WAGTAIL_PAGE_ID), getWagtailPageById)
-  await queryCache.prefetchQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms)
+  await queryClient.prefetchQuery(wagtailQueryKey(WAGTAIL_PAGE_ID), () => getWagtailPageById(WAGTAIL_PAGE_ID))
+  await queryClient.prefetchQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms)
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 10 * 60, // Every ten minutes
   }

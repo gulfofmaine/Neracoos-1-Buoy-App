@@ -32,7 +32,7 @@ export interface UsePlatformsRenderProps {
  * @param loading override default loading alert
  * @param error override default error message
  */
-export const UsePlatforms: React.FunctionComponent<UsePlatformsProps> = ({ children, loading, error }) => {
+export const UsePlatforms: React.FC<UsePlatformsProps> = ({ children, loading, error }: UsePlatformsProps) => {
   const { isLoading, data } = usePlatforms()
 
   if (isLoading) {
@@ -76,20 +76,26 @@ export interface UsePlatformRenderProps {
  * @param loading Override default loading alert
  * @param error Override default error alert
  */
-export const UsePlatform: React.FunctionComponent<UsePlatformProps> = ({ children, loading, error, platformId }) => (
-  <UsePlatforms {...{ loading, error }}>
-    {({ platforms }) => {
-      const platform = platforms.find((p) => (p.id as string) === platformId)
+export const UsePlatform: React.FC<UsePlatformProps> = ({ children, loading, error, platformId }: UsePlatformProps) => {
+  const { isLoading, data } = usePlatforms()
 
-      if (platform) {
-        return children({ platform })
-      }
+  if (isLoading || platformId === undefined) {
+    if (loading) {
+      return loading
+    }
 
-      if (error) {
-        return error
-      }
+    return <Alert color="primary">Loading platform data</Alert>
+  }
 
-      return <Alert>Unable to load platform {platformId}.</Alert>
-    }}
-  </UsePlatforms>
-)
+  if (data) {
+    const platform: PlatformFeature | undefined = (data as PlatformFeatureCollection).features.find(
+      (p) => (p.id as string) === platformId
+    )
+
+    if (platform) {
+      return children({ platform })
+    }
+  }
+
+  return <Alert>Unable to load platform {platformId}</Alert>
+}

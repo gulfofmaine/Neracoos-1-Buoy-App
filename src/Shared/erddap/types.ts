@@ -36,6 +36,6 @@ export interface ErddapJson {
     columnNames: string[]
     columnTypes: string[]
     columnUnits: string[]
-    rows: Array<Array<number | string>>
+    rows: Array<Array<number | string | null>>
   }
 }

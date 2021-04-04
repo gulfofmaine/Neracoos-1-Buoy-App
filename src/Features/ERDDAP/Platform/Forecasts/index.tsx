@@ -2,17 +2,21 @@
  * Load and display forecasts
  */
 import { Point } from "@turf/helpers"
+import Link from "next/link"
 import * as React from "react"
 import { Alert, Row, Col } from "reactstrap"
 
-import { MultipleLargeTimeSeriesChart } from "components/Charts"
+import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
+import { PATHS } from "Shared/constants/routes"
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { round } from "Shared/math"
 import { aDayAgoRounded } from "Shared/time"
-import { DataTimeSeries } from "Shared/timeSeries"
+import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { useDataset, useForecast, useForecasts } from "../../hooks"
+import { useDataset, useForecast, useForecasts, useForecastMeta } from "../../hooks"
 import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../types"
 
 interface Props {
@@ -21,95 +25,92 @@ interface Props {
   unitSystem: UnitSystem
 }
 
+interface UrlDataTimeSeries extends DataTimeSeries {
+  url: string
+}
+
 /**
  * Match relevant forecast to platform datasets
  */
-export const Forecast: React.FunctionComponent<Props> = ({ platform, forecast_type, ...props }) => {
+export const Forecast: React.FC<Props> = ({ platform, forecast_type, ...props }: Props) => {
   const standardNames = forecastToStandardNames[forecast_type]
-  const timeSeries = platform.properties.readings.find((r) => standardNames.has(r.data_type.standard_name))
+  const timeSeries: PlatformTimeSeries | undefined = platform.properties.readings.find(
+    (r) => standardNames?.has(r.data_type.standard_name) ?? false
+  )
 
-  return <LoadForecastInfo {...props} {...{ platform, forecast_type, timeSeries }} />
-}
-
-interface LoadInfoProps extends Props {
-  timeSeries?: PlatformTimeSeries
-}
-
-/**
- * Load all the forecasts, and load a matching time series if available.
- */
-const LoadForecastInfo: React.FunctionComponent<LoadInfoProps> = ({ timeSeries, forecast_type, ...props }) => {
-  const { isLoading: isLoadingForecasts, data: forecastsInfo } = useForecasts()
+  const { data: forecastInfo } = useForecastMeta()
   const { data: dataset } = useDataset(timeSeries)
 
-  const forecastInfo = forecastsInfo?.find((f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type)
+  const forecasts = (forecastInfo as ForecastSource[])?.filter(
+    (f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type
+  )
 
-  if (isLoadingForecasts) {
-    return <Alert>Loading forecast metadata</Alert>
-  }
-
-  if (forecastInfo) {
-    return <LoadForecast {...props} {...{ timeSeries, dataset, forecast_type, forecastInfo }} />
-  }
-
-  return <Alert color="warning">Error loading forecast info</Alert>
-}
-
-interface LoadForecastProps extends LoadInfoProps {
-  forecastInfo: ForecastSource
-  dataset?: DataTimeSeries
-}
-
-/**
- * Load the forecast itself
- */
-const LoadForecast: React.FunctionComponent<LoadForecastProps> = ({
-  forecastInfo,
-  platform,
-  unitSystem,
-  timeSeries,
-  dataset,
-  forecast_type,
-}) => {
   const point = platform.geometry as Point
   const [lon, lat] = point.coordinates
 
-  const { isLoading, data } = useForecast(lat, lon, forecastInfo)
+  const results = useForecasts(lat, lon, forecasts ?? [])
 
-  if (isLoading) {
-    return <Alert>Loading forecast</Alert>
+  const forecastResults = (forecasts || []).map((f, index) => ({
+    meta: f,
+    result: results[index],
+  }))
+
+  const chartData: UrlDataTimeSeries[] = []
+
+  if (dataset && timeSeries) {
+    const aDayAgo = aDayAgoRounded()
+
+    chartData.push({
+      ...dataset,
+      timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
+      name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name} - observations`,
+      url: tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints),
+    })
   }
 
-  if (data) {
-    const forecastDataset: DataTimeSeries = {
-      timeSeries: data,
-      name: forecastInfo.name,
-      unit: forecastInfo.units,
-    }
-
-    const datasets = [forecastDataset]
-
-    if (timeSeries && dataset) {
-      const aDayAgo = aDayAgoRounded()
-
-      datasets.push({
-        ...dataset,
-        timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
-        name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name}`,
+  forecastResults.forEach(({ result, meta }) => {
+    if (result?.data) {
+      chartData.push({
+        timeSeries: result.data as ReadingTimeSeries[],
+        name: meta.name + " - forecast",
+        unit: meta.units,
+        url: meta.source_url,
       })
     }
+  })
 
+  const unitSystem = useUnitSystem()
+
+  if (forecasts === undefined || forecasts.length < 1) {
     return (
       <Row>
         <Col>
-          <h4>{forecastInfo.forecast_type} Forecast</h4>
-          <ForecastChart data={datasets} unitSystem={unitSystem} type={forecast_type} />
+          <Alert color="warning">
+            <h4>No forecast available for {forecast_type}</h4>
+          </Alert>
         </Col>
       </Row>
     )
   }
 
-  return <Alert color="warning">Unable to load forecasts</Alert>
+  return (
+    <Row>
+      <Col>
+        <h4>{forecasts[0].forecast_type} Forecast</h4>
+
+        <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
+
+        <h6>Data sources</h6>
+        <p>
+          For more information on the models and data used in this plot, visit the{" "}
+          <Link href={PATHS.about}>
+            <a>about page</a>
+          </Link>
+          .
+        </p>
+      </Col>
+    </Row>
+  )
 }
 
 /**
@@ -164,7 +165,9 @@ export const ForecastChart: React.FunctionComponent<ForecastChartProps> = ({ dat
   const units = Array.from(new Set(data.map((ts) => ts.unit)))
 
   if (units.length > 0) {
-    return <MultipleLargeTimeSeriesChart unit={units[0]} data={data} scatter={direction_forecast_types.has(type)} />
+    return (
+      <MultipleLargeTimeSeriesChartCurrent unit={units[0]} data={data} scatter={direction_forecast_types.has(type)} />
+    )
   }
   return null
 }

@@ -17,6 +17,7 @@ export const itemStyle = { padding: ".5rem", paddingLeft: "1rem", color: "black"
 
 interface TableItemProps {
   platform: PlatformFeature
+  readings: PlatformTimeSeries[]
   data_type: string | string[]
   name: string
   unitSystem: UnitSystem
@@ -29,6 +30,7 @@ interface TableItemProps {
  */
 export const TableItem: React.FunctionComponent<TableItemProps> = ({
   platform,
+  readings,
   data_type,
   name,
   unitSystem,
@@ -49,7 +51,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
   let data: PlatformTimeSeries[] = []
 
   data_type_list.forEach((data_type) => {
-    platform.properties.readings
+    readings
       .filter((ts) => data_type === ts.data_type.standard_name && (ts.depth ? ts.depth < 2 : true))
       .forEach((ts) => data.push(ts))
   })

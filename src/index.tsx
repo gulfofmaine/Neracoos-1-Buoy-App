@@ -11,7 +11,8 @@ import moment from "moment-timezone"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import { ReactQueryDevtools } from "react-query-devtools"
+import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 import "./index.css"
 import { store } from "./store"
@@ -50,6 +51,8 @@ if (!(window as any).Cypress) {
     release: packageJson.version,
   })
 }
+
+const queryClient = new QueryClient()
 
 /**
  * Render our root element of the App.

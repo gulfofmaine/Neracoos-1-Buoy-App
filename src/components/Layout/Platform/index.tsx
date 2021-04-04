@@ -19,7 +19,7 @@ interface PlatformLayoutProps {
 }
 
 export const PlatformLayout: React.FC<PlatformLayoutProps> = ({ children, pageName }) => {
-  const { query } = useRouter()
+  const { query, ...router } = useRouter()
   const unitSystem = useUnitSystem()
 
   const platformId = query.id as string

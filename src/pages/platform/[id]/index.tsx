@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next"
 import React from "react"
-import { QueryCache } from "react-query"
+import { QueryClient } from "react-query"
 import { dehydrate } from "react-query/hydration"
 import { Col, Row } from "reactstrap"
 
@@ -13,7 +13,7 @@ import {
   getForecasts,
 } from "Features/ERDDAP"
 
-const CurrentConditions: React.FunctionComponent = () => {
+const CurrentConditions: React.FC = () => {
   return (
     <PlatformLayout>
       {({ platform }) => (
@@ -28,22 +28,24 @@ const CurrentConditions: React.FunctionComponent = () => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const queryCache = new QueryCache()
+  const queryClient = new QueryClient()
 
-  await queryCache.prefetchQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms)
-  await queryCache.prefetchQuery(BUOY_BARN_FORECAST_KEY, getForecasts)
+  await queryClient.prefetchQuery(BUOY_BARN_PLATFORMS_KEY, getPlatforms)
+  await queryClient.prefetchQuery(BUOY_BARN_FORECAST_KEY, getForecasts)
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 10 * 60, // Every ten minutes
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const platforms = await getPlatforms()
+
   return {
-    paths: [],
+    paths: platforms.features.map((platform) => ({ params: { id: platform.id } })),
     fallback: true,
   }
 }

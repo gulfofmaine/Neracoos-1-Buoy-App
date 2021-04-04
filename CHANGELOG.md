@@ -10,6 +10,282 @@ Changes:
 
 Fixes:
 
+## 0.6.8 - 3/18/2021
+
+Changes:
+
+- Dependency Updates:
+  - Font Awesome
+    - SVG Core from 1.2.34 to 1.2.35
+    - Free Solid SVG Icons from 5.15.2 to 5.15.3
+  - Sentry React from 6.2.1 to 6.2.2
+  - Highcharts from 8. to 9.0.1
+  - React JSX Highcharts from 4.2.0 to 4.2.1
+  - React Query from 3.12.1 to 3.12.3
+  - Types
+    - Jest from 26.0.20 to 26.0.21
+  - Wait On from 5.2.1 to 5.3.0
+  - Cypress from 6.6.0 to 6.8.0
+
+Fixes:
+
+- Adjust Github Actions workflows so that PRs from Dependabot [can run without secrets](https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/).
+- Update Google Analytics tracking method from [ReactGA#122](https://github.com/react-ga/react-ga/issues/122#issuecomment-702230428). Closes [#1135](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1135)
+
+## 0.6.7 - 3/9/2021
+
+Changes:
+
+- Add expand icon to current conditions to show that they are linked to a larger chart. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
+- Add outbound link icon to __More Info__ links. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
+- Hide dataset links on chart pages. [#1119](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1119)
+- Show observations/forecast next to data types on forecasts. [#1119](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1119)
+- Dependency Updates:
+  - Update Node from 15.8.0 to 15.11.0
+  - React-Query from 3.12.0 to 3.12.1
+  - Storybook
+    - Preset Create React App from 3.1.6 to 3.1.7
+  - Types
+    - React DOM from 17.0.1 to 17.0.2
+
+
+## 0.6.6 - 3/8/2021
+
+Changes:
+
+- Use buildkit to speed up Docker builds with better caching.
+- Update Readme to include deployment with Argo CD.
+- Update Browerslist (CanIUse) to adjust Javascript build targets.
+- Tweak the order of current conditions to be: wind data, wave height, wave period, wave direction, barometric pressure, air temp, water temp.
+- Dependency Updates:
+  - Removed Typedoc
+  - Types
+    - Node from 14.14.31
+    - React from 16.14.4 to 16.4.5
+
+Fixes:
+
+- Wind speeds should only display a single value, not a double value.
+- Pushing development image target to Docker Hub rather than the production target.
+
+## 0.6.5 - 3/7/2021
+
+Fixes:
+
+- Push when the production image builds.
+- Include GitOps token when cloning.
+
+## 0.6.4 - 3/7/2021
+
+Fixes:
+
+- Make directory for cloning GitOps repo into.
+
+## 0.6.3 - 3/7/2021
+
+Fixes:
+
+- Use expressions reference rather than environment variables.
+
+## 0.6.2 - 3/7/2021
+
+Fixes:
+
+- Tags mean that the Github ref isn't the master or main branch.
+
+## 0.6.1 - 3/7/2021
+
+Changes:
+
+- Migrate configs to work with Argo CD:
+  - Remove `imagePullSecret` from deployment and Kustomize config.
+  - Remove ingress host and patch.
+  - Remove common labels from `kustomization.yaml`.
+- Build and push production Docker image on release tags.
+- Update GitOps repo on release tags.
+- Dependency Updates:
+  - Github Pages Deploy Action from 4.0.0 to 4.1.0
+  - Sentry React from 6.2.0 to 6.2.1
+  - Storybook
+    - Addon A11y from 6.1.20 to 6.1.21
+    - Addon Storyshots from 6.1.20 to 6.1.21
+    - React from 6.1.20 to 6.1.21
+  - Typedoc from 0.20.28 to 0.20.29
+  - Typescript from 4.1.5 to 4.2.3
+  - Cypress from 6.5.0 to 6.6.0
+
+## 0.6.0 - 2/24/2021
+
+Changes:
+
+- Show the current time on the forecast plots.
+- Support loading multiple forecasts via `useQueries()`.
+- Show forecast data sources.
+- Dependency Updates:
+  - Test on Ubuntu 20.04
+  - Actions/checkout from 1 to 2.3.4
+  - Actions/upload-artifact from 1 to 2.2.2
+  - Nginx from 1.19.4 to 1.19.7
+  - Sentry react from 6.1.0 to 6.2.0
+  - Connected React Router from 6.6.1 to 6.9.1
+  - React Query from 3.8.3 to 3.12.0
+  - React Scripts from 4.0.2 to 4.0.3
+  - Storybook
+    - Addon A11y from 6.1.17 to 6.1.20
+    - Addon Storyshots from 6.1.17 to 6.1.20
+    - Preset Create React App from 3.1.5 to 3.1.6
+    - React from 6.1.17 to 6.1.20
+  - Types
+    - Node from 14.14.27 to 14.14.31
+    - React from 16.14.3 to 16.14.4
+    - React DOM from 17.0.0 to 17.0.1
+    - React test renderer from 17.0.0 to 17.0.1
+  - Typedoc from 0.20.24 to 0.20.28
+
+Fixes:
+
+- Use Buildx and Github Actions caching.
+- Use Dependabot to update Github Actions.
+- Remove separate Storybook deployment workflow.
+
+## 0.5.9 - 2/14/2021
+
+Changes:
+
+- Use the same definition of old data (24 hours) for the map and the platform pages.
+- Update Highcharts and use native types.
+- Dependency Updates:
+  - Bootstrap from 4.5.3 to 4.6.0
+  - Cypress from 6.2.1 to 6.4.0
+  - Enzyme adapter React 16 from 1.15.5 to 1.15.6
+  - Highcharts from 7.2.2 to <9.0.0
+  - Moment Timezone from 0.5.32 to 0.5.33
+  - Node from 15.3.0 to 15.8.0
+  - React JSX Highcharts from 3.5.1 to 4.2.0
+  - React Query from 3.5.12 to 3.8.3
+  - React Scripts from 3.4.3 to 4.0.2
+  - Reactstrap from 8.8.1 to 8.9.0
+  - Sentry React from 5.30.0 to 6.1.0
+  - Storybook
+    - Addon A11y from 6.1.14
+    - Addon Storyshots from 6.1.14 to 6.1.17
+    - React from 6.1.14 to 6.1.17
+  - Turf
+    - BBox Polygon from 6.2.0 to 6.3.0
+    - Boolean Contains from 6.2.0 to 6.3.0
+    - Helpers from 6.2.0 to 6.3.0
+  - Types
+    - Node from 14.14.20 to 14.14.27
+    - React from 16.14.2 to 16.14.3
+    - React Redux from 7.1.15 to 7.1.16
+  - Typedoc from 0.18.0 to 0.20.24
+  - Typescript from 3.8.3 to 4.1.5
+
+Fixes:
+
+- Sort loaded ERDDAP data by time, otherwise Highcharts may explode.
+
+## 0.5.8 - 1/13/2021
+
+Changes:
+
+- Update favicon.
+- Update React-Query to v3 and use native multi-query support.
+- Dependency Updates
+  - Node from 15.2.0 to 15.3.0
+  - Sentry React from 5.27.2 to 5.30.0
+  - Moment Timezone from 0.5.31 too 0.5.32
+  - React Google Analytics from 3.2.1 to 3.3.0
+  - React Query from 2.26.2 to 3.5.1
+  - Reactstrap from 8.7.1 to 8.8.1
+  - Wait on from 5.2.0 to 5.2.1
+  - Cypress from 5.6.0 to 6.2.1
+  - Storybook
+    - Addon A11y from 6.0.28 to 6.1.14
+    - Addon Storyshots from 6.0.28 to 6.1.14
+    - React from 6.0.28 to 6.1.14
+  - Turf
+    - BBox-Polygon from 6.0.1 to 6.2.0
+    - Boolean Contains from 6.0.1 to 6.2.0
+    - Helpers from 6.1.4 to 6.2.0
+  - Types
+    - React Redux from 7.1.11 to 7.1.15
+    - React Router DOM from 5.1.6 to 5.1.7
+    - Jest from 26.015 to 26.0.20
+    - Node from 14.14.7 to 14.14.20
+    - React from 16.9.56 to 16.14.2
+    - React DOM from 16.9.9 to 17.0.0
+    - React Test Renderer from 16.9.3 to 17.0.0
+
+Fixes:
+
+- Use appropriate URI encoding for constraints to better support ERDDAP 2.x.
+- Tests for current conditions to deal with timing of data loading.
+- Added test for a simpler ERDDAP data load.
+- Update app manifest to allow users to clip specific pages.
+- Use a local CORS proxy for testing.
+- Archive Cypress screenshots and videos if there are test failures.
+
+## 0.5.7 - 11/12/2020
+
+Changes:
+
+- Dependency Updates:
+  - Node from 14.11.0 to 15.2.0
+  - Nginx from 1.19.2 to 1.19.4
+  - React-GA from 3.2.0 to 3.2.1
+  - React Query from 2.26.1 to 2.26.2
+  - React Query Devtools from 2.6.1 to 2.6.3
+  - Cypress from 5.5.0 to 5.6.0
+  - Storybook
+    - Preset Create React App from 3.1.4 to 3.1.5
+  - Types
+    - Node from 14.14.6 to 14.14.7
+    - React from 16.9.55 to 16.9.56
+
+Fixes:
+
+- Catch when there is an invalid data type and send a message to Sentry.
+
+## 0.5.6 - 11/4/2020
+
+Changes:
+
+- Dependency Updates
+  - Sentry react from 5.24.2 to 5.27.2
+  - Moment from 2.29.0 to 2.29.1
+  - React from 16.13.1 to 16.14.0
+  - React app polyfill from 1.0.6 to 2.0.0
+  - React DOM from 16.13.1 to 16.14.0
+  - React GA from 3.1.2 to 3.2.0
+  - React Query from 2.23.0 to 2.26.1
+  - React Redux from 7.21 to 7.2.2
+  - Reactstrap from 8.6.0 to 8.7.1
+  - React Query Devtools from 2.5.1 to 2.6.1
+  - React Test Render from 16.13.1 to 16.14.0
+  - Cypress from 5.3.0 to 5.5.0
+  - Storybook
+    - Addon A11y from 6.0.22 to 6.0.28
+    - Addon Essentials from 6.0.22 to 6.0.28
+    - Addon Storyshots from 6.0.22 to 6.0.28
+    - React from 6.0.22 to 6.0.28
+  - Types
+    - Ol frm 6.4.1 to 6.4.2
+    - React Redux from 7.1.9 to 7.1.11
+    - React-router from 5.1.5 to 5.1.6
+    - Removed Reactstrap types as they are now included
+    - Enzyme from 3.10.7 to 3.10.8
+    - Jest from 26.0.14 to 26.0.15
+    - Node from 14.11.2 to 14.14.6
+    - React from 16.9.50 to 16.9.55
+    - React DOM from 16.9.8 to 16.9.9
+
+Fixes:
+
+- Filter recent conditions table by date.
+- Filter nulls on the client side from ERDDAP requests rather than using constraints to remove them.
+- Update tests to use new method for setting environment variables in Github Actions.
+
 ## 0.5.5 - 10/2/2020
 
 Changes:

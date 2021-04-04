@@ -1,4 +1,5 @@
-FROM node:14.11.0-alpine@sha256:328f4041e9af2db8252b3266691dc095971fb03f9f6f9e9ffb45b0c9752cd903 as develop
+#syntax=docker/dockerfile:1.2
+FROM node:15.13.0-alpine@sha256:fc24d15ecf126b8e6dd954198159407261a780c7684b944c8556f5ddb8bee580 as develop
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -7,9 +8,12 @@ RUN apk add --no-cache git
 
 COPY ./package.json ./yarn.lock /usr/src/app/
 
-RUN yarn install --ignore-optional
+RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
+    yarn install --ignore-optional
 
 COPY . /usr/src/app
+
+CMD ["yarn", "dev"]
 
 FROM develop as buildstep
 
