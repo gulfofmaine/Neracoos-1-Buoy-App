@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Switch logo to link to neracoos.org.
+
 Fixes:
 
 ## 0.6.8 - 3/18/2021

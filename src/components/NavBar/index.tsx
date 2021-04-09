@@ -2,7 +2,7 @@
  * Navbar component
  */
 import * as React from "react"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -34,7 +34,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
     return (
       <div>
         <Navbar dark={true} expand="md">
-          <NavbarBrand tag={Link} to={paths.home}>
+          <NavbarBrand href={paths.neracoos}>
             <img src={neracoosLogo} alt="NERACOOS" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
