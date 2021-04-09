@@ -47,10 +47,8 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
             direction[1]
           }) (${((p.point as unknown) as DirectionPoint).beaufort})`
         }
-        return `<b>${p.series.name}:</b> ${round(
-          dataConverter.convertToNumber(p.y, unitSystem),
-          1
-        )} ${dataConverter.displayName(unitSystem)}`
+
+        return `<b>${p.series.name}:</b> ${round(p.y, 1)} ${dataConverter.displayName(unitSystem)}`
       }).join("<br />")
     )
   }
