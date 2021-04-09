@@ -1,4 +1,5 @@
 import { AppProps } from "next/app"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import React, { useEffect } from "react"
 import { Provider } from "react-redux"
@@ -29,14 +30,21 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   }, [router.events])
 
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
-        </Hydrate>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </Provider>
+    <React.Fragment>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="theme-color" content="#000000" />
+      </Head>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <Component {...pageProps} />
+          </Hydrate>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </Provider>
+    </React.Fragment>
   )
 }
 

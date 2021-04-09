@@ -2,7 +2,7 @@
  * Card to wrap errors loading datasets
  */
 import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { Card, CardBody, Col } from "reactstrap"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -22,10 +22,12 @@ export const ErrorDataCard: React.FunctionComponent<ErrorDataCardProps> = ({ tim
 
   return (
     <Col {...cardProps}>
-      <Link to={url}>
-        <Card>
-          <CardBody>Error loading {timeSeries.data_type.long_name} data</CardBody>
-        </Card>
+      <Link href={url}>
+        <a>
+          <Card>
+            <CardBody>Error loading {timeSeries.data_type.long_name} data</CardBody>
+          </Card>
+        </a>
       </Link>
     </Col>
   )
