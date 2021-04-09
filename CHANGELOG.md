@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Wind scale was converting unit systems twice in the tooltip (the data was converted once for display, then converted again to display in the tooltip), which made the tooltip show a ~70 knots when it should be ~ 38.
+
 ## 0.6.8 - 3/18/2021
 
 Changes:
