@@ -80,8 +80,7 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
   >
     <a
       className="navbar-brand"
-      href="/"
-      onClick={[Function]}
+      href="http://neracoos.org"
     >
       <img
         alt="NERACOOS"
