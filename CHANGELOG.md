@@ -8,6 +8,7 @@ Changes:
 
 - Switch logo to link to neracoos.org.
 - Update footer copyright to 2021.
+- Use Sentry to trace 1% of views.
 
 Fixes:
 
