@@ -17,7 +17,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
     <div
       className="mx-auto text-center col-md-10"
     >
-      Copyright © 2020 ~ NERACOOS
+      Copyright © 2021 ~ NERACOOS
     </div>
   </div>
   <div
