@@ -16,22 +16,16 @@ object-assign
  */
 
 /*!
- * OverlayScrollbars
- * https://github.com/KingSora/OverlayScrollbars
+ * The buffer module from node.js, for the browser.
  *
- * Version: 1.13.0
- *
- * Copyright KingSora | Rene Haas.
- * https://github.com/KingSora
- *
- * Released under the MIT license.
- * Date: 02.08.2020
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
  */
 
 /*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @author   Feross Aboukhadijeh <http://feross.org>
  * @license  MIT
  */
 
@@ -65,8 +59,8 @@ object-assign
  * Released under the MIT License.
  */
 
-/*! axe v4.1.1
- * Copyright (c) 2020 Deque Systems, Inc.
+/*! axe v4.1.3
+ * Copyright (c) 2021 Deque Systems, Inc.
  *
  * Your use of this Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -77,14 +71,7 @@ object-assign
  * code.
  */
 
-/**
- * Prism: Lightweight, robust, elegant syntax highlighting
- *
- * @license MIT <https://opensource.org/licenses/MIT>
- * @author Lea Verou <https://lea.verou.me>
- * @namespace
- * @public
- */
+/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /** @license React v0.19.1
  * scheduler.production.min.js
