@@ -7,6 +7,7 @@ Additions:
 Changes:
 
 - Switch logo to link to neracoos.org.
+- Update footer copyright to 2021.
 
 Fixes:
 
