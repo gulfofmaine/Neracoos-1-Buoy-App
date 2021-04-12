@@ -6,13 +6,38 @@ Additions:
 
 Changes:
 
-- Switch logo to link to neracoos.org.
-- Update footer copyright to 2021.
-- Use Sentry to trace 1% of views.
+Fixes:
+
+## 0.6.9 - 4/12/2021
+
+Changes:
+
+- Switch logo to link to neracoos.org. [#1195](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1195)
+- Update footer copyright to 2021. [#1198](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1198)
+- Use Sentry to trace 1% of views. [#1200](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1200)
+- Dependency Updates
+  - Actions
+    - Upload Artifact from 2.2.2 to 2.2.3
+    - Github Pages Deploy from 4.1.0 to 4.1.1
+  - Node from 15.11.0 to 15.13.0
+  - Nginx from 1.19.7 to 1.19.9
+  - Sentry React from 6.2.2 to 6.2.5
+  - React Query from 3.12.3 to 3.13.6
+  - React Redux from 7.2.2. to 7.2.3
+  - Storybook from 6.1.21 to 6.2.7
+    - Addon A11y
+    - Addon Essentials
+    - Addon Storyshots
+    - React
+  - Types
+    - Jest from 26.0.21 to 26.0.22
+    - Node from 14.14.32 to 14.14.37
+    - React DOM from 17.0.2 to 17.0.3
+  - Typescript from 4.2.3 to 4.2.4
 
 Fixes:
 
-- Wind scale was converting unit systems twice in the tooltip (the data was converted once for display, then converted again to display in the tooltip), which made the tooltip show a ~70 knots when it should be ~ 38.
+- Wind scale was converting unit systems twice in the tooltip (the data was converted once for display, then converted again to display in the tooltip), which made the tooltip show a ~70 knots when it should be ~ 38. [#1196](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1196)
 
 ## 0.6.8 - 3/18/2021
 
