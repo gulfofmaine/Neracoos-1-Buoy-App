@@ -53,7 +53,7 @@ if (!(window as any).Cypress) {
       }
       return event
     },
-    release: packageJson.version,
+    release: `v${packageJson.version}`,
     integrations: [new Integrations.BrowserTracing()],
     tracesSampleRate: 0.01, // Trace 1/100 or 1% of visits.
   })
