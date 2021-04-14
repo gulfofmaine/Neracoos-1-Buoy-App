@@ -8,6 +8,23 @@ Changes:
 
 Fixes:
 
+## 0.6.10 - 4/14/2021
+
+Changes:
+
+- Automate Sentry Release
+- Dependency Updates
+  - Actions
+    - Cache from 2.1.4 to 2.1.5
+  - Nginx from 1.19.9 to 1.19.10
+  - React Query from 3.13.6 to 3.13.7
+  - React is from 16.13.1 to 17.0.2
+  - Storybook from 6.2.7 to 6.2.8
+    - Addon A11y
+    - Addon Essentials
+    - Addon Storyshots
+    - React
+
 ## 0.6.9 - 4/12/2021
 
 Changes:
