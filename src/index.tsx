@@ -5,6 +5,7 @@ import "react-app-polyfill/ie11" // Polyfill for Internet Explorer compatability
 import "react-app-polyfill/stable"
 
 import * as Sentry from "@sentry/react"
+import { Integrations } from "@sentry/tracing"
 import { Event } from "@sentry/types"
 
 import moment from "moment-timezone"
@@ -48,7 +49,9 @@ if (!(window as any).Cypress) {
       }
       return event
     },
-    release: packageJson.version,
+    release: `v${packageJson.version}`,
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 0.01, // Trace 1/100 or 1% of visits.
   })
 }
 

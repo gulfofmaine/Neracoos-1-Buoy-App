@@ -9,7 +9,7 @@ export const Footer: React.FunctionComponent = () => (
   <div className="footer">
     <Row style={{ ...textStyle, paddingTop: "1rem" }}>
       <Col md={colSize} className="mx-auto text-center">
-        Copyright © 2020 ~ NERACOOS
+        Copyright © 2021 ~ NERACOOS
       </Col>
     </Row>
     <Row style={textStyle}>

@@ -17,7 +17,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
     <div
       className="mx-auto text-center col-md-10"
     >
-      Copyright © 2020 ~ NERACOOS
+      Copyright © 2021 ~ NERACOOS
     </div>
   </div>
   <div
@@ -80,8 +80,7 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
   >
     <a
       className="navbar-brand"
-      href="/"
-      onClick={[Function]}
+      href="http://neracoos.org"
     >
       <img
         alt="NERACOOS"

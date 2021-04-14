@@ -14,4 +14,5 @@ export const PATHS = {
     platform: "/platform/[id]",
     root: "/platform/",
   },
+  neracoos: "http://neracoos.org",
 }
