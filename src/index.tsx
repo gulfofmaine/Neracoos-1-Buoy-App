@@ -19,10 +19,8 @@ import { ReactQueryDevtools } from "react-query/devtools"
 import GAListener from "Shared/google-analytics"
 
 import App from "./App"
-import "./index.css"
+import "./index.scss"
 import { history, store } from "./store"
-
-import "bootstrap/dist/css/bootstrap.min.css"
 
 declare global {
   interface Window {

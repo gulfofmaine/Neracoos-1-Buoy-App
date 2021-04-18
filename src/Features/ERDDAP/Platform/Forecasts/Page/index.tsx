@@ -7,11 +7,12 @@ import { Link } from "react-router-dom"
 import { Alert, Row, Col } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
+import { colorCycle } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aDayAgoRounded } from "Shared/time"
-import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { StyledTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
@@ -25,7 +26,7 @@ interface Props {
   unitSystem: UnitSystem
 }
 
-interface UrlDataTimeSeries extends DataTimeSeries {
+interface UrlStyledTimeSeries extends StyledTimeSeries {
   url: string
 }
 
@@ -55,7 +56,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     result: results[index],
   }))
 
-  const chartData: UrlDataTimeSeries[] = []
+  const chartData: UrlStyledTimeSeries[] = []
 
   if (dataset && timeSeries) {
     const aDayAgo = aDayAgoRounded()
@@ -65,16 +66,20 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
       timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
       name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name} - observations`,
       url: tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints),
+      color: colorCycle[0],
+      dashStyle: "Dash",
     })
   }
 
-  forecastResults.forEach(({ result, meta }) => {
+  forecastResults.forEach(({ result, meta }, index) => {
     if (result?.data) {
       chartData.push({
         timeSeries: result.data as ReadingTimeSeries[],
         name: meta.name + " - forecast",
         unit: meta.units,
         url: meta.source_url,
+        dashStyle: "Solid",
+        color: colorCycle[index + 1],
       })
     }
   })
@@ -135,7 +140,7 @@ export const forecastToStandardNames: { [key: string]: Set<string> } = {
 const direction_forecast_types = new Set(["wave_direction", "wind_direction"])
 
 interface ForecastChartProps {
-  data: DataTimeSeries[]
+  data: StyledTimeSeries[]
   // forecast type
   type: string
   // Unit system to display in

@@ -13,6 +13,7 @@ import React from "react"
 import { useDispatch } from "react-redux"
 
 import { BaseMap, esriLayers } from "components/Map"
+import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -49,16 +50,17 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
   } else {
     radius = window.innerWidth > adjustPxWidth ? 5 : 10
   }
-  const opacity = selected ? "0.8" : "0.4"
+  const opacity = selected ? "cc" : "7a"
+
   return new Style({
     image: new Circle({
       fill: new Fill({
-        color: old ? "grey" : `rgba(255, 153, 0, ${opacity})`,
+        color: old ? "grey" : `#cf5c00${opacity}`,
       }),
       radius,
       stroke: new Stroke({
-        color: old ? "grey" : "red",
-        width: 1,
+        color: old ? "grey" : colors.whatOrange,
+        width: 1.5,
       }),
     }),
   })
