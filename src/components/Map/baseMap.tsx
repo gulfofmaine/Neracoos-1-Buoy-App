@@ -72,6 +72,7 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
 
   React.useEffect(() => {
     setMap((map) => {
+      setPopupOpen(false)
       map?.getView().setCenter(transform([lon, lat], "EPSG:4326", "EPSG:3857"))
       return map
     })
@@ -82,6 +83,7 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
       setMap((map) => {
+        setPopupOpen(false)
         map?.getView().fit(extent)
         return map
       })
@@ -90,6 +92,7 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
 
   React.useEffect(() => {
     setMap((map) => {
+      setPopupOpen(false)
       map?.setLayerGroup(new Group({ layers }))
       return map
     })
@@ -98,6 +101,7 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   React.useLayoutEffect(() => {
     if (height) {
       setMap((map) => {
+        setPopupOpen(false)
         map?.updateSize()
         return map
       })
