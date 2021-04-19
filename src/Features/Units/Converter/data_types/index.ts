@@ -58,6 +58,12 @@ export const data_types: DataTypesObject = {
   max_wave_height: new WaveHeight("max_wave_height", "Maximum Wave Height"),
   mean_wave_direction: new CardinalDirection("mean_wave_direction", "Mean Wave Direction"),
   min_visibility: new Visibility("min_visibility", "Minimum Visibility"),
+  mole_concentration_of_carbon_dioxide_in_air_ppm: new Passthrough(
+    "mole_concentration_of_carbon_dioxide_in_air_ppm",
+    "Atmospheric Concentration of Carbon Dioxide in Parts Per Million",
+    "ppm",
+    "ppm"
+  ),
   mole_concentration_of_nitrate_in_sea_water: new Passthrough(
     "mole_concentration_of_nitrate_in_sea_water",
     "Nitrate Concentration",
@@ -70,8 +76,26 @@ export const data_types: DataTypesObject = {
     "microM/l",
     "microM/l"
   ),
+  moles_of_oxygen_per_unit_mass_in_sea_water_um_kg: new Passthrough(
+    "moles_of_oxygen_per_unit_mass_in_sea_water_um_kg",
+    "Micro Moles Oxygen per Kilogram of Sea Water",
+    "uM/kg",
+    "uM/kg"
+  ),
   northward_sea_water_velocity: new CmsVelocity("northward_sea_water_velocity", "North Velocity Component"),
   northward_wind: new WindSpeed("northward_wind", "Wind Speed, Meridional"),
+  omega_aragonite: new Passthrough(
+    "omega_aragonite",
+    "Omega Aragonite - Derived from total alkalinity and pCO2",
+    "Omega",
+    "Omega"
+  ),
+  omega_calcite: new Passthrough(
+    "omega_calcite",
+    "Omega Calcite - Derived from total alkalinity and pCO2",
+    "Omega",
+    "Omega"
+  ),
   oxygen_concentration_in_sea_water: new Passthrough(
     "oxygen_concentration_in_sea_water",
     "Oxygen Concentration In Sea Water",
@@ -93,6 +117,12 @@ export const data_types: DataTypesObject = {
   pressure_tendency: new Passthrough("pressure_tendency", "Pressure Tendency", "degrees", "Degrees"),
   relative_humidity: new Passthrough("relative_humidity", "Relative Humidity", "percent", "Percent"),
   sea_level_pressure: new AirPressureHpa("sea_level_pressure", "Sea Level Pressure"),
+  surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm: new Passthrough(
+    "surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm",
+    "Sea Water Concentration of Carbon Dioxide in Parts Per Million",
+    "ppm",
+    "ppm"
+  ),
   sea_surface_swell_wave_period: new Passthrough(
     "sea_surface_swell_wave_period",
     "Wave Period, Average",

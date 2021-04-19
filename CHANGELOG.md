@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Add UNH non-CF data types.
+
 Fixes:
 
 ## 0.6.11 - 4/14/2021
