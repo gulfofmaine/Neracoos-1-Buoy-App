@@ -24,7 +24,8 @@ import { aDayAgoRounded } from "Shared/time"
 
 export interface Props {
   boundingBox?: BoundingBox
-  platformId: string
+  platformId?: string
+  height?: number | string
 }
 
 interface BaseProps extends Props {
@@ -100,7 +101,7 @@ function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLa
  * @param platforms Array of platform features
  * @param platformId Selected platform ID name
  */
-export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platformId: string): Layer[] {
+export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platformId?: string): Layer[] {
   /** platform styles */
   layers = [...layers]
   const platformStyle = makeStyle(false)
@@ -159,6 +160,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
         layers={makeLayers(baseLayers, this.props.platforms, this.props.platformId)}
         boundingBox={this.props.boundingBox}
         onClick={this.onClick}
+        height={this.props.height}
       />
     )
   }
@@ -181,7 +183,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, boundingBox }) => {
+export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, boundingBox, height }: Props) => {
   const dispatch = useDispatch()
 
   return (
@@ -192,6 +194,7 @@ export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, bounding
           platformId={platformId}
           boundingBox={boundingBox}
           push={(url: string) => dispatch(push(url))}
+          height={height}
         />
       )}
     </UsePlatforms>

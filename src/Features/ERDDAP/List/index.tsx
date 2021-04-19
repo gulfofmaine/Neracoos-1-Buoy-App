@@ -26,19 +26,28 @@ interface BaseProps extends Props {
 /**
  * Display platforms filtered by a given bounding box
  */
-export class ErddapPlatformListBase extends React.Component<BaseProps, object> {
-  public render() {
-    if (this.props.boundingBox && this.props.platforms.length > 0) {
-      const bbox = this.props.boundingBox
-      const polygon = bboxPolygon([bbox.west, bbox.south, bbox.east, bbox.north])
+export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platforms }: BaseProps) => {
+  if (boundingBox && platforms.length > 0) {
+    const bbox = boundingBox
+    const polygon = bboxPolygon([bbox.west, bbox.south, bbox.east, bbox.north])
 
-      const filteredPlatforms = this.props.platforms.filter(
-        (platform) =>
-          platform.geometry !== null && booleanContains(polygon, platform as any) && platform.properties !== null
-      )
+    const filteredPlatforms = platforms.filter(
+      (platform) =>
+        platform.geometry !== null && booleanContains(polygon, platform as any) && platform.properties !== null
+    )
 
-      if (filteredPlatforms.length > 0) {
-        const listItems = filteredPlatforms.map((platform) => {
+    if (filteredPlatforms.length > 0) {
+      const listItems = filteredPlatforms
+        .sort((a, b) => {
+          const aId = a.id as string
+          const bId = b.id as string
+
+          return aId.localeCompare(bId, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          })
+        })
+        .map((platform) => {
           const { id } = platform
 
           return (
@@ -52,19 +61,18 @@ export class ErddapPlatformListBase extends React.Component<BaseProps, object> {
           )
         })
 
-        return <ListGroup>{listItems}</ListGroup>
-      }
+      return <ListGroup>{listItems}</ListGroup>
     }
-
-    // If for some reason or another we do not have any items to display yet, return nothing
-    return null
   }
+
+  // If for some reason or another we do not have any items to display yet, return nothing
+  return null
 }
 
 /** Redux connected Platform List. See [[ErddapPlatformListBase]] for details */
 // export const ErddapPlatformList = connect(mapStateToProps)(ErddapPlatformListBase)
 
-export const ErddapPlatformList: React.FunctionComponent<Props> = ({ boundingBox }) => (
+export const ErddapPlatformList: React.FC<Props> = ({ boundingBox }) => (
   <UsePlatforms>
     {({ platforms }) => <ErddapPlatformListBase platforms={platforms} boundingBox={boundingBox} />}
   </UsePlatforms>

@@ -5,13 +5,17 @@ import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 import { paths } from "Shared/constants"
 import { regionList } from "Shared/regions"
 
+interface Props {
+  closeParent: () => void
+}
+
 const initialState = {
   dropdownOpen: false,
 }
 
 type State = Readonly<typeof initialState>
 
-export class RegionDropdown extends React.Component<object, State> {
+export class RegionDropdown extends React.Component<Props, State> {
   public state: State = initialState
 
   constructor(props) {
@@ -52,5 +56,6 @@ export class RegionDropdown extends React.Component<object, State> {
     this.setState({
       dropdownOpen: false,
     })
+    this.props.closeParent()
   }
 }

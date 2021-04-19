@@ -7,12 +7,19 @@ Additions:
 Changes:
 
 - Adjust styles to match up better with the NERACOOS visual guide.
+  - Update chart line colors to use NERACOOS colors.
+  - Update map colors to use NERACOOS 'What Orange'.
+  - Use SASS to build custom stylesheet.
 - Use dashed line to indicate observations in forecast chart.
 - Display color of data in multi-line chart tooltips.
+- Map now will expand in height to match sidebar element.
+- Order platform names on region pages.
 
 Fixes:
 
 - Keep chart colors from shifting by using a color cycle from NERACOOS visual guide.
+- Fix deprecation warnings for map component, and inconsistent rendering by moving from class based to functional component.
+- Close nav on mobile when a region is selected.
 
 ## 0.6.11 - 4/14/2021
 
