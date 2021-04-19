@@ -29,8 +29,6 @@ export const PlatformsPage: React.FC<RouteComponentProps> = (props: RouteCompone
     region = regionList.find((r) => r.slug === params.region)
   }
 
-  console.log(height)
-
   return (
     <React.Fragment>
       <Row>

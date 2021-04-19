@@ -3826,11 +3826,6 @@
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
 
-"@types/arcgis-rest-api@*":
-  version "10.4.4"
-  resolved "https://registry.yarnpkg.com/@types/arcgis-rest-api/-/arcgis-rest-api-10.4.4.tgz#c84b26ac7f01deb2829bff10ebbe544c2310fbcd"
-  integrity sha512-5NwSfj4po+03fauyr4F5AxYzu8pbbqmxay+pNr5ef2V3Mj+7OylvV48VKuVoO9m799jhZdH3EQgQBHm3Y6q1Sw==
-
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.12"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.12.tgz#4d8e9e51eb265552a7e4f1ff2219ab6133bdfb2d"
@@ -3927,11 +3922,6 @@
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
-
-"@types/geojson@*":
-  version "7946.0.7"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.7.tgz#c8fa532b60a0042219cdf173ca21a975ef0666ad"
-  integrity sha512-wE2v81i4C4Ol09RtsWFAqg3BUitWbHSpSlIo+bNdsCJijO9sjme+zm+73ZMCa/qMC8UEERxzGbvmr1cffo2SiQ==
 
 "@types/glob-base@^0.3.0":
   version "0.3.0"
@@ -4098,15 +4088,6 @@
   resolved "https://registry.yarnpkg.com/@types/npmlog/-/npmlog-4.1.2.tgz#d070fe6a6b78755d1092a3dc492d34c3d8f871c4"
   integrity sha512-4QQmOF5KlwfxJ5IGXFIudkeLCdMABz03RcUXu+LCb24zmln8QW6aDjuGl4d4XPVLf2j+FnjelHTP7dvceAFbhA==
 
-"@types/ol@6.4.2":
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/@types/ol/-/ol-6.4.2.tgz#3992e2f06fb3c224cda28e6727bc283febd5f8ff"
-  integrity sha512-lSms1n5obkacAosby0U3HtnDkjhEXNCYNj0BYjQXyAZHz7+QkA3SuvUHiQ91DBUaAPptCrps3E2mtaPTGw74UA==
-  dependencies:
-    "@types/arcgis-rest-api" "*"
-    "@types/geojson" "*"
-    "@types/topojson-specification" "*"
-
 "@types/overlayscrollbars@^1.12.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@types/overlayscrollbars/-/overlayscrollbars-1.12.0.tgz#98456caceca8ad73bd5bb572632a585074e70764"
@@ -4264,13 +4245,6 @@
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.7.tgz#545158342f949e8fd3bfd813224971ecddc3fac4"
   integrity sha512-0VBprVqfgFD7Ehb2vd8Lh9TG3jP98gvr8rgehQqzztZNI7o8zS8Ad4jyZneKELphpuE212D8J70LnSNQSyO6bQ==
-
-"@types/topojson-specification@*":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.1.tgz#a80cb294290b79f2d674d3f5938c544ed2bd9d80"
-  integrity sha512-ZZYZUgkmUls9Uhxx2WZNt9f/h2+H3abUUjOVmq+AaaDFckC5oAwd+MDp95kBirk+XCXrYj0hfpI6DSUiJMrpYQ==
-  dependencies:
-    "@types/geojson" "*"
 
 "@types/uglify-js@*":
   version "3.9.3"
