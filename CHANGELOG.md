@@ -4,6 +4,10 @@
 
 Additions:
 
+- Smart CORS proxying.
+  - Buoy Barn can specify and proxy CORS requests to ERDDAP servers.
+  - If Buoy Barn includes CORS proxy URL, then Mariners will use that to request data, otherwise it will request data directly from the source ERDDAP server (instead of proxying all requests).
+
 Changes:
 
 - Add UNH non-CF data types.

@@ -8,7 +8,6 @@ import { useQuery } from "react-query"
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"
-import { proxytizeUrl } from "Shared/proxyUrl"
 import { aWeekAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 
@@ -20,12 +19,10 @@ const FORBIDDEN = "Forbidden"
 export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
   return async () => {
     const url = urlBuilder([timeSeries], startTime)
-    const proxyUrl = proxytizeUrl(url)
 
     Sentry.addBreadcrumb({
       category: "ERDDAP TableDAP Dataset",
       data: {
-        proxyUrl,
         url,
       },
       message: "Loading ERDDAP dataset",
@@ -34,7 +31,7 @@ export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-    const result = await fetch(proxyUrl, { signal: controller.signal })
+    const result = await fetch(url, { signal: controller.signal })
 
     if (!result.ok) {
       if (result.status === 403) {
@@ -55,7 +52,7 @@ export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => 
   }
 }
 
-function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): string {
+export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): string {
   startTime = startTime ?? aWeekAgoRounded()
 
   const constraints = {
@@ -64,8 +61,11 @@ function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): string 
   }
 
   const variables = timeSeries.map((ts) => ts.variable)
+  const server = timeSeries[0].cors_proxy_url
+    ? (process.env.REACT_APP_ERDDAP_SERVICE as string) + timeSeries[0].cors_proxy_url
+    : timeSeries[0].server
 
-  return tabledapUrl(timeSeries[0].server, timeSeries[0].dataset, variables, constraints)
+  return tabledapUrl(server, timeSeries[0].dataset, variables, constraints)
 }
 
 /** Fetch a single dataset given a time series */
@@ -120,12 +120,10 @@ export function groupByServerDatasetConstraint(readings: PlatformTimeSeries[]): 
 
 export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date) => {
   const url = urlBuilder(fetchGroup.datasets, startTime)
-  const proxyUrl = proxytizeUrl(url)
 
   Sentry.addBreadcrumb({
     category: "ERDDAP TableDAP Grouped Dataset",
     data: {
-      proxyUrl,
       url,
     },
     message: "Loading grouped ERDDAP dataset",
@@ -134,7 +132,7 @@ export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date) 
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-  const result = await fetch(proxyUrl, { signal: controller.signal })
+  const result = await fetch(url, { signal: controller.signal })
 
   if (!result.ok) {
     if (result.status === 403) {
