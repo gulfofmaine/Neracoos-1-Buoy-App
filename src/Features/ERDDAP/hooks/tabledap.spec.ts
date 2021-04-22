@@ -30,8 +30,8 @@ describe("TableDAP urlBuilder", () => {
     const url = urlBuilder([{ ...timeseries, cors_proxy_url }], startTime)
 
     expect(url).toContain(cors_proxy_url)
-    expect(url).toEqual(
-      "http://localhost:8080/api/servers/1/proxy/tabledap/A01_met.json?time%2Ctemp&time%3E%3D%222021-04-21T00%3A00%3A00.000Z%22"
+    expect(url).toContain(
+      "/api/servers/1/proxy/tabledap/A01_met.json?time%2Ctemp&time%3E%3D%222021-04-21T00%3A00%3A00.000Z%22"
     )
     expect(url).not.toContain("erddap")
   })
