@@ -48,12 +48,33 @@ export function baseTabledapUrl(server: string, dataset: string): string {
 }
 
 /**
+ * Return Tabledap URLs for a given protocol
+ * @param server ERDDAP server root
+ * @param dataset ERDDAP dataset
+ * @param protocol Type of ERDDAP TableDAP URL to return
+ * @param variables Array of variable strings to get from dataset
+ * @param constraints Constraint object to filter dataset with.
+ * @returns URL for a given protocol
+ */
+export function tabledapProtocolUrl(
+  server: string,
+  dataset: string,
+  protocol: string,
+  variables: string[],
+  constraints: Constraints
+): string {
+  return `${baseTabledapUrl(server, dataset)}.${protocol}?${variableString(variables)}${constraintsToString(
+    constraints
+  )}`
+}
+
+/**
  * Tabledap HTML URL
  *
- * @param server
- * @param dataset
- * @param variables
- * @param constraints
+ * @param server ERDDAP server root
+ * @param dataset ERDDAP dataset
+ * @param variables Array of variable strings to get from dataset
+ * @param constraints Constraint object to filter dataset with.
  */
 export function tabledapHtmlUrl(
   server: string,
@@ -61,7 +82,7 @@ export function tabledapHtmlUrl(
   variables: string[],
   constraints: Constraints
 ): string {
-  return `${baseTabledapUrl(server, dataset)}.html?${variableString(variables)}${constraintsToString(constraints)}`
+  return tabledapProtocolUrl(server, dataset, "html", variables, constraints)
 }
 
 /**
@@ -73,10 +94,7 @@ export function tabledapHtmlUrl(
  * @param constraints Constraint object to filter dataset with.
  */
 export function tabledapUrl(server: string, dataset: string, variables: string[], constraints: Constraints): string {
-  const variableStr = variableString(variables)
-  const constraintStr = constraintsToString(constraints)
-  const url = `${baseTabledapUrl(server, dataset)}.json?${variableStr}${constraintStr}`
-  return url
+  return tabledapProtocolUrl(server, dataset, "json", variables, constraints)
 }
 
 /**

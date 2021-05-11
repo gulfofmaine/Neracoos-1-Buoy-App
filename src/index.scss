@@ -55,3 +55,7 @@ body {
 .btn-primary {
   @include button-variant($primary, $primary, $active-background: $primary);
 }
+
+.tooltip-inner a {
+  color: $coastal-meadow;
+}

@@ -38,6 +38,13 @@ describe("Platform A01", () => {
     cy.contains("Air Temperature:").click()
 
     cy.get("h4").contains("Air Temperature")
+
+    cy.contains("Data access").should("not.exist")
+    cy.get("#Tooltip-0").trigger("mouseover")
+    cy.contains("Data access")
+    cy.contains("Data table")
+    cy.contains("Download CSV")
+    cy.contains("ERDDAP dataset")
   })
 
   it("Shows wind plot", () => {
@@ -51,6 +58,13 @@ describe("Platform A01", () => {
     cy.get("svg.highcharts-root").contains("Speed").click()
     cy.get("svg.highcharts-root").contains("Direction").click()
     cy.get("svg.highcharts-root").contains("Knots")
+
+    cy.contains("Data access").should("not.exist")
+    cy.get("#Tooltip-0").trigger("mouseover")
+    cy.contains("Data access")
+    cy.contains("Data table")
+    cy.contains("Download CSV")
+    cy.contains("ERDDAP dataset")
   })
 
   it("Shows wave forecast", () => {
@@ -68,6 +82,10 @@ describe("Platform A01", () => {
     cy.get("svg.highcharts-root").contains("Feet")
     // cy.contains("Significant Wave Height observed").click()
     cy.get("svg.highcharts-root").contains("Bedford Institute Wave Model - Height").click()
+
+    cy.contains("Data access").should("not.exist")
+    cy.get("#Forecast-Tooltip").trigger("mouseover")
+    cy.contains("Data access")
   })
 
   it("Has More info menu", () => {

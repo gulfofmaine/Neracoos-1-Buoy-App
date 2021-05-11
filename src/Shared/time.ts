@@ -6,6 +6,7 @@ const HOUR = 1000 * 60 * 60
 const HALF_DAY = HOUR * 12
 const DAY = HOUR * 24
 const WEEK = DAY * 7
+const YEAR = DAY * 365
 
 /**
  * Get the current date, but shifted to ISO to remove time zones, and without any hours, minutes, seconds, or miliseconds.
@@ -85,4 +86,16 @@ export function aWeekAgoRounded(): Date {
   roundDate(weekAgo)
 
   return weekAgo
+}
+
+/**
+ * Return a date that is rounded to a year previous
+ * @returns A year previous
+ */
+export function aYearAgoRounded(): Date {
+  const yearAgo = new Date(Date.now() - YEAR)
+
+  roundDate(yearAgo)
+
+  return yearAgo
 }
