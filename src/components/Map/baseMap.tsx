@@ -42,7 +42,9 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   const mapElement = React.useRef<HTMLDivElement>(null)
   const popupElement = React.useRef<HTMLDivElement>(null)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [map, setMap] = React.useState<Map>()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [popup, setPopup] = React.useState<Overlay>()
   const [popupOpen, setPopupOpen] = React.useState(false)
   const [popupText, setPopupText] = React.useState("Test")
