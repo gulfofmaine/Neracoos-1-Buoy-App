@@ -14,6 +14,7 @@ Changes:
 - Display color of data in multi-line chart tooltips.
 - Map now will expand in height to match sidebar element.
 - Order platform names on region pages.
+- Add UNH non-CF data types.
 
 Fixes:
 
