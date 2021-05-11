@@ -15,6 +15,7 @@ import {
   YAxis,
 } from "react-jsx-highcharts"
 
+import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 
@@ -85,7 +86,7 @@ class MultipleLargeTimeSeriesChartBase extends React.Component<Props, object> {
     })
 
     return (
-      <HighchartsChart time={plotOptions.time}>
+      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart />
 
         <XAxis type="datetime" />

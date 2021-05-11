@@ -13,6 +13,7 @@ import React from "react"
 import { useDispatch } from "react-redux"
 
 import { BaseMap, esriLayers } from "components/Map"
+import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -23,7 +24,8 @@ import { aDayAgoRounded } from "Shared/time"
 
 export interface Props {
   boundingBox?: BoundingBox
-  platformId: string
+  platformId?: string
+  height?: number | string
 }
 
 interface BaseProps extends Props {
@@ -49,16 +51,17 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
   } else {
     radius = window.innerWidth > adjustPxWidth ? 5 : 10
   }
-  const opacity = selected ? "0.8" : "0.4"
+  const opacity = selected ? "cc" : "7a"
+
   return new Style({
     image: new Circle({
       fill: new Fill({
-        color: old ? "grey" : `rgba(255, 153, 0, ${opacity})`,
+        color: old ? "grey" : `#cf5c00${opacity}`,
       }),
       radius,
       stroke: new Stroke({
-        color: old ? "grey" : "red",
-        width: 1,
+        color: old ? "grey" : colors.whatOrange,
+        width: 1.5,
       }),
     }),
   })
@@ -98,7 +101,7 @@ function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLa
  * @param platforms Array of platform features
  * @param platformId Selected platform ID name
  */
-export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platformId: string): Layer[] {
+export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platformId?: string): Layer[] {
   /** platform styles */
   layers = [...layers]
   const platformStyle = makeStyle(false)
@@ -157,6 +160,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
         layers={makeLayers(baseLayers, this.props.platforms, this.props.platformId)}
         boundingBox={this.props.boundingBox}
         onClick={this.onClick}
+        height={this.props.height}
       />
     )
   }
@@ -179,7 +183,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, boundingBox }) => {
+export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, boundingBox, height }: Props) => {
   const dispatch = useDispatch()
 
   return (
@@ -190,6 +194,7 @@ export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, bounding
           platformId={platformId}
           boundingBox={boundingBox}
           push={(url: string) => dispatch(push(url))}
+          height={height}
         />
       )}
     </UsePlatforms>

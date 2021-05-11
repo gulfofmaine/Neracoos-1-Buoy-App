@@ -16,8 +16,9 @@ import {
   YAxis,
 } from "react-jsx-highcharts"
 
+import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
-import { DataTimeSeries } from "Shared/timeSeries"
+import { StyledTimeSeries } from "Shared/timeSeries"
 
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
@@ -28,7 +29,7 @@ function formatterWrapper(unit) {
 
     return (
       `${new Date(this.x).toLocaleString()}<br />` +
-      this.points.map((p) => `<b>${p.series.name}:</b> ${p.y} ${unit}`).join("<br />")
+      this.points.map((p) => `<b style="color: ${p.series.color}">${p.series.name}:</b> ${p.y} ${unit}`).join("<br />")
     )
   }
 }
@@ -41,7 +42,7 @@ const plotOptions = {
 
 interface Props {
   /** Time series data to display */
-  data: DataTimeSeries[]
+  data: StyledTimeSeries[]
   /** Units to display on chart */
   unit: string
   /** Use scatter points rather than splines */
@@ -60,7 +61,7 @@ const MultipleLargeTimeSeriesChartCurrentBase = ({ data, unit, scatter = false }
   })
 
   const series = data.map((d, index) => {
-    const data = d.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 1)])
+    const seriesData = d.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 1)])
 
     if (scatter) {
       return (
@@ -70,7 +71,7 @@ const MultipleLargeTimeSeriesChartCurrentBase = ({ data, unit, scatter = false }
           // marker={{
           //   enabled: false,
           // }}
-          data={data}
+          data={seriesData}
         />
       )
     }
@@ -82,13 +83,15 @@ const MultipleLargeTimeSeriesChartCurrentBase = ({ data, unit, scatter = false }
         marker={{
           enabled: false,
         }}
-        data={data}
+        color={d.color}
+        dashStyle={d.dashStyle}
+        data={seriesData}
       />
     )
   })
 
   return (
-    <HighchartsChart time={plotOptions.time}>
+    <HighchartsChart time={plotOptions.time} colors={colorCycle}>
       <Chart />
 
       <XAxis type="datetime">

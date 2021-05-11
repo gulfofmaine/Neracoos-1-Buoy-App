@@ -19,6 +19,7 @@ import {
 
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
+import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion"
@@ -135,7 +136,9 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
     const name = nameParts[nameParts.length - 1]
     const nameCaps = name[0].toUpperCase() + name.slice(1)
 
-    return <SplineSeries key={index} name={nameCaps} marker={{ enabled: false }} data={data} />
+    return (
+      <SplineSeries key={index} name={nameCaps} marker={{ enabled: false }} data={data} color={colorCycle[index]} />
+    )
   })
 
   /** Array of wind data. Highcharts uses [time, speed, direction] for each reading */
@@ -180,7 +183,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
   const pointFormatter = pointFormatterMaker(unitSystem)
 
   return (
-    <HighchartsChart time={plotOptions.time}>
+    <HighchartsChart time={plotOptions.time} colors={colorCycle}>
       <Chart height={height} />
 
       <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
@@ -189,7 +192,7 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
         <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
         {speedsSeries}
 
-        {windData.length > 0 ? <WindBarbSeries name="Direction" color="red" data={windData} /> : null}
+        {windData.length > 0 ? <WindBarbSeries name="Direction" color={colors.whatOrange} data={windData} /> : null}
       </YAxis>
 
       {legend ? <Legend /> : null}
