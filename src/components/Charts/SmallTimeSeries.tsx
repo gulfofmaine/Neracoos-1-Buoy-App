@@ -5,6 +5,7 @@ import Highcharts from "highcharts"
 import * as React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
 
+import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 
@@ -48,14 +49,14 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
     let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
     return (
-      <HighchartsChart time={plotOptions.time}>
+      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart height={150} />
 
         <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
         <YAxis softMin={softMin} softMax={softMax}>
           <YAxis.Title>{unit}</YAxis.Title>
-          <SplineSeries name={name} marker={{ enabled: false }} data={data} />
+          <SplineSeries name={name} marker={{ enabled: false }} data={data} color={colors.coastalMeadow} />
         </YAxis>
 
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />

@@ -254,6 +254,7 @@ exports[`Storyshots ERDDAP/Superlatives Configureable 1`] = `
   className="card"
   style={
     Object {
+      "marginBottom": "1rem",
       "marginTop": "1rem",
     }
   }

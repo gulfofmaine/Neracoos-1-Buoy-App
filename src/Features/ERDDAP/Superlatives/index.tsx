@@ -60,7 +60,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
 
   if (windPlatform && windTimeSeries && wavePlatform && waveTimeSeries) {
     return (
-      <Card style={{ marginTop: "1rem" }}>
+      <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
         <CardHeader>
           <h5>Latest Conditions</h5>
         </CardHeader>
