@@ -81,23 +81,23 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: docker-compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
+        run: docker compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
       
       - name: Run unit test (and skip coverage if no project token secret)
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
-        run: docker-compose run -e CI=true client yarn test
+        run: docker compose run -e CI=true client yarn test
 
 
       - name: Typecheck
-        run: docker-compose run client yarn types
+        run: docker compose run client yarn types
 
       - name: Yarn Build
-        run: docker-compose run client yarn build
+        run: docker compose run client yarn build
 
       - name: Build Storybook Pages
-        run: docker-compose run client yarn build-storybook
+        run: docker compose run client yarn build-storybook
 
       - name: Cache Storybook Build
         uses: actions/cache@v2.1.5
@@ -146,7 +146,7 @@ jobs:
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
       - name: Start container
-        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
+        run: docker compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
 
       - name: CORS Proxy container
         run: docker run -d -p 9090:9090 -e "ALLOWED=http://localhost:3000" gmri/cors-proxy:latest
@@ -178,8 +178,8 @@ jobs:
           name: cypress-videos
           path: cypress/videos
 
-      - name: Docker-compose Logs
-        run: docker-compose logs
+      - name: docker compose Logs
+        run: docker compose logs
         if: always()
   
   pages:
