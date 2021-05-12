@@ -5,12 +5,12 @@ VERSION := $(shell python3 -c "import json; print(json.load(open('package.json')
 up: down
 	rm -r node_modules/ || true
 	rm -r .eslintcache || true
-	docker buildx bake
-	docker-compose up -d
-	docker-compose logs -f
+	docker compose build
+	docker compose up -d
+	docker compose logs -f
 
 down:
-	docker-compose down
+	docker compose down
 
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)
@@ -28,20 +28,20 @@ docs: rm-docs
 	python3 -m http.server -d docs/
 
 cov:
-	docker-compose exec client yarn test --coverage
+	docker compose exec client yarn test --coverage
 
 test:
-	docker-compose run -e CI=true client yarn test
+	docker compose run -e CI=true client yarn test
 
 test-watch:
-	docker-compose exec client yarn test
+	docker compose exec client yarn test
 
 cov-html:
 	open coverage/lcov-report/index.html
 
 
 storybook:
-	docker-compose run -p 9009:9009 client yarn storybook
+	docker compose run -p 9009:9009 client yarn storybook
 
 build-storybook:
-	docker-compose run client yarn build-storybook
+	docker compose run client yarn build-storybook
