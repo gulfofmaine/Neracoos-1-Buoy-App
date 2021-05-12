@@ -6,15 +6,39 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.7.0 - 5/11/2021
+
+Additions:
+
 - Adjust styles to match up better with the NERACOOS visual guide.
   - Update chart line colors to use NERACOOS colors.
   - Update map colors to use NERACOOS 'What Orange'.
   - Use SASS to build custom stylesheet.
-- Use dashed line to indicate observations in forecast chart.
-- Display color of data in multi-line chart tooltips.
+  - Use dashed line to indicate observations in forecast chart.
+  - Display color of data in multi-line chart tooltips.
+
+Changes:
+
 - Map now will expand in height to match sidebar element.
 - Order platform names on region pages.
 - Add UNH non-CF data types.
+- Switch Makefile to use new native `docker compose` (Github Actions is not there yet).
+- Dependency Updates:
+  - Github Pages Deploy Action to 4.1.2
+  - Sentry React and tracing from 6.2.5 to 6.3.6
+  - Open Layers from 5.3.3 to 6.5.0
+  - React Query from 3.13.7 to 3.16.0
+  - React Redux from 7.2.3 to 7.2.4
+  - Redux from 4.0.5 to 5.1.0
+  - Storybook from 6.2.8 to 6.2.9
+  - Cypress from 6.8.0 to 7.3.0
+  - Types
+    - Jest from 26.0.22 to 26.0.23
+    - Node from 14.14.37 to 15.0.2
+    - React from 16.14.5 to 17.0.5
+    - React DOM from 17.0.3 to 17.0.4
 
 Fixes:
 
