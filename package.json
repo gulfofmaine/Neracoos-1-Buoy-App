@@ -76,7 +76,7 @@
     "wait-on": "5.3.0"
   },
   "optionalDependencies": {
-    "cypress": "7.3.0"
+    "cypress": "7.4.0"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
