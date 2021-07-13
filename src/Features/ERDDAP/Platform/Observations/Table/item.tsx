@@ -40,21 +40,26 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
 
   const toggleTooltip = () => setTooltipOpen(!tooltipOpen)
 
-  let data_type_list: string[]
-
-  if (typeof data_type === "string") {
-    data_type_list = [data_type]
-  } else {
-    data_type_list = data_type
-  }
-
   let data: PlatformTimeSeries[] = []
 
-  data_type_list.forEach((data_type) => {
-    readings
-      .filter((ts) => data_type === ts.data_type.standard_name && (ts.depth ? ts.depth < 2 : true))
-      .forEach((ts) => data.push(ts))
-  })
+  // If there is only one reading specified display that, otherwise filter for the most appropriate one
+  if (readings.length === 1) {
+    data = readings
+  } else {
+    let data_type_list: string[]
+
+    if (typeof data_type === "string") {
+      data_type_list = [data_type]
+    } else {
+      data_type_list = data_type
+    }
+
+    data_type_list.forEach((data_type) => {
+      readings
+        .filter((ts) => data_type === ts.data_type.standard_name && (ts.depth ? ts.depth < 2 : true))
+        .forEach((ts) => data.push(ts))
+    })
+  }
 
   if (data.length > 0) {
     if (later_then) {

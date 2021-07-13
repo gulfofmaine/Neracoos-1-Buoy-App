@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Fix all observation list showing the same values for different depths. [#1362](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1362)
+
 ## 0.7.0 - 5/11/2021
 
 Additions:
