@@ -8,6 +8,51 @@ Changes:
 
 Fixes:
 
+## 0.7.1 - 7/14/2021
+
+Changes:
+
+- Dependency Updates:
+  - Javascript
+    - Cypress from 7.3.0 to 7.7.0
+    - React Query from 3.16.0 to 3.18.1
+    - Wait on from 5.3.0 to 6.0.0
+    - Sentry from 6.3.6 to 6.9.0
+      - React
+      - Tracing
+    - Storybook from 6.2.9 to 6.3.4
+      - Addon A11y
+      - Addon Essentials
+      - Addon Storyshots
+      - Preset Create React App from 3.1.7 to 3.2.0
+      - React
+    - Turf from 6.3.0 to 6.5.0
+      - Bbox polygon
+      - Boolean contains
+      - Helpers
+    - Types
+      - Enzyme from 3.10.8 to 3.10.9
+      - History from 4.7.8 to 4.7.9
+      - Jest from 26.0.23 to 26.0.24
+      - Node from 15.0.2 to 16.3.2
+      - React from 17.0.5 to 17.0.14
+      - React DOM from 17.0.4 to 17.0.9
+      - React Responsive from 8.0.2 to 8.0.3
+      - React Router DOM from 5.1.7 to 5.1.8
+  - Docker:
+    - Nginx from 1.19.10 to 1.21.1
+  - Actions:
+    - Checkout from 2 to 2.3.4
+    - Docker setup buildx from 1 to 1.5.1
+    - Cache from 2.1.5 to 2.1.6
+    - Docker login from 1 to 1.9.0
+    - Docker build push from 2 to 2.6.1
+    - Upload artifact from 2.2.3 to 2.2.4
+    - Github pages deploy from 4.1.2 to 4.1.4
+    - Sentry release from 1 to 1.1.5
+
+Fixes:
+
 - Fix all observation list showing the same values for different depths. [#1362](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1362)
 
 ## 0.7.0 - 5/11/2021
