@@ -11,7 +11,7 @@
     "@sentry/tracing": "^6.9.0",
     "@turf/bbox-polygon": "6.4.0",
     "@turf/boolean-contains": "6.4.0",
-    "@turf/helpers": "6.4.0",
+    "@turf/helpers": "6.5.0",
     "@types/highcharts": "^7.0.0",
     "@types/history": "^4.7.8",
     "@types/react-responsive": "8.0.2",
