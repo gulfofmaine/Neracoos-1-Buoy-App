@@ -14,7 +14,7 @@
     "@turf/helpers": "6.5.0",
     "@types/highcharts": "^7.0.0",
     "@types/history": "^4.7.8",
-    "@types/react-responsive": "8.0.2",
+    "@types/react-responsive": "8.0.3",
     "@types/react-router-dom": "5.1.7",
     "bootstrap": "4.6.0",
     "connected-react-router": "6.9.1",
