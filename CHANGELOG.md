@@ -8,6 +8,8 @@ Changes:
 
 Fixes:
 
+- Include things like `.git/` in Dockerignore.
+
 ## 0.7.1 - 7/14/2021
 
 Changes:
