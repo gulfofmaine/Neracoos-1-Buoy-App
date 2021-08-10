@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Tweak the initial bounding box that the map displays to include Long Island Sound.
+
 Fixes:
 
 ## 0.7.1 - 7/14/2021

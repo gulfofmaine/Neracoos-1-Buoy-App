@@ -12,7 +12,7 @@ export const HomePage: React.FunctionComponent<{}> = () => {
   return (
     <Row>
       <Col sm={6}>
-        <ErddapMap boundingBox={regions.GulfOfMaine.bbox} height="60vh" />
+        <ErddapMap boundingBox={regions.InitialRegion.bbox} height="60vh" />
         <Superlatives />
       </Col>
       <Col sm={6}>
