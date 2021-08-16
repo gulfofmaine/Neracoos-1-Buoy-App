@@ -44,7 +44,8 @@ export function variableString(variables: string[]): string {
  * @param dataset ERDDAP dataset
  */
 export function baseTabledapUrl(server: string, dataset: string): string {
-  return `${server}/tabledap/${dataset}`
+  const serverTrailing = server + (server.endsWith("/") ? "" : "/")
+  return new URL(`tabledap/${dataset}`, serverTrailing).href
 }
 
 /**

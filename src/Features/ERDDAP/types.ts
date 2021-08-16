@@ -46,6 +46,7 @@ export interface PlatformTimeSeries {
   depth?: number
   data_type: DataType
   server: string
+  cors_proxy_url?: string
   variable: string
   dataset: string
   start_time: string
