@@ -4,6 +4,14 @@
 
 Additions:
 
+Changes:
+
+Fixes:
+
+## 0.8.0 - 8/16/2021
+
+Additions:
+
 - Smart CORS proxying.
   - Buoy Barn can specify and proxy CORS requests to ERDDAP servers.
   - If Buoy Barn includes CORS proxy URL, then Mariners will use that to request data, otherwise it will request data directly from the source ERDDAP server (instead of proxying all requests).
@@ -11,6 +19,31 @@ Additions:
 Changes:
 
 - Tweak the initial bounding box that the map displays to include Long Island Sound.
+- Dependency Updates:
+  - Javascript
+    - FontAwesome 
+      - SVG Core from 1.2.35 to 1.2.36
+      - Solid SVG Icons from 5.15.3 to 5.15.4
+      - React from 0.1.14 to 0.1.15
+    - Sentry from 6.9.0 to 6.11.0
+      - React
+      - Tracing
+    - OpenLayers from 6.5.0 to 6.6.1
+    - React JSX Highcharts from 4.2.1 to 4.3.1
+    - React Query from 3.18.1 to 3.19.6
+    - Redux from 4.1.0 to 4.1.1
+    - StoryBook from 6.3.4 to 6.3.7
+      - Addon A11y
+      - Addon Essentials
+      - Addon StoryShots
+      - React
+    - Types
+      - Jest from 26.0.24 to 27.0.1
+      - Node from 16.3.2 to 16.6.1
+      - React from 17.0.14 yo 17.0.18
+  - Docker
+  - GitHub Actions
+    - Sentry release from 1.1.5 to 1.1.6
 
 Fixes:
 
