@@ -37,7 +37,7 @@
     "react-scripts": "^4.0.3",
     "react-use": "^17.2.4",
     "reactstrap": "8.9.0",
-    "redux": "4.1.0"
+    "redux": "4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
