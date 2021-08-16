@@ -28,6 +28,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
     super(props)
 
     this.toggle = this.toggle.bind(this)
+    this.close = this.close.bind(this)
   }
 
   public render() {
@@ -45,7 +46,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
                 Home
               </NavLink>
 
-              <RegionDropdown />
+              <RegionDropdown closeParent={this.close} />
 
               <NavItem>
                 <NavLink className="nav-link" activeClassName="active" to={paths.about}>
@@ -63,6 +64,12 @@ export default class NeracoosNavBar extends React.Component<object, State> {
   private toggle() {
     this.setState({
       isOpen: !this.state.isOpen,
+    })
+  }
+
+  private close() {
+    this.setState({
+      isOpen: false,
     })
   }
 }

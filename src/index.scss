@@ -1,0 +1,61 @@
+@import "~bootstrap/scss/functions";
+
+$old-neracoos-blue: #114a6e;
+
+$neracoos-blue: #083d52;
+$metallic-seaweed: #178596;
+$coastal-meadow: #2ab78f;
+$buoy-yellow: #ffcd22;
+$what-orange: #ffae6d;
+
+$primary: $neracoos-blue;
+// $primary: $old-neracoos-blue;
+
+$secondary: $metallic-seaweed;
+$success: $coastal-meadow;
+$warning: $buoy-yellow;
+$danger: $what-orange;
+$info: $metallic-seaweed;
+
+@import "~bootstrap/scss/bootstrap.scss";
+// @import "~bootstrap/scss/variables";
+// @import "~bootstrap/scss/mixins";
+
+// @import "~bootstrap/scss/reboot";
+// @import "~bootstrap/scss/root";
+// @import "~bootstrap/scss/type";
+// @import "~bootstrap/scss/images";
+// @import "~bootstrap/scss/containers";
+// @import "~bootstrap/scss/grid";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.App .alert-primary {
+  color: $primary;
+}
+
+.App .nav-link,
+.App .nav-tabs .nav-item {
+  color: $primary;
+}
+
+.condition-tooltip > div > div {
+  background-color: $primary;
+}
+
+.condition-tooltip > div.tooltip > span.arrow::before {
+  border-top-color: $primary;
+  border-bottom-color: $primary;
+}
+
+.btn-primary {
+  @include button-variant($primary, $primary, $active-background: $primary);
+}
+
+.tooltip-inner a {
+  color: $coastal-meadow;
+}

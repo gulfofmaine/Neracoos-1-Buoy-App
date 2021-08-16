@@ -10,9 +10,96 @@ Additions:
 
 Changes:
 
-- Add UNH non-CF data types.
+- Tweak the initial bounding box that the map displays to include Long Island Sound.
 
 Fixes:
+
+- Include things like `.git/` in Dockerignore.
+
+## 0.7.1 - 7/14/2021
+
+Changes:
+
+- Dependency Updates:
+  - Javascript
+    - Cypress from 7.3.0 to 7.7.0
+    - React Query from 3.16.0 to 3.18.1
+    - Wait on from 5.3.0 to 6.0.0
+    - Sentry from 6.3.6 to 6.9.0
+      - React
+      - Tracing
+    - Storybook from 6.2.9 to 6.3.4
+      - Addon A11y
+      - Addon Essentials
+      - Addon Storyshots
+      - Preset Create React App from 3.1.7 to 3.2.0
+      - React
+    - Turf from 6.3.0 to 6.5.0
+      - Bbox polygon
+      - Boolean contains
+      - Helpers
+    - Types
+      - Enzyme from 3.10.8 to 3.10.9
+      - History from 4.7.8 to 4.7.9
+      - Jest from 26.0.23 to 26.0.24
+      - Node from 15.0.2 to 16.3.2
+      - React from 17.0.5 to 17.0.14
+      - React DOM from 17.0.4 to 17.0.9
+      - React Responsive from 8.0.2 to 8.0.3
+      - React Router DOM from 5.1.7 to 5.1.8
+  - Docker:
+    - Nginx from 1.19.10 to 1.21.1
+  - Actions:
+    - Checkout from 2 to 2.3.4
+    - Docker setup buildx from 1 to 1.5.1
+    - Cache from 2.1.5 to 2.1.6
+    - Docker login from 1 to 1.9.0
+    - Docker build push from 2 to 2.6.1
+    - Upload artifact from 2.2.3 to 2.2.4
+    - Github pages deploy from 4.1.2 to 4.1.4
+    - Sentry release from 1 to 1.1.5
+
+Fixes:
+
+- Fix all observation list showing the same values for different depths. [#1362](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/1362)
+
+## 0.7.0 - 5/11/2021
+
+Additions:
+
+- Adjust styles to match up better with the NERACOOS visual guide.
+  - Update chart line colors to use NERACOOS colors.
+  - Update map colors to use NERACOOS 'What Orange'.
+  - Use SASS to build custom stylesheet.
+  - Use dashed line to indicate observations in forecast chart.
+  - Display color of data in multi-line chart tooltips.
+
+Changes:
+
+- Map now will expand in height to match sidebar element.
+- Order platform names on region pages.
+- Add UNH non-CF data types.
+- Switch Makefile to use new native `docker compose` (Github Actions is not there yet).
+- Dependency Updates:
+  - Github Pages Deploy Action to 4.1.2
+  - Sentry React and tracing from 6.2.5 to 6.3.6
+  - Open Layers from 5.3.3 to 6.5.0
+  - React Query from 3.13.7 to 3.16.0
+  - React Redux from 7.2.3 to 7.2.4
+  - Redux from 4.0.5 to 5.1.0
+  - Storybook from 6.2.8 to 6.2.9
+  - Cypress from 6.8.0 to 7.3.0
+  - Types
+    - Jest from 26.0.22 to 26.0.23
+    - Node from 14.14.37 to 15.0.2
+    - React from 16.14.5 to 17.0.5
+    - React DOM from 17.0.3 to 17.0.4
+
+Fixes:
+
+- Keep chart colors from shifting by using a color cycle from NERACOOS visual guide.
+- Fix deprecation warnings for map component, and inconsistent rendering by moving from class based to functional component.
+- Close nav on mobile when a region is selected.
 
 ## 0.6.11 - 4/14/2021
 

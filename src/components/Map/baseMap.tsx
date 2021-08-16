@@ -2,14 +2,18 @@
  * Basemap compnent
  */
 
-import * as React from "react"
+import React from "react"
+import { Tooltip } from "reactstrap"
 
 // import TileLayer from 'ol/layer/Tile'
 import Feature from "ol/Feature"
+import Point from "ol/geom/Point"
 import Group from "ol/layer/Group"
 import Layer from "ol/layer/Layer"
 import Map from "ol/Map"
 import MapBrowserEvent from "ol/MapBrowserEvent"
+import Overlay from "ol/Overlay"
+import Source from "ol/source/Source"
 import { transform, transformExtent } from "ol/proj"
 import RenderFeature from "ol/render/Feature"
 import View from "ol/View"
@@ -24,84 +28,152 @@ export interface Props {
   /** Decimal degrees East */
   lon: number
   /** Layers to display on top of map. */
-  layers: Layer[]
+  layers: Layer<Source>[]
   /** Zoom level to start at. 0 is furthest out */
   startZoom: number
   /** Callback function for click events */
-  onClick?: (feature: Feature) => void
+  onClick?: (feature: Feature<Point>) => void
+  /** Height to set the map view to */
+  height?: number | string
 }
 
-export interface State {
-  /** Internal map state object */
-  map?: Map
-}
+const MAP_ID = "map"
+const POPUP_ID = "popup"
 
-/**
- * Basemap component
- */
-export class BaseMap extends React.Component<Props, State> {
-  constructor(props: any) {
-    super(props)
+export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers, lat, lon, startZoom }: Props) => {
+  const mapElement = React.useRef<HTMLDivElement>(null)
+  const popupElement = React.useRef<HTMLDivElement>(null)
 
-    this.singleClick = this.singleClick.bind(this)
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [map, setMap] = React.useState<Map>()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [popup, setPopup] = React.useState<Overlay>()
+  const [popupOpen, setPopupOpen] = React.useState(false)
+  const [popupText, setPopupText] = React.useState("Test")
+  const [popupFeature, setPopupFeature] = React.useState<Feature<Point>>()
 
-  /** Initialize the basemap */
-  public componentDidMount() {
-    const { lat, lon, startZoom, layers } = this.props
-
-    const map = new Map({
-      layers,
-      target: "map",
+  React.useEffect(() => {
+    const initialMap = new Map({
+      target: mapElement.current ?? undefined,
+      layers: [],
       view: new View({
         center: transform([lon, lat], "EPSG:4326", "EPSG:3857"),
-        zoom: startZoom
-      })
+        zoom: startZoom,
+      }),
     })
 
-    map.on("singleclick", this.singleClick)
+    const initialPopup = new Overlay({
+      element: popupElement.current ?? undefined,
+    })
+    initialMap.addOverlay(initialPopup)
 
-    if (this.props.boundingBox) {
-      const { north, south, east, west } = this.props.boundingBox
+    initialMap.on("click", handleMapClick)
+    initialMap.on("pointermove", displayToolTip)
+
+    setMap(initialMap)
+    setPopup(initialPopup)
+  }, [setMap])
+
+  React.useEffect(() => {
+    setMap((map) => {
+      setPopupOpen(false)
+      map?.getView().setCenter(transform([lon, lat], "EPSG:4326", "EPSG:3857"))
+      return map
+    })
+  }, [lat, lon, setMap])
+
+  React.useEffect(() => {
+    if (boundingBox) {
+      const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
-      map.getView().fit(extent)
+      setMap((map) => {
+        setPopupOpen(false)
+        map?.getView().fit(extent)
+        return map
+      })
     }
+  }, [boundingBox, setMap])
 
-    this.setState({ map })
-  }
+  React.useEffect(() => {
+    setMap((map) => {
+      setPopupOpen(false)
+      map?.setLayerGroup(new Group({ layers }))
+      return map
+    })
+  }, [layers, setMap])
 
-  public componentWillReceiveProps(nextProps: Props) {
-    if (this.state && this.state.map) {
-      const { map } = this.state
-
-      if (this.props.layers !== nextProps.layers) {
-        map.setLayerGroup(new Group({ layers: nextProps.layers }))
-      }
-
-      if (nextProps.boundingBox !== this.props.boundingBox) {
-        if (nextProps.boundingBox) {
-          const { north, south, east, west } = nextProps.boundingBox as BoundingBox
-          const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
-          map.getView().fit(extent)
-        }
-      }
-
-      this.setState({ map })
+  React.useLayoutEffect(() => {
+    if (height) {
+      setMap((map) => {
+        setPopupOpen(false)
+        map?.updateSize()
+        return map
+      })
     }
-  }
+  }, [height, setMap])
 
-  public render() {
-    return <div id="map" style={{ width: "100%", minHeight: 400, maxHeight: "80vh" }} />
-  }
-
-  /** Pass click events to callback handler */
-  private singleClick(event: MapBrowserEvent) {
-    if (this.props.onClick) {
-      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature | RenderFeature, layer: any) => {
+  /**
+   * Hand off map clicks on features to parent components
+   */
+  const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {
+    if (onClick) {
+      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature<Point> | RenderFeature, layer: any) => {
         if (feature instanceof Feature) {
-          this.props.onClick!(feature)
+          onClick(feature)
         }
       })
     }
   }
+
+  /**
+   * Display a tooltip upon hovering over a feature
+   */
+  const displayToolTip = (event: MapBrowserEvent<UIEvent>) => {
+    setPopup((popup) => {
+      const feature: Feature<Point> | undefined = event.map.forEachFeatureAtPixel(
+        event.pixel,
+        (feature: Feature<Point> | RenderFeature, layer: any) => {
+          if (feature instanceof Feature) {
+            return feature
+          }
+        }
+      )
+      if (feature) {
+        const coordinates = (feature!.getGeometry()! as any).getCoordinates()
+        const id = feature.getId()
+
+        setPopupFeature(feature)
+
+        if (coordinates && id) {
+          popup?.setPosition(coordinates)
+          setPopupText(id as string)
+          setPopupOpen(true)
+        }
+      } else {
+        setPopupOpen(false)
+      }
+
+      return popup
+    })
+  }
+
+  const popupClick = () => {
+    if (popupFeature && onClick) {
+      onClick(popupFeature)
+    }
+  }
+
+  return (
+    <div>
+      <div
+        ref={mapElement}
+        id={MAP_ID}
+        style={{ width: "100%", height: height ?? 400, minHeight: 400, maxHeight: "80vh" }}
+      />
+      <div ref={popupElement} id={POPUP_ID} />
+      <Tooltip isOpen={popupOpen} target={POPUP_ID} toggle={popupClick}>
+        <a onClick={popupClick}>{popupText}</a>
+      </Tooltip>
+    </div>
+  )
 }

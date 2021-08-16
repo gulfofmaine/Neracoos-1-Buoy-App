@@ -7,10 +7,12 @@ import { Alert, Col, Row } from "reactstrap"
 import { WindTimeSeriesChart } from "components/Charts"
 import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
+import { aWeekAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
+import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
 
 interface Props {
@@ -21,6 +23,7 @@ interface DisplayProps extends Props {
   unitSystem: UnitSystem
   datasets: DataTimeSeries[]
   timeSeries: PlatformTimeSeries[]
+  startDate: Date
 }
 
 /**
@@ -28,6 +31,7 @@ interface DisplayProps extends Props {
  */
 export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }: Props) => {
   const unitSystem = useUnitSystem()
+  const startDate = aWeekAgoRounded()
 
   const { timeSeries } = pickWindTimeSeries(platform)
 
@@ -36,8 +40,10 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   }
 
   return (
-    <UseDatasets timeSeries={timeSeries}>
-      {({ datasets }) => <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets }} />}
+    <UseDatasets timeSeries={timeSeries} startTime={startDate}>
+      {({ datasets }) => (
+        <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets, startDate }} />
+      )}
     </UseDatasets>
   )
 }
@@ -49,13 +55,20 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   platform,
   unitSystem,
   datasets,
+  timeSeries,
+  startDate,
 }: DisplayProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
 
   return (
     <Row>
       <Col>
-        <h4>Wind</h4>
+        <div style={{ textAlign: "center" }}>
+          <h4>
+            Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
+          </h4>
+        </div>
+
         <WindTimeSeriesChart barbsPerDay={5} legend={true} {...{ speed, gust, direction, unitSystem }} />
       </Col>
     </Row>

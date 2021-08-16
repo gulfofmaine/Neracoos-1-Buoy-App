@@ -1,17 +1,18 @@
 /**
  * Load and display forecasts
  */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import { Point } from "@turf/helpers"
 import React from "react"
-import { Link } from "react-router-dom"
-import { Alert, Row, Col } from "reactstrap"
+import { Alert, Row, Col, Tooltip } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
-import { paths } from "Shared/constants"
+import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aDayAgoRounded } from "Shared/time"
-import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { StyledTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
@@ -25,8 +26,24 @@ interface Props {
   unitSystem: UnitSystem
 }
 
-interface UrlDataTimeSeries extends DataTimeSeries {
+interface UrlStyledTimeSeries extends StyledTimeSeries {
   url: string
+}
+
+const ForecastInfo = ({ children }) => {
+  const [tooltipOpen, setTooltipOpen] = React.useState(false)
+
+  const toggle = () => setTooltipOpen((open) => !open)
+
+  const target = "Forecast-Tooltip"
+  return (
+    <React.Fragment>
+      <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "1rem", verticalAlign: "middle" }} id={target} />
+      <Tooltip isOpen={tooltipOpen} toggle={toggle} target={target} autohide={false} style={{ textAlign: "left" }}>
+        {children}
+      </Tooltip>
+    </React.Fragment>
+  )
 }
 
 /**
@@ -55,7 +72,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     result: results[index],
   }))
 
-  const chartData: UrlDataTimeSeries[] = []
+  const chartData: UrlStyledTimeSeries[] = []
 
   if (dataset && timeSeries) {
     const aDayAgo = aDayAgoRounded()
@@ -65,16 +82,20 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
       timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
       name: `${timeSeries.dataset}: ${timeSeries.data_type.long_name} - observations`,
       url: tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints),
+      color: colorCycle[0],
+      dashStyle: "Dash",
     })
   }
 
-  forecastResults.forEach(({ result, meta }) => {
+  forecastResults.forEach(({ result, meta }, index) => {
     if (result?.data) {
       chartData.push({
         timeSeries: result.data as ReadingTimeSeries[],
         name: meta.name + " - forecast",
         unit: meta.units,
         url: meta.source_url,
+        dashStyle: "Solid",
+        color: colorCycle[index + 1],
       })
     }
   })
@@ -96,15 +117,23 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   return (
     <Row>
       <Col>
-        <h4>{forecasts[0].forecast_type} Forecast</h4>
+        <div style={{ textAlign: "center" }}>
+          <h4>
+            {forecasts[0].forecast_type} Forecast{" "}
+            <ForecastInfo>
+              Data access:
+              <ul style={{ paddingLeft: "1rem" }}>
+                {chartData.map((ts, id) => (
+                  <li key={id}>
+                    <a href={ts.url}>{ts.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </ForecastInfo>
+          </h4>
+        </div>
 
         <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
-
-        <h6>Data sources</h6>
-        <p>
-          For more information on the models and data used in this plot, visit the{" "}
-          <Link to={paths.about}>about page</Link>.
-        </p>
       </Col>
     </Row>
   )
@@ -135,7 +164,7 @@ export const forecastToStandardNames: { [key: string]: Set<string> } = {
 const direction_forecast_types = new Set(["wave_direction", "wind_direction"])
 
 interface ForecastChartProps {
-  data: DataTimeSeries[]
+  data: StyledTimeSeries[]
   // forecast type
   type: string
   // Unit system to display in

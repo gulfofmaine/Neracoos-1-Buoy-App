@@ -6,12 +6,15 @@ import { Col, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts"
 import { naturalBounds } from "Shared/dataTypes"
+import { aWeekAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+
+import { Info } from "./Info"
 
 interface Props {
   /** Platform to display */
@@ -27,17 +30,31 @@ interface Props {
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
-  const timeSeries = platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
+  const startDate = aWeekAgoRounded()
 
+  const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
+    (reading) => reading.data_type.standard_name === standardName
+  )
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
-  const charts = timeSeries.map((ts, index) => (
-    <UseDataset key={index} timeSeries={ts}>
-      {({ dataset }) => <ChartTimeSeriesDisplay {...{ dataset, standardName, unitSystem }} timeSeries={ts} />}
-    </UseDataset>
-  ))
+  const charts = timeSeries.map((ts: PlatformTimeSeries, index) => {
+    const depth = ts.depth && ts.depth > 0 ? " at " + ts.depth + "m below" : ""
 
-  return <React.Fragment>{charts}</React.Fragment>
+    return (
+      <Row key={index}>
+        <Col>
+          <h4>
+            {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+          </h4>
+          <UseDataset timeSeries={ts} startTime={startDate}>
+            {({ dataset }) => <ChartTimeSeriesDisplay {...{ dataset, standardName, unitSystem }} timeSeries={ts} />}
+          </UseDataset>
+        </Col>
+      </Row>
+    )
+  })
+
+  return <div style={{ textAlign: "center" }}>{charts}</div>
 }
 
 interface ChartTimeSeriesDisplayProps {
@@ -56,25 +73,16 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   standardName,
   unitSystem,
 }: ChartTimeSeriesDisplayProps) => {
-  const depth = timeSeries.depth && timeSeries.depth > 0 ? " at " + timeSeries.depth + "m below" : ""
-
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
 
   return (
-    <Row>
-      <Col>
-        <h4>
-          {timeSeries.data_type.long_name} {depth}
-        </h4>
-        <LargeTimeSeriesChart
-          timeSeries={dataset.timeSeries}
-          name={timeSeries.data_type.long_name}
-          softMin={bounds[0]}
-          softMax={bounds[1]}
-          unitSystem={unitSystem}
-          data_type={standardName}
-        />
-      </Col>
-    </Row>
+    <LargeTimeSeriesChart
+      timeSeries={dataset.timeSeries}
+      name={timeSeries.data_type.long_name}
+      softMin={bounds[0]}
+      softMax={bounds[1]}
+      unitSystem={unitSystem}
+      data_type={standardName}
+    />
   )
 }

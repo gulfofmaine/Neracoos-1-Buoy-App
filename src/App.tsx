@@ -14,7 +14,6 @@ import AboutPage from "Pages/About"
 import HomePage from "Pages/Home"
 import PlatformsPage from "Pages/Platforms"
 
-import "./App.css"
 import { paths } from "./Shared/constants"
 
 class App extends React.Component {
