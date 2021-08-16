@@ -7,11 +7,13 @@ import { Tooltip } from "reactstrap"
 
 // import TileLayer from 'ol/layer/Tile'
 import Feature from "ol/Feature"
+import Point from "ol/geom/Point"
 import Group from "ol/layer/Group"
 import Layer from "ol/layer/Layer"
 import Map from "ol/Map"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import Overlay from "ol/Overlay"
+import Source from "ol/source/Source"
 import { transform, transformExtent } from "ol/proj"
 import RenderFeature from "ol/render/Feature"
 import View from "ol/View"
@@ -26,11 +28,11 @@ export interface Props {
   /** Decimal degrees East */
   lon: number
   /** Layers to display on top of map. */
-  layers: Layer[]
+  layers: Layer<Source>[]
   /** Zoom level to start at. 0 is furthest out */
   startZoom: number
   /** Callback function for click events */
-  onClick?: (feature: Feature) => void
+  onClick?: (feature: Feature<Point>) => void
   /** Height to set the map view to */
   height?: number | string
 }
@@ -48,7 +50,7 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   const [popup, setPopup] = React.useState<Overlay>()
   const [popupOpen, setPopupOpen] = React.useState(false)
   const [popupText, setPopupText] = React.useState("Test")
-  const [popupFeature, setPopupFeature] = React.useState<Feature>()
+  const [popupFeature, setPopupFeature] = React.useState<Feature<Point>>()
 
   React.useEffect(() => {
     const initialMap = new Map({
@@ -113,9 +115,9 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   /**
    * Hand off map clicks on features to parent components
    */
-  const handleMapClick = (event: MapBrowserEvent) => {
+  const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {
     if (onClick) {
-      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature | RenderFeature, layer: any) => {
+      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature<Point> | RenderFeature, layer: any) => {
         if (feature instanceof Feature) {
           onClick(feature)
         }
@@ -126,11 +128,11 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   /**
    * Display a tooltip upon hovering over a feature
    */
-  const displayToolTip = (event: MapBrowserEvent) => {
+  const displayToolTip = (event: MapBrowserEvent<UIEvent>) => {
     setPopup((popup) => {
-      const feature: Feature | undefined = event.map.forEachFeatureAtPixel(
+      const feature: Feature<Point> | undefined = event.map.forEachFeatureAtPixel(
         event.pixel,
-        (feature: Feature | RenderFeature, layer: any) => {
+        (feature: Feature<Point> | RenderFeature, layer: any) => {
           if (feature instanceof Feature) {
             return feature
           }

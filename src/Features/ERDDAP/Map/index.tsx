@@ -4,9 +4,11 @@
 import { push } from "connected-react-router"
 import Feature from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
+import Geometry from "ol/geom/Geometry"
+import Point from "ol/geom/Point"
 import Layer from "ol/layer/Layer"
 import VectorLayer from "ol/layer/Vector"
-import { AttributionLike } from "ol/source/Source"
+import Source, { AttributionLike } from "ol/source/Source"
 import VectorSource from "ol/source/Vector"
 import { Circle, Fill, Stroke, Style } from "ol/style"
 import React from "react"
@@ -72,7 +74,7 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
  * @param platforms Array of platform features
  * @param style Should the layer be fore selected platforms
  */
-function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLayer {
+function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLayer<VectorSource<Geometry>> {
   const attribution: AttributionLike = "NERACOOS"
 
   const platformSource = new VectorSource({
@@ -101,7 +103,11 @@ function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLa
  * @param platforms Array of platform features
  * @param platformId Selected platform ID name
  */
-export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platformId?: string): Layer[] {
+export function makeLayers(
+  layers: Layer<Source>[],
+  platforms: PlatformFeature[],
+  platformId?: string
+): Layer<Source>[] {
   /** platform styles */
   layers = [...layers]
   const platformStyle = makeStyle(false)
@@ -139,7 +145,7 @@ export function makeLayers(layers: Layer[], platforms: PlatformFeature[], platfo
 }
 
 /** Basemap layers */
-const baseLayers: Layer[] = [esriLayers.EsriOceanBasemapLayer, esriLayers.EsriOceanReferenceLayer]
+const baseLayers: Layer<Source>[] = [esriLayers.EsriOceanBasemapLayer, esriLayers.EsriOceanReferenceLayer]
 
 /**
  * ErddapMapBase provides a map with platforms focused on the Gulf of Maine by default
@@ -169,7 +175,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
    * Handle clicks from OpenLayers
    * @param feature OpenLayers Feature
    */
-  protected onClick(feature: Feature) {
+  protected onClick(feature: Feature<Point>) {
     const featureId = feature.getId()
     if (featureId) {
       const name: string = featureId.toString()
