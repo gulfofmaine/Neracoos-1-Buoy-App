@@ -9616,9 +9616,9 @@ hex-color-regex@^1.1.0:
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
 highcharts@*, highcharts@^9:
-  version "9.1.2"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.1.2.tgz#c9b15390a10acb274a941d2aa5bc05c0889646d9"
-  integrity sha512-RwCnJnxAUCGG4R/WDG+QP/4VJNtOpkQTkXcuf58DjDvm9ZILplSMdZvrbMRC9Y9ecuJQCjjZsiifvyS5E2IBvQ==
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.2.0.tgz#be3c2fb995fdbb1c1b841b6069b2f68f20bcfa64"
+  integrity sha512-ci5K1bS6epjjCm1eJXn08NULMlvaMU/FLGtOGHFXVAHP/mDf13J0wGzVd9e4Af+8V3fYnYDf0HKAVk3ytgQETw==
 
 highlight.js@^10.1.1, highlight.js@~10.4.0:
   version "10.4.0"
