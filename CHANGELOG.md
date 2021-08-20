@@ -4,11 +4,26 @@
 
 Additions:
 
+Changes:
+
+Fixes:
+
+## 0.9.0 - 8/20/2021
+
+Additions:
+
 - Keep the center and zoom of the map view between the home and other pages.
 
 Changes:
 
-Fixes:
+- Dependency Updates:
+  - Javascript
+    - Types
+      - Node from 16.6.1 to 16.6.2
+      - React from 17.0.18 to 17.0.19
+      - Cypress from 7.7.0 to 8.3.0
+  - Github Actions
+    - Docker Build Push Action from 2.6.1 to 2.7.0
 
 ## 0.8.0 - 8/16/2021
 
