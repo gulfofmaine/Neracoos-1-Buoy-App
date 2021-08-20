@@ -9,6 +9,7 @@ import { combineReducers } from "redux"
 import { Action } from "./actions"
 import { StoreState } from "Shared/constants/store"
 
+import { mapStateReducer as mapState } from "Features/StatefulMap"
 import { unitReducer as unit } from "Features/Units"
 
 /**
@@ -17,6 +18,7 @@ import { unitReducer as unit } from "Features/Units"
 const reducer = (history: History) =>
   combineReducers<StoreState, Action & LocationChangeAction>({
     router: connectRouter(history),
+    mapState,
     unit,
   })
 
