@@ -24,7 +24,7 @@ export const ErrorDataCard: React.FunctionComponent<ErrorDataCardProps> = ({ tim
     <Col {...cardProps}>
       <Link to={url}>
         <Card>
-          <CardBody>Error loading {timeSeries.data_type.long_name} data</CardBody>
+          <CardBody>Error loading or displaying {timeSeries.data_type.long_name} data</CardBody>
         </Card>
       </Link>
     </Col>

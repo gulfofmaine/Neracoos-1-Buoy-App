@@ -4,6 +4,7 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Tooltip } from "reactstrap"
+import * as Sentry from "@sentry/react"
 
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
@@ -72,10 +73,6 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
 
     const selected = data[0]
 
-    const unit_converter = converter(selected.data_type.standard_name)
-
-    const value = unit_converter.convertTo(selected.value as number, unitSystem)
-
     const tooltipId = `${selected.data_type.standard_name}-tooltip`
 
     return (
@@ -93,15 +90,15 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
             // href="#"
             id={tooltipId}
           >
-            <b>{name}:</b> {typeof value === "number" ? round(value as number, 1) : value}{" "}
-            {unit_converter.displayName(unitSystem)}
+            <Sentry.ErrorBoundary fallback={<b>Error displaying {name}</b>} showDialog={false}>
+              <TableItemDisplay name={name} unitSystem={unitSystem} selected={selected} />
+            </Sentry.ErrorBoundary>
           </span>
         </Link>
         {selected.time ? (
           <Tooltip
             className="condition-tooltip"
             isOpen={tooltipOpen}
-            // isOpen={true}
             autohide={false}
             target={tooltipId}
             toggle={toggleTooltip}
@@ -114,4 +111,21 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
   }
 
   return null
+}
+
+type TableItemDisplayProps = Pick<TableItemProps, "name" | "unitSystem"> & {
+  selected: PlatformTimeSeries
+}
+
+const TableItemDisplay: React.FC<TableItemDisplayProps> = ({ name, unitSystem, selected }: TableItemDisplayProps) => {
+  const unit_converter = converter(selected.data_type.standard_name)
+
+  const value = unit_converter.convertTo(selected.value as number, unitSystem)
+
+  return (
+    <React.Fragment>
+      <b>{name}:</b> {typeof value === "number" ? round(value as number, 1) : value}{" "}
+      {unit_converter.displayName(unitSystem)}
+    </React.Fragment>
+  )
 }

@@ -4,6 +4,8 @@
 
 Additions:
 
+- Add [Sentry ErrorBoundaries](https://docs.sentry.io/platforms/javascript/guides/react/components/errorboundary/) so that failures in certain components don't bring down the whole Mariner's Dashboard.
+
 Changes:
 
 Fixes:

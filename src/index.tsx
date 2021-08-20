@@ -6,7 +6,6 @@ import "react-app-polyfill/stable"
 
 import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
-import { Event } from "@sentry/types"
 import { ConnectedRouter } from "connected-react-router"
 
 import moment from "moment-timezone"
@@ -21,6 +20,7 @@ import GAListener from "Shared/google-analytics"
 import App from "./App"
 import "./index.scss"
 import { history, store } from "./store"
+import { FiveHundredPage } from "./Pages/500"
 
 declare global {
   interface Window {
@@ -41,16 +41,6 @@ const packageJson = require("../package.json")
 if (!(window as any).Cypress) {
   Sentry.init({
     dsn: "https://eab04522f42c4efab9d5bfe7d8594e9c@sentry.io/1270344",
-    beforeSend(event: Event) {
-      if (event.exception) {
-        if (event.extra && "skipDialog" in event.extra) {
-          // pass
-        } else {
-          Sentry.showReportDialog()
-        }
-      }
-      return event
-    },
     release: `v${packageJson.version}`,
     integrations: [new Integrations.BrowserTracing()],
     tracesSampleRate: 0.01, // Trace 1/100 or 1% of visits.
@@ -67,9 +57,11 @@ ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
-          <App />
-        </GAListener>
+        <Sentry.ErrorBoundary showDialog={true} fallback={() => <FiveHundredPage />}>
+          <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
+            <App />
+          </GAListener>
+        </Sentry.ErrorBoundary>
       </ConnectedRouter>
       <ReactQueryDevtools />
     </Provider>
