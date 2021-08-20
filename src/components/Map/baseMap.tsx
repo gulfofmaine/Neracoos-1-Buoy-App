@@ -20,6 +20,11 @@ import View from "ol/View"
 
 import { BoundingBox } from "Shared/types"
 
+export interface MapView {
+  center: [number, number]
+  resolution: number
+}
+
 export interface Props {
   /** Bounding box to focus map view on */
   boundingBox?: BoundingBox
@@ -35,12 +40,26 @@ export interface Props {
   onClick?: (feature: Feature<Point>) => void
   /** Height to set the map view to */
   height?: number | string
+  /** Call with new view when the view is changed */
+  onViewChange?: (mapView: MapView) => void
+  /** center coordinates and resolution to set the map view to */
+  mapView?: MapView
 }
 
 const MAP_ID = "map"
 const POPUP_ID = "popup"
 
-export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers, lat, lon, startZoom }: Props) => {
+export const BaseMap: React.FC<Props> = ({
+  boundingBox,
+  height,
+  onClick,
+  layers,
+  lat,
+  lon,
+  startZoom,
+  onViewChange,
+  mapView,
+}: Props) => {
   const mapElement = React.useRef<HTMLDivElement>(null)
   const popupElement = React.useRef<HTMLDivElement>(null)
 
@@ -53,13 +72,16 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   const [popupFeature, setPopupFeature] = React.useState<Feature<Point>>()
 
   React.useEffect(() => {
+    const view = mapView
+      ? new View({ ...mapView, projection: "EPSG:3857" })
+      : new View({
+          center: transform([lon, lat], "EPSG:4326", "EPSG:3857"),
+          zoom: startZoom,
+        })
     const initialMap = new Map({
       target: mapElement.current ?? undefined,
       layers: [],
-      view: new View({
-        center: transform([lon, lat], "EPSG:4326", "EPSG:3857"),
-        zoom: startZoom,
-      }),
+      view,
     })
 
     const initialPopup = new Overlay({
@@ -69,18 +91,21 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
 
     initialMap.on("click", handleMapClick)
     initialMap.on("pointermove", displayToolTip)
+    initialMap.on("moveend", moveEnd)
 
     setMap(initialMap)
     setPopup(initialPopup)
   }, [setMap])
 
   React.useEffect(() => {
-    setMap((map) => {
-      setPopupOpen(false)
-      map?.getView().setCenter(transform([lon, lat], "EPSG:4326", "EPSG:3857"))
-      return map
-    })
-  }, [lat, lon, setMap])
+    if (mapView) {
+      setMap((map) => {
+        map?.getView().setCenter(mapView.center)
+        map?.getView().setResolution(mapView.resolution)
+        return map
+      })
+    }
+  }, [mapView, setMap])
 
   React.useEffect(() => {
     if (boundingBox) {
@@ -160,6 +185,16 @@ export const BaseMap: React.FC<Props> = ({ boundingBox, height, onClick, layers,
   const popupClick = () => {
     if (popupFeature && onClick) {
       onClick(popupFeature)
+    }
+  }
+
+  const moveEnd = ({ map }: { map: Map }) => {
+    const view = map?.getView()
+    const center = view?.getCenter() as unknown as [number, number]
+    const resolution = view?.getResolution()
+
+    if (onViewChange) {
+      onViewChange({ center, resolution })
     }
   }
 

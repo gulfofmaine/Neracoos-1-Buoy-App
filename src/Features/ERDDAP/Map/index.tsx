@@ -14,7 +14,8 @@ import { Circle, Fill, Stroke, Style } from "ol/style"
 import React from "react"
 import { useDispatch } from "react-redux"
 
-import { BaseMap, esriLayers } from "components/Map"
+import { esriLayers } from "components/Map"
+import { StatefulMap } from "Features/StatefulMap"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
@@ -159,7 +160,7 @@ export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, objec
 
   public render() {
     return (
-      <BaseMap
+      <StatefulMap
         lon={-68.5}
         lat={43.5}
         startZoom={6}

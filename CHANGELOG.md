@@ -4,6 +4,8 @@
 
 Additions:
 
+- Keep the center and zoom of the map view between the home and other pages.
+
 Changes:
 
 Fixes:
