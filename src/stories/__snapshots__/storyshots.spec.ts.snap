@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Components/500 Page Five Hundred Page 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-8 offset-md-2"
+  >
+    <h1>
+      The data has escaped
+    </h1>
+    <img
+      src="n_walkabout.png"
+      style={
+        Object {
+          "maxWidth": "100%",
+        }
+      }
+    />
+    <p>
+      Despite our best intentions, something has gone wrong while trying to display the data.
+    </p>
+    <p>
+      If you saw a 
+      <b>
+        It looks like we're having issues
+      </b>
+       form, we hope that you filled it out, as it will help us fix the issue. Otherwise you can email 
+      <a
+        href="mailto:info@neracoos.org"
+      >
+        info@neracoos.org
+      </a>
+       with information about the error.
+    </p>
+    <p>
+      Sometimes issues are short lived, so if you give it a minute, then try reloading the page, hopefully you will be able to get to the data. If you can't and this error shows up again, please fill out the form, or email us for help.
+    </p>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Components/Footer Footer 1`] = `
 <div
   className="footer"

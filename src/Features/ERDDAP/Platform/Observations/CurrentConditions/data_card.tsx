@@ -6,6 +6,7 @@ import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
+import * as Sentry from "@sentry/react"
 
 import { SmallTimeSeriesChart } from "components/Charts"
 import { naturalBounds } from "Shared/dataTypes"
@@ -82,7 +83,17 @@ export const DataCard: React.FunctionComponent<DataCardProps> = ({ data_types, p
 
         if (readings.length > 1) {
           return (
-            <DataCardDisplay readings={readings} unitSystem={unitSystem} timeSeries={timeSeries} platform={platform} />
+            <Sentry.ErrorBoundary
+              showDialog={false}
+              fallback={() => <ErrorDataCard platform={platform} timeSeries={timeSeries} />}
+            >
+              <DataCardDisplay
+                readings={readings}
+                unitSystem={unitSystem}
+                timeSeries={timeSeries}
+                platform={platform}
+              />
+            </Sentry.ErrorBoundary>
           )
         }
         return <ErrorDataCard platform={platform} timeSeries={timeSeries} />

@@ -4,6 +4,8 @@
 
 Additions:
 
+- Add [Sentry ErrorBoundaries](https://docs.sentry.io/platforms/javascript/guides/react/components/errorboundary/) so that failures in certain components don't bring down the whole Mariner's Dashboard. [#1441](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1441)
+
 Changes:
 
 Fixes:

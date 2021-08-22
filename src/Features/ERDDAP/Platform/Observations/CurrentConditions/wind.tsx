@@ -6,67 +6,22 @@ import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
+import * as Sentry from "@sentry/react"
 
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion"
-import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
 import { WindTimeSeriesChart } from "components/Charts"
 
-import { UseDatasets } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { cardProps, observationLink } from "./common_card"
 
-interface WindCardProps {
+interface DisplayWindCardProps {
   platform: PlatformFeature
-}
-
-/**
- * If there are wind time series for a platform load and display recent data.
- *
- * @param platform Platform GeoJSON feature to display wind data from
- */
-export const WindCard: React.FunctionComponent<WindCardProps> = ({ platform }: WindCardProps) => {
-  const unitSystem = useUnitSystem()
-
-  const aDayAgo = new Date()
-  aDayAgo.setDate(aDayAgo.getDate() - 1)
-
-  const { windTimeSeries, timeSeries } = pickWindTimeSeries(platform, aDayAgo)
-
-  // No current data or wind data don't exist for the platform
-  if (windTimeSeries.length < 1) {
-    return null
-  }
-
-  if (timeSeries.length < 0) {
-    return <OtherWindCard platform={platform}>No recent wind data available.</OtherWindCard>
-  }
-
-  return (
-    <UseDatasets timeSeries={timeSeries}>
-      {({ datasets }) => {
-        const filteredDatasets = datasets
-          .map((ds) => ({
-            ...ds,
-            timeSeries: ds.timeSeries.filter((r) => aDayAgo < r.time),
-          }))
-          .filter((ds) => ds.timeSeries.length > 0)
-
-        if (filteredDatasets.length > 0) {
-          return <DisplayWindCard {...{ platform, timeSeries, unitSystem }} datasets={filteredDatasets} />
-        }
-        return <OtherWindCard platform={platform}>Error loading wind data.</OtherWindCard>
-      }}
-    </UseDatasets>
-  )
-}
-
-interface DisplayWindCardProps extends WindCardProps {
   datasets: DataTimeSeries[]
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries[]
@@ -74,10 +29,23 @@ interface DisplayWindCardProps extends WindCardProps {
   endTime?: Date
 }
 
+export const DisplayWindCard: React.FC<DisplayWindCardProps> = (props: DisplayWindCardProps) => (
+  <Sentry.ErrorBoundary
+    showDialog={false}
+    fallback={() => (
+      <OtherWindCard platform={props.platform}>
+        <p>Error displaying wind data</p>
+      </OtherWindCard>
+    )}
+  >
+    <DisplayWindCardInner {...props} />
+  </Sentry.ErrorBoundary>
+)
+
 /**
  * Display wind datasets on a current conditions card
  */
-export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
+export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
   platform,
   datasets,
   unitSystem,
@@ -91,7 +59,7 @@ export const DisplayWindCard: React.FunctionComponent<DisplayWindCardProps> = ({
     return null
   }
 
-  const dataConverter = converter(speedTimeSeries!.data_type.standard_name)
+  const dataConverter = converter((speedTimeSeries ?? gustTimeSeries)!.data_type.standard_name)
 
   let speedTitle: string = ""
   if (speed) {
