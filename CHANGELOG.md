@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Tweaked Docker caching in GitHub Actions to use the cache more directly from BuildKit.
+
 Fixes:
 
 ## 0.10.0 - 8/22/2021
