@@ -24,7 +24,7 @@
     "moment": "2.29.1",
     "moment-timezone": "0.5.33",
     "node-sass": "^5.0.0",
-    "ol": "^6.6.1",
+    "ol": "^6.7.0",
     "prop-types": "^15.0.0",
     "react": "16.14.0",
     "react-app-polyfill": "^2.0.0",
