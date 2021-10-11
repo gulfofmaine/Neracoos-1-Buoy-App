@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^6.3.10",
-    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.10",
     "@storybook/addon-storyshots": "^6.3.8",
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.3.8",
