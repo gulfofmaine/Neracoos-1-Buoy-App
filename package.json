@@ -8,7 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@sentry/react": "^6.13.2",
-    "@sentry/tracing": "^6.13.2",
+    "@sentry/tracing": "^6.13.3",
     "@turf/bbox-polygon": "6.5.0",
     "@turf/boolean-contains": "6.5.0",
     "@turf/helpers": "6.5.0",
@@ -51,7 +51,7 @@
     "build-storybook": "build-storybook -c .storybook -o storybook-public"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^6.3.8",
+    "@storybook/addon-a11y": "^6.3.10",
     "@storybook/addon-essentials": "^6.3.8",
     "@storybook/addon-storyshots": "^6.3.8",
     "@storybook/preset-create-react-app": "^3.2.0",
@@ -60,7 +60,7 @@
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "27.0.2",
     "@types/node": "16.10.2",
-    "@types/react": "17.0.25",
+    "@types/react": "17.0.27",
     "@types/react-dom": "17.0.9",
     "@types/react-test-renderer": "17.0.1",
     "codacy-coverage": "3.4.0",
