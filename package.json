@@ -15,7 +15,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^4.7.9",
     "@types/react-responsive": "8.0.4",
-    "@types/react-router-dom": "5.3.1",
+    "@types/react-router-dom": "5.3.2",
     "bootstrap": "4.6.0",
     "connected-react-router": "6.9.1",
     "convert-units": "2.3.4",
@@ -32,7 +32,7 @@
     "react-ga": "^3.3.0",
     "react-jsx-highcharts": "^4.3.1",
     "react-query": "^3.28.0",
-    "react-redux": "7.2.5",
+    "react-redux": "7.2.6",
     "react-router-dom": "5.3.0",
     "react-scripts": "^4.0.3",
     "react-use": "^17.3.1",
@@ -76,7 +76,7 @@
     "wait-on": "6.0.0"
   },
   "optionalDependencies": {
-    "cypress": "8.6.0"
+    "cypress": "8.7.0"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
