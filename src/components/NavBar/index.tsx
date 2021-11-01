@@ -9,7 +9,6 @@ import { paths } from "Shared/constants"
 
 import { RegionDropdown } from "./regionDropdown"
 
-import "./nav.css"
 import neracoosLogo from "./neracoos_logo.png"
 
 const initialState = {
