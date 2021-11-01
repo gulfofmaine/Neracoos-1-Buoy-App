@@ -41,7 +41,7 @@ export class RegionDropdown extends React.Component<Props, State> {
           Regions
         </DropdownToggle>
 
-        <DropdownMenu right={true}>{regions}</DropdownMenu>
+        <DropdownMenu end={true}>{regions}</DropdownMenu>
       </Dropdown>
     )
   }
