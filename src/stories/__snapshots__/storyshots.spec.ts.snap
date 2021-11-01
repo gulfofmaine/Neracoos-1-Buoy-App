@@ -119,131 +119,135 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
   <nav
     className="navbar navbar-expand-md navbar-dark"
   >
-    <a
-      className="navbar-brand"
-      href="http://neracoos.org"
-    >
-      <img
-        alt="NERACOOS"
-        src="neracoos_logo.png"
-      />
-    </a>
-    <button
-      aria-label="Toggle navigation"
-      className="navbar-toggler"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="navbar-toggler-icon"
-      />
-    </button>
     <div
-      className="collapse navbar-collapse"
-      style={Object {}}
+      className="container-fluid"
     >
-      <ul
-        className="ml-auto navbar-nav"
+      <a
+        className="navbar-brand"
+        href="http://neracoos.org"
       >
-        <a
-          aria-current="page"
-          className="nav-link active"
-          href="/"
-          onClick={[Function]}
-          style={Object {}}
-        >
-          Home
-        </a>
-        <li
-          className="dropdown nav-item"
-          onKeyDown={[Function]}
-        >
-          <a
-            aria-expanded={false}
-            aria-haspopup={true}
-            className="dropdown-toggle nav-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Regions
-          </a>
-          <div
-            aria-hidden={true}
-            className="dropdown-menu dropdown-menu-right"
-            role="menu"
-            tabIndex="-1"
-          >
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=GOM"
-              onClick={[Function]}
-            >
-              Gulf Of Maine
-            </a>
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=LONG"
-              onClick={[Function]}
-            >
-              Long Island Sound
-            </a>
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=GREAT"
-              onClick={[Function]}
-            >
-              Great Bay, NH
-            </a>
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=BOSTON"
-              onClick={[Function]}
-            >
-              Boston Harbor
-            </a>
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=CAPE"
-              onClick={[Function]}
-            >
-              Cape Cod / Buzzards Bay
-            </a>
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=NARRAGANSETT"
-              onClick={[Function]}
-            >
-              Narragansett Bay
-            </a>
-            <a
-              aria-current={null}
-              className="nav-link dropdown-item btn"
-              href="/platform/?region=NEWFOUNDLAND"
-              onClick={[Function]}
-            >
-              Newfoundland
-            </a>
-          </div>
-        </li>
-        <li
-          className="nav-item"
+        <img
+          alt="NERACOOS"
+          src="neracoos_logo.png"
+        />
+      </a>
+      <button
+        aria-label="Toggle navigation"
+        className="navbar-toggler"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        className="collapse navbar-collapse"
+        style={Object {}}
+      >
+        <ul
+          className="ml-auto navbar-nav"
         >
           <a
-            aria-current={null}
-            className="nav-link"
-            href="/about"
+            aria-current="page"
+            className="nav-link active"
+            href="/"
             onClick={[Function]}
+            style={Object {}}
           >
-            About
+            Home
           </a>
-        </li>
-      </ul>
+          <li
+            className="dropdown nav-item"
+            onKeyDown={[Function]}
+          >
+            <a
+              aria-expanded={false}
+              aria-haspopup={true}
+              className="dropdown-toggle nav-link"
+              href="#"
+              onClick={[Function]}
+            >
+              Regions
+            </a>
+            <div
+              aria-hidden={true}
+              className="dropdown-menu dropdown-menu-end"
+              role="menu"
+              tabIndex="-1"
+            >
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=GOM"
+                onClick={[Function]}
+              >
+                Gulf Of Maine
+              </a>
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=LONG"
+                onClick={[Function]}
+              >
+                Long Island Sound
+              </a>
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=GREAT"
+                onClick={[Function]}
+              >
+                Great Bay, NH
+              </a>
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=BOSTON"
+                onClick={[Function]}
+              >
+                Boston Harbor
+              </a>
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=CAPE"
+                onClick={[Function]}
+              >
+                Cape Cod / Buzzards Bay
+              </a>
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=NARRAGANSETT"
+                onClick={[Function]}
+              >
+                Narragansett Bay
+              </a>
+              <a
+                aria-current={null}
+                className="nav-link dropdown-item btn"
+                href="/platform/?region=NEWFOUNDLAND"
+                onClick={[Function]}
+              >
+                Newfoundland
+              </a>
+            </div>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <a
+              aria-current={null}
+              className="nav-link"
+              href="/about"
+              onClick={[Function]}
+            >
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 </div>
