@@ -7,6 +7,7 @@ import { Tooltip } from "reactstrap"
 
 // import TileLayer from 'ol/layer/Tile'
 import Feature from "ol/Feature"
+import Geometry from "ol/geom/Geometry"
 import Point from "ol/geom/Point"
 import Group from "ol/layer/Group"
 import Layer from "ol/layer/Layer"
@@ -69,7 +70,7 @@ export const BaseMap: React.FC<Props> = ({
   const [popup, setPopup] = React.useState<Overlay>()
   const [popupOpen, setPopupOpen] = React.useState(false)
   const [popupText, setPopupText] = React.useState("Test")
-  const [popupFeature, setPopupFeature] = React.useState<Feature<Point>>()
+  const [popupFeature, setPopupFeature] = React.useState<Feature<Geometry>>()
 
   React.useEffect(() => {
     const view = mapView
@@ -142,9 +143,9 @@ export const BaseMap: React.FC<Props> = ({
    */
   const handleMapClick = (event: MapBrowserEvent<UIEvent>) => {
     if (onClick) {
-      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature<Point> | RenderFeature, layer: any) => {
+      event.map.forEachFeatureAtPixel(event.pixel, (feature: Feature<Geometry> | RenderFeature, layer: any) => {
         if (feature instanceof Feature) {
-          onClick(feature)
+          onClick(feature as Feature<Point>)
         }
       })
     }
@@ -155,9 +156,9 @@ export const BaseMap: React.FC<Props> = ({
    */
   const displayToolTip = (event: MapBrowserEvent<UIEvent>) => {
     setPopup((popup) => {
-      const feature: Feature<Point> | undefined = event.map.forEachFeatureAtPixel(
+      const feature: Feature<Geometry> | undefined = event.map.forEachFeatureAtPixel(
         event.pixel,
-        (feature: Feature<Point> | RenderFeature, layer: any) => {
+        (feature: Feature<Geometry> | RenderFeature, layer: any) => {
           if (feature instanceof Feature) {
             return feature
           }
@@ -184,7 +185,7 @@ export const BaseMap: React.FC<Props> = ({
 
   const popupClick = () => {
     if (popupFeature && onClick) {
-      onClick(popupFeature)
+      onClick(popupFeature as Feature<Point>)
     }
   }
 
@@ -193,7 +194,7 @@ export const BaseMap: React.FC<Props> = ({
     const center = view?.getCenter() as unknown as [number, number]
     const resolution = view?.getResolution()
 
-    if (onViewChange) {
+    if (onViewChange && resolution) {
       onViewChange({ center, resolution })
     }
   }
