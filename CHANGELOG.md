@@ -6,10 +6,47 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.10.1 - 11/9/2021
+
+Changes:
+
 - Remove arrow from map tooltips/popups as it does not receive click handlers and causes confusion.
   - Closes [gulfofmaine/NERACOOS-operations#47](https://github.com/gulfofmaine/NERACOOS-operations/issues/47)
-
-Fixes:
+- Dependency Updates:
+  - Github Actions
+    - Checkout from 2.3.4 to 2.4.0
+    - Setup Docker Buildx from 1.5.1 to 1.6.0
+    - Docker login from 1.9.0 to 1.10.0
+    - Github pages deploy action from 4.1.4 to 4.1.5
+  - Javascript
+    - React Fontawesome from 0.1.15 to 0.1.16
+    - Sentry from 6.11.0 to 6.14.1
+      - React
+      - Tracing
+    - Types
+      - React Responsive from 8.0.3 to 8.0.4
+      - React Router DOM from 5.1.8 to 5.3.2
+      - Enzyme from 3.10.9 to 3.10.10
+      - Jest from 27.0.1 to 27.0.2
+      - Node from 16.6.2 to 16.11.7
+      - React from 17.0.19 to 17.0.34
+      - React DOM from 17.0.9 to 17.0.11
+    - Bootstrap from 4.6.0 to 5.1.3
+    - OpenLayers from 6.6.1 to 6.9.0
+    - React Query from 3.19.6 to 3.32.1
+    - React Redux from 7.2.4 to 7.2.6
+    - React Router DOM from 5.2.0 to 5.3.0
+    - React Use from 17.2.4 to 17.3.1
+    - Reactstrap from 8.9.0 to 9.0.0
+    - Redux from 4.1.1 to 4.1.2
+    - Storybook from 6.3.7 to 6.3.12
+      - Addon A11y
+      - Addon Essentials
+      - Addon Storyshots
+      - Preset Create React App from 3.2.0 to 4.0.0
+    - Cypress from 8.3.0 to 8.7.0
 
 ## 0.10.0 - 8/22/2021
 
