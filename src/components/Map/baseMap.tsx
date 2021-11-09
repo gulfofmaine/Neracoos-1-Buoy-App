@@ -207,7 +207,7 @@ export const BaseMap: React.FC<Props> = ({
         style={{ width: "100%", height: height ?? 400, minHeight: 400, maxHeight: "80vh" }}
       />
       <div ref={popupElement} id={POPUP_ID} />
-      <Tooltip isOpen={popupOpen} target={POPUP_ID} toggle={popupClick}>
+      <Tooltip isOpen={popupOpen} target={POPUP_ID} toggle={popupClick} hideArrow={true}>
         <a onClick={popupClick}>{popupText}</a>
       </Tooltip>
     </div>

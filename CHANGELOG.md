@@ -6,6 +6,9 @@ Additions:
 
 Changes:
 
+- Remove arrow from map tooltips/popups as it does not receive click handlers and causes confusion.
+  - Closes [gulfofmaine/NERACOOS-operations#47](https://github.com/gulfofmaine/NERACOOS-operations/issues/47)
+
 Fixes:
 
 ## 0.10.0 - 8/22/2021
