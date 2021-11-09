@@ -1,0 +1,84 @@
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+import React from 'react';
+import { mdx } from '@mdx-js/react';
+/* @jsxRuntime classic */
+
+/* @jsx mdx */
+
+import { assertIsFn, AddContext } from "@storybook/addon-docs";
+import { Meta } from "@storybook/addon-docs/blocks";
+const layoutProps = {};
+const MDXLayout = "wrapper";
+
+function MDXContent({
+  components,
+  ...props
+}) {
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: "MDXLayout"
+  }), mdx(Meta, {
+    title: "Mariner's Dashboard",
+    mdxType: "Meta"
+  }), mdx("h1", {
+    "id": "mariners-dashboard"
+  }, `Mariner's Dashboard`), mdx("p", null, `The `, mdx("a", _extends({
+    parentName: "p"
+  }, {
+    "href": "https://mariners.neracoos.org/",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }), `NERACOOS Mariner's Dashboard`), `
+is the next generation of our buoy map, redesigned to work natively
+with `, mdx("a", _extends({
+    parentName: "p"
+  }, {
+    "href": "http://www.neracoos.org/erddap/index.html",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }), `ERDDAP`), ` as a
+backend data store.`), mdx("p", null, `A lightweight service (`, mdx("a", _extends({
+    parentName: "p"
+  }, {
+    "href": "https://github.com/gulfofmaine/buoy_barn",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }), `Buoy Barn`), `)
+provides data about platforms and data to display, latest values,
+and enough information that the Mariner's Dashboard is able to
+query ERDDAP itself.`), mdx("h2", {
+    "id": "components-and-dashboard-structure"
+  }, `Components and dashboard structure`), mdx("p", null, `Mariner's Dashboard is organized around three key functionalities.`), mdx("ul", null, mdx("li", {
+    parentName: "ul"
+  }, `Retrieving and displaying data from ERDDAP.`), mdx("li", {
+    parentName: "ul"
+  }, `User selection of display units.`), mdx("li", {
+    parentName: "ul"
+  }, `Retrieving and displaying the home and about pages.`)), mdx("p", null, `More specialized components are organized around those categories,
+while more general ones are under `, mdx("strong", {
+    parentName: "p"
+  }, `Components`), `.`));
+}
+
+;
+MDXContent.isMDXComponent = true;
+export const __page = () => {
+  throw new Error("Docs-only story");
+};
+__page.parameters = {
+  docsOnly: true
+};
+const componentMeta = {
+  title: 'Mariner\'s Dashboard',
+  includeStories: ["__page"]
+};
+const mdxStoryNameToKey = {};
+componentMeta.parameters = componentMeta.parameters || {};
+componentMeta.parameters.docs = { ...(componentMeta.parameters.docs || {}),
+  page: () => mdx(AddContext, {
+    mdxStoryNameToKey: mdxStoryNameToKey,
+    mdxComponentMeta: componentMeta
+  }, mdx(MDXContent, null))
+};
+export default componentMeta;
