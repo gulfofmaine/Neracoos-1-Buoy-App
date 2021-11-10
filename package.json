@@ -22,7 +22,7 @@
     "highcharts": "^9",
     "history": "4.10.1",
     "moment": "2.29.1",
-    "moment-timezone": "0.5.33",
+    "moment-timezone": "0.5.34",
     "node-sass": "^5.0.0",
     "ol": "^6.9.0",
     "prop-types": "^15.0.0",
