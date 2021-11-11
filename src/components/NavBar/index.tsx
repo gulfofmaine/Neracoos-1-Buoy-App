@@ -39,7 +39,7 @@ export default class NeracoosNavBar extends React.Component<object, State> {
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
 
-          <Collapse isOpen={this.state.isOpen} navbar={true}>
+          <Collapse isOpen={this.state.isOpen} navbar={true} className="justify-content-end">
             <Nav className="ml-auto" navbar={true}>
               <NavLink className="nav-link" activeClassName="active" to={paths.home} exact={true}>
                 Home

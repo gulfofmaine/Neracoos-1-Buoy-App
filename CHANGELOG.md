@@ -8,6 +8,11 @@ Changes:
 
 Fixes:
 
+- Reverting styling changes due to differences between Bootstrap 4 & 5.
+  - On platform pages map and platform info were reversed due to [removal of extra `.order-*`](https://getbootstrap.com/docs/5.1/migration/#grid-updates).
+  - Navbar links lost left justification.
+  - Closes #1590
+
 ## 0.10.1 - 11/9/2021
 
 Changes:
