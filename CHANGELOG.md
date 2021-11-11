@@ -8,6 +8,18 @@ Changes:
 
 Fixes:
 
+## 0.10.2 - 11/11/2021
+
+Changes:
+
+- Dependency Updates:
+  - Nginx from 1.21.1 to 1.21.4
+  - Javascript
+    - Moment timezone from 0.5.33 to 0.5.34
+    - Cypress from 8.7.0 to 9.0.0
+
+Fixes:
+
 - Reverting styling changes due to differences between Bootstrap 4 & 5.
   - On platform pages map and platform info were reversed due to [removal of extra `.order-*`](https://getbootstrap.com/docs/5.1/migration/#grid-updates).
   - Navbar links lost left justification.
