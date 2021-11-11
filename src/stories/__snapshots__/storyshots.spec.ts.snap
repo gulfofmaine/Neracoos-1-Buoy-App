@@ -142,7 +142,7 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
         />
       </button>
       <div
-        className="collapse navbar-collapse"
+        className="justify-content-end collapse navbar-collapse"
         style={Object {}}
       >
         <ul

@@ -32,7 +32,7 @@ export const PlatformsPage: React.FC<RouteComponentProps> = (props: RouteCompone
   return (
     <React.Fragment>
       <Row>
-        <Col sm={{ size: true, order: 6 }}>
+        <Col sm={{ size: true, order: 2 }}>
           <div ref={ref} style={{ marginBottom: ".5rem" }}>
             {/* Show list of platforms in a region if no platform is selected */}
             <Switch>
