@@ -1,6 +1,11 @@
-import { addDecorator } from "@storybook/react"
-import StoryRouter from "storybook-react-router"
+import { MemoryRouter } from "react-router-dom"
 
 import "../src/index.scss"
 
-addDecorator(StoryRouter())
+export const decorators = [
+  (Story) => (
+    <MemoryRouter>
+      <Story />
+    </MemoryRouter>
+  ),
+]

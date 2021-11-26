@@ -153,7 +153,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
             className="nav-link active"
             href="/"
             onClick={[Function]}
-            style={Object {}}
           >
             Home
           </a>
@@ -177,7 +176,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
               tabIndex="-1"
             >
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=GOM"
                 onClick={[Function]}
@@ -185,7 +183,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
                 Gulf Of Maine
               </a>
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=LONG"
                 onClick={[Function]}
@@ -193,7 +190,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
                 Long Island Sound
               </a>
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=GREAT"
                 onClick={[Function]}
@@ -201,7 +197,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
                 Great Bay, NH
               </a>
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=BOSTON"
                 onClick={[Function]}
@@ -209,7 +204,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
                 Boston Harbor
               </a>
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=CAPE"
                 onClick={[Function]}
@@ -217,7 +211,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
                 Cape Cod / Buzzards Bay
               </a>
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=NARRAGANSETT"
                 onClick={[Function]}
@@ -225,7 +218,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
                 Narragansett Bay
               </a>
               <a
-                aria-current={null}
                 className="nav-link dropdown-item btn"
                 href="/platform/?region=NEWFOUNDLAND"
                 onClick={[Function]}
@@ -238,7 +230,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
             className="nav-item"
           >
             <a
-              aria-current={null}
               className="nav-link"
               href="/about"
               onClick={[Function]}
