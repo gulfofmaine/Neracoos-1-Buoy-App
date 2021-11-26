@@ -6,7 +6,7 @@ import "react-app-polyfill/stable"
 
 import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
-import { ConnectedRouter } from "connected-react-router"
+import { HistoryRouter } from "redux-first-history/rr6"
 
 import moment from "moment-timezone"
 import * as React from "react"
@@ -56,13 +56,13 @@ const queryClient = new QueryClient()
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <HistoryRouter history={history}>
         <Sentry.ErrorBoundary showDialog={true} fallback={() => <FiveHundredPage />}>
           <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
             <App />
           </GAListener>
         </Sentry.ErrorBoundary>
-      </ConnectedRouter>
+      </HistoryRouter>
       <ReactQueryDevtools />
     </Provider>
   </QueryClientProvider>,

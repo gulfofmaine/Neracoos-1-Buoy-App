@@ -12,7 +12,9 @@ export const paths = {
     observations: "/platform/:id/observations/:type",
     observationsWind: "/platform/:id/observations/wind",
     platform: "/platform/:id",
+    platform_tailing: "/platform/:id/*",
     root: "/platform/",
+    root_tailing: "/platform/*",
   },
   neracoos: "http://neracoos.org",
 }

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const GAListener: React.FC<Props> = ({ children, trackingId }: Props) => {
-  const location = useLocation<{ pathname: string; search: string }>()
+  const location = useLocation()
 
   useEffect(() => {
     if (trackingId) {
