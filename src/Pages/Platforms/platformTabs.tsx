@@ -2,8 +2,8 @@
  * Tabs that are displayed on a platform page.
  */
 
-import * as React from "react"
-import { Link, match, Route, RouteComponentProps, Switch } from "react-router-dom"
+import React from "react"
+import { Link, Route, Routes, useLocation } from "react-router-dom"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -19,21 +19,17 @@ import {
 import { useUnitSystem } from "Features/Units"
 
 import { CurrentConditionsPage } from "./currentConditions"
-import { ForecastTypePage, ForecastTypePageProps } from "./forecastType"
-import { ObservationsPage, ObservationPageProps } from "./observations"
+import { ForecastTypePage } from "./forecastType"
+import { ObservationsPage } from "./observations"
 import { WindObservationsPage } from "./observationsWind"
-
-export interface PlatformTabsProps extends RouteComponentProps {
-  match: match<{ id: string }>
-}
+import { PlatformMatchParams } from "./types"
 
 /**
  * Display tab bar and tab data for individual platforms
  * @param param0 React-Router props
  */
-export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match }) => {
-  const { id } = match.params
-  const { path } = match
+export const PlatformTabs: React.FC<PlatformMatchParams> = ({ id }: PlatformMatchParams) => {
+  const { pathname: path } = useLocation()
   const unitSystem = useUnitSystem()
 
   return (
@@ -44,7 +40,7 @@ export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match
             <Col>
               <Nav tabs={true}>
                 <ErddapObservedDropdown {...platform_props} />
-                <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={id} />
+                <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={id!} />
                 <ForecastDropdown platformId={platform_props.platform.id as string} />
                 <ErddapMoreInfoDropdown {...platform_props} />
               </Nav>
@@ -52,23 +48,25 @@ export const PlatformTabs: React.FunctionComponent<PlatformTabsProps> = ({ match
           </Row>
 
           {/* Display our pages for the platform. */}
-          <Switch>
-            <Route path={paths.platforms.all}>
-              {(props) => <ErddapAllObservationsTable {...platform_props} unitSystem={unitSystem} />}
-            </Route>
-            <Route path={paths.platforms.observationsWind}>
-              <WindObservationsPage {...platform_props} />
-            </Route>
-            <Route path={paths.platforms.observations}>
-              {(route_props) => <ObservationsPage {...(route_props as ObservationPageProps)} {...platform_props} />}
-            </Route>
-            <Route path={paths.platforms.forecastType}>
-              {(route_props) => <ForecastTypePage {...(route_props as ForecastTypePageProps)} {...platform_props} />}
-            </Route>
-            <Route path={paths.platforms.platform}>
-              <CurrentConditionsPage {...platform_props} />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route
+              path={paths.platforms.all.replace(paths.platforms.root, "")}
+              element={<ErddapAllObservationsTable {...platform_props} unitSystem={unitSystem} />}
+            />
+            <Route
+              path={paths.platforms.observationsWind.replace(paths.platforms.root, "")}
+              element={<WindObservationsPage {...platform_props} />}
+            />
+            <Route
+              path={paths.platforms.observations.replace(paths.platforms.root, "")}
+              element={<ObservationsPage {...platform_props} />}
+            />
+            <Route
+              path={paths.platforms.forecastType.replace(paths.platforms.root, "")}
+              element={<ForecastTypePage {...platform_props} />}
+            />
+            <Route path="*" element={<CurrentConditionsPage {...platform_props} />} />
+          </Routes>
         </React.Fragment>
       )}
     </UsePlatform>

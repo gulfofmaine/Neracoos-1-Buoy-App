@@ -1,7 +1,7 @@
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { push } from "connected-react-router"
+import { push } from "redux-first-history"
 import Feature from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
 import Geometry from "ol/geom/Geometry"

@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, RouteComponentProps, Switch } from "react-router"
+import { useSearchParams, useLocation, matchPath } from "react-router-dom"
 import { useMeasure } from "react-use"
 import { Col, Row } from "reactstrap"
 
@@ -7,26 +7,32 @@ import { ErddapMap, ErddapPlatformList } from "Features/ERDDAP"
 
 import { paths, regionList } from "Shared/constants"
 import { Region } from "Shared/regions"
-import urlParams from "Shared/urlParams"
 
 import { PlatformInfo } from "./platformInfo"
-import { PlatformTabs, PlatformTabsProps } from "./platformTabs"
+import { PlatformTabs } from "./platformTabs"
 import { RootInfo } from "./rootInfo"
-import { PlatformMatchParams } from "./types"
 
 /**
  * Top level platform page. Displays region level platform selection if no platform is selected.
  */
-export const PlatformsPage: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
-  const [ref, { height }] = useMeasure<HTMLDivElement>()
-  const params = urlParams(props.location.search)
+export const PlatformsPage: React.FC = () => {
+  // Because we are matching /platform/* we need to figure out if
+  // We are actually matching for /platform/:id
+  // but react-router 6 does not make that as easy,
+  // since <Routes> isn't hierarchal like a <Switch>
+  const location = useLocation()
+  const match = matchPath({ path: paths.platforms.platform_tailing }, location.pathname)
+  const platformId = match?.params.id ?? ""
 
-  const platformId = props.match.params.hasOwnProperty("id") ? (props.match.params as PlatformMatchParams).id : ""
+  const [ref, { height }] = useMeasure<HTMLDivElement>()
+
+  let [searchParams, setSearchParams] = useSearchParams()
 
   let region: Region | undefined
+  const paramsRegion = searchParams.get("region")
 
-  if (params.region !== undefined) {
-    region = regionList.find((r) => r.slug === params.region)
+  if (paramsRegion !== null) {
+    region = regionList.find((r) => r.slug === paramsRegion)
   }
 
   return (
@@ -34,16 +40,13 @@ export const PlatformsPage: React.FC<RouteComponentProps> = (props: RouteCompone
       <Row>
         <Col sm={{ size: true, order: 2 }}>
           <div ref={ref} style={{ marginBottom: ".5rem" }}>
-            {/* Show list of platforms in a region if no platform is selected */}
-            <Switch>
-              <Route path={paths.platforms.root} exact={true}>
-                <div>
-                  <h2>Platforms in {region ? region.name : ""}</h2>
-                  <ErddapPlatformList boundingBox={region?.bbox} />
-                </div>
-              </Route>
-              <Route path={paths.platforms.platform} component={PlatformInfo} />
-            </Switch>
+            {platformId ? <PlatformInfo id={platformId} /> : null}
+            {region ? (
+              <div>
+                <h2>Platforms in {region ? region.name : ""}</h2>
+                <ErddapPlatformList boundingBox={region?.bbox} />
+              </div>
+            ) : null}
           </div>
         </Col>
 
@@ -52,20 +55,7 @@ export const PlatformsPage: React.FC<RouteComponentProps> = (props: RouteCompone
         </Col>
       </Row>
 
-      <div style={{ marginTop: "1rem" }}>
-        <Switch>
-          <Route path={paths.platforms.observations}>
-            {(props) => <PlatformTabs {...(props as PlatformTabsProps)} />}
-          </Route>
-          <Route path={paths.platforms.forecast}>{(props) => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-          <Route path={paths.platforms.platform}>{(props) => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-          <Route path={paths.platforms.all}>{(props) => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-
-          <Route path={paths.platforms.root} exact={true} component={RootInfo} />
-
-          <Route>{(props) => <PlatformTabs {...(props as PlatformTabsProps)} />}</Route>
-        </Switch>
-      </div>
+      <div style={{ marginTop: "1rem" }}>{platformId ? <PlatformTabs id={platformId} /> : <RootInfo />}</div>
     </React.Fragment>
   )
 }

@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { NavLink } from "react-router-dom"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
@@ -29,7 +29,12 @@ export class RegionDropdown extends React.Component<Props, State> {
     const regions = regionList.map((region, key) => {
       const to = paths.platforms.root + "?region=" + region.slug
       return (
-        <NavLink key={key} className="nav-link dropdown-item btn" activeClassName="" to={to} onClick={this.close}>
+        <NavLink
+          key={key}
+          className={({ isActive }) => (isActive ? "" : "nav-link dropdown-item btn")}
+          to={to}
+          onClick={this.close}
+        >
           {region.name}
         </NavLink>
       )

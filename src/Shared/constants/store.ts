@@ -1,4 +1,4 @@
-import { RouterState } from "connected-react-router"
+import { RouterState } from "redux-first-history"
 
 import { MapState } from "Features/StatefulMap/types"
 import { UnitStoreState } from "Features/Units/types"

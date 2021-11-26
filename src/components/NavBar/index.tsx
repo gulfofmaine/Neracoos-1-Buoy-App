@@ -1,7 +1,7 @@
 /**
  * Navbar component
  */
-import * as React from "react"
+import React from "react"
 import { NavLink } from "react-router-dom"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
@@ -41,14 +41,14 @@ export default class NeracoosNavBar extends React.Component<object, State> {
 
           <Collapse isOpen={this.state.isOpen} navbar={true} className="justify-content-end">
             <Nav className="ml-auto" navbar={true}>
-              <NavLink className="nav-link" activeClassName="active" to={paths.home} exact={true}>
+              <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.home}>
                 Home
               </NavLink>
 
               <RegionDropdown closeParent={this.close} />
 
               <NavItem>
-                <NavLink className="nav-link" activeClassName="active" to={paths.about}>
+                <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.about}>
                   About
                 </NavLink>
               </NavItem>

@@ -5,7 +5,7 @@
  */
 
 import * as React from "react"
-import { Route, Switch } from "react-router"
+import { Route, Routes } from "react-router"
 
 import Footer from "components/Footer"
 import NavBar from "components/NavBar"
@@ -23,14 +23,11 @@ class App extends React.Component {
         <NavBar />
 
         <div className="container-fluid">
-          {/* Switch chooses the first route that matches the user has navigated to.
-            Otherwise any relevant Route would be chosen */}
-          <Switch>
-            <Route exact={true} path={paths.home} component={HomePage} />
-            <Route path={paths.platforms.platform} component={PlatformsPage} />
-            <Route path={paths.platforms.root} component={PlatformsPage} />
-            <Route path={paths.about} component={AboutPage} />
-          </Switch>
+          <Routes>
+            <Route path={paths.home} element={<HomePage />} />
+            <Route path={paths.platforms.root_tailing} element={<PlatformsPage />} />
+            <Route path={paths.about} element={<AboutPage />} />
+          </Routes>
 
           <Footer />
         </div>
