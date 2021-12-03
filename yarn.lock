@@ -11482,6 +11482,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jsurl2@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/jsurl2/-/jsurl2-2.1.0.tgz#4c7f0cd33344f318cea5e321089c983194e947c7"
+  integrity sha512-dN5xpdjYWxhkn/hN9jGovVP/sy8HqP3BiNU7nKm7pwtRSfQlKG8FZO7wlO4kmydAYzv3UwVVzGjAnEBr4KCmmw==
+
 "jsx-ast-utils@^2.4.1 || ^3.0.0", jsx-ast-utils@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-3.2.0.tgz#41108d2cec408c3453c1bbe8a4aae9e1e2bd8f82"
@@ -15577,6 +15582,13 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rlayers@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.1.1.tgz#d04bd154c6589538214ce725d1a6394e288031e5"
+  integrity sha512-nEa4cKCiY03MPdGpn64GamRMhzJktmNmZtZIMlxgTCHhq5vsjeL9F5bLdwLMvpk6f//KpUkPFxt+O5Ut8cGAMw==
+  dependencies:
+    lru-cache "^6.0.0"
 
 rollup-plugin-babel@^4.3.3:
   version "4.4.0"

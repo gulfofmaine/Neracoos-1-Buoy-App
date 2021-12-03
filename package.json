@@ -18,6 +18,7 @@
     "bootstrap": "^5.1.3",
     "convert-units": "2.3.4",
     "highcharts": "^9",
+    "jsurl2": "^2.1.0",
     "moment": "2.29.1",
     "moment-timezone": "0.5.34",
     "node-sass": "^5.0.0",
@@ -35,7 +36,8 @@
     "react-use": "^17.3.1",
     "reactstrap": "9.0.1",
     "redux": "4.1.2",
-    "redux-first-history": "^5.0.3"
+    "redux-first-history": "^5.0.3",
+    "rlayers": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
