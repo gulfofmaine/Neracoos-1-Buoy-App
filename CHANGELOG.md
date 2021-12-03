@@ -6,7 +6,12 @@ Additions:
 
 Changes:
 
+- Add RLayers to take over for custom React/OpenLayers code for managing maps.
+- Add JSURL for encoding state in search params.
+
 Fixes:
+
+- Pin Node on actions to v14 as the [upgrade of the base image to v16](https://github.com/actions/virtual-environments/blob/ubuntu20/20211129.1/images/linux/Ubuntu2004-README.md) manages to break some Cypress dependencies.
 
 ## 0.10.2 - 11/11/2021
 
