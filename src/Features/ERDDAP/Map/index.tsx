@@ -1,53 +1,57 @@
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { push } from "redux-first-history"
-import Feature from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
-import Geometry from "ol/geom/Geometry"
-import Point from "ol/geom/Point"
-import Layer from "ol/layer/Layer"
-import VectorLayer from "ol/layer/Vector"
-import Source, { AttributionLike } from "ol/source/Source"
-import VectorSource from "ol/source/Vector"
-import { Circle, Fill, Stroke, Style } from "ol/style"
+import { fromLonLat, transformExtent } from "ol/proj"
 import React from "react"
-import { useDispatch } from "react-redux"
+import { RMap, RLayerVector, RStyle, RPopup, RFeature } from "rlayers"
+import type { RView } from "rlayers/RMap"
+import { Button } from "reactstrap"
+import { generatePath, useNavigate } from "react-router-dom"
 
-import { esriLayers } from "components/Map"
-import { StatefulMap } from "Features/StatefulMap"
+import { useStatefulView } from "Features/StatefulMap"
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
-import { urlPartReplacer } from "Shared/urlParams"
 
 import { PlatformFeature } from "../types"
 import { UsePlatforms } from "../hooks"
 import { aDayAgoRounded } from "Shared/time"
 
 export interface Props {
+  // Bounding box for fitting to a region
   boundingBox?: BoundingBox
+  //  Platform to highlight
   platformId?: string
+  // Height to adjust map to match sidebar
   height?: number | string
 }
 
 interface BaseProps extends Props {
+  // Loaded platforms
   platforms: PlatformFeature[]
-}
-
-export interface ReduxProps {
-  push: (url: string) => void
+  // Stateful view to display
+  view?: RView
+  // Set stateful view
+  setView: (view: RView) => void
 }
 
 /** If the window is narrower than 800px we should increase object sizes */
 const adjustPxWidth = 800
 
-/**
- * Create the styles that our platforms will use
- * @param selected Is this the style for a selected platform
- * @param old Is the data old and should the platform be greyed out
- */
-function makeStyle(selected: boolean, old: boolean = false): Style {
+interface PlatformLayerProps {
+  platform: PlatformFeature
+  // Is the platform currently selected
+  selected: boolean
+  // Is the platforms data outdated
+  old: boolean
+}
+
+// Build a RLayers feature for each platform
+const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
+  const navigate = useNavigate()
+
   let radius: number
   if (selected) {
     radius = window.innerWidth > adjustPxWidth ? 10 : 15
@@ -56,65 +60,120 @@ function makeStyle(selected: boolean, old: boolean = false): Style {
   }
   const opacity = selected ? "cc" : "7a"
 
-  return new Style({
-    image: new Circle({
-      fill: new Fill({
-        color: old ? "grey" : `#cf5c00${opacity}`,
-      }),
-      radius,
-      stroke: new Stroke({
-        color: old ? "grey" : colors.whatOrange,
-        width: 1.5,
-      }),
-    }),
-  })
+  const url = generatePath(paths.platforms.platform, { id: platform.id })
+
+  return (
+    <RLayerVector>
+      <RFeature
+        feature={new GeoJSON({
+          dataProjection: "EPSG:4326",
+          featureProjection: "EPSG:3857",
+        }).readFeature(platform)}
+        onClick={() => {
+          navigate(url, { replace: false })
+        }}
+      >
+        <RStyle.RStyle>
+          <RStyle.RCircle radius={radius}>
+            <RStyle.RFill color={old ? "grey" : `#cf5c00${opacity}`} />
+            <RStyle.RStroke color={old ? "grey" : colors.whatOrange} width={1.5} />
+          </RStyle.RCircle>
+        </RStyle.RStyle>
+        <RPopup trigger={"hover"}>
+          <Button
+            color="dark"
+            size="sm"
+            onClick={() => {
+              navigate(url, { replace: false })
+            }}
+          >
+            {platform.id}
+          </Button>
+        </RPopup>
+      </RFeature>
+    </RLayerVector>
+  )
+}
+
+// Initial view to display if one is not otherwise set
+const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
+
+export const ErddapMapBase: React.FC<BaseProps> = ({
+  platforms,
+  platformId,
+  height,
+  boundingBox,
+  view,
+  setView,
+}: BaseProps) => {
+  const mapRef = React.useRef<RMap>(null)
+
+  // When the bounding box gets set, zoom to the region
+  React.useEffect(() => {
+    if (boundingBox) {
+      const { north, south, east, west } = boundingBox
+      const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
+
+      mapRef?.current?.ol.getView().fit(extent)
+    }
+  }, [boundingBox])
+
+  // Make sure the height of the map gets updated when jumping
+  // from home to platform view
+  React.useLayoutEffect(() => {
+    mapRef?.current?.ol.updateSize()
+  }, [height])
+
+  const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
+
+  return (
+    <RMap ref={mapRef} className="map" initial={initial} view={[view ?? initial, setView]} height={height}>
+      <EsriOceanBasemapLayer />
+      <EsriOceanReferenceLayer />
+
+      {oldPlatforms.map((p) => (
+        <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
+      ))}
+      {filteredPlatforms.map((p) => (
+        <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
+      ))}
+      {selectedPlatforms.map((p) => (
+        <PlatformLayer key={p.id} platform={p} selected={true} old={false} />
+      ))}
+    </RMap>
+  )
 }
 
 /**
- * Create platform layers
- * @param platforms Array of platform features
- * @param style Should the layer be fore selected platforms
+ * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-function makePlatformLayer(platforms: PlatformFeature[], style: Style): VectorLayer<VectorSource<Geometry>> {
-  const attribution: AttributionLike = "NERACOOS"
+export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: Props) => {
+  const [view, handleSetView] = useStatefulView()
 
-  const platformSource = new VectorSource({
-    attributions: [attribution],
-    features: new GeoJSON().readFeatures(
-      {
-        features: platforms,
-        type: "FeatureCollection",
-      },
-      {
-        dataProjection: "EPSG:4326",
-        featureProjection: "EPSG:3857",
-      }
-    ),
-  })
-
-  return new VectorLayer({
-    source: platformSource,
-    style,
-  })
+  return (
+    <UsePlatforms>
+      {({ platforms }) => (
+        <ErddapMapBase
+          platforms={platforms}
+          view={view}
+          setView={handleSetView}
+          platformId={platformId}
+          boundingBox={boundingBox}
+          height={height}
+        />
+      )}
+    </UsePlatforms>
+  )
 }
 
 /**
- * Create the layers for the map
- * @param layers Array of base Layers to add to
- * @param platforms Array of platform features
- * @param platformId Selected platform ID name
+ * Filters the platforms by selected platform, and if the data is stale or not
+ *
+ * @param platforms Loaded platforms
+ * @param platformId Currently selected platform
+ * @returns old, filtered, and selected platform
  */
-export function makeLayers(
-  layers: Layer<Source>[],
-  platforms: PlatformFeature[],
-  platformId?: string
-): Layer<Source>[] {
-  /** platform styles */
-  layers = [...layers]
-  const platformStyle = makeStyle(false)
-  const selectedStyle = makeStyle(true)
-  const oldStyle = makeStyle(false, true)
-
+function filterPlatforms(platforms: PlatformFeature[], platformId: string | undefined) {
   const aDayAgo = aDayAgoRounded()
 
   const oldPlatforms: PlatformFeature[] = []
@@ -130,80 +189,5 @@ export function makeLayers(
       oldPlatforms.push(platform)
     }
   })
-
-  if (oldPlatforms.length > 0) {
-    layers.push(makePlatformLayer(oldPlatforms, oldStyle))
-  }
-
-  if (filteredPlatforms.length > 0) {
-    layers.push(makePlatformLayer(filteredPlatforms, platformStyle))
-  }
-  if (selectedPlatforms.length > 0) {
-    layers.push(makePlatformLayer(selectedPlatforms, selectedStyle))
-  }
-
-  return layers
-}
-
-/** Basemap layers */
-const baseLayers: Layer<Source>[] = [esriLayers.EsriOceanBasemapLayer, esriLayers.EsriOceanReferenceLayer]
-
-/**
- * ErddapMapBase provides a map with platforms focused on the Gulf of Maine by default
- */
-export class ErddapMapBase extends React.Component<BaseProps & ReduxProps, object> {
-  constructor(props: BaseProps & ReduxProps) {
-    super(props)
-
-    this.onClick = this.onClick.bind(this)
-  }
-
-  public render() {
-    return (
-      <StatefulMap
-        lon={-68.5}
-        lat={43.5}
-        startZoom={6}
-        layers={makeLayers(baseLayers, this.props.platforms, this.props.platformId)}
-        boundingBox={this.props.boundingBox}
-        onClick={this.onClick}
-        height={this.props.height}
-      />
-    )
-  }
-
-  /**
-   * Handle clicks from OpenLayers
-   * @param feature OpenLayers Feature
-   */
-  protected onClick(feature: Feature<Point>) {
-    const featureId = feature.getId()
-    if (featureId) {
-      const name: string = featureId.toString()
-      const url = urlPartReplacer(paths.platforms.platform, ":id", name)
-
-      this.props.push(url)
-    }
-  }
-}
-
-/**
- * Map that is focused on the Gulf of Maine with the selected platform highlighted
- */
-export const ErddapMap: React.FunctionComponent<Props> = ({ platformId, boundingBox, height }: Props) => {
-  const dispatch = useDispatch()
-
-  return (
-    <UsePlatforms>
-      {({ platforms }) => (
-        <ErddapMapBase
-          platforms={platforms}
-          platformId={platformId}
-          boundingBox={boundingBox}
-          push={(url: string) => dispatch(push(url))}
-          height={height}
-        />
-      )}
-    </UsePlatforms>
-  )
+  return { oldPlatforms, filteredPlatforms, selectedPlatforms }
 }
