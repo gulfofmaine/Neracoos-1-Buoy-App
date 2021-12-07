@@ -1,7 +1,7 @@
-import { MapView } from "components/Map"
+import type { RView } from "rlayers/RMap"
 
 export interface MapState {
-  view?: MapView
+  view?: RView
 }
 
 export const initialStoreState: MapState = {
