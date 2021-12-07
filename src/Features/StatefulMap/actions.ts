@@ -1,4 +1,5 @@
-import { MapView } from "components/Map"
+// import { MapView } from "components/Map"
+import type { RView } from "rlayers/RMap"
 
 import * as actionTypes from "./actionTypes"
 
@@ -6,7 +7,7 @@ import * as actionTypes from "./actionTypes"
 
 export interface SetView {
   type: typeof actionTypes.SET_VIEW
-  view: MapView
+  view: RView
 }
 
 export type MapStateActions = SetView
@@ -16,7 +17,7 @@ export type MapStateActions = SetView
  * @param view
  * @returns
  */
-export const setView = (view: MapView): SetView => {
+export const setView = (view: RView): SetView => {
   return {
     view,
     type: actionTypes.SET_VIEW,

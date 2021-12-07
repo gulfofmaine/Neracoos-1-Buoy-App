@@ -31,7 +31,7 @@ export class RegionDropdown extends React.Component<Props, State> {
       return (
         <NavLink
           key={key}
-          className={({ isActive }) => (isActive ? "" : "nav-link dropdown-item btn")}
+          className={({ isActive }) => (isActive ? "nav-link dropdown-item btn" : "nav-link dropdown-item btn")}
           to={to}
           onClick={this.close}
         >
