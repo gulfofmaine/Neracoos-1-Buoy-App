@@ -15235,10 +15235,10 @@ redux-devtools-extension@2.13.5:
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
   integrity sha512-QQ9BRy77oURHMdGys9rfQcCQDzXZ1T4oW+eUyE5Cg7DNVau69HJzc4YNDMOmpi0Dzpi1zOQgQ2rUpgJta4Lfqg==
 
-redux-first-history@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/redux-first-history/-/redux-first-history-5.0.3.tgz#cd56a8ba7238b88c62b918cf70522f434a8753e2"
-  integrity sha512-8oguMN9aEH7kfpJx6DmxPKwhd44DN34mAM8lhxAkIeBu+pkBD3/pgVo2fO0kIRRJ1AGtpaWAYn806OPZQ8nOOQ==
+redux-first-history@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/redux-first-history/-/redux-first-history-5.0.5.tgz#d31a1de6fd8adf0e844fd48f82c27a8540ee49b2"
+  integrity sha512-cnxAaW4RWwk2o74q5faFfsqBb3qyFFFlCAAktg7a8eNkb9ioSpMNhmVN5VRVxu7s/D9eutY1nO7bp5xOIeMZKg==
 
 redux-mock-store@1.5.4:
   version "1.5.4"
