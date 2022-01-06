@@ -15708,10 +15708,10 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rlayers@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.1.1.tgz#d04bd154c6589538214ce725d1a6394e288031e5"
-  integrity sha512-nEa4cKCiY03MPdGpn64GamRMhzJktmNmZtZIMlxgTCHhq5vsjeL9F5bLdwLMvpk6f//KpUkPFxt+O5Ut8cGAMw==
+rlayers@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.2.1.tgz#1099a78f90d0e25812be0ce88bb814707b66d2c7"
+  integrity sha512-e1Cy/cyZfHd7cssBqZNAAJSngLSQRmxYMWAHr919jufU+ohgnw2EwslZaKVlpjEMWD6SXEJJYJ9TOZvfmX9hoA==
   dependencies:
     lru-cache "^6.0.0"
 
