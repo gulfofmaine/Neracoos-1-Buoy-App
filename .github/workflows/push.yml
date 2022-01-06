@@ -206,7 +206,7 @@ jobs:
           key: mariners-dashboard-storybook-${{ github.sha }}
 
       - name: Deploy Storybook to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.6
+        uses: JamesIves/github-pages-deploy-action@4.1.9
         with:
           branch: gh-pages
           folder: /tmp/storybook-public/
