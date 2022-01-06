@@ -24,6 +24,8 @@ interface TableItemProps {
   unitSystem: UnitSystem
   /** Show only data later than the selected date */
   later_then?: Date
+  /** The readings have already been filtered, show only the filtered value */
+  exact?: boolean
 }
 
 /**
@@ -36,6 +38,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
   name,
   unitSystem,
   later_then,
+  exact = false,
 }: TableItemProps) => {
   const [tooltipOpen, setTooltipOpen] = React.useState<boolean>(false)
 
@@ -44,7 +47,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
   let data: PlatformTimeSeries[] = []
 
   // If there is only one reading specified display that, otherwise filter for the most appropriate one
-  if (readings.length === 1) {
+  if (readings.length === 1 && exact) {
     data = readings
   } else {
     let data_type_list: string[]
