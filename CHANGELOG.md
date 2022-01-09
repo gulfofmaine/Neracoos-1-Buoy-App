@@ -6,9 +6,45 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.10.3 - 01/09/2021
+
+Changes:
+
 - Add RLayers to take over for custom React/OpenLayers code for managing maps.
 - Add JSURL for encoding state in search params.
 - Switch basemap tiles to load via HTTPS.
+- Dependency Updates:
+  - Github Actions
+    - Cache from 2.1.6 to 2.1.7
+    - Docker login from 1.10.0 to 1.12.0
+    - Upload artifact from 2.2.4 to 2.3.1
+    - Github pages deploy fro, 4.1.5 to 4.2.0
+  - Nginx from 1.21.4 to 1.21.5
+  - Javascript
+    - Cypress from 9.0.0 to 9.2.0
+    - Prop-types from 15.0.0 to 15.8.1
+    - React app polyfill from 2.0.0 to 3.0.0
+    - React Query from 3.32.1 to 3.34.7
+    - React Router DOM from 5.3.0 to 6.2.1
+    - React Use from 17.3.1 to 17.3.2
+    - Reactstrap from 9.0.0 to 9.0.1
+    - Sentry from 6.14.1 to 6.16.1
+      - React
+      - Tracing
+    - Storybook from 6.3.12 to 6.4.9
+      - Addon a11y
+      - Addon essentials
+      - Addon storyshots
+      - React
+    - Types
+      - Enzyme from 3.10.10 to 3.10.11
+      - Jest from 27.0.2 to 27.4.0
+      - Node from 16.11.7 to 17.0.8
+      - React from 17.0.34 to 17.0.38
+      - React Response from 8.0.4 to 8.0.5
+
 
 Fixes:
 
