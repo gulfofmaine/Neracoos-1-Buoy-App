@@ -6,11 +6,11 @@ const attribution =
 
 /** URL for ESRI ocean basemap endpoint */
 const esriOceanBasemapURL: string =
-  "http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
+  "https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
 
 /** URL for ESRI ocean reference (names, depths) endpoint */
 const ersiOceanReferenceURL: string =
-  "http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}"
+  "https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}"
 
 export const EsriOceanBasemapLayer = () => <RLayerTile url={esriOceanBasemapURL} attributions={attribution} />
 

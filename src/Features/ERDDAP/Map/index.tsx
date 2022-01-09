@@ -9,6 +9,8 @@ import type { RView } from "rlayers/RMap"
 import { Button } from "reactstrap"
 import { generatePath, useNavigate } from "react-router-dom"
 
+import "ol/ol.css"
+
 import { useStatefulView } from "Features/StatefulMap"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { colors } from "Shared/colors"
@@ -62,8 +64,17 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 
   const url = generatePath(paths.platforms.platform, { id: platform.id })
 
+  const fillColor = old ? "grey" : `#cf5c00${opacity}`
+  const strokeColor = old ? "grey" : colors.whatOrange
+
   return (
     <RLayerVector>
+      <RStyle.RStyle>
+        <RStyle.RCircle radius={radius}>
+          <RStyle.RFill color={fillColor} />
+          <RStyle.RStroke color={strokeColor} width={1.5} />
+        </RStyle.RCircle>
+      </RStyle.RStyle>
       <RFeature
         feature={new GeoJSON({
           dataProjection: "EPSG:4326",
@@ -73,13 +84,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
           navigate(url, { replace: false })
         }}
       >
-        <RStyle.RStyle>
-          <RStyle.RCircle radius={radius}>
-            <RStyle.RFill color={old ? "grey" : `#cf5c00${opacity}`} />
-            <RStyle.RStroke color={old ? "grey" : colors.whatOrange} width={1.5} />
-          </RStyle.RCircle>
-        </RStyle.RStyle>
-        <RPopup trigger={"hover"}>
+        <RPopup trigger="hover">
           <Button
             color="dark"
             size="sm"
