@@ -8,12 +8,14 @@ Changes:
 
 - Add RLayers to take over for custom React/OpenLayers code for managing maps.
 - Add JSURL for encoding state in search params.
+- Switch basemap tiles to load via HTTPS.
 
 Fixes:
 
 - Pin Node on actions to v14 as the [upgrade of the base image to v16](https://github.com/actions/virtual-environments/blob/ubuntu20/20211129.1/images/linux/Ubuntu2004-README.md) manages to break some Cypress dependencies.
 - Fixed issue when only a single reading is passed to a TableItem that should be filtering by data types. Closes [gulfofmaine/NERACOOS-operations#44](https://github.com/gulfofmaine/NERACOOS-operations/issues/44) and [gulfofmaine/NERACOOS-operations#53](https://github.com/gulfofmaine/NERACOOS-operations/issues/53)
 - Removed deprecated Node Sass and replaced with Dart Sass.
+- Fix RLayers styling and lack of linkability (may be an issue with 1.2.0).
 
 ## 0.10.2 - 11/11/2021
 
