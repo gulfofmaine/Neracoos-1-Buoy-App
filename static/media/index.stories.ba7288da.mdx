@@ -1,0 +1,100 @@
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+import React from 'react';
+import { mdx } from '@mdx-js/react';
+/* @jsxRuntime classic */
+
+/* @jsx mdx */
+
+import { assertIsFn, AddContext } from "@storybook/addon-docs";
+import { ArgsTable, Meta, Story } from "@storybook/addon-docs/blocks";
+import { UnitSystem } from "Features/Units/types";
+import { platform } from "stories/platform";
+import { ForecastChart } from "./index";
+import { data, forecast_type } from "./story-data";
+export const Template = args => mdx(ForecastChart, _extends({}, args, {
+  mdxType: "ForecastChart"
+}));
+const layoutProps = {
+  Template
+};
+const MDXLayout = "wrapper";
+
+function MDXContent({
+  components,
+  ...props
+}) {
+  return mdx(MDXLayout, _extends({}, layoutProps, props, {
+    components: components,
+    mdxType: "MDXLayout"
+  }), mdx(Meta, {
+    title: "ERDDAP/Forecast",
+    component: ForecastChart,
+    mdxType: "Meta"
+  }), mdx("h1", {
+    "id": "forecastchart"
+  }, `ForecastChart`), mdx("p", null, mdx("a", _extends({
+    parentName: "p"
+  }, {
+    "href": "https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/master/src/Features/ERDDAP/Platform/Forecasts/Page/index.tsx",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }), mdx("inlineCode", {
+    parentName: "a"
+  }, `src/Features/ERDDAP/Platform/Forecasts/Page`)), ` - `, mdx("a", _extends({
+    parentName: "p"
+  }, {
+    "href": "https://mariners.neracoos.org/platform/M01/forecast/wind_speed",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }), `Platform M01 - Wind Speed Forecast`)), mdx("p", null, `A forecast chart combines current data from a platform with
+forecast retrieved through the Buoy Barn API.`), mdx(Story, {
+    name: "Forecast Chart",
+    args: {
+      unitSystem: UnitSystem.english,
+      type: forecast_type,
+      data
+    },
+    mdxType: "Story"
+  }, Template.bind()), mdx("p", null, `It honors the set unit system, and if you switch
+unit system while it is displayed it will smoothly transition.`), mdx(ArgsTable, {
+    story: "Forecast Chart",
+    mdxType: "ArgsTable"
+  }), mdx("pre", null, mdx("code", _extends({
+    parentName: "pre"
+  }, {
+    "className": "language-tsx"
+  }), `<ForecastChart data={data} unitSystem={UnitSystem.english} type={forecast_type} />
+`)));
+}
+
+;
+MDXContent.isMDXComponent = true;
+export const forecastChart = Template.bind();
+forecastChart.storyName = 'Forecast Chart';
+forecastChart.args = {
+  unitSystem: UnitSystem.english,
+  type: forecast_type,
+  data
+};
+forecastChart.parameters = {
+  storySource: {
+    source: 'args => <ForecastChart {...args} />'
+  }
+};
+const componentMeta = {
+  title: 'ERDDAP/Forecast',
+  component: ForecastChart,
+  includeStories: ["forecastChart"]
+};
+const mdxStoryNameToKey = {
+  "Forecast Chart": "forecastChart"
+};
+componentMeta.parameters = componentMeta.parameters || {};
+componentMeta.parameters.docs = { ...(componentMeta.parameters.docs || {}),
+  page: () => mdx(AddContext, {
+    mdxStoryNameToKey: mdxStoryNameToKey,
+    mdxComponentAnnotations: componentMeta
+  }, mdx(MDXContent, null))
+};
+export default componentMeta;
