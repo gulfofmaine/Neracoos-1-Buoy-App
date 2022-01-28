@@ -51,7 +51,7 @@
     "build-storybook": "build-storybook -c .storybook -o storybook-public"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^6.4.9",
+    "@storybook/addon-a11y": "^6.4.15",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-storyshots": "^6.4.9",
     "@storybook/preset-create-react-app": "^4.0.0",
