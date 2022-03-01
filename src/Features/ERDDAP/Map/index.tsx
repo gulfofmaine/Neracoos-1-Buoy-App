@@ -80,17 +80,17 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
           dataProjection: "EPSG:4326",
           featureProjection: "EPSG:3857",
         }).readFeature(platform)}
-        onClick={() => {
+        onClick={React.useCallback(() => {
           navigate(url, { replace: false })
-        }}
+        }, [])}
       >
-        <RPopup trigger="hover">
+        <RPopup trigger={"hover"}>
           <Button
             color="dark"
             size="sm"
-            onClick={() => {
+            onClick={React.useCallback(() => {
               navigate(url, { replace: false })
-            }}
+            }, [])}
           >
             {platform.id}
           </Button>
