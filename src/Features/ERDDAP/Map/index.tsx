@@ -76,10 +76,13 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
         </RStyle.RCircle>
       </RStyle.RStyle>
       <RFeature
-        feature={new GeoJSON({
-          dataProjection: "EPSG:4326",
-          featureProjection: "EPSG:3857",
-        }).readFeature(platform)}
+        geometry={React.useMemo(() => {
+          const feature = new GeoJSON({
+            dataProjection: "EPSG:4326",
+            featureProjection: "EPSG:3857",
+          }).readFeature(platform)
+          return feature.getGeometry()
+        }, [platform])}
         onClick={React.useCallback(() => {
           navigate(url, { replace: false })
         }, [])}
