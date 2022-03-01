@@ -31,7 +31,7 @@
     "react-query": "^3.34.16",
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.0",
     "react-use": "^17.3.2",
     "reactstrap": "9.0.1",
     "redux": "4.1.2",
@@ -40,7 +40,7 @@
     "sass": "^1.49.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "think-before-eject": "react-scripts eject",
@@ -54,6 +54,8 @@
     "@storybook/addon-a11y": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-storyshots": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
     "@storybook/preset-create-react-app": "^4.0.1",
     "@storybook/react": "^6.4.19",
     "@types/enzyme": "3.10.11",
@@ -72,7 +74,8 @@
     "redux-devtools-extension": "2.13.5",
     "redux-mock-store": "1.5.4",
     "typescript": "^4.2.4",
-    "wait-on": "6.0.1"
+    "wait-on": "6.0.1",
+    "webpack": "5"
   },
   "optionalDependencies": {
     "cypress": "9.5.1"

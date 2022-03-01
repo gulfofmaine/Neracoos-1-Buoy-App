@@ -18,6 +18,6 @@ describe("pointFormatMaker", () => {
     const result = pointFormatter()
 
     expect(result).toContain("Meters/Second")
-    expect(result).toContain(thisObject.y)
+    expect(result).toContain(thisObject.y.toString())
   })
 })
