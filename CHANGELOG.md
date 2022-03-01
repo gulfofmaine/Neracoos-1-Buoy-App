@@ -8,7 +8,52 @@ Changes:
 
 Fixes:
 
-## 0.10.3 - 01/09/2021
+## 0.10.4 - 03/01/2022
+
+Changes:
+
+- Migrate Storybook to use Webpack 5/Create React App 5
+- Dependency Updates:
+  - Github Actions
+    - Docker login from 1.12.0 to 1.14.0
+    - Docker build push from 2.7.0 to 2.9.0
+    - Setup Node from 2 to 3
+    - Github Pages Deploy from 4.2.0 to 4.2.5
+  - Node from 15.13.0 to 16.14.0
+  - Nginx from 1.21.5 to 1.21.6
+  - Javascript
+    - FontAwesome SVG Core from 1.2.36 to 1.3.0
+    - FontAwesome Solid SVG icons from 5.15.4 to 6.0.0
+    - React FontAwesome from 0.1.6 to 0.1.7
+    - OpenLayers from 6.9.0 to 6.13.0
+    - React Query from 3.34.7 to 3.34.16
+    - React Router DOM from 6.2.1 to 6.2.2
+    - React Scripts from 4.0.3 to 5.0.0
+    - RLayers from 1.1.1 to 1.3.1
+    - SASS from 1.46.0 to 1.49.9
+    - Sentry from 6.16.1 to 6.18.1
+      - React
+      - Tracing
+    - Storybook from 6.4.9 to 6.4.19
+      - Addon A11y
+      - Addon Essentials
+      - Addon Storyshots
+      - Preset Create React App from 4.0.0 to 4.0.1
+      - React
+    - Types
+      - History from 4.7.9 to 5.0.0
+      - Jest from 27.4.0 to 27.4.1
+      - Node from 17.0.8 to 17.0.21
+      - React from 17.0.38 to 17.0.39
+    - Typescript from 4.2.4 to 4.6.2
+    - Wait On from 6.0.0 to 6.0.1
+    - Cypress from 9.2.0 to 9.5.1
+
+Fixes:
+
+- Use geometry for RFeature rather than feature to connect events properly. [#1766](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1766)
+
+## 0.10.3 - 01/09/2022
 
 Changes:
 
