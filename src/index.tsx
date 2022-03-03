@@ -43,7 +43,7 @@ if (!(window as any).Cypress) {
     dsn: "https://eab04522f42c4efab9d5bfe7d8594e9c@sentry.io/1270344",
     release: `v${packageJson.version}`,
     integrations: [new Integrations.BrowserTracing()],
-    tracesSampleRate: 0.01, // Trace 1/100 or 1% of visits.
+    tracesSampleRate: 0.05, // Trace 5/100 or 5% of visits.
   })
 }
 
