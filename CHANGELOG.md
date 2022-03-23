@@ -6,9 +6,24 @@ Additions:
 
 Changes:
 
-- Update ingress manifest to v1.
-
 Fixes:
+
+## 0.10.5 - 03/22/2022
+
+Changes:
+
+- Update ingress manifest to v1.
+- Increase Sentry sampling from 1% to 5%.
+- Dependency Updates:
+  - Github Actions
+    - Checkout from 2.4.0 to 3.0
+    - Docker login from 1.14.0 to 1.14.1
+    - Upload artifact from 2.3.1 to 3.0
+  - Javascript
+    - React FontAwesome from 0.1.17 to 0.1.18
+    - Storybook Create React App preset from 4.0.1 to 4.1.0
+    - Types
+      - React DOM from 17.0.11 to 17.0.12
 
 ## 0.10.4 - 03/01/2022
 
