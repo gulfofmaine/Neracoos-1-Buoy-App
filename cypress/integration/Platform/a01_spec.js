@@ -67,7 +67,7 @@ describe("Platform A01", () => {
     cy.contains("ERDDAP dataset")
   })
 
-  it("Shows wave forecast", () => {
+  xit("Shows wave forecast", () => {
     cy.visit(platformUrl)
 
     cy.contains("Forecasts loading")

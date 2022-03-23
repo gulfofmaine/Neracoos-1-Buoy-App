@@ -23,7 +23,7 @@ describe("Platfrom 44007", () => {
     cy.contains("Last updated at:")
   })
 
-  it("Shows current conditions", () => {
+  xit("Shows current conditions", () => {
     cy.visit(platformUrl)
 
     cy.contains("Latest Conditions")
@@ -54,7 +54,7 @@ describe("Platfrom 44007", () => {
     cy.contains("ERDDAP dataset")
   })
 
-  it("Shows wave forecast", () => {
+  xit("Shows wave forecast", () => {
     cy.visit(platformUrl)
 
     cy.contains("Forecasts loading")
