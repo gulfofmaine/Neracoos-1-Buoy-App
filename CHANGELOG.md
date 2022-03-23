@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Update ingress manifest to v1.
+
 Fixes:
 
 ## 0.10.4 - 03/01/2022
