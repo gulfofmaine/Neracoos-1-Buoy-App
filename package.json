@@ -78,7 +78,7 @@
     "webpack": "5"
   },
   "optionalDependencies": {
-    "cypress": "9.5.2"
+    "cypress": "9.5.3"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
