@@ -1,5 +1,5 @@
 #syntax=docker/dockerfile:1.2
-FROM node:15.13.0-alpine@sha256:fc24d15ecf126b8e6dd954198159407261a780c7684b944c8556f5ddb8bee580 as develop
+FROM node:16.14.0-alpine@sha256:2c6c59cf4d34d4f937ddfcf33bab9d8bbad8658d1b9de7b97622566a52167f2b as develop
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -20,7 +20,7 @@ ARG REACT_APP_ERDDAP_SERVICE
 
 RUN yarn build
 
-FROM nginx:1.21.4-alpine@sha256:12aa12ec4a8ca049537dd486044b966b0ba6cd8890c4c900ccb5e7e630e03df0
+FROM nginx:1.21.6-alpine@sha256:5a0df7fb7c8c03e4158ae9974bfbd6a15da2bdfdeded4fb694367ec812325d31
 
 COPY --from=buildstep /usr/src/app/build /usr/share/nginx/html
 

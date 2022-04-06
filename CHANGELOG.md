@@ -6,12 +6,114 @@ Additions:
 
 Changes:
 
+Fixes:
+
+## 0.10.5 - 03/22/2022
+
+Changes:
+
+- Update ingress manifest to v1.
+- Increase Sentry sampling from 1% to 5%.
+- Dependency Updates:
+  - Github Actions
+    - Checkout from 2.4.0 to 3.0
+    - Docker login from 1.14.0 to 1.14.1
+    - Upload artifact from 2.3.1 to 3.0
+  - Javascript
+    - React FontAwesome from 0.1.17 to 0.1.18
+    - Storybook Create React App preset from 4.0.1 to 4.1.0
+    - Types
+      - React DOM from 17.0.11 to 17.0.12
+
+## 0.10.4 - 03/01/2022
+
+Changes:
+
+- Migrate Storybook to use Webpack 5/Create React App 5
+- Dependency Updates:
+  - Github Actions
+    - Docker login from 1.12.0 to 1.14.0
+    - Docker build push from 2.7.0 to 2.9.0
+    - Setup Node from 2 to 3
+    - Github Pages Deploy from 4.2.0 to 4.2.5
+  - Node from 15.13.0 to 16.14.0
+  - Nginx from 1.21.5 to 1.21.6
+  - Javascript
+    - FontAwesome SVG Core from 1.2.36 to 1.3.0
+    - FontAwesome Solid SVG icons from 5.15.4 to 6.0.0
+    - React FontAwesome from 0.1.6 to 0.1.7
+    - OpenLayers from 6.9.0 to 6.13.0
+    - React Query from 3.34.7 to 3.34.16
+    - React Router DOM from 6.2.1 to 6.2.2
+    - React Scripts from 4.0.3 to 5.0.0
+    - RLayers from 1.1.1 to 1.3.1
+    - SASS from 1.46.0 to 1.49.9
+    - Sentry from 6.16.1 to 6.18.1
+      - React
+      - Tracing
+    - Storybook from 6.4.9 to 6.4.19
+      - Addon A11y
+      - Addon Essentials
+      - Addon Storyshots
+      - Preset Create React App from 4.0.0 to 4.0.1
+      - React
+    - Types
+      - History from 4.7.9 to 5.0.0
+      - Jest from 27.4.0 to 27.4.1
+      - Node from 17.0.8 to 17.0.21
+      - React from 17.0.38 to 17.0.39
+    - Typescript from 4.2.4 to 4.6.2
+    - Wait On from 6.0.0 to 6.0.1
+    - Cypress from 9.2.0 to 9.5.1
+
+Fixes:
+
+- Use geometry for RFeature rather than feature to connect events properly. [#1766](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1766)
+
+## 0.10.3 - 01/09/2022
+
+Changes:
+
 - Add RLayers to take over for custom React/OpenLayers code for managing maps.
 - Add JSURL for encoding state in search params.
+- Switch basemap tiles to load via HTTPS.
+- Dependency Updates:
+  - Github Actions
+    - Cache from 2.1.6 to 2.1.7
+    - Docker login from 1.10.0 to 1.12.0
+    - Upload artifact from 2.2.4 to 2.3.1
+    - Github pages deploy fro, 4.1.5 to 4.2.0
+  - Nginx from 1.21.4 to 1.21.5
+  - Javascript
+    - Cypress from 9.0.0 to 9.2.0
+    - Prop-types from 15.0.0 to 15.8.1
+    - React app polyfill from 2.0.0 to 3.0.0
+    - React Query from 3.32.1 to 3.34.7
+    - React Router DOM from 5.3.0 to 6.2.1
+    - React Use from 17.3.1 to 17.3.2
+    - Reactstrap from 9.0.0 to 9.0.1
+    - Sentry from 6.14.1 to 6.16.1
+      - React
+      - Tracing
+    - Storybook from 6.3.12 to 6.4.9
+      - Addon a11y
+      - Addon essentials
+      - Addon storyshots
+      - React
+    - Types
+      - Enzyme from 3.10.10 to 3.10.11
+      - Jest from 27.0.2 to 27.4.0
+      - Node from 16.11.7 to 17.0.8
+      - React from 17.0.34 to 17.0.38
+      - React Response from 8.0.4 to 8.0.5
+
 
 Fixes:
 
 - Pin Node on actions to v14 as the [upgrade of the base image to v16](https://github.com/actions/virtual-environments/blob/ubuntu20/20211129.1/images/linux/Ubuntu2004-README.md) manages to break some Cypress dependencies.
+- Fixed issue when only a single reading is passed to a TableItem that should be filtering by data types. Closes [gulfofmaine/NERACOOS-operations#44](https://github.com/gulfofmaine/NERACOOS-operations/issues/44) and [gulfofmaine/NERACOOS-operations#53](https://github.com/gulfofmaine/NERACOOS-operations/issues/53)
+- Removed deprecated Node Sass and replaced with Dart Sass.
+- Fix RLayers styling and lack of linkability (may be an issue with 1.2.0).
 
 ## 0.10.2 - 11/11/2021
 
