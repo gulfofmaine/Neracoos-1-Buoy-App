@@ -19,7 +19,7 @@
     "convert-units": "2.3.4",
     "highcharts": "^9",
     "jsurl2": "^2.1.0",
-    "moment": "2.29.1",
+    "moment": "2.29.2",
     "moment-timezone": "0.5.34",
     "ol": "^6.13.0",
     "prop-types": "^15.8.1",
