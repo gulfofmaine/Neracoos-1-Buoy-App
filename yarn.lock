@@ -3171,6 +3171,14 @@
   dependencies:
     prop-types "^15.8.1"
 
+"@gulfofmaine/tsstac@https://github.com/gulfofmaine/TsSTAC#a50815508e8f186f12ae7eefd8e499492d699408":
+  version "0.1.1"
+  resolved "https://github.com/gulfofmaine/TsSTAC#a50815508e8f186f12ae7eefd8e499492d699408"
+
+"@gulfofmaine/tsstac@https://github.com/gulfofmaine/TsSTAC#ae9d0b966dedd2975525552bf5fe21eab7ceb34e":
+  version "0.1.1"
+  resolved "https://github.com/gulfofmaine/TsSTAC#ae9d0b966dedd2975525552bf5fe21eab7ceb34e"
+
 "@hapi/hoek@^9.0.0":
   version "9.0.4"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.0.4.tgz#e80ad4e8e8d2adc6c77d985f698447e8628b6010"

@@ -13,6 +13,7 @@ import NavBar from "components/NavBar"
 import AboutPage from "Pages/About"
 import HomePage from "Pages/Home"
 import PlatformsPage from "Pages/Platforms"
+import { ModelingPage } from "Pages/Modeling"
 
 import { paths } from "./Shared/constants"
 
@@ -27,6 +28,7 @@ class App extends React.Component {
             <Route path={paths.home} element={<HomePage />} />
             <Route path={paths.platforms.root_tailing} element={<PlatformsPage />} />
             <Route path={paths.about} element={<AboutPage />} />
+            <Route path={paths.models} element={<ModelingPage />} />
           </Routes>
 
           <Footer />
