@@ -1,5 +1,5 @@
-// import { read } from "covjson-reader"
 import JSURL from "jsurl2"
+import { Point } from "ol/geom"
 import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
 import { useSearchParams } from "react-router-dom"
@@ -10,30 +10,58 @@ import {
   AccordionBody,
   AccordionItem,
   Button,
+  ButtonGroup,
   Col,
   Row,
   Input,
   ListGroup,
   ListGroupItem,
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  Table,
 } from "reactstrap"
 import { useQuery } from "react-query"
-import { RMap, RLayerTileWMS, RLayerTile } from "rlayers"
+import { RMap, RLayerTileWMS, RLayerTile, RLayerVector, RFeature, RStyle } from "rlayers"
 import type { RView } from "rlayers/RMap"
 
-import STAC, { ICatalog, ICollection, IItem, fetcher } from "@gulfofmaine/tsstac"
+import STAC, { IAsset, ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
+// import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
 
+import { queryClient } from "queryClient"
 import { round } from "Shared/math"
+import { colors } from "Shared/colors"
 
 interface Layer {
   id?: string
+  vars: string[]
 }
 
-const initialLayer: Layer = {}
+const initialLayer: Layer = { vars: [] }
 
 const initialView: RView = { center: [-68.5, 43.5], zoom: 6 }
 
-const stac = new STAC(fetcher)
+/** Use React Query to manage STAC store */
+const reactQueryFetcher = async (url: string): Promise<IFetchData> => {
+  const data = await queryClient.fetchQuery(["stac-fetch", url], async () => {
+    const result = await fetch(url)
+    if (!result.ok) {
+      throw new Error("Network response was not ok")
+    }
+    const json = await result.json()
+    return json
+  })
+  return data
+}
+const stac = new STAC(reactQueryFetcher)
 
+/**
+ * Create a hook to keep query params in sync with state
+ * @param key name of object to synce
+ * @returns synced object and setter for synced object
+ */
 function useQueryParam<T>(key: string): [T | undefined, (newQuery: T, options?: NavigateOptions) => void] {
   let [searchParams, setSearchParams] = useSearchParams()
   let paramValue = searchParams.get(key)
@@ -52,6 +80,10 @@ function useQueryParam<T>(key: string): [T | undefined, (newQuery: T, options?: 
   return [value, setValue]
 }
 
+/**
+ * Sync the current map view with the state
+ * @returns view and view setter
+ */
 function useView(): [RView, (RView) => void] {
   const [view, setUnroundedView] = useQueryParam<RView>("view")
 
@@ -69,11 +101,72 @@ function useLayer(): [Layer, (Layer) => void] {
   return [layer ?? initialLayer, setLayer]
 }
 
+function useCompare(): [Layer[], (Layer) => void] {
+  const [currentLayer, setLayer] = useLayer()
+  const [layers, setCompare] = useQueryParam<Layer[]>("compare")
+
+  React.useEffect(() => {
+    const compareLayers = [
+      ...(layers ?? []).filter((l) => l.id !== currentLayer.id),
+      ...(layers ?? [])
+        .filter((l) => l.id === currentLayer.id)
+        .map((l) => ({ ...l, vars: l.vars?.filter((v) => v !== (currentLayer.vars ?? [])[0] ?? true) })),
+    ]
+
+    setCompare(compareLayers)
+  }, [currentLayer, layers, setCompare])
+
+  const toggleCompare = (layer: Layer) => {
+    const compareLayers = (layers ?? []).filter((l) => l.id !== layer.id)
+
+    const selectedLayer = (layers ?? []).find((l) => l.id === layer.id)
+
+    if (selectedLayer) {
+      const vars = (selectedLayer.vars ?? []).filter((v) => v !== (layer.vars ?? [])[0])
+
+      if (vars.length > 0 && vars.length === selectedLayer.vars.length) {
+        vars.push(layer.vars[0])
+
+        compareLayers.push({ ...layer, vars })
+      }
+    } else {
+      compareLayers.push(layer)
+    }
+
+    setCompare(compareLayers)
+  }
+
+  return [layers ?? [], toggleCompare]
+}
+
+/**
+ * Fetch the root catalog
+ * @returns Root catalog
+ */
+async function fetchRootCatalog(): Promise<ICatalog> {
+  const catalog = await stac.get_root_catalog("http://localhost:8082/catalog.json")
+  return catalog
+}
+
+/**
+ * Hook for root catalog
+ * @returns hook for the root catalog
+ */
+const useRootCatalogQuery = () => {
+  return useQuery<ICatalog>("stac-catalog", fetchRootCatalog)
+}
+
+async function getItem(catalog: ICatalog, id: string, depth: number = -1): Promise<IItem> {
+  const item = await catalog.get_item(id, depth)
+  return item
+}
+
+function useItemQuery(catalog: ICatalog, id: string) {
+  return useQuery<IItem>(["get-stac-item", { catalog: catalog.id, id }], () => getItem(catalog, id))
+}
+
 const StacCatalogRoot = () => {
-  const catalogQuery = useQuery("stac-catalog", async () => {
-    const catalog = await stac.get_root_catalog("http://localhost:8082/catalog.json")
-    return catalog
-  })
+  const catalogQuery = useRootCatalogQuery()
 
   if (catalogQuery.isLoading) {
     return <div>Loading root catalog</div>
@@ -141,39 +234,90 @@ const StacCatalogItems = ({ cat }: { cat: ICatalog | ICollection }) => {
   return <li>Error loading items for {cat.id}</li>
 }
 
+// interface DataCubeItem extends IItem {}
+
+interface ForecastItem extends IItem {
+  properties: {
+    ["cube:dimensions"]: {
+      forecast_reference_time: {
+        values: string[]
+      }
+    }
+    ["cube:variables"]: {
+      [key: string]: {
+        type: string
+        dimensions: string[]
+        extent: [number, number]
+        description?: string
+        unit?: string
+      }
+    }
+  }
+}
+
 const StacItem = ({ item }: { item: IItem }) => {
   const [currentLayer, setLayer] = useLayer()
+  const [compareLayers, toggleCompareLayer] = useCompare()
+
+  const variables = (item as unknown as ForecastItem).properties["cube:variables"]
+
+  // debugger
+
+  let title: string = item.id
+
+  if ((item as unknown as ForecastItem).properties["cube:dimensions"].forecast_reference_time?.values[0]) {
+    const forecastDate = (item as ForecastItem).properties["cube:dimensions"].forecast_reference_time.values[0]
+
+    title = `Forecasted at ${forecastDate}`
+  }
 
   return (
     <AccordionItem>
-      <AccordionHeader targetId={item.id}>
-        <Button
-          size="sm"
-          color="primary"
-          outline={true}
-          active={currentLayer.id === item.id}
-          onClick={React.useCallback(() => {
-            setLayer({ id: item.id })
-          }, [item.id])}
-        >
-          {item.id}
-        </Button>
-      </AccordionHeader>
+      <AccordionHeader targetId={item.id}>{title}</AccordionHeader>
       <AccordionBody accordionId={item.id}>
-        <ul>
-          {Object.entries(item.assets).map(([key, asset]) => (
-            <li key={key}>
-              <a href={asset.href}>{asset.description ?? asset.href}</a>
-            </li>
-          ))}
-        </ul>
+        <Table size="sm">
+          <tbody>
+            {Object.entries(variables).map(([key, values]) => (
+              <tr key={key}>
+                <td>{values.description ?? key}</td>
+                <td>
+                  <Button
+                    size="sm"
+                    color="primary"
+                    outline={true}
+                    active={currentLayer.id === item.id && (currentLayer.vars?.includes(key) ?? false)}
+                    onClick={() => {
+                      setLayer({ id: item.id, vars: [key] })
+                    }}
+                    style={{ textAlign: "left" }}
+                  >
+                    Map
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    size="sm"
+                    color="primary"
+                    outline={true}
+                    active={compareLayers.find((l) => l.id === item.id && l.vars.includes(key)) ? true : false}
+                    onClick={() => {
+                      toggleCompareLayer({ id: item.id, vars: [key] })
+                    }}
+                  >
+                    Compare
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </AccordionBody>
     </AccordionItem>
   )
 }
 
 export const ModelingPage: React.FC = () => {
-  const [point, setPoint] = useQueryParam<[number, number]>("point")
+  const [point, setPoint] = usePoint()
   const [{ center, zoom }, setView] = useView()
 
   return (
@@ -198,6 +342,8 @@ export const ModelingPage: React.FC = () => {
             <RLayerTile url="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}" />
             <RLayerTile url="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}" />
 
+            <SelectedLayerWMS />
+
             {/* <RLayerTileWMS
               url="http://localhost:8081/thredds/wms/datasets/BIO/WW3_72/gulf_of_maine/latest.nc"
               opacity={0.7}
@@ -211,12 +357,242 @@ export const ModelingPage: React.FC = () => {
                 COLORSCALERANGE: "0,5",
               }}
             /> */}
+
+            {point ? <SelectedPoint point={point} setPoint={setPoint} /> : null}
           </RMap>
         </Col>
       </Row>
-      <Row>{/* <Col>{point ? <TableChart lat={point[1]} lon={point[0]} /> : null}</Col> */}</Row>
+      <Row>
+        <SelectedLayerTableChart />
+        {/* <Col>{point ? <TableChart lat={point[1]} lon={point[0]} /> : null}</Col> */}
+      </Row>
     </React.Fragment>
   )
+}
+
+const SelectedPoint = ({
+  point,
+  setPoint,
+}: {
+  point: [number, number]
+  setPoint: ([x, y]: [number, number]) => void
+}) => {
+  return (
+    <RLayerVector>
+      <RFeature
+        geometry={new Point(fromLonLat(point))}
+        // Enable dragging of point, though the map springs back despite prevent defaults
+        // onPointerDrag={React.useCallback((e) => {
+        //   const coords = e.map.getCoordinateFromPixel(e.pixel)
+        //   e.target.setGeometry(new Point(coords))
+        //   e.preventDefault()
+        //   return false
+        // }, [])}
+        // onPointerDragEnd={React.useCallback((e) => {
+        //   const coords = toLonLat(e.map.getCoordinateFromPixel(e.pixel))
+        //   e.preventDefault()
+        //   setPoint([round(coords[0]), round(coords[1])])
+        // }, [])}
+        // onPointerEnter={React.useCallback((e) => (e.map.getTargetElement().style.cursor = "move") && undefined, [])}
+        // onPointerLeave={React.useCallback((e) => (e.map.getTargetElement().style.cursor = "initial") && undefined, [])}
+      >
+        <RStyle.RStyle>
+          <RStyle.RCircle radius={10}>
+            <RStyle.RFill color={colors.whatOrange} />
+            <RStyle.RStroke color="grey" width={1.5} />
+          </RStyle.RCircle>
+        </RStyle.RStyle>
+      </RFeature>
+    </RLayerVector>
+  )
+}
+
+const SelectedLayerWMS = () => {
+  const catalogQuery = useRootCatalogQuery()
+  const [currentLayer, setLayer] = useLayer()
+
+  if (catalogQuery.data && currentLayer.id) {
+    return <LayerWMS layerId={currentLayer.id} catalog={catalogQuery.data} />
+  }
+
+  return null
+}
+
+const LayerWMS = ({ layerId, catalog }: { layerId: string; catalog: ICatalog }) => {
+  const itemQuery = useItemQuery(catalog, layerId)
+
+  if (itemQuery.data) {
+    const wms_asset: IAsset | undefined = Object.values(itemQuery.data.assets).find((asset: IAsset) =>
+      asset.roles.includes("wms")
+    )
+    const wms_href = wms_asset?.href ? localWms(wms_asset.href) : null
+
+    if (wms_href) {
+      return null
+      // return (
+      //   <RLayerTileWMS
+      //     url={}
+      //     opacity={0.7}
+      //     params={{
+      //       // STYLES: "boxfill/sst_36",
+      //       // transparent: "true",
+      //       layers: "hs",
+      //       STYLES: "default",
+      //       // STYLES: "x-Occam",
+      //       time: "2021-08-30T00:00:00Z",
+      //       COLORSCALERANGE: "0,5",
+      //     }}
+      //   />
+      // )
+    }
+  }
+
+  return null
+}
+
+const SelectedLayerTableChart = () => {
+  const [point, setPoint] = usePoint()
+  const [currentLayer, setLayer] = useLayer()
+  const catalogQuery = useRootCatalogQuery()
+
+  // const itemQuery = useQuery(
+  //   ["stac-get-item", currentLayer.id],
+  //   // async () => {
+  //   //   const item = await catalogQuery.data.get_item(currentLayer.id, -1)
+  //   //   return item
+  //   // },
+  //   async ({ queryKey }) => {
+  //     const item = await catalogQuery.data.get_item(queryKey[1], -1)
+  //     return item
+  //   },
+  //   { enabled: !!currentLayer.id && !!catalogQuery.data?.id }
+  // )
+
+  if (point && currentLayer.id && catalogQuery.data) {
+    return (
+      <ItemLoader catalog={catalogQuery.data} layerId={currentLayer.id} point={point} param={currentLayer.vars[0]} />
+    )
+  } else if (catalogQuery.isLoading) {
+    return <div>Loading catalog</div>
+  } else if (point) {
+    return <div>Layer needs to be selected to display info for point</div>
+  } else if (currentLayer.id) {
+    return <div>Point needs to be selected to display info for current layer</div>
+  }
+
+  return <div>Neither point or layer selected</div>
+}
+
+function localWms(url: string) {
+  return url.replace("https://data.neracoos.org/thredds/", "http://localhost:8081/thredds/")
+}
+
+function localGeoApi(url: string) {
+  // debugger
+  // return url.replace("https://data.neracoos.org/geoapi/", "http://localhost:5002/geoapi/")
+  // debugger
+  // return url.replace("", "http://localhost:9005/datasets/ww3/edr/position")
+  return "http://localhost:9005/datasets/ww3/edr/position"
+}
+
+const ItemLoader = ({
+  catalog,
+  layerId,
+  point,
+  param,
+}: {
+  catalog: ICatalog
+  layerId: string
+  point: [number, number]
+  param: string
+}) => {
+  const itemQuery = useItemQuery(catalog, layerId)
+  const [table, setTable] = useTable()
+
+  if (itemQuery.data) {
+    const item: IItem = itemQuery.data
+
+    const edr_asset = Object.values(item.assets).find((asset) => asset.roles.includes("edr"))
+    // const wms_asset = Object.values(item.assets).find((asset) => asset.roles.includes("wms"))
+
+    if (edr_asset) {
+      return TableChartTabs(item, edr_asset, table, setTable, point, param)
+    }
+    return <div>EDR API not available for data source</div>
+  }
+
+  if (itemQuery.isLoading) {
+    return <div>Loading {layerId} info</div>
+  }
+
+  const [lon, lat] = point
+
+  return (
+    <div>
+      Point selected {lat}, {lon} for layer {layerId}
+    </div>
+  )
+}
+
+const EDRTable = ({ point, edrURL, param }: { point: [number, number]; edrURL: string; param: string }) => {
+  const [lon, lat] = point
+
+  const pointUrl = `${edrURL}?coords=POINT(${lon} ${lat})&parameter-name=${param}`
+
+  const result = useQuery(
+    ["point", { edrURL, lat, lon, param }],
+    async () => {
+      const res = await fetch(pointUrl)
+      const json = await res.json()
+      return json
+    },
+    {
+      /** Refresh every 5 minutes */
+      staleTime: 5 * 60 * 1000,
+      /** Cache for a maximum of 15 minutes */
+      cacheTime: 15 * 60 * 1000,
+      /** Refresh even when the window isn't the focus */
+      refetchIntervalInBackground: true,
+    }
+  )
+
+  if (result.isError) {
+    return <div>Error loading data from EDR</div>
+  }
+
+  if (result.isLoading) {
+    return <div>Loading data via EDR</div>
+  }
+
+  if (result.data) {
+    const params = Object.keys(result.data.parameters)
+    return (
+      <Table responsive={true} size="sm" striped={true}>
+        <thead>
+          <tr>
+            <th>Time</th>
+            {params.map((p) => (
+              <th key={p}>
+                {result.data.parameters[p].observedProperty.label.en} - {p}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {result.data.domain.axes.t.values.map((v, i) => (
+            <tr key={i}>
+              <td>{v}</td>
+              {params.map((p) => (
+                <td key={p}>{result.data.ranges[p].values[i]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    )
+  }
+
+  return null
 }
 
 const TableChart = ({ lat, lon }: { lat: number; lon: number }) => {
@@ -277,4 +653,70 @@ const TableChart = ({ lat, lon }: { lat: number; lon: number }) => {
       </li>
     </div>
   )
+}
+const TableChartTabs = (
+  item: IItem,
+  edr_asset: IAsset,
+  table: boolean | undefined,
+  setTable: (newQuery: boolean, options?: any) => void,
+  point: [number, number],
+  param: string
+) => {
+  return (
+    <div>
+      <Nav tabs={true}>
+        <NavItem>
+          <NavLink
+            className={!table ? "active" : undefined}
+            onClick={() => {
+              setTable(false)
+            }}
+          >
+            Chart
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={table ? "active" : undefined}
+            onClick={() => {
+              setTable(true)
+            }}
+          >
+            Table
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent activeTab={table ? "table" : "chart"}>
+        <TabPane tabId="chart">
+          Chart
+          {item.id}
+          <ul>
+            <li>EDR href: {edr_asset?.href ? localGeoApi(edr_asset!.href) : null}</li>
+            {/* <li>WMS href: {wms_asset?.href ? localWms(wms_asset!.href) : null}</li> */}
+          </ul>
+        </TabPane>
+
+        <TabPane tabId="table">
+          Table
+          {item.id}
+          <ul>
+            <li>EDR href: {edr_asset?.href ? localGeoApi(edr_asset!.href) : null}</li>
+            {/* <li>WMS href: {wms_asset?.href ? localWms(wms_asset!.href) : null}</li> */}
+          </ul>
+          <EDRTable edrURL={localGeoApi(edr_asset.href)} point={point} param={param} />
+        </TabPane>
+      </TabContent>
+    </div>
+  )
+}
+
+function usePoint(): [[number, number] | undefined, ([x, y]: [number, number]) => void] {
+  return useQueryParam<[number, number]>("point")
+}
+
+/**
+ * Hooks to show table in place of chart or not
+ */
+function useTable() {
+  return useQueryParam<boolean>("table")
 }

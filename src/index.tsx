@@ -12,13 +12,14 @@ import moment from "moment-timezone"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import { QueryClient, QueryClientProvider } from "react-query"
+import { QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 
 import GAListener from "Shared/google-analytics"
 
 import App from "./App"
 import "./index.scss"
+import { queryClient } from "./queryClient"
 import { history, store } from "./store"
 import { FiveHundredPage } from "./Pages/500"
 
@@ -46,8 +47,6 @@ if (!(window as any).Cypress) {
     tracesSampleRate: 0.05, // Trace 5/100 or 5% of visits.
   })
 }
-
-const queryClient = new QueryClient()
 
 /**
  * Render our root element of the App.
