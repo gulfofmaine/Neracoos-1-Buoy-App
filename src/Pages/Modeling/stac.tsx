@@ -114,9 +114,9 @@ export const StacCatalogCollection = ({ cat }: { cat: ICatalog | ICollection }) 
     return (
       <React.Fragment>
         {cat.title}
-        <ListGroup>
+        <ListGroup flush={true}>
           {childrenQuery.data.map((child) => (
-            <ListGroupItem key={child.id}>
+            <ListGroupItem key={child.id} style={{ paddingRight: 8 }}>
               <StacCatalogCollection cat={child} key={child.id} />
             </ListGroupItem>
           ))}

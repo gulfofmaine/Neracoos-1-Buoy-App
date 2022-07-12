@@ -109,3 +109,12 @@ export function usePoint(): [[number, number] | undefined, ([x, y]: [number, num
 export function useTable() {
   return useQueryParam<boolean>("table")
 }
+
+/**
+ * Access and set the selected time in the URL
+ *
+ * @returns time and a function to set the time in the URL
+ */
+export function useTime() {
+  return useQueryParam<string>("time")
+}

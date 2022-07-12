@@ -4,6 +4,7 @@ import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
 import { useSearchParams } from "react-router-dom"
 import type { NavigateOptions } from "react-router-dom"
+import Select from "react-select"
 import {
   UncontrolledAccordion,
   AccordionHeader,
@@ -34,7 +35,7 @@ import { queryClient } from "queryClient"
 import { round } from "Shared/math"
 import { colors } from "Shared/colors"
 
-import { useCompare, useLayer, useQueryParam, useView, usePoint, useTable } from "./query-hooks"
+import { useCompare, useLayer, useQueryParam, useView, usePoint, useTable, useTime } from "./query-hooks"
 import { StacCatalogRoot, useItemQuery, useItemsQuery, useRootCatalogQuery } from "./stac"
 import { initialView, Layer } from "./types"
 
@@ -45,10 +46,11 @@ export const ModelingPage: React.FC = () => {
   return (
     <React.Fragment>
       <Row>
-        <Col md={3}>
+        <Col md={3} style={{ padding: 0 }}>
           <StacCatalogRoot />
         </Col>
-        <Col md={9}>
+
+        <Col md={9} style={{ paddingLeft: 0 }}>
           <RMap
             width={"100%"}
             height={"60vh"}
@@ -66,27 +68,13 @@ export const ModelingPage: React.FC = () => {
 
             <SelectedLayerWMS />
 
-            {/* <RLayerTileWMS
-              url="http://localhost:8081/thredds/wms/datasets/BIO/WW3_72/gulf_of_maine/latest.nc"
-              opacity={0.7}
-              params={{
-                // STYLES: "boxfill/sst_36",
-                // transparent: "true",
-                layers: "hs",
-                STYLES: "default",
-                // STYLES: "x-Occam",
-                time: "2021-08-30T00:00:00Z",
-                COLORSCALERANGE: "0,5",
-              }}
-            /> */}
-
             {point ? <SelectedPoint point={point} setPoint={setPoint} /> : null}
           </RMap>
         </Col>
       </Row>
+
       <Row>
         <TableChart />
-        {/* <Col>{point ? <TableChart lat={point[1]} lon={point[0]} /> : null}</Col> */}
       </Row>
     </React.Fragment>
   )
@@ -142,6 +130,7 @@ const SelectedLayerWMS = () => {
 
 const LayerWMS = ({ layerId, catalog, dataVar }: { layerId: string; catalog: ICatalog; dataVar: string }) => {
   const itemQuery = useItemQuery(catalog, layerId)
+  const [time, setTime] = useTime()
 
   if (itemQuery.data) {
     const wms_asset: IAsset | undefined = Object.values(itemQuery.data.assets).find((asset: IAsset) =>
@@ -153,7 +142,7 @@ const LayerWMS = ({ layerId, catalog, dataVar }: { layerId: string; catalog: ICa
       return (
         <RLayerTileWMS
           url={wms_href}
-          key={wms_href + dataVar}
+          key={wms_href + dataVar + time}
           opacity={0.7}
           params={{
             // STYLES: "boxfill/sst_36",
@@ -161,7 +150,7 @@ const LayerWMS = ({ layerId, catalog, dataVar }: { layerId: string; catalog: ICa
             layers: dataVar,
             STYLES: "default",
             // STYLES: "x-Occam",
-            // time: "2022-07-05T00:00:00Z",
+            time,
             COLORSCALERANGE: "0,5",
           }}
         />
@@ -179,9 +168,16 @@ const TableChart = () => {
   const [compareLayers, setCompare] = useCompare()
 
   const allLayers = [
-    ...compareLayers
-      .filter((l) => l.id === currentLayer.id)
-      .map((l) => ({ ...l, vars: [...currentLayer.vars, ...l.vars] })),
+    {
+      ...currentLayer,
+      vars: [
+        ...currentLayer.vars,
+        ...compareLayers
+          .filter((l) => l.id === currentLayer.id)
+          .map((l) => l.vars)
+          .flat(),
+      ],
+    },
     ...compareLayers.filter((l) => l.id !== currentLayer.id),
   ]
 
@@ -243,7 +239,6 @@ const ItemsLoader = ({
 }
 
 function EdrUrl(baseUrl: string, layer: Layer, point: [number, number]) {
-  debugger
   const [lon, lat] = point
 
   // const url = new URL(baseUrl)
@@ -324,6 +319,7 @@ const ItemLayersTabs = ({
         </NavItem>
         {loading || edrLoading ? <NavItem>Loading</NavItem> : null}
         {error || edrError ? <NavItem>Error</NavItem> : null}
+        <TimeSelector items={items} />
       </Nav>
       <TabContent activeTab={table ? "table" : "chart"}>
         <TabPane tabId="chart">
@@ -345,6 +341,40 @@ const ItemLayersTabs = ({
       </TabContent>
     </div>
   )
+}
+
+/**
+ * Allows the user to select the time to display in the WMS layer
+ */
+const TimeSelector = ({ items }: { items: [IItem, Layer] }) => {
+  const [currentLayer, setLayer] = useLayer()
+  const [time, setTime] = useTime()
+
+  const currentItem = items.find((i) => i[1].id === currentLayer.id)
+
+  if (currentItem) {
+    const times: string[] = currentItem[0].properties["cube:dimensions"].time.values ?? []
+
+    const options = times.map((t) => ({ value: t, label: t }))
+
+    const defaultValue = options.find((o) => o.value === time) ?? options[0]
+
+    return (
+      <NavItem>
+        <Select
+          options={options}
+          defaultValue={defaultValue}
+          onChange={(event) => {
+            if (event?.value) {
+              setTime(event.value)
+            }
+          }}
+        />
+      </NavItem>
+    )
+  }
+
+  return <NavItem>Select a layer to map to select a time</NavItem>
 }
 
 const ItemLoader = ({

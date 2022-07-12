@@ -33,6 +33,7 @@
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.2",
     "react-scripts": "^5.0.0",
+    "react-select": "^5.4.0",
     "react-use": "^17.3.2",
     "reactstrap": "9.0.1",
     "redux": "4.1.2",
@@ -80,9 +81,6 @@
   },
   "optionalDependencies": {
     "cypress": "9.5.3"
-  },
-  "resolutions": {
-    "babel-loader": "8.1.0"
   },
   "prettier": {
     "semi": false,
