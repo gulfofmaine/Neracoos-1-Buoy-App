@@ -7,6 +7,9 @@ import type { RView } from "rlayers/RMap"
 
 import { round } from "Shared/math"
 
+import { IItem } from "@gulfofmaine/tsstac"
+
+import { useItemQuery, useRootCatalogQuery } from "./stac"
 import { Layer, initialLayer, initialView } from "./types"
 
 /**
@@ -55,6 +58,17 @@ export function useLayer(): [Layer, (Layer) => void] {
   const [layer, setLayer] = useQueryParam<Layer>("layer")
 
   return [layer ?? initialLayer, setLayer]
+}
+
+/**
+ * Hook to return the current layer and item
+ */
+export function useCurrentItem(): [Layer?, IItem?] {
+  const [layer, setLayer] = useLayer()
+
+  const itemQuery = useItemQuery(layer.id ?? "", !!layer.id)
+
+  return [layer, itemQuery.data]
 }
 
 /**

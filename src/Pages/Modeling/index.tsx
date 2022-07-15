@@ -25,7 +25,7 @@ import {
   Table,
 } from "reactstrap"
 import { useQuery, UseQueryResult, useQueries } from "react-query"
-import { RMap, RLayerTileWMS, RLayerTile, RLayerVector, RFeature, RStyle } from "rlayers"
+import { RMap, RLayerTileWMS, RLayerTile, RLayerVector, RFeature, RStyle, RControl } from "rlayers"
 import type { RView } from "rlayers/RMap"
 
 import STAC, { IAsset, ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
@@ -35,9 +35,19 @@ import { queryClient } from "queryClient"
 import { round } from "Shared/math"
 import { colors } from "Shared/colors"
 
-import { useCompare, useLayer, useQueryParam, useView, usePoint, useTable, useTime } from "./query-hooks"
+import { ModelChart } from "./chart"
+import {
+  useCompare,
+  useLayer,
+  useQueryParam,
+  useView,
+  usePoint,
+  useTable,
+  useTime,
+  useCurrentItem,
+} from "./query-hooks"
 import { StacCatalogRoot, useItemQuery, useItemsQuery, useRootCatalogQuery } from "./stac"
-import { initialView, Layer } from "./types"
+import { initialView, Layer, LoadedData } from "./types"
 
 export const ModelingPage: React.FC = () => {
   const [point, setPoint] = usePoint()
@@ -74,10 +84,37 @@ export const ModelingPage: React.FC = () => {
       </Row>
 
       <Row>
+        <TimeControl />
         <TableChart />
       </Row>
     </React.Fragment>
   )
+}
+
+const TimeControl = () => {
+  const [layer, item] = useCurrentItem()
+  const [time, setTime] = useTime()
+
+  if (layer && item) {
+    const times: string[] = item.properties["cube:dimensions"].time.values ?? []
+    const options = times.map((t) => ({ value: t, label: t }))
+
+    const defaultValue = options.find((o) => o.value === time) ?? options[0]
+
+    return (
+      <Select
+        options={options}
+        defaultValue={defaultValue}
+        onChange={(event) => {
+          if (event?.value) {
+            setTime(event.value)
+          }
+        }}
+      />
+    )
+  }
+
+  return null
 }
 
 const SelectedPoint = ({
@@ -118,18 +155,17 @@ const SelectedPoint = ({
 }
 
 const SelectedLayerWMS = () => {
-  const catalogQuery = useRootCatalogQuery()
   const [currentLayer, setLayer] = useLayer()
 
-  if (catalogQuery.data && currentLayer.id && currentLayer.vars.length > 0) {
-    return <LayerWMS layerId={currentLayer.id} dataVar={currentLayer.vars[0]} catalog={catalogQuery.data} />
+  if (currentLayer.id && currentLayer.vars.length > 0) {
+    return <LayerWMS layerId={currentLayer.id} dataVar={currentLayer.vars[0]} />
   }
 
   return null
 }
 
-const LayerWMS = ({ layerId, catalog, dataVar }: { layerId: string; catalog: ICatalog; dataVar: string }) => {
-  const itemQuery = useItemQuery(catalog, layerId)
+const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) => {
+  const itemQuery = useItemQuery(layerId)
   const [time, setTime] = useTime()
 
   if (itemQuery.data) {
@@ -184,7 +220,7 @@ const TableChart = () => {
   if (point && currentLayer.id && catalogQuery.data) {
     return (
       <React.Fragment>
-        <ItemsLoader catalog={catalogQuery.data} layers={allLayers} point={point} />
+        <ItemsLoader layers={allLayers} point={point} />
         {/* <ItemLoader catalog={catalogQuery.data} layerId={currentLayer.id} point={point} param={currentLayer.vars[0]} /> */}
       </React.Fragment>
     )
@@ -212,20 +248,15 @@ function localGeoApi(url: string) {
 }
 
 const ItemsLoader = ({
-  catalog,
   layers,
   point,
 }: // param,
 {
-  catalog: ICatalog
   layers: Layer[]
   point: [number, number]
   // param: string
 }) => {
-  const itemsQuery = useItemsQuery(
-    catalog,
-    layers.map((l) => l.id!)
-  )
+  const itemsQuery = useItemsQuery(layers.map((l) => l.id!))
 
   const loaded: [IItem, Layer] = itemsQuery
     .map((itemResult, index) => [itemResult, layers[index]] as [UseQueryResult<IItem, Error>, Layer])
@@ -241,8 +272,7 @@ const ItemsLoader = ({
 function EdrUrl(baseUrl: string, layer: Layer, point: [number, number]) {
   const [lon, lat] = point
 
-  // const url = new URL(baseUrl)
-  const url = new URL("http://localhost:9005/datasets/ww3/edr/position")
+  const url = new URL(baseUrl.replace("https://data.neracoos.org/xpublish", "http://localhost:9005/datasets"))
   url.searchParams.set("parameter-name", layer.vars.join(","))
   url.searchParams.set("coords", `POINT(${lon} ${lat})`)
   return url.toString()
@@ -290,7 +320,10 @@ const ItemLayersTabs = ({
     }))
   )
 
-  const loaded = edrQueries.filter((query) => query.data !== undefined)
+  const loaded = edrQueries
+    // .filter((query): query is { data: LoadedData } => query.data !== undefined)
+    .map((query) => query.data)
+    .filter((data): data is LoadedData => !!data)
   const edrLoading = edrQueries.filter((query) => query.isLoading).length > 0
   const edrError = edrQueries.filter((query) => query.error).length > 0
 
@@ -319,216 +352,53 @@ const ItemLayersTabs = ({
         </NavItem>
         {loading || edrLoading ? <NavItem>Loading</NavItem> : null}
         {error || edrError ? <NavItem>Error</NavItem> : null}
-        <TimeSelector items={items} />
       </Nav>
       <TabContent activeTab={table ? "table" : "chart"}>
         <TabPane tabId="chart">
-          Chart
-          {/* {item.id}
-        <ul>
-          <li>EDR href: {edr_asset?.href ? localGeoApi(edr_asset!.href) : null}</li>
-        </ul> */}
+          {loaded.length > 0 ? <ModelChart loaded={loaded} /> : "No data is loaded to display"}
         </TabPane>
 
         <TabPane tabId="table">
+          {/* <EdrTable loaded={loaded} /> */}
           Table
-          {/* {item.id}
-        <ul>
-          <li>EDR href: {edr_asset?.href ? localGeoApi(edr_asset!.href) : null}</li>
-        </ul>
-        <EDRTable edrURL={localGeoApi(edr_asset.href)} point={point} param={param} /> */}
         </TabPane>
       </TabContent>
     </div>
   )
 }
 
-/**
- * Allows the user to select the time to display in the WMS layer
- */
-const TimeSelector = ({ items }: { items: [IItem, Layer] }) => {
-  const [currentLayer, setLayer] = useLayer()
-  const [time, setTime] = useTime()
-
-  const currentItem = items.find((i) => i[1].id === currentLayer.id)
-
-  if (currentItem) {
-    const times: string[] = currentItem[0].properties["cube:dimensions"].time.values ?? []
-
-    const options = times.map((t) => ({ value: t, label: t }))
-
-    const defaultValue = options.find((o) => o.value === time) ?? options[0]
-
-    return (
-      <NavItem>
-        <Select
-          options={options}
-          defaultValue={defaultValue}
-          onChange={(event) => {
-            if (event?.value) {
-              setTime(event.value)
-            }
-          }}
-        />
-      </NavItem>
-    )
-  }
-
-  return <NavItem>Select a layer to map to select a time</NavItem>
-}
-
-const ItemLoader = ({
-  catalog,
-  layerId,
-  point,
-  param,
-}: {
-  catalog: ICatalog
-  layerId: string
-  point: [number, number]
-  param: string
-}) => {
-  const itemQuery = useItemQuery(catalog, layerId)
-  const [table, setTable] = useTable()
-
-  if (itemQuery.data) {
-    const item: IItem = itemQuery.data
-
-    const edr_asset = Object.values(item.assets).find((asset) => asset.roles.includes("edr"))
-    // const wms_asset = Object.values(item.assets).find((asset) => asset.roles.includes("wms"))
-
-    if (edr_asset) {
-      return TableChartTabs(item, edr_asset, table, setTable, point, param)
-    }
-    return <div>EDR API not available for data source</div>
-  }
-
-  if (itemQuery.isLoading) {
-    return <div>Loading {layerId} info</div>
-  }
-
-  const [lon, lat] = point
-
+const EdrTable = ({ loaded }) => {
   return (
-    <div>
-      Point selected {lat}, {lon} for layer {layerId}
-    </div>
-  )
-}
-
-const EDRTable = ({ point, edrURL, param }: { point: [number, number]; edrURL: string; param: string }) => {
-  const [lon, lat] = point
-
-  const pointUrl = `${edrURL}?coords=POINT(${lon} ${lat})&parameter-name=${param}`
-
-  const result = useQuery(
-    ["point", { edrURL, lat, lon, param }],
-    async () => {
-      const res = await fetch(pointUrl)
-      const json = await res.json()
-      return json
-    },
-    {
-      /** Refresh every 5 minutes */
-      staleTime: 5 * 60 * 1000,
-      /** Cache for a maximum of 15 minutes */
-      cacheTime: 15 * 60 * 1000,
-      /** Refresh even when the window isn't the focus */
-      refetchIntervalInBackground: true,
-    }
-  )
-
-  if (result.isError) {
-    return <div>Error loading data from EDR</div>
-  }
-
-  if (result.isLoading) {
-    return <div>Loading data via EDR</div>
-  }
-
-  if (result.data) {
-    const params = Object.keys(result.data.parameters)
-    return (
-      <Table responsive={true} size="sm" striped={true}>
-        <thead>
-          <tr>
-            <th>Time</th>
-            {params.map((p) => (
-              <th key={p}>
-                {result.data.parameters[p].observedProperty.label.en} - {p}
+    <Table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          {loaded.map((l) => {
+            const id = l.data.layer.id
+            const parameters = Object.keys(l.data.response.parameters)
+            return (
+              <th key={id} colSpan={parameters.length}>
+                {id}
               </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {result.data.domain.axes.t.values.map((v, i) => (
-            <tr key={i}>
-              <td>{v}</td>
-              {params.map((p) => (
-                <td key={p}>{result.data.ranges[p].values[i]}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    )
-  }
+            )
+          })}
+        </tr>
+        <tr>
+          <th />
+          {loaded.map((l) => {
+            const id = l.data.layer.id
+            const parameters = Object.keys(l.data.response.parameters)
 
-  return null
-}
-
-const TableChartTabs = (
-  item: IItem,
-  edr_asset: IAsset,
-  table: boolean | undefined,
-  setTable: (newQuery: boolean, options?: any) => void,
-  point: [number, number],
-  param: string
-) => {
-  return (
-    <div>
-      <Nav tabs={true}>
-        <NavItem>
-          <NavLink
-            className={!table ? "active" : undefined}
-            onClick={() => {
-              setTable(false)
-            }}
-          >
-            Chart
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={table ? "active" : undefined}
-            onClick={() => {
-              setTable(true)
-            }}
-          >
-            Table
-          </NavLink>
-        </NavItem>
-      </Nav>
-      <TabContent activeTab={table ? "table" : "chart"}>
-        <TabPane tabId="chart">
-          Chart
-          {item.id}
-          <ul>
-            <li>EDR href: {edr_asset?.href ? localGeoApi(edr_asset!.href) : null}</li>
-            {/* <li>WMS href: {wms_asset?.href ? localWms(wms_asset!.href) : null}</li> */}
-          </ul>
-        </TabPane>
-
-        <TabPane tabId="table">
-          Table
-          {item.id}
-          <ul>
-            <li>EDR href: {edr_asset?.href ? localGeoApi(edr_asset!.href) : null}</li>
-            {/* <li>WMS href: {wms_asset?.href ? localWms(wms_asset!.href) : null}</li> */}
-          </ul>
-          <EDRTable edrURL={localGeoApi(edr_asset.href)} point={point} param={param} />
-        </TabPane>
-      </TabContent>
-    </div>
+            return (
+              <React.Fragment>
+                {parameters.map((p) => (
+                  <th key={id + p}>{p}</th>
+                ))}
+              </React.Fragment>
+            )
+          })}
+        </tr>
+      </thead>
+    </Table>
   )
 }

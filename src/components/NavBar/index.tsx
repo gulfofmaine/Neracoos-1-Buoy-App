@@ -48,6 +48,12 @@ export default class NeracoosNavBar extends React.Component<object, State> {
               <RegionDropdown closeParent={this.close} />
 
               <NavItem>
+                <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.models}>
+                  Models
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
                 <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.about}>
                   About
                 </NavLink>

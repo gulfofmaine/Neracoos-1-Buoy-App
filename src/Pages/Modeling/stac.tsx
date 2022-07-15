@@ -63,19 +63,27 @@ async function getItem(catalog: ICatalog, id: string, depth: number = -1): Promi
   return item
 }
 
-export function useItemQuery(catalog: ICatalog, id: string) {
-  return useQuery<IItem>(["get-stac-item", { catalog: catalog.id, id }], () => getItem(catalog, id), {
-    refetchOnWindowFocus: false,
-  })
+export function useItemQuery(id: string, enabled: boolean = true) {
+  const catalogQuery = useRootCatalogQuery()
+  return useQuery<IItem>(
+    ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
+    () => getItem(catalogQuery.data!, id),
+    {
+      refetchOnWindowFocus: false,
+      enabled: enabled && !!catalogQuery.data,
+    }
+  )
 }
 
-export function useItemsQuery(catalog: ICatalog, ids: string[]) {
+export function useItemsQuery(ids: string[], enabled: boolean = true) {
+  const catalogQuery = useRootCatalogQuery()
   return useQueries<IItem[]>(
     ids.map((id) => {
       return {
-        queryKey: ["get-stac-item", { catalog: catalog.id, id }],
-        queryFn: () => getItem(catalog, id),
+        queryKey: ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
+        queryFn: () => getItem(catalogQuery.data!, id),
         refetchOnWindowFocus: false,
+        enabled: enabled && !!catalogQuery.data,
       }
     })
   )
