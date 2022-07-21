@@ -276,7 +276,7 @@ jobs:
           git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard to ${{ steps.tagName.outputs.tag }}' && git push)
 
       - name: Create Sentry Release
-        uses: getsentry/action-release@v1.1.6
+        uses: getsentry/action-release@v1.2.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
