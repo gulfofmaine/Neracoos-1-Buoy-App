@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        uses: docker/build-push-action@v2.10.0
+        uses: docker/build-push-action@v3.1.1
         with:
           context: .
           target: develop
@@ -247,7 +247,7 @@ jobs:
         id: tagName
 
       - name: Build and push Docker Image
-        uses: docker/build-push-action@v2.10.0
+        uses: docker/build-push-action@v3.1.1
         with:
           context: .
           push: true
