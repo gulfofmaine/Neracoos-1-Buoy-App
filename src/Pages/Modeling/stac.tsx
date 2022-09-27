@@ -46,7 +46,7 @@ export const stac = new STAC(reactQueryFetcher)
  * @returns Root catalog
  */
 async function fetchRootCatalog(): Promise<ICatalog> {
-  const catalog = await stac.get_root_catalog("http://localhost:8082/catalog.json")
+  const catalog = await stac.get_root_catalog("https://data.neracoos.org/stac/catalog.json")
   return catalog
 }
 

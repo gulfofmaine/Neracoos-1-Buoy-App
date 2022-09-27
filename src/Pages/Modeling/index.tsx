@@ -172,7 +172,7 @@ const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) =>
     const wms_asset: IAsset | undefined = Object.values(itemQuery.data.assets).find((asset: IAsset) =>
       asset.roles.includes("wms")
     )
-    const wms_href = wms_asset?.href ? localWms(wms_asset.href) : null
+    const wms_href = wms_asset?.href
 
     if (wms_href) {
       return (
@@ -272,7 +272,7 @@ const ItemsLoader = ({
 function EdrUrl(baseUrl: string, layer: Layer, point: [number, number]) {
   const [lon, lat] = point
 
-  const url = new URL(baseUrl.replace("https://data.neracoos.org/xpublish", "http://localhost:9005/datasets"))
+  const url = new URL(baseUrl)
   url.searchParams.set("parameter-name", layer.vars.join(","))
   url.searchParams.set("coords", `POINT(${lon} ${lat})`)
   return url.toString()
