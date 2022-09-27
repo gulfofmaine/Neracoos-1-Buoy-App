@@ -14,14 +14,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1.6.0
-      
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: mariners-dashboard-buildx-${{ github.sha }}
-          restore-keys: |
-            mariners-dashboard-buildx-
 
       - name: Cache Docker image
         uses: actions/cache@v3
@@ -39,20 +31,15 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        uses: docker/build-push-action@v2.10.0
+        uses: docker/build-push-action@v3.1.1
         with:
           context: .
           target: develop
           push: false
           tags: gmri/neracoos-mariners-dashboard:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           outputs: type=docker,dest=/tmp/myimage.tar
-
-      - name: Move Docker Cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   unit_tests:
     name: Unit tests, typecheck and coverage
@@ -63,7 +50,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      
+
       - name: Cache Docker image
         uses: actions/cache@v3
         with:
@@ -82,13 +69,12 @@ jobs:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
         run: docker-compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
-      
+
       - name: Run unit test (and skip coverage if no project token secret)
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
         run: docker-compose run -e CI=true client yarn test
-
 
       - name: Typecheck
         run: docker-compose run client yarn types
@@ -104,7 +90,7 @@ jobs:
         with:
           path: /tmp/storybook-public/
           key: mariners-dashboard-storybook-${{ github.sha }}
-      
+
       - name: Copy Storybook Build to cache directory
         run: |
           rm -rf /tmp/storybook-public
@@ -122,7 +108,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: "14"
 
       - name: Cache Docker image
         uses: actions/cache@v3
@@ -160,9 +146,9 @@ jobs:
         timeout-minutes: 1
 
       - name: Run Cypress
-        run: npx cypress run --config video=false,retries=1 
+        run: npx cypress run --config video=false,retries=1
         timeout-minutes: 15
-      
+
       - name: Archive test screenshots
         uses: actions/upload-artifact@v3
         if: failure()
@@ -174,7 +160,7 @@ jobs:
         run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         timeout-minutes: 15
         if: failure()
-      
+
       - name: Archive test videos
         uses: actions/upload-artifact@v3
         if: failure()
@@ -185,7 +171,7 @@ jobs:
       - name: Docker-compose Logs
         run: docker-compose logs
         if: always()
-  
+
   pages:
     name: Deploy Storybook to Github Pages on version tag
     runs-on: ubuntu-20.04
@@ -220,14 +206,14 @@ jobs:
     if: |
       github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
       && contains(github.ref, 'refs/tags/v')
-    
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1.6.0
-      
+
       - name: Cache Docker layers
         uses: actions/cache@v3
         with:
@@ -241,7 +227,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
+
       - name: Get tag name
         uses: olegtarasov/get-tag@v2.1
         id: tagName
@@ -254,9 +240,9 @@ jobs:
           tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
-           REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
-           REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
-      
+            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
+            REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+
       - name: Make GitOps directory
         run: mkdir gitops
 
@@ -265,7 +251,7 @@ jobs:
         working-directory: ./gitops
         env:
           GITOPS_TOKEN: ${{ secrets.GITOPS_TOKEN }}
-        
+
       - name: Update GitOps config repo
         working-directory: ./gitops/neracoos-do-cd
         run: |
