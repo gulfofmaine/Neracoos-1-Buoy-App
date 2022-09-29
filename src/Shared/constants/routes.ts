@@ -17,4 +17,5 @@ export const paths = {
     root_tailing: "/platform/*",
   },
   neracoos: "http://neracoos.org",
+  models: "/models/",
 }
