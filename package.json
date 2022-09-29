@@ -47,7 +47,7 @@
     "test": "react-scripts test",
     "think-before-eject": "react-scripts eject",
     "docs": "typedoc",
-    "test-with-codacy-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info | codacy-coverage",
+    "test-with-coverage": "react-scripts test --coverage && cat ./coverage/lcov.info",
     "types": "tsc",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -c .storybook -o storybook-public"
@@ -67,7 +67,6 @@
     "@types/react": "17.0.42",
     "@types/react-dom": "17.0.14",
     "@types/react-test-renderer": "17.0.1",
-    "codacy-coverage": "3.4.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.6",
     "jest-fetch-mock": "3.0.3",

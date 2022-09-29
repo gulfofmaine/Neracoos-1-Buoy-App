@@ -68,7 +68,13 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: docker-compose run -e CI=true -e CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }} client yarn test-with-codacy-coverage
+        run: docker-compose run -e CI=true client yarn test-with-coverage
+
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ./coverage/lcov.info
 
       - name: Run unit test (and skip coverage if no project token secret)
         env:
