@@ -28,6 +28,10 @@ describe("The NavBar should have our primary links", () => {
     expect(nav.contains("Regions")).toEqual(true)
   })
 
+  it("Includes Model Viewer", () => {
+    expect(nav.contains("Model Viewer")).toEqual(true)
+  })
+
   it("Has our regions", () => {
     const ourRegions: string[] = [
       regions.Boston,
@@ -36,10 +40,10 @@ describe("The NavBar should have our primary links", () => {
       regions.GulfOfMaine,
       regions.LongIslandSound,
       regions.NarragansettBay,
-      regions.Newfoundland
-    ].map(r => r.name)
+      regions.Newfoundland,
+    ].map((r) => r.name)
 
-    ourRegions.forEach(r => {
+    ourRegions.forEach((r) => {
       expect(nav.contains(r)).toEqual(true)
     })
   })
