@@ -75,6 +75,7 @@ jobs:
         run: docker-compose run -e CI=true client yarn test-with-coverage
 
       - name: Codacy Coverage Reporter
+        if: env.CODACY_PROJECT_TOKEN != null
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
