@@ -257,13 +257,13 @@ jobs:
         run: mkdir gitops
 
       - name: Clone GitOps config repo
-        run: git clone "https://$GITOPS_TOKEN@github.com/gulfofmaine/neracoos-do-cd.git"
+        run: git clone "https://$GITOPS_TOKEN@github.com/gulfofmaine/neracoos-aws-cd.git"
         working-directory: ./gitops
         env:
           GITOPS_TOKEN: ${{ secrets.GITOPS_TOKEN }}
 
       - name: Update GitOps config repo
-        working-directory: ./gitops/neracoos-do-cd
+        working-directory: ./gitops/neracoos-aws-cd
         run: |
           sed -i 's/?ref=.\+/?ref=${{ steps.tagName.outputs.tag }}/' apps/mariners/kustomization.yaml
           sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' apps/mariners/kustomization.yaml
@@ -331,13 +331,13 @@ jobs:
         run: mkdir gitops
 
       - name: Clone GitOps config repo
-        run: git clone "https://$GITOPS_TOKEN@github.com/gulfofmaine/neracoos-do-cd.git"
+        run: git clone "https://$GITOPS_TOKEN@github.com/gulfofmaine/neracoos-aws-cd.git"
         working-directory: ./gitops
         env:
           GITOPS_TOKEN: ${{ secrets.GITOPS_TOKEN }}
 
       - name: Update GitOps config repo
-        working-directory: ./gitops/neracoos-do-cd
+        working-directory: ./gitops/neracoos-aws-cd
         run: |
           sed -i 's/?ref=.\+/?ref=${{ steps.tagName.outputs.tag }}/' apps/mariners-dev/kustomization.yaml
           sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' apps/mariners-dev/kustomization.yaml
