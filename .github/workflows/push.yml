@@ -339,7 +339,7 @@ jobs:
       - name: Update GitOps config repo
         working-directory: ./gitops/neracoos-aws-cd
         run: |
-          sed -i 's/?ref=.\+/?ref=${{ steps.tagName.outputs.tag }}/' overlays/mariners-dev/kustomization.yaml
+          sed -i 's/?ref=.\+/?ref=${{ github.sha }}/' overlays/mariners-dev/kustomization.yaml
           sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' overlays/mariners-dev/kustomization.yaml
           git config --global user.email 'neracoos-mariners-ci@gmri.org'
           git config --global user.name 'NERACOOS Mariners Dashboard CI'
