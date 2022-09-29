@@ -1,4 +1,3 @@
-// import { MapView } from "components/Map"
 import type { RView } from "rlayers/RMap"
 
 import * as actionTypes from "./actionTypes"
