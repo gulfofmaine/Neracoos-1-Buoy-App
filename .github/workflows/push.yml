@@ -76,6 +76,7 @@ jobs:
 
       - name: Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        if: env.CODACY_PROJECT_TOKEN != null
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: ./coverage/lcov.info
