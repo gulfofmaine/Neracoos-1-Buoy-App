@@ -1,7 +1,7 @@
 /**
  * Navbar component
  */
-import React from "react"
+import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
@@ -11,64 +11,51 @@ import { RegionDropdown } from "./regionDropdown"
 
 import neracoosLogo from "./neracoos_logo.png"
 
-const initialState = {
-  isOpen: false,
-}
-
-type State = Readonly<typeof initialState>
-
 /**
  * Navbar component
  */
-export default class NeracoosNavBar extends React.Component<object, State> {
-  public state: State = initialState
+const NeracoosNavBar = () => {
+  const [isOpen, setOpen] = useState<boolean>(false)
 
-  constructor(props: any) {
-    super(props)
+  const toggle = () => setOpen((open) => !open)
+  const close = () => setOpen(false)
 
-    this.toggle = this.toggle.bind(this)
-    this.close = this.close.bind(this)
-  }
+  const isMariners = window.location.href.includes("://mariners.neracoos.org")
 
-  public render() {
-    return (
-      <div>
-        <Navbar dark={true} expand="md">
-          <NavbarBrand href={paths.neracoos}>
-            <img src={neracoosLogo} alt="NERACOOS" />
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+  return (
+    <div>
+      <Navbar dark={true} expand="md">
+        <NavbarBrand href={paths.neracoos}>
+          <img src={neracoosLogo} alt="NERACOOS" />
+        </NavbarBrand>
+        <NavbarToggler onClick={toggle} />
 
-          <Collapse isOpen={this.state.isOpen} navbar={true} className="justify-content-end">
-            <Nav className="ml-auto" navbar={true}>
-              <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.home}>
-                Home
-              </NavLink>
+        <Collapse isOpen={isOpen} navbar={true} className="justify-content-end">
+          <Nav className="ml-auto" navbar={true}>
+            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.home}>
+              Home
+            </NavLink>
 
-              <RegionDropdown closeParent={this.close} />
+            <RegionDropdown closeParent={close} />
 
+            {!isMariners ? (
               <NavItem>
-                <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.about}>
-                  About
+                <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.models}>
+                  Model Viewer
                 </NavLink>
               </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    )
-  }
+            ) : null}
 
-  /** Toggle the navbar open and closed when viewed on mobile. */
-  private toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    })
-  }
-
-  private close() {
-    this.setState({
-      isOpen: false,
-    })
-  }
+            <NavItem>
+              <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.about}>
+                About
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
+  )
 }
+
+export default NeracoosNavBar
