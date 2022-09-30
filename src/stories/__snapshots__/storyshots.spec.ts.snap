@@ -386,7 +386,6 @@ exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
   role="group"
 >
   <button
-    aria-label={null}
     className="btn btn-light btn-sm"
     id="Metric"
     onClick={[Function]}
@@ -395,7 +394,6 @@ exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
     Metric
   </button>
   <button
-    aria-label={null}
     className="btn btn-primary btn-sm active"
     id="English"
     onClick={[Function]}
@@ -412,7 +410,6 @@ exports[`Storyshots Units/UnitSelector/configurable Metric 1`] = `
   role="group"
 >
   <button
-    aria-label={null}
     className="btn btn-primary btn-sm active"
     id="Metric"
     onClick={[Function]}
@@ -421,7 +418,6 @@ exports[`Storyshots Units/UnitSelector/configurable Metric 1`] = `
     Metric
   </button>
   <button
-    aria-label={null}
     className="btn btn-light btn-sm"
     id="English"
     onClick={[Function]}
