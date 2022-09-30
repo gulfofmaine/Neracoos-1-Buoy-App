@@ -32,7 +32,7 @@
     "react-query": "^3.34.19",
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.2",
-    "react-scripts": "^5.0.0",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
     "react-use": "^17.3.2",
     "reactstrap": "9.0.1",
