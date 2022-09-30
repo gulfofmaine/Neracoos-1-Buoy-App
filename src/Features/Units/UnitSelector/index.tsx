@@ -8,7 +8,7 @@ import { bindActionCreators, Dispatch } from "redux"
 
 import { StoreState } from "Shared/constants/store"
 
-import { unitSwitch } from "../actions"
+import { unitSwitch } from "../slice"
 import { UnitSystem } from "../types"
 
 export interface ReduxProps {
