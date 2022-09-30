@@ -5360,10 +5360,15 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@17.0.23":
+"@types/node@*":
   version "17.0.23"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.23.tgz#3b41a6e643589ac6442bdbd7a4a3ded62f33f7da"
   integrity sha512-UxDxWn7dl97rKVeVS61vErvw086aCYhDLyvRQZ5Rk65rZKepaFdm53GeqXaKBuOhED4e9uWq34IC3TdSdJJ2Gw==
+
+"@types/node@18.7.23":
+  version "18.7.23"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.23.tgz#75c580983846181ebe5f4abc40fe9dfb2d65665f"
+  integrity sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==
 
 "@types/node@^14.0.10 || ^16.0.0", "@types/node@^14.14.20 || ^16.0.0":
   version "16.11.62"
@@ -5435,10 +5440,10 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@17.0.14":
-  version "17.0.14"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.14.tgz#c8f917156b652ddf807711f5becbd2ab018dea9f"
-  integrity sha512-H03xwEP1oXmSfl3iobtmQ/2dHF5aBHr8aUMwyGZya6OW45G+xtdzmq6HkncefiBt5JU8DVyaWl/nWZbjZCnzAQ==
+"@types/react-dom@18.0.6":
+  version "18.0.6"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.6.tgz#36652900024842b74607a17786b6662dd1e103a1"
+  integrity sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==
   dependencies:
     "@types/react" "*"
 
@@ -5449,10 +5454,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-test-renderer@17.0.1":
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-17.0.1.tgz#3120f7d1c157fba9df0118dae20cb0297ee0e06b"
-  integrity sha512-3Fi2O6Zzq/f3QR9dRnlnHso9bMl7weKCviFmfF6B4LS1Uat6Hkm15k0ZAQuDz+UBq6B3+g+NM6IT2nr5QgPzCw==
+"@types/react-test-renderer@18.0.0":
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-18.0.0.tgz#7b7f69ca98821ea5501b21ba24ea7b6139da2243"
+  integrity sha512-C7/5FBJ3g3sqUahguGi03O79b8afNeSD6T8/GU50oQrJCU0bVCCGQHaGKUbg2Ce8VQEEqTw8/HiS6lXHHdgkdQ==
   dependencies:
     "@types/react" "*"
 
@@ -5463,10 +5468,19 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.42":
+"@types/react@*":
   version "17.0.42"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.42.tgz#8242b9219bf8a911c47f248e327206fea3f4ee5a"
   integrity sha512-nuab3x3CpJ7VFeNA+3HTUuEkvClYHXqWtWd7Ud6AZYW7Z3NH9WKtgU+tFB0ZLcHq+niB/HnzLcaZPqMJ95+k5Q==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@18.0.21":
+  version "18.0.21"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.21.tgz#b8209e9626bb00a34c76f55482697edd2b43cc67"
+  integrity sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -16094,10 +16108,10 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
-redux-devtools-extension@2.13.5:
-  version "2.13.5"
-  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
-  integrity sha512-QQ9BRy77oURHMdGys9rfQcCQDzXZ1T4oW+eUyE5Cg7DNVau69HJzc4YNDMOmpi0Dzpi1zOQgQ2rUpgJta4Lfqg==
+redux-devtools-extension@2.13.9:
+  version "2.13.9"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
+  integrity sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==
 
 redux-first-history@^5.1.1:
   version "5.1.1"
