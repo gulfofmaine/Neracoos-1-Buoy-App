@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Use Redux Toolkit.
+
 Fixes:
 
 ## 0.10.5 - 03/22/2022
