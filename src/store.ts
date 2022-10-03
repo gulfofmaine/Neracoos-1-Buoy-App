@@ -2,15 +2,9 @@ import * as Sentry from "@sentry/react"
 import { createBrowserHistory } from "history"
 import { createReduxHistoryContext } from "redux-first-history"
 import { configureStore } from "@reduxjs/toolkit"
-// import { applyMiddleware, createStore, Store } from "redux"
-// import { composeWithDevTools } from "redux-devtools-extension"
-
-// import rootReducer from "./reducer"
 
 import { mapStateReducer as mapState } from "Features/StatefulMap"
 import { unitReducer as unit } from "Features/Units"
-
-// import { StoreState } from "./Shared/constants/store"
 
 /**
  * Browser history
@@ -45,3 +39,5 @@ export const store = configureStore({
 })
 
 export const history = createReduxHistory(store)
+
+export type RootState = ReturnType<typeof store.getState>

@@ -6,7 +6,7 @@ import { Button, ButtonGroup } from "reactstrap"
 import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { StoreState } from "Shared/constants/store"
+import { RootState } from "store"
 
 import { unitSwitch } from "../slice"
 import { UnitSystem } from "../types"
@@ -16,7 +16,7 @@ export interface ReduxProps {
   switchUnits: (system: UnitSystem) => void
 }
 
-const mapStateToProps = ({ unit }: StoreState): Pick<ReduxProps, "system"> => {
+const mapStateToProps = ({ unit }: RootState): Pick<ReduxProps, "system"> => {
   return {
     system: unit.system,
   }

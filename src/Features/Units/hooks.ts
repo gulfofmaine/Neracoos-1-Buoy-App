@@ -3,9 +3,9 @@
  */
 import { useSelector } from "react-redux"
 
-import { StoreState } from "Shared/constants/store"
+import { RootState } from "store"
 
-const currentUnitSystem = (state: StoreState) => state.unit.system
+const currentUnitSystem = (state: RootState) => state.unit.system
 
 /**
  * Return the current unit system that is connected to Redux updates
