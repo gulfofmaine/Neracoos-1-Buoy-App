@@ -10,7 +10,7 @@
     "@gulfofmaine/tsstac": "0.1.2",
     "@reduxjs/toolkit": "^1.8.6",
     "@sentry/react": "^7.15.0",
-    "@sentry/tracing": "^7.14.2",
+    "@sentry/tracing": "^7.15.0",
     "@turf/bbox-polygon": "6.5.0",
     "@turf/boolean-contains": "6.5.0",
     "@turf/helpers": "6.5.0",
