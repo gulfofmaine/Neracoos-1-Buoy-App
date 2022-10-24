@@ -4029,18 +4029,18 @@
     regenerator-runtime "^0.13.7"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-storyshots@^6.5.12":
-  version "6.5.12"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storyshots/-/addon-storyshots-6.5.12.tgz#15de7897ec7bc9417f685c763ff863f88433e540"
-  integrity sha512-ln7XfMFEZYZnmCoOD6Z2OASmC1lM/UOK7MOUU1YtnHejw+rhvtrF9+hsJJilJpHBjYhNdL7Z6A7utbek9HqE2Q==
+"@storybook/addon-storyshots@^6.5.13":
+  version "6.5.13"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storyshots/-/addon-storyshots-6.5.13.tgz#7c9e4bb64a26221a374d9e84d35d9c1fba7cdad1"
+  integrity sha512-K8t3wB1wD6NrPebdMoG4gXltr26BI2HeQjGo3sVG8B+RNBxJo7leVkCqsTel2qsECiENcr8EFGWclxRgGHuRog==
   dependencies:
     "@jest/transform" "^26.6.2"
-    "@storybook/addons" "6.5.12"
+    "@storybook/addons" "6.5.13"
     "@storybook/babel-plugin-require-context-hook" "1.0.1"
-    "@storybook/client-api" "6.5.12"
-    "@storybook/core" "6.5.12"
-    "@storybook/core-client" "6.5.12"
-    "@storybook/core-common" "6.5.12"
+    "@storybook/client-api" "6.5.13"
+    "@storybook/core" "6.5.13"
+    "@storybook/core-client" "6.5.13"
+    "@storybook/core-common" "6.5.13"
     "@storybook/csf" "0.0.2--canary.4566f4d.1"
     "@types/glob" "^7.1.3"
     "@types/jest" "^26.0.16"
