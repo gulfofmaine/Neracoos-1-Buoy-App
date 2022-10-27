@@ -34,7 +34,7 @@
     "react-redux": "8.0.4",
     "react-router-dom": "6.4.2",
     "react-scripts": "^5.0.1",
-    "react-select": "^5.5.6",
+    "react-select": "^5.5.7",
     "react-use": "^17.4.0",
     "reactstrap": "9.1.4",
     "redux-first-history": "^5.1.1",
