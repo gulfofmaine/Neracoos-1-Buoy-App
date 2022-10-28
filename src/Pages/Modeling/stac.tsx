@@ -151,7 +151,7 @@ export const StacCatalogItems = ({ cat }: { cat: ICatalog | ICollection }) => {
 
   if (itemsQuery.data) {
     return (
-      <UncontrolledAccordion stayOpen={true} defaultOpen={[]} open={"0"} flush={true}>
+      <UncontrolledAccordion stayOpen={true} defaultOpen={[]} flush={true}>
         {itemsQuery.data.map((item) => (
           <StacItem item={item} key={item.id} />
         ))}
