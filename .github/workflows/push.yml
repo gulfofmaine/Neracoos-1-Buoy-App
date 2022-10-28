@@ -147,7 +147,7 @@ jobs:
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
       - name: Start container
-        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
+        run: docker-compose run -d -e "NEXT_PUBLIC_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
 
       - name: CORS Proxy container
         run: docker run -d -p 9090:9090 -e "ALLOWED=http://localhost:3000" gmri/cors-proxy:latest
@@ -251,8 +251,8 @@ jobs:
           tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
-            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
-            REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+            NEXT_PUBLIC_PROXY_ROOT=https://proxy.neracoos.org/
+            NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
 
       - name: Make GitOps directory
         run: mkdir gitops
@@ -325,8 +325,8 @@ jobs:
           tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
-            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
-            REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+            NEXT_PUBLIC_PROXY_ROOT=https://proxy.neracoos.org/
+            NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
 
       - name: Make GitOps directory
         run: mkdir gitops

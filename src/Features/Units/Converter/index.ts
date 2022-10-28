@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/react"
+// import * as Sentry from "@sentry/react"
 import { data_types, Passthrough } from "./data_types"
 import { DataTypeConversion } from "./conversions"
 
@@ -18,7 +18,7 @@ export const converter = (data_type: string): DataTypeConversion => {
     return dataConverter
   }
 
-  Sentry.captureMessage(`Invalid data type attempting to be converted ${data_type}`)
+  // Sentry.captureMessage(`Invalid data type attempting to be converted ${data_type}`)
 
   return new Passthrough("unknown", "Unknown Data Type", "unknown", "Unknown")
 }

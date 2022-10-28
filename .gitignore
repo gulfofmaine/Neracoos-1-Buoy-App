@@ -39,3 +39,7 @@ docker-hub-secret.yaml
 
 storybook-public
 .eslintcache
+src/.next/cache
+src/.next/server
+src/.next/static
+src/.next

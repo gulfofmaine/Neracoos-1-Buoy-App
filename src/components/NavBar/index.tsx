@@ -1,8 +1,9 @@
+"use client"
 /**
  * Navbar component
  */
 import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink } from "./navLink"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -32,24 +33,16 @@ const NeracoosNavBar = () => {
 
         <Collapse isOpen={isOpen} navbar={true} className="justify-content-end">
           <Nav className="ml-auto" navbar={true}>
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.home}>
-              Home
-            </NavLink>
+            <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
-
             {!isMariners ? (
               <NavItem>
-                <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.models}>
-                  Model Viewer
-                </NavLink>
+                <NavLink href={paths.models}>Model Viewer</NavLink>
               </NavItem>
             ) : null}
-
             <NavItem>
-              <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.about}>
-                About
-              </NavLink>
+              <NavLink href={paths.about}>About</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

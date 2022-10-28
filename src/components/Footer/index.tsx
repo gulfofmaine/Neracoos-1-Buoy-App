@@ -1,11 +1,12 @@
-import * as React from "react"
-import { Col, Row } from "reactstrap"
+import React from "react"
+
+import { Col, Row } from "components/Bootstrap/layout"
 
 const textStyle = { fontSize: ".8rem", padding: ".25rem" }
 
 const colSize = 10
 
-export const Footer: React.FunctionComponent = () => (
+export const Footer = () => (
   <div className="footer">
     <Row style={{ ...textStyle, paddingTop: "1rem" }}>
       <Col md={colSize} className="mx-auto text-center">
