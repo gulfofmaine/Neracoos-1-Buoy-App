@@ -9,7 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@gulfofmaine/tsstac": "0.1.2",
     "@reduxjs/toolkit": "^1.8.6",
-    "@sentry/react": "^7.16.0",
+    "@sentry/react": "^7.17.2",
     "@sentry/tracing": "^7.17.2",
     "@turf/bbox-polygon": "6.5.0",
     "@turf/boolean-contains": "6.5.0",
