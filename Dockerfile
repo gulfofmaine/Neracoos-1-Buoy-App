@@ -1,5 +1,5 @@
 #syntax=docker/dockerfile:1.2
-FROM node:19.0.0-alpine@sha256:1a04e2ec39cc0c3a9657c1d6f8291ea2f5ccadf6ef4521dec946e522833e87ea as develop
+FROM node:19.0.1-alpine@sha256:00c5c0850a48bbbf0136f1c886bad52784f9816a8d314a99307d734598359ed4 as develop
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
