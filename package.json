@@ -22,7 +22,7 @@
     "highcharts": "^10",
     "jsurl2": "^2.1.0",
     "moment": "2.29.4",
-    "moment-timezone": "0.5.38",
+    "moment-timezone": "0.5.39",
     "ol": "^7.1.0",
     "prop-types": "^15.8.1",
     "react": "16.14.0",
