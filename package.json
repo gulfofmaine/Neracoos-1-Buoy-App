@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://mariners.neracoos.org/",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@gulfofmaine/tsstac": "0.1.3",
@@ -78,7 +78,7 @@
     "webpack": "5"
   },
   "optionalDependencies": {
-    "cypress": "11.0.1"
+    "cypress": "11.1.0"
   },
   "prettier": {
     "semi": false,
