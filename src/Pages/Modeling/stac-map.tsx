@@ -11,6 +11,9 @@ import { useLayer, useView, usePoint, useTime } from "./query-hooks"
 import { useItemByIdQuery } from "./stac-queries"
 import { initialView } from "./types"
 
+/**
+ * Display a map with selected data loaded
+ */
 export const StacMap = () => {
   const [point, setPoint] = usePoint()
   const [{ center, zoom }, setView] = useView()
@@ -38,6 +41,11 @@ export const StacMap = () => {
   )
 }
 
+/**
+ * Display selected point
+ *
+ * @param x,y coordinates of point
+ */
 const SelectedPoint = ({
   point,
   setPoint,
@@ -75,6 +83,10 @@ const SelectedPoint = ({
   )
 }
 
+/**
+ * Load WMS layer if a STAC layer is selected
+ * @returns WMS Layer if STAC Item is selected
+ */
 const SelectedLayerWMS = () => {
   const [currentLayer, setLayer] = useLayer()
 
@@ -85,6 +97,11 @@ const SelectedLayerWMS = () => {
   return null
 }
 
+/**
+ * Load WMS layer for a selected STAC item and variable
+ * @param layerID STAC Item unique ID to load from root catalog
+ * @param dataVar STAC Item variable to display
+ */
 const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) => {
   const itemQuery = useItemByIdQuery(layerId)
   const [time, setTime] = useTime()

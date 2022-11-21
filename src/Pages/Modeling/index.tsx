@@ -13,7 +13,7 @@ import { StacMap } from "./stac-map"
 import { useItemsByIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { Layer, LoadedData } from "./types"
 
-export const ModelingPage: React.FC = () => {
+export const ModelingPage = () => {
   return (
     <React.Fragment>
       <Row>
