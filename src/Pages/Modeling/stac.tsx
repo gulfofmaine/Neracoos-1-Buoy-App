@@ -11,6 +11,7 @@ import {
   Input,
   ListGroup,
   ListGroupItem,
+  ListGroupItemHeading,
   Nav,
   NavItem,
   NavLink,
@@ -68,10 +69,6 @@ async function getChild(
   parent?: ICatalog | ICollection,
   root_catalog?: ICatalog
 ): Promise<ICatalog | ICollection> {
-  // const response = await fetch(url)
-  // const json = await response.json()
-
-  // return json as ICatalog | ICollection
   return (await stac.get(url, { parent, root: root_catalog })) as ICatalog | ICollection
 }
 
@@ -115,10 +112,6 @@ export const StacCatalogRoot = () => {
   if (catalogQuery.data) {
     return (
       <div style={{ height: "60vh", overflow: "scroll" }}>
-        {/* <StacCatalogCollection cat={catalogQuery.data} /> */}
-        {/* Loaded root catalog */}
-        {/* <StacTraverse catalog={catalogQuery.data} /> */}
-        {/* Loaded catalog */}
         <STACTraverseBase catalog={catalogQuery.data} />
       </div>
     )
@@ -132,7 +125,6 @@ const STACTraverseBase = ({ catalog }: { catalog: ICatalog }) => {
     .get_child_links()
     .map((link) => ({ parent: catalog, url: catalog.url_for_link(link) }))
 
-  // return <React.Fragment>Loaded root catalog</React.Fragment>
   return <STACCollectionsLoader catalog={catalog} initial_children_urls={new Set(root_children_urls)} />
 }
 
@@ -220,23 +212,6 @@ const STACItemsLoader = ({ catalog, itemUrls }: { catalog: ICatalog; itemUrls: S
     return result
   }, {})
 
-  // Find the item for each collection with the latest forecast_reference_time
-  // let latestItems = {}
-  // Object.keys(itemsByCollection).forEach((key) => {
-  //   const items = itemsByCollection[key]
-
-  //   const item = items.reduce((a, b) => {
-  //     const a_date = new Date(a.properties["cube:dimensions"].forecast_reference_time.values[0])
-  //     const b_date = new Date(b.properties["cube:dimensions"].forecast_reference_time.values[0])
-
-  //     if (a_date.valueOf() < b_date.valueOf()) {
-  //       return b
-  //     }
-  //     return a
-  //   })
-  //   latestItems[key] = item
-  // })
-
   const latestItems = Object.keys(itemsByCollection).map((key) => {
     const items = itemsByCollection[key]
 
@@ -258,7 +233,7 @@ const STACItemsLoader = ({ catalog, itemUrls }: { catalog: ICatalog; itemUrls: S
     Object.keys(item.properties["cube:variables"]).forEach((itemVar) => {
       const attrs = item.properties["cube:variables"][itemVar]["gmri-cube:attrs"]
 
-      if (attrs.hasOwnProperty("ioos_category") && attrs.hasOwnProperty("standard_name")) {
+      if (attrs && attrs.hasOwnProperty("ioos_category") && attrs.hasOwnProperty("standard_name")) {
         const ioos_category = attrs.ioos_category
         const standard_name = attrs.standard_name
 
@@ -275,140 +250,119 @@ const STACItemsLoader = ({ catalog, itemUrls }: { catalog: ICatalog; itemUrls: S
     })
   })
 
+  if (0 < latestItems.length) {
+    return <IoosCategories items={ioosCategoryItems} />
+  }
+
   return <React.Fragment>Loading items</React.Fragment>
 }
 
-export const StacCatalogCollection = ({ cat }: { cat: ICatalog | ICollection }) => {
-  const childrenQuery = useQuery(["stac-children", cat.id], async () => {
-    const children = await cat.get_children()
-    return children
-  })
+interface StandardNameItems {
+  [key: string]: IItem[]
+}
 
-  if (childrenQuery.isLoading) {
-    return <div>Loading children for {cat.id}</div>
+interface IoosCategoryItems {
+  [key: string]: StandardNameItems
+}
+
+const sortAlphabetically = (a: string, b: string) => {
+  if (a < b) {
+    return -1
   }
+  if (b < a) {
+    return 1
+  }
+  return 0
+}
 
-  if (childrenQuery.data) {
-    // if (0 < childrenQuery.data.length) {
-    return (
-      <React.Fragment>
-        {cat.title}
-        <ListGroup flush={true}>
-          {childrenQuery.data.map((child) => (
-            <ListGroupItem key={child.id} style={{ paddingRight: 8 }}>
-              <StacCatalogCollection cat={child} key={child.id} />
-            </ListGroupItem>
-          ))}
-        </ListGroup>
-        <StacCatalogItems cat={cat} />
-      </React.Fragment>
+const IoosCategories = ({ items }: { items: IoosCategoryItems }) => {
+  const categories = Object.keys(items).sort(sortAlphabetically)
+  return (
+    <ListGroup flush={true}>
+      {categories.map((category) => {
+        const categoryStandards = items[category]
+        const standards = Object.keys(categoryStandards).sort(sortAlphabetically)
+        return (
+          <ListGroupItem key={category}>
+            <ListGroupItemHeading>{category}</ListGroupItemHeading>
+            <UncontrolledAccordion defaultOpen={[]} stayOpen={true} flush={true}>
+              {standards.map((standard) => {
+                const standardItems = categoryStandards[standard]
+                return <StandardName key={standard} standard_name={standard} items={standardItems} />
+              })}
+            </UncontrolledAccordion>
+          </ListGroupItem>
+        )
+      })}
+    </ListGroup>
+  )
+}
+
+const StandardName = ({ standard_name, items }: { standard_name: string; items: IItem[] }) => {
+  const long_name = items
+    .map((item) =>
+      Object.values(item.properties["cube:variables"])
+        .filter(
+          (value) =>
+            (value as object)["gmri-cube:attrs"].standard_name === standard_name &&
+            (value as object)["gmri-cube:attrs"].hasOwnProperty("long_name")
+        )
+        .map((value) => (value as object)["gmri-cube:attrs"].long_name)
     )
-    // }
-    // return
-  }
-
-  return <div>Error loading children for {cat.id}</div>
-}
-
-export const StacCatalogItems = ({ cat }: { cat: ICatalog | ICollection }) => {
-  const itemsQuery = useQuery(["stac-items", cat.id], async () => {
-    const items = await cat.get_items()
-    return items
-  })
-
-  if (itemsQuery.isLoading) {
-    return <li>Loading items for {cat.id}</li>
-  }
-
-  if (itemsQuery.data) {
-    return (
-      <UncontrolledAccordion stayOpen={true} defaultOpen={[]} flush={true}>
-        {itemsQuery.data.map((item) => (
-          <StacItem item={item} key={item.id} />
-        ))}
-      </UncontrolledAccordion>
-    )
-  }
-
-  return <li>Error loading items for {cat.id}</li>
-}
-
-interface ForecastItem extends IItem {
-  properties: {
-    ["cube:dimensions"]: {
-      forecast_reference_time: {
-        values: string[]
-      }
-    }
-    ["cube:variables"]: {
-      [key: string]: {
-        type: string
-        dimensions: string[]
-        extent: [number, number]
-        description?: string
-        unit?: string
-      }
-    }
-  }
-}
-
-const StacItem = ({ item }: { item: IItem }) => {
-  const [currentLayer, setLayer] = useLayer()
-  const [compareLayers, toggleCompareLayer] = useCompare()
-
-  const variables = (item as unknown as ForecastItem).properties["cube:variables"]
-
-  // debugger
-
-  let title: string = item.id
-
-  if ((item as unknown as ForecastItem).properties["cube:dimensions"].forecast_reference_time?.values[0]) {
-    const forecastDate = (item as ForecastItem).properties["cube:dimensions"].forecast_reference_time.values[0]
-
-    title = `Forecasted at ${forecastDate}`
-  }
+    .flat()[0]
 
   return (
     <AccordionItem>
-      <AccordionHeader targetId={item.id}>{title}</AccordionHeader>
-      <AccordionBody accordionId={item.id}>
-        <Table size="sm">
-          <tbody>
-            {Object.entries(variables).map(([key, values]) => (
-              <tr key={key}>
-                <td>{values.description ?? key}</td>
-                <td>
-                  <Button
-                    size="sm"
-                    color="primary"
-                    outline={true}
-                    active={currentLayer.id === item.id && (currentLayer.vars?.includes(key) ?? false)}
-                    onClick={() => {
-                      setLayer({ id: item.id, vars: [key] })
-                    }}
-                    style={{ textAlign: "left" }}
-                  >
-                    Map
-                  </Button>
-                </td>
-                <td>
-                  <Button
-                    size="sm"
-                    color="primary"
-                    outline={true}
-                    active={compareLayers.find((l) => l.id === item.id && l.vars.includes(key)) ? true : false}
-                    onClick={() => {
-                      toggleCompareLayer({ id: item.id, vars: [key] })
-                    }}
-                  >
-                    Compare
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+      <AccordionHeader targetId={standard_name}>{long_name}</AccordionHeader>
+      <AccordionBody accordionId={standard_name}>
+        <ListGroup flush={true}>
+          {items.map((item) => {
+            return <StandardItem key={item.id} standard_name={standard_name} item={item} />
+          })}
+        </ListGroup>
       </AccordionBody>
     </AccordionItem>
+  )
+}
+
+const buttonStyle = {
+  size: "sm",
+  color: "primary",
+  outline: true,
+}
+
+const StandardItem = ({ standard_name, item }: { standard_name: string; item: IItem }) => {
+  const [currentLayer, setLayer] = useLayer()
+  const [compareLayers, toggleCompareLayer] = useCompare()
+
+  const cube_variable = Object.entries(item.properties["cube:variables"]).find(
+    ([key, value]) => (value as object)["gmri-cube:attrs"].standard_name === standard_name
+  )
+
+  const [key, value] = cube_variable as [string, object]
+
+  return (
+    <ListGroupItem>
+      {item.parent?.title ?? item.title ?? item.id}
+      <br />
+      <Button
+        {...buttonStyle}
+        active={currentLayer.id === item.id && (currentLayer.vars?.includes(key) ?? false)}
+        onClick={() => {
+          setLayer({ id: item.id, vars: [key] })
+        }}
+      >
+        Map
+      </Button>
+      <Button
+        {...buttonStyle}
+        active={compareLayers.find((l) => l.id === item.id && l.vars.includes(key)) ? true : false}
+        onClick={() => {
+          toggleCompareLayer({ id: item.id, vars: [key] })
+        }}
+      >
+        Compare
+      </Button>
+    </ListGroupItem>
   )
 }
