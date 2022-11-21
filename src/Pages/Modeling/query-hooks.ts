@@ -9,7 +9,7 @@ import { round } from "Shared/math"
 
 import { IItem } from "@gulfofmaine/tsstac"
 
-import { useItemQuery, useRootCatalogQuery } from "./stac"
+import { useItemByIdQuery } from "./stac-queries"
 import { Layer, initialLayer, initialView } from "./types"
 
 /**
@@ -66,7 +66,7 @@ export function useLayer(): [Layer, (Layer) => void] {
 export function useCurrentItem(): [Layer?, IItem?] {
   const [layer, setLayer] = useLayer()
 
-  const itemQuery = useItemQuery(layer.id ?? "", !!layer.id)
+  const itemQuery = useItemByIdQuery(layer.id ?? "", !!layer.id)
 
   return [layer, itemQuery.data]
 }

@@ -10,88 +10,12 @@ import {
   ListGroupItem,
   ListGroupItemHeading,
 } from "reactstrap"
-import { useQuery, useQueries } from "react-query"
+import { useQueries } from "react-query"
 
-import STAC, { ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
-
-import { queryClient } from "queryClient"
+import { ICatalog, ICollection, IItem } from "@gulfofmaine/tsstac"
 
 import { useCompare, useLayer } from "./query-hooks"
-
-/** Use React Query to manage STAC store */
-export const reactQueryFetcher = async (url: string): Promise<IFetchData> => {
-  const data = await queryClient.fetchQuery(["stac-fetch", url], async () => {
-    const result = await fetch(url)
-    if (!result.ok) {
-      throw new Error("Network response was not ok")
-    }
-    const json = await result.json()
-    return json
-  })
-  return data
-}
-
-export const stac = new STAC(reactQueryFetcher)
-
-/**
- * Fetch the root catalog
- * @returns Root catalog
- */
-async function fetchRootCatalog(): Promise<ICatalog> {
-  const catalog = await stac.get_root_catalog("https://data.neracoos.org/stac/catalog.json")
-  return catalog
-}
-
-/**
- * Hook for root catalog
- * @returns hook for the root catalog
- */
-export const useRootCatalogQuery = () => {
-  return useQuery<ICatalog>("stac-catalog", fetchRootCatalog, { refetchOnWindowFocus: false })
-}
-
-async function getItem(catalog: ICatalog, id: string, depth: number = -1): Promise<IItem> {
-  const item = await catalog.get_item(id, depth)
-  return item
-}
-
-async function getChild(
-  url: string,
-  parent?: ICatalog | ICollection,
-  root_catalog?: ICatalog
-): Promise<ICatalog | ICollection> {
-  return (await stac.get(url, { parent, root: root_catalog })) as ICatalog | ICollection
-}
-
-async function getItemByUrl(url: string, parent?: ICatalog | ICollection, root_catalog?: ICatalog): Promise<IItem> {
-  return (await stac.get(url, { parent, root: root_catalog })) as IItem
-}
-
-export function useItemQuery(id: string, enabled: boolean = true) {
-  const catalogQuery = useRootCatalogQuery()
-  return useQuery<IItem>(
-    ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
-    () => getItem(catalogQuery.data!, id),
-    {
-      refetchOnWindowFocus: false,
-      enabled: enabled && !!catalogQuery.data,
-    }
-  )
-}
-
-export function useItemsQuery(ids: string[], enabled: boolean = true) {
-  const catalogQuery = useRootCatalogQuery()
-  return useQueries<IItem[]>(
-    ids.map((id) => {
-      return {
-        queryKey: ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
-        queryFn: () => getItem(catalogQuery.data!, id),
-        refetchOnWindowFocus: false,
-        enabled: enabled && !!catalogQuery.data,
-      }
-    })
-  )
-}
+import { useRootCatalogQuery, getChildByUrl, getItemByUrl } from "./stac-queries"
 
 export const StacCatalogRoot = () => {
   const catalogQuery = useRootCatalogQuery()
@@ -138,7 +62,7 @@ const STACCollectionsLoader = ({
   const childrenQueries = useQueries(
     Array.from(childrenUrls).map(({ url, parent }) => ({
       queryKey: ["get-stac-child", { url }],
-      queryFn: () => getChild(url as string, parent, catalog),
+      queryFn: () => getChildByUrl(url as string, parent, catalog),
       refetchOnWindowFocus: false,
     }))
   )

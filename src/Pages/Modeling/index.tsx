@@ -46,7 +46,8 @@ import {
   useTime,
   useCurrentItem,
 } from "./query-hooks"
-import { StacCatalogRoot, useItemQuery, useItemsQuery, useRootCatalogQuery } from "./stac"
+import { StacCatalogRoot } from "./stac"
+import { useItemByIdQuery, useItemsByIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { initialView, Layer, LoadedData } from "./types"
 
 export const ModelingPage: React.FC = () => {
@@ -165,7 +166,7 @@ const SelectedLayerWMS = () => {
 }
 
 const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) => {
-  const itemQuery = useItemQuery(layerId)
+  const itemQuery = useItemByIdQuery(layerId)
   const [time, setTime] = useTime()
 
   if (itemQuery.data) {
@@ -256,7 +257,7 @@ const ItemsLoader = ({
   point: [number, number]
   // param: string
 }) => {
-  const itemsQuery = useItemsQuery(layers.map((l) => l.id!))
+  const itemsQuery = useItemsByIdsQuery(layers.map((l) => l.id!))
 
   const loaded: [IItem, Layer] = itemsQuery
     .map((itemResult, index) => [itemResult, layers[index]] as [UseQueryResult<IItem, Error>, Layer])
