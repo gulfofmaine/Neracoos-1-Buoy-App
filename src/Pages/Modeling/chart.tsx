@@ -58,7 +58,16 @@ const ModelChartBase = ({ loaded }: Props) => {
       data.push(layer_data)
     })
   })
-  //   debugger
+
+  let by_standard = {}
+
+  data.forEach((d) => {
+    if (!by_standard.hasOwnProperty(d.standard_name)) {
+      by_standard[d.standard_name] = []
+    }
+
+    by_standard[d.standard_name].push(d)
+  })
 
   return (
     <HighchartsChart colors={colorCycle}>
@@ -68,17 +77,20 @@ const ModelChartBase = ({ loaded }: Props) => {
 
       <XAxis type="datetime" />
 
-      {/* <YAxis>
-        {data.map((d) => (
-          <SplineSeries key={d.id} id={d.id} name={d.description} data={d.data} marker={{ enabled: false }} />
-        ))}
-      </YAxis> */}
-      {data.map((d) => (
-        <YAxis key={d.id}>
-          <YAxis.Title>{d.unit}</YAxis.Title>
-          <SplineSeries id={d.id} name={d.description} data={d.data} marker={{ enabled: false }} />
-        </YAxis>
-      ))}
+      {Object.keys(by_standard).map((key) => {
+        const series = by_standard[key]
+
+        return (
+          <YAxis key={key}>
+            <YAxis.Title>{series[0].unit}</YAxis.Title>
+            {series.map((s) => {
+              return (
+                <SplineSeries key={s.id} id={s.id} name={s.description} data={s.data} marker={{ enabled: false }} />
+              )
+            })}
+          </YAxis>
+        )
+      })}
       <Tooltip />
     </HighchartsChart>
   )
