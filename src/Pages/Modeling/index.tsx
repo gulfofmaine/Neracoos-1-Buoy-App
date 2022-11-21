@@ -1,59 +1,19 @@
-import JSURL from "jsurl2"
-import { Point } from "ol/geom"
-import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
-import { useSearchParams } from "react-router-dom"
-import type { NavigateOptions } from "react-router-dom"
 import Select from "react-select"
-import {
-  UncontrolledAccordion,
-  AccordionHeader,
-  AccordionBody,
-  AccordionItem,
-  Button,
-  ButtonGroup,
-  Col,
-  Row,
-  Input,
-  ListGroup,
-  ListGroupItem,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Table,
-} from "reactstrap"
-import { useQuery, UseQueryResult, useQueries } from "react-query"
-import { RMap, RLayerTileWMS, RLayerTile, RLayerVector, RFeature, RStyle, RControl } from "rlayers"
-import type { RView } from "rlayers/RMap"
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Table } from "reactstrap"
+import { UseQueryResult, useQueries } from "react-query"
 
-import STAC, { IAsset, ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
+import { IAsset, IItem } from "@gulfofmaine/tsstac"
 // import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
 
-import { queryClient } from "queryClient"
-import { round } from "Shared/math"
-import { colors } from "Shared/colors"
-
 import { ModelChart } from "./chart"
-import {
-  useCompare,
-  useLayer,
-  useQueryParam,
-  useView,
-  usePoint,
-  useTable,
-  useTime,
-  useCurrentItem,
-} from "./query-hooks"
-import { StacCatalogRoot } from "./stac"
-import { useItemByIdQuery, useItemsByIdsQuery, useRootCatalogQuery } from "./stac-queries"
-import { initialView, Layer, LoadedData } from "./types"
+import { useCompare, useLayer, usePoint, useTable, useTime, useCurrentItem } from "./query-hooks"
+import { StacCatalogRoot } from "./stac-catalog"
+import { StacMap } from "./stac-map"
+import { useItemsByIdsQuery, useRootCatalogQuery } from "./stac-queries"
+import { Layer, LoadedData } from "./types"
 
 export const ModelingPage: React.FC = () => {
-  const [point, setPoint] = usePoint()
-  const [{ center, zoom }, setView] = useView()
-
   return (
     <React.Fragment>
       <Row>
@@ -62,25 +22,7 @@ export const ModelingPage: React.FC = () => {
         </Col>
 
         <Col md={9} style={{ paddingLeft: 0 }}>
-          <RMap
-            width={"100%"}
-            height={"60vh"}
-            className="model-map"
-            initial={{ center: fromLonLat(initialView.center), zoom: initialView.zoom }}
-            view={[{ center: fromLonLat(center), zoom }, setView]}
-            onClick={(event) => {
-              const coords = toLonLat(event.map.getCoordinateFromPixel(event.pixel))
-
-              setPoint([round(coords[0]), round(coords[1])])
-            }}
-          >
-            <RLayerTile url="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}" />
-            <RLayerTile url="http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}" />
-
-            <SelectedLayerWMS />
-
-            {point ? <SelectedPoint point={point} setPoint={setPoint} /> : null}
-          </RMap>
+          <StacMap />
         </Col>
       </Row>
 
@@ -113,86 +55,6 @@ const TimeControl = () => {
         }}
       />
     )
-  }
-
-  return null
-}
-
-const SelectedPoint = ({
-  point,
-  setPoint,
-}: {
-  point: [number, number]
-  setPoint: ([x, y]: [number, number]) => void
-}) => {
-  return (
-    <RLayerVector>
-      <RFeature
-        geometry={new Point(fromLonLat(point))}
-        // Enable dragging of point, though the map springs back despite prevent defaults
-        // onPointerDrag={React.useCallback((e) => {
-        //   const coords = e.map.getCoordinateFromPixel(e.pixel)
-        //   e.target.setGeometry(new Point(coords))
-        //   e.preventDefault()
-        //   return false
-        // }, [])}
-        // onPointerDragEnd={React.useCallback((e) => {
-        //   const coords = toLonLat(e.map.getCoordinateFromPixel(e.pixel))
-        //   e.preventDefault()
-        //   setPoint([round(coords[0]), round(coords[1])])
-        // }, [])}
-        // onPointerEnter={React.useCallback((e) => (e.map.getTargetElement().style.cursor = "move") && undefined, [])}
-        // onPointerLeave={React.useCallback((e) => (e.map.getTargetElement().style.cursor = "initial") && undefined, [])}
-      >
-        <RStyle.RStyle>
-          <RStyle.RCircle radius={10}>
-            <RStyle.RFill color={colors.whatOrange} />
-            <RStyle.RStroke color="grey" width={1.5} />
-          </RStyle.RCircle>
-        </RStyle.RStyle>
-      </RFeature>
-    </RLayerVector>
-  )
-}
-
-const SelectedLayerWMS = () => {
-  const [currentLayer, setLayer] = useLayer()
-
-  if (currentLayer.id && currentLayer.vars.length > 0) {
-    return <LayerWMS layerId={currentLayer.id} dataVar={currentLayer.vars[0]} />
-  }
-
-  return null
-}
-
-const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) => {
-  const itemQuery = useItemByIdQuery(layerId)
-  const [time, setTime] = useTime()
-
-  if (itemQuery.data) {
-    const wms_asset: IAsset | undefined = Object.values(itemQuery.data.assets).find((asset: IAsset) =>
-      asset.roles.includes("wms")
-    )
-    const wms_href = wms_asset?.href
-
-    if (wms_href) {
-      return (
-        <RLayerTileWMS
-          url={wms_href}
-          key={wms_href + dataVar + time}
-          opacity={0.7}
-          params={{
-            // STYLES: "boxfill/sst_36",
-            // transparent: "true",
-            layers: dataVar,
-            STYLES: "default",
-            // STYLES: "x-Occam",
-            time,
-            COLORSCALERANGE: "0,5",
-          }}
-        />
-      )
-    }
   }
 
   return null
