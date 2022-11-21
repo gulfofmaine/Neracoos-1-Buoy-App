@@ -6,22 +6,13 @@ import {
   AccordionItem,
   Button,
   ButtonGroup,
-  Col,
-  Row,
-  Input,
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Table,
 } from "reactstrap"
-import { useQuery, useQueries, UseQueryResult } from "react-query"
+import { useQuery, useQueries } from "react-query"
 
-import STAC, { IAsset, ICatalog, ICollection, IItem, IFetchData, ISTAC } from "@gulfofmaine/tsstac"
+import STAC, { ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
 
 import { queryClient } from "queryClient"
 
@@ -281,20 +272,43 @@ const IoosCategories = ({ items }: { items: IoosCategoryItems }) => {
     <ListGroup flush={true}>
       {categories.map((category) => {
         const categoryStandards = items[category]
-        const standards = Object.keys(categoryStandards).sort(sortAlphabetically)
-        return (
-          <ListGroupItem key={category}>
-            <ListGroupItemHeading>{category}</ListGroupItemHeading>
-            <UncontrolledAccordion defaultOpen={[]} stayOpen={true} flush={true}>
-              {standards.map((standard) => {
-                const standardItems = categoryStandards[standard]
-                return <StandardName key={standard} standard_name={standard} items={standardItems} />
-              })}
-            </UncontrolledAccordion>
-          </ListGroupItem>
-        )
+        // const standards = Object.keys(categoryStandards).sort(sortAlphabetically)
+        // return (
+        //   <ListGroupItem key={category}>
+        //     <ListGroupItemHeading>{category}</ListGroupItemHeading>
+        //     <UncontrolledAccordion defaultOpen={[]} stayOpen={true} flush={true}>
+        //       {standards.map((standard) => {
+        //         const standardItems = categoryStandards[standard]
+        //         return <StandardName key={standard} standard_name={standard} items={standardItems} />
+        //       })}
+        //     </UncontrolledAccordion>
+        //   </ListGroupItem>
+        // )
+        return <CategoryAccordion key={category} category={category} categoryStandards={categoryStandards} />
       })}
     </ListGroup>
+  )
+}
+
+const CategoryAccordion = ({
+  category,
+  categoryStandards,
+}: {
+  category: string
+  categoryStandards: StandardNameItems
+}) => {
+  const standards = Object.keys(categoryStandards).sort(sortAlphabetically)
+
+  return (
+    <ListGroupItem>
+      <ListGroupItemHeading>{category}</ListGroupItemHeading>
+      <UncontrolledAccordion defaultOpen={[]} stayOpen={true} flush={true}>
+        {standards.map((standard) => {
+          const standardItems = categoryStandards[standard]
+          return <StandardName key={standard} standard_name={standard} items={standardItems} />
+        })}
+      </UncontrolledAccordion>
+    </ListGroupItem>
   )
 }
 
@@ -345,24 +359,26 @@ const StandardItem = ({ standard_name, item }: { standard_name: string; item: II
     <ListGroupItem>
       {item.parent?.title ?? item.title ?? item.id}
       <br />
-      <Button
-        {...buttonStyle}
-        active={currentLayer.id === item.id && (currentLayer.vars?.includes(key) ?? false)}
-        onClick={() => {
-          setLayer({ id: item.id, vars: [key] })
-        }}
-      >
-        Map
-      </Button>
-      <Button
-        {...buttonStyle}
-        active={compareLayers.find((l) => l.id === item.id && l.vars.includes(key)) ? true : false}
-        onClick={() => {
-          toggleCompareLayer({ id: item.id, vars: [key] })
-        }}
-      >
-        Compare
-      </Button>
+      <ButtonGroup>
+        <Button
+          {...buttonStyle}
+          active={currentLayer.id === item.id && (currentLayer.vars?.includes(key) ?? false)}
+          onClick={() => {
+            setLayer({ id: item.id, vars: [key] })
+          }}
+        >
+          Map
+        </Button>
+        <Button
+          {...buttonStyle}
+          active={compareLayers.find((l) => l.id === item.id && l.vars.includes(key)) ? true : false}
+          onClick={() => {
+            toggleCompareLayer({ id: item.id, vars: [key] })
+          }}
+        >
+          Compare
+        </Button>
+      </ButtonGroup>
     </ListGroupItem>
   )
 }
