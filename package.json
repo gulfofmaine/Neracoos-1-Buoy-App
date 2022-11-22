@@ -17,7 +17,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
     "@types/react-responsive": "8.0.5",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "convert-units": "2.3.4",
     "highcharts": "^10",
     "jsurl2": "^2.1.0",
