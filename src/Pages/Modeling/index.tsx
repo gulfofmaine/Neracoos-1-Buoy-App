@@ -1,6 +1,6 @@
 import React from "react"
 import Select from "react-select"
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Table } from "reactstrap"
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap"
 import { UseQueryResult, useQueries } from "react-query"
 
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
@@ -12,6 +12,7 @@ import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
 import { useItemsByIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { Layer, LoadedData } from "./types"
+import { EdrTable } from "./table"
 
 export const ModelingPage = () => {
   return (
@@ -190,6 +191,10 @@ const ItemLayersTabs = ({
   const edrLoading = edrQueries.filter((query) => query.isLoading).length > 0
   const edrError = edrQueries.filter((query) => query.error).length > 0
 
+  const now = new Date()
+  const hourInMlSeconds = 60 * 60 * 1000
+  const hourAgo = new Date(now.valueOf() - hourInMlSeconds)
+
   return (
     <div>
       <Nav tabs={true}>
@@ -222,46 +227,10 @@ const ItemLayersTabs = ({
         </TabPane>
 
         <TabPane tabId="table">
-          {/* <EdrTable loaded={loaded} /> */}
-          Table
+          <EdrTable loaded={loaded} after={hourAgo} />
+          {/* Table */}
         </TabPane>
       </TabContent>
     </div>
-  )
-}
-
-const EdrTable = ({ loaded }) => {
-  return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Time</th>
-          {loaded.map((l) => {
-            const id = l.data.layer.id
-            const parameters = Object.keys(l.data.response.parameters)
-            return (
-              <th key={id} colSpan={parameters.length}>
-                {id}
-              </th>
-            )
-          })}
-        </tr>
-        <tr>
-          <th />
-          {loaded.map((l) => {
-            const id = l.data.layer.id
-            const parameters = Object.keys(l.data.response.parameters)
-
-            return (
-              <React.Fragment>
-                {parameters.map((p) => (
-                  <th key={id + p}>{p}</th>
-                ))}
-              </React.Fragment>
-            )
-          })}
-        </tr>
-      </thead>
-    </Table>
   )
 }

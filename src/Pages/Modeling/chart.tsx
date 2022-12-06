@@ -11,18 +11,10 @@ import {
   YAxis,
 } from "react-jsx-highcharts"
 
-import { IItem } from "@gulfofmaine/tsstac"
-
-import { colors, colorCycle } from "Shared/colors"
+import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 
-import { Layer, EDRResponse, LoadedData } from "./types"
-
-// interface LoadedData {
-//   item: IItem
-//   layer: Layer
-//   response: EDRResponse
-// }
+import { LoadedData } from "./types"
 
 interface Props {
   loaded: LoadedData[]
