@@ -39,7 +39,7 @@ export const EdrTable = ({ loaded, after }: { loaded: LoadedData[]; after: Date 
                       unit={unit}
                       loadedTimes={loadedTimes}
                       response={response}
-                      key={l_var}
+                      key={`${item.id}-${l_var}`}
                     />
                   )
                 })}
@@ -75,7 +75,7 @@ const ItemVarRow = ({
   response: EDRResponse
 }) => {
   return (
-    <tr key={l_var}>
+    <tr key={`${item.id}-${l_var}`}>
       {i === 0 ? (
         <th rowSpan={layer.vars.length}>
           <ItemInfo item={item} />
@@ -84,16 +84,16 @@ const ItemVarRow = ({
       <th scope="row">
         {standard_name} - {unit}
       </th>
-      {loadedTimes.map((t) => {
+      {loadedTimes.map((t, index_key) => {
         const t_index = response.domain.axes.t.values.indexOf(t)
 
         // empty cell if there isn't a value for the time
         if (t_index < 0) {
-          return <td />
+          return <td key={index_key} />
         }
 
         const value = response.ranges[l_var].values[t_index]
-        return <td key={t}>{round(value as number)}</td>
+        return <td key={index_key}>{round(value as number)}</td>
       })}
     </tr>
   )
