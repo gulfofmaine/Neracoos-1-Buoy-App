@@ -10,7 +10,7 @@ import { ModelChart } from "./chart"
 import { useCompare, useLayer, usePoint, useTable, useTime, useCurrentItem } from "./query-hooks"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
-import { useItemsByIdsQuery, useRootCatalogQuery } from "./stac-queries"
+import { useRootCatalogQuery, useLatestItemsByCollectionIdsQuery } from "./stac-queries"
 import { Layer, LoadedData } from "./types"
 import { EdrTable } from "./table"
 
@@ -120,7 +120,7 @@ const ItemsLoader = ({
   point: [number, number]
   // param: string
 }) => {
-  const itemsQuery = useItemsByIdsQuery(layers.map((l) => l.id!))
+  const itemsQuery = useLatestItemsByCollectionIdsQuery(layers.map((l) => l.id!))
 
   const loaded: [IItem, Layer] = itemsQuery
     .map((itemResult, index) => [itemResult, layers[index]] as [UseQueryResult<IItem, Error>, Layer])

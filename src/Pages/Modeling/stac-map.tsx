@@ -8,7 +8,7 @@ import { round } from "Shared/math"
 import { colors } from "Shared/colors"
 
 import { useLayer, useView, usePoint, useTime } from "./query-hooks"
-import { useItemByIdQuery } from "./stac-queries"
+import { useLatestItemByCollectionIdQuery } from "./stac-queries"
 import { initialView } from "./types"
 
 /**
@@ -103,7 +103,7 @@ const SelectedLayerWMS = () => {
  * @param dataVar STAC Item variable to display
  */
 const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) => {
-  const itemQuery = useItemByIdQuery(layerId)
+  const itemQuery = useLatestItemByCollectionIdQuery(layerId)
   const [time, setTime] = useTime()
 
   if (itemQuery.data) {

@@ -53,6 +53,30 @@ async function getItemById(catalog: ICatalog, id: string, depth: number = -1): P
 }
 
 /**
+ * Fetch the latest STAC Item from the collection with the given ID
+ *
+ * @param catalog STAC catalog that the item is contained within
+ * @param id Unique ID of the STAC collection to retrieve an item from
+ * @param depth Limit the search of the catalog if necessary
+ * @returns Latest STAC item
+ */
+async function getLatestItemByCollectionId(catalog: ICatalog, id: string, depth: number = -1): Promise<IItem> {
+  const collection = await catalog.get_child(id, depth)
+  const items = await collection.get_items()
+
+  const item = items.reduce((a, b) => {
+    const a_date = new Date(a.properties["cube:dimensions"].forecast_reference_time.values[0])
+    const b_date = new Date(b.properties["cube:dimensions"].forecast_reference_time.values[0])
+
+    if (a_date.valueOf() < b_date.valueOf()) {
+      return b
+    }
+    return a
+  })
+  return item
+}
+
+/**
  * Load a STAC child Catalog or Collection by URL
  *
  * @param url URL of catalog or collection to load
@@ -104,6 +128,25 @@ export function useItemByIdQuery(id: string, enabled: boolean = true) {
 }
 
 /**
+ * Load the latest STAC Item by Collection ID
+ *
+ * @param id ID of STAC Collection to load from root catalog
+ * @param enabled Should the query be run
+ * @returns STAC Item
+ */
+export function useLatestItemByCollectionIdQuery(id: string, enabled: boolean = true) {
+  const catalogQuery = useRootCatalogQuery()
+  return useQuery<IItem>(
+    ["get-latest-stac-item-by-collection", { catalog: catalogQuery?.data?.id, id }],
+    () => getLatestItemByCollectionId(catalogQuery.data!, id),
+    {
+      refetchOnWindowFocus: false,
+      enabled: enabled && !!catalogQuery.data,
+    }
+  )
+}
+
+/**
  * Load multiple STAC Items by ids
  *
  * @param ids Array of STAC Item ids to load
@@ -117,6 +160,27 @@ export function useItemsByIdsQuery(ids: string[], enabled: boolean = true) {
       return {
         queryKey: ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
         queryFn: () => getItemById(catalogQuery.data!, id),
+        refetchOnWindowFocus: false,
+        enabled: enabled && !!catalogQuery.data,
+      }
+    })
+  )
+}
+
+/**
+ * Load multiple STAC items that are the latest given their Collection IDs
+ *
+ * @param ids Array of STAC Collections to load Items from
+ * @param enabled Should this query currently run
+ * @returns Latest STAC item for each collection ID
+ */
+export function useLatestItemsByCollectionIdsQuery(ids: string[], enabled: boolean = true) {
+  const catalogQuery = useRootCatalogQuery()
+  return useQueries<IItem[]>(
+    ids.map((id) => {
+      return {
+        queryKey: ["get-latest-stac-item-by-collection", { catalog: catalogQuery?.data?.id, id }],
+        queryFn: () => getLatestItemByCollectionId(catalogQuery.data!, id),
         refetchOnWindowFocus: false,
         enabled: enabled && !!catalogQuery.data,
       }
