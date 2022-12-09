@@ -286,18 +286,18 @@ const StandardItem = ({ standard_name, item }: { standard_name: string; item: II
       <ButtonGroup>
         <Button
           {...buttonStyle}
-          active={currentLayer.id === item.id && (currentLayer.vars?.includes(key) ?? false)}
+          active={currentLayer.id === item.collection && (currentLayer.vars?.includes(key) ?? false)}
           onClick={() => {
-            setLayer({ id: item.id, vars: [key] })
+            setLayer({ id: item.collection, vars: [key] })
           }}
         >
           Map
         </Button>
         <Button
           {...buttonStyle}
-          active={compareLayers.find((l) => l.id === item.id && l.vars.includes(key)) ? true : false}
+          active={compareLayers.find((l) => l.id === item.collection && l.vars.includes(key)) ? true : false}
           onClick={() => {
-            toggleCompareLayer({ id: item.id, vars: [key] })
+            toggleCompareLayer({ id: item.collection, vars: [key] })
           }}
         >
           Compare
