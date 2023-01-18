@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Redirect requests to platforms with NDBC ID in path. Closes [#2171](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2171)
+- Show NDBC ID in platform info. Closes [#2171](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2171)
 - Use Redux Toolkit.
 
 Fixes:

@@ -1,5 +1,5 @@
 import React from "react"
-import { useSearchParams, useLocation, matchPath } from "react-router-dom"
+import { useSearchParams, useLocation, matchPath, useNavigate } from "react-router-dom"
 import { useMeasure } from "react-use"
 import { Col, Row } from "reactstrap"
 
@@ -11,6 +11,7 @@ import { Region } from "Shared/regions"
 import { PlatformInfo } from "./platformInfo"
 import { PlatformTabs } from "./platformTabs"
 import { RootInfo } from "./rootInfo"
+import { urlPartReplacer } from "Shared/urlParams"
 
 /**
  * Top level platform page. Displays region level platform selection if no platform is selected.
@@ -21,12 +22,22 @@ export const PlatformsPage: React.FC = () => {
   // but react-router 6 does not make that as easy,
   // since <Routes> isn't hierarchal like a <Switch>
   const location = useLocation()
+  const navigate = useNavigate()
+  const [ref, { height }] = useMeasure<HTMLDivElement>()
+  let [searchParams, setSearchParams] = useSearchParams()
+
   const match = matchPath({ path: paths.platforms.platform_tailing }, location.pathname)
   const platformId = match?.params.id ?? ""
 
-  const [ref, { height }] = useMeasure<HTMLDivElement>()
+  // Redirect when a 5 character NDBC ID was part of the URL
+  const splitPlatformID = platformId.split(" - ")
+  if (splitPlatformID.length === 2 && splitPlatformID[1].length === 5) {
+    const basePlatformId = splitPlatformID[0]
+    const url = urlPartReplacer(paths.platforms.platform, ":id", basePlatformId)
 
-  let [searchParams, setSearchParams] = useSearchParams()
+    console.log(`Should redirect from ${platformId} to ${basePlatformId}: ${url}`)
+    navigate(url)
+  }
 
   let region: Region | undefined
   const paramsRegion = searchParams.get("region")
