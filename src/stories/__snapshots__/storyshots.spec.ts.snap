@@ -271,8 +271,13 @@ exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
     <p
       className="card-text"
     >
-      44037 - 
       Jordan Basin
+      <br />
+      <b>
+        NDBC ID:
+      </b>
+       
+      44037
       <br />
       <b>
         Lat:

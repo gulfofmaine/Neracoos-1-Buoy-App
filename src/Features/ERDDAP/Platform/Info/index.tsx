@@ -14,15 +14,20 @@ import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
  * @param platform
  */
 export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderProps> = ({ platform }) => {
-  const nbdc_site_id = platform.properties.ndbc_site_id ? `${platform.properties.ndbc_site_id} - ` : ""
+  const nbdc_site_id = platform.properties.ndbc_site_id ? platform.properties.ndbc_site_id : ""
   return (
     <Card>
       <CardBody>
         <CardTitle>Station {platform.id}</CardTitle>
         <CardText>
-          {nbdc_site_id}
           {platform.properties.mooring_site_desc}
           <br />
+          {nbdc_site_id ? (
+            <React.Fragment>
+              <b>NDBC ID:</b> {nbdc_site_id}
+              <br />
+            </React.Fragment>
+          ) : null}
           <b>Lat:</b> {round((platform.geometry as Geometry).coordinates[1] as number)} <b>Lon:</b>{" "}
           {round((platform.geometry as Geometry).coordinates[0] as number)}
           <br />
