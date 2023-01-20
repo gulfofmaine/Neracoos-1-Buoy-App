@@ -4,13 +4,73 @@
 
 Additions:
 
+## 0.10.6 - 01/20/2023
+
 Changes:
 
 - Redirect requests to platforms with NDBC ID in path. Closes [#2171](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2171)
 - Show NDBC ID in platform info. Closes [#2171](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2171)
 - Use Redux Toolkit.
+- Dependency Udates:
+  - Github Actions
+    - CodeQL Init from 1 to 2
+    - CodeQL Analyze from 1 to 2
+    - Docker Setup Buildx from 1.6.0 to 2.2.1
+    - Cache from 2.1.7 to 3
+    - Docker login from 1.14.1 to 2.1.0
+    - Docker build push from 2.9.0 to 3.2.0
+    - Github pages deploy from 4.2.5 to 4.4.1
+    - Sentry release from 1.1.6 to 1.2.1
+  - Docker
+    - Node from 16.14 to 19.2
+    - Nginx from 1.21.6 to 1.23.2
+  - Javascript
+    - Font Awesome
+      - SVG core from 1.3.0 to 6.2.1
+      - Solid from 6.0.0 to 6.2.1
+      - React from 0.1.18 to 0.2.0
+    - Sentry from 6.18.1 to 7.23.0
+      - React
+      - Tracing
+    - Bootstrap from 5.1.3 to 5.2.3
+    - Highcharts from 9 to 10
+    - Moment from 2.29.1 to 2.29.4
+    - Moment timezone from 0.5.34 to 0.5.39
+    - OpenLayers from 6.13.0 to 7.1.0
+    - React GA from 3.3.0 to 3.3.1
+    - React JSX Highcharts from 4.3.1 to 4.3.2
+    - React Query from 3.34.16 to 3.39.2
+    - React Redux from 7.2.6 to 8.0.5
+    - React Router Dom from 6.6.2 to 6.4.4
+    - React Scripts from 5.0.0 to 5.0.1
+    - React use from 17.3.2 to 17.4.0
+    - Reactstrap from 9.0.1 to 9.1.5
+    - Redux first history from 5.0.8 to 5.1.1
+    - Rlayers from 1.3.1 to 1.4.5
+    - Sass from 1.49.9 to 1.56.1
+    - Storybook from 6.4.19 to 6.5.14
+      - A11y
+      - Essentials
+      - Storyshots
+      - Builder Webpack 5
+      - Manager Webpack 5
+      - Preset Create React App 4.1.0 to 4.1.2
+      - React
+    - Types
+      - Enzyme from 3.10.11 to 3.10.12
+      - Jest from 27.4.1 to 29.2.4
+      - Node from 17.0.21 to 18.11.11
+      - React from 17.0.39 to 18.0.21
+      - React DOM from 17.0.12 to 18.0.6
+      - React Test Render from 17.0.1 to 18.0.0
+    - Enzyme adapter React 16 from 1.15.6 to 1.15.7
+    - Redux Devtools extension from 2.13.5 to 2.13.9
+    - Typescript from 4.6.2 to 4.8.4
+    - Cypress fro  9.5.1 to 11.2.0
 
 Fixes:
+
+- Limit Github Actions concurrency
 
 ## 0.10.5 - 03/22/2022
 
