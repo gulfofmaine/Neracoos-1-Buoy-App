@@ -1,6 +1,6 @@
 /*global cy*/
 
-const platformUrl = "/platform/A01%20-%2044029"
+const platformUrl = "/platform/A01"
 
 describe("Platform A01", () => {
   it("Can get to from Home Page", () => {
@@ -12,6 +12,12 @@ describe("Platform A01", () => {
     cy.contains("A01").click()
 
     cy.contains("Station A01")
+    cy.contains("NDBC ID: 44029")
+  })
+
+  it("Will get redirected", () => {
+    cy.visit("/platform/A01%20-%2044029")
+    cy.location("pathname").should("eq", platformUrl)
   })
 
   it("Shows platform status", () => {
@@ -51,7 +57,7 @@ describe("Platform A01", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
-    cy.get('[href="/platform/A01 - 44029/observations/wind"]').first().click()
+    cy.get('[href="/platform/A01/observations/wind"]').first().click()
     cy.get("h4").contains("Wind")
     cy.get("svg.highcharts-root")
     cy.get("svg.highcharts-root").contains("Gust").click()
@@ -72,7 +78,7 @@ describe("Platform A01", () => {
 
     cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get("[href='/platform/A01 - 44029/forecast/significant_wave_height']").click()
+    cy.get("[href='/platform/A01/forecast/significant_wave_height']").click()
     cy.get("h4").contains("Significant Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Feet")

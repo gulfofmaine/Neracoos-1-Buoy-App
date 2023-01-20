@@ -1,9 +1,9 @@
 /*global cy*/
 
-const platformUrl = "/platform/M01%20-%2044037"
+const platformUrl = "/platform/M01"
 
 describe("Platfrom M01", () => {
-  xit("Can get to from Home Page", () => {
+  it("Can get to from Home Page", () => {
     cy.visit("/")
 
     cy.contains("Regions").click()
@@ -12,9 +12,15 @@ describe("Platfrom M01", () => {
     cy.contains("M01").click()
 
     cy.contains("Station M01")
+    cy.contains("NDBC ID: 44037")
   })
 
-  xit("Shows platform status", () => {
+  it("Will get redirected", () => {
+    cy.visit("/platform/M01%20-%2044037")
+    cy.location("pathname").should("eq", platformUrl)
+  })
+
+  it("Shows platform status", () => {
     cy.visit(platformUrl)
 
     cy.contains("Lat:")
@@ -23,7 +29,7 @@ describe("Platfrom M01", () => {
     cy.contains("Last updated at:")
   })
 
-  xit("Shows current conditions", () => {
+  it("Shows current conditions", () => {
     cy.visit(platformUrl)
 
     cy.contains("Latest Conditions")
@@ -32,7 +38,7 @@ describe("Platfrom M01", () => {
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 4)
   })
 
-  xit("Shows air temp plot", () => {
+  it("Shows air temp plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Air Temperature:").click()
@@ -40,11 +46,11 @@ describe("Platfrom M01", () => {
     cy.get("h4").contains("Air Temperature")
   })
 
-  xit("Shows wind plot", () => {
+  it("Shows wind plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
-    cy.get('[href="/platform/M01 - 44037/observations/wind"]').first().click()
+    cy.get('[href="/platform/M01/observations/wind"]').first().click()
     cy.get("h4").contains("Wind")
     cy.get("svg.highcharts-root")
     cy.get("svg.highcharts-root").contains("Gust").click()
@@ -53,12 +59,12 @@ describe("Platfrom M01", () => {
     cy.get("svg.highcharts-root").contains("Knots")
   })
 
-  xit("Shows wave forecast", () => {
+  it("Shows wave forecast", () => {
     cy.visit(platformUrl)
 
     cy.contains("Forecasts loading")
     cy.get("#forecast").click()
-    cy.get("[href='/platform/M01 - 44037/forecast/significant_wave_height']").click()
+    cy.get("[href='/platform/M01/forecast/significant_wave_height']").click()
     cy.get("h4").contains("Significant Wave Height Forecast")
 
     cy.get("svg.highcharts-root").contains("Feet")
@@ -70,7 +76,7 @@ describe("Platfrom M01", () => {
     cy.get("svg.highcharts-root").contains("Bedford Institute Wave Model - Height").click()
   })
 
-  xit("Has More info menu", () => {
+  it("Has More info menu", () => {
     cy.visit(platformUrl)
 
     cy.contains("More info").click()
@@ -80,7 +86,7 @@ describe("Platfrom M01", () => {
     cy.contains("Tides")
   })
 
-  xit("Updated recently", () => {
+  it("Updated recently", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
@@ -100,7 +106,7 @@ describe("Platfrom M01", () => {
       })
   })
 
-  xit("Can view all observations", () => {
+  it("Can view all observations", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
