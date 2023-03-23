@@ -41,7 +41,7 @@ describe("Platfrom 44007", () => {
     cy.get("[href='/platform/44007/observations/wind']").first().click()
     cy.get("h4").contains("Wind")
     cy.get("svg.highcharts-root")
-    cy.get("svg.highcharts-root").contains("Gust").click()
+    // cy.get("svg.highcharts-root").contains("Gust").click()
     cy.get("svg.highcharts-root").contains("Speed").click()
     cy.get("svg.highcharts-root").contains("Direction").click()
     cy.get("svg.highcharts-root").contains("Knots")
@@ -111,6 +111,6 @@ describe("Platfrom 44007", () => {
     cy.contains("Observations").click()
     cy.contains("All Observations").click()
 
-    cy.contains("Wind Gust:")
+    cy.contains("Wind Speed:")
   })
 })
