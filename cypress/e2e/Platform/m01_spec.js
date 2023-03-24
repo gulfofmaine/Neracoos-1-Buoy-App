@@ -112,6 +112,6 @@ describe("Platfrom M01", () => {
     cy.contains("Observations").click()
     cy.contains("All Observations").click()
 
-    cy.contains("Sigma-T @ 100m")
+    cy.contains("Sigma-T @ 1m")
   })
 })
