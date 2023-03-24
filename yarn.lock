@@ -17204,10 +17204,10 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rlayers@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.4.5.tgz#05fe29fbbfb90ccb533873a54f068b3ebe2ed108"
-  integrity sha512-F4c2I+KegrQXAWHuU7Z4akSwOja2xGP9BvKiYVAH2stSTibFWPwYzgEqJCsOM2UR4N/I8QNG+cybNvuJFe5K2w==
+rlayers@^1.4.8:
+  version "1.4.8"
+  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.4.8.tgz#a8bf7fb1876212d078acdff15af23d6b44142538"
+  integrity sha512-SmqBUAG7KgNnsbTtPOqPiboSoADBI5RFgqKU4MWqN7z15xiVsT4A1yhXN6Nm/1r0h7G4yggpaUnQv7Y4tEyv+Q==
   dependencies:
     lru-cache "^7.10.0"
 
