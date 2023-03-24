@@ -111,6 +111,9 @@ export async function getItemByUrl(
 /**
  * Load a STAC Item by ID
  *
+ * Probably want to use useLatestItemByCollectionIdQuery as in
+ * most cases the collection ID is used rather than the item ID
+ *
  * @param id ID of STAC Item to load from root catalog
  * @param enabled Should this query be run
  * @returns STAC Item
