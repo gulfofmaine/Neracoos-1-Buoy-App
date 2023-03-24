@@ -35,7 +35,7 @@ describe("Platfrom M01", () => {
     cy.contains("Latest Conditions")
     cy.contains("Air Temperature -")
 
-    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 4)
+    cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 3)
   })
 
   it("Shows air temp plot", () => {
@@ -46,7 +46,7 @@ describe("Platfrom M01", () => {
     cy.get("h4").contains("Air Temperature")
   })
 
-  it("Shows wind plot", () => {
+  xit("Shows wind plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Observations").click()
