@@ -36,7 +36,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
     "react-use": "^17.4.0",
-    "reactstrap": "9.1.5",
+    "reactstrap": "9.1.6",
     "redux-first-history": "^5.1.1",
     "rlayers": "^1.4.8",
     "sass": "^1.56.1"
