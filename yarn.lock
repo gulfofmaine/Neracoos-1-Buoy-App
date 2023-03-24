@@ -11248,9 +11248,9 @@ he@^1.2.0:
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
 highcharts@*, highcharts@^10:
-  version "10.3.1"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.1.tgz#d06d7e7543823c80eea24f44e1c3c2142cf1ccda"
-  integrity sha512-8UgVcLmgpiYwnsII0Ht76O+GRutfbrLslZFH3c53fXgl3aZ6NRB4mW5qsIyfsUExMny/n9JqYO/BFNejOKC6AA==
+  version "10.3.3"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.3.tgz#b8acca24f2d4b1f2f726540734166e59e07b35c4"
+  integrity sha512-r7wgUPQI9tr3jFDn3XT36qsNwEIZYcfgz4mkKEA6E4nn5p86y+u1EZjazIG4TRkl5/gmGRtkBUiZW81g029RIw==
 
 history@*:
   version "5.3.0"
