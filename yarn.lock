@@ -16748,10 +16748,10 @@ react@16.14.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-reactstrap@9.1.5:
-  version "9.1.5"
-  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-9.1.5.tgz#d52343ebc244dd4bb82ce272c69640c8146952bf"
-  integrity sha512-w4pnRW/z0piLElgSdypp07mSJVOQIN1tE3DQdsfmpvvUHEzYsjfJHSJkIL26I38m/ACCNXfNnyFSsq0c6U/snQ==
+reactstrap@9.1.8:
+  version "9.1.8"
+  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-9.1.8.tgz#ac0002798fff2fd809dd21596d5f4ff68195fc90"
+  integrity sha512-H4O7dARpt3axkJxcjY5Bqpnfni/No4+DekYuXKiiVtFkMOmLhDXl32pjDB64Mr+Jtmtp+Hcj+TSg7II5Q6fS5g==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@popperjs/core" "^2.6.0"
