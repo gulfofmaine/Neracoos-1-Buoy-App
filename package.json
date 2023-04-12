@@ -39,7 +39,7 @@
     "reactstrap": "9.1.5",
     "redux-first-history": "^5.1.1",
     "rlayers": "^1.4.8",
-    "sass": "^1.56.1"
+    "sass": "^1.62.0"
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
