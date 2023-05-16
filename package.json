@@ -55,7 +55,7 @@
   "devDependencies": {
     "@storybook/addon-a11y": "^6.5.14",
     "@storybook/addon-essentials": "^6.5.14",
-    "@storybook/addon-storyshots": "^6.5.13",
+    "@storybook/addon-storyshots": "^7.0.12",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/preset-create-react-app": "^4.1.2",
