@@ -43,12 +43,19 @@ const TimeControl = () => {
     const times: string[] = item.properties["cube:dimensions"].time.values ?? []
     const options = times.map((t) => ({ value: t, label: t }))
 
-    const defaultValue = options.find((o) => o.value === time) ?? options[0]
+    let foundValue = options.find((o) => o.value === time)
+
+    // If the time isn't found in the current layer,
+    // set the first layer time
+    if (typeof foundValue === "undefined") {
+      foundValue = options[0]
+      setTime(foundValue.value)
+    }
 
     return (
       <Select
         options={options}
-        defaultValue={defaultValue}
+        defaultValue={foundValue}
         onChange={(event) => {
           if (event?.value) {
             setTime(event.value)
