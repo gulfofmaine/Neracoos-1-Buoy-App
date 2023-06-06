@@ -107,6 +107,14 @@ const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) =>
   const [time, setTime] = useTime()
 
   if (itemQuery.data) {
+    const times: string[] = itemQuery.data.properties["cube:dimensions"].time.values ?? []
+    const foundTime = times.find((t) => t === time)
+
+    // Escape early if the time doesn't exist for the layer
+    if (foundTime === undefined) {
+      return null
+    }
+
     const wms_asset: IAsset | undefined = Object.values(itemQuery.data.assets).find((asset: IAsset) =>
       asset.roles.includes("wms")
     )

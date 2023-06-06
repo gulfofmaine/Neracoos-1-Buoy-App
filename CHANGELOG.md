@@ -4,6 +4,11 @@
 
 Additions:
 
+Changes:
+
+Fixes:
+- Model WMS layers are silently selected by URL time, rather than picker time. closes https://github.com/gulfofmaine/NERACOOS_ModelViewer/issues/11
+
 ## 0.10.6 - 01/20/2023
 
 Changes:
