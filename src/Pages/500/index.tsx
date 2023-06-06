@@ -2,7 +2,7 @@ import React from "react"
 import { Col, Row } from "reactstrap"
 
 import Footer from "components/Footer"
-import NavBar from "components/navbar"
+import NavBar from "components/NavBar"
 
 import n_walkabout from "./n_walkabout.png"
 

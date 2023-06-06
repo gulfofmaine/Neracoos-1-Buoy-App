@@ -8,7 +8,7 @@ import * as React from "react"
 import { Route, Routes } from "react-router"
 
 import Footer from "components/Footer"
-import NavBar from "components/navbar"
+import NavBar from "components/NavBar"
 
 import AboutPage from "Pages/About"
 import HomePage from "Pages/Home"
