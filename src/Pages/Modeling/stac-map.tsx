@@ -111,7 +111,7 @@ const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) =>
     const foundTime = times.find((t) => t === time)
 
     // Escape early if the time doesn't exist for the layer
-    if (foundTime === undefined) {
+    if (typeof foundTime === "undefined") {
       return null
     }
 

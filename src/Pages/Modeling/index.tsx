@@ -47,7 +47,7 @@ const TimeControl = () => {
 
     // If the time isn't found in the current layer,
     // set the first layer time
-    if (foundValue === undefined) {
+    if (typeof foundValue === "undefined") {
       foundValue = options[0]
       setTime(foundValue.value)
     }
