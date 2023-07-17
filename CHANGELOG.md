@@ -6,6 +6,8 @@ Additions:
 
 Changes:
 
+- Update with new Google Analytics 4 tag. Closes [#2372](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2372)
+
 Fixes:
 - Model WMS layers are silently selected by URL time, rather than picker time. closes https://github.com/gulfofmaine/NERACOOS_ModelViewer/issues/11
 
