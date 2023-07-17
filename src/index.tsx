@@ -57,7 +57,7 @@ ReactDOM.render(
     <Provider store={store}>
       <HistoryRouter history={history}>
         <Sentry.ErrorBoundary showDialog={true} fallback={() => <FiveHundredPage />}>
-          <GAListener trackingId={process.env.NODE_ENV === "production" ? "UA-179432706-1" : undefined}>
+          <GAListener trackingId={process.env.NODE_ENV === "production" ? "G-MVZR2D0XKJ" : undefined}>
             <App />
           </GAListener>
         </Sentry.ErrorBoundary>
