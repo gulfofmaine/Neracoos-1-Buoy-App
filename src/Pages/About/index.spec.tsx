@@ -1,8 +1,10 @@
 import * as React from "react"
-import { render, screen } from "@testing-library/react"
+import { act } from "@testing-library/react"
+
+import { renderWithClient } from "../../tests/utils"
 
 import AboutPage from "."
 
-it("renders without crashing", () => {
-  render(<AboutPage />)
+it("renders without crashing", async () => {
+  await act(async () => renderWithClient(<AboutPage />))
 })
