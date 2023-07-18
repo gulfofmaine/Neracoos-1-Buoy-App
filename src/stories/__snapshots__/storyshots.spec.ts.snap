@@ -258,12 +258,14 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
 exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
 <div
   className="card"
+  role="complementary"
 >
   <div
     className="card-body"
   >
     <div
       className="card-title"
+      role="header"
     >
       Station 
       M01

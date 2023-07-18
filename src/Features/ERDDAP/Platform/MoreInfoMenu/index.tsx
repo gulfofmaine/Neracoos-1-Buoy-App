@@ -33,13 +33,19 @@ export class ErddapMoreInfoDropdown extends React.Component<UsePlatformRenderPro
     const forecastUrl = `https://marine.weather.gov/MapClick.php?lon=${coordinates[0]}&lat=${coordinates[1]}`
 
     return (
-      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle} role="menu">
         <DropdownToggle nav={true} caret={true}>
           More info
         </DropdownToggle>
 
         <DropdownMenu>
-          <a className="dropdown-item nav-item" href={forecastUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            className="dropdown-item nav-item"
+            href={forecastUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            role="menuitem"
+          >
             Marine Forecast
             <FontAwesomeIcon icon={faExternalLinkAlt} style={{ marginLeft: ".5rem" }} />
           </a>
@@ -48,6 +54,7 @@ export class ErddapMoreInfoDropdown extends React.Component<UsePlatformRenderPro
             href="https://tidesandcurrents.noaa.gov/"
             target="_blank"
             rel="noopener noreferrer"
+            role="menuitem"
           >
             Tides
             <FontAwesomeIcon icon={faExternalLinkAlt} style={{ marginLeft: ".5rem" }} />

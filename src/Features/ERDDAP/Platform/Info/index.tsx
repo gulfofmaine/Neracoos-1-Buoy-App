@@ -16,9 +16,9 @@ import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderProps> = ({ platform }) => {
   const nbdc_site_id = platform.properties.ndbc_site_id ? platform.properties.ndbc_site_id : ""
   return (
-    <Card>
+    <Card role="complementary">
       <CardBody>
-        <CardTitle>Station {platform.id}</CardTitle>
+        <CardTitle role="header">Station {platform.id}</CardTitle>
         <CardText>
           {platform.properties.mooring_site_desc}
           <br />

@@ -1,6 +1,6 @@
-import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
+import { render, screen } from "@testing-library/react"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -9,54 +9,69 @@ import { TableItem } from "./item"
 
 describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
-    const wrapper = mount(
+    render(
       <MemoryRouter>
-        <TableItem platform={platform} readings={platform.properties.readings} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.english} />
+        <TableItem
+          platform={platform}
+          readings={platform.properties.readings}
+          data_type="wind_speed"
+          name="Wind Speed"
+          unitSystem={UnitSystem.english}
+        />
       </MemoryRouter>
     )
 
-    expect(wrapper.text()).toContain("Wind Speed:")
+    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed:")
   })
 
   it("Rounds the wind speed", () => {
-    const wrapper = mount(
+    render(
       <MemoryRouter>
-        <TableItem platform={platform} readings={platform.properties.readings} data_type="wind_speed" name="Wind Speed" unitSystem={UnitSystem.metric} />
+        <TableItem
+          platform={platform}
+          readings={platform.properties.readings}
+          data_type="wind_speed"
+          name="Wind Speed"
+          unitSystem={UnitSystem.metric}
+        />
       </MemoryRouter>
     )
 
-    expect(wrapper.text()).toContain("Wind Speed: 4.3 Meters/Second")
+    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
   })
 
   it("Returns null when there is not a matching datatype", () => {
-    const wrapper = mount(
+    render(
       <MemoryRouter>
-        <TableItem platform={platform} readings={platform.properties.readings} data_type="air_temp" unitSystem={UnitSystem.english} name="Air Temp" />
+        <TableItem
+          platform={platform}
+          readings={platform.properties.readings}
+          data_type="air_temp"
+          unitSystem={UnitSystem.english}
+          name="Air Temp"
+        />
       </MemoryRouter>
     )
 
-    expect(wrapper.text()).toBe("")
+    expect(screen.queryByRole("link")).not.toBeInTheDocument()
   })
 
   it("Returns only the first selected datatype", () => {
     // Need to have a div in the body for the tooltip to attach to
-    const div = document.createElement("div")
-    document.body.appendChild(div)
-
-    const wrapper = mount(
+    render(
       <MemoryRouter>
         <TableItem
-          platform={platform} readings={platform.properties.readings}
+          platform={platform}
+          readings={platform.properties.readings}
           data_type={["significant_wave_height", "significant_height_of_wind_and_swell_waves_3"]}
           unitSystem={UnitSystem.english}
           name="Wave Height"
         />
-      </MemoryRouter>,
-      { attachTo: div }
+      </MemoryRouter>
     )
 
-    expect(wrapper.text()).toContain("Wave Height: 0.8 Feet")
-    expect(wrapper.text()).not.toContain("Wave Height: 1.1 Feet")
+    expect(screen.getByRole("link")).toHaveTextContent("Wave Height: 0.8 Feet")
+    expect(screen.getByRole("link")).not.toHaveTextContent("Wave Height: 1.1 Feet")
   })
 })
 

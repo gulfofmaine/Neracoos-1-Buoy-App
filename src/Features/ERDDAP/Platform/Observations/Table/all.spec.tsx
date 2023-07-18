@@ -1,6 +1,6 @@
-import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
+import { render, screen } from "@testing-library/react"
 
 import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
@@ -9,20 +9,15 @@ import { ErddapAllObservationsTable } from "./all"
 
 describe("<ErddapAllObservationsTable>", () => {
   it("Should show all observations for appropriate platform", () => {
-    // Need to have a div in the body for the tooltip to attach to
-    const div = document.createElement("div")
-    document.body.appendChild(div)
-
-    const enzymeWrapper = mount(
+    render(
       <MemoryRouter>
         <ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />
-      </MemoryRouter>,
-      { attachTo: div }
+      </MemoryRouter>
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(16)
-    expect(enzymeWrapper.text()).toContain("Last updated at: ")
-    expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 Knots")
+    expect(screen.getAllByRole("link").length).toBe(16)
+    expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
+    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 Knots")
   })
 })
 

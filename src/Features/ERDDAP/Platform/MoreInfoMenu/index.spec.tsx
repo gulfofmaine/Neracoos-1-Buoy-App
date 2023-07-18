@@ -1,28 +1,36 @@
-import { mount } from "enzyme"
 import * as React from "react"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 
 import { PlatformFeatureWithDatasets } from "../../types"
 import { ErddapMoreInfoDropdown } from "./index"
 
 describe("ErddapMoreInfoDropdown", () => {
-  it("Renders a more info menu for a platform", () => {
-    const wrapper = mount(<ErddapMoreInfoDropdown platform={platform} />)
+  it("Renders a more info menu for a platform", async () => {
+    render(<ErddapMoreInfoDropdown platform={platform} />)
 
-    expect(wrapper.find("a.dropdown-toggle").text()).toEqual("More info")
+    expect(screen.getByRole("menu")).toHaveTextContent("More info")
 
-    const dropdownDiv = wrapper.find("div.dropdown-menu")
-    const items = dropdownDiv.children()
+    const user = userEvent.setup()
+    await user.click(screen.getByText("More info"))
 
-    expect(items.length).toEqual(2)
-    expect(dropdownDiv.childAt(0).html()).toContain("https://marine.weather.gov/MapClick.php?lon=-73.73&amp;lat=40.88")
+    const dropdownDiv = screen.getAllByRole("menuitem")
+
+    expect(dropdownDiv.length).toEqual(2)
+    expect(dropdownDiv[0]).toContainHTML(wxUrl)
   })
 })
+
+const lon = -73.73
+const lat = 40.88
+
+const wxUrl = `https://marine.weather.gov/MapClick.php?lon=${lon}&amp;lat=${lat}`
 
 // tslint:disable:object-literal-sort-keys
 const platform: PlatformFeatureWithDatasets = {
   geometry: {
     type: "Point",
-    coordinates: [-73.73, 40.88],
+    coordinates: [lon, lat],
   },
   id: "EXRX",
   type: "Feature",

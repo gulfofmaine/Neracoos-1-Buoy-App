@@ -1,6 +1,6 @@
-import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
+import { render, screen } from "@testing-library/react"
 
 import { BoundingBox } from "Shared/regions"
 
@@ -10,18 +10,18 @@ import { ErddapPlatformListBase, Props, ReduxProps } from "./index"
 function setup(platforms: PlatformFeatureWithDatasets[], boundingBox?: BoundingBox) {
   const props: Props & ReduxProps = {
     boundingBox,
-    platforms
+    platforms,
   }
 
-  const enzymeWrapper = mount(
+  const testWrapper = render(
     <MemoryRouter>
       <ErddapPlatformListBase {...props} />
     </MemoryRouter>
   )
 
   return {
-    enzymeWrapper,
-    props
+    testWrapper,
+    props,
   }
 }
 
@@ -31,40 +31,43 @@ describe("ErddapPlatfromList", () => {
       {
         geometry: {
           coordinates: [-68.02734375, 42.890625],
-          type: "Point"
+          type: "Point",
         },
         id: "N01",
         properties: {
           attribution: [],
           mooring_site_desc: "NorthEast Shelf",
-          readings: []
+          readings: [],
         },
-        type: "Feature"
+        type: "Feature",
       },
       {
         geometry: {
           coordinates: [-63, 40],
-          type: "Point"
+          type: "Point",
         },
         id: "Not in the GOM",
         properties: {
           attribution: [],
           mooring_site_desc: "Lost at sea",
-          readings: []
+          readings: [],
         },
-        type: "Feature"
-      }
+        type: "Feature",
+      },
     ]
     const boundingBox: BoundingBox = {
       east: -65.375,
       north: 45.125,
       south: 40.375,
-      west: -70.975
+      west: -70.975,
     }
-    const { enzymeWrapper } = setup(platforms, boundingBox)
 
-    expect(enzymeWrapper.find("ul.list-group").children().length).toBe(1)
-    expect(enzymeWrapper.find("ul.list-group").text()).toContain(platforms[0].id)
-    expect(enzymeWrapper.find("ul.list-group").text()).not.toMatch(platforms[1].id as string)
+    setup(platforms, boundingBox)
+
+    expect(screen.getAllByRole("link").length).toBe(1)
+
+    const platformList = screen.getByRole("list")
+    expect(platformList).toHaveTextContent(platforms[0].id)
+    expect(platformList).not.toHaveTextContent(platforms[1].id as string)
   })
 })
