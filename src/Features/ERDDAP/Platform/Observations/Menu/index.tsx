@@ -66,7 +66,7 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
         )
 
         return (
-          <Link className="dropdown-item nav-item" key={index} to={url} onClick={this.close}>
+          <Link className="dropdown-item nav-item" key={index} to={url} onClick={this.close} role="menuitem">
             {d.long_name}
           </Link>
         )
@@ -79,7 +79,7 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
     )
 
     return (
-      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle} role="menu">
         <DropdownToggle nav={true} caret={true}>
           Observations
         </DropdownToggle>
@@ -88,12 +88,13 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
           <Link
             className="dropdown-item nav-item"
             to={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}
+            role="menuitem"
           >
             <b>All Observations</b>
           </Link>
           {dropdownItems}
           {platform.properties.readings.filter((d) => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
-            <Link className="dropdown-item nav-item" to={windUrl} onClick={this.close}>
+            <Link className="dropdown-item nav-item" to={windUrl} onClick={this.close} role="menuitem">
               Wind
             </Link>
           ) : null}

@@ -1,5 +1,5 @@
-import { mount } from "enzyme"
 import * as React from "react"
+import { render, screen } from "@testing-library/react"
 
 import { PlatformFeatureWithDatasets } from "../../types"
 import { ErddapPlatformInfoPanel } from "./index"
@@ -28,12 +28,12 @@ describe("ErddapPlatformInfoPanel", () => {
       type: "Feature",
     }
 
-    const enzymeWrapper = mount(<ErddapPlatformInfoPanel platform={platform} />)
+    render(<ErddapPlatformInfoPanel platform={platform} />)
 
-    expect(enzymeWrapper.find(".card-title").text()).toContain(platform.id)
-    expect(enzymeWrapper.find(".card-text").text()).toContain(platform.properties.mooring_site_desc)
-    expect(enzymeWrapper.find(".card-text").text()).toContain(platform.geometry.coordinates[0].toString())
-    expect(enzymeWrapper.find(".card-text").text()).toContain(platform.geometry.coordinates[1].toString())
-    expect(enzymeWrapper.find(".card-text").text()).toContain(platform.properties.attribution[0].attribution)
+    expect(screen.getByRole("header")).toHaveTextContent(platform.id)
+    expect(screen.getByRole("complementary")).toHaveTextContent(platform.properties.mooring_site_desc)
+    expect(screen.getByRole("complementary")).toHaveTextContent(platform.geometry.coordinates[0].toString())
+    expect(screen.getByRole("complementary")).toHaveTextContent(platform.geometry.coordinates[1].toString())
+    expect(screen.getByRole("complementary")).toHaveTextContent(platform.properties.attribution[0].attribution)
   })
 })

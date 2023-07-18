@@ -1,5 +1,5 @@
-import { render } from "enzyme"
 import * as React from "react"
+import { render, screen } from "@testing-library/react"
 
 import { PlatformAlert } from "../../types"
 
@@ -10,13 +10,13 @@ describe("PlatformAlerts", () => {
     const platform = {
       id: "N01",
       properties: {
-        alerts: []
-      }
+        alerts: [],
+      },
     }
 
-    const wrapper = render(<PlatformAlerts platform={platform} />)
+    render(<PlatformAlerts platform={platform} />)
 
-    expect(wrapper.text()).toEqual("")
+    expect(screen.queryByRole("alert")).toBeNull()
   })
 
   it("Can render multiple alerts", () => {
@@ -24,24 +24,25 @@ describe("PlatformAlerts", () => {
       end_time: "2019-05-15",
       level: "WARNING",
       message: "N01 has slipped it's anchor",
-      start_time: "2018-12-15"
+      start_time: "2018-12-15",
     }
     const alert2: PlatformAlert = {
       level: "INFO",
       message: "Some testing is being done",
-      start_time: "2019-01-05"
+      start_time: "2019-01-05",
     }
 
     const platform = {
       id: "N01",
       properties: {
-        alerts: [alert1, alert2]
-      }
+        alerts: [alert1, alert2],
+      },
     }
 
-    const wrapper = render(<PlatformAlerts platform={platform} />)
+    render(<PlatformAlerts platform={platform} />)
 
-    expect(wrapper.text()).toContain(alert1.message)
-    expect(wrapper.text()).toContain(alert2.message)
+    expect(screen.getAllByRole("alert").length).toBe(2)
+    expect(screen.getByText(alert1.message))
+    expect(screen.getByText(alert2.message))
   })
 })

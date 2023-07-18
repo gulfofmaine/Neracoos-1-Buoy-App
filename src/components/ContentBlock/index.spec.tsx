@@ -1,11 +1,10 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import * as React from "react"
+import { createRoot } from "react-dom/client"
 
-import ContentBlock from '.'
+import ContentBlock from "."
 
-it('renders without crashing', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(
-        <ContentBlock content='<h2>Hello</h2>' />
-    , div)
+it("renders without crashing", () => {
+  const div = document.createElement("div")
+  const root = createRoot(div)
+  root.render(<ContentBlock content="<h2>Hello</h2>" />)
 })

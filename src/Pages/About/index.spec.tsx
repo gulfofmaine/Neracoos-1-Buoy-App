@@ -1,8 +1,10 @@
-import { shallow } from 'enzyme'
-import * as React from 'react'
+import * as React from "react"
+import { act } from "@testing-library/react"
 
-import AboutPage from '.'
+import { renderWithClient } from "../../tests/utils"
 
-it('renders without crashing', () => {
-    shallow(<AboutPage />)
+import AboutPage from "."
+
+it("renders without crashing", async () => {
+  await act(async () => renderWithClient(<AboutPage />))
 })

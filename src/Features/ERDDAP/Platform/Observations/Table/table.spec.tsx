@@ -1,6 +1,6 @@
-import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
+import { render, screen } from "@testing-library/react"
 
 import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
@@ -9,45 +9,35 @@ import { ErddapObservationTable } from "./table"
 
 describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
-    // Need to have a div in the body for the tooltip to attach to
-    const div = document.createElement("div")
-    document.body.appendChild(div)
-
-    const enzymeWrapper = mount(
+    render(
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
           unitSystem={UnitSystem.english}
           unitSelector={<b>Fake unit selector</b>}
         />
-      </MemoryRouter>,
-      { attachTo: div }
+      </MemoryRouter>
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(4)
-    expect(enzymeWrapper.text()).toContain("Last updated at: ")
-    expect(enzymeWrapper.text()).toContain("Wind Speed: 3.9 Knots")
+    expect(screen.getAllByRole("link").length).toBe(4)
+    expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
+    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 Knots")
   })
 
   it("Should show selected observations in metric", () => {
-    // Need to have a div in the body for the tooltip to attach to
-    const div = document.createElement("div")
-    document.body.appendChild(div)
-
-    const enzymeWrapper = mount(
+    render(
       <MemoryRouter>
         <ErddapObservationTable
           platform={platform}
           unitSystem={UnitSystem.metric}
           unitSelector={<b>Fake unit selector</b>}
         />
-      </MemoryRouter>,
-      { attachTo: div }
+      </MemoryRouter>
     )
 
-    expect(enzymeWrapper.find("a").length).toBe(4)
-    expect(enzymeWrapper.text()).toContain("Last updated at: ")
-    expect(enzymeWrapper.text()).toContain("Wind Speed: 2 Meters/Second")
+    expect(screen.getAllByRole("link").length).toBe(4)
+    expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
+    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 2 Meters/Second")
   })
 })
 

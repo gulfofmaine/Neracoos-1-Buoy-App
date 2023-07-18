@@ -1,6 +1,7 @@
-import { mount } from "enzyme"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 
 import NavBar from "."
 
@@ -10,7 +11,7 @@ describe("The NavBar should have our primary links", () => {
   let nav: any
 
   beforeEach(() => {
-    nav = mount(
+    render(
       <MemoryRouter>
         <NavBar />
       </MemoryRouter>
@@ -21,15 +22,15 @@ describe("The NavBar should have our primary links", () => {
   }
 
   it("Has an about item", () => {
-    expect(nav.contains("About")).toEqual(true)
+    expect(screen.getByText("About"))
   })
 
   it("Has a region dropdown", () => {
-    expect(nav.contains("Regions")).toEqual(true)
+    expect(screen.getByText("Regions"))
   })
 
   it("Includes Model Viewer", () => {
-    expect(nav.contains("Model Viewer")).toEqual(true)
+    expect(screen.getByText("Model Viewer"))
   })
 
   it("Has our regions", () => {
@@ -44,11 +45,12 @@ describe("The NavBar should have our primary links", () => {
     ].map((r) => r.name)
 
     ourRegions.forEach((r) => {
-      expect(nav.contains(r)).toEqual(true)
+      expect(screen.getByText(r))
     })
   })
 
   it("Doesn't contain a link to the map", () => {
-    expect(nav.contains("Map")).toEqual(false)
+    // https://stackoverflow.com/a/52783201/3658919
+    expect(screen.queryByText("Map")).not.toBeInTheDocument()
   })
 })
