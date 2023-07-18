@@ -1,8 +1,8 @@
-import { shallow } from 'enzyme'
-import * as React from 'react'
+import * as React from "react"
+import { render, screen } from "@testing-library/react"
 
-import AboutPage from '.'
+import AboutPage from "."
 
-it('renders without crashing', () => {
-    shallow(<AboutPage />)
+it("renders without crashing", () => {
+  render(<AboutPage />)
 })
