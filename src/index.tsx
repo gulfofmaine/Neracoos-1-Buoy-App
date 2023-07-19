@@ -11,8 +11,8 @@ import moment from "moment-timezone"
 import * as React from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import { QueryClientProvider } from "react-query"
-import { ReactQueryDevtools } from "react-query/devtools"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 import GAListener from "Shared/google-analytics"
 

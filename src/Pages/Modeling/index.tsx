@@ -1,7 +1,7 @@
 import React from "react"
 import Select from "react-select"
 import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap"
-import { UseQueryResult, useQueries } from "react-query"
+import { UseQueryResult, useQueries } from "@tanstack/react-query"
 
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
 // import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
@@ -175,8 +175,8 @@ const ItemLayersTabs = ({
     return { url: undefined, item: itemLayer[0], layer: itemLayer[1] }
   })
 
-  const edrQueries = useQueries(
-    edrSources.map((edrSource) => ({
+  const edrQueries = useQueries({
+    queries: edrSources.map((edrSource) => ({
       queryKey: ["edr-position", edrSource.url],
       queryFn: async () => {
         const raw = await fetch(edrSource.url!)
@@ -188,8 +188,8 @@ const ItemLayersTabs = ({
       },
       enabled: edrSource.url !== undefined,
       refetchOnWindowFocus: false,
-    }))
-  )
+    })),
+  })
 
   const loaded = edrQueries
     // .filter((query): query is { data: LoadedData } => query.data !== undefined)

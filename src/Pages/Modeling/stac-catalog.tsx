@@ -10,7 +10,7 @@ import {
   ListGroupItem,
   ListGroupItemHeading,
 } from "reactstrap"
-import { useQueries } from "react-query"
+import { useQueries } from "@tanstack/react-query"
 
 import { ICatalog, ICollection, IItem } from "@gulfofmaine/tsstac"
 
@@ -59,13 +59,13 @@ const STACCollectionsLoader = ({
 
   const addChildrenUrls = (urls: StacURL[]) => setChildrenUrls((prev) => new Set([...prev, ...urls]))
 
-  const childrenQueries = useQueries(
-    Array.from(childrenUrls).map(({ url, parent }) => ({
+  const childrenQueries = useQueries({
+    queries: Array.from(childrenUrls).map(({ url, parent }) => ({
       queryKey: ["get-stac-child", { url }],
       queryFn: () => getChildByUrl(url as string, parent, catalog),
       refetchOnWindowFocus: false,
-    }))
-  )
+    })),
+  })
 
   childrenQueries.forEach((query) => {
     if (query.data) {
@@ -85,9 +85,11 @@ const STACCollectionsLoader = ({
     .filter((query) => query.data)
     .map((query) => query.data)
     .map((collection) =>
-      collection!.get_item_links().map((link) => ({ url: collection!.url_for_link(link), parent: collection! }))
+      (collection as ICollection)!
+        .get_item_links()
+        .map((link) => ({ url: (collection as ICollection)!.url_for_link(link), parent: collection! }))
     )
-    .flat()
+    .flat() as StacURL[]
 
   if (0 < itemsUrls.length) {
     return <STACItemsLoader catalog={catalog} itemUrls={itemsUrls} />
@@ -103,16 +105,16 @@ const STACCollectionsLoader = ({
 }
 
 const STACItemsLoader = ({ catalog, itemUrls }: { catalog: ICatalog; itemUrls: StacURL[] }) => {
-  const itemsQuery = useQueries(
-    Array.from(itemUrls).map(({ url, parent }) => ({
+  const itemsQuery = useQueries({
+    queries: Array.from(itemUrls).map(({ url, parent }) => ({
       queryKey: ["get-stac-item", { url }],
       queryFn: () => getItemByUrl(url as string, parent, catalog),
       refetchOnWindowFocus: false,
-    }))
-  )
+    })),
+  })
 
   // First filter by which items are loaded
-  const loadedItems = itemsQuery.filter((query) => query.isSuccess).map((query) => query.data)
+  const loadedItems = itemsQuery.filter((query) => query.isSuccess).map((query) => query.data) as IItem[]
 
   // Then group by collection
   const itemsByCollection = loadedItems.reduce((result, item) => {

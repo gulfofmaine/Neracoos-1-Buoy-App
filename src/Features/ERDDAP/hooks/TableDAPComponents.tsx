@@ -2,7 +2,7 @@
  * Render prop components to standardize the loading of datasets
  */
 import * as React from "react"
-import { useQueries } from "react-query"
+import { useQueries } from "@tanstack/react-query"
 import { Alert } from "reactstrap"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aWeekAgoRounded } from "Shared/time"
@@ -41,13 +41,13 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({ childre
 
   startTime = startTime ?? aWeekAgoRounded()
 
-  const results: UseQueryGroupResult[] | undefined = useQueries(
-    fetchGroups.map((group) => ({
+  const results: UseQueryGroupResult[] | undefined = useQueries({
+    queries: fetchGroups.map((group) => ({
       ...defaultQueryConfig,
       queryKey: ["erddap-dataset", group.datasets, startTime],
       queryFn: () => getDatasetGroup(group, startTime),
-    }))
-  )
+    })),
+  })
 
   if (results === undefined) {
     return <h4>Results is not defined</h4>

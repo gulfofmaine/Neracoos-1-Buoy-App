@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/react"
-import { useQuery, useQueries } from "react-query"
+import { useQuery, useQueries } from "@tanstack/react-query"
 
 import { ForecastJson, ForecastSource, PlatformFeatureCollection } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
@@ -28,7 +28,7 @@ const getPlatforms = async () => {
  * Load all the platforms
  */
 export function usePlatforms() {
-  return useQuery<PlatformFeatureCollection, Error>("buoybarn-platforms", getPlatforms, defaultQueryConfig)
+  return useQuery<PlatformFeatureCollection, Error>(["buoybarn-platforms"], getPlatforms, defaultQueryConfig)
 }
 
 /**
@@ -55,7 +55,7 @@ const getForecasts = async () => {
  * Load forecasts
  */
 export function useForecastMeta() {
-  return useQuery("buoybarn-forecasts", getForecasts, defaultQueryConfig)
+  return useQuery(["buoybarn-forecasts"], getForecasts, defaultQueryConfig)
 }
 
 /**
@@ -103,11 +103,11 @@ export function useForecast(lat: number, lon: number, forecast?: ForecastSource)
  * @param forecasts Forecast sources to load
  */
 export function useForecasts(lat: number, lon: number, forecasts: ForecastSource[]) {
-  return useQueries(
-    forecasts.map((forecast) => ({
+  return useQueries({
+    queries: forecasts.map((forecast) => ({
       ...defaultQueryConfig,
       queryKey: ["buoybarn-forecast", { forecast, lat, lon }],
       queryFn: () => getForecast(forecast, lat, lon),
-    }))
-  )
+    })),
+  })
 }
