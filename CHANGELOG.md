@@ -6,10 +6,52 @@ Additions:
 
 Changes:
 
-- Update with new Google Analytics 4 tag. Closes [#2372](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2372)
-- Upgraded to React 18 and replaced Enzyme with React Testing Library
+Fixes:
+
+## 0.10.7 - 07/19/2023
+
+Changes:
+
+- Update with new Google Analytics 4 tag. Closes [#2372](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2372).
+- Upgraded to React 18 and replaced Enzyme with React Testing Library.
+- Set up dependabot groups for Font Awesome, Sentry, Storybook, and React.
+- Dependency Updates:
+  - Github Actions
+    - Docker setup buildx from 2.2.1 to 2.9.1
+    - Docker login from 2.1.0 to 2.2.0
+    - Docker build push from 3.2.0 to 4.1.1
+    - Github pages deploy from 4.4.1 to 4.4.3
+    - Sentry release from 1.2.1 to 1.4.1
+  - Node from 19.2 to 20.4
+  - Nginx from 1.23.2 to 1.25.1
+  - Javascript
+    - Font Awesome core from 6.2.1 to 5.3.0
+    - Sentry react from 7.23.0 to 7.59.2
+    - Highcharts from 10 to 11.1.0
+    - Moment Timezone from 0.5.39 to 0.5.43
+    - React from 16.14.0 to 18.2.0
+    - React DOM from 16.14.0 to 18.2.0
+    - React JSX Highcharts from 4.3.2 to 5.0.1
+    - React Redux from 8.0.5 to 8.1.1
+    - React Router DOM from 6.4.4. to 6.14.2
+    - Reactstrap from 9.1.5 to 9.2.0
+    - RLayers from 1.4.5 to 1.4.8
+    - Storybook from 6.5.14 to 7.1.0
+      - Addon A11y
+      - Addon Essentials
+      - Addon Storyshots
+      - Preset create react app
+    - Types
+      - Jest from 29.2.4 to 29.5.3
+      - Node from 18.11.11 to 20.4.2
+      - React from 18.0.21 to 18.2.15
+      - React DOM From 18.0.6 to 18.2.7
+    - React Test Renderer from 16.14.0 to 18.2.0
+    - Wait on from 6.0.1 to 7.0.1
+    - Cypress from 11.2.0 to 12.17.1
 
 Fixes:
+
 - Model WMS layers are silently selected by URL time, rather than picker time. closes https://github.com/gulfofmaine/NERACOOS_ModelViewer/issues/11
 
 ## 0.10.6 - 01/20/2023
@@ -19,7 +61,7 @@ Changes:
 - Redirect requests to platforms with NDBC ID in path. Closes [#2171](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2171)
 - Show NDBC ID in platform info. Closes [#2171](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/2171)
 - Use Redux Toolkit.
-- Dependency Udates:
+- Dependency Updates:
   - Github Actions
     - CodeQL Init from 1 to 2
     - CodeQL Analyze from 1 to 2
