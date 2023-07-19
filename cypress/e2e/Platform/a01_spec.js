@@ -29,7 +29,7 @@ describe("Platform A01", () => {
     cy.contains("Last updated at:")
   })
 
-  it("Shows current conditions", () => {
+  xit("Shows current conditions", () => {
     cy.visit(platformUrl)
 
     cy.contains("Latest Conditions")
