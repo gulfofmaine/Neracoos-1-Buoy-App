@@ -19,7 +19,7 @@
     "@types/react-responsive": "8.0.5",
     "bootstrap": "^5.2.3",
     "convert-units": "2.3.4",
-    "highcharts": "^10",
+    "highcharts": "^11.1.0",
     "jsurl2": "^2.1.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.43",
