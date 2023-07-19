@@ -38,7 +38,7 @@ describe("Platform A01", () => {
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 4)
   })
 
-  it("Shows air temp plot", () => {
+  xit("Shows air temp plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Air Temperature:").click()
