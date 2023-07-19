@@ -1,6 +1,6 @@
 /*global cy*/
 
-const platformUrl = "/platform/A01%20-%2044029"
+const platformUrl = "/platform/E01"
 
 describe("Units", () => {
   it("Switching units updates units displayed", () => {
