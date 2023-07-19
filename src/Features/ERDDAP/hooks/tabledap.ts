@@ -3,7 +3,7 @@
  */
 import * as Sentry from "@sentry/react"
 import { useState } from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"

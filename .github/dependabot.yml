@@ -1,29 +1,44 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: '10:00'
-  open-pull-requests-limit: 10
-  reviewers:
-  - abkfenris
-  ignore:
-  - dependency-name: cypress
-    versions:
-    - ">= 3.3.1.a, < 3.3.2"
-- package-ecosystem: docker
-  directory: "/"
-  schedule:
-    interval: daily
-    time: '10:00'
-  open-pull-requests-limit: 10
-  reviewers:
-  - abkfenris
-# Maintain dependencies for GitHub Actions
-- package-ecosystem: "github-actions"
-  directory: "/"
-  open-pull-requests-limit: 10
-  schedule:
-    interval: daily
-    time: '10:00'
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "10:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - abkfenris
+    ignore:
+      - dependency-name: cypress
+        versions:
+          - ">= 3.3.1.a, < 3.3.2"
+    # Group dependencies
+    groups:
+      storybook:
+        patterns:
+          - "@storybook/*"
+      font-awesome:
+        patterns:
+          - "@fortawesome"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      react-query:
+        patterns:
+          - "@tanstack/*"
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "10:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - abkfenris
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: daily
+      time: "10:00"

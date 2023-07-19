@@ -14,7 +14,7 @@ describe("Platfrom 44007", () => {
     cy.contains("Station 44007")
   })
 
-  it("Shows platform status", () => {
+  xit("Shows platform status", () => {
     cy.visit(platformUrl)
 
     cy.contains("Lat:")

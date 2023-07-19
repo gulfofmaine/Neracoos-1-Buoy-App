@@ -1,4 +1,4 @@
-import { useQuery, useQueries } from "react-query"
+import { useQuery, useQueries } from "@tanstack/react-query"
 
 import STAC, { ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
 
@@ -36,7 +36,7 @@ async function fetchRootCatalog(): Promise<ICatalog> {
  * @returns hook for the root catalog
  */
 export const useRootCatalogQuery = () => {
-  return useQuery<ICatalog>("stac-catalog", fetchRootCatalog, { refetchOnWindowFocus: false })
+  return useQuery<ICatalog>(["stac-catalog"], fetchRootCatalog, { refetchOnWindowFocus: false })
 }
 
 /**
@@ -158,16 +158,16 @@ export function useLatestItemByCollectionIdQuery(id: string, enabled: boolean = 
  */
 export function useItemsByIdsQuery(ids: string[], enabled: boolean = true) {
   const catalogQuery = useRootCatalogQuery()
-  return useQueries<IItem[]>(
-    ids.map((id) => {
+  return useQueries<IItem[]>({
+    queries: ids.map((id) => {
       return {
         queryKey: ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
         queryFn: () => getItemById(catalogQuery.data!, id),
         refetchOnWindowFocus: false,
         enabled: enabled && !!catalogQuery.data,
       }
-    })
-  )
+    }),
+  })
 }
 
 /**
@@ -179,14 +179,14 @@ export function useItemsByIdsQuery(ids: string[], enabled: boolean = true) {
  */
 export function useLatestItemsByCollectionIdsQuery(ids: string[], enabled: boolean = true) {
   const catalogQuery = useRootCatalogQuery()
-  return useQueries<IItem[]>(
-    ids.map((id) => {
+  return useQueries<IItem[]>({
+    queries: ids.map((id) => {
       return {
         queryKey: ["get-latest-stac-item-by-collection", { catalog: catalogQuery?.data?.id, id }],
         queryFn: () => getLatestItemByCollectionId(catalogQuery.data!, id),
         refetchOnWindowFocus: false,
         enabled: enabled && !!catalogQuery.data,
       }
-    })
-  )
+    }),
+  })
 }
