@@ -29,7 +29,7 @@ describe("Platform A01", () => {
     cy.contains("Last updated at:")
   })
 
-  xit("Shows current conditions", () => {
+  it("Shows current conditions", () => {
     cy.visit(platformUrl)
 
     cy.contains("Latest Conditions")
@@ -38,7 +38,7 @@ describe("Platform A01", () => {
     cy.get("[style='margin-top: 1rem;'] > :nth-child(2) .card").should("have.length.be.gte", 4)
   })
 
-  xit("Shows air temp plot", () => {
+  it("Shows air temp plot", () => {
     cy.visit(platformUrl)
 
     cy.contains("Air Temperature:").click()
@@ -73,7 +73,7 @@ describe("Platform A01", () => {
     cy.contains("ERDDAP dataset")
   })
 
-  xit("Shows wave forecast", () => {
+  it("Shows wave forecast", () => {
     cy.visit(platformUrl)
 
     cy.contains("Forecasts loading")
