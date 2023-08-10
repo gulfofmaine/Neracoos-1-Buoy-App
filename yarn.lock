@@ -12358,10 +12358,10 @@ rimraf@~2.6.2:
   dependencies:
     glob "^7.1.3"
 
-rlayers@^1.4.8:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.5.2.tgz#534148c71b3196965c714b28e891dafd8bb86e08"
-  integrity sha512-FoZ53IathXJc0pXYcBYdLlah60WSFpJkNYnrBbOur1NIb+htJwp+YIK/xNXgS4eC+jdC1humLQL35fil945k/A==
+rlayers@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.5.3.tgz#bbd2749878cad2141d74be52e495a8fa12c22897"
+  integrity sha512-yH16RQYXuRyoykx9toQnPfAUyca9z8C2ZYXVNGhc2bj1uow55vZcVhGTw/A+mg84HyrjaZUrqTgzhCEy9V4F9Q==
   dependencies:
     lru-cache "^7.10.0"
 
