@@ -19,6 +19,23 @@ export const conditions = {
 
   waterTemp: ["sea_surface_temperature", "sea_water_temperature"],
 
+  waterLevel: [
+    "sea_water_level",
+    "sea_surface_height_above_geopotential_datum",
+    "sea_surface_height_above_mean_sea_level",
+    "sea_surface_height_above_sea_level",
+    "sea_surface_height",
+    "sea_surface_height_above_geoid",
+    "sea_surface_height_above_reference_ellipsoid",
+    "tidal_sea_surface_height_above_lowest_astronomical_tide",
+    "tidal_sea_surface_height_above_mean_higher_high_water",
+    "tidal_sea_surface_height_above_mean_lower_low_water",
+    "tidal_sea_surface_height_above_mean_low_water_springs",
+    "tidal_sea_surface_height_above_mean_sea_level",
+    "sea_surface_elevation_anomaly",
+    "sea_surface_elevation",
+  ],
+
   windSpeed: ["wind_speed"],
   windGust: ["wind_gust", "wind_speed_of_gust"],
   windDirection: ["wind_from_direction"],

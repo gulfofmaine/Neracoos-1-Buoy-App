@@ -4,6 +4,8 @@
 
 Additions:
 
+- Adds sea level to current conditions table.
+
 Changes:
 
 Fixes:

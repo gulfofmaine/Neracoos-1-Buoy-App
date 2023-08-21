@@ -36,6 +36,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   const wavePeriod = filterTimeSeries(platform.properties.readings, conditions.wavePeriod, halfDayAgo)
   const waveDirection = filterTimeSeries(platform.properties.readings, conditions.waveDirection, halfDayAgo)
   const waterTemp = filterTimeSeries(platform.properties.readings, conditions.waterTemp, halfDayAgo)
+  const waterLevel = filterTimeSeries(platform.properties.readings, conditions.waterLevel, halfDayAgo)
   const visibility = filterTimeSeries(platform.properties.readings, conditions.visibility, halfDayAgo)
 
   const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, halfDayAgo)
@@ -47,6 +48,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
     airPressure,
     airTemp,
     waterTemp,
+    waterLevel,
     visibility,
     ...windTimeSeries,
   ]
