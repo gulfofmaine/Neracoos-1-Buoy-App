@@ -72,6 +72,7 @@ export const ErddapObservationTable: React.FC<Props> = ({ platform, unitSelector
       <TableItem {...commonProps} data_type={conditions.airTemp} name="Air Temperature" />
       <TableItem {...commonProps} data_type={conditions.waterTemp} name="Water Temperature" />
       <TableItem {...commonProps} data_type={conditions.visibility} name="Visibility" />
+      <TableItem {...commonProps} data_type={conditions.waterLevel} name="Water Level" />
 
       {unitSelector ? (
         <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
