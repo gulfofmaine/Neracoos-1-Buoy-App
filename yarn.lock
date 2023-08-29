@@ -12407,10 +12407,10 @@ rimraf@~2.6.2:
   dependencies:
     glob "^7.1.3"
 
-rlayers@^1.4.8:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-1.5.2.tgz#534148c71b3196965c714b28e891dafd8bb86e08"
-  integrity sha512-FoZ53IathXJc0pXYcBYdLlah60WSFpJkNYnrBbOur1NIb+htJwp+YIK/xNXgS4eC+jdC1humLQL35fil945k/A==
+rlayers@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-2.0.0.tgz#042970508a9d448e919c61f4082f1f7b1ecea71f"
+  integrity sha512-2Sat6d/ZRBZu3pLjPB8wOknn3sCoXFGmcLONJpDBDryaFhq1InEeVxjn2TAmwwdJi2ZAgR8omecz0TS3PIf/vQ==
   dependencies:
     lru-cache "^7.10.0"
 
