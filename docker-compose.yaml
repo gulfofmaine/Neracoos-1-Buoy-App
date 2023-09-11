@@ -11,10 +11,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_ERDDAP_SERVICE: https://buoybarn.neracoos.org
-      # REACT_APP_ERDDAP_SERVICE: http://localhost:8080
-      REACT_APP_PROXY_ROOT: https://proxy.neracoos.org/
-      # REACT_APP_PROXY_ROOT: http://localhost:9090/
+      NEXT_PUBLIC_ERDDAP_SERVICE: https://buoybarn.neracoos.org
+      # NEXT_PUBLIC_ERDDAP_SERVICE: http://localhost:8080
+      NEXT_PUBLIC_PROXY_ROOT: https://proxy.neracoos.org/
+      # NEXT_PUBLIC_PROXY_ROOT: http://localhost:9090/
     volumes:
       - .:/usr/src/app:cached
       - /usr/src/app/node_modules/
@@ -23,7 +23,7 @@ services:
   #   image: neracoos-react
   #   command: "yarn test --watchAll" # --coverage"
   #   environment:
-  #     REACT_APP_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
+  #     NEXT_PUBLIC_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
   #   volumes:
   #   - .:/usr/src/app
   #   - /usr/src/app/node_modules/

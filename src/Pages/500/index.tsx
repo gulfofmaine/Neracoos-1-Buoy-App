@@ -1,3 +1,4 @@
+import Image from "next/image"
 import React from "react"
 import { Col, Row } from "reactstrap"
 
@@ -11,7 +12,7 @@ export const FiveHundredInner: React.FC = () => (
     <Row>
       <Col md={{ offset: 2, size: 8 }}>
         <h1>The data has escaped</h1>
-        <img src={n_walkabout} style={{ maxWidth: "100%" }} />
+        <Image src={n_walkabout} style={{ maxWidth: "100%" }} />
         <p>Despite our best intentions, something has gone wrong while trying to display the data.</p>
 
         <p>

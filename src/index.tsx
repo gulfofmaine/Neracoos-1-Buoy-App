@@ -1,3 +1,4 @@
+// import "./index.scss"
 /**
  * Root module for the Mariners Dashboard.
  */
@@ -17,7 +18,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import GAListener from "Shared/google-analytics"
 
 import App from "./App"
-import "./index.scss"
 import { queryClient } from "./queryClient"
 import { history, store } from "./store"
 import { FiveHundredPage } from "./Pages/500"
@@ -47,14 +47,8 @@ if (!(window as any).Cypress) {
   })
 }
 
-const container = document.getElementById("root") as HTMLElement
-const root = createRoot(container)
-
-/**
- * Render our root element of the App.
- * Everything else descends from this render.
- */
-root.render(
+export default () => {
+  return (
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <HistoryRouter history={history}>
@@ -67,4 +61,4 @@ root.render(
       <ReactQueryDevtools />
     </Provider>
   </QueryClientProvider>
-)
+)}
