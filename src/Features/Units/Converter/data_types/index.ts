@@ -5,6 +5,7 @@ import { CardinalDirection } from "./_cardinal_direction"
 import { CmsVelocity } from "./_cms_velocity"
 import { Passthrough } from "./_passthrough"
 import { Temperature } from "./_temperature"
+import { TidalLevel } from "./_tidal_level"
 import { Visibility } from "./_visibility"
 import { WaveHeight } from "./_wave_height"
 import { WindSpeed } from "./_wind_speed"
@@ -131,6 +132,7 @@ export const data_types: DataTypesObject = {
   ),
   sea_surface_temperature: new Temperature("sea_surface_temperature", "Sea Surface Temperature"),
   sea_water_temperature: new Temperature("sea_water_temperature", "Water Temperature"),
+  sea_surface_height_above_geopotential_datum: new TidalLevel("sea_surface_height_above_geopotential_datum", "Sea Surface Height (NAVD 88)"),
   sea_surface_wave_significant_height: new WaveHeight("max_wave_height", "Wave Height"),
   sea_surface_wave_from_direction: new CardinalDirection("sea_surface_wave_from direction", "Waves from Direction"),
   sea_surface_wave_to_direction: new CardinalDirection("sea_surface_wave_to_direction", "Wave Direction"),
@@ -186,6 +188,9 @@ export const data_types: DataTypesObject = {
     "microATM"
   ),
   tendency_of_air_pressure: new AirPressureHpa("tendency_of_air_pressure", "Pressure Tendency"),
+  tidal_sea_surface_height_above_mean_higher_high_water: new TidalLevel("tidal_sea_surface_height_above_mean_higher_high_water", "Mean Higher High Water"),
+  tidal_sea_surface_height_above_mean_lower_low_water: new TidalLevel("tidal_sea_surface_height_above_mean_lower_low_water", "Mean Lower Low Water"),
+  tidal_sea_surface_height_above_mean_sea_level: new TidalLevel("tidal_sea_surface_height_above_mean_sea_level", "Mean Sea Level"),
   transmissivity: new Passthrough("transmissivity", "Transmissivity", "percent", "percent"),
   transmissivity_voltage: new Passthrough("transmissivity_voltage", "Transmissivity Voltage", "percent", "percent"),
   turbidity: new Passthrough("turbidity", "Turbidity", "ntu", "ntu"),
