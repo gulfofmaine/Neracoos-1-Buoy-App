@@ -20,7 +20,7 @@ updates:
           - "storybook"
       font-awesome:
         patterns:
-          - "@fortawesome"
+          - "@fortawesome/*"
       react:
         patterns:
           - "react"
