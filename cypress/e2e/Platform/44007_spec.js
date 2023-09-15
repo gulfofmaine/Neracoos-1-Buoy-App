@@ -68,7 +68,7 @@ describe("Platfrom 44007", () => {
     cy.contains("English").click()
     cy.get("svg.highcharts-root").contains("Feet")
     // cy.contains("Significant Wave Height observed").click()
-    cy.get("svg.highcharts-root").contains("Bedford Institute Wave Model").click()
+    cy.get("svg.highcharts-root").contains("Northeast Coastal Ocean Forecast System").click()
 
     cy.contains("Data access").should("not.exist")
     cy.get("#Forecast-Tooltip").trigger("mouseover")
