@@ -80,7 +80,7 @@
     "webpack": "5"
   },
   "optionalDependencies": {
-    "cypress": "13.1.0"
+    "cypress": "13.2.0"
   },
   "prettier": {
     "semi": false,
