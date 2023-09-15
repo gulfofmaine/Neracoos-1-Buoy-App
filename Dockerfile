@@ -15,7 +15,6 @@ COPY . /usr/src/app
 
 FROM develop as buildstep
 
-ARG NEXT_PUBLIC_PROXY_ROOT
 ARG NEXT_PUBLIC_ERDDAP_SERVICE
 
 RUN yarn build

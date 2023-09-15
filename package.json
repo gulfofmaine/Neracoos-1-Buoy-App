@@ -23,6 +23,7 @@
     "convert-units": "2.3.4",
     "error": "10.4.0",
     "highcharts": "^11.1.0",
+    "jest": "^29.6.4",
     "jsurl2": "^2.1.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.43",
@@ -99,18 +100,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.[tj]sx?$": "babel-jest",
-      "^.+\\.mdx?$": "@storybook/addon-docs/jest-transform-mdx"
-    },
-    "collectCoverageFrom": [
-      "**/*.{js,jsx,ts,tsx}",
-      "!**/node_modules/**",
-      "!**/*.stories.tsx",
-      "!**.storybook/**"
     ]
   },
   "eslintConfig": {
