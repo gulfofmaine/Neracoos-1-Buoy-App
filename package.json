@@ -48,7 +48,7 @@
     "start": "GENERATE_SOURCEMAP=false next dev",
     "start-production": "next start",
     "build": "next build",
-    "test": "jest test",
+    "test": "jest --verbose",
     "think-before-eject": "next eject",
     "docs": "typedoc",
     "test-with-coverage": "jest test --coverage && cat ./coverage/lcov.info",

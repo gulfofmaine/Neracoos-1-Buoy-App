@@ -12,7 +12,7 @@ const customJestConfig = {
     "!**/node_modules/**",
     "!**/*.stories.tsx",
     "!**.storybook/**"
-  ]
+  ],
 }
  
 // createJestConfig is exported in this way to ensure that next/jest can load the Next.js configuration, which is async
