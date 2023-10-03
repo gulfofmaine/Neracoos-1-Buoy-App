@@ -52,7 +52,7 @@
     "test": "jest --verbose --watch",
     "think-before-eject": "next eject",
     "docs": "typedoc",
-    "test-with-coverage": "jest test --coverage && cat ./coverage/lcov.info",
+    "test-with-coverage": "jest --verbose --coverage && cat ./coverage/lcov.info",
     "types": "tsc",
     "storybook": "storybook dev -p 9009 -s public",
     "build-storybook": "storybook build -c .storybook -o storybook-public"
