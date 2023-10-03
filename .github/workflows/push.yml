@@ -134,8 +134,8 @@ jobs:
           docker load --input /tmp/myimage.tar
           docker image ls -a
 
-      - name: Get Cypress version from package.json
-        run: echo "CYPRESS_VERSION=$(cat package.json | jq -r '.optionalDependencies.cypress')" >> $GITHUB_ENV
+      - name: Get Cypress version from cypress/package.json
+        run: echo "CYPRESS_VERSION=$(cat cypress/package.json | jq -r '.dependencies.cypress')" >> $GITHUB_ENV
 
       - name: Cache Cypress
         uses: actions/cache@v3

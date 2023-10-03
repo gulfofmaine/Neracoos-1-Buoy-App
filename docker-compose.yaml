@@ -16,6 +16,7 @@ services:
     volumes:
       - .:/usr/src/app:cached
       - /usr/src/app/node_modules/
+      - /usr/src/app/cypress/node_modules/
   # test:
   #   build: .
   #   image: neracoos-react
