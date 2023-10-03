@@ -20,6 +20,12 @@
     "noEmit": true,
     "jsx": "preserve",
     "baseUrl": "src",
+    "paths": {
+      "Shared/*": ["Shared/*"],
+      "components/*": ["Components/*"],
+      "Pages/*": ["Pages/*"],
+      "Features/*": ["Features/*"]
+    },
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
     "incremental": true

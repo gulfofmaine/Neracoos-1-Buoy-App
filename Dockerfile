@@ -9,7 +9,7 @@ RUN apk add --no-cache git
 COPY ./yarn.lock ./package.json /usr/src/app/
 
 RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
-    yarn install --ignore-optional
+    yarn install
 
 COPY . /usr/src/app
 
