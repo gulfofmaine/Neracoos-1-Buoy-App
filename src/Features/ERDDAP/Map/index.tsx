@@ -84,7 +84,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
         }, [platform])}
         onClick={React.useCallback(() => {
           navigate(url, { replace: false })
-        }, [])}
+        }, [navigate, url])}
       >
         <RPopup trigger={"hover"}>
           <Button
@@ -92,7 +92,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
             size="sm"
             onClick={React.useCallback(() => {
               navigate(url, { replace: false })
-            }, [])}
+            }, [navigate, url])}
           >
             {platform.id}
           </Button>

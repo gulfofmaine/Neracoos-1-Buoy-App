@@ -43,9 +43,11 @@
     "reactstrap": "9.2.0",
     "redux-first-history": "^5.1.1",
     "rlayers": "^1.4.8",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "sharp": "^0.32.6"
   },
   "scripts": {
+    "dev": "next dev",
     "start": "GENERATE_SOURCEMAP=false next dev",
     "start-production": "next start",
     "build": "next build",
@@ -55,9 +57,11 @@
     "test-with-coverage": "jest --verbose --coverage && cat ./coverage/lcov.info",
     "types": "tsc",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "lint": "next lint"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.5.5",
     "@storybook/addon-a11y": "^7.4.6",
     "@storybook/addon-essentials": "^7.4.6",
     "@storybook/addon-interactions": "^7.4.6",
@@ -77,6 +81,7 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-test-renderer": "18.0.0",
+    "eslint": "^8.51.0",
     "eslint-plugin-storybook": "^0.6.15",
     "jest-environment-jsdom": "^29.6.4",
     "jest-fetch-mock": "3.0.3",
@@ -108,12 +113,14 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:storybook/recommended"
+      "plugin:storybook/recommended",
+      "next"
     ],
     "ignorePatterns": [
       "**/*.stories.tsx"
-    ]
+    ],
+    "rules": {
+      "@next/next/no-img-element": "off"
+    }
   }
 }

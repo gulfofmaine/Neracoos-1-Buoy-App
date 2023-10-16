@@ -47,7 +47,7 @@ if (!(window as any).Cypress) {
   })
 }
 
-export default () => {
+const Index = () => {
   return (
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
@@ -62,3 +62,5 @@ export default () => {
     </Provider>
   </QueryClientProvider>
 )}
+
+export default Index
