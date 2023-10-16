@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v4.1.1
         with:
           context: .
-          target: develop
+          target: dev
           push: false
           tags: gmri/neracoos-mariners-dashboard:latest
           cache-from: type=gha
