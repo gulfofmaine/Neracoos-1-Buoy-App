@@ -10,7 +10,7 @@ import * as Sentry from "@sentry/react"
 
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { compassDirection } from "Shared/unitConversion"
+import { compassDirection } from "Shared/unitConversion/compassDirection"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 

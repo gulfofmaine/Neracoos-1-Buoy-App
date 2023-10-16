@@ -22,7 +22,7 @@ import { UnitSystem } from "Features/Units/types"
 import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { compassDirection } from "Shared/unitConversion"
+import { compassDirection } from "Shared/unitConversion/compassDirection"
 
 const dataConverter = converter("wind_speed")
 
