@@ -11,6 +11,7 @@ exports[`Storyshots Components/500 Page Five Hundred Page 1`] = `
       The data has escaped
     </h1>
     <img
+      alt="Track of a lost buoy"
       data-nimg="1"
       decoding="async"
       height={40}
@@ -137,14 +138,20 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
       >
         <img
           alt="NERACOOS"
-          src={
+          data-nimg="1"
+          decoding="async"
+          height={30}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
+          srcSet="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
+          style={
             {
-              "blurDataURL": "data:image/png;base64,imagedata",
-              "height": 40,
-              "src": "/img.jpg",
-              "width": 40,
+              "color": "transparent",
             }
           }
+          width={30}
         />
       </a>
       <button

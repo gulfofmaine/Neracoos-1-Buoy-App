@@ -12,6 +12,7 @@ const nextConfig = {
   // images: {
   //   disableStaticImages: true
   // }  
+  output: "standalone"
 }
 
 module.exports = nextConfig

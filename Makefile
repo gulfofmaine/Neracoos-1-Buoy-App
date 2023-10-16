@@ -3,14 +3,18 @@
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
 
 up: down
-	rm -r node_modules/ || true
-	rm -r .eslintcache || true
-	docker compose build
-	docker compose up -d
-	docker compose logs -f
+	# rm -r node_modules/ || true
+	# rm -r .eslintcache || true
+	docker compose -f docker-compose.dev.yaml build
+	docker compose -f docker-compose.dev.yaml up -d
+	docker compose -f docker-compose.dev.yaml logs -f
+
+serve: down
+	docker compose build client
+	docker compose up
 
 down:
-	docker compose down
+	docker compose -f docker-compose.yaml -f docker-compose.dev.yaml down
 
 prune:
 	docker volume rm $(shell docker volume ls -qf dangling=true)

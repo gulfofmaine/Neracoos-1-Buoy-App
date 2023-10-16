@@ -4,19 +4,19 @@ services:
   client:
     build:
       context: .
-      target: develop
+      target: runner
     image: gmri/neracoos-mariners-dashboard
-    command: "yarn start"
+    # command: "yarn dev"
     stdin_open: true
     ports:
       - "3000:3000"
     environment:
       NEXT_PUBLIC_ERDDAP_SERVICE: https://buoybarn.neracoos.org
       # NEXT_PUBLIC_ERDDAP_SERVICE: http://localhost:8080
-    volumes:
-      - .:/usr/src/app:cached
-      - /usr/src/app/node_modules/
-      - /usr/src/app/cypress/node_modules/
+    # volumes:
+    #   - .:/app:cached
+    #   - /app/node_modules/
+    #   - /app/cypress/node_modules/
   # test:
   #   build: .
   #   image: neracoos-react
