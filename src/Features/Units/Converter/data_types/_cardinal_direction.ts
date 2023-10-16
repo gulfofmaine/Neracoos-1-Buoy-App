@@ -1,6 +1,6 @@
 import { DataTypeConversion } from "../conversions"
 import { UnitSystem } from "Features/Units/types"
-import { compassDirection } from "Shared/unitConversion"
+import { compassDirection } from "Shared/unitConversion/compassDirection"
 
 /**
  * Convert degrees to cardinal (compass) direction

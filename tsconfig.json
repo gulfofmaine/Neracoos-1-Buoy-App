@@ -22,9 +22,11 @@
     "baseUrl": "src",
     "paths": {
       "Shared/*": ["Shared/*"],
-      "components/*": ["Components/*"],
+      "components/*": ["components/*"],
       "Pages/*": ["Pages/*"],
-      "Features/*": ["Features/*"]
+      "Features/*": ["Features/*"],
+      "stories/*": ["stories/*"],
+      "queryClient": ["queryClient"],
     },
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,

@@ -1,7 +1,9 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   env: {
     PUBLIC_URL: ''
   },
+  transpilePackages: ["ol", "quick-lru"],
   experimental: {
     craCompat: false,
   },
@@ -11,3 +13,5 @@ module.exports = {
   //   disableStaticImages: true
   // }  
 }
+
+module.exports = nextConfig

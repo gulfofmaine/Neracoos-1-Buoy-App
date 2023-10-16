@@ -11,12 +11,21 @@ exports[`Storyshots Components/500 Page Five Hundred Page 1`] = `
       The data has escaped
     </h1>
     <img
-      src="n_walkabout.png"
+      data-nimg="1"
+      decoding="async"
+      height={40}
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
+      srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
       style={
-        Object {
+        {
+          "color": "transparent",
           "maxWidth": "100%",
         }
       }
+      width={40}
     />
     <p>
       Despite our best intentions, something has gone wrong while trying to display the data.
@@ -48,7 +57,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
   <div
     className="row"
     style={
-      Object {
+      {
         "fontSize": ".8rem",
         "padding": ".25rem",
         "paddingTop": "1rem",
@@ -64,7 +73,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
   <div
     className="row"
     style={
-      Object {
+      {
         "fontSize": ".8rem",
         "padding": ".25rem",
       }
@@ -87,7 +96,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
   <div
     className="row"
     style={
-      Object {
+      {
         "fontSize": ".8rem",
         "padding": ".25rem",
       }
@@ -128,7 +137,14 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
       >
         <img
           alt="NERACOOS"
-          src="neracoos_logo.png"
+          src={
+            {
+              "blurDataURL": "data:image/png;base64,imagedata",
+              "height": 40,
+              "src": "/img.jpg",
+              "width": 40,
+            }
+          }
         />
       </a>
       <button
@@ -143,7 +159,7 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
       </button>
       <div
         className="justify-content-end collapse navbar-collapse"
-        style={Object {}}
+        style={{}}
       >
         <ul
           className="ml-auto navbar-nav"
@@ -300,6 +316,88 @@ exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
       </a>
       <br />
     </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
+<div
+  className="card"
+  style={
+    {
+      "marginBottom": "1rem",
+      "marginTop": "1rem",
+    }
+  }
+>
+  <div
+    className="card-header"
+  >
+    <h5>
+      Latest Conditions
+    </h5>
+  </div>
+  <div
+    className="card-body"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col"
+      >
+        <a
+          href="/platform/WLIS"
+          onClick={[Function]}
+        >
+          <h6>
+            Highest Winds
+          </h6>
+        </a>
+        <div>
+          22.8
+           
+          Knots
+        </div>
+        <a
+          href="/platform/WLIS"
+          onClick={[Function]}
+        >
+          <div>
+            WLIS
+             - 
+            Western Long Island Sound
+          </div>
+        </a>
+      </div>
+      <div
+        className="col"
+      >
+        <a
+          href="/platform/44008"
+          onClick={[Function]}
+        >
+          <h6>
+            Biggest Waves
+          </h6>
+        </a>
+        <div>
+          8.3
+           
+          Feet
+        </div>
+        <a
+          href="/platform/44008"
+          onClick={[Function]}
+        >
+          <div>
+            44008
+             - 
+            Nantucket 54NM Southeast of Nantucket
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 `;

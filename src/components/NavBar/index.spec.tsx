@@ -1,5 +1,4 @@
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
@@ -12,9 +11,7 @@ describe("The NavBar should have our primary links", () => {
 
   beforeEach(() => {
     render(
-      <MemoryRouter>
         <NavBar />
-      </MemoryRouter>
     )
   })
   {
