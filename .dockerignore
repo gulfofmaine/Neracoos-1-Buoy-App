@@ -41,7 +41,6 @@ secret.env
 .next
 .github
 .sourcemaps
-.storybook
 build
 coverage
 cypress
