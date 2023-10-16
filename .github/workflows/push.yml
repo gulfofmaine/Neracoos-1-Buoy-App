@@ -117,7 +117,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: docker-compose run -e CI=true client yarn test-with-coverage
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test-with-coverage
 
       - name: Codacy Coverage Reporter
         if: env.CODACY_PROJECT_TOKEN != null
@@ -130,27 +130,27 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
-        run: docker-compose run -e CI=true client yarn test
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test
 
       - name: Typecheck
-        run: docker-compose run client yarn types
+        run: docker compose -f docker-compose.dev.yaml run client yarn types
 
       - name: Yarn Build
-        run: docker-compose run client yarn build
+        run: docker compose -f docker-compose.dev.yaml run client yarn build
 
       - name: Build Storybook Pages
-        run: docker-compose run client yarn build-storybook
+        run: docker compose -f docker-compose.dev.yaml run client yarn build-storybook
 
-      - name: Cache Storybook Build
-        uses: actions/cache@v3
-        with:
-          path: /tmp/storybook-public/
-          key: mariners-dashboard-storybook-${{ github.sha }}
+      # - name: Cache Storybook Build
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: /tmp/storybook-public/
+      #     key: mariners-dashboard-storybook-${{ github.sha }}
 
-      - name: Copy Storybook Build to cache directory
-        run: |
-          rm -rf /tmp/storybook-public
-          cp -r storybook-public /tmp/storybook-public
+      # - name: Copy Storybook Build to cache directory
+      #   run: |
+      #     rm -rf /tmp/storybook-public
+      #     cp -r storybook-public /tmp/storybook-public
 
   cypress:
     name: Cypress integration tests
@@ -192,7 +192,7 @@ jobs:
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
       - name: Start container
-        run: docker-compose run -d -p 3000:3000 client yarn start
+        run: docker compose up -d client
 
       - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
@@ -225,30 +225,30 @@ jobs:
         run: docker-compose logs
         if: always()
 
-  pages:
-    name: Deploy Storybook to Github Pages on version tag
-    runs-on: ubuntu-20.04
-    needs: [unit_tests, cypress]
-    timeout-minutes: 10
-    if: |
-      github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
-      && contains(github.ref, 'refs/tags/v')
+  # pages:
+  #   name: Deploy Storybook to Github Pages on version tag
+  #   runs-on: ubuntu-20.04
+  #   needs: [unit_tests, cypress]
+  #   timeout-minutes: 10
+  #   if: |
+  #     github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
+  #     && contains(github.ref, 'refs/tags/v')
 
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: "Checkout"
+  #       uses: actions/checkout@v3
 
-      - name: Cache Storybook Build
-        uses: actions/cache@v3
-        with:
-          path: /tmp/storybook-public/
-          key: mariners-dashboard-storybook-${{ github.sha }}
+  #     - name: Cache Storybook Build
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: /tmp/storybook-public/
+  #         key: mariners-dashboard-storybook-${{ github.sha }}
 
-      - name: Deploy Storybook to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
-        with:
-          branch: gh-pages
-          folder: /tmp/storybook-public/
+  #     - name: Deploy Storybook to Github Pages 🚀
+  #       uses: JamesIves/github-pages-deploy-action@v4.4.3
+  #       with:
+  #         branch: gh-pages
+  #         folder: /tmp/storybook-public/
 
   push_image:
     name: Build and push tagged image to Docker Hub
