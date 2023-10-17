@@ -84,7 +84,7 @@
     "@types/react-test-renderer": "18.0.1",
     "eslint": "^8.51.0",
     "eslint-plugin-storybook": "^0.6.15",
-    "jest-environment-jsdom": "^29.6.4",
+    "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "3.0.3",
     "react-test-renderer": "18.2.0",
     "redux-devtools-extension": "2.13.9",
