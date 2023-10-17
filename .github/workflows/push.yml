@@ -130,10 +130,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
-        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test
-
-      - name: Typecheck
-        run: docker compose -f docker-compose.dev.yaml run client yarn types
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test-ci
 
       - name: Yarn Build
         run: docker compose -f docker-compose.dev.yaml run client yarn build
