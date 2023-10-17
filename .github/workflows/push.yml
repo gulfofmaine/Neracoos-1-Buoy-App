@@ -38,12 +38,57 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: .
-          target: develop
+          target: dev
           push: false
           tags: gmri/neracoos-mariners-dashboard:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           outputs: type=docker,dest=/tmp/myimage.tar
+
+  build-prod:
+    name: Build production Docker image
+    runs-on: ubuntu-20.04
+    needs: build
+    timeout-minutes: 10
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.10.0
+
+      - name: Cache Docker image
+        uses: actions/cache@v3
+        with:
+          path: /tmp/myimage.tar
+          key: mariners-dashboard-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-image-
+
+      - name: Cache production Docker image
+        uses: actions/cache@v3
+        with:
+          path: /tmp/prodimage.tar
+          key: mariners-dashboard-prod-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-prod-image-
+
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/myimage.tar
+          docker image ls -a
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v4.1.1
+        with:
+          context: .
+          target: runner
+          push: false
+          tags: gmri/neracoos-mariners-dashboard:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          outputs: type=docker,dest=/tmp/prodimage.tar
 
   unit_tests:
     name: Unit tests, typecheck and coverage
@@ -72,7 +117,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: docker-compose run -e CI=true client yarn test-with-coverage
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test-with-coverage
 
       - name: Codacy Coverage Reporter
         if: env.CODACY_PROJECT_TOKEN != null
@@ -85,32 +130,32 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
-        run: docker-compose run -e CI=true client yarn test
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test
 
       - name: Typecheck
-        run: docker-compose run client yarn types
+        run: docker compose -f docker-compose.dev.yaml run client yarn types
 
       - name: Yarn Build
-        run: docker-compose run client yarn build
+        run: docker compose -f docker-compose.dev.yaml run client yarn build
 
       - name: Build Storybook Pages
-        run: docker-compose run client yarn build-storybook
+        run: docker compose -f docker-compose.dev.yaml run client yarn build-storybook
 
-      - name: Cache Storybook Build
-        uses: actions/cache@v3
-        with:
-          path: /tmp/storybook-public/
-          key: mariners-dashboard-storybook-${{ github.sha }}
+      # - name: Cache Storybook Build
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: /tmp/storybook-public/
+      #     key: mariners-dashboard-storybook-${{ github.sha }}
 
-      - name: Copy Storybook Build to cache directory
-        run: |
-          rm -rf /tmp/storybook-public
-          cp -r storybook-public /tmp/storybook-public
+      # - name: Copy Storybook Build to cache directory
+      #   run: |
+      #     rm -rf /tmp/storybook-public
+      #     cp -r storybook-public /tmp/storybook-public
 
   cypress:
     name: Cypress integration tests
     runs-on: ubuntu-20.04
-    needs: build
+    needs: build-prod
     timeout-minutes: 30
 
     steps:
@@ -124,18 +169,18 @@ jobs:
       - name: Cache Docker image
         uses: actions/cache@v3
         with:
-          path: /tmp/myimage.tar
-          key: mariners-dashboard-image-${{ github.sha }}
+          path: /tmp/prodimage.tar
+          key: mariners-dashboard-prod-image-${{ github.sha }}
           restore-keys: |
-            mariners-dashboard-image-
+            mariners-dashboard-prod-image-
 
       - name: Load Docker image
         run: |
-          docker load --input /tmp/myimage.tar
+          docker load --input /tmp/prodimage.tar
           docker image ls -a
 
-      - name: Get Cypress version from package.json
-        run: echo "CYPRESS_VERSION=$(cat package.json | jq -r '.optionalDependencies.cypress')" >> $GITHUB_ENV
+      - name: Get Cypress version from cypress/package.json
+        run: echo "CYPRESS_VERSION=$(cat cypress/package.json | jq -r '.dependencies.cypress')" >> $GITHUB_ENV
 
       - name: Cache Cypress
         uses: actions/cache@v3
@@ -147,10 +192,7 @@ jobs:
         run: npm install cypress@${CYPRESS_VERSION} wait-on
 
       - name: Start container
-        run: docker-compose run -d -e "REACT_APP_PROXY_ROOT=http://localhost:9090/" -p 3000:3000 client yarn start
-
-      - name: CORS Proxy container
-        run: docker run -d -p 9090:9090 -e "ALLOWED=http://localhost:3000" gmri/cors-proxy:latest
+        run: docker compose up -d client
 
       - name: Wait for container to become available
         run: npx wait-on http://localhost:3000
@@ -183,30 +225,30 @@ jobs:
         run: docker-compose logs
         if: always()
 
-  pages:
-    name: Deploy Storybook to Github Pages on version tag
-    runs-on: ubuntu-20.04
-    needs: [unit_tests, cypress]
-    timeout-minutes: 10
-    if: |
-      github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
-      && contains(github.ref, 'refs/tags/v')
+  # pages:
+  #   name: Deploy Storybook to Github Pages on version tag
+  #   runs-on: ubuntu-20.04
+  #   needs: [unit_tests, cypress]
+  #   timeout-minutes: 10
+  #   if: |
+  #     github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
+  #     && contains(github.ref, 'refs/tags/v')
 
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
+    # steps:
+    #   - name: "Checkout"
+    #     uses: actions/checkout@v4
 
-      - name: Cache Storybook Build
-        uses: actions/cache@v3
-        with:
-          path: /tmp/storybook-public/
-          key: mariners-dashboard-storybook-${{ github.sha }}
+  #     - name: Cache Storybook Build
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: /tmp/storybook-public/
+  #         key: mariners-dashboard-storybook-${{ github.sha }}
 
-      - name: Deploy Storybook to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
-        with:
-          branch: gh-pages
-          folder: /tmp/storybook-public/
+  #     - name: Deploy Storybook to Github Pages 🚀
+  #       uses: JamesIves/github-pages-deploy-action@v4.4.3
+  #       with:
+  #         branch: gh-pages
+  #         folder: /tmp/storybook-public/
 
   push_image:
     name: Build and push tagged image to Docker Hub
@@ -225,13 +267,18 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.0.0
 
-      - name: Cache Docker layers
+      - name: Cache Docker image
         uses: actions/cache@v3
         with:
-          path: /tmp/.buildx-cache
-          key: mariners-dashboard-buildx-${{ github.sha }}
+          path: /tmp/prodimage.tar
+          key: mariners-dashboard-prod-image-${{ github.sha }}
           restore-keys: |
-            mariners-dashboard-buildx-
+            mariners-dashboard-prod-image-
+
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/prodimage.tar
+          docker image ls -a
 
       - name: "Login to Docker Hub"
         uses: docker/login-action@v3.0.0
@@ -251,8 +298,7 @@ jobs:
           tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
-            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
-            REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+            NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
 
       - name: Make GitOps directory
         run: mkdir gitops
@@ -299,13 +345,18 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.0.0
 
-      - name: Cache Docker layers
+      - name: Cache Docker image
         uses: actions/cache@v3
         with:
-          path: /tmp/.buildx-cache
-          key: mariners-dashboard-buildx-${{ github.sha }}
+          path: /tmp/prodimage.tar
+          key: mariners-dashboard-prod-image-${{ github.sha }}
           restore-keys: |
-            mariners-dashboard-buildx-
+            mariners-dashboard-prod-image-
+
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/prodimage.tar
+          docker image ls -a
 
       - name: "Login to Docker Hub"
         uses: docker/login-action@v3.0.0
@@ -325,8 +376,7 @@ jobs:
           tags: gmri/neracoos-mariners-dashboard:${{ steps.tagName.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
-            REACT_APP_PROXY_ROOT=https://proxy.neracoos.org/
-            REACT_APP_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+            NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
 
       - name: Make GitOps directory
         run: mkdir gitops

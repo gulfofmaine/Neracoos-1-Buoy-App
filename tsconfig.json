@@ -18,10 +18,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "baseUrl": "src",
+    "paths": {
+      "Shared/*": ["Shared/*"],
+      "components/*": ["components/*"],
+      "Pages/*": ["Pages/*"],
+      "Features/*": ["Features/*"],
+      "stories/*": ["stories/*"],
+      "queryClient": ["queryClient"],
+    },
     "noFallthroughCasesInSwitch": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "incremental": true
   },
   "include": [
     "src"

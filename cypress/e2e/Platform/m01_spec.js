@@ -72,8 +72,9 @@ describe("Platfrom M01", () => {
     cy.get("svg.highcharts-root").contains("Meters")
     cy.contains("English").click()
     cy.get("svg.highcharts-root").contains("Feet")
-    // cy.contains("Significant Wave Height observed").click()
-    cy.get("svg.highcharts-root").contains("Northeast Coastal Ocean Forecast System").click()
+    cy.contains("Significant Wave Height - observations").click()
+    // cy.get("svg.highcharts-root").contains("Bedford Institute Wave Model - Height").click()
+    // cy.get("svg.highcharts-root").contains('Northeast Coastal Ocean Forecast System')
   })
 
   it("Has More info menu", () => {

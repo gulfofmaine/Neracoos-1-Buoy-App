@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+cypress/node_modules
 
 # testing
 /coverage*
@@ -37,3 +38,20 @@ docker-compose.yaml
 k8s*
 secret.env
 **/.gitignore
+.next
+.github
+.sourcemaps
+build
+coverage
+cypress
+docs
+k8s
+server_config
+.codacy.yml
+.editorconfig
+.rtx.toml
+CHANGELOG.md
+cypress.config.js
+devcontainer.json
+LICENSE
+nginx.production.conf

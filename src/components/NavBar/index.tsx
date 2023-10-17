@@ -1,6 +1,7 @@
 /**
  * Navbar component
  */
+import Image from "next/image"
 import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
@@ -26,7 +27,7 @@ const NeracoosNavBar = () => {
     <div>
       <Navbar dark={true} expand="md">
         <NavbarBrand href={paths.neracoos}>
-          <img src={neracoosLogo} alt="NERACOOS" />
+          <Image src={neracoosLogo} alt="NERACOOS" height={30} />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
 

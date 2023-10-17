@@ -1,0 +1,16 @@
+services:
+  client:
+    extends:
+      file: docker-compose.yaml
+      service: client
+    build:
+      context: .
+      target: dev
+    command: yarn dev
+    stdin_open: true
+    volumes:
+      - .:/app:cached
+      - /app/node_modules/
+      - /app/cypress/node_modules/
+      - /app/.next/
+      - /app/build/

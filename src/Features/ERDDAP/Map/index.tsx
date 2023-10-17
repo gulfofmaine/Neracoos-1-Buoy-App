@@ -1,3 +1,4 @@
+// import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
@@ -8,8 +9,6 @@ import { RMap, RLayerVector, RStyle, RPopup, RFeature } from "rlayers"
 import type { RView } from "rlayers/RMap"
 import { Button } from "reactstrap"
 import { generatePath, useNavigate } from "react-router-dom"
-
-import "ol/ol.css"
 
 import { useStatefulView } from "Features/StatefulMap"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
@@ -85,7 +84,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
         }, [platform])}
         onClick={React.useCallback(() => {
           navigate(url, { replace: false })
-        }, [])}
+        }, [navigate, url])}
       >
         <RPopup trigger={"hover"}>
           <Button
@@ -93,7 +92,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
             size="sm"
             onClick={React.useCallback(() => {
               navigate(url, { replace: false })
-            }, [])}
+            }, [navigate, url])}
           >
             {platform.id}
           </Button>

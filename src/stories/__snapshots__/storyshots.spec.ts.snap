@@ -11,12 +11,22 @@ exports[`Storyshots Components/500 Page Five Hundred Page 1`] = `
       The data has escaped
     </h1>
     <img
-      src="n_walkabout.png"
+      alt="Track of a lost buoy"
+      data-nimg="1"
+      decoding="async"
+      height={40}
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
+      srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
       style={
-        Object {
+        {
+          "color": "transparent",
           "maxWidth": "100%",
         }
       }
+      width={40}
     />
     <p>
       Despite our best intentions, something has gone wrong while trying to display the data.
@@ -48,7 +58,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
   <div
     className="row"
     style={
-      Object {
+      {
         "fontSize": ".8rem",
         "padding": ".25rem",
         "paddingTop": "1rem",
@@ -64,7 +74,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
   <div
     className="row"
     style={
-      Object {
+      {
         "fontSize": ".8rem",
         "padding": ".25rem",
       }
@@ -87,7 +97,7 @@ exports[`Storyshots Components/Footer Footer 1`] = `
   <div
     className="row"
     style={
-      Object {
+      {
         "fontSize": ".8rem",
         "padding": ".25rem",
       }
@@ -128,7 +138,20 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
       >
         <img
           alt="NERACOOS"
-          src="neracoos_logo.png"
+          data-nimg="1"
+          decoding="async"
+          height={30}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
+          srcSet="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
+          style={
+            {
+              "color": "transparent",
+            }
+          }
+          width={30}
         />
       </a>
       <button
@@ -143,7 +166,7 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
       </button>
       <div
         className="justify-content-end collapse navbar-collapse"
-        style={Object {}}
+        style={{}}
       >
         <ul
           className="ml-auto navbar-nav"
@@ -304,11 +327,11 @@ exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP/Superlatives Configureable 1`] = `
+exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
 <div
   className="card"
   style={
-    Object {
+    {
       "marginBottom": "1rem",
       "marginTop": "1rem",
     }
