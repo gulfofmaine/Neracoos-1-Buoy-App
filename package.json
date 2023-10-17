@@ -55,6 +55,7 @@
     "think-before-eject": "next eject",
     "docs": "typedoc",
     "test-with-coverage": "jest --verbose --coverage && cat ./coverage/lcov.info",
+    "test-ci": "jest --verbose",
     "types": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
