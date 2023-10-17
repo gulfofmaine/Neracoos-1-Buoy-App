@@ -78,7 +78,7 @@
     "@jridgewell/trace-mapping" "^0.3.17"
     jsesc "^2.5.1"
 
-"@babel/generator@^7.23.0":
+"@babel/generator@^7.22.7", "@babel/generator@^7.23.0":
   version "7.23.0"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.23.0.tgz#df5c386e2218be505b34837acbcb874d7a983420"
   integrity sha512-lN85QRR+5IbYrMWM6Y4pE/noaQtg4pNiqeNGX60eqOfo6gtEj6uw/JagelB8vVztSd7R6M5n1+PQkDbHbBRU4g==
@@ -10943,10 +10943,10 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rlayers@^1.4.8:
-  version "1.5.2"
-  resolved "https://registry.npmjs.org/rlayers/-/rlayers-1.5.2.tgz"
-  integrity sha512-FoZ53IathXJc0pXYcBYdLlah60WSFpJkNYnrBbOur1NIb+htJwp+YIK/xNXgS4eC+jdC1humLQL35fil945k/A==
+rlayers@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/rlayers/-/rlayers-2.1.0.tgz#d98c227e669f2334f5242304eec80df440bf2484"
+  integrity sha512-F6+Jxu6JxpnD1jW2E8YmfDdsQtroarfMQDOijWGG/1IPh1eADJOGVUsidv78OU+6MgQXHwQURlc7VR7ikA4g9w==
   dependencies:
     lru-cache "^7.10.0"
 
