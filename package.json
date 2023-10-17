@@ -42,7 +42,7 @@
     "react-use": "^17.4.0",
     "reactstrap": "9.2.0",
     "redux-first-history": "^5.1.1",
-    "rlayers": "^1.4.8",
+    "rlayers": "^2.1.0",
     "sass": "^1.69.3",
     "sharp": "^0.32.6"
   },
