@@ -5,6 +5,7 @@ import * as Sentry from "@sentry/react"
 import { useQuery } from "@tanstack/react-query"
 
 import { WagtailContent } from "./constants"
+import { pageUrl } from "./fetch"
 
 /**
  * Async function to load data from Wagtail content service
@@ -21,7 +22,7 @@ async function getPageById(key, { pageId }: { pageId: string }): Promise<Wagtail
     message: "Loading Wagtail API page",
   })
 
-  const url = "https://content.gmri.io/api/pages/" + pageId + "/?format=json"
+  const url = pageUrl(pageId)
 
   const result = await fetch(url)
   const json = (await result.json()) as WagtailContent

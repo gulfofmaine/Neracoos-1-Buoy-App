@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 
 export interface Props {
   /** HTML content to be rendered as a string */
@@ -8,12 +8,8 @@ export interface Props {
 /**
  * Component to render HTML content
  */
-export default class ContentBlock extends React.Component<Props, object> {
-  public createHTML() {
-    return { __html: this.props.content }
-  }
-
-  public render() {
-    return <div dangerouslySetInnerHTML={this.createHTML()} />
-  }
+const ContentBlock = ({ content }: Props) => {
+  return <div dangerouslySetInnerHTML={{ __html: content }} />
 }
+
+export default ContentBlock

@@ -10,7 +10,6 @@ import { Route, Routes } from "react-router"
 import Footer from "components/Footer"
 import NavBar from "components/NavBar"
 
-import AboutPage from "Pages/About"
 import HomePage from "Pages/Home"
 import PlatformsPage from "Pages/Platforms"
 import { ModelingPage } from "Pages/Modeling"
@@ -27,7 +26,6 @@ class App extends React.Component {
           <Routes>
             <Route path={paths.home} element={<HomePage />} />
             <Route path={paths.platforms.root_tailing} element={<PlatformsPage />} />
-            <Route path={paths.about} element={<AboutPage />} />
             <Route path={paths.models} element={<ModelingPage />} />
           </Routes>
 
