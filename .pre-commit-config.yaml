@@ -3,6 +3,7 @@ repos:
     rev: v4.5.0
     hooks:
       - id: trailing-whitespace
+        exclude: "src/stories/__snapshots__/storyshots.spec.ts.snap"
         # exclude: tests/data
       - id: check-ast
       - id: check-yaml
