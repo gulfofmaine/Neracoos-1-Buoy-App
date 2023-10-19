@@ -1,6 +1,7 @@
 {
   "short_name": "NERACOOS",
   "name": "NERACOOS - Mariners Dashboard",
+  "description": "NERACOOS data for folks out on the water",
   "icons": [
     {
       "src": "favicon.ico",
@@ -13,7 +14,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#114a6e",
   "background_color": "#ffffff"
