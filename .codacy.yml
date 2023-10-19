@@ -2,13 +2,12 @@ engines:
   coverage:
     enabled: true
     exclude_paths:
-        - '**/*.spec.ts'
-        - '**/*.spec.tsx'
-        - '**/*.css'
-        - '**/*.md'
-        - '**/*.json'
+      - "**/*.spec.ts"
+      - "**/*.spec.tsx"
+      - "**/*.css"
+      - "**/*.md"
+      - "**/*.json"
   tslint:
     exclude_paths:
-      - '**/*.spec.ts'
-      - '**/*.spec.tsx'
-
+      - "**/*.spec.ts"
+      - "**/*.spec.tsx"

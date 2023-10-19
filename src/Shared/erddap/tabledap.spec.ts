@@ -35,7 +35,7 @@ describe("datasetUrl", () => {
     const result = tabledapUrl(server, dataset, variables, constraints)
 
     expect(result).toEqual(
-      "http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time%2Ccurrent_speed%2Ccurrent_direction&time%3E%3D%222018-12-15T00%3A00%3A00Z%22"
+      "http://www.neracoos.org/erddap/tabledap/N01_aanderaa_all.json?time%2Ccurrent_speed%2Ccurrent_direction&time%3E%3D%222018-12-15T00%3A00%3A00Z%22",
     )
   })
 })

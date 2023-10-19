@@ -7,7 +7,7 @@ export const forecast_type = "wave_height"
 export const standard_name = forecastToStandardNames[forecast_type]
 
 export const wave_datasets = platform.properties.readings.filter((reading) =>
-  standard_name.has(reading.data_type.standard_name)
+  standard_name.has(reading.data_type.standard_name),
 )
 
 export let data = wave_datasets.map((dataset) => ({

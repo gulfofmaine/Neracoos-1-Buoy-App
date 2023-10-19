@@ -87,7 +87,7 @@ const STACCollectionsLoader = ({
     .map((collection) =>
       (collection as ICollection)!
         .get_item_links()
-        .map((link) => ({ url: (collection as ICollection)!.url_for_link(link), parent: collection! }))
+        .map((link) => ({ url: (collection as ICollection)!.url_for_link(link), parent: collection! })),
     )
     .flat() as StacURL[]
 
@@ -245,9 +245,9 @@ const StandardName = ({ standard_name, items }: { standard_name: string; items: 
         .filter(
           (value) =>
             (value as object)["gmri-cube:attrs"].standard_name === standard_name &&
-            (value as object)["gmri-cube:attrs"].hasOwnProperty("long_name")
+            (value as object)["gmri-cube:attrs"].hasOwnProperty("long_name"),
         )
-        .map((value) => (value as object)["gmri-cube:attrs"].long_name)
+        .map((value) => (value as object)["gmri-cube:attrs"].long_name),
     )
     .flat()[0]
 
@@ -276,7 +276,7 @@ const StandardItem = ({ standard_name, item }: { standard_name: string; item: II
   const [compareLayers, toggleCompareLayer] = useCompare()
 
   const cube_variable = Object.entries(item.properties["cube:variables"]).find(
-    ([key, value]) => (value as object)["gmri-cube:attrs"].standard_name === standard_name
+    ([key, value]) => (value as object)["gmri-cube:attrs"].standard_name === standard_name,
   )
 
   const [key, value] = cube_variable as [string, object]

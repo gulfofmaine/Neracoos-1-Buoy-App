@@ -13,12 +13,8 @@ describe("Region: Long Island", () => {
 
     cy.get("h2").contains("Platforms in Long Island Sound")
 
-    cy.get(".list-group")
-      .children()
-      .should("have.length.gte", 4)
-    cy.get(".list-group")
-      .children()
-      .should("have.length.lte", 15)
+    cy.get(".list-group").children().should("have.length.gte", 4)
+    cy.get(".list-group").children().should("have.length.lte", 15)
 
     cy.get(".ol-attribution > button > span")
   })

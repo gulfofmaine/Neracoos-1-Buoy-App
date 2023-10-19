@@ -15,7 +15,7 @@ export interface GriddapJson {
 
 export enum DatasetTypes {
   grid = "griddap",
-  table = "tabledap"
+  table = "tabledap",
 }
 
 export interface ErddapDataset {

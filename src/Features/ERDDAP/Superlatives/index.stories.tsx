@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from "@storybook/react"
 import * as React from "react"
 import { MemoryRouter } from "react-router-dom"
 
@@ -8,8 +8,7 @@ import { Superlatives, ShowSuperlatives } from "./index"
 
 import { platforms } from "stories/platforms"
 
-
- const meta: Meta<typeof Superlatives> = {
+const meta: Meta<typeof Superlatives> = {
   component: Superlatives,
   title: "ERDDAP/Superlatives",
   decorators: [
@@ -17,8 +16,8 @@ import { platforms } from "stories/platforms"
       <MemoryRouter>
         <Story />
       </MemoryRouter>
-    )
-  ]
+    ),
+  ],
 }
 
 export default meta
@@ -40,5 +39,5 @@ export const ShouldNotShowOutdatedData: Story = {
     platforms,
     laterThan: new Date("2020-09-30T19:49:02.212Z"),
   },
-  render: (args) => <ShowSuperlatives {...args} />
+  render: (args) => <ShowSuperlatives {...args} />,
 }

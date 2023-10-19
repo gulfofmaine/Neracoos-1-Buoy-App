@@ -139,7 +139,7 @@ const TableHead = ({ loadedTimes }: { loadedTimes: string[] }) => {
     loadedTimes.map((t) => {
       const [date, time] = t.split("T")
       return date
-    })
+    }),
   )
 
   return (

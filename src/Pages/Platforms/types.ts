@@ -3,15 +3,15 @@
  */
 
 export interface PlatformMatchParams {
-    /**
-     * Platform ID from URL parameter
-     */
-    id: string
+  /**
+   * Platform ID from URL parameter
+   */
+  id: string
 }
 
 export type PlatformObservationMatchParams = PlatformMatchParams & {
-    /**
-     * Platform datatype from URL parameter
-     */
-    type: string
+  /**
+   * Platform datatype from URL parameter
+   */
+  type: string
 }

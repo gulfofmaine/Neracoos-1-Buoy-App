@@ -4,7 +4,7 @@ import { useQuery, useQueries } from "@tanstack/react-query"
 import { ForecastJson, ForecastSource, PlatformFeatureCollection } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
 
-const erddapService = ((process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoybarn.neracoos.org") as string) 
+const erddapService = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoybarn.neracoos.org") as string
 
 /**
  * Load platforms from Buoy Barn

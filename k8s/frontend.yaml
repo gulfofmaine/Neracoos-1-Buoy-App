@@ -12,12 +12,12 @@ spec:
         app: mariners-dashboard
     spec:
       containers:
-      - name: mariners-dashboard
-        image: gmri/neracoos-mariners-dashboard
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
-        ports:
-        - containerPort: 3000
-          name: http
+        - name: mariners-dashboard
+          image: gmri/neracoos-mariners-dashboard
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 3000
+              name: http

@@ -62,10 +62,10 @@ export function tabledapProtocolUrl(
   dataset: string,
   protocol: string,
   variables: string[],
-  constraints: Constraints
+  constraints: Constraints,
 ): string {
   return `${baseTabledapUrl(server, dataset)}.${protocol}?${variableString(variables)}${constraintsToString(
-    constraints
+    constraints,
   )}`
 }
 
@@ -81,7 +81,7 @@ export function tabledapHtmlUrl(
   server: string,
   dataset: string,
   variables: string[],
-  constraints: Constraints
+  constraints: Constraints,
 ): string {
   return tabledapProtocolUrl(server, dataset, "html", variables, constraints)
 }

@@ -52,14 +52,14 @@ const ForecastInfo = ({ children }) => {
 export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   const standardNames = forecastToStandardNames[forecast_type]
   const timeSeries: PlatformTimeSeries | undefined = platform.properties.readings.find(
-    (r) => standardNames?.has(r.data_type.standard_name) ?? false
+    (r) => standardNames?.has(r.data_type.standard_name) ?? false,
   )
 
   const { data: forecastsInfo } = useForecastMeta()
   const { data: dataset } = useDataset(timeSeries)
 
   const forecasts = (forecastsInfo as ForecastSource[])?.filter(
-    (f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type
+    (f) => f.forecast_type.toLowerCase().replace(/ /g, "_") === forecast_type,
   )
 
   const point = platform.geometry as Point

@@ -18,7 +18,7 @@ describe("TableItem", () => {
           name="Wind Speed"
           unitSystem={UnitSystem.english}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getByRole("link")).toHaveTextContent("Wind Speed:")
@@ -34,7 +34,7 @@ describe("TableItem", () => {
           name="Wind Speed"
           unitSystem={UnitSystem.metric}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
@@ -50,7 +50,7 @@ describe("TableItem", () => {
           unitSystem={UnitSystem.english}
           name="Air Temp"
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.queryByRole("link")).not.toBeInTheDocument()
@@ -67,7 +67,7 @@ describe("TableItem", () => {
           unitSystem={UnitSystem.english}
           name="Wave Height"
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getByRole("link")).toHaveTextContent("Wave Height: 0.8 Feet")

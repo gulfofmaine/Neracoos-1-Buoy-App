@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       switchUnits: unitSwitch,
     },
-    dispatch
+    dispatch,
   )
 
 export class UnitSelectorBase extends React.Component<ReduxProps, object> {

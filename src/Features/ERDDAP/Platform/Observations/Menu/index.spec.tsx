@@ -11,7 +11,7 @@ describe("ErddapObservedDropdown", () => {
     render(
       <MemoryRouter>
         <ErddapObservedDropdown platform={platform} />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getByRole("menu")).toHaveTextContent("Observations")

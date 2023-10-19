@@ -16,7 +16,7 @@ describe("<ErddapObservationTable>", () => {
           unitSystem={UnitSystem.english}
           unitSelector={<b>Fake unit selector</b>}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getAllByRole("link").length).toBe(4)
@@ -32,7 +32,7 @@ describe("<ErddapObservationTable>", () => {
           unitSystem={UnitSystem.metric}
           unitSelector={<b>Fake unit selector</b>}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getAllByRole("link").length).toBe(4)

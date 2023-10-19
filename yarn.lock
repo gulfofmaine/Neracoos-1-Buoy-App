@@ -3328,7 +3328,7 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.5.1.tgz#1dd868782f2ed52828691a221b0f9e99f5427ef8"
   integrity sha512-bzTIfLm91O9h3rPYJLtRbmsPARerY3z7MoyvadGp8TikvIvf+WyT/vHujw+20SxnqiZVq5Jv65FFlxc46GGB1Q==
 
-"@storybook/react@7.5.1", "@storybook/react@^7.4.6":
+"@storybook/react@7.5.1":
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.5.1.tgz#56227f2dbb7c3a5fafc7f3e61a3e4268ec1c5fde"
   integrity sha512-IG97c30fFSmPyGpJ1awHC/+9XnCTqleeOQwROXjroMHSm8m/JTWpHMVLyM1x7b6VAnBhNHWJ+oXLZe/hXkXfpA==

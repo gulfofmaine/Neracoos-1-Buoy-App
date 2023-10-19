@@ -25,7 +25,7 @@ export function observationLink(platform: PlatformFeature, observationSlug: stri
   return urlPartReplacer(
     urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
     ":type",
-    observationSlug
+    observationSlug,
   )
 }
 

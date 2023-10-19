@@ -52,7 +52,7 @@ export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => 
   }
 }
 
-const erddapService = ((process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoybarn.neracoos.org") as string) 
+const erddapService = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoybarn.neracoos.org") as string
 
 export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): string {
   startTime = startTime ?? aWeekAgoRounded()
@@ -63,9 +63,7 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): 
   }
 
   const variables = timeSeries.map((ts) => ts.variable)
-  const server = timeSeries[0].cors_proxy_url
-    ? erddapService + timeSeries[0].cors_proxy_url
-    : timeSeries[0].server
+  const server = timeSeries[0].cors_proxy_url ? erddapService + timeSeries[0].cors_proxy_url : timeSeries[0].server
 
   return tabledapUrl(server, timeSeries[0].dataset, variables, constraints)
 }
@@ -89,7 +87,7 @@ export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date) {
         }
         return true
       },
-    }
+    },
   )
 }
 
@@ -151,7 +149,7 @@ export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date) 
 
   const resultTimeSeries = resultToTimeseries(
     json,
-    fetchGroup.datasets.map((ts) => ts.variable)
+    fetchGroup.datasets.map((ts) => ts.variable),
   )
 
   return resultTimeSeries
@@ -196,6 +194,6 @@ export function useDatasets(timeSeries: PlatformTimeSeries[], startTime?: Date) 
         }
         return true
       },
-    }
+    },
   )
 }

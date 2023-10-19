@@ -103,7 +103,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
 function findHighestCondition(
   platforms: PlatformFeature[],
   laterThan: Date,
-  compareSet: Set<string>
+  compareSet: Set<string>,
 ): { platform?: PlatformFeature; timeSeries?: PlatformTimeSeries } {
   let highestPlatform: PlatformFeature | undefined = undefined
   let highestTimeSeries: PlatformTimeSeries | undefined = undefined

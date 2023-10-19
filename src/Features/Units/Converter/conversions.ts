@@ -35,7 +35,7 @@ export class DataTypeConversion {
     protected metric_unit: string,
     protected english_unit: string,
     protected metric_unit_display?: string,
-    protected english_unit_display?: string
+    protected english_unit_display?: string,
   ) {}
 
   /**

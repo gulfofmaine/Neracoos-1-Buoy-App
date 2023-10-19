@@ -23,7 +23,7 @@ updates:
       react-query:
         patterns:
           - "@tanstack/*"
-  
+
   - package-ecosystem: npm
     directory: "/cypress/"
     schedule:
