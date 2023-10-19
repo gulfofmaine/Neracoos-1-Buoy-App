@@ -12,7 +12,7 @@ describe("<ErddapAllObservationsTable>", () => {
     render(
       <MemoryRouter>
         <ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     expect(screen.getAllByRole("link").length).toBe(16)

@@ -118,7 +118,7 @@ Changes:
     - Enzyme adapter React 16 from 1.15.6 to 1.15.7
     - Redux Devtools extension from 2.13.5 to 2.13.9
     - Typescript from 4.6.2 to 4.8.4
-    - Cypress fro  9.5.1 to 11.2.0
+    - Cypress fro 9.5.1 to 11.2.0
 
 Fixes:
 
@@ -223,7 +223,6 @@ Changes:
       - React from 17.0.34 to 17.0.38
       - React Response from 8.0.4 to 8.0.5
 
-
 Fixes:
 
 - Pin Node on actions to v14 as the [upgrade of the base image to v16](https://github.com/actions/virtual-environments/blob/ubuntu20/20211129.1/images/linux/Ubuntu2004-README.md) manages to break some Cypress dependencies.
@@ -324,7 +323,7 @@ Changes:
 - Tweak the initial bounding box that the map displays to include Long Island Sound.
 - Dependency Updates:
   - Javascript
-    - FontAwesome 
+    - FontAwesome
       - SVG Core from 1.2.35 to 1.2.36
       - Solid SVG Icons from 5.15.3 to 5.15.4
       - React from 0.1.14 to 0.1.15
@@ -518,7 +517,7 @@ Fixes:
 Changes:
 
 - Add expand icon to current conditions to show that they are linked to a larger chart. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
-- Add outbound link icon to __More Info__ links. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
+- Add outbound link icon to **More Info** links. [#1118](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1118)
 - Hide dataset links on chart pages. [#1119](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1119)
 - Show observations/forecast next to data types on forecasts. [#1119](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/1119)
 - Dependency Updates:
@@ -528,7 +527,6 @@ Changes:
     - Preset Create React App from 3.1.6 to 3.1.7
   - Types
     - React DOM from 17.0.1 to 17.0.2
-
 
 ## 0.6.6 - 3/8/2021
 

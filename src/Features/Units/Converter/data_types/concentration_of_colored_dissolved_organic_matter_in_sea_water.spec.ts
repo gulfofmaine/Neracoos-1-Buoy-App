@@ -11,7 +11,7 @@ describe("concentration_of_colored_dissolved_organic_matter_in_sea_water convers
   it("to english", () => {
     const result = concentration_of_colored_dissolved_organic_matter_in_sea_water.convertTo(
       source_value,
-      UnitSystem.english
+      UnitSystem.english,
     )
     expect(result).toBeCloseTo(source_value)
   })
@@ -19,17 +19,17 @@ describe("concentration_of_colored_dissolved_organic_matter_in_sea_water convers
   it("to metric", () => {
     const result = concentration_of_colored_dissolved_organic_matter_in_sea_water.convertTo(
       source_value,
-      UnitSystem.metric
+      UnitSystem.metric,
     )
     expect(result).toBeCloseTo(source_value)
   })
 
   it("display names", () => {
     expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.english)).toBe(
-      displayName
+      displayName,
     )
     expect(concentration_of_colored_dissolved_organic_matter_in_sea_water.displayName(UnitSystem.metric)).toBe(
-      displayName
+      displayName,
     )
   })
 })

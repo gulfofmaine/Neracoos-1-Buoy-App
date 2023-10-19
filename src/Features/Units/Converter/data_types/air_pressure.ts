@@ -24,5 +24,5 @@ export const air_pressure = new AirPressure(
   "hPa",
   "inches",
   "Millibars",
-  "Inches"
+  "Inches",
 )

@@ -33,7 +33,7 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
       {
         ...timeSeries[0].constraints,
         "time>=": startDate.toISOString(),
-      }
+      },
     )
 
   const target = `Tooltip-${id}`

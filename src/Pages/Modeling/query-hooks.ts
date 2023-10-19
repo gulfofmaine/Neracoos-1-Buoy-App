@@ -29,7 +29,7 @@ export function useQueryParam<T>(key: string): [T | undefined, (newQuery: T, opt
       newSearchParams.set(key, JSURL.stringify(newValue))
       setSearchParams(newSearchParams, options)
     },
-    [key, searchParams, setSearchParams]
+    [key, searchParams, setSearchParams],
   )
 
   return [value, setValue]

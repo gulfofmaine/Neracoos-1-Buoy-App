@@ -10,9 +10,7 @@ describe("The NavBar should have our primary links", () => {
   let nav: any
 
   beforeEach(() => {
-    render(
-        <NavBar />
-    )
+    render(<NavBar />)
   })
   {
     /* const nav = mount(<MemoryRouter><NavBar /><MemoryRouter></MemoryRouter>) */

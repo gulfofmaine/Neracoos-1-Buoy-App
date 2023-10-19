@@ -33,7 +33,7 @@ export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platf
 
     const filteredPlatforms = platforms.filter(
       (platform) =>
-        platform.geometry !== null && booleanContains(polygon, platform as any) && platform.properties !== null
+        platform.geometry !== null && booleanContains(polygon, platform as any) && platform.properties !== null,
     )
 
     if (filteredPlatforms.length > 0) {

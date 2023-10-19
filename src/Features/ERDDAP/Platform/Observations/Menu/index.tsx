@@ -53,8 +53,8 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
       new Set(
         platform.properties.readings
           .filter((d) => !windStandardNames.has(d.data_type.standard_name))
-          .map((d) => JSON.stringify(d.data_type))
-      )
+          .map((d) => JSON.stringify(d.data_type)),
+      ),
     )
       .map((d) => JSON.parse(d) as DataType)
       .sort((a, b) => a.long_name.localeCompare(b.long_name))
@@ -62,7 +62,7 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
         const url = urlPartReplacer(
           urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
           ":type",
-          d.standard_name
+          d.standard_name,
         )
 
         return (
@@ -75,7 +75,7 @@ export class ErddapObservedDropdown extends React.Component<UsePlatformRenderPro
     const windUrl = urlPartReplacer(
       urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
       ":type",
-      "wind"
+      "wind",
     )
 
     return (

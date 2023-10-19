@@ -116,7 +116,7 @@ const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) =>
     }
 
     const wms_asset: IAsset | undefined = Object.values(itemQuery.data.assets).find((asset: IAsset) =>
-      asset.roles.includes("wms")
+      asset.roles.includes("wms"),
     )
     const wms_href = wms_asset?.href
 

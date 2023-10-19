@@ -5,7 +5,7 @@ describe("Home page", function () {
     cy.visit("/")
 
     cy.contains(
-      "Welcome to the NERACOOS Mariners' Dashboard, which delivers high-quality, timely data from a growing network of buoys and sensors into the hands of mariners heading to sea."
+      "Welcome to the NERACOOS Mariners' Dashboard, which delivers high-quality, timely data from a growing network of buoys and sensors into the hands of mariners heading to sea.",
     )
   })
 
@@ -23,7 +23,7 @@ describe("Home page", function () {
     cy.get(".footer").contains("Copyright").contains("NERACOOS")
 
     cy.get(".footer").contains(
-      "Product of NERACOOS.org - Developed and maintained by the Gulf of Maine Research Institute"
+      "Product of NERACOOS.org - Developed and maintained by the Gulf of Maine Research Institute",
     )
   })
 

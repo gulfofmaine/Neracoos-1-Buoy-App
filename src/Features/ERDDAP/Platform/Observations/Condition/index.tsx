@@ -33,7 +33,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const startDate = aWeekAgoRounded()
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
-    (reading) => reading.data_type.standard_name === standardName
+    (reading) => reading.data_type.standard_name === standardName,
   )
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 

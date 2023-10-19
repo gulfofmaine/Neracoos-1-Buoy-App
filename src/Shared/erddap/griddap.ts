@@ -22,7 +22,7 @@ export function extractColumn(griddapResponse: GriddapTable, columnName: string)
 
   const data: ReadingTimeSeries[] = []
 
-  rows.forEach(row => {
+  rows.forEach((row) => {
     data.push({ time: new Date(row[0]), reading: row[columnIndex] })
   })
 
@@ -40,7 +40,7 @@ export function extractColumn(griddapResponse: GriddapTable, columnName: string)
 export function metadataValue(griddapResponse: GriddapTable, metadataField: string): string | number | boolean {
   const { rows } = griddapResponse
 
-  const index = rows.map(r => r[2]).indexOf(metadataField)
+  const index = rows.map((r) => r[2]).indexOf(metadataField)
 
   return rows[index][4]
 }
@@ -62,7 +62,7 @@ export function erddapUrl(
   lon: number,
   field: string,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): string {
   /*
     http://www.neracoos.org/erddap/griddap/WW3_GulfOfMaine_latest.json?hs

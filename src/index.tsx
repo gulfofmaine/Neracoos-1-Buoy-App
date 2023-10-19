@@ -49,18 +49,19 @@ if (!(window as any).Cypress) {
 
 const Index = () => {
   return (
-  <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <HistoryRouter history={history}>
-        <Sentry.ErrorBoundary showDialog={true} fallback={() => <FiveHundredPage />}>
-          <GAListener trackingId={process.env.NODE_ENV === "production" ? "G-MVZR2D0XKJ" : undefined}>
-            <App />
-          </GAListener>
-        </Sentry.ErrorBoundary>
-      </HistoryRouter>
-      <ReactQueryDevtools />
-    </Provider>
-  </QueryClientProvider>
-)}
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Sentry.ErrorBoundary showDialog={true} fallback={() => <FiveHundredPage />}>
+            <GAListener trackingId={process.env.NODE_ENV === "production" ? "G-MVZR2D0XKJ" : undefined}>
+              <App />
+            </GAListener>
+          </Sentry.ErrorBoundary>
+        </HistoryRouter>
+        <ReactQueryDevtools />
+      </Provider>
+    </QueryClientProvider>
+  )
+}
 
 export default Index

@@ -84,7 +84,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
           to={urlPartReplacer(
             urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
             ":type",
-            selected.data_type.standard_name
+            selected.data_type.standard_name,
           )}
           style={itemStyle}
           className="list-group-item"

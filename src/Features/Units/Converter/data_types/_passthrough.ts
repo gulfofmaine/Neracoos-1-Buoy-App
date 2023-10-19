@@ -17,7 +17,7 @@ export class Passthrough extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
     public unit: string,
-    public unit_display_name: string
+    public unit_display_name: string,
   ) {
     super(data_type, display_name, unit, unit, unit, unit_display_name, unit_display_name)
   }

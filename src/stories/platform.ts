@@ -27110,7 +27110,7 @@ export const forecast_type = "wave_height"
 const standard_name = forecastToStandardNames[forecast_type]
 
 const wave_datasets = platform.properties.readings.filter((reading) =>
-  standard_name.has(reading.data_type.standard_name)
+  standard_name.has(reading.data_type.standard_name),
 )
 
 let data: DataTimeSeries[] = wave_datasets.map((dataset) => ({

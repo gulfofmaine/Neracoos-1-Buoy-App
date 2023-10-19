@@ -16,7 +16,7 @@ function setup(platforms: PlatformFeatureWithDatasets[], boundingBox?: BoundingB
   const testWrapper = render(
     <MemoryRouter>
       <ErddapPlatformListBase {...props} />
-    </MemoryRouter>
+    </MemoryRouter>,
   )
 
   return {

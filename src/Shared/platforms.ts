@@ -5,6 +5,4 @@
 /**
  * Platforms that have issues that maybe are better to be ignored.
  */
-export const problematicPlatforms = new Set([
-    'L01'
-])
+export const problematicPlatforms = new Set(["L01"])

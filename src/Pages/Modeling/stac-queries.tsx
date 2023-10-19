@@ -87,7 +87,7 @@ async function getLatestItemByCollectionId(catalog: ICatalog, id: string, depth:
 export async function getChildByUrl(
   url: string,
   parent?: ICatalog | ICollection,
-  root_catalog?: ICatalog
+  root_catalog?: ICatalog,
 ): Promise<ICatalog | ICollection> {
   return (await stac.get(url, { parent, root: root_catalog })) as ICatalog | ICollection
 }
@@ -103,7 +103,7 @@ export async function getChildByUrl(
 export async function getItemByUrl(
   url: string,
   parent?: ICatalog | ICollection,
-  root_catalog?: ICatalog
+  root_catalog?: ICatalog,
 ): Promise<IItem> {
   return (await stac.get(url, { parent, root: root_catalog })) as IItem
 }
@@ -126,7 +126,7 @@ export function useItemByIdQuery(id: string, enabled: boolean = true) {
     {
       refetchOnWindowFocus: false,
       enabled: enabled && !!catalogQuery.data,
-    }
+    },
   )
 }
 
@@ -145,7 +145,7 @@ export function useLatestItemByCollectionIdQuery(id: string, enabled: boolean = 
     {
       refetchOnWindowFocus: false,
       enabled: enabled && !!catalogQuery.data,
-    }
+    },
   )
 }
 

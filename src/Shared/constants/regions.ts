@@ -10,5 +10,5 @@ export const regionList: Region[] = [
   regions.Boston,
   regions.CapeCod,
   regions.NarragansettBay,
-  regions.Newfoundland
+  regions.Newfoundland,
 ]

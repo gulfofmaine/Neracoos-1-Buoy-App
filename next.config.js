@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    PUBLIC_URL: ''
+    PUBLIC_URL: "",
   },
   transpilePackages: ["ol", "quick-lru"],
   experimental: {
@@ -11,8 +11,8 @@ const nextConfig = {
   // read more here: https://nextjs.org/docs/api-reference/next/image
   // images: {
   //   disableStaticImages: true
-  // }  
-  output: "standalone"
+  // }
+  output: "standalone",
 }
 
 module.exports = nextConfig

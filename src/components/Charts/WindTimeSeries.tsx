@@ -123,12 +123,12 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
         .filter((reading) => reading.time > daysAgo)
         .map(
           // Return Highcharts Spline dataformat [date, reading]
-          (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)]
+          (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)],
         )
     } else {
       data = d.timeSeries.map(
         // Return Highcharts Spline dataformat [date, reading]
-        (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)]
+        (r) => [new Date(r.time).valueOf(), round(dataConverter.convertToNumber(r.reading, unitSystem), 1)],
       )
     }
 

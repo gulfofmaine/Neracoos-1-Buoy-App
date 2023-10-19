@@ -11,7 +11,6 @@ If you have Docker installed and running, you can launch the app with `make up` 
 
 When you're done making it more awesome run `make down`.
 
-
 ## Deploying and Versioning
 
 The site is deployed to the NERACOOS Digital Ocean Kubernetes Cluster.

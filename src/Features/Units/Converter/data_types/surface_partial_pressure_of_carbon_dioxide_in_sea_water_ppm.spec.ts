@@ -9,7 +9,7 @@ describe("surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm conversion
   it("to english", () => {
     const result = surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm.convertTo(
       source_value,
-      UnitSystem.english
+      UnitSystem.english,
     )
     expect(result).toBeCloseTo(source_value)
   })
@@ -17,7 +17,7 @@ describe("surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm conversion
   it("to metric", () => {
     const result = surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm.convertTo(
       source_value,
-      UnitSystem.metric
+      UnitSystem.metric,
     )
     expect(result).toBeCloseTo(source_value)
   })

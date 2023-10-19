@@ -32,14 +32,14 @@ export const data_types: DataTypesObject = {
     "concentration_of_colored_dissolved_organic_matter_in_sea_water",
     "Chromophoric Dissolved Organic Matter",
     "ppbQSE",
-    "ppbQSE"
+    "ppbQSE",
   ),
   count: new Passthrough("count", "Count", "count", "Count"),
   direction_of_sea_water_velocity: new Passthrough(
     "direction_of_sea_water_velocity",
     "Current Direction",
     "Angular Degrees",
-    "Angular Degrees"
+    "Angular Degrees",
   ),
   dissolved_oxygen: new Passthrough("dissolved_oxygen", "Dissolved Oxygen", "ml/l", "ml/l"),
   dominant_wave_period: new Passthrough("dominant_wave_period", "Dominant Wave Period", "s", "Seconds"),
@@ -51,7 +51,7 @@ export const data_types: DataTypesObject = {
     "fractional_saturation_of_oxygen_in_sea_water",
     "Percent Oxygen Saturation",
     "percent",
-    "percent"
+    "percent",
   ),
   lat_offset: new Passthrough("lat_offset", "Latitudinal Offset", "Angular Minutes", "Angular Minutes"),
   lon_offset: new Passthrough("lon_offset", "Longitudinal Offset", "Angular Minutes", "Angular Minutes"),
@@ -63,25 +63,25 @@ export const data_types: DataTypesObject = {
     "mole_concentration_of_carbon_dioxide_in_air_ppm",
     "Atmospheric Concentration of Carbon Dioxide in Parts Per Million",
     "ppm",
-    "ppm"
+    "ppm",
   ),
   mole_concentration_of_nitrate_in_sea_water: new Passthrough(
     "mole_concentration_of_nitrate_in_sea_water",
     "Nitrate Concentration",
     "microM",
-    "microM"
+    "microM",
   ),
   mole_concentration_of_phosphate_in_sea_water: new Passthrough(
     "mole_concentration_of_phosphate_in_sea_water",
     "Phosphate Concentration",
     "microM/l",
-    "microM/l"
+    "microM/l",
   ),
   moles_of_oxygen_per_unit_mass_in_sea_water_um_kg: new Passthrough(
     "moles_of_oxygen_per_unit_mass_in_sea_water_um_kg",
     "Micro Moles Oxygen per Kilogram of Sea Water",
     "uM/kg",
-    "uM/kg"
+    "uM/kg",
   ),
   northward_sea_water_velocity: new CmsVelocity("northward_sea_water_velocity", "North Velocity Component"),
   northward_wind: new WindSpeed("northward_wind", "Wind Speed, Meridional"),
@@ -89,19 +89,19 @@ export const data_types: DataTypesObject = {
     "omega_aragonite",
     "Omega Aragonite - Derived from total alkalinity and pCO2",
     "Omega",
-    "Omega"
+    "Omega",
   ),
   omega_calcite: new Passthrough(
     "omega_calcite",
     "Omega Calcite - Derived from total alkalinity and pCO2",
     "Omega",
-    "Omega"
+    "Omega",
   ),
   oxygen_concentration_in_sea_water: new Passthrough(
     "oxygen_concentration_in_sea_water",
     "Oxygen Concentration In Sea Water",
     "mg/L",
-    "mg/L"
+    "mg/L",
   ),
   oxygen_saturation: new Passthrough("oxygen_saturation", "Oxygen Saturation", "ml/l", "ml/l"),
   par: new Passthrough("par", "Photosynthetically Available Radiation", "µE/m2/sec", "µE/m2/sec"),
@@ -110,7 +110,7 @@ export const data_types: DataTypesObject = {
     "percent_oxygen_saturation",
     "Percent Oxygen Saturation",
     "percent",
-    "percent"
+    "percent",
   ),
   percent_sun: new Passthrough("percent_sun", "Percent Sun", "percent", "percent"),
   period: new Passthrough("period", "Dominant Wave Period", "s", "Seconds"),
@@ -122,17 +122,20 @@ export const data_types: DataTypesObject = {
     "surface_partial_pressure_of_carbon_dioxide_in_sea_water_ppm",
     "Sea Water Concentration of Carbon Dioxide in Parts Per Million",
     "ppm",
-    "ppm"
+    "ppm",
   ),
   sea_surface_swell_wave_period: new Passthrough(
     "sea_surface_swell_wave_period",
     "Wave Period, Average",
     "s",
-    "Seconds"
+    "Seconds",
   ),
   sea_surface_temperature: new Temperature("sea_surface_temperature", "Sea Surface Temperature"),
   sea_water_temperature: new Temperature("sea_water_temperature", "Water Temperature"),
-  sea_surface_height_above_geopotential_datum: new TidalLevel("sea_surface_height_above_geopotential_datum", "Sea Surface Height (NAVD 88)"),
+  sea_surface_height_above_geopotential_datum: new TidalLevel(
+    "sea_surface_height_above_geopotential_datum",
+    "Sea Surface Height (NAVD 88)",
+  ),
   sea_surface_wave_significant_height: new WaveHeight("max_wave_height", "Wave Height"),
   sea_surface_wave_from_direction: new CardinalDirection("sea_surface_wave_from direction", "Waves from Direction"),
   sea_surface_wave_to_direction: new CardinalDirection("sea_surface_wave_to_direction", "Wave Direction"),
@@ -140,21 +143,21 @@ export const data_types: DataTypesObject = {
     "sea_water_alkalinity_expressed_as_mole_equivalent",
     "Total Alkalinity",
     "microM/kg",
-    "microM/kg"
+    "microM/kg",
   ),
   sea_water_density: new Passthrough("sea_water_density", "Sigma-T", "kg/m^3", "Kilograms per cubic meter"),
   sea_water_electrical_conductivity: new Passthrough(
     "sea_water_electrical_conductivity",
     "Conductivity",
     "siemens/m",
-    "siemens/m"
+    "siemens/m",
   ),
   sea_water_level: new WaveHeight("sea_water_level", "Sea water level relative to the mean"),
   sea_water_pH_reported_on_total_scale: new Passthrough(
     "sea_water_pH_reported_on_total_scale",
     "pH",
     "pH Total",
-    "pH Total"
+    "pH Total",
   ),
   sea_water_pressure: new Passthrough("sea_water_pressure", "Pressure", "decibars", "Decibars"),
   sea_water_salinity: new Passthrough("sea_water_salinity", "Salinity", "psu", "PSU"),
@@ -167,7 +170,7 @@ export const data_types: DataTypesObject = {
     "m/s",
     "knot",
     "Meters/Second",
-    "Knots"
+    "Knots",
   ),
   significant_height_of_wind_and_swell_waves: new WaveHeight("max_wave_height", "Significant Wave Height"),
   significant_height_of_wind_and_swell_waves_3: new WaveHeight("max_wave_height", "Significant Wave Height"),
@@ -179,18 +182,27 @@ export const data_types: DataTypesObject = {
     "surface_partial_pressure_of_carbon_dioxide_in_air",
     "Atmospheric CO2 Partial Pressure",
     "microATM",
-    "microATM"
+    "microATM",
   ),
   surface_partial_pressure_of_carbon_dioxide_in_sea_water: new Passthrough(
     "surface_partial_pressure_of_carbon_dioxide_in_sea_water",
     "Sea Surface CO2 Partial Pressure",
     "microATM",
-    "microATM"
+    "microATM",
   ),
   tendency_of_air_pressure: new AirPressureHpa("tendency_of_air_pressure", "Pressure Tendency"),
-  tidal_sea_surface_height_above_mean_higher_high_water: new TidalLevel("tidal_sea_surface_height_above_mean_higher_high_water", "Mean Higher High Water"),
-  tidal_sea_surface_height_above_mean_lower_low_water: new TidalLevel("tidal_sea_surface_height_above_mean_lower_low_water", "Mean Lower Low Water"),
-  tidal_sea_surface_height_above_mean_sea_level: new TidalLevel("tidal_sea_surface_height_above_mean_sea_level", "Mean Sea Level"),
+  tidal_sea_surface_height_above_mean_higher_high_water: new TidalLevel(
+    "tidal_sea_surface_height_above_mean_higher_high_water",
+    "Mean Higher High Water",
+  ),
+  tidal_sea_surface_height_above_mean_lower_low_water: new TidalLevel(
+    "tidal_sea_surface_height_above_mean_lower_low_water",
+    "Mean Lower Low Water",
+  ),
+  tidal_sea_surface_height_above_mean_sea_level: new TidalLevel(
+    "tidal_sea_surface_height_above_mean_sea_level",
+    "Mean Sea Level",
+  ),
   transmissivity: new Passthrough("transmissivity", "Transmissivity", "percent", "percent"),
   transmissivity_voltage: new Passthrough("transmissivity_voltage", "Transmissivity Voltage", "percent", "percent"),
   turbidity: new Passthrough("turbidity", "Turbidity", "ntu", "ntu"),
@@ -199,7 +211,7 @@ export const data_types: DataTypesObject = {
     "volume_fraction_of_oxygen_in_sea_water",
     "Dissolved Oxygen",
     "ml/l",
-    "ml/l"
+    "ml/l",
   ),
   wave_direction_spread: new Passthrough("wave_direction_spread", "Wave Direction Spread", "degrees", "Degrees"),
   wind_direction_kvh: new CardinalDirection("wind_direction_kvh", "Mean Wind Direction"),
@@ -207,21 +219,21 @@ export const data_types: DataTypesObject = {
     "wind_direction_stddev",
     "Wind Direction Standard Deviation",
     "degrees",
-    "Degrees"
+    "Degrees",
   ),
   wind_direction_uv: new Passthrough("wind_direction_uv", "Unit Vector Mean Wind Direction", "degrees", "Degrees"),
   wind_direction_uv_stddev: new Passthrough(
     "wind_direction_uv_stddev",
     "Unit Vector Mean Wind Direction Standard Deviation",
     "degrees",
-    "Degrees"
+    "Degrees",
   ),
   wind_direction_ve: new Passthrough("wind_direction_ve", "Vector Averaged Wind Direction", "degrees", "Degrees"),
   wind_direction_ve_stddev: new Passthrough(
     "wind_direction_ve_stddev",
     "Vector Averaged Wind Direction Standard Deviation",
     "degrees",
-    "Degrees"
+    "Degrees",
   ),
   wind_from_direction: new CardinalDirection("wind_from_direction", "Wind Direction"),
   wind_gust: new CmsVelocity("wind_gust", "Wind Gust"),
@@ -232,7 +244,7 @@ export const data_types: DataTypesObject = {
     "wind_speed_and_direction",
     "Wind Speed and Direction",
     "m/s, degrees",
-    "m/s, degrees"
+    "m/s, degrees",
   ),
   wind_speed_of_gust: new WindSpeed("wind_speed_of_gust", "Wind Gust"),
   wind_speed_sc: new WindSpeed("wind_speed_sc", "Scalar Average Wind Speed"),

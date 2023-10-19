@@ -18,25 +18,25 @@ const windConditions = new Set([...conditions.windDirection, ...conditions.windG
  */
 export function pickWindTimeSeries(platform: PlatformFeature, afterDate?: Date) {
   let windTimeSeries = platform.properties.readings.filter((timeSeries) =>
-    windConditions.has(timeSeries.data_type.standard_name)
+    windConditions.has(timeSeries.data_type.standard_name),
   )
 
   let filteredTimeSeries = windTimeSeries
 
   if (afterDate) {
     filteredTimeSeries = filteredTimeSeries.filter((timeSeries) =>
-      timeSeries.time ? afterDate < new Date(timeSeries.time) : false
+      timeSeries.time ? afterDate < new Date(timeSeries.time) : false,
     )
   }
 
   const speed = filteredTimeSeries.find((timeSeries) =>
-    new Set(conditions.windSpeed).has(timeSeries.data_type.standard_name)
+    new Set(conditions.windSpeed).has(timeSeries.data_type.standard_name),
   )
   const gust = filteredTimeSeries.find((timeSeries) =>
-    new Set(conditions.windGust).has(timeSeries.data_type.standard_name)
+    new Set(conditions.windGust).has(timeSeries.data_type.standard_name),
   )
   const direction = filteredTimeSeries.find((timeSeries) =>
-    new Set(conditions.windDirection).has(timeSeries.data_type.standard_name)
+    new Set(conditions.windDirection).has(timeSeries.data_type.standard_name),
   )
 
   const timeSeries: PlatformTimeSeries[] = []
@@ -62,10 +62,11 @@ export function pickWindTimeSeries(platform: PlatformFeature, afterDate?: Date) 
  * @param afterDate Optional date to only select datasets that are more recent then
  */
 export function pickWindDatasets(platform: PlatformFeature, datasets: DataTimeSeries[], afterDate?: Date) {
-  const { speed: speedTimeSeries, gust: gustTimeSeries, direction: directionTimeSeries } = pickWindTimeSeries(
-    platform,
-    afterDate
-  )
+  const {
+    speed: speedTimeSeries,
+    gust: gustTimeSeries,
+    direction: directionTimeSeries,
+  } = pickWindTimeSeries(platform, afterDate)
 
   let speed = datasets.find((ds) => ds.name === speedTimeSeries?.variable)
   if (speed && speedTimeSeries) {
