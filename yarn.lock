@@ -3974,10 +3974,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-responsive@8.0.6":
-  version "8.0.6"
-  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.6.tgz#fe4b7212788dfa55f58409e937b6b30148d6090e"
-  integrity sha512-A4fNUPGf7ckF+iIiw3cDlEmJId7SKtdoXhfOs05hA5TiX+olg4hd4aq0mYW+De3U+hi7fZ1TBJlPKTooiXHIRQ==
+"@types/react-responsive@8.0.7":
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.7.tgz#b6c2778d23d0faa1e8ed25f53b3512599d42fb0c"
+  integrity sha512-JKMqMQU8Z0DGYOOdr3YCDyCepH1e/R13Aq+hqeDA6ueot7YGcWvuVKnNXtPGHTQ9MG6yq+IIGeJ1XWIyF4XYBw==
   dependencies:
     "@types/react" "*"
 
