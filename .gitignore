@@ -65,3 +65,6 @@ yarn-error.log*
 # vercel
 .vercel
 tsconfig.tsbuildinfo
+
+# Sentry Config File
+.sentryclirc
