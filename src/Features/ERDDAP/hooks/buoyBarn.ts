@@ -30,7 +30,11 @@ const getPlatforms = async () => {
  * Load all the platforms
  */
 export function usePlatforms() {
-  return useQuery<PlatformFeatureCollection, Error>(["buoybarn-platforms"], getPlatforms, defaultQueryConfig)
+  return useQuery<PlatformFeatureCollection, Error>({
+    queryKey: ["buoybarn-platforms"],
+    queryFn: getPlatforms,
+    ...defaultQueryConfig,
+  })
 }
 
 /**
@@ -57,7 +61,7 @@ const getForecasts = async () => {
  * Load forecasts
  */
 export function useForecastMeta() {
-  return useQuery(["buoybarn-forecasts"], getForecasts, defaultQueryConfig)
+  return useQuery({ queryKey: ["buoybarn-forecasts"], queryFn: getForecasts, ...defaultQueryConfig })
 }
 
 /**
@@ -91,9 +95,11 @@ const getForecast = async (forecast: ForecastSource, lat: number, lon: number) =
  * @param forecast
  */
 export function useForecast(lat: number, lon: number, forecast?: ForecastSource) {
-  return useQuery(["buoybarn-forecast", { forecast, lat, lon }], () => getForecast(forecast!, lat, lon), {
-    ...defaultQueryConfig,
+  return useQuery({
+    queryKey: ["buoybarn-forecast", { forecast, lat, lon }],
+    queryFn: () => getForecast(forecast!, lat, lon),
     enabled: forecast?.source_url ? true : false,
+    ...defaultQueryConfig,
   })
 }
 
