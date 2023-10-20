@@ -17,7 +17,13 @@ import neracoosLogo from "./neracoos_logo.png"
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const pathname = usePathname()
 
-  const isActive = pathname.startsWith(href)
+  let isActive = false
+
+  if (href === "/" && pathname === "/") {
+    isActive = true
+  } else if (href !== "/") {
+    isActive = pathname.startsWith(href)
+  }
 
   return (
     <Link href={href} className={"nav-link" + (isActive ? " active" : "")}>

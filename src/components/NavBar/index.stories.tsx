@@ -14,6 +14,14 @@ const meta: Meta<typeof NeracoosNavBar> = {
       </MemoryRouter>
     ),
   ],
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: "/",
+      },
+    },
+  },
 }
 
 export default meta

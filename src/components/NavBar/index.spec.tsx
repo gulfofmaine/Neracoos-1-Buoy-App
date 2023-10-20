@@ -12,9 +12,6 @@ describe("The NavBar should have our primary links", () => {
   beforeEach(() => {
     render(<NavBar />)
   })
-  {
-    /* const nav = mount(<MemoryRouter><NavBar /><MemoryRouter></MemoryRouter>) */
-  }
 
   it("Has an about item", () => {
     expect(screen.getByText("About"))
