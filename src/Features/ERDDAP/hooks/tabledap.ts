@@ -74,21 +74,19 @@ export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date) {
 
   startTime = startTime ?? aWeekAgoRounded()
 
-  return useQuery<DataTimeSeries, Error>(
-    ["erddap-dataset", timeSeries, startTime],
-    getDataset(timeSeries!, startTime),
-    {
-      ...defaultQueryConfig,
-      enabled,
-      retry: (failureCount: number, error: Error) => {
-        if (error.message === FORBIDDEN) {
-          setEnabled(false)
-          return false
-        }
-        return true
-      },
+  return useQuery<DataTimeSeries, Error>({
+    queryKey: ["erddap-dataset", timeSeries, startTime],
+    queryFn: getDataset(timeSeries!, startTime),
+    enabled,
+    retry: (failureCount: number, error: Error) => {
+      if (error.message === FORBIDDEN) {
+        setEnabled(false)
+        return false
+      }
+      return true
     },
-  )
+    ...defaultQueryConfig,
+  })
 }
 
 export function groupByServerDatasetConstraint(readings: PlatformTimeSeries[]): FetchGroup[] {
@@ -181,19 +179,17 @@ export function useDatasets(timeSeries: PlatformTimeSeries[], startTime?: Date) 
 
   startTime = startTime ?? aWeekAgoRounded()
 
-  return useQuery<DataTimeSeries[], Error>(
-    ["erddap-datasets", { timeSeries, startTime }],
-    getDatasets(timeSeries, startTime),
-    {
-      ...defaultQueryConfig,
-      enabled,
-      retry: (failureCount: number, error: Error) => {
-        if (error.message === FORBIDDEN) {
-          setEnabled(false)
-          return false
-        }
-        return true
-      },
+  return useQuery<DataTimeSeries[], Error>({
+    queryKey: ["erddap-datasets", { timeSeries, startTime }],
+    queryFn: getDatasets(timeSeries, startTime),
+    enabled,
+    retry: (failureCount: number, error: Error) => {
+      if (error.message === FORBIDDEN) {
+        setEnabled(false)
+        return false
+      }
+      return true
     },
-  )
+    ...defaultQueryConfig,
+  })
 }

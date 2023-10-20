@@ -6,13 +6,16 @@ import { queryClient } from "queryClient"
 
 /** Use React Query to manage STAC store */
 export const reactQueryFetcher = async (url: string): Promise<IFetchData> => {
-  const data = await queryClient.fetchQuery(["stac-fetch", url], async () => {
-    const result = await fetch(url)
-    if (!result.ok) {
-      throw new Error("Network response was not ok")
-    }
-    const json = await result.json()
-    return json
+  const data = await queryClient.fetchQuery({
+    queryKey: ["stac-fetch", url],
+    queryFn: async () => {
+      const result = await fetch(url)
+      if (!result.ok) {
+        throw new Error("Network response was not ok")
+      }
+      const json = await result.json()
+      return json
+    },
   })
   return data
 }
@@ -36,7 +39,7 @@ async function fetchRootCatalog(): Promise<ICatalog> {
  * @returns hook for the root catalog
  */
 export const useRootCatalogQuery = () => {
-  return useQuery<ICatalog>(["stac-catalog"], fetchRootCatalog, { refetchOnWindowFocus: false })
+  return useQuery<ICatalog>({ queryKey: ["stac-catalog"], queryFn: fetchRootCatalog, refetchOnWindowFocus: false })
 }
 
 /**
@@ -120,14 +123,12 @@ export async function getItemByUrl(
  */
 export function useItemByIdQuery(id: string, enabled: boolean = true) {
   const catalogQuery = useRootCatalogQuery()
-  return useQuery<IItem>(
-    ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
-    () => getItemById(catalogQuery.data!, id),
-    {
-      refetchOnWindowFocus: false,
-      enabled: enabled && !!catalogQuery.data,
-    },
-  )
+  return useQuery<IItem>({
+    queryKey: ["get-stac-item", { catalog: catalogQuery?.data?.id, id }],
+    queryFn: () => getItemById(catalogQuery.data!, id),
+    refetchOnWindowFocus: false,
+    enabled: enabled && !!catalogQuery.data,
+  })
 }
 
 /**
@@ -139,14 +140,12 @@ export function useItemByIdQuery(id: string, enabled: boolean = true) {
  */
 export function useLatestItemByCollectionIdQuery(id: string, enabled: boolean = true) {
   const catalogQuery = useRootCatalogQuery()
-  return useQuery<IItem>(
-    ["get-latest-stac-item-by-collection", { catalog: catalogQuery?.data?.id, id }],
-    () => getLatestItemByCollectionId(catalogQuery.data!, id),
-    {
-      refetchOnWindowFocus: false,
-      enabled: enabled && !!catalogQuery.data,
-    },
-  )
+  return useQuery<IItem>({
+    queryKey: ["get-latest-stac-item-by-collection", { catalog: catalogQuery?.data?.id, id }],
+    queryFn: () => getLatestItemByCollectionId(catalogQuery.data!, id),
+    refetchOnWindowFocus: false,
+    enabled: enabled && !!catalogQuery.data,
+  })
 }
 
 /**

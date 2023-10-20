@@ -37,8 +37,10 @@ async function getPageById(key, { pageId }: { pageId: string }): Promise<Wagtail
  * @param pageId string identifier of page to load
  */
 export function usePage(pageId: string) {
-  return useQuery(["wagtail-page", { pageId }], (key) => getPageById(key, { pageId }), {
+  return useQuery({
+    queryKey: ["wagtail-page", { pageId }],
+    queryFn: (key) => getPageById(key, { pageId }),
     staleTime: 15 * 60 * 1000,
-    cacheTime: 60 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
   })
 }
