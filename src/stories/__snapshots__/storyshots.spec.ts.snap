@@ -266,7 +266,6 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
             <a
               className="nav-link"
               href="/about"
-              onClick={[Function]}
             >
               About
             </a>

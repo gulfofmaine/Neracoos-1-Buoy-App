@@ -26,8 +26,13 @@
     },
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["src"],
+  "include": ["src", ".next/types/**/*.ts"],
   "exclude": ["src/setupTests.ts", "**/*.spec.*", "**/*.stories.*"]
 }
