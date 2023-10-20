@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useEffect, useRef } from "react"
 import { Button, Col, Row } from "reactstrap"
 
-import n_walkabout from "./n_walkabout.png"
+import n_walkabout from "Pages/500/n_walkabout.png"
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   let eventId = useRef("")
