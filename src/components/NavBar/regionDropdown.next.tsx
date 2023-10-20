@@ -1,7 +1,7 @@
 "use client"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import React from "react"
+import * as React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
 import { paths } from "Shared/constants"

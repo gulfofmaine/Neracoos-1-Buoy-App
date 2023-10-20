@@ -5,7 +5,7 @@
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import React, { useState } from "react"
+import * as React from "react"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -14,7 +14,7 @@ import { RegionDropdown } from "./regionDropdown.next"
 
 import neracoosLogo from "./neracoos_logo.png"
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname()
 
   let isActive = false
@@ -36,7 +36,7 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
  * Navbar component
  */
 const NeracoosNavBar = () => {
-  const [isOpen, setOpen] = useState<boolean>(false)
+  const [isOpen, setOpen] = React.useState<boolean>(false)
 
   const toggle = () => setOpen((open) => !open)
   const close = () => setOpen(false)
