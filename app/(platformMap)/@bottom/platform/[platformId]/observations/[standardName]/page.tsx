@@ -1,7 +1,15 @@
-export default function ChartPlot({ params }: { params: { platformId: string; standardName: string } }) {
+import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
+
+import { ObservationChart } from "./chart"
+
+export default function ObservedPlot({
+  params: { platformId, standardName },
+}: {
+  params: { platformId: string; standardName: string }
+}) {
   return (
-    <div>
-      {params.standardName} chart for {params.platformId}
-    </div>
+    <DehydratedPlatforms>
+      <ObservationChart platformId={platformId} standardName={standardName} />
+    </DehydratedPlatforms>
   )
 }

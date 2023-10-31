@@ -1,9 +1,10 @@
+"use client"
 /**
  * Single large time series chart component
  */
 import Highcharts from "highcharts"
 import * as React from "react"
-import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
+import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
 
 import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
@@ -37,18 +38,16 @@ interface Props {
 /**
  * Single large time series chart component
  */
-class LargeTimeSeriesChartBase extends React.Component<Props, object> {
-  public render() {
-    const { name, softMax, softMin, timeSeries, data_type, unitSystem } = this.props
+export function LargeTimeSeriesChart({ name, softMax, softMin, timeSeries, data_type, unitSystem }: Props) {
+  const dataConverter = converter(data_type)
 
-    const dataConverter = converter(data_type)
+  const data = timeSeries.map((r) => [
+    r.time.valueOf(),
+    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2),
+  ])
 
-    const data = timeSeries.map((r) => [
-      r.time.valueOf(),
-      round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2),
-    ])
-
-    return (
+  return (
+    <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart />
 
@@ -61,9 +60,6 @@ class LargeTimeSeriesChartBase extends React.Component<Props, object> {
 
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
       </HighchartsChart>
-    )
-  }
+    </HighchartsProvider>
+  )
 }
-
-/** Highcharts connected LargeTimeSeriesChart component. See [[LargeTimeSeriesChartBase]] for details. */
-export const LargeTimeSeriesChart = withHighcharts(LargeTimeSeriesChartBase, Highcharts)
