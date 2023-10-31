@@ -1,3 +1,4 @@
+"use client"
 /**
  * Load and display forecasts
  */
@@ -7,7 +8,7 @@ import { Point } from "@turf/helpers"
 import React from "react"
 import { Alert, Row, Col, Tooltip } from "reactstrap"
 
-import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts"
+import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"

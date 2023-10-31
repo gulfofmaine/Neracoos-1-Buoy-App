@@ -1,3 +1,11 @@
-export default function AllObservationsList({ params }: { params: { platformId: string } }) {
-  return <div>All observations for {params.platformId}</div>
+import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
+
+import { AllObservations } from "./all_observations"
+
+export default function AllObservationsPage({ params: { platformId } }: { params: { platformId: string } }) {
+  return (
+    <DehydratedPlatforms>
+      <AllObservations platformId={platformId} />
+    </DehydratedPlatforms>
+  )
 }

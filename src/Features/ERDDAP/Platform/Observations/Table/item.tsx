@@ -1,8 +1,9 @@
+"use client"
 /**
  * A single row in the current or all conditions tables
  */
 import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { Tooltip } from "reactstrap"
 import * as Sentry from "@sentry/react"
 
@@ -81,7 +82,7 @@ export const TableItem: React.FunctionComponent<TableItemProps> = ({
     return (
       <React.Fragment>
         <Link
-          to={urlPartReplacer(
+          href={urlPartReplacer(
             urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
             ":type",
             selected.data_type.standard_name,

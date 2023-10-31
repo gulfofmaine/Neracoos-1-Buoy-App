@@ -9,7 +9,7 @@ import { UnitSystem } from "Features/Units/types"
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { conditions } from "../../../utils/conditions"
 
-import { itemStyle, TableItem } from "./item.next"
+import { itemStyle, TableItem } from "./item"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
