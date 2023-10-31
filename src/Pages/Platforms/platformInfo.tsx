@@ -1,6 +1,11 @@
+"use client"
 import React from "react"
 
-import { ErddapObservationTable, ErddapPlatformInfoPanel, PlatformAlerts, UsePlatform } from "Features/ERDDAP"
+import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table.next"
+import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
+import { ErddapPlatformInfoPanel } from "Features/ERDDAP/Platform/Info"
+import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"
+
 import { UnitSelector, useUnitSystem } from "Features/Units"
 import { aDayAgoRounded } from "Shared/time"
 

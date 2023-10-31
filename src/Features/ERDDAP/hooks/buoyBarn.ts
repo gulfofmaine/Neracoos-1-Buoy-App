@@ -3,25 +3,18 @@ import { useQuery, useQueries } from "@tanstack/react-query"
 
 import { ForecastJson, ForecastSource, PlatformFeatureCollection } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
-
-const erddapService = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoybarn.neracoos.org") as string
+import { erddapService, getPlatforms as getPlatformsBase, usePlatformsQueryKey } from "./buoyBarnQueries"
 
 /**
  * Load platforms from Buoy Barn
  */
-const getPlatforms = async () => {
-  const url = erddapService + "/api/platforms/"
-
+export const getPlatforms = async () => {
   Sentry.addBreadcrumb({
     category: "Buoy Barn",
-    data: {
-      url,
-    },
     message: "Loading platform GeoJSON",
   })
 
-  const result = await fetch(url)
-  const json = (await result.json()) as PlatformFeatureCollection
+  const json = await getPlatformsBase()
 
   return json
 }
@@ -31,7 +24,7 @@ const getPlatforms = async () => {
  */
 export function usePlatforms() {
   return useQuery<PlatformFeatureCollection, Error>({
-    queryKey: ["buoybarn-platforms"],
+    queryKey: usePlatformsQueryKey,
     queryFn: getPlatforms,
     ...defaultQueryConfig,
   })
