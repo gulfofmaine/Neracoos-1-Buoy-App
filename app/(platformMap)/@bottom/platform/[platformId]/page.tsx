@@ -1,3 +1,11 @@
-export default function CurrentConditions({ params }: { params: { platformId: string } }) {
-  return <div>Current conditions for {params.platformId}</div>
+import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
+
+import { CurrentConditions } from "./current_conditions"
+
+export default function CurrentConditionsPage({ params: { platformId } }: { params: { platformId: string } }) {
+  return (
+    <DehydratedPlatforms>
+      <CurrentConditions platformId={platformId} />
+    </DehydratedPlatforms>
+  )
 }

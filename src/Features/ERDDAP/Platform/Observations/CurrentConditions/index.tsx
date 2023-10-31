@@ -1,3 +1,4 @@
+"use client"
 /**
  * Collection of cards to display a summary of
  * current conditions that a platform is experiencing.
