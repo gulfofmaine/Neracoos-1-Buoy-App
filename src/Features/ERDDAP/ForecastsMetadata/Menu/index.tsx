@@ -1,8 +1,9 @@
+"use client"
 /**
  * Dropdown menu for accessing forecasts via buoy barn
  */
 import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -53,57 +54,46 @@ interface BaseProps extends Props {
 /**
 //  * Dropdown menu with links to the available forecasts.
  */
-export class ForecastDropdownBase extends React.Component<BaseProps, State> {
-  public state: State = initialState
+export function ForecastDropdownBase({ forecasts, platformId }: BaseProps) {
+  const [state, setState] = React.useState<State>(initialState)
 
-  constructor(props: BaseProps) {
-    super(props)
-
-    this.toggle = this.toggle.bind(this)
-    this.close = this.close.bind(this)
+  const toggle = () => {
+    setState((currentState) => ({
+      dropdownOpen: !currentState.dropdownOpen,
+    }))
   }
 
-  public render() {
-    const { forecasts, platformId } = this.props
-
-    const forecastNames = Array.from(new Set(forecasts.map((forecast) => forecast.forecast_type)))
-    forecastNames.sort()
-
-    const forecastItems = forecastNames.map((forecastType) => (
-      <Link
-        key={forecastType}
-        className="dropdown-item nav-item"
-        onClick={this.close}
-        to={urlPartReplacer(
-          urlPartReplacer(paths.platforms.forecastType, ":id", platformId),
-          ":type",
-          forecastType.toLowerCase().replace(/ /g, "_"),
-        )}
-      >
-        {forecastType}
-      </Link>
-    ))
-
-    return (
-      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle nav={true} caret={true} id="forecast">
-          Forecasts
-        </DropdownToggle>
-
-        <DropdownMenu>{forecastItems}</DropdownMenu>
-      </Dropdown>
-    )
-  }
-
-  private toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    })
-  }
-
-  private close() {
-    this.setState({
+  const close = () => {
+    setState({
       dropdownOpen: false,
     })
   }
+
+  const forecastNames = Array.from(new Set(forecasts.map((forecast) => forecast.forecast_type)))
+  forecastNames.sort()
+
+  const forecastItems = forecastNames.map((forecastType) => (
+    <Link
+      key={forecastType}
+      className="dropdown-item nav-item"
+      onClick={close}
+      href={urlPartReplacer(
+        urlPartReplacer(paths.platforms.forecastType, ":id", platformId),
+        ":type",
+        forecastType.toLowerCase().replace(/ /g, "_"),
+      )}
+    >
+      {forecastType}
+    </Link>
+  ))
+
+  return (
+    <Dropdown nav={true} isOpen={state.dropdownOpen} toggle={toggle}>
+      <DropdownToggle nav={true} caret={true} id="forecast">
+        Forecasts
+      </DropdownToggle>
+
+      <DropdownMenu>{forecastItems}</DropdownMenu>
+    </Dropdown>
+  )
 }

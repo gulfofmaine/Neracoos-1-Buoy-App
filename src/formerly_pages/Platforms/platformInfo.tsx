@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 
-import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table.next"
+import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table"
 import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 import { ErddapPlatformInfoPanel } from "Features/ERDDAP/Platform/Info"
 import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"

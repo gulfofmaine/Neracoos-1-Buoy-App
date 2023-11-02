@@ -1,25 +1,21 @@
 import * as React from "react"
-import { Alert } from "reactstrap"
 
 import ContentBlock from "components/ContentBlock"
 
-import { usePage } from "./hooks"
+import { fetchPageById } from "./fetch"
 
 export interface Props {
   /** Wagtail API page number to load */
   pageId: string
 }
 
-export const WagtailBlock: React.FunctionComponent<Props> = ({ pageId }) => {
-  const { isLoading, data } = usePage(pageId)
+/**
+ * Show content from Wagtail
+ *
+ * @param pageId string identifier of page to load from Wagtail
+ */
+export async function WagtailBlock({ pageId }) {
+  const data = await fetchPageById(pageId)
 
-  if (isLoading) {
-    return <Alert color="primary">Loading content...</Alert>
-  }
-
-  if (data) {
-    return <ContentBlock content={data.body} />
-  }
-
-  return <Alert color="error">Error loading content</Alert>
+  return <ContentBlock content={data.body} />
 }

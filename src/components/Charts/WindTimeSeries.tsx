@@ -1,3 +1,4 @@
+"use client"
 /**
  * Wind time series chart component that can display steady and gust speeds
  * in addition to wind barbs for wind direction

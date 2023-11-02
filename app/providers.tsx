@@ -4,6 +4,8 @@ import { Provider } from "react-redux"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
+import { GAListener } from "Shared/google-analytics"
+
 import { store } from "./store"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -22,8 +24,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        {children}
-        <ReactQueryDevtools />
+        <GAListener trackingId={process.env.NODE_ENV === "production" ? "G-MVZR2D0XKJ" : undefined}>
+          {children}
+          <ReactQueryDevtools />
+        </GAListener>
       </Provider>
     </QueryClientProvider>
   )

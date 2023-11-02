@@ -7,8 +7,8 @@ import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu/index.next"
-import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata/Menu/index.next"
+import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu"
+import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata/Menu"
 import { ErddapMoreInfoDropdown } from "Features/ERDDAP/Platform/MoreInfoMenu/index"
 import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 

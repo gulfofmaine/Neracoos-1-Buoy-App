@@ -91,8 +91,8 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
     )
   }
 
-  // return null
-  return <h4>Error showing Superlatives</h4>
+  return null
+  // return <h4>Error showing Superlatives</h4>
 }
 
 /**
