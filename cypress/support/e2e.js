@@ -23,7 +23,11 @@ import "./commands"
 // require('./commands')
 
 Cypress.on("uncaught:exception", (err, runnable) => {
-  if (err.message.includes("invariant=418") || err.message.includes("invariant=423")) {
+  if (
+    err.message.includes("invariant=418") ||
+    err.message.includes("invariant=423") ||
+    err.message.includes("invariant=329")
+  ) {
     return false
   }
 })

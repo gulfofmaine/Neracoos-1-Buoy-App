@@ -1,9 +1,28 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
+"use client"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
+import * as React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
 import { paths } from "Shared/constants"
 import { regionList } from "Shared/regions"
+import { urlPartReplacer } from "Shared/urlParams"
+
+const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void }) => {
+  const pathname = usePathname()
+
+  const isActive = pathname.startsWith(href)
+
+  return (
+    <Link
+      href={href}
+      className={isActive ? "nav-link dropdown-item btn" : "nav-link dropdown-item btn"}
+      onClick={onClick}
+    >
+      {children}
+    </Link>
+  )
+}
 
 interface Props {
   closeParent: () => void
@@ -27,14 +46,9 @@ export class RegionDropdown extends React.Component<Props, State> {
 
   public render() {
     const regions = regionList.map((region, key) => {
-      const to = paths.platforms.root + "?region=" + region.slug
+      const to = urlPartReplacer(paths.regions.region, ":id", region.slug)
       return (
-        <NavLink
-          key={key}
-          className={({ isActive }) => (isActive ? "nav-link dropdown-item btn" : "nav-link dropdown-item btn")}
-          to={to}
-          onClick={this.close}
-        >
+        <NavLink key={key} href={to} onClick={this.close}>
           {region.name}
         </NavLink>
       )

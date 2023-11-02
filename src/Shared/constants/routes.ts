@@ -5,6 +5,10 @@ export const paths = {
   about: "/about",
   home: "/",
   map: "/map",
+  regions: {
+    root: "/region/",
+    region: "/region/:id",
+  },
   platforms: {
     all: "/platform/:id/observations/all",
     forecast: "/platform/:id/forecast",

@@ -1,8 +1,9 @@
+"use client"
 /**
  * Superlatives, or what platforms experiencing the most extreme conditions right now
  */
 import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
@@ -90,7 +91,8 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
     )
   }
 
-  return null
+  // return null
+  return <h4>Error showing Superlatives</h4>
 }
 
 /**
@@ -154,13 +156,13 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
 
   return (
     <React.Fragment>
-      <Link to={url}>
+      <Link href={url}>
         <h6>{title}</h6>
       </Link>
       <div>
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
       </div>
-      <Link to={url}>
+      <Link href={url}>
         <div>
           {platform.id} - {platform.properties.mooring_site_desc}
         </div>

@@ -9,7 +9,7 @@ describe("Region: Long Island", () => {
   })
 
   it("Shows only a subset of platforms", () => {
-    cy.visit("/platform/?region=LONG")
+    cy.visit("/region/LONG")
 
     cy.get("h2").contains("Platforms in Long Island Sound")
 
