@@ -1,4 +1,5 @@
-// import "ol/ol.css"
+"use client"
+import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
@@ -8,7 +9,8 @@ import React from "react"
 import { RMap, RLayerVector, RStyle, RPopup, RFeature } from "rlayers"
 import type { RView } from "rlayers/RMap"
 import { Button } from "reactstrap"
-import { generatePath, useNavigate } from "react-router-dom"
+import { generatePath } from "react-router-dom"
+import { useRouter } from "next/navigation"
 
 import { useStatefulView } from "Features/StatefulMap"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
@@ -51,7 +53,7 @@ interface PlatformLayerProps {
 
 // Build a RLayers feature for each platform
 const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
-  const navigate = useNavigate()
+  const router = useRouter()
 
   let radius: number
   if (selected) {
@@ -83,16 +85,16 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
           return feature.getGeometry()
         }, [platform])}
         onClick={React.useCallback(() => {
-          navigate(url, { replace: false })
-        }, [navigate, url])}
+          router.push(url)
+        }, [router, url])}
       >
         <RPopup trigger={"hover"}>
           <Button
             color="dark"
             size="sm"
             onClick={React.useCallback(() => {
-              navigate(url, { replace: false })
-            }, [navigate, url])}
+              router.push(url)
+            }, [router, url])}
           >
             {platform.id}
           </Button>

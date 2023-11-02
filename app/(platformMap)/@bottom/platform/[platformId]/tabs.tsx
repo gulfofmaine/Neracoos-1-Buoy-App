@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useParams } from "next/navigation"
 import * as React from "react"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
@@ -12,8 +12,13 @@ import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata/Menu/index.n
 import { ErddapMoreInfoDropdown } from "Features/ERDDAP/Platform/MoreInfoMenu/index"
 import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 
-export function PlatformTabs({ platformId }: { platformId: string }) {
+export function PlatformTabs() {
   const path = usePathname()
+  const { platformId }: { platformId?: string } = useParams()
+
+  if (typeof platformId === "undefined" || !path.startsWith("/platform")) {
+    return null
+  }
 
   return (
     <UsePlatform platformId={platformId}>

@@ -2,19 +2,11 @@ import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 
 import { PlatformTabs } from "./tabs"
 
-export default async function PlatformTabsLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: { platformId: string }
-}) {
-  const platformId = decodeURIComponent(params.platformId)
-
+export default async function PlatformTabsLayout({ children }: { children: React.ReactNode }) {
   return (
     <DehydratedPlatforms>
       <div style={{ marginTop: "1rem" }}>
-        <PlatformTabs platformId={platformId} />
+        <PlatformTabs />
         {children}
       </div>
     </DehydratedPlatforms>
