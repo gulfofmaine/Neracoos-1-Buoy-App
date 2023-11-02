@@ -1,5 +1,4 @@
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 
 import { UnitSystem } from "Features/Units/types"
@@ -10,15 +9,13 @@ import { TableItem } from "./item"
 describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     render(
-      <MemoryRouter>
-        <TableItem
-          platform={platform}
-          readings={platform.properties.readings}
-          data_type="wind_speed"
-          name="Wind Speed"
-          unitSystem={UnitSystem.english}
-        />
-      </MemoryRouter>,
+      <TableItem
+        platform={platform}
+        readings={platform.properties.readings}
+        data_type="wind_speed"
+        name="Wind Speed"
+        unitSystem={UnitSystem.english}
+      />,
     )
 
     expect(screen.getByRole("link")).toHaveTextContent("Wind Speed:")
@@ -26,15 +23,13 @@ describe("TableItem", () => {
 
   it("Rounds the wind speed", () => {
     render(
-      <MemoryRouter>
-        <TableItem
-          platform={platform}
-          readings={platform.properties.readings}
-          data_type="wind_speed"
-          name="Wind Speed"
-          unitSystem={UnitSystem.metric}
-        />
-      </MemoryRouter>,
+      <TableItem
+        platform={platform}
+        readings={platform.properties.readings}
+        data_type="wind_speed"
+        name="Wind Speed"
+        unitSystem={UnitSystem.metric}
+      />,
     )
 
     expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
@@ -42,15 +37,13 @@ describe("TableItem", () => {
 
   it("Returns null when there is not a matching datatype", () => {
     render(
-      <MemoryRouter>
-        <TableItem
-          platform={platform}
-          readings={platform.properties.readings}
-          data_type="air_temp"
-          unitSystem={UnitSystem.english}
-          name="Air Temp"
-        />
-      </MemoryRouter>,
+      <TableItem
+        platform={platform}
+        readings={platform.properties.readings}
+        data_type="air_temp"
+        unitSystem={UnitSystem.english}
+        name="Air Temp"
+      />,
     )
 
     expect(screen.queryByRole("link")).not.toBeInTheDocument()
@@ -59,15 +52,13 @@ describe("TableItem", () => {
   it("Returns only the first selected datatype", () => {
     // Need to have a div in the body for the tooltip to attach to
     render(
-      <MemoryRouter>
-        <TableItem
-          platform={platform}
-          readings={platform.properties.readings}
-          data_type={["significant_wave_height", "significant_height_of_wind_and_swell_waves_3"]}
-          unitSystem={UnitSystem.english}
-          name="Wave Height"
-        />
-      </MemoryRouter>,
+      <TableItem
+        platform={platform}
+        readings={platform.properties.readings}
+        data_type={["significant_wave_height", "significant_height_of_wind_and_swell_waves_3"]}
+        unitSystem={UnitSystem.english}
+        name="Wave Height"
+      />,
     )
 
     expect(screen.getByRole("link")).toHaveTextContent("Wave Height: 0.8 Feet")

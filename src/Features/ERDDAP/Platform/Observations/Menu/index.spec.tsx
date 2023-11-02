@@ -1,5 +1,4 @@
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
@@ -8,11 +7,7 @@ import { ErddapObservedDropdown } from "./index"
 
 describe("ErddapObservedDropdown", () => {
   it("Renders a menu for a platform", async () => {
-    render(
-      <MemoryRouter>
-        <ErddapObservedDropdown platform={platform} />
-      </MemoryRouter>,
-    )
+    render(<ErddapObservedDropdown platform={platform} />)
 
     expect(screen.getByRole("menu")).toHaveTextContent("Observations")
 

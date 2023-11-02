@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -11,13 +10,6 @@ import { platforms } from "stories/platforms"
 const meta: Meta<typeof Superlatives> = {
   component: Superlatives,
   title: "ERDDAP/Superlatives",
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 }
 
 export default meta

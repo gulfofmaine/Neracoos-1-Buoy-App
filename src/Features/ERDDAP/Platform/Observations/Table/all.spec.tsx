@@ -1,5 +1,4 @@
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 
 import { UnitSystem } from "Features/Units/types"
@@ -9,11 +8,7 @@ import { ErddapAllObservationsTable } from "./all"
 
 describe("<ErddapAllObservationsTable>", () => {
   it("Should show all observations for appropriate platform", () => {
-    render(
-      <MemoryRouter>
-        <ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />
-      </MemoryRouter>,
-    )
+    render(<ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />)
 
     expect(screen.getAllByRole("link").length).toBe(16)
     expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
