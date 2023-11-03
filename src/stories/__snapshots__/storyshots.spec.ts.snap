@@ -72,57 +72,6 @@ exports[`Storyshots App/Error Page Five Hundred Page 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components/500 Page Five Hundred Page 1`] = `
-<div
-  className="row"
->
-  <div
-    className="col-md-8 offset-md-2"
-  >
-    <h1>
-      The data has escaped
-    </h1>
-    <img
-      alt="Track of a lost buoy"
-      data-nimg="1"
-      decoding="async"
-      height={40}
-      loading="lazy"
-      onError={[Function]}
-      onLoad={[Function]}
-      src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
-      srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
-      style={
-        {
-          "color": "transparent",
-          "maxWidth": "100%",
-        }
-      }
-      width={40}
-    />
-    <p>
-      Despite our best intentions, something has gone wrong while trying to display the data.
-    </p>
-    <p>
-      If you saw a 
-      <b>
-        It looks like we're having issues
-      </b>
-       form, we hope that you filled it out, as it will help us fix the issue. Otherwise you can email 
-      <a
-        href="mailto:info@neracoos.org"
-      >
-        info@neracoos.org
-      </a>
-       with information about the error.
-    </p>
-    <p>
-      Sometimes issues are short lived, so if you give it a minute, then try reloading the page, hopefully you will be able to get to the data. If you can't and this error shows up again, please fill out the form, or email us for help.
-    </p>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Components/Footer Footer 1`] = `
 <div
   className="footer"
@@ -244,10 +193,11 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
           className="ml-auto navbar-nav"
         >
           <a
-            aria-current="page"
             className="nav-link active"
             href="/"
             onClick={[Function]}
+            onMouseEnter={[Function]}
+            onTouchStart={[Function]}
           >
             Home
           </a>
@@ -272,50 +222,64 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
             >
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=GOM"
+                href="/region/GOM"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Gulf Of Maine
               </a>
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=LONG"
+                href="/region/LONG"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Long Island Sound
               </a>
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=GREAT"
+                href="/region/GREAT"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Great Bay, NH
               </a>
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=BOSTON"
+                href="/region/BOSTON"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Boston Harbor
               </a>
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=CAPE"
+                href="/region/CAPE"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Cape Cod / Buzzards Bay
               </a>
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=NARRAGANSETT"
+                href="/region/NARRAGANSETT"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Narragansett Bay
               </a>
               <a
                 className="nav-link dropdown-item btn"
-                href="/platform/?region=NEWFOUNDLAND"
+                href="/region/NEWFOUNDLAND"
                 onClick={[Function]}
+                onMouseEnter={[Function]}
+                onTouchStart={[Function]}
               >
                 Newfoundland
               </a>
@@ -326,8 +290,10 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
           >
             <a
               className="nav-link"
-              href="/models/"
+              href="/models"
               onClick={[Function]}
+              onMouseEnter={[Function]}
+              onTouchStart={[Function]}
             >
               Model Viewer
             </a>
@@ -338,6 +304,9 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
             <a
               className="nav-link"
               href="/about"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onTouchStart={[Function]}
             >
               About
             </a>
@@ -427,6 +396,8 @@ exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
         <a
           href="/platform/WLIS"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onTouchStart={[Function]}
         >
           <h6>
             Highest Winds
@@ -440,6 +411,8 @@ exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
         <a
           href="/platform/WLIS"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onTouchStart={[Function]}
         >
           <div>
             WLIS
@@ -454,6 +427,8 @@ exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
         <a
           href="/platform/44008"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onTouchStart={[Function]}
         >
           <h6>
             Biggest Waves
@@ -467,6 +442,8 @@ exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
         <a
           href="/platform/44008"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onTouchStart={[Function]}
         >
           <div>
             44008

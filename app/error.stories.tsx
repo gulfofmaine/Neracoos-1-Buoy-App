@@ -1,6 +1,6 @@
 import React from "react"
 
-import ErrorPage, { FiveHundredInner } from "./error"
+import ErrorPage from "./error"
 
 export default {
   component: ErrorPage,

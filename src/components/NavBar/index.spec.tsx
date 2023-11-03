@@ -1,6 +1,15 @@
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+
+jest.mock("next/navigation", () => {
+  const origionalModule = jest.requireActual("next/navigation")
+
+  return {
+    __esModule: true,
+    ...origionalModule,
+    usePathname: jest.fn(() => "/"),
+  }
+})
 
 import NavBar from "."
 
