@@ -1,15 +1,14 @@
 import JSURL from "jsurl2"
 import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
-import { useSearchParams } from "react-router-dom"
-import type { NavigateOptions } from "react-router-dom"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import type { RView } from "rlayers/RMap"
 
 import { round } from "Shared/math"
 
 import { IItem } from "@gulfofmaine/tsstac"
 
-import { useLatestItemByCollectionIdQuery } from "./stac-queries"
+import { useLatestItemByCollectionIdQuery } from "./stac-queries.tsx.disabled"
 import { Layer, initialLayer, initialView } from "./types"
 
 /**
@@ -17,17 +16,26 @@ import { Layer, initialLayer, initialView } from "./types"
  * @param key name of object to synce
  * @returns synced object and setter for synced object
  */
-export function useQueryParam<T>(key: string): [T | undefined, (newQuery: T, options?: NavigateOptions) => void] {
-  let [searchParams, setSearchParams] = useSearchParams()
-  let paramValue = searchParams.get(key)
+export function useQueryParam<T>(key: string): [T | undefined, (newQuery: T) => void] {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
 
-  let value = React.useMemo(() => JSURL.parse(paramValue), [paramValue])
+  const setSearchParams = React.useCallback(
+    (newSearchParams: URLSearchParams) => {
+      router.push(pathname + "?" + newSearchParams.toString())
+    }, [router, pathname]
+  )
 
-  let setValue = React.useCallback(
-    (newValue: T, options?: NavigateOptions) => {
+  const paramValue = searchParams.get(key)
+
+  const value = React.useMemo(() => JSURL.parse(paramValue), [paramValue])
+
+  const setValue = React.useCallback(
+    (newValue: T) => {
       let newSearchParams = new URLSearchParams(searchParams)
       newSearchParams.set(key, JSURL.stringify(newValue))
-      setSearchParams(newSearchParams, options)
+      setSearchParams(newSearchParams)
     },
     [key, searchParams, setSearchParams],
   )

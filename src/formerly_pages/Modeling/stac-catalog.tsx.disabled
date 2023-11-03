@@ -15,7 +15,7 @@ import { useQueries } from "@tanstack/react-query"
 import { ICatalog, ICollection, IItem } from "@gulfofmaine/tsstac"
 
 import { useCompare, useLayer } from "./query-hooks"
-import { useRootCatalogQuery, getChildByUrl, getItemByUrl } from "./stac-queries"
+import { useRootCatalogQuery, getChildByUrl, getItemByUrl } from "./stac-queries.tsx.disabled"
 
 export const StacCatalogRoot = () => {
   const catalogQuery = useRootCatalogQuery()
