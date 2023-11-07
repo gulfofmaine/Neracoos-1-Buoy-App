@@ -1,8 +1,10 @@
-import { Metadata } from "next"
+import { Metadata, Viewport } from "next"
 import React from "react"
 
-import NavBar from "components/NavBar/index.next"
+import NavBar from "components/NavBar"
 import { Footer } from "../src/components/Footer"
+
+import Providers from "./providers"
 
 import "../src/index.scss"
 
@@ -14,9 +16,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <div className="App">
-          <NavBar />
-          <div className="container-fluid">{children}</div>
-          <Footer />
+          <Providers>
+            <NavBar />
+            <div className="container-fluid">{children}</div>
+            <Footer />
+          </Providers>
         </div>
       </body>
     </html>
@@ -28,9 +32,17 @@ export const metadata: Metadata = {
     default: "NERACOOS Mariners Dashboard",
     template: "%s | NERACOOS Mariners Dashboard",
   },
-  themeColor: "#000000",
   appleWebApp: {
     capable: true,
     title: "NERACOOS",
   },
 }
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+}
+
+/**
+ * Revalidate any server side fetches by default every 5 minutes
+ */
+export const revalidate = 5 * 50

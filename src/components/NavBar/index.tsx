@@ -1,9 +1,11 @@
+"use client"
 /**
  * Navbar component
  */
 import Image from "next/image"
-import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
+import * as React from "react"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -12,16 +14,38 @@ import { RegionDropdown } from "./regionDropdown"
 
 import neracoosLogo from "./neracoos_logo.png"
 
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const pathname = usePathname()
+
+  let isActive = false
+
+  if (href === "/" && pathname === "/") {
+    isActive = true
+  } else if (href !== "/") {
+    isActive = pathname.startsWith(href)
+  }
+
+  return (
+    <Link href={href} className={"nav-link" + (isActive ? " active" : "")}>
+      {children}
+    </Link>
+  )
+}
+
 /**
  * Navbar component
  */
 const NeracoosNavBar = () => {
-  const [isOpen, setOpen] = useState<boolean>(false)
+  const [isOpen, setOpen] = React.useState<boolean>(false)
 
   const toggle = () => setOpen((open) => !open)
   const close = () => setOpen(false)
 
-  const isMariners = window.location.href.includes("://mariners.neracoos.org")
+  let isMariners = false
+
+  if (typeof window !== "undefined") {
+    isMariners = window.location.href.includes("://mariners.neracoos.org")
+  }
 
   return (
     <div>
@@ -33,24 +57,18 @@ const NeracoosNavBar = () => {
 
         <Collapse isOpen={isOpen} navbar={true} className="justify-content-end">
           <Nav className="ml-auto" navbar={true}>
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.home}>
-              Home
-            </NavLink>
+            <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
 
             {!isMariners ? (
               <NavItem>
-                <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to={paths.models}>
-                  Model Viewer
-                </NavLink>
+                <NavLink href={paths.models}>Model Viewer</NavLink>
               </NavItem>
             ) : null}
 
             <NavItem>
-              <a className="nav-link" href={paths.about}>
-                About
-              </a>
+              <NavLink href={paths.about}>About</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

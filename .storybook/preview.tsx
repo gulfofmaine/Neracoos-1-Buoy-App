@@ -1,5 +1,4 @@
 import type { Preview } from "@storybook/react"
-import { MemoryRouter } from "react-router-dom"
 
 import "../src/index.scss"
 
@@ -10,6 +9,12 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
+      },
+    },
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: "/",
       },
     },
   },

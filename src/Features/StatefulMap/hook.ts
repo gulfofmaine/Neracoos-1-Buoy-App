@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import type { RView } from "rlayers/RMap"
 
-import { RootState } from "store"
+import { RootState } from "../../../app/store"
 
 import { setView } from "./slice"
 

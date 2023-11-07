@@ -19,7 +19,7 @@
     "paths": {
       "Shared/*": ["Shared/*"],
       "components/*": ["components/*"],
-      "Pages/*": ["Pages/*"],
+      "Pages/*": ["formerly_pages/*"],
       "Features/*": ["Features/*"],
       "stories/*": ["stories/*"],
       "queryClient": ["queryClient"]

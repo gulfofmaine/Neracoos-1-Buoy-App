@@ -4,7 +4,7 @@
 import React from "react"
 import { Col, Row } from "reactstrap"
 
-import { LargeTimeSeriesChart } from "components/Charts"
+import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
 import { naturalBounds } from "Shared/dataTypes"
 import { aWeekAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"

@@ -6,7 +6,7 @@ describe("About Page", () => {
 
     cy.contains("About").click()
 
-    cy.contains("Platform data provided by:")
+    cy.contains("Platform data provided by")
   })
 
   it("Loads Wagtail Content", () => {

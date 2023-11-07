@@ -3,7 +3,7 @@ const nextConfig = {
   env: {
     PUBLIC_URL: "",
   },
-  transpilePackages: ["ol", "quick-lru"],
+  transpilePackages: ["ol", "quick-lru", "rlayers"],
   experimental: {
     craCompat: false,
   },

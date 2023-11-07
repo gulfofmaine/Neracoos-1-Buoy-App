@@ -5,7 +5,7 @@ import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import { Feature } from "@turf/helpers"
 import * as React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { ListGroup } from "reactstrap"
 
 import { paths } from "Shared/constants"
@@ -53,7 +53,7 @@ export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platf
           return (
             <Link
               key={id}
-              to={urlPartReplacer(paths.platforms.platform, ":id", id as string)}
+              href={urlPartReplacer(paths.platforms.platform, ":id", id as string)}
               className="list-group-item list-group-item-action"
             >
               {id}

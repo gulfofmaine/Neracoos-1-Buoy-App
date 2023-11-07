@@ -1,3 +1,4 @@
+"use client"
 /**
  * Time series chart component for displaying multiple sets of time series data with current time line
  */
@@ -11,7 +12,7 @@ import {
   ScatterSeries,
   SplineSeries,
   Tooltip,
-  withHighcharts,
+  HighchartsProvider,
   XAxis,
   YAxis,
 } from "react-jsx-highcharts"
@@ -49,7 +50,7 @@ interface Props {
   scatter: boolean
 }
 
-const MultipleLargeTimeSeriesChartCurrentBase = ({ data, unit, scatter = false }: Props) => {
+export const MultipleLargeTimeSeriesChartCurrent = ({ data, unit, scatter = false }: Props) => {
   const [date, setDate] = useState<Date>(new Date())
 
   useEffect(() => {
@@ -91,24 +92,23 @@ const MultipleLargeTimeSeriesChartCurrentBase = ({ data, unit, scatter = false }
   })
 
   return (
-    <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-      <Chart />
+    <HighchartsProvider Highcharts={Highcharts}>
+      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
+        <Chart />
 
-      <XAxis type="datetime">
-        <PlotLine value={date.valueOf()} id={"now-line"} />
-      </XAxis>
+        <XAxis type="datetime">
+          <PlotLine value={date.valueOf()} id={"now-line"} />
+        </XAxis>
 
-      <YAxis>
-        <YAxis.Title>{unit}</YAxis.Title>
-        {series}
-      </YAxis>
+        <YAxis>
+          <YAxis.Title>{unit}</YAxis.Title>
+          {series}
+        </YAxis>
 
-      <Legend />
+        <Legend />
 
-      <Tooltip formatter={formatterWrapper(unit)} shared={true} />
-    </HighchartsChart>
+        <Tooltip formatter={formatterWrapper(unit)} shared={true} />
+      </HighchartsChart>
+    </HighchartsProvider>
   )
 }
-
-/** Highcharts enabled MultipleTimeSeriesChart component. See [[MultipleLargeTimeSeriesChartBase]] for details. */
-export const MultipleLargeTimeSeriesChartCurrent = withHighcharts(MultipleLargeTimeSeriesChartCurrentBase, Highcharts)

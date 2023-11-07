@@ -3,7 +3,7 @@
  */
 import Highcharts from "highcharts"
 import * as React from "react"
-import { Chart, HighchartsChart, SplineSeries, Tooltip, withHighcharts, XAxis, YAxis } from "react-jsx-highcharts"
+import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
 
 import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
@@ -42,13 +42,21 @@ interface Props {
 /**
  * Small time series chart component (as seen on current conditions page)
  */
-class SmallTimeSeriesChartBase extends React.Component<Props, object> {
-  public render() {
-    const { name, softMax, softMin, timeSeries, unitSystem, data_type, startTime, endTime } = this.props
-    let { unit } = this.props
-    let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
+export function SmallTimeSeriesChart({
+  name,
+  softMax,
+  softMin,
+  timeSeries,
+  unitSystem,
+  data_type,
+  startTime,
+  endTime,
+  unit,
+}: Props) {
+  let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
-    return (
+  return (
+    <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart height={150} />
 
@@ -61,9 +69,6 @@ class SmallTimeSeriesChartBase extends React.Component<Props, object> {
 
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
       </HighchartsChart>
-    )
-  }
+    </HighchartsProvider>
+  )
 }
-
-/** Hightcharts enabled SmallTimeSeriesChart component. See [[SmallTimeSeriesChartBase]] for details. */
-export const SmallTimeSeriesChart = withHighcharts(SmallTimeSeriesChartBase, Highcharts)

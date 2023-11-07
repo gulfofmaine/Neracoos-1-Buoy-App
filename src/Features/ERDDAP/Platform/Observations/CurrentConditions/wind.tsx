@@ -4,7 +4,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { Card, CardBody, CardHeader, Col } from "reactstrap"
 import * as Sentry from "@sentry/react"
 
@@ -14,7 +14,7 @@ import { compassDirection } from "Shared/unitConversion/compassDirection"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
-import { WindTimeSeriesChart } from "components/Charts"
+import { WindTimeSeriesChart } from "components/Charts/WindTimeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
@@ -88,7 +88,7 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
 
   return (
     <Col {...cardProps}>
-      <Link to={observationLink(platform, "wind")}>
+      <Link href={observationLink(platform, "wind")}>
         <Card>
           <CardHeader>
             Winds{speedTitle}
@@ -121,7 +121,7 @@ interface OtherWindCardProps {
  */
 const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, children }) => (
   <Col {...cardProps}>
-    <Link to={observationLink(platform, "wind")}>
+    <Link href={observationLink(platform, "wind")}>
       <Card>
         <CardHeader>{children}</CardHeader>
       </Card>

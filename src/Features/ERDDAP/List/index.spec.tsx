@@ -1,5 +1,4 @@
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 
 import { BoundingBox } from "Shared/regions"
@@ -13,11 +12,7 @@ function setup(platforms: PlatformFeatureWithDatasets[], boundingBox?: BoundingB
     platforms,
   }
 
-  const testWrapper = render(
-    <MemoryRouter>
-      <ErddapPlatformListBase {...props} />
-    </MemoryRouter>,
-  )
+  const testWrapper = render(<ErddapPlatformListBase {...props} />)
 
   return {
     testWrapper,

@@ -6,7 +6,7 @@ import { Button, ButtonGroup } from "reactstrap"
 import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
-import { RootState } from "store"
+import { RootState } from "../../../../app/store"
 
 import { unitSwitch } from "../slice"
 import { UnitSystem } from "../types"

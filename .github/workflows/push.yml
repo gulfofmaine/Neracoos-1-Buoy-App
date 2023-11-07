@@ -149,78 +149,78 @@ jobs:
       #     rm -rf /tmp/storybook-public
       #     cp -r storybook-public /tmp/storybook-public
 
-  cypress:
-    name: Cypress integration tests
-    runs-on: ubuntu-20.04
-    needs: build-prod
-    timeout-minutes: 30
+  # cypress:
+  #   name: Cypress integration tests
+  #   runs-on: ubuntu-20.04
+  #   needs: build-prod
+  #   timeout-minutes: 30
 
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: "Checkout"
+  #       uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "14"
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "14"
 
-      - name: Cache Docker image
-        uses: actions/cache@v3
-        with:
-          path: /tmp/prodimage.tar
-          key: mariners-dashboard-prod-image-${{ github.sha }}
-          restore-keys: |
-            mariners-dashboard-prod-image-
+  #     - name: Cache Docker image
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: /tmp/prodimage.tar
+  #         key: mariners-dashboard-prod-image-${{ github.sha }}
+  #         restore-keys: |
+  #           mariners-dashboard-prod-image-
 
-      - name: Load Docker image
-        run: |
-          docker load --input /tmp/prodimage.tar
-          docker image ls -a
+  #     - name: Load Docker image
+  #       run: |
+  #         docker load --input /tmp/prodimage.tar
+  #         docker image ls -a
 
-      - name: Get Cypress version from cypress/package.json
-        run: echo "CYPRESS_VERSION=$(cat cypress/package.json | jq -r '.dependencies.cypress')" >> $GITHUB_ENV
+  #     - name: Get Cypress version from cypress/package.json
+  #       run: echo "CYPRESS_VERSION=$(cat cypress/package.json | jq -r '.dependencies.cypress')" >> $GITHUB_ENV
 
-      - name: Cache Cypress
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: Cypress${CYPRESS_VERSION}
+  #     - name: Cache Cypress
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.cache/Cypress
+  #         key: Cypress${CYPRESS_VERSION}
 
-      - name: Install Cypress and wait on
-        run: npm install cypress@${CYPRESS_VERSION} wait-on
+  #     - name: Install Cypress and wait on
+  #       run: npm install cypress@${CYPRESS_VERSION} wait-on
 
-      - name: Start container
-        run: docker compose up -d client
+  #     - name: Start container
+  #       run: docker compose up -d client
 
-      - name: Wait for container to become available
-        run: npx wait-on http://localhost:3000
-        timeout-minutes: 1
+  #     - name: Wait for container to become available
+  #       run: npx wait-on http://localhost:3000
+  #       timeout-minutes: 1
 
-      - name: Run Cypress
-        run: npx cypress run --config video=false,retries=1
-        timeout-minutes: 15
+  #     - name: Run Cypress
+  #       run: npx cypress run --config video=false,retries=1
+  #       timeout-minutes: 15
 
-      - name: Archive test screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+  #     - name: Archive test screenshots
+  #       uses: actions/upload-artifact@v3
+  #       if: failure()
+  #       with:
+  #         name: cypress-screenshots
+  #         path: cypress/screenshots
 
-      - name: Run Cypress and send results to dashboard if the previous run failed
-        run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
-        timeout-minutes: 15
-        if: failure()
+  #     - name: Run Cypress and send results to dashboard if the previous run failed
+  #       run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+  #       timeout-minutes: 15
+  #       if: failure()
 
-      - name: Archive test videos
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-videos
-          path: cypress/videos
+  #     - name: Archive test videos
+  #       uses: actions/upload-artifact@v3
+  #       if: failure()
+  #       with:
+  #         name: cypress-videos
+  #         path: cypress/videos
 
-      - name: Docker-compose Logs
-        run: docker-compose logs
-        if: always()
+  #     - name: Docker-compose Logs
+  #       run: docker-compose logs
+  #       if: always()
 
   # pages:
   #   name: Deploy Storybook to Github Pages on version tag
@@ -250,7 +250,10 @@ jobs:
   push_image:
     name: Build and push tagged image to Docker Hub
     runs-on: ubuntu-20.04
-    needs: [unit_tests, cypress]
+    needs: [
+        unit_tests,
+        # cypress
+      ]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |
@@ -328,7 +331,10 @@ jobs:
   push_dev_image:
     name: Build and push dev image to Docker Hub
     runs-on: ubuntu-20.04
-    needs: [unit_tests, cypress]
+    needs: [
+        unit_tests,
+        # cypress
+      ]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |

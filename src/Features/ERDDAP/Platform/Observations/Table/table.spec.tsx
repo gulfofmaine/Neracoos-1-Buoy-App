@@ -1,5 +1,4 @@
 import * as React from "react"
-import { MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 
 import { UnitSystem } from "Features/Units/types"
@@ -10,13 +9,11 @@ import { ErddapObservationTable } from "./table"
 describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
     render(
-      <MemoryRouter>
-        <ErddapObservationTable
-          platform={platform}
-          unitSystem={UnitSystem.english}
-          unitSelector={<b>Fake unit selector</b>}
-        />
-      </MemoryRouter>,
+      <ErddapObservationTable
+        platform={platform}
+        unitSystem={UnitSystem.english}
+        unitSelector={<b>Fake unit selector</b>}
+      />,
     )
 
     expect(screen.getAllByRole("link").length).toBe(4)
@@ -26,13 +23,11 @@ describe("<ErddapObservationTable>", () => {
 
   it("Should show selected observations in metric", () => {
     render(
-      <MemoryRouter>
-        <ErddapObservationTable
-          platform={platform}
-          unitSystem={UnitSystem.metric}
-          unitSelector={<b>Fake unit selector</b>}
-        />
-      </MemoryRouter>,
+      <ErddapObservationTable
+        platform={platform}
+        unitSystem={UnitSystem.metric}
+        unitSelector={<b>Fake unit selector</b>}
+      />,
     )
 
     expect(screen.getAllByRole("link").length).toBe(4)

@@ -1,3 +1,4 @@
+"use client"
 /**
  * Wind time series chart component that can display steady and gust speeds
  * in addition to wind barbs for wind direction
@@ -12,7 +13,7 @@ import {
   SplineSeries,
   Tooltip,
   WindBarbSeries,
-  withHighcharts,
+  HighchartsProvider,
   XAxis,
   YAxis,
 } from "react-jsx-highcharts"
@@ -92,7 +93,7 @@ addWindBarbModule(Highcharts)
  */
 // export class WindTimeSeriesChartBase extends React.Component<Props, object> {
 //   public render() {
-export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
+export const WindTimeSeriesChart: React.FunctionComponent<Props> = ({
   unitSystem,
   speed,
   gust,
@@ -183,24 +184,23 @@ export const WindTimeSeriesChartBase: React.FunctionComponent<Props> = ({
   const pointFormatter = pointFormatterMaker(unitSystem)
 
   return (
-    <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-      <Chart height={height} />
+    <HighchartsProvider Highcharts={Highcharts}>
+      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
+        <Chart height={height} />
 
-      <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
+        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
-      <YAxis softMin={0}>
-        <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
-        {speedsSeries}
+        <YAxis softMin={0}>
+          <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
+          {speedsSeries}
 
-        {windData.length > 0 ? <WindBarbSeries name="Direction" color={colors.whatOrange} data={windData} /> : null}
-      </YAxis>
+          {windData.length > 0 ? <WindBarbSeries name="Direction" color={colors.whatOrange} data={windData} /> : null}
+        </YAxis>
 
-      {legend ? <Legend /> : null}
+        {legend ? <Legend /> : null}
 
-      <Tooltip formatter={pointFormatter} shared={true} />
-    </HighchartsChart>
+        <Tooltip formatter={pointFormatter} shared={true} />
+      </HighchartsChart>
+    </HighchartsProvider>
   )
 }
-
-/** Highcharts enabled WindTimeSeriesChart. See [[WindTimeSeriesChartBase]] for details */
-export const WindTimeSeriesChart = withHighcharts(WindTimeSeriesChartBase, Highcharts)
