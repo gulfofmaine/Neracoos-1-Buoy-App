@@ -1,34 +1,57 @@
-import { useQuery, useQueries } from "@tanstack/react-query"
+import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query"
+import * as React from "react"
 
 import STAC, { ICatalog, ICollection, IItem, IFetchData } from "@gulfofmaine/tsstac"
 
-import { queryClient } from "queryClient"
+export const STACContext = React.createContext<STAC | undefined>(undefined)
 
-/** Use React Query to manage STAC store */
-export const reactQueryFetcher = async (url: string): Promise<IFetchData> => {
-  const data = await queryClient.fetchQuery({
-    queryKey: ["stac-fetch", url],
-    queryFn: async () => {
-      const result = await fetch(url)
-      if (!result.ok) {
-        throw new Error("Network response was not ok")
-      }
-      const json = await result.json()
-      return json
-    },
-  })
-  return data
+/**
+ * Provide access to the current STAC Catalog for any component lower in the tree
+ */
+export function STACProvider({ children }: { children: React.ReactNode }) {
+  const queryClient = useQueryClient()
+
+  const reactQueryFetcher = async (url: string): Promise<IFetchData> => {
+    const data = await queryClient.fetchQuery({
+      queryKey: ["stac-fetch", url],
+      queryFn: async () => {
+        const result = await fetch(url)
+        if (!result.ok) {
+          throw new Error("Network response was not ok")
+        }
+        const json = await result.json()
+        return json
+      },
+    })
+    return data
+  }
+
+  const stac = new STAC(reactQueryFetcher)
+
+  return <STACContext.Provider value={stac}>{children}</STACContext.Provider>
 }
 
-// Manage the base of the stac catalog
-export const stac = new STAC(reactQueryFetcher)
+/**
+ * Access the current STAC catalog
+ *
+ * @returns the current STAC
+ */
+export function useSTAC() {
+  const stac = React.useContext(STACContext)
+
+  if (!stac) {
+    throw new Error("useSTAC must be used inside the STACProvider")
+  }
+
+  return stac
+}
 
 /**
  * Fetch the root catalog
  *
  * @returns Root catalog
  */
-async function fetchRootCatalog(): Promise<ICatalog> {
+async function fetchRootCatalog(stac: STAC): Promise<ICatalog> {
   const catalog = await stac.get_root_catalog("https://data.neracoos.org/stac/catalog.json")
   return catalog
 }
@@ -39,7 +62,13 @@ async function fetchRootCatalog(): Promise<ICatalog> {
  * @returns hook for the root catalog
  */
 export const useRootCatalogQuery = () => {
-  return useQuery<ICatalog>({ queryKey: ["stac-catalog"], queryFn: fetchRootCatalog, refetchOnWindowFocus: false })
+  const stac = useSTAC()
+
+  return useQuery<ICatalog>({
+    queryKey: ["stac-catalog"],
+    queryFn: async () => fetchRootCatalog(stac),
+    refetchOnWindowFocus: false,
+  })
 }
 
 /**
@@ -89,6 +118,7 @@ async function getLatestItemByCollectionId(catalog: ICatalog, id: string, depth:
  */
 export async function getChildByUrl(
   url: string,
+  stac: STAC,
   parent?: ICatalog | ICollection,
   root_catalog?: ICatalog,
 ): Promise<ICatalog | ICollection> {
@@ -105,6 +135,7 @@ export async function getChildByUrl(
  */
 export async function getItemByUrl(
   url: string,
+  stac: STAC,
   parent?: ICatalog | ICollection,
   root_catalog?: ICatalog,
 ): Promise<IItem> {

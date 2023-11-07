@@ -8,7 +8,7 @@ import { round } from "Shared/math"
 import { colors } from "Shared/colors"
 
 import { useLayer, useView, usePoint, useTime } from "./query-hooks"
-import { useLatestItemByCollectionIdQuery } from "./stac-queries.tsx.disabled"
+import { useLatestItemByCollectionIdQuery } from "./stac-queries"
 import { initialView } from "./types"
 
 /**

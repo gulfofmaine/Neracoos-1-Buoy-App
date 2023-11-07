@@ -15,7 +15,7 @@ import { useQueries } from "@tanstack/react-query"
 import { ICatalog, ICollection, IItem } from "@gulfofmaine/tsstac"
 
 import { useCompare, useLayer } from "./query-hooks"
-import { useRootCatalogQuery, getChildByUrl, getItemByUrl } from "./stac-queries.tsx.disabled"
+import { useRootCatalogQuery, getChildByUrl, getItemByUrl, useSTAC } from "./stac-queries"
 
 export const StacCatalogRoot = () => {
   const catalogQuery = useRootCatalogQuery()
@@ -55,6 +55,7 @@ const STACCollectionsLoader = ({
   catalog: ICatalog
   initial_children_urls: Set<StacURL>
 }) => {
+  const stac = useSTAC()
   const [childrenUrls, setChildrenUrls] = React.useState<Set<StacURL>>(initial_children_urls)
 
   const addChildrenUrls = (urls: StacURL[]) => setChildrenUrls((prev) => new Set([...prev, ...urls]))
@@ -62,7 +63,7 @@ const STACCollectionsLoader = ({
   const childrenQueries = useQueries({
     queries: Array.from(childrenUrls).map(({ url, parent }) => ({
       queryKey: ["get-stac-child", { url }],
-      queryFn: () => getChildByUrl(url as string, parent, catalog),
+      queryFn: () => getChildByUrl(url as string, stac, parent, catalog),
       refetchOnWindowFocus: false,
     })),
   })
@@ -105,10 +106,11 @@ const STACCollectionsLoader = ({
 }
 
 const STACItemsLoader = ({ catalog, itemUrls }: { catalog: ICatalog; itemUrls: StacURL[] }) => {
+  const stac = useSTAC()
   const itemsQuery = useQueries({
     queries: Array.from(itemUrls).map(({ url, parent }) => ({
       queryKey: ["get-stac-item", { url }],
-      queryFn: () => getItemByUrl(url as string, parent, catalog),
+      queryFn: () => getItemByUrl(url as string, stac, parent, catalog),
       refetchOnWindowFocus: false,
     })),
   })
