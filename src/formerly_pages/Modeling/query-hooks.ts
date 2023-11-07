@@ -8,7 +8,7 @@ import { round } from "Shared/math"
 
 import { IItem } from "@gulfofmaine/tsstac"
 
-import { useLatestItemByCollectionIdQuery } from "./stac-queries.tsx.disabled"
+import { useLatestItemByCollectionIdQuery } from "./stac-queries"
 import { Layer, initialLayer, initialView } from "./types"
 
 /**
@@ -24,7 +24,8 @@ export function useQueryParam<T>(key: string): [T | undefined, (newQuery: T) => 
   const setSearchParams = React.useCallback(
     (newSearchParams: URLSearchParams) => {
       router.push(pathname + "?" + newSearchParams.toString())
-    }, [router, pathname]
+    },
+    [router, pathname],
   )
 
   const paramValue = searchParams.get(key)

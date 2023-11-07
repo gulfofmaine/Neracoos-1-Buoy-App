@@ -10,7 +10,7 @@ import { ModelChart } from "./chart"
 import { useCompare, useLayer, usePoint, useTable, useTime, useCurrentItem } from "./query-hooks"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
-import { useRootCatalogQuery, useLatestItemsByCollectionIdsQuery } from "./stac-queries.tsx.disabled"
+import { useRootCatalogQuery, useLatestItemsByCollectionIdsQuery } from "./stac-queries"
 import { Layer, LoadedData } from "./types"
 import { EdrTable } from "./table"
 
