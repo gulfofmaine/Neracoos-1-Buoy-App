@@ -3,8 +3,8 @@
  * Navbar component
  */
 import Image from "next/image"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import * as React from "react"
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
 
@@ -60,13 +60,9 @@ const NeracoosNavBar = () => {
             <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
-
-            {!isMariners ? (
-              <NavItem>
-                <NavLink href={paths.models}>Model Viewer</NavLink>
-              </NavItem>
-            ) : null}
-
+            <NavItem>
+              <NavLink href={paths.models}>Model Viewer</NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href={paths.about}>About</NavLink>
             </NavItem>

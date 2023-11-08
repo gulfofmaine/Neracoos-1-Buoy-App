@@ -1,22 +1,23 @@
+'use client'
+import { UseQueryResult, useQueries } from "@tanstack/react-query"
 import React from "react"
 import Select from "react-select"
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap"
-import { UseQueryResult, useQueries } from "@tanstack/react-query"
+import { Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
 
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
 // import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
 
 import { ModelChart } from "./chart"
-import { useCompare, useLayer, usePoint, useTable, useTime, useCurrentItem } from "./query-hooks"
+import { useCompare, useCurrentItem, useLayer, usePoint, useTable, useTime } from "./query-hooks"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
-import { useRootCatalogQuery, useLatestItemsByCollectionIdsQuery } from "./stac-queries"
-import { Layer, LoadedData } from "./types"
+import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { EdrTable } from "./table"
+import { Layer, LoadedData } from "./types"
 
 export const ModelingPage = () => {
   return (
-    <React.Fragment>
+    <>
       <Row>
         <Col md={3} style={{ padding: 0 }}>
           <StacCatalogRoot />
@@ -31,7 +32,7 @@ export const ModelingPage = () => {
         <TimeControl />
         <TableChart />
       </Row>
-    </React.Fragment>
+    </>
   )
 }
 
@@ -122,11 +123,11 @@ const ItemsLoader = ({
   layers,
   point,
 }: // param,
-{
-  layers: Layer[]
-  point: [number, number]
-  // param: string
-}) => {
+  {
+    layers: Layer[]
+    point: [number, number]
+    // param: string
+  }) => {
   const itemsQuery = useLatestItemsByCollectionIdsQuery(layers.map((l) => l.id!))
 
   const loaded: [IItem, Layer] = itemsQuery

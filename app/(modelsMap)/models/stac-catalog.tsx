@@ -1,21 +1,21 @@
+import { useQueries } from "@tanstack/react-query"
 import React from "react"
 import {
-  UncontrolledAccordion,
-  AccordionHeader,
   AccordionBody,
+  AccordionHeader,
   AccordionItem,
   Button,
   ButtonGroup,
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
+  UncontrolledAccordion,
 } from "reactstrap"
-import { useQueries } from "@tanstack/react-query"
 
 import { ICatalog, ICollection, IItem } from "@gulfofmaine/tsstac"
 
 import { useCompare, useLayer } from "./query-hooks"
-import { useRootCatalogQuery, getChildByUrl, getItemByUrl, useSTAC } from "./stac-queries"
+import { getChildByUrl, getItemByUrl, useRootCatalogQuery, useSTAC } from "./stac-queries"
 
 export const StacCatalogRoot = () => {
   const catalogQuery = useRootCatalogQuery()
