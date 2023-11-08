@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,24 +17,12 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
-      "Shared/*": [
-        "Shared/*"
-      ],
-      "components/*": [
-        "components/*"
-      ],
-      "Pages/*": [
-        "formerly_pages/*"
-      ],
-      "Features/*": [
-        "Features/*"
-      ],
-      "stories/*": [
-        "stories/*"
-      ],
-      "queryClient": [
-        "queryClient"
-      ]
+      "Shared/*": ["Shared/*"],
+      "components/*": ["components/*"],
+      "Pages/*": ["formerly_pages/*"],
+      "Features/*": ["Features/*"],
+      "stories/*": ["stories/*"],
+      "queryClient": ["queryClient"]
     },
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
@@ -49,13 +33,6 @@
       }
     ]
   },
-  "include": [
-    "src",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "src/setupTests.ts",
-    "**/*.spec.*",
-    "**/*.stories.*"
-  ]
+  "include": ["src", ".next/types/**/*.ts"],
+  "exclude": ["src/setupTests.ts", "**/*.spec.*", "**/*.stories.*"]
 }

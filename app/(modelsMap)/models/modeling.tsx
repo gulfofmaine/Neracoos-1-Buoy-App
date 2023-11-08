@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { UseQueryResult, useQueries } from "@tanstack/react-query"
 import React from "react"
 import Select from "react-select"
@@ -123,11 +123,11 @@ const ItemsLoader = ({
   layers,
   point,
 }: // param,
-  {
-    layers: Layer[]
-    point: [number, number]
-    // param: string
-  }) => {
+{
+  layers: Layer[]
+  point: [number, number]
+  // param: string
+}) => {
   const itemsQuery = useLatestItemsByCollectionIdsQuery(layers.map((l) => l.id!))
 
   const loaded: [IItem, Layer] = itemsQuery
