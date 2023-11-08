@@ -51,18 +51,7 @@
   },
   "include": [
     "src",
-    ".next/types/**/*.ts",
-    "app/(modelsMap)/models/chart.stories.tsx",
-    "app/(modelsMap)/models/chart.tsx",
-    "app/(modelsMap)/models/modeling.tsx",
-    "app/(modelsMap)/models/query-hooks.ts",
-    "app/(modelsMap)/models/stac-catalog.tsx",
-    "app/(modelsMap)/models/stac-map.tsx",
-    "app/(modelsMap)/models/stac-queries.tsx",
-    "app/(modelsMap)/models/table.stories.tsx",
-    "app/(modelsMap)/models/table.tsx",
-    "app/(modelsMap)/models/test-data.ts",
-    "app/(modelsMap)/models/types.ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "src/setupTests.ts",
