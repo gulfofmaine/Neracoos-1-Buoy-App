@@ -12,7 +12,6 @@ import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-
 import { EdrTable } from "./table"
 import { Layer, LoadedData } from "./types"
 
-
 export const TimeControl = () => {
   const [layer, item] = useCurrentItem()
   const [time, setTime] = useTime()

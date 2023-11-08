@@ -60,9 +60,11 @@ const NeracoosNavBar = () => {
             <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
-            {!isMariners && <NavItem>
-              <NavLink href={paths.models}>Model Viewer</NavLink>
-            </NavItem>}
+            {!isMariners && (
+              <NavItem>
+                <NavLink href={paths.models}>Model Viewer</NavLink>
+              </NavItem>
+            )}
             <NavItem>
               <NavLink href={paths.about}>About</NavLink>
             </NavItem>
