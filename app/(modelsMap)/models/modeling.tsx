@@ -14,7 +14,6 @@ import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-
 import { EdrTable } from "./table"
 import { Layer, LoadedData } from "./types"
 
-
 export const ModelingPage = () => {
   const [loading, setIsLoading] = useState(true)
 
@@ -28,15 +27,15 @@ export const ModelingPage = () => {
         <Col md={3} style={{ padding: 0 }}>
           <StacCatalogRoot />
         </Col>
-       <Col md={9} style={{ paddingLeft: 0 }}>
-            {!loading && <StacMap />}
+        <Col md={9} style={{ paddingLeft: 0 }}>
+          {!loading && <StacMap />}
         </Col>
-        </Row>
-        <Row>
-          <TimeControl />
-          <TableChart />
-        </Row>
-      </>
+      </Row>
+      <Row>
+        <TimeControl />
+        <TableChart />
+      </Row>
+    </>
   )
 }
 
