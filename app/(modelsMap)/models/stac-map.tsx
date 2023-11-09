@@ -1,3 +1,4 @@
+import "ol/ol.css"
 import { Point } from "ol/geom"
 import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
@@ -20,7 +21,6 @@ export const StacMap = () => {
 
   return (
     <RMap
-      width={"100%"}
       height={"60vh"}
       className="model-map"
       initial={{ center: fromLonLat(initialView.center), zoom: initialView.zoom }}
