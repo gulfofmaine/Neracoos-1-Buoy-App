@@ -1,7 +1,9 @@
 import { UseQueryResult, useQueries } from "@tanstack/react-query"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Select from "react-select"
-import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap"
+import { Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
+import { StacCatalogRoot } from "./stac-catalog"
+import { StacMap } from "./stac-map"
 
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
 // import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
@@ -11,6 +13,31 @@ import { useCompare, useCurrentItem, useLayer, usePoint, useTable, useTime } fro
 import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { EdrTable } from "./table"
 import { Layer, LoadedData } from "./types"
+
+export const ModelingPage = () => {
+  const [loading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
+
+  return (
+    <>
+      <Row>
+        <Col md={3} style={{ padding: 0 }}>
+          <StacCatalogRoot />
+        </Col>
+        <Col md={9} style={{ paddingLeft: 0 }}>
+          {!loading && <StacMap />}
+        </Col>
+      </Row>
+      <Row>
+        <TimeControl />
+        <TableChart />
+      </Row>
+    </>
+  )
+}
 
 export const TimeControl = () => {
   const [layer, item] = useCurrentItem()
