@@ -4050,10 +4050,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-responsive@8.0.7":
-  version "8.0.7"
-  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.7.tgz#b6c2778d23d0faa1e8ed25f53b3512599d42fb0c"
-  integrity sha512-JKMqMQU8Z0DGYOOdr3YCDyCepH1e/R13Aq+hqeDA6ueot7YGcWvuVKnNXtPGHTQ9MG6yq+IIGeJ1XWIyF4XYBw==
+"@types/react-responsive@8.0.8":
+  version "8.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.8.tgz#e351be7cc4d03bc476075839922bb5f9a3094e76"
+  integrity sha512-HDUZtoeFRHrShCGaND23HmXAB9evOOTjkghd2wAasLkuorYYitm5A1XLeKkhXKZppcMBxqB/8V4Snl6hRUTA8g==
   dependencies:
     "@types/react" "*"
 
