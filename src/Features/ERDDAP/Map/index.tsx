@@ -3,24 +3,24 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
+import { useRouter } from "next/navigation"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import React from "react"
-import { RMap, RLayerVector, RStyle, RPopup, RFeature } from "rlayers"
-import type { RView } from "rlayers/RMap"
 import { Button } from "reactstrap"
-import { useRouter } from "next/navigation"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
+import type { RView } from "rlayers/RMap"
 
 import { useStatefulView } from "Features/StatefulMap"
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 
-import { PlatformFeature } from "../types"
-import { UsePlatforms } from "../hooks"
 import { aDayAgoRounded } from "Shared/time"
+import { UsePlatforms } from "../hooks"
+import { PlatformFeature } from "../types"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -125,7 +125,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({
 
       mapRef?.current?.ol.getView().fit(extent)
     }
-  }, [boundingBox])
+  }, [boundingBox, view, platforms])
 
   // Make sure the height of the map gets updated when jumping
   // from home to platform view
