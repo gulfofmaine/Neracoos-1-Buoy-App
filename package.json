@@ -61,7 +61,7 @@
     "lint": "next lint"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.0.0",
+    "@next/eslint-plugin-next": "^14.0.2",
     "@storybook/addon-a11y": "^7.5.3",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
