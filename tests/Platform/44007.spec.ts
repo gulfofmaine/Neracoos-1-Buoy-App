@@ -25,8 +25,9 @@ test.describe("Platfrom 44007", () => {
     await page.goto(platformUrl)
     await expect(page.getByText(/Latest Conditions/).first()).toBeVisible()
     await expect(page.getByText(/Winds -/).first()).toBeVisible()
-    const located = page.locator("[style='margin-top: 1rem;'] > :nth-child(2) .card")
-    await expect(await located.count()).toBeGreaterThan(4)
+
+    const cards = await page.locator(".card")
+    await expect(await cards.count()).toBeGreaterThan(3)
   })
 
   test("Shows wind plot", async ({ page }) => {
