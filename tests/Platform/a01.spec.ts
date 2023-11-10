@@ -1,19 +1,21 @@
 import { test, expect } from "@playwright/test"
 
-const platformUrl = "/platform/M01"
+/*global cy*/
 
-test.describe("Platfrom M01", () => {
+const platformUrl = "/platform/A01"
+
+test.describe("Platform A01", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("link", { name: "Regions" }).click()
     await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
-    await page.getByRole("link", { name: "M01" }).click()
-    await expect(await page.getByText("Station M01")).toBeVisible()
+    await page.getByRole("link", { name: "A01", exact: true }).click()
+    await expect(await page.getByText("Station A01")).toBeVisible()
   })
 
   test("Will get redirected", async ({ page }) => {
-    await page.goto("/platform/M01%20-%2044037")
+    await page.goto("/platform/A01%20-%2044029")
     await expect(page).toHaveURL(/\/undefined/)
   })
 
@@ -30,7 +32,7 @@ test.describe("Platfrom M01", () => {
     await expect(page.getByText(/Air Temperature -/).first()).toBeVisible()
 
     const located = page.locator("[style='margin-top: 1rem;'] > :nth-child(2) .card")
-    await expect(await located.count()).toBeGreaterThan(3)
+    await expect(await located.count()).toBeGreaterThan(4)
   })
 
   test("Shows air temp plot", async ({ page }) => {
@@ -45,6 +47,12 @@ test.describe("Platfrom M01", () => {
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
+    await expect(page.getByText(/Data access/).first()).not.toBeVisible()
+    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await expect(page.getByText(/Data access/).first()).toBeVisible()
+    await expect(page.getByText(/Data table/).first()).toBeVisible()
+    await expect(page.getByText(/Download CSV/).first()).toBeVisible()
+    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
   })
 
   test("Shows wind plot", async ({ page }) => {
@@ -53,7 +61,7 @@ test.describe("Platfrom M01", () => {
       .getByText(/Observations/)
       .first()
       .click()
-    await page.locator('[href="/platform/M01/observations/wind"]').first().click()
+    await page.locator('[href="/platform/A01/observations/wind"]').first().click()
     await expect(page.getByRole("heading", { name: "Wind" })).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     await page.locator("svg.highcharts-root").getByText(/Gust/).first().click()
@@ -64,12 +72,18 @@ test.describe("Platfrom M01", () => {
       .first()
       .click()
     await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
+    await expect(page.getByText(/Data access/).first()).not.toBeVisible()
+    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await expect(page.getByText(/Data access/).first()).toBeVisible()
+    await expect(page.getByText(/Data table/).first()).toBeVisible()
+    await expect(page.getByText(/Download CSV/).first()).toBeVisible()
+    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
   })
 
   test("Shows wave forecast", async ({ page }) => {
     await page.goto(platformUrl)
     await page.locator("#forecast").click()
-    await page.locator("[href='/platform/M01/forecast/significant_wave_height']").click()
+    await page.locator("[href='/platform/A01/forecast/significant_wave_height']").click()
     await expect(
       page
         .locator("h4")
@@ -153,6 +167,6 @@ test.describe("Platfrom M01", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    await expect(page.getByText(/Sigma-T @ 1m/).first()).toBeVisible()
+    await expect(page.getByText(/Sigma-T/).first()).toBeVisible()
   })
 })
