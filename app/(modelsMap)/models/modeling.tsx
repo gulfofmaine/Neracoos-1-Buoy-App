@@ -1,4 +1,5 @@
 import { UseQueryResult, useQueries } from "@tanstack/react-query"
+import dynamic from "next/dynamic"
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
 import { Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
@@ -8,7 +9,7 @@ import { StacMap } from "./stac-map"
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
 // import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
 
-import { ModelChart } from "./chart"
+const ModelChart = dynamic(() => import("./chart").then((mod) => mod.ModelChart), { ssr: false })
 import { useCompare, useCurrentItem, useLayer, usePoint, useTable, useTime } from "./query-hooks"
 import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { EdrTable } from "./table"
