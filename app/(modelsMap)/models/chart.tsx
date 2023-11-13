@@ -1,12 +1,12 @@
 import Highcharts from "highcharts"
-import React from "react"
+import * as React from "react"
 import {
   Chart,
   HighchartsChart,
   Legend,
   SplineSeries,
   Tooltip,
-  withHighcharts,
+  HighchartsProvider,
   XAxis,
   YAxis,
 } from "react-jsx-highcharts"
@@ -29,7 +29,7 @@ interface LayerData {
   standard_name: string
 }
 
-const ModelChartBase = ({ loaded }: Props) => {
+export const ModelChart = ({ loaded }: Props) => {
   const data: LayerData[] = []
 
   loaded.forEach(({ item, layer, response }) => {
@@ -62,30 +62,30 @@ const ModelChartBase = ({ loaded }: Props) => {
   })
 
   return (
-    <HighchartsChart colors={colorCycle}>
-      <Chart />
+    <HighchartsProvider Highcharts={Highcharts}>
+      <HighchartsChart colors={colorCycle}>
+        <Chart />
 
-      <Legend />
+        <Legend />
 
-      <XAxis type="datetime" />
+        <XAxis type="datetime" />
 
-      {Object.keys(by_standard).map((key) => {
-        const series = by_standard[key]
+        {Object.keys(by_standard).map((key) => {
+          const series = by_standard[key]
 
-        return (
-          <YAxis key={key}>
-            <YAxis.Title>{series[0].unit}</YAxis.Title>
-            {series.map((s) => {
-              return (
-                <SplineSeries key={s.id} id={s.id} name={s.description} data={s.data} marker={{ enabled: false }} />
-              )
-            })}
-          </YAxis>
-        )
-      })}
-      <Tooltip />
-    </HighchartsChart>
+          return (
+            <YAxis key={key}>
+              <YAxis.Title>{series[0].unit}</YAxis.Title>
+              {series.map((s) => {
+                return (
+                  <SplineSeries key={s.id} id={s.id} name={s.description} data={s.data} marker={{ enabled: false }} />
+                )
+              })}
+            </YAxis>
+          )
+        })}
+        <Tooltip />
+      </HighchartsChart>
+    </HighchartsProvider>
   )
 }
-
-export const ModelChart = withHighcharts(ModelChartBase, Highcharts)
