@@ -23,6 +23,11 @@ updates:
       react-query:
         patterns:
           - "@tanstack/*"
+      next:
+        patterns:
+          - "next"
+          - "eslint-config-next"
+          - "@next/eslint-plugin-next"
 
   - package-ecosystem: npm
     directory: "/cypress/"
