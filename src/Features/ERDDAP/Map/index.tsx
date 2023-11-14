@@ -159,6 +159,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({
 export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: Props) => {
   const [view, handleSetView] = useStatefulView()
 
+
   return (
     <UsePlatforms>
       {({ platforms }) => (
