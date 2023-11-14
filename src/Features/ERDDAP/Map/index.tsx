@@ -17,6 +17,7 @@ import { paths } from "Shared/constants"
 import { BoundingBox, regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+import { useEffect } from "react"
 
 import { aDayAgoRounded } from "Shared/time"
 import { useParams } from "next/navigation"
@@ -114,20 +115,19 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
 
   //If params change, set bounding box
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
       const region = regionList.find((r) => r.slug === regionId)
       setBoundingBox(region?.bbox)
     }
     if (typeof params.regionId === "undefined") {
-      console.log(view, "HELLO", initial)
       setView(initial)
     }
-  }, [params.regionId])
+  }, [params.regionId, setView])
 
   // When the bounding box gets set, zoom to the region
-  React.useEffect(() => {
+  useEffect(() => {
     if (boundingBox) {
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
@@ -167,7 +167,6 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: Props) => {
   const [view, handleSetView] = useStatefulView()
-  console.log(view)
 
   return (
     <UsePlatforms>
