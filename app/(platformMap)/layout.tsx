@@ -1,10 +1,9 @@
 "use client"
-import * as React from "react"
-import { Col, Row } from "reactstrap"
-import { useMeasure } from "react-use"
+import { ErddapMap } from "Features/ERDDAP/Map"
 import { usePathname } from "next/navigation"
-
-import { Map } from "./map"
+import * as React from "react"
+import { useMeasure } from "react-use"
+import { Col, Row } from "reactstrap"
 
 export default function Layout({
   children,
@@ -30,7 +29,7 @@ export default function Layout({
         </Col>
 
         <Col sm={{ size: true, order: 1 }}>
-          <Map height={height} />
+          <ErddapMap height={"80vh"} width="100%" />
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
       </Row>
