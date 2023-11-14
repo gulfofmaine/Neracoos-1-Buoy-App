@@ -149,83 +149,81 @@ jobs:
       #     rm -rf /tmp/storybook-public
       #     cp -r storybook-public /tmp/storybook-public
 
-  # cypress:
-  #   name: Cypress integration tests
-  #   runs-on: ubuntu-20.04
-  #   needs: build-prod
-  #   timeout-minutes: 30
+  playwright:
+    name: Playwright integration tests
+    runs-on: ubuntu-20.04
+    needs: build-prod
+    timeout-minutes: 30
 
-  #   steps:
-  #     - name: "Checkout"
-  #       uses: actions/checkout@v4
+    env:
+      # Playwright uses this env var for the browser install path. See:
+      # https://playwright.dev/docs/ci#directories-to-cache
+      # It makes most sense to default this to something cross-platform
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/ms-playwright
 
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "14"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
 
-  #     - name: Cache Docker image
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: /tmp/prodimage.tar
-  #         key: mariners-dashboard-prod-image-${{ github.sha }}
-  #         restore-keys: |
-  #           mariners-dashboard-prod-image-
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: yarn
 
-  #     - name: Load Docker image
-  #       run: |
-  #         docker load --input /tmp/prodimage.tar
-  #         docker image ls -a
+      - name: Cache Docker image
+        uses: actions/cache@v3
+        with:
+          path: /tmp/prodimage.tar
+          key: mariners-dashboard-prod-image-${{ github.sha }}
+          restore-keys: |
+            mariners-dashboard-prod-image-
 
-  #     - name: Get Cypress version from cypress/package.json
-  #       run: echo "CYPRESS_VERSION=$(cat cypress/package.json | jq -r '.dependencies.cypress')" >> $GITHUB_ENV
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/prodimage.tar
+          docker image ls -a
 
-  #     - name: Cache Cypress
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ~/.cache/Cypress
-  #         key: Cypress${CYPRESS_VERSION}
+      - name: Start container
+        run: docker compose up -d client
 
-  #     - name: Install Cypress and wait on
-  #       run: npm install cypress@${CYPRESS_VERSION} wait-on
+      - run: yarn install --frozen-lockfile
 
-  #     - name: Start container
-  #       run: docker compose up -d client
+      # Use Playwright version as part of the cache key
+      # AFAIK this is a x-platform way to get your installed Playwright version.
+      # Be sure to be diligent in specifying ^, ~, or locked versions.
+      - run: |
+          echo "PLAYWRIGHT_VERSION=$(node -e "process.stdout.write(require('@playwright/test/package.json').version)")" >> $GITHUB_OUTPUT
+        id: playwright-version
 
-  #     - name: Wait for container to become available
-  #       run: npx wait-on http://localhost:3000
-  #       timeout-minutes: 1
+      # Cache action
+      - uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.PLAYWRIGHT_VERSION }}
+          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
 
-  #     - name: Run Cypress
-  #       run: npx cypress run --config video=false,retries=1
-  #       timeout-minutes: 15
+      # This command should work and only be ran on cold cache
+      - run: yarn playwright install
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
 
-  #     - name: Archive test screenshots
-  #       uses: actions/upload-artifact@v3
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: cypress/screenshots
+      - name: Wait for container to become available
+        run: npx wait-on http://localhost:3000
+        timeout-minutes: 1
 
-  #     - name: Run Cypress and send results to dashboard if the previous run failed
-  #       run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
-  #       timeout-minutes: 15
-  #       if: failure()
+      - name: Run Playwright tests
+        run: yarn test:e2e
 
-  #     - name: Archive test videos
-  #       uses: actions/upload-artifact@v3
-  #       if: failure()
-  #       with:
-  #         name: cypress-videos
-  #         path: cypress/videos
-
-  #     - name: Docker-compose Logs
-  #       run: docker-compose logs
-  #       if: always()
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
 
   # pages:
   #   name: Deploy Storybook to Github Pages on version tag
   #   runs-on: ubuntu-20.04
-  #   needs: [unit_tests, cypress]
+  #   needs: [unit_tests, playwright]
   #   timeout-minutes: 10
   #   if: |
   #     github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
@@ -250,10 +248,7 @@ jobs:
   push_image:
     name: Build and push tagged image to Docker Hub
     runs-on: ubuntu-20.04
-    needs: [
-        unit_tests,
-        # cypress
-      ]
+    needs: [unit_tests, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |
@@ -331,10 +326,7 @@ jobs:
   push_dev_image:
     name: Build and push dev image to Docker Hub
     runs-on: ubuntu-20.04
-    needs: [
-        unit_tests,
-        # cypress
-      ]
+    needs: [unit_tests, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |

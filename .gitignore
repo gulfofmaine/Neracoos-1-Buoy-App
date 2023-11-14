@@ -20,7 +20,6 @@ npm-debug.log*
 coverage/
 dist/
 node_modules/
-cypress/node_modules/
 tmp/
 temp/
 plugins/
@@ -68,3 +67,7 @@ tsconfig.tsbuildinfo
 
 # Sentry Config File
 .sentryclirc
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

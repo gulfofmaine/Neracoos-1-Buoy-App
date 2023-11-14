@@ -36,9 +36,7 @@ or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?pat
 
 ### Continuous Integration
 
-[Github Actions](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/actions) runs on each commit with unit, snapshot, and Cypress tests.
-
-[Cypress Dashboard](https://dashboard.cypress.io/#/projects/xhz4kt/runs) will display info about failed Cypress runs.
+[Github Actions](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/actions) runs on each commit with unit, snapshot, and Playwright tests.
 
 [Codacy](https://app.codacy.com/project/gmri/Neracoos-1-Buoy-App/dashboard) is also running code quality tests, along with collecting test coverage information.
 
@@ -50,6 +48,6 @@ You can also run `make cov` to generate code coverage, and `make cov-html` to vi
 
 ### Integration Tests
 
-There are also integration tests that can be run with [Cypress](https://www.cypress.io). This is does a full browser based test to make sure that data can be loaded.
+There are also integration tests that can be run with [Playwright](https://playwright.dev/). This is does a full browser based test to make sure that data can be loaded.
 
-To run, make sure you have [downloaded](http://download.cypress.io/desktop) Cypress first. Once you have it downloaded, you can drag the project directory to the app to add it. Then select a specific test, or `Run all specs`.
+To run, first start the app with `make serve`, then `yarn test:e2e` for headless tests, or `yarn test:e2e:ui` to view the browser testing.

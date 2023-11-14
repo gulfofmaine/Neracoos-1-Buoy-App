@@ -29,13 +29,6 @@ updates:
           - "eslint-config-next"
           - "@next/eslint-plugin-next"
 
-  - package-ecosystem: npm
-    directory: "/cypress/"
-    schedule:
-      interval: daily
-      time: "10:00"
-    open-pull-requests-limit: 10
-
   - package-ecosystem: docker
     directory: "/"
     schedule:

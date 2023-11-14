@@ -2,7 +2,6 @@
 
 # dependencies
 node_modules
-cypress/node_modules
 
 # testing
 /coverage*
@@ -43,7 +42,6 @@ secret.env
 .sourcemaps
 build
 coverage
-cypress
 docs
 k8s
 server_config
@@ -51,7 +49,6 @@ server_config
 .editorconfig
 .rtx.toml
 CHANGELOG.md
-cypress.config.js
 devcontainer.json
 LICENSE
 nginx.production.conf
