@@ -3,28 +3,29 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
+import { useRouter } from "next/navigation"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import React from "react"
-import { RMap, RLayerVector, RStyle, RPopup, RFeature } from "rlayers"
-import type { RView } from "rlayers/RMap"
 import { Button } from "reactstrap"
-import { useRouter } from "next/navigation"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
+import type { RView } from "rlayers/RMap"
 
 import { useStatefulView } from "Features/StatefulMap"
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
-import { BoundingBox } from "Shared/regions"
+import { BoundingBox, regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import { PlatformFeature } from "../types"
-import { UsePlatforms } from "../hooks"
 import { aDayAgoRounded } from "Shared/time"
+import { useParams } from "next/navigation"
+import { UsePlatforms } from "../hooks"
+import { PlatformFeature } from "../types"
 
 export interface Props {
   // Bounding box for fitting to a region
-  boundingBox?: BoundingBox
+  boundingBox?: BoundingBox | null
   //  Platform to highlight
   platformId?: string
   // Height to adjust map to match sidebar
@@ -77,14 +78,14 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
         </RStyle.RCircle>
       </RStyle.RStyle>
       <RFeature
-        geometry={React.useMemo(() => {
+        geometry={useMemo(() => {
           const feature = new GeoJSON({
             dataProjection: "EPSG:4326",
             featureProjection: "EPSG:3857",
           }).readFeature(platform)
           return feature.getGeometry()
         }, [platform])}
-        onClick={React.useCallback(() => {
+        onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
       >
@@ -92,7 +93,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
           <Button
             color="dark"
             size="sm"
-            onClick={React.useCallback(() => {
+            onClick={useCallback(() => {
               router.push(url)
             }, [router, url])}
           >
@@ -107,29 +108,36 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 // Initial view to display if one is not otherwise set
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
-export const ErddapMapBase: React.FC<BaseProps> = ({
-  platforms,
-  platformId,
-  height,
-  boundingBox,
-  view,
-  setView,
-}: BaseProps) => {
-  const mapRef = React.useRef<RMap>(null)
+export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height, view, setView }: BaseProps) => {
+  const mapRef = useRef<RMap>(null)
+  const params: { regionId?: string } = useParams()
+  const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
+
+  //If params change, set bounding box
+  useEffect(() => {
+    if (typeof params.regionId !== "undefined") {
+      const regionId = decodeURIComponent(params.regionId)
+      const region = regionList.find((r) => r.slug === regionId)
+      setBoundingBox(region?.bbox)
+    }
+    if (typeof params.regionId === "undefined") {
+      setView(initial)
+    }
+  }, [params.regionId, setView, setBoundingBox])
 
   // When the bounding box gets set, zoom to the region
-  React.useEffect(() => {
+  useEffect(() => {
     if (boundingBox) {
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
 
       mapRef?.current?.ol.getView().fit(extent)
     }
-  }, [boundingBox])
+  }, [boundingBox, platforms])
 
   // Make sure the height of the map gets updated when jumping
   // from home to platform view
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     mapRef?.current?.ol.updateSize()
   }, [height])
 
@@ -167,7 +175,6 @@ export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: 
           view={view}
           setView={handleSetView}
           platformId={platformId}
-          boundingBox={boundingBox}
           height={height}
         />
       )}
