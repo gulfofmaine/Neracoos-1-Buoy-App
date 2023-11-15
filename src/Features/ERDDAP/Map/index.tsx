@@ -6,7 +6,6 @@ import "ol/ol.css"
 import { useRouter } from "next/navigation"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import * as React from "react"
 import { Button } from "reactstrap"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 import type { RView } from "rlayers/RMap"
@@ -17,7 +16,7 @@ import { paths } from "Shared/constants"
 import { BoundingBox, regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded } from "Shared/time"
 import { useParams } from "next/navigation"
@@ -79,14 +78,14 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
         </RStyle.RCircle>
       </RStyle.RStyle>
       <RFeature
-        geometry={React.useMemo(() => {
+        geometry={useMemo(() => {
           const feature = new GeoJSON({
             dataProjection: "EPSG:4326",
             featureProjection: "EPSG:3857",
           }).readFeature(platform)
           return feature.getGeometry()
         }, [platform])}
-        onClick={React.useCallback(() => {
+        onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
       >
@@ -94,7 +93,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
           <Button
             color="dark"
             size="sm"
-            onClick={React.useCallback(() => {
+            onClick={useCallback(() => {
               router.push(url)
             }, [router, url])}
           >
@@ -110,7 +109,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height, view, setView }: BaseProps) => {
-  const mapRef = React.useRef<RMap>(null)
+  const mapRef = useRef<RMap>(null)
   const params: { regionId?: string } = useParams()
   const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
 
@@ -138,7 +137,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 
   // Make sure the height of the map gets updated when jumping
   // from home to platform view
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     mapRef?.current?.ol.updateSize()
   }, [height])
 
