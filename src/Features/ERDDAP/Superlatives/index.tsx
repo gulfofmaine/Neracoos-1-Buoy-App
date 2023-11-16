@@ -70,7 +70,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  }, [])
+  }, [platforms])
 
   useEffect(() => {
     for (let hours = 0; hours < backoffHours; hours++) {
@@ -85,7 +85,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  }, [])
+  }, [platforms])
 
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
