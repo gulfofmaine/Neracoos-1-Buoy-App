@@ -4,7 +4,7 @@
  */
 import Link from "next/link"
 import * as React from "react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
@@ -66,13 +66,16 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
   const backOffHours = 6
   const [windSuperlative, setWindSuperlative] = useState<HighestCondition>()
   const [waveSuperlative, setWaveSuperlative] = useState<HighestCondition>()
+  const waveBackOffTime = useRef(laterThan)
+  const windBackOffTime = useRef(laterThan)
 
+  //Set wind superlative
   useEffect(() => {
     for (let hours = 0; hours < backOffHours; hours++) {
-      const backOffHour = calcAnyHourAgoRounded(hours)
+      windBackOffTime.current = calcAnyHourAgoRounded(hours)
       const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(
         platforms,
-        backOffHour,
+        windBackOffTime.current,
         windSpeed,
       )
       if (windPlatform || windTimeSeries) {
@@ -80,14 +83,15 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  }, [platforms])
+  }, [platforms, laterThan])
 
+  //Set wave superlative
   useEffect(() => {
     for (let hours = 0; hours < backOffHours; hours++) {
-      const backOffHour = calcAnyHourAgoRounded(hours)
+      waveBackOffTime.current = calcAnyHourAgoRounded(hours)
       const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
         platforms,
-        backOffHour,
+        waveBackOffTime.current,
         waveHeight,
       )
       if (wavePlatform || waveTimeSeries) {
@@ -95,7 +99,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  }, [platforms])
+  }, [platforms, laterThan])
 
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
