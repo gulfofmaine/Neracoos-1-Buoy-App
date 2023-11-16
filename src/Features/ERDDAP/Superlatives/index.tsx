@@ -85,7 +85,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  })
+  }, [])
 
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
@@ -95,27 +95,31 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
 
       <CardBody>
         <Row>
-          {windSuperlative?.platform && windSuperlative?.timeSeries && (
-            <Col>
+          <Col>
+            <h6>Highest Winds</h6>
+            {windSuperlative?.platform && windSuperlative?.timeSeries ? (
               <HighestConditions
-                title="Highest Winds"
                 platform={windSuperlative.platform}
                 timeSeries={windSuperlative.timeSeries}
                 unitSystem={unitSystem}
               />
-            </Col>
-          )}
+            ) : (
+              <div> -- -- </div>
+            )}
+          </Col>
 
-          {waveSuperlative?.platform && waveSuperlative?.timeSeries && (
-            <Col>
+          <Col>
+            <h6>Biggest Waves</h6>
+            {waveSuperlative?.platform && waveSuperlative?.timeSeries ? (
               <HighestConditions
-                title="Biggest Waves"
                 platform={waveSuperlative.platform}
                 timeSeries={waveSuperlative.timeSeries}
                 unitSystem={unitSystem}
               />
-            </Col>
-          )}
+            ) : (
+              <div> -- -- </div>
+            )}
+          </Col>
         </Row>
       </CardBody>
     </Card>
@@ -136,16 +140,6 @@ function findHighestCondition(
 ): HighestCondition {
   let highestPlatform: PlatformFeature | undefined = undefined
   let highestTimeSeries: PlatformTimeSeries | undefined = undefined
-  // let qualifiedReadings: PlatformTimeSeries[] = []
-  // platforms.forEach((platform) => {
-  //   const filteredReadings = platform.properties.readings.filter((reading) => {
-  //     const readingTime = reading.time ? laterThan < new Date(reading.time) : null
-  //     return compareSet.has(reading.data_type.standard_name) && reading.value && readingTime
-  //   })
-  //   qualifiedReadings = [...qualifiedReadings, ...filteredReadings]
-  //   console.log("filtered readings", qualifiedReadings)
-  // })
-  // qualifiedReadings.sort((a, b) => (a.value && b.value ? a.value - b.value : 0))
 
   platforms.forEach((platform) => {
     platform.properties.readings.forEach((reading) => {
@@ -170,7 +164,6 @@ function findHighestCondition(
 }
 
 interface HighestConditionsProps {
-  title: string
   platform: PlatformFeature
   timeSeries: PlatformTimeSeries
   unitSystem: UnitSystem
@@ -184,21 +177,13 @@ interface HighestConditionsProps {
  * @param unitSystem Unit system to display values in
  * @param title Title to display
  */
-const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
-  platform,
-  timeSeries,
-  unitSystem,
-  title,
-}) => {
+const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({ platform, timeSeries, unitSystem }) => {
   const dataConverter = converter(timeSeries.data_type.standard_name)
 
   const url = urlPartReplacer(paths.platforms.platform, ":id", platform.id as string)
 
   return (
     <React.Fragment>
-      <Link href={url}>
-        <h6>{title}</h6>
-      </Link>
       <div>
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
       </div>
