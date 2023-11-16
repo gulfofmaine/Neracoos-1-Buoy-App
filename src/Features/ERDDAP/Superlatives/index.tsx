@@ -30,17 +30,12 @@ export const Superlatives: React.FunctionComponent = () => {
 
   const lastHour = anHourAgoRounded()
 
-  return (
-    <UsePlatforms>
-      {({ platforms }) => <ShowSuperlatives laterThan={lastHour} {...{ platforms, unitSystem }} />}
-    </UsePlatforms>
-  )
+  return <UsePlatforms>{({ platforms }) => <ShowSuperlatives {...{ platforms, unitSystem }} />}</UsePlatforms>
 }
 
 interface ShowSuperlativesProps {
   platforms: PlatformFeature[]
   unitSystem: UnitSystem
-  laterThan: Date
 }
 
 interface HighestCondition {
@@ -57,11 +52,7 @@ interface HighestCondition {
  * @param unitSystem unit system to display with
  * @param laterThan a date to make sure all the readings are more recent then
  */
-export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({
-  platforms,
-  unitSystem,
-  laterThan,
-}) => {
+export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({ platforms, unitSystem }) => {
   const backoffHours = 6
   const [windSuperlative, setWindSuperlative] = useState<HighestCondition>()
   const [waveSuperlative, setWaveSuperlative] = useState<HighestCondition>()
@@ -79,6 +70,9 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
+  }, [])
+
+  useEffect(() => {
     for (let hours = 0; hours < backoffHours; hours++) {
       const backOffHour = calcAnyHourAgoRounded(hours)
       const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
@@ -86,15 +80,12 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         backOffHour,
         waveHeight,
       )
-      console.log("damn", wavePlatform, waveTimeSeries)
       if (wavePlatform || waveTimeSeries) {
         setWaveSuperlative({ platform: wavePlatform, timeSeries: waveTimeSeries })
         return
       }
     }
-  }, [])
-
-  // console.log(waveSuperlative, windSuperlative)
+  })
 
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
@@ -130,7 +121,6 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
     </Card>
   )
 }
-// return <h4>Error showing Superlatives</h4>
 
 /**
  * Filter down and find the most extreme values from the selected set of standard names
