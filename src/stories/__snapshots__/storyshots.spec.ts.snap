@@ -393,71 +393,75 @@ exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
       <div
         className="col"
       >
-        <a
-          href="/platform/WLIS"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-        >
-          <h6>
-            Highest Winds
-          </h6>
-        </a>
+        <h6>
+          Highest Winds
+        </h6>
         <div>
-          22.8
-           
-          Knots
+           -- -- 
         </div>
-        <a
-          href="/platform/WLIS"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-        >
-          <div>
-            WLIS
-             - 
-            Western Long Island Sound
-          </div>
-        </a>
       </div>
       <div
         className="col"
       >
-        <a
-          href="/platform/44008"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-        >
-          <h6>
-            Biggest Waves
-          </h6>
-        </a>
+        <h6>
+          Biggest Waves
+        </h6>
         <div>
-          8.3
-           
-          Feet
+           -- -- 
         </div>
-        <a
-          href="/platform/44008"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-        >
-          <div>
-            44008
-             - 
-            Nantucket 54NM Southeast of Nantucket
-          </div>
-        </a>
       </div>
     </div>
   </div>
 </div>
 `;
 
-exports[`Storyshots ERDDAP/Superlatives Should Not Show Outdated Data 1`] = `null`;
+exports[`Storyshots ERDDAP/Superlatives Should Not Show Outdated Data 1`] = `
+<div
+  className="card"
+  style={
+    {
+      "marginBottom": "1rem",
+      "marginTop": "1rem",
+    }
+  }
+>
+  <div
+    className="card-header"
+  >
+    <h5>
+      Latest Conditions
+    </h5>
+  </div>
+  <div
+    className="card-body"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col"
+      >
+        <h6>
+          Highest Winds
+        </h6>
+        <div>
+           -- -- 
+        </div>
+      </div>
+      <div
+        className="col"
+      >
+        <h6>
+          Biggest Waves
+        </h6>
+        <div>
+           -- -- 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
 <div
