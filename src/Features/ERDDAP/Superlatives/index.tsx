@@ -12,7 +12,7 @@ import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
-import { anHourAgoRounded, calcAnyHourAgoRounded } from "Shared/time"
+import { calcAnyHourAgoRounded } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { UsePlatforms } from "../hooks"
@@ -28,14 +28,20 @@ const windSpeed = new Set(conditions.windSpeed)
 export const Superlatives: React.FunctionComponent = () => {
   const unitSystem = useUnitSystem()
 
-  const lastHour = anHourAgoRounded()
+  const backOff = 6
+  const backOffTime = calcAnyHourAgoRounded(backOff)
 
-  return <UsePlatforms>{({ platforms }) => <ShowSuperlatives {...{ platforms, unitSystem }} />}</UsePlatforms>
+  return (
+    <UsePlatforms>
+      {({ platforms }) => <ShowSuperlatives laterThan={backOffTime} {...{ platforms, unitSystem }} />}
+    </UsePlatforms>
+  )
 }
 
 interface ShowSuperlativesProps {
   platforms: PlatformFeature[]
   unitSystem: UnitSystem
+  laterThan: Date
 }
 
 interface HighestCondition {
@@ -52,13 +58,17 @@ interface HighestCondition {
  * @param unitSystem unit system to display with
  * @param laterThan a date to make sure all the readings are more recent then
  */
-export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({ platforms, unitSystem }) => {
-  const backoffHours = 6
+export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({
+  platforms,
+  unitSystem,
+  laterThan,
+}) => {
+  const backOffHours = 6
   const [windSuperlative, setWindSuperlative] = useState<HighestCondition>()
   const [waveSuperlative, setWaveSuperlative] = useState<HighestCondition>()
 
   useEffect(() => {
-    for (let hours = 0; hours < backoffHours; hours++) {
+    for (let hours = 0; hours < backOffHours; hours++) {
       const backOffHour = calcAnyHourAgoRounded(hours)
       const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(
         platforms,
@@ -73,7 +83,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
   }, [platforms])
 
   useEffect(() => {
-    for (let hours = 0; hours < backoffHours; hours++) {
+    for (let hours = 0; hours < backOffHours; hours++) {
       const backOffHour = calcAnyHourAgoRounded(hours)
       const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
         platforms,
