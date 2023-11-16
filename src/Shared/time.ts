@@ -49,10 +49,14 @@ function roundDate(date: Date) {
  */
 export function anHourAgoRounded(): Date {
   const hourAgo = new Date(Date.now() - HOUR)
-
   roundDate(hourAgo)
-
   return hourAgo
+}
+
+export function calcAnyHourAgoRounded(numberOfHours: number): Date {
+  const numberOfHoursAgo = new Date(Date.now() - HOUR * numberOfHours)
+  roundDate(numberOfHoursAgo)
+  return numberOfHoursAgo
 }
 
 /**
