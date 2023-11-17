@@ -108,7 +108,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 // Initial view to display if one is not otherwise set
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
-export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height, view, setView }: BaseProps) => {
+export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, view, height, setView }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string } = useParams()
   const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
@@ -164,7 +164,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: Props) => {
+export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
   const [view, handleSetView] = useStatefulView()
 
   return (
