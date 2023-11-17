@@ -123,7 +123,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, view
     if (typeof params.regionId === "undefined") {
       setView(initial)
     }
-  }, [params.regionId, setView, setBoundingBox])
+  }, [params.regionId, setBoundingBox])
 
   // When the bounding box gets set, zoom to the region
   useEffect(() => {
