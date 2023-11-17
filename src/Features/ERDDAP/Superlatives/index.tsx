@@ -4,7 +4,7 @@
  */
 import Link from "next/link"
 import * as React from "react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
@@ -12,7 +12,7 @@ import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
-import { calcAnyHourAgoRounded } from "Shared/time"
+import { anHourAgoRounded, calcAnyHourAgoRounded } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { UsePlatforms } from "../hooks"
@@ -28,15 +28,79 @@ const windSpeed = new Set(conditions.windSpeed)
 export const Superlatives: React.FunctionComponent = () => {
   const unitSystem = useUnitSystem()
 
-  const backOff = 6
-  const backOffTime = calcAnyHourAgoRounded(backOff)
+  return <UsePlatforms>{({ platforms }) => <GetSuperlativesTime {...{ platforms, unitSystem }} />}</UsePlatforms>
+}
+
+interface GetSuperlativesProps {
+  platforms: PlatformFeature[]
+  unitSystem: UnitSystem
+}
+
+/*Logic to get superlatives before rendering */
+
+export const GetSuperlativesTime: React.FunctionComponent<GetSuperlativesProps> = ({ platforms, unitSystem }) => {
+  const backOffHours = 6
+
+  //Defaults to the last hour, but will loop through anyway to find the most recent superlative
+  const [windLaterThan, setWindLaterThan] = useState<Date>(calcAnyHourAgoRounded(1))
+  const [waveLaterThan, setWaveLaterThan] = useState<Date>(calcAnyHourAgoRounded(1))
+
+  //Set wind superlative
+  useEffect(() => {
+    for (let hours = 0; hours < backOffHours; hours++) {
+      const backOffTime = calcAnyHourAgoRounded(hours)
+      const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(
+        platforms,
+        backOffTime,
+        windSpeed,
+      )
+      if (windPlatform) {
+        setWindLaterThan(backOffTime)
+        return
+      }
+    }
+  }, [platforms])
+
+  //Set wave superlative
+  useEffect(() => {
+    for (let hours = 0; hours < backOffHours; hours++) {
+      const backOffTime = calcAnyHourAgoRounded(hours)
+      const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
+        platforms,
+        backOffTime,
+        waveHeight,
+      )
+      if (wavePlatform || waveTimeSeries) {
+        setWaveLaterThan(backOffTime)
+        return
+      }
+    }
+  }, [platforms])
+
+  useEffect(() => {
+    console.log("wind:", windLaterThan, "Waves: ", waveLaterThan)
+    console.log("fucking later than", windLaterThan <= waveLaterThan)
+    console.log("test", anHourAgoRounded() > calcAnyHourAgoRounded(6))
+  }, [windLaterThan, waveLaterThan])
 
   return (
-    <UsePlatforms>
-      {({ platforms }) => <ShowSuperlatives laterThan={backOffTime} {...{ platforms, unitSystem }} />}
-    </UsePlatforms>
+    <ShowSuperlatives
+      platforms={platforms}
+      unitSystem={unitSystem}
+      laterThan={windLaterThan >= waveLaterThan ? windLaterThan : waveLaterThan}
+    ></ShowSuperlatives>
   )
 }
+
+/**
+ * Show the highest winds and biggest waves for selected platforms
+ *
+ * Only shows if both wind and wave data is available
+ *
+ * @param platforms A selection of PlatformFeatures
+ * @param unitSystem unit system to display with
+ * @param laterThan a date to make sure all the readings are more recent then
+ */
 
 interface ShowSuperlativesProps {
   platforms: PlatformFeature[]
@@ -49,57 +113,24 @@ interface HighestCondition {
   timeSeries?: PlatformTimeSeries
 }
 
-/**
- * Show the highest winds and biggest waves for selected platforms
- *
- * Only shows if both wind and wave data is available
- *
- * @param platforms A selection of PlatformFeatures
- * @param unitSystem unit system to display with
- * @param laterThan a date to make sure all the readings are more recent then
- */
 export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({
   platforms,
   unitSystem,
   laterThan,
 }) => {
-  const backOffHours = 6
   const [windSuperlative, setWindSuperlative] = useState<HighestCondition>()
   const [waveSuperlative, setWaveSuperlative] = useState<HighestCondition>()
-  const waveBackOffTime = useRef(laterThan)
-  const windBackOffTime = useRef(laterThan)
 
-  //Set wind superlative
   useEffect(() => {
-    for (let hours = 0; hours < backOffHours; hours++) {
-      windBackOffTime.current = calcAnyHourAgoRounded(hours)
-      const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(
-        platforms,
-        windBackOffTime.current,
-        windSpeed,
-      )
-      if (windPlatform || windTimeSeries) {
-        setWindSuperlative({ platform: windPlatform, timeSeries: windTimeSeries })
-        return
-      }
-    }
-  }, [platforms, laterThan])
-
-  //Set wave superlative
-  useEffect(() => {
-    for (let hours = 0; hours < backOffHours; hours++) {
-      waveBackOffTime.current = calcAnyHourAgoRounded(hours)
-      const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
-        platforms,
-        waveBackOffTime.current,
-        waveHeight,
-      )
-      if (wavePlatform || waveTimeSeries) {
-        setWaveSuperlative({ platform: wavePlatform, timeSeries: waveTimeSeries })
-        return
-      }
-    }
-  }, [platforms, laterThan])
+    const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(platforms, laterThan, windSpeed)
+    setWindSuperlative({ platform: windPlatform, timeSeries: windTimeSeries })
+    const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
+      platforms,
+      laterThan,
+      waveHeight,
+    )
+    setWaveSuperlative({ platform: wavePlatform, timeSeries: waveTimeSeries })
+  }, [])
 
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
