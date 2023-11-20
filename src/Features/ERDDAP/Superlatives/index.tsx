@@ -12,7 +12,7 @@ import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
-import { anHourAgoRounded, calcAnyHourAgoRounded } from "Shared/time"
+import { calcAnyHourAgoRounded } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { UsePlatforms } from "../hooks"
@@ -42,10 +42,10 @@ export const GetSuperlativesTime: React.FunctionComponent<GetSuperlativesProps> 
   const backOffHours = 6
 
   //Defaults to the last hour, but will loop through anyway to find the most recent superlative
-  const [windLaterThan, setWindLaterThan] = useState<Date>(calcAnyHourAgoRounded(1))
-  const [waveLaterThan, setWaveLaterThan] = useState<Date>(calcAnyHourAgoRounded(1))
+  const [windLaterThan, setWindLaterThan] = useState<Date | number>(0)
+  const [waveLaterThan, setWaveLaterThan] = useState<Date | number>(0)
 
-  //Set wind superlative
+  //Find time wind superlatives exists
   useEffect(() => {
     for (let hours = 0; hours < backOffHours; hours++) {
       const backOffTime = calcAnyHourAgoRounded(hours)
@@ -61,7 +61,7 @@ export const GetSuperlativesTime: React.FunctionComponent<GetSuperlativesProps> 
     }
   }, [platforms])
 
-  //Set wave superlative
+  //Find time wave superlative exists
   useEffect(() => {
     for (let hours = 0; hours < backOffHours; hours++) {
       const backOffTime = calcAnyHourAgoRounded(hours)
@@ -77,17 +77,17 @@ export const GetSuperlativesTime: React.FunctionComponent<GetSuperlativesProps> 
     }
   }, [platforms])
 
-  useEffect(() => {
-    console.log("wind:", windLaterThan, "Waves: ", waveLaterThan)
-    console.log("fucking later than", windLaterThan <= waveLaterThan)
-    console.log("test", anHourAgoRounded() > calcAnyHourAgoRounded(6))
-  }, [windLaterThan, waveLaterThan])
-
   return (
     <ShowSuperlatives
       platforms={platforms}
       unitSystem={unitSystem}
-      laterThan={windLaterThan >= waveLaterThan ? windLaterThan : waveLaterThan}
+      laterThan={
+        windLaterThan && waveLaterThan
+          ? windLaterThan >= waveLaterThan
+            ? windLaterThan
+            : waveLaterThan
+          : windLaterThan || waveLaterThan
+      }
     ></ShowSuperlatives>
   )
 }
@@ -105,7 +105,7 @@ export const GetSuperlativesTime: React.FunctionComponent<GetSuperlativesProps> 
 interface ShowSuperlativesProps {
   platforms: PlatformFeature[]
   unitSystem: UnitSystem
-  laterThan: Date
+  laterThan: Date | number
 }
 
 interface HighestCondition {
@@ -180,7 +180,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
  */
 function findHighestCondition(
   platforms: PlatformFeature[],
-  laterThan: Date,
+  laterThan: Date | number,
   compareSet: Set<string>,
 ): HighestCondition {
   let highestPlatform: PlatformFeature | undefined = undefined

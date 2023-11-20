@@ -114,6 +114,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, view
   const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
 
   //If params change, set bounding box
+  //setView not in deps to avoid rerenders when user zooms
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
@@ -123,6 +124,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, view
     if (typeof params.regionId === "undefined") {
       setView(initial)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.regionId, setBoundingBox])
 
   // When the bounding box gets set, zoom to the region
