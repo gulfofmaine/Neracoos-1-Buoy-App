@@ -1,5 +1,5 @@
 "use client"
-import { ErddapMap } from "Features/ERDDAP/Map"
+import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { useMeasure } from "react-use"
