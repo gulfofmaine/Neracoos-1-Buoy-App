@@ -44,6 +44,11 @@ function roundDate(date: Date) {
   date.setMilliseconds(0)
 }
 
+/** Return a new date that is a number of hours before the specified one */
+export function hoursBefore(dt: Date, numberOfHours: number): Date {
+  return new Date(dt.valueOf() - HOUR * numberOfHours)
+}
+
 /**
  * Get a date that is an hour previous
  */
