@@ -11,7 +11,7 @@ import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
-import { BoundingBox, regionList, regions } from "Shared/regions"
+import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
@@ -122,13 +122,11 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
       const region = regionList.find((r) => r.slug === regionId)
+      console.log(region)
       getView(region)
     }
     if (typeof params.regionId === "undefined") {
-      const keys = Object.keys(regions)
-      console.log(regions)
-      const region = keys.find((region) => regions.InitialRegion.slug === "initial")
-      console.log(region)
+      const region = InitialRegion
       getView(region)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
