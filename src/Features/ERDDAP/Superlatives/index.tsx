@@ -84,7 +84,7 @@ export const Superlatives: React.FunctionComponent = () => {
           unitSystem={unitSystem}
           laterThan={
             windLaterThan && waveLaterThan
-              ? windLaterThan >= waveLaterThan
+              ? windLaterThan <= waveLaterThan
                 ? windLaterThan
                 : waveLaterThan
               : windLaterThan || waveLaterThan
