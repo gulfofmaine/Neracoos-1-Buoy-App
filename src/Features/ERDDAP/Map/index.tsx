@@ -8,7 +8,6 @@ import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { Button } from "reactstrap"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
-import type { RView } from "rlayers/RMap"
 
 import { useStatefulView } from "Features/StatefulMap"
 import { colors } from "Shared/colors"
@@ -17,6 +16,7 @@ import { BoundingBox, regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import type { RView } from "rlayers/RMap"
 
 import { aDayAgoRounded } from "Shared/time"
 import { useParams } from "next/navigation"
@@ -35,9 +35,9 @@ export interface Props {
 interface BaseProps extends Props {
   // Loaded platforms
   platforms: PlatformFeature[]
-  // Stateful view to display
+  // // Stateful view to display
   view?: RView
-  // Set stateful view
+  // // Set stateful view
   setView: (view: RView) => void
 }
 
@@ -114,6 +114,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
 
   //If params change, set bounding box
+  //setView not in deps to avoid rerenders when user zooms
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
@@ -123,7 +124,8 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
     if (typeof params.regionId === "undefined") {
       setView(initial)
     }
-  }, [params.regionId, setView, setBoundingBox])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params, setBoundingBox, view])
 
   // When the bounding box gets set, zoom to the region
   useEffect(() => {
@@ -133,7 +135,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 
       mapRef?.current?.ol.getView().fit(extent)
     }
-  }, [boundingBox, platforms])
+  }, [boundingBox, platforms, params])
 
   // Make sure the height of the map gets updated when jumping
   // from home to platform view
@@ -144,7 +146,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap ref={mapRef} className="map" initial={initial} view={[view ?? initial, setView]} height={height}>
+    <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
 
@@ -164,7 +166,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: Props) => {
+export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
   const [view, handleSetView] = useStatefulView()
 
   return (
@@ -172,10 +174,10 @@ export const ErddapMap: React.FC<Props> = ({ platformId, boundingBox, height }: 
       {({ platforms }) => (
         <ErddapMapBase
           platforms={platforms}
-          view={view}
-          setView={handleSetView}
           platformId={platformId}
           height={height}
+          view={view}
+          setView={handleSetView}
         />
       )}
     </UsePlatforms>

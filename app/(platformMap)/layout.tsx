@@ -1,6 +1,6 @@
 "use client"
-import { ErddapMap } from "Features/ERDDAP/Map"
-import { usePathname } from "next/navigation"
+import { ErddapMap } from "../../src/Features/ERDDAP/Map"
+import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { useMeasure } from "react-use"
 import { Col, Row } from "reactstrap"
@@ -16,8 +16,13 @@ export default function Layout({
   bottom: React.ReactNode
   belowMap: React.ReactNode
 }) {
-  const [ref, { height }] = useMeasure<HTMLDivElement>()
   const path = usePathname()
+  const params: { regionId?: string } = useParams()
+  let [ref, { height }] = useMeasure<HTMLDivElement>()
+
+  if (height < 420) {
+    height = 420
+  }
 
   return (
     <React.Fragment>
@@ -29,7 +34,7 @@ export default function Layout({
         </Col>
 
         <Col sm={{ size: true, order: 1 }}>
-          <ErddapMap height={"80vh"} width="100%" />
+          <ErddapMap height={params.regionId ? "80vh" : height} width="100%" />
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
       </Row>

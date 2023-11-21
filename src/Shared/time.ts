@@ -44,15 +44,24 @@ function roundDate(date: Date) {
   date.setMilliseconds(0)
 }
 
+/** Return a new date that is a number of hours before the specified one */
+export function hoursBefore(dt: Date, numberOfHours: number): Date {
+  return new Date(dt.valueOf() - HOUR * numberOfHours)
+}
+
 /**
  * Get a date that is an hour previous
  */
 export function anHourAgoRounded(): Date {
   const hourAgo = new Date(Date.now() - HOUR)
-
   roundDate(hourAgo)
-
   return hourAgo
+}
+
+export function calcAnyHourAgoRounded(numberOfHours: number): Date {
+  const numberOfHoursAgo = new Date(Date.now() - HOUR * numberOfHours)
+  roundDate(numberOfHoursAgo)
+  return numberOfHoursAgo
 }
 
 /**

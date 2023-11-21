@@ -2,19 +2,20 @@
 /**
  * Superlatives, or what platforms experiencing the most extreme conditions right now
  */
-import * as React from "react"
 import Link from "next/link"
-import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
+import * as React from "react"
+import { useEffect, useState } from "react"
+import { Alert, Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
 import { useUnitSystem } from "Features/Units"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
-import { anHourAgoRounded } from "Shared/time"
+import { anHourAgoRounded, hoursBefore } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { UsePlatforms } from "../hooks"
+import { usePlatforms } from "../hooks/buoyBarn"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 
@@ -26,20 +27,19 @@ const windSpeed = new Set(conditions.windSpeed)
  */
 export const Superlatives: React.FunctionComponent = () => {
   const unitSystem = useUnitSystem()
+  const { isLoading, data } = usePlatforms()
 
-  const lastHour = anHourAgoRounded()
+  const startTime = anHourAgoRounded()
 
   return (
-    <UsePlatforms>
-      {({ platforms }) => <ShowSuperlatives laterThan={lastHour} {...{ platforms, unitSystem }} />}
-    </UsePlatforms>
+    <>
+      {data ? (
+        <ShowSuperlatives platforms={data?.features} unitSystem={unitSystem} searchStartTime={startTime} />
+      ) : (
+        <Alert color="primary">Trouble loading platform data</Alert>
+      )}
+    </>
   )
-}
-
-interface ShowSuperlativesProps {
-  platforms: PlatformFeature[]
-  unitSystem: UnitSystem
-  laterThan: Date
 }
 
 /**
@@ -51,48 +51,93 @@ interface ShowSuperlativesProps {
  * @param unitSystem unit system to display with
  * @param laterThan a date to make sure all the readings are more recent then
  */
+
+interface ShowSuperlativesProps {
+  platforms: PlatformFeature[]
+  unitSystem: UnitSystem
+  searchStartTime: Date
+}
+
+interface HighestCondition {
+  platform?: PlatformFeature
+  timeSeries?: PlatformTimeSeries
+}
+
 export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = ({
   platforms,
   unitSystem,
-  laterThan,
+  searchStartTime,
 }) => {
-  const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(platforms, laterThan, windSpeed)
-  const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(platforms, laterThan, waveHeight)
+  const [windSuperlative, setWindSuperlative] = useState<HighestCondition>()
+  const [waveSuperlative, setWaveSuperlative] = useState<HighestCondition>()
+  const backOffHours = 6
 
-  if (windPlatform && windTimeSeries && wavePlatform && waveTimeSeries) {
-    return (
-      <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-        <CardHeader>
-          <h5>Latest Conditions</h5>
-        </CardHeader>
+  useEffect(() => {
+    for (let hours = 0; hours < backOffHours; hours++) {
+      const backOffHour = hoursBefore(searchStartTime, hours)
+      const { platform: windPlatform, timeSeries: windTimeSeries } = findHighestCondition(
+        platforms,
+        backOffHour,
+        windSpeed,
+      )
+      if (windPlatform || windTimeSeries) {
+        setWindSuperlative({ platform: windPlatform, timeSeries: windTimeSeries })
+        return
+      }
+    }
+  }, [platforms])
 
-        <CardBody>
-          <Row>
-            <Col>
+  useEffect(() => {
+    for (let hours = 0; hours < backOffHours; hours++) {
+      const backOffHour = hoursBefore(searchStartTime, hours)
+      const { platform: wavePlatform, timeSeries: waveTimeSeries } = findHighestCondition(
+        platforms,
+        backOffHour,
+        waveHeight,
+      )
+      if (wavePlatform || waveTimeSeries) {
+        setWaveSuperlative({ platform: wavePlatform, timeSeries: waveTimeSeries })
+        return
+      }
+    }
+  }, [platforms])
+  return (
+    <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+      <CardHeader>
+        <h5>Latest Conditions</h5>
+      </CardHeader>
+
+      <CardBody>
+        <Row>
+          <Col>
+            <h6>Highest Winds</h6>
+            {windSuperlative?.platform && windSuperlative?.timeSeries ? (
               <HighestConditions
-                title="Highest Winds"
-                platform={windPlatform}
-                timeSeries={windTimeSeries}
+                platform={windSuperlative.platform}
+                timeSeries={windSuperlative.timeSeries}
                 unitSystem={unitSystem}
               />
-            </Col>
+            ) : (
+              <div> -- -- </div>
+            )}
+          </Col>
 
-            <Col>
+          <Col>
+            <h6>Biggest Waves</h6>
+            {waveSuperlative?.platform && waveSuperlative?.timeSeries ? (
               <HighestConditions
-                title="Biggest Waves"
-                platform={wavePlatform}
-                timeSeries={waveTimeSeries}
+                platform={waveSuperlative.platform}
+                timeSeries={waveSuperlative.timeSeries}
                 unitSystem={unitSystem}
               />
-            </Col>
-          </Row>
-        </CardBody>
-      </Card>
-    )
-  }
-
-  return null
-  // return <h4>Error showing Superlatives</h4>
+            ) : (
+              <div> -- -- </div>
+            )}
+          </Col>
+        </Row>
+      </CardBody>
+    </Card>
+  )
 }
 
 /**
@@ -104,16 +149,19 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
  */
 function findHighestCondition(
   platforms: PlatformFeature[],
-  laterThan: Date,
+  laterThan: Date | number,
   compareSet: Set<string>,
-): { platform?: PlatformFeature; timeSeries?: PlatformTimeSeries } {
+): HighestCondition {
   let highestPlatform: PlatformFeature | undefined = undefined
   let highestTimeSeries: PlatformTimeSeries | undefined = undefined
 
   platforms.forEach((platform) => {
     platform.properties.readings.forEach((reading) => {
+      //Check to make validate the set has certain properties
       if (compareSet.has(reading.data_type.standard_name) && reading.value) {
+        //Check to validate if the reading is within the appropriate timeframe
         if (reading.time ? laterThan < new Date(reading.time) : false) {
+          //Does a superlative exist already? If so, check to see if the newest reading outranks it. if it doesn't, return the current superlative.
           if (highestTimeSeries ? (highestTimeSeries.value ? highestTimeSeries.value < reading.value : true) : true) {
             highestTimeSeries = reading
             highestPlatform = platform
@@ -130,7 +178,6 @@ function findHighestCondition(
 }
 
 interface HighestConditionsProps {
-  title: string
   platform: PlatformFeature
   timeSeries: PlatformTimeSeries
   unitSystem: UnitSystem
@@ -144,21 +191,13 @@ interface HighestConditionsProps {
  * @param unitSystem Unit system to display values in
  * @param title Title to display
  */
-const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({
-  platform,
-  timeSeries,
-  unitSystem,
-  title,
-}) => {
+const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({ platform, timeSeries, unitSystem }) => {
   const dataConverter = converter(timeSeries.data_type.standard_name)
 
   const url = urlPartReplacer(paths.platforms.platform, ":id", platform.id as string)
 
   return (
     <React.Fragment>
-      <Link href={url}>
-        <h6>{title}</h6>
-      </Link>
       <div>
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
       </div>
