@@ -33,14 +33,10 @@ export interface Props {
 interface BaseProps extends Props {
   // Loaded platforms
   platforms: PlatformFeature[]
-  // // Stateful view to display
-  // view?: RView
-  // // Set stateful view
-  // setView: (view: RView) => void
 }
 
 interface View {
-  center: any
+  center: number[]
   zoom: number
 }
 
@@ -109,7 +105,6 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 }
 
 // Initial view to display if one is not otherwise set
-// const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
