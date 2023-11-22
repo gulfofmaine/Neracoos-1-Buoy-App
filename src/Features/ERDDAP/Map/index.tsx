@@ -133,10 +133,9 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
       mapRef?.current?.ol.getView().fit(extent)
-      setView({
-        center: mapRef?.current?.ol.getView().getState().center,
-        zoom: mapRef.current?.ol.getView().getState().zoom || 6,
-      })
+      const center = mapRef?.current?.ol.getView().getState().center
+      const zoom = mapRef?.current?.ol.getView().getState().zoom
+      center && zoom ? setView({ center, zoom }) : setView(initial)
     }
   }
 
