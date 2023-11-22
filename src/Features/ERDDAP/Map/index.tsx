@@ -109,20 +109,20 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 }
 
 // Initial view to display if one is not otherwise set
+// const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string } = useParams()
-  const [view, setView] = useState<View>()
+  const [view, setView] = useState<View>(initial)
 
-  //If params change, set bounding box
+  //If params change, set bounding box, then setView to align with map state
   //setView not in deps to avoid rerenders when user zooms
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
       const region = regionList.find((r) => r.slug === regionId)
-      console.log(region)
       getView(region)
     }
     if (typeof params.regionId === "undefined") {
@@ -130,7 +130,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       getView(region)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, platforms, view])
+  }, [params, platforms])
 
   const getView = (region) => {
     const boundingBox = region?.bbox
@@ -138,6 +138,10 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
       mapRef?.current?.ol.getView().fit(extent)
+      setView({
+        center: mapRef?.current?.ol.getView().getState().center,
+        zoom: mapRef.current?.ol.getView().getState().zoom || 6,
+      })
     }
   }
 
