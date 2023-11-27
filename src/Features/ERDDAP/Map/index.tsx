@@ -109,7 +109,7 @@ const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
-  const params: { regionId?: string } = useParams()
+  const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
 
   //If params change, set bounding box, then setView to align with map state
@@ -120,7 +120,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       const region = regionList.find((r) => r.slug === regionId)
       getView(region)
     }
-    if (typeof params.regionId === "undefined") {
+    if (typeof params.regionId === "undefined" && typeof params.platformId === "undefined") {
       const region = InitialRegion
       getView(region)
     }
@@ -158,9 +158,9 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       {filteredPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
       ))}
-      {selectedPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={true} old={false} />
-      ))}
+      {selectedPlatforms.length && (
+        <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+      )}
     </RMap>
   )
 }
