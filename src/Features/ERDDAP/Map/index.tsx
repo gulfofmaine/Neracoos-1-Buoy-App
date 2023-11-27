@@ -3,7 +3,7 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { Button } from "reactstrap"
@@ -111,6 +111,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
+  const path = usePathname()
 
   //If params change, set bounding box, then setView to align with map state
   //setView not in deps to avoid rerenders when user zooms
@@ -120,12 +121,12 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       const region = regionList.find((r) => r.slug === regionId)
       getView(region)
     }
-    if (typeof params.regionId === "undefined" && typeof params.platformId === "undefined") {
+    if (path === "/") {
       const region = InitialRegion
       getView(region)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, platforms])
+  }, [path, platforms])
 
   const getView = (region) => {
     const boundingBox = region?.bbox
@@ -158,7 +159,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       {filteredPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
       ))}
-      {selectedPlatforms.length && (
+      {!!selectedPlatforms.length && (
         <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
       )}
     </RMap>
