@@ -3,20 +3,18 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { Button } from "reactstrap"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
-import { useStatefulView } from "Features/StatefulMap"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
-import { BoundingBox, regionList } from "Shared/regions"
+import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import type { RView } from "rlayers/RMap"
 
 import { aDayAgoRounded } from "Shared/time"
 import { useParams } from "next/navigation"
@@ -35,10 +33,11 @@ export interface Props {
 interface BaseProps extends Props {
   // Loaded platforms
   platforms: PlatformFeature[]
-  // // Stateful view to display
-  view?: RView
-  // // Set stateful view
-  setView: (view: RView) => void
+}
+
+interface View {
+  center: number[]
+  zoom: number
 }
 
 /** If the window is narrower than 800px we should increase object sizes */
@@ -108,34 +107,38 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
 // Initial view to display if one is not otherwise set
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
-export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height, view, setView }: BaseProps) => {
+export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
-  const params: { regionId?: string } = useParams()
-  const [boundingBox, setBoundingBox] = useState<BoundingBox | null>()
+  const params: { regionId?: string; platformId?: string } = useParams()
+  const [view, setView] = useState<View>(initial)
+  const path = usePathname()
 
-  //If params change, set bounding box
+  //If params change, set bounding box, then setView to align with map state
   //setView not in deps to avoid rerenders when user zooms
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
       const region = regionList.find((r) => r.slug === regionId)
-      setBoundingBox(region?.bbox)
+      getView(region)
     }
-    if (typeof params.regionId === "undefined") {
-      setView(initial)
+    if (path === "/") {
+      const region = InitialRegion
+      getView(region)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, setBoundingBox, view])
+  }, [path, platforms])
 
-  // When the bounding box gets set, zoom to the region
-  useEffect(() => {
+  const getView = (region) => {
+    const boundingBox = region?.bbox
     if (boundingBox) {
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
-
       mapRef?.current?.ol.getView().fit(extent)
+      const center = mapRef?.current?.ol.getView().getState().center
+      const zoom = mapRef?.current?.ol.getView().getState().zoom
+      center && zoom ? setView({ center, zoom }) : setView(initial)
     }
-  }, [boundingBox, platforms, params])
+  }
 
   // Make sure the height of the map gets updated when jumping
   // from home to platform view
@@ -156,9 +159,9 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       {filteredPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
       ))}
-      {selectedPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={true} old={false} />
-      ))}
+      {!!selectedPlatforms.length && (
+        <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+      )}
     </RMap>
   )
 }
@@ -167,19 +170,9 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
-  const [view, handleSetView] = useStatefulView()
-
   return (
     <UsePlatforms>
-      {({ platforms }) => (
-        <ErddapMapBase
-          platforms={platforms}
-          platformId={platformId}
-          height={height}
-          view={view}
-          setView={handleSetView}
-        />
-      )}
+      {({ platforms }) => <ErddapMapBase platforms={platforms} platformId={platformId} height={height} />}
     </UsePlatforms>
   )
 }

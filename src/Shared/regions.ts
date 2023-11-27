@@ -15,7 +15,7 @@ export interface Region {
   bbox: BoundingBox
 }
 
-const InitialRegion: Region = {
+export const InitialRegion: Region = {
   bbox: {
     east: -65.775,
     north: 45.125,
