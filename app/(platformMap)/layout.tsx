@@ -17,6 +17,7 @@ export default function Layout({
   belowMap: React.ReactNode
 }) {
   const path = usePathname()
+  const isPlatformView = path.startsWith("/platform")
   const params: { regionId?: string; platformId?: string } = useParams()
   let [ref, { height }] = useMeasure<HTMLDivElement>()
   const platformId = params.platformId
@@ -35,12 +36,12 @@ export default function Layout({
         </Col>
 
         <Col sm={{ size: true, order: 1 }}>
-          <ErddapMap height={params.regionId ? "80vh" : height} width="100%" {...(path !== "/" && { platformId })} />
+          <ErddapMap height={params.regionId ? "80vh" : height} width="100%" {...(isPlatformView && { platformId })} />
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
       </Row>
 
-      {(path.startsWith("/platform") && bottom) ?? <Row>{bottom}</Row>}
+      {(isPlatformView && bottom) ?? <Row>{bottom}</Row>}
     </React.Fragment>
   )
 }
