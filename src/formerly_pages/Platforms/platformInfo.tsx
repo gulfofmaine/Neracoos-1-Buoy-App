@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"
 import { ErddapPlatformInfoPanel } from "Features/ERDDAP/Platform/Info"
@@ -17,29 +17,21 @@ import { PlatformMatchParams } from "./types"
 export const PlatformInfo: React.FC<PlatformMatchParams> = ({ id }: PlatformMatchParams) => {
   const unitSystem = useUnitSystem()
   const aDayAgo = aDayAgoRounded()
-  const [isClient, setIsClient] = useState(false)
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  if (isClient) {
-    return (
-      <UsePlatform platformId={id}>
-        {({ platform }) => (
-          <React.Fragment>
-            <PlatformAlerts platform={platform} />
-            <ErddapPlatformInfoPanel platform={platform} />
-            <ErddapObservationTable
-              platform={platform}
-              unitSelector={<UnitSelector />}
-              unitSystem={unitSystem}
-              laterThan={aDayAgo}
-            />
-          </React.Fragment>
-        )}
-      </UsePlatform>
-    )
-  }
-  return null
+  return (
+    <UsePlatform platformId={id}>
+      {({ platform }) => (
+        <React.Fragment>
+          <PlatformAlerts platform={platform} />
+          <ErddapPlatformInfoPanel platform={platform} />
+          <ErddapObservationTable
+            platform={platform}
+            unitSelector={<UnitSelector />}
+            unitSystem={unitSystem}
+            laterThan={aDayAgo}
+          />
+        </React.Fragment>
+      )}
+    </UsePlatform>
+  )
 }

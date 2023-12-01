@@ -7,9 +7,5 @@ export default function ObservedPlot({
 }: {
   params: { platformId: string; standardName: string }
 }) {
-  return (
-    // <DehydratedPlatforms>
-    <ObservationChart platformId={platformId} standardName={standardName} />
-    // </DehydratedPlatforms>
-  )
+  return <ObservationChart platformId={platformId} standardName={standardName} />
 }
