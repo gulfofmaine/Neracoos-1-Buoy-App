@@ -1,5 +1,5 @@
-import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
-
+"use client"
+import React from "react"
 import { ObservationChart } from "./chart"
 
 export default function ObservedPlot({
@@ -8,8 +8,8 @@ export default function ObservedPlot({
   params: { platformId: string; standardName: string }
 }) {
   return (
-    <DehydratedPlatforms>
-      <ObservationChart platformId={platformId} standardName={standardName} />
-    </DehydratedPlatforms>
+    // <DehydratedPlatforms>
+    <ObservationChart platformId={platformId} standardName={standardName} />
+    // </DehydratedPlatforms>
   )
 }

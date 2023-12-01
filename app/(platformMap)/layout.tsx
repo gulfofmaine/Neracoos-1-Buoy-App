@@ -1,6 +1,7 @@
 "use client"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
+import { useEffect, useState } from "react"
 import { useMeasure } from "react-use"
 import { Col, Row } from "reactstrap"
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
@@ -21,6 +22,11 @@ export default function Layout({
   const params: { regionId?: string; platformId?: string } = useParams()
   let [ref, { height }] = useMeasure<HTMLDivElement>()
   const platformId = params.platformId
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   if (height < 420) {
     height = 420
@@ -48,7 +54,7 @@ export default function Layout({
         </Col>
       </Row>
 
-      {(isPlatformView && bottom) ?? <Row>{bottom}</Row>}
+      {(isPlatformView && isClient && bottom) ?? <Row>{bottom}</Row>}
     </React.Fragment>
   )
 }
