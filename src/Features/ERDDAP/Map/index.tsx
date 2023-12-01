@@ -170,6 +170,8 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
+  const path = usePathname()
+  const isPlatformView = path.startsWith("/platform")
   const { isLoading, data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
