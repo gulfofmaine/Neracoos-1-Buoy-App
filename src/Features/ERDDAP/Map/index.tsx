@@ -180,6 +180,7 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
   if (data?.features && isClient) {
     return <ErddapMapBase platforms={data?.features} platformId={platformId} height={height} />
   }
+  return null
 }
 
 /**
