@@ -39,7 +39,6 @@ const STACTraverseBase = ({ catalog }: { catalog: ICatalog }) => {
   const root_children_urls = catalog
     .get_child_links()
     .map((link) => ({ parent: catalog, url: catalog.url_for_link(link) }))
-  console.log(root_children_urls)
 
   return <STACCollectionsLoader catalog={catalog} initial_children_urls={new Set(root_children_urls)} />
 }
