@@ -1,14 +1,14 @@
-import "ol/ol.css"
+import { IAsset } from "@gulfofmaine/tsstac"
 import { Point } from "ol/geom"
+import "ol/ol.css"
 import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
-import { RMap, RLayerTile, RLayerVector, RFeature, RStyle, RLayerTileWMS } from "rlayers"
-import { IAsset } from "@gulfofmaine/tsstac"
+import { RFeature, RLayerTile, RLayerTileWMS, RLayerVector, RMap, RStyle } from "rlayers"
 
-import { round } from "Shared/math"
 import { colors } from "Shared/colors"
+import { round } from "Shared/math"
 
-import { useLayer, useView, usePoint, useTime } from "./query-hooks"
+import { useLayer, usePoint, useTime, useView } from "./query-hooks"
 import { useLatestItemByCollectionIdQuery } from "./stac-queries"
 import { initialView } from "./types"
 
@@ -21,7 +21,7 @@ export const StacMap = () => {
 
   return (
     <RMap
-      height={"60vh"}
+      height={"65vh"}
       className="model-map"
       initial={{ center: fromLonLat(initialView.center), zoom: initialView.zoom }}
       view={[{ center: fromLonLat(center), zoom }, setView]}

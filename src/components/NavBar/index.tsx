@@ -41,10 +41,10 @@ const NeracoosNavBar = () => {
   const toggle = () => setOpen((open) => !open)
   const close = () => setOpen(false)
 
-  let isMariners = false
+  let isProd = false
 
   if (typeof window !== "undefined") {
-    isMariners = window.location.href.includes("://mariners.neracoos.org")
+    isProd = window.location.href.includes("://mariners.neracoos.org")
   }
 
   return (
@@ -60,7 +60,7 @@ const NeracoosNavBar = () => {
             <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
-            {!isMariners && (
+            {!isProd && (
               <NavItem>
                 <NavLink href={paths.models}>Model Viewer</NavLink>
               </NavItem>

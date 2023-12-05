@@ -21,7 +21,7 @@ export const StacCatalogRoot = () => {
   const catalogQuery = useRootCatalogQuery()
 
   if (catalogQuery.isLoading) {
-    return <div>Loading model catalog</div>
+    return <div style={{ height: "60vh" }}>Loading model catalog...</div>
   }
 
   if (catalogQuery.data) {
@@ -32,7 +32,7 @@ export const StacCatalogRoot = () => {
     )
   }
 
-  return <div>Error loading root catalog</div>
+  return <div style={{ height: "60vh" }}>Error loading root catalog</div>
 }
 
 const STACTraverseBase = ({ catalog }: { catalog: ICatalog }) => {

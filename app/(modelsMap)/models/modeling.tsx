@@ -2,18 +2,18 @@ import { UseQueryResult, useQueries } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
-import { Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
+import { Alert, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
 
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
-// import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
-
-const ModelChart = dynamic(() => import("./chart").then((mod) => mod.ModelChart), { ssr: false })
 import { useCompare, useCurrentItem, useLayer, usePoint, useTable, useTime } from "./query-hooks"
 import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { EdrTable } from "./table"
 import { Layer, LoadedData } from "./types"
+// import type { DataCubeItem } from "@gulfofmaine/tsstac/extensions/datacube"
+
+const ModelChart = dynamic(() => import("./chart").then((mod) => mod.ModelChart), { ssr: false })
 
 export const ModelingPage = () => {
   const [loading, setIsLoading] = useState(true)
@@ -24,15 +24,23 @@ export const ModelingPage = () => {
 
   return (
     <>
-      <Row>
-        <Col md={3} style={{ padding: 0 }}>
+      <Row style={{ paddingLeft: "10px" }}>
+        <Col
+          md={3}
+          height="60vh"
+          style={{
+            padding: "5px",
+            border: "1px solid #0000002d",
+            borderRadius: "10px",
+          }}
+        >
           <StacCatalogRoot />
         </Col>
-        <Col md={9} style={{ paddingLeft: 0 }}>
+        <Col md={9} style={{ paddingLeft: "10px" }}>
           {!loading && <StacMap />}
         </Col>
       </Row>
-      <Row>
+      <Row style={{ padding: "10px", marginTop: "10px" }}>
         <TimeControl />
         <TableChart />
       </Row>
@@ -101,14 +109,14 @@ export const TableChart = () => {
       </React.Fragment>
     )
   } else if (catalogQuery.isLoading) {
-    return <div>Loading catalog</div>
+    return <div>Loading catalog...</div>
   } else if (point) {
-    return <div>Layer needs to be selected to display info for point</div>
+    return <Alert color="warning">Layer needs to be selected to display info for point</Alert>
   } else if (currentLayer.id) {
-    return <div>Point needs to be selected to display info for current layer</div>
+    return <Alert color="warning">Point needs to be selected to display info for current layer</Alert>
   }
 
-  return <div>Neither point or layer selected</div>
+  return <Alert color="warning">Select point on map and layer in the sidebar to see info</Alert>
 }
 
 function localWms(url: string) {
@@ -230,15 +238,17 @@ const ItemLayersTabs = ({
             Table
           </NavLink>
         </NavItem>
-        {loading || edrLoading ? <NavItem>Loading</NavItem> : null}
-        {error || edrError ? <NavItem>Error</NavItem> : null}
       </Nav>
       <TabContent activeTab={table ? "table" : "chart"}>
         <TabPane tabId="chart">
-          {loaded.length > 0 ? <ModelChart loaded={loaded} /> : "No data is loaded to display"}
+          {loading || edrLoading ? <div>Loading data...</div> : null}
+          {error || edrError ? <div>Error loading data</div> : null}
+          {loaded.length > 0 && <ModelChart loaded={loaded} />}
         </TabPane>
 
         <TabPane tabId="table">
+          {loading || edrLoading ? <div>Loading data...</div> : null}
+          {error || edrError ? <div>Error loading data</div> : null}
           <EdrTable loaded={loaded} after={hourAgo} />
           {/* Table */}
         </TabPane>
