@@ -18,7 +18,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 
 import { aDayAgoRounded } from "Shared/time"
 import { useParams } from "next/navigation"
-import { UsePlatforms } from "../hooks"
+import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 
 export interface Props {
@@ -170,11 +170,17 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
-  return (
-    <UsePlatforms>
-      {({ platforms }) => <ErddapMapBase platforms={platforms} platformId={platformId} height={height} />}
-    </UsePlatforms>
-  )
+  const { isLoading, data } = usePlatforms()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (data?.features && isClient) {
+    return <ErddapMapBase platforms={data?.features} platformId={platformId} height={height} />
+  }
+  return null
 }
 
 /**

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { expect, test } from "@playwright/test"
 
 const platformUrl = "/platform/M01"
 
@@ -154,5 +154,42 @@ test.describe("Platfrom M01", () => {
       .first()
       .click()
     await expect(page.getByText(/Sigma-T @ 1m/).first()).toBeVisible()
+  })
+
+  test("Can perisist observation view on hard refresh", async ({ page }) => {
+    await page.goto(platformUrl)
+    await page
+      .getByText(/Observations/)
+      .first()
+      .click()
+    await page
+      .getByText(/Air Temperature/)
+      .first()
+      .click()
+    await expect(
+      page
+        .locator("h4")
+        .getByText(/Air Temperature/)
+        .first(),
+    ).toBeVisible()
+    await expect(page.getByText(/Data access/).first()).not.toBeVisible()
+    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await expect(page.getByText(/Data access/).first()).toBeVisible()
+    await expect(page.getByText(/Data table/).first()).toBeVisible()
+    await expect(page.getByText(/Download CSV/).first()).toBeVisible()
+    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
+    await page.reload()
+    await expect(
+      page
+        .locator("h4")
+        .getByText(/Air Temperature/)
+        .first(),
+    ).toBeVisible()
+    await expect(page.getByText(/Data access/).first()).not.toBeVisible()
+    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await expect(page.getByText(/Data access/).first()).toBeVisible()
+    await expect(page.getByText(/Data table/).first()).toBeVisible()
+    await expect(page.getByText(/Download CSV/).first()).toBeVisible()
+    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
   })
 })
