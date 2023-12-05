@@ -39,6 +39,7 @@ const STACTraverseBase = ({ catalog }: { catalog: ICatalog }) => {
   const root_children_urls = catalog
     .get_child_links()
     .map((link) => ({ parent: catalog, url: catalog.url_for_link(link) }))
+  console.log(root_children_urls)
 
   return <STACCollectionsLoader catalog={catalog} initial_children_urls={new Set(root_children_urls)} />
 }
@@ -252,10 +253,13 @@ const StandardName = ({ standard_name, items }: { standard_name: string; items: 
         .map((value) => (value as object)["gmri-cube:attrs"].long_name),
     )
     .flat()[0]
+    .toLowerCase()
+
+  const displayName = long_name.charAt(0).toUpperCase() + long_name.slice(1)
 
   return (
     <AccordionItem>
-      <AccordionHeader targetId={standard_name}>{long_name}</AccordionHeader>
+      <AccordionHeader targetId={standard_name}>{displayName}</AccordionHeader>
       <AccordionBody accordionId={standard_name}>
         <ListGroup flush={true}>
           {items.map((item) => {
