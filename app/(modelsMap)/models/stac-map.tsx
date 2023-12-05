@@ -21,7 +21,7 @@ export const StacMap = () => {
 
   return (
     <RMap
-      height={"65vh"}
+      height={"60vh"}
       className="model-map"
       initial={{ center: fromLonLat(initialView.center), zoom: initialView.zoom }}
       view={[{ center: fromLonLat(center), zoom }, setView]}

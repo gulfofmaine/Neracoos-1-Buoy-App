@@ -27,7 +27,7 @@ export const ModelingPage = () => {
       <Row style={{ paddingLeft: "10px" }}>
         <Col
           md={3}
-          height="60vh"
+          height="55vh"
           style={{
             padding: "5px",
             border: "1px solid #0000002d",
@@ -40,7 +40,7 @@ export const ModelingPage = () => {
           {!loading && <StacMap />}
         </Col>
       </Row>
-      <Row style={{ padding: "10px", marginTop: "10px" }}>
+      <Row style={{ paddingTop: "10px", marginTop: "10px" }}>
         <TimeControl />
         <TableChart />
       </Row>
@@ -109,7 +109,7 @@ export const TableChart = () => {
       </React.Fragment>
     )
   } else if (catalogQuery.isLoading) {
-    return <div>Loading catalog...</div>
+    return <div style={{ textAlign: "center" }}>Loading catalog...</div>
   } else if (point) {
     return <Alert color="warning">Layer needs to be selected to display info for point</Alert>
   } else if (currentLayer.id) {
@@ -216,7 +216,7 @@ const ItemLayersTabs = ({
   const hourAgo = new Date(now.valueOf() - hourInMlSeconds)
 
   return (
-    <div>
+    <div style={{ marginTop: "10px" }}>
       <Nav tabs={true}>
         <NavItem>
           <NavLink
@@ -239,16 +239,16 @@ const ItemLayersTabs = ({
           </NavLink>
         </NavItem>
       </Nav>
-      <TabContent activeTab={table ? "table" : "chart"}>
+      <TabContent activeTab={table ? "table" : "chart"} style={{ minHeight: "100px", marginTop: "10px" }}>
         <TabPane tabId="chart">
-          {loading || edrLoading ? <div>Loading data...</div> : null}
-          {error || edrError ? <div>Error loading data</div> : null}
+          {loading || edrLoading ? <div style={{ textAlign: "center" }}>Loading data...</div> : null}
+          {error || edrError ? <div style={{ textAlign: "center" }}>Error loading data</div> : null}
           {loaded.length > 0 && <ModelChart loaded={loaded} />}
         </TabPane>
 
         <TabPane tabId="table">
-          {loading || edrLoading ? <div>Loading data...</div> : null}
-          {error || edrError ? <div>Error loading data</div> : null}
+          {loading || edrLoading ? <div style={{ textAlign: "center" }}>Loading data...</div> : null}
+          {error || edrError ? <div style={{ textAlign: "center" }}>Error loading data</div> : null}
           <EdrTable loaded={loaded} after={hourAgo} />
           {/* Table */}
         </TabPane>
