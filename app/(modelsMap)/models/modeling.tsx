@@ -111,12 +111,24 @@ export const TableChart = () => {
   } else if (catalogQuery.isLoading) {
     return <div style={{ textAlign: "center" }}>Loading catalog...</div>
   } else if (point) {
-    return <Alert color="warning">Layer needs to be selected to display info for point</Alert>
+    return (
+      <Alert color="warning" style={{ marginLeft: "10px" }}>
+        Layer needs to be selected to display info for point
+      </Alert>
+    )
   } else if (currentLayer.id) {
-    return <Alert color="warning">Point needs to be selected to display info for current layer</Alert>
+    return (
+      <Alert color="warning" style={{ marginLeft: "10px" }}>
+        Point needs to be selected to display info for current layer
+      </Alert>
+    )
   }
 
-  return <Alert color="warning">Select point on map and layer in the sidebar to see info</Alert>
+  return (
+    <Alert color="warning" style={{ marginLeft: "10px" }}>
+      Select point on map and layer in the sidebar to see info
+    </Alert>
+  )
 }
 
 function localWms(url: string) {
