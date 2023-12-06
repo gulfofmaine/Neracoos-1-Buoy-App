@@ -126,7 +126,7 @@ export const TableChart = () => {
 
   return (
     <Alert color="warning" style={{ marginLeft: "10px" }}>
-      Select point on map and layer in the sidebar to see info
+      Select a point on map and layers in the sidebar to see timeseries and comparisons.
     </Alert>
   )
 }
