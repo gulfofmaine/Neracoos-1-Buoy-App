@@ -21,7 +21,7 @@ export const StacCatalogRoot = () => {
   const catalogQuery = useRootCatalogQuery()
 
   if (catalogQuery.isLoading) {
-    return <div>Loading model catalog</div>
+    return <div style={{ height: "60vh" }}>Loading model catalog...</div>
   }
 
   if (catalogQuery.data) {
@@ -32,7 +32,7 @@ export const StacCatalogRoot = () => {
     )
   }
 
-  return <div>Error loading root catalog</div>
+  return <div style={{ height: "60vh" }}>Error loading root catalog</div>
 }
 
 const STACTraverseBase = ({ catalog }: { catalog: ICatalog }) => {
@@ -252,10 +252,13 @@ const StandardName = ({ standard_name, items }: { standard_name: string; items: 
         .map((value) => (value as object)["gmri-cube:attrs"].long_name),
     )
     .flat()[0]
+    .toLowerCase()
+
+  const displayName = long_name.charAt(0).toUpperCase() + long_name.slice(1)
 
   return (
     <AccordionItem>
-      <AccordionHeader targetId={standard_name}>{long_name}</AccordionHeader>
+      <AccordionHeader targetId={standard_name}>{displayName}</AccordionHeader>
       <AccordionBody accordionId={standard_name}>
         <ListGroup flush={true}>
           {items.map((item) => {
