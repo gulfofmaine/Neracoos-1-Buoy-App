@@ -22,4 +22,5 @@ export const paths = {
   },
   neracoos: "http://neracoos.org",
   models: "/models/",
+  waterLevel: "/water-level/",
 }
