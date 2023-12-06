@@ -31,6 +31,7 @@ export const ModelingPage = () => {
           style={{
             padding: "5px",
             border: "1px solid #0000002d",
+            borderRadius: "10px",
           }}
         >
           <StacCatalogRoot />
