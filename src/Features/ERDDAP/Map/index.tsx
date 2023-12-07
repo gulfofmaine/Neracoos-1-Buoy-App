@@ -28,6 +28,8 @@ export interface Props {
   platformId?: string
   // Height to adjust map to match sidebar
   height?: number | string
+  // Already filtered platforms
+  platforms?: PlatformFeature[]
 }
 
 interface BaseProps extends Props {
@@ -169,7 +171,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
+export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
   const { isLoading, data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
@@ -178,7 +180,7 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
   }, [])
 
   if (data?.features && isClient) {
-    return <ErddapMapBase platforms={data?.features} platformId={platformId} height={height} />
+    return <ErddapMapBase platforms={platforms ?? data?.features} platformId={platformId} height={height} />
   }
   return null
 }
