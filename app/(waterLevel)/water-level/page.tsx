@@ -1,8 +1,8 @@
 "use client"
 
-import { ErddapMap } from "Features/ERDDAP"
 import { usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
+import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevelMap"
 import { useEffect, useState } from "react"
 
 export default function WaterLevelIndexPage() {
@@ -16,9 +16,5 @@ export default function WaterLevelIndexPage() {
     setWaterLevelPlatforms(platforms)
   }, [data])
 
-  return (
-    <>
-      <ErddapMap platforms={waterLevelPlatforms} height={"60vh"} />
-    </>
-  )
+  return <>{waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}</>
 }
