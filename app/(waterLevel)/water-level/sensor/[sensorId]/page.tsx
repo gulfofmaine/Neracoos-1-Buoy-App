@@ -1,3 +1,10 @@
-export default function sensorIdPage() {
-  return <div>This is an individual sensor page</div>
+import { PlatformInfo } from "Pages/Platforms/platformInfo"
+
+export default function sensorIdPage({ params }) {
+  return (
+    <>
+      <PlatformInfo id={params.sensorId} />
+      {/* <ErddapWaterLevelMapBase platforms/> */}
+    </>
+  )
 }

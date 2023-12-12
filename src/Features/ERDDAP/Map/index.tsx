@@ -58,7 +58,7 @@ interface PlatformLayerProps {
 export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
   const path = usePathname()
-  const waterLevelSensorPage = path.includes("platform")
+  const waterLevelSensorPage = path.includes("water-level")
 
   let radius: number
   if (selected) {
@@ -69,7 +69,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   const opacity = selected ? "cc" : "7a"
 
   const url = urlPartReplacer(
-    waterLevelSensorPage ? paths.platforms.platform : paths.waterLevel.sensor,
+    waterLevelSensorPage ? paths.waterLevel.sensor : paths.platforms.platform,
     ":id",
     platform.id,
   )

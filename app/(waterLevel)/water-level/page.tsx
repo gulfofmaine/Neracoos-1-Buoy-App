@@ -3,7 +3,7 @@
 import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensorList"
 import { usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
-import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevelMap"
+import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { Col, Row } from "reactstrap"
 
 import React, { useEffect, useState } from "react"

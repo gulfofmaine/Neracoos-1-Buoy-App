@@ -5,6 +5,8 @@ import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
 import { BaseProps, PlatformLayer, View, filterPlatforms } from "../Map"
+import { usePlatforms } from "../hooks"
+import { PlatformFeature } from "../types"
 
 const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
@@ -65,4 +67,21 @@ export const ErddapWaterLevelMapBase: React.FC<BaseProps> = ({ platforms, platfo
       )}
     </RMap>
   )
+}
+
+export const ErddapWaterLevelMap = () => {
+  const { data, isLoading } = usePlatforms()
+  const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
+
+  useEffect(() => {
+    const platforms = data?.features.filter(
+      (p) => p.properties.attribution[0].attribution === "NOAA NOS Water Level Observation Network",
+    )
+    setWaterLevelPlatforms(platforms)
+  }, [data])
+
+  if (waterLevelPlatforms) {
+    return <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />
+  }
+  return null
 }
