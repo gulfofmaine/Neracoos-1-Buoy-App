@@ -4,6 +4,8 @@ import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensor
 import { usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
+import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
+
 import { Col, Row } from "reactstrap"
 
 import React, { useEffect, useState } from "react"
@@ -13,10 +15,10 @@ export default function WaterLevelIndexPage() {
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
 
   useEffect(() => {
-    const platforms = data?.features.filter(
-      (p) => p.properties.attribution[0].attribution === "NOAA NOS Water Level Observation Network",
-    )
-    setWaterLevelPlatforms(platforms)
+    if (data) {
+      const platforms = filterForSensors(data)
+      setWaterLevelPlatforms(platforms)
+    }
   }, [data])
 
   return (
