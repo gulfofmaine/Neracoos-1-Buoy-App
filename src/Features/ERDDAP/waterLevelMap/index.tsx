@@ -6,16 +6,13 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
 import { BaseProps, PlatformLayer, View, filterPlatforms } from "../Map"
 
-const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
+const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
 export const ErddapWaterLevelMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
-
-  // Check if the route was navigated to using the back button
-  // const isBackButtonUsed = router.asPath !== router.pathname;
 
   //If params change, set bounding box, then setView to align with map state
   //setView not in deps to avoid rerenders when user zooms
