@@ -111,20 +111,20 @@ export const TableChart = () => {
     return <div style={{ textAlign: "center" }}>Loading catalog...</div>
   } else if (point) {
     return (
-      <Alert color="warning" style={{ marginLeft: "10px" }}>
+      <Alert color="warning" style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
         Layer needs to be selected to display info for point
       </Alert>
     )
   } else if (currentLayer.id) {
     return (
-      <Alert color="warning" style={{ marginLeft: "10px" }}>
+      <Alert color="warning" style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
         Point needs to be selected to display info for current layer
       </Alert>
     )
   }
 
   return (
-    <Alert color="warning" style={{ marginLeft: "10px" }}>
+    <Alert color="warning" style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
       Select a point on map and layers in the sidebar to see timeseries and comparisons.
     </Alert>
   )

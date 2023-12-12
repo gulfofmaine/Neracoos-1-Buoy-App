@@ -10,7 +10,7 @@ import "../src/index.scss"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ margin: 0, overflow: "none" }}>
       <head>
         <link rel="stylesheet" href="https://openlayers.org/en/v5.2.0/css/ol.css" type="text/css" />
       </head>
