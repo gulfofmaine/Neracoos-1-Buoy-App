@@ -10,10 +10,14 @@ import { PlatformFeature } from "../types"
 
 const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
-export const ErddapWaterLevelMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
+interface Props extends BaseProps {
+  mapView: View
+}
+
+export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId, height, mapView }: Props) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
-  const [view, setView] = useState<View>(initial)
+  const [view, setView] = useState<View>(mapView ?? initial)
   const path = usePathname()
 
   //If params change, set bounding box, then setView to align with map state
