@@ -3,9 +3,11 @@ import { usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
+import { WaterLevelSensorSelector } from "Features/ERDDAP/waterLevel/sensorSelector"
+
 import { PlatformInfo } from "Pages/Platforms/platformInfo"
 import { fromLonLat } from "ol/proj"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 export default function SensorIdPage({ params }) {
   const { data, isLoading } = usePlatforms()
@@ -31,6 +33,7 @@ export default function SensorIdPage({ params }) {
           />
         </div>
       )}
+      <WaterLevelSensorSelector platforms={waterLevelPlatforms} />
     </div>
   )
 }
