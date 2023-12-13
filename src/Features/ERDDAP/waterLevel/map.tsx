@@ -11,7 +11,7 @@ import { PlatformFeature } from "../types"
 const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
 interface Props extends BaseProps {
-  mapView: View
+  mapView?: View
 }
 
 export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId, height, mapView }: Props) => {

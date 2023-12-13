@@ -7,7 +7,7 @@ import { PlatformInfo } from "Pages/Platforms/platformInfo"
 import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
 
-export default function sensorIdPage({ params }) {
+export default function SensorIdPage({ params }) {
   const { data, isLoading } = usePlatforms()
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
 
