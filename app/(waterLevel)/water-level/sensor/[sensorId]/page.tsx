@@ -8,6 +8,7 @@ import { WaterLevelSensorSelector } from "Features/ERDDAP/waterLevel/sensorSelec
 import { PlatformInfo } from "Pages/Platforms/platformInfo"
 import { fromLonLat } from "ol/proj"
 import React, { useEffect, useState } from "react"
+import { Col, Row } from "reactstrap"
 
 export default function SensorIdPage({ params }) {
   const { data, isLoading } = usePlatforms()
@@ -21,19 +22,25 @@ export default function SensorIdPage({ params }) {
   }, [data])
 
   return (
-    <div style={{ width: "30vw" }}>
-      <PlatformInfo id={params.sensorId} />
-      {waterLevelPlatforms && (
-        <div style={{ marginTop: "2vh" }}>
-          <ErddapWaterLevelMapBase
-            platforms={waterLevelPlatforms}
-            platformId={params.sensorId}
-            height={"30vh"}
-            mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
-          />
+    <Row>
+      <Col>
+        <div style={{ width: "30vw" }}>
+          <PlatformInfo id={decodeURIComponent(params.sensorId)} />
+          {waterLevelPlatforms && (
+            <div style={{ marginTop: "2vh" }}>
+              <ErddapWaterLevelMapBase
+                platforms={waterLevelPlatforms}
+                platformId={decodeURIComponent(params.sensorId)}
+                height={"30vh"}
+                mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
+              />
+            </div>
+          )}
         </div>
-      )}
-      <WaterLevelSensorSelector platforms={waterLevelPlatforms} />
-    </div>
+      </Col>
+      <Col>
+        <WaterLevelSensorSelector platforms={waterLevelPlatforms} />
+      </Col>
+    </Row>
   )
 }

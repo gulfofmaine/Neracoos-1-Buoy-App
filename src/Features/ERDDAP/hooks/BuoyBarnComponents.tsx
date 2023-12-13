@@ -89,7 +89,7 @@ export const UsePlatform: React.FunctionComponent<UsePlatformProps> = ({ childre
         return error
       }
 
-      return <Alert>Unable to load platform {platformId}.</Alert>
+      return <Alert>Unable to load platform information for {decodeURIComponent(platformId)}.</Alert>
     }}
   </UsePlatforms>
 )
