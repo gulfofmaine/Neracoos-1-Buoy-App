@@ -3,7 +3,16 @@
  * Single large time series chart component
  */
 import Highcharts from "highcharts"
-import { Chart, HighchartsChart, HighchartsProvider, SplineSeries, Tooltip, XAxis, YAxis } from "react-jsx-highcharts"
+import {
+  Chart,
+  HighchartsChart,
+  HighchartsProvider,
+  PlotBand,
+  SplineSeries,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "react-jsx-highcharts"
 
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
@@ -47,11 +56,30 @@ export function LargeTimeSeriesWaterLevelChart({ name, softMax, softMin, timeSer
   return (
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-        <Chart />
+        <Chart height={"500px"} />
 
         <XAxis type="datetime" />
 
         <YAxis softMin={softMin} softMax={softMax}>
+          <PlotBand
+            from={10.5}
+            to={11.5}
+            color={"#79A4FF50 "}
+            label={{ text: "Minor Flooding", style: { fontSize: "11px", color: "gray" } }}
+          />
+          <PlotBand
+            from={11.5}
+            to={12.5}
+            color={"#BE84FF50"}
+            label={{ text: "Moderate Flooding", style: { fontSize: "11px", color: "gray" } }}
+          />
+          <PlotBand
+            from={12.5}
+            to={13.5}
+            color={"#FF798B50"}
+            label={{ text: "Major Flooding", style: { fontSize: "11px", color: "gray" } }}
+          />
+
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries name={name} marker={{ enabled: false }} data={data} color={colors.coastalMeadow} />
         </YAxis>

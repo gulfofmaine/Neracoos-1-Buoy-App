@@ -18,13 +18,14 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   unitSystem,
 }: ChartTimeSeriesDisplayProps) => {
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
+  console.log("pineapple", bounds)
 
   return (
     <LargeTimeSeriesWaterLevelChart
       timeSeries={dataset.timeSeries}
       name={timeSeries.data_type.long_name}
-      softMin={bounds[0]}
-      softMax={bounds[1]}
+      softMin={-5}
+      softMax={14}
       unitSystem={unitSystem}
       data_type={standardName}
     />
