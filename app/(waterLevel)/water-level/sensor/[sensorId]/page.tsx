@@ -8,7 +8,7 @@ import { WaterLevelSensorSelector } from "Features/ERDDAP/waterLevel/sensorSelec
 
 import { PlatformInfo } from "Pages/Platforms/platformInfo"
 import { fromLonLat } from "ol/proj"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Col, Row } from "reactstrap"
 
 export default function SensorIdPage({ params }) {
@@ -32,8 +32,8 @@ export default function SensorIdPage({ params }) {
 
   return (
     <Row>
-      <Col>
-        <div style={{ width: "30vw" }}>
+      <Col style={{ width: "20vw" }}>
+        <div style={{ width: "100%" }}>
           <PlatformInfo id={decodeURIComponent(params.sensorId)} />
           {waterLevelPlatforms && (
             <div style={{ marginTop: "2vh" }}>

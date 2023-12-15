@@ -56,7 +56,7 @@ export function LargeTimeSeriesWaterLevelChart({ name, softMax, softMin, timeSer
   return (
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-        <Chart height={"500px"} />
+        <Chart height={"500px"} style={{ padding: "10px", border: "1px solid #d3d3d3" }} />
 
         <XAxis type="datetime" />
 
