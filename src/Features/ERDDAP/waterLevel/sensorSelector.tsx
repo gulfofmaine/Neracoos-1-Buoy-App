@@ -27,7 +27,7 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
 
   return (
     <Dropdown isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
-      <DropdownToggle color={"#FFFFFF"} caret={true} style={{ bgColor: "#000000" }}>
+      <DropdownToggle color={"#FFFFFF"} caret={true}>
         Sensors
       </DropdownToggle>
 

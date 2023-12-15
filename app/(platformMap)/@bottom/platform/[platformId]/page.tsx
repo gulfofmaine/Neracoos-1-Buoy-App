@@ -5,7 +5,7 @@ import { CurrentConditions } from "./current_conditions"
 export default function CurrentConditionsPage({ params: { platformId } }: { params: { platformId: string } }) {
   return (
     <DehydratedPlatforms>
-      <CurrentConditions platformId={platformId} />
+      <CurrentConditions platformId={decodeURIComponent(platformId)} />
     </DehydratedPlatforms>
   )
 }

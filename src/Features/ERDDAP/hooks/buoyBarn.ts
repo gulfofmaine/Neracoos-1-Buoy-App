@@ -112,3 +112,11 @@ export function useForecasts(lat: number, lon: number, forecasts: ForecastSource
     })),
   })
 }
+
+/**
+ * Get specific platform based on ID
+ * */
+
+export const usePlatform = (platforms, platformId) => {
+  return platforms.find((p) => (p.id as string) === platformId)
+}

@@ -1,15 +1,15 @@
 "use client"
 import Link from "next/link"
-import { usePathname, useParams } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu"
 import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata/Menu"
 import { ErddapMoreInfoDropdown } from "Features/ERDDAP/Platform/MoreInfoMenu/index"
+import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu"
 import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 
 export function PlatformTabs() {
@@ -21,7 +21,7 @@ export function PlatformTabs() {
   }
 
   return (
-    <UsePlatform platformId={platformId}>
+    <UsePlatform platformId={decodeURIComponent(platformId)}>
       {(platform_props) => (
         <React.Fragment>
           <Row style={{ paddingBottom: "1rem" }}>
