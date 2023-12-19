@@ -5,6 +5,7 @@
 const HOUR = 1000 * 60 * 60
 const HALF_DAY = HOUR * 12
 const DAY = HOUR * 24
+const THREE_DAYS = DAY * 3
 const WEEK = DAY * 7
 const YEAR = DAY * 365
 
@@ -84,6 +85,14 @@ export function aDayAgoRounded(): Date {
   roundDate(dayAgo)
 
   return dayAgo
+}
+
+export function threeDaysAgoRounded(): Date {
+  const threeDaysAgo = new Date(Date.now() - THREE_DAYS)
+
+  roundDate(threeDaysAgo)
+
+  return threeDaysAgo
 }
 
 /**

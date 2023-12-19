@@ -2,24 +2,24 @@
 /**
  * Load and display forecasts
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Point } from "@turf/helpers"
 import React from "react"
-import { Alert, Row, Col, Tooltip } from "reactstrap"
+import { Alert, Col, Row, Tooltip } from "reactstrap"
 
-import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
-import { colorCycle } from "Shared/colors"
-import { round } from "Shared/math"
-import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
-import { aDayAgoRounded } from "Shared/time"
-import { StyledTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
-import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
+import { UnitSystem } from "Features/Units/types"
+import { colorCycle } from "Shared/colors"
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
+import { round } from "Shared/math"
+import { aDayAgoRounded, threeDaysAgoRounded } from "Shared/time"
+import { ReadingTimeSeries, StyledTimeSeries } from "Shared/timeSeries"
+import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
 
+import { useUnitSystem } from "Features/Units"
 import { useDataset, useForecastMeta, useForecasts } from "../../../hooks"
 import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { useUnitSystem } from "Features/Units"
 
 interface Props {
   platform: PlatformFeature
@@ -77,7 +77,6 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
 
   if (dataset && timeSeries) {
     const aDayAgo = aDayAgoRounded()
-
     chartData.push({
       ...dataset,
       timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
@@ -88,18 +87,24 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     })
   }
 
-  forecastResults.forEach(({ result, meta }, index) => {
-    if (result?.data) {
-      chartData.push({
-        timeSeries: result.data as ReadingTimeSeries[],
-        name: meta.name + " - forecast",
-        unit: meta.units,
-        url: meta.source_url,
-        dashStyle: "Solid",
-        color: colorCycle[index + 1],
-      })
-    }
-  })
+  forecastResults
+    .filter((r) => {
+      if (r.result.data) {
+        return r.result.data[0].time > threeDaysAgoRounded()
+      }
+    })
+    .forEach(({ result, meta }, index) => {
+      if (result?.data) {
+        chartData.push({
+          timeSeries: result.data as ReadingTimeSeries[],
+          name: meta.name + " - forecast",
+          unit: meta.units,
+          url: meta.source_url,
+          dashStyle: "Solid",
+          color: colorCycle[index + 1],
+        })
+      }
+    })
 
   const unitSystem = useUnitSystem()
 
