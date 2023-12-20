@@ -27,7 +27,6 @@ interface Props {
  * @param platform Platform to display data for
  */
 export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = ({ platform }: Props) => {
-  console.log(platform)
   const unitSystem = useUnitSystem()
 
   const halfDayAgo = halfADayAgoRounded()
@@ -64,7 +63,6 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
           .flat()
           .map((r) => r.time.valueOf())
         times.sort()
-        console.log("in before times", datasets[0])
 
         const startTime = new Date(times[0])
         const endTime = new Date(times[times.length - 1])

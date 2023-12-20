@@ -1,10 +1,10 @@
 import { PlatformTimeSeries } from "Features/ERDDAP/types"
 import { UnitSystem } from "Features/Units/types"
-import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 
 interface ChartTimeSeriesDisplayProps {
+  forecasts: any
   dataset: DataTimeSeries
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
@@ -12,17 +12,16 @@ interface ChartTimeSeriesDisplayProps {
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
+  forecasts,
   timeSeries,
   dataset,
   standardName,
   unitSystem,
 }: ChartTimeSeriesDisplayProps) => {
-  const bounds = naturalBounds(timeSeries.data_type.standard_name)
-  console.log("pineapple", bounds)
-
   return (
     <LargeTimeSeriesWaterLevelChart
       timeSeries={dataset.timeSeries}
+      forecast={forecasts}
       name={timeSeries.data_type.long_name}
       softMin={-5}
       softMax={14}
