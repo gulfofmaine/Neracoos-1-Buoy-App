@@ -4,7 +4,6 @@ import { DataTimeSeries } from "Shared/timeSeries"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 
 interface ChartTimeSeriesDisplayProps {
-  forecasts: any
   dataset: DataTimeSeries
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
@@ -12,7 +11,6 @@ interface ChartTimeSeriesDisplayProps {
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
-  forecasts,
   timeSeries,
   dataset,
   standardName,
@@ -21,7 +19,6 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   return (
     <LargeTimeSeriesWaterLevelChart
       timeSeries={dataset.timeSeries}
-      forecast={forecasts}
       name={timeSeries.data_type.long_name}
       softMin={-5}
       softMax={14}

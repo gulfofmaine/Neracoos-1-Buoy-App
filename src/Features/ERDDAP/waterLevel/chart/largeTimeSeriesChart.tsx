@@ -40,21 +40,12 @@ interface Props {
   unitSystem: UnitSystem
   /** Data type to display */
   data_type: string
-  forecast: any
 }
 
 /**
  * Single large time series chart component
  */
-export function LargeTimeSeriesWaterLevelChart({
-  name,
-  softMax,
-  softMin,
-  timeSeries,
-  data_type,
-  unitSystem,
-  forecast,
-}: Props) {
+export function LargeTimeSeriesWaterLevelChart({ name, softMax, softMin, timeSeries, data_type, unitSystem }: Props) {
   const dataConverter = converter(data_type)
 
   const data = timeSeries.map((r) => [

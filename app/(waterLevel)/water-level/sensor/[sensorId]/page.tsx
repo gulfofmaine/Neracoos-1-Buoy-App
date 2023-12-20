@@ -1,20 +1,19 @@
 "use client"
-import { usePlatform, usePlatforms } from "Features/ERDDAP/hooks"
+import { usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
-import { WaterLevelObservationBase } from "Features/ERDDAP/waterLevel/observationBase"
-import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
-import { WaterLevelSensorSelector } from "Features/ERDDAP/waterLevel/sensorSelector"
+import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
 
+import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
 import { PlatformInfo } from "Pages/Platforms/platformInfo"
+
 import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
 import { Col, Row } from "reactstrap"
 
 export default function SensorIdPage({ params }) {
-  const { data, isLoading } = usePlatforms()
+  const { data } = usePlatforms()
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
-  const [sensor, setSensor] = useState<PlatformFeature>()
 
   useEffect(() => {
     if (data) {
@@ -22,13 +21,6 @@ export default function SensorIdPage({ params }) {
       setWaterLevelPlatforms(platforms)
     }
   }, [data])
-
-  useEffect(() => {
-    if (data) {
-      const foundSensor = usePlatform(data.features, decodeURIComponent(params.sensorId))
-      setSensor(foundSensor)
-    }
-  }, [params, data])
 
   return (
     <Row>
@@ -48,8 +40,13 @@ export default function SensorIdPage({ params }) {
         </div>
       </Col>
       <Col>
-        <WaterLevelSensorSelector platforms={waterLevelPlatforms} />
-        {sensor && <WaterLevelObservationBase platform={sensor} />}
+        {data && (
+          <WaterLevelObservationContent
+            sensorId={decodeURIComponent(params.sensorId)}
+            platforms={waterLevelPlatforms}
+            allPlatforms={data.features}
+          />
+        )}
       </Col>
     </Row>
   )
