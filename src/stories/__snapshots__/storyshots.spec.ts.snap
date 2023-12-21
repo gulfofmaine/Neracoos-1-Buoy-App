@@ -75,6 +75,15 @@ exports[`Storyshots App/Error Page Five Hundred Page 1`] = `
 exports[`Storyshots Components/Footer Footer 1`] = `
 <div
   className="footer"
+  style={
+    {
+      "bottom": 0,
+      "height": "110px",
+      "paddingBottom": "10px",
+      "position": "absolute",
+      "width": "100%",
+    }
+  }
 >
   <div
     className="row"
@@ -296,6 +305,19 @@ exports[`Storyshots Components/NavBar Nav Bar 1`] = `
               onTouchStart={[Function]}
             >
               Model Viewer
+            </a>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <a
+              className="nav-link"
+              href="/water-level"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onTouchStart={[Function]}
+            >
+              Water Level
             </a>
           </li>
           <li
