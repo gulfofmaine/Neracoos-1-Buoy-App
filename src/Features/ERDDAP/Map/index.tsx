@@ -21,7 +21,6 @@ import { aDayAgoRounded } from "Shared/time"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
-import { useDecodedUrl } from "util/hooks"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -130,7 +129,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   //setView not in deps to avoid rerenders when user zooms
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
-      const regionId = useDecodedUrl(params.regionId)
+      const regionId = decodeURIComponent(params.regionId)
       const region = regionList.find((r) => r.slug === regionId)
       getView(region)
     }

@@ -4,7 +4,6 @@ import { useParams, usePathname } from "next/navigation"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
-import { useDecodedUrl } from "util/hooks"
 import { BaseProps, PlatformLayer, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
@@ -25,7 +24,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   //setView not in deps to avoid rerenders when user zooms
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
-      const regionId = useDecodedUrl(params.regionId)
+      const regionId = decodeURIComponent(params.regionId)
       const region = regionList.find((r) => r.slug === regionId)
       getView(region)
     }
