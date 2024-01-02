@@ -10,10 +10,12 @@ import { PlatformInfo } from "Pages/Platforms/platformInfo"
 import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
 import { Col, Row } from "reactstrap"
+import { useDecodedUrl } from "util/hooks"
 
 export default function SensorIdPage({ params }) {
   const { data } = usePlatforms()
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
+  const id = useDecodedUrl(params.sensorId)
 
   useEffect(() => {
     if (data) {
@@ -26,12 +28,12 @@ export default function SensorIdPage({ params }) {
     <Row>
       <Col style={{ width: "20vw" }}>
         <div style={{ width: "100%" }}>
-          <PlatformInfo id={decodeURIComponent(params.sensorId)} />
+          <PlatformInfo id={id} />
           {waterLevelPlatforms && (
             <div style={{ marginTop: "2vh" }}>
               <ErddapWaterLevelMapBase
                 platforms={waterLevelPlatforms}
-                platformId={decodeURIComponent(params.sensorId)}
+                platformId={id}
                 height={"30vh"}
                 mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
               />
@@ -41,11 +43,7 @@ export default function SensorIdPage({ params }) {
       </Col>
       <Col>
         {data && (
-          <WaterLevelObservationContent
-            sensorId={decodeURIComponent(params.sensorId)}
-            platforms={waterLevelPlatforms}
-            allPlatforms={data.features}
-          />
+          <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
         )}
       </Col>
     </Row>

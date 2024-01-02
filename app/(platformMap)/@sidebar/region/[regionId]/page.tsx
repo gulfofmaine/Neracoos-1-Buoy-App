@@ -4,9 +4,10 @@ import { regionList } from "Shared/constants"
 import { Region } from "Shared/regions"
 
 import { RegionList } from "./region"
+import { useDecodedUrl } from "util/hooks"
 
 export default async function RegionSidebar({ params }: { params: { regionId: string } }) {
-  const regionId = decodeURIComponent(params.regionId)
+  const regionId = useDecodedUrl(params.regionId)
 
   let region: Region | undefined = regionList.find((r) => r.slug === regionId)
 

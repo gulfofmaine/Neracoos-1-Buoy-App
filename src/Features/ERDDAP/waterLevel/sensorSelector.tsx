@@ -3,11 +3,13 @@ import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownMenu, DropdownToggle, NavLink, Row } from "reactstrap"
+import { useDecodedUrl } from "util/hooks"
 
 export const WaterLevelSensorSelector = ({ platforms }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
+  const sensorId = useDecodedUrl(params.sensorId as string)
 
   const close = () => {
     setIsOpen(false)
@@ -39,7 +41,7 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
           <DropdownToggle color={"#FFFFFF"} caret={true}>
-            {decodeURIComponent(params.sensorId as string)}
+            {sensorId}
           </DropdownToggle>
           {sensorOptions && (
             <DropdownMenu end={true} style={{ padding: "5px" }}>
