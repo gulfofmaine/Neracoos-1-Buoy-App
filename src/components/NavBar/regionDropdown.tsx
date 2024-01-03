@@ -1,6 +1,6 @@
 "use client"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import * as React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
@@ -8,7 +8,15 @@ import { paths } from "Shared/constants"
 import { regionList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
-const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void }) => {
+export const NavLink = ({
+  href,
+  children,
+  onClick,
+}: {
+  href: string
+  children: React.ReactNode
+  onClick: () => void
+}) => {
   const pathname = usePathname()
 
   const isActive = pathname.startsWith(href)

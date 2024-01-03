@@ -107,6 +107,17 @@ export function aWeekAgoRounded(): Date {
 }
 
 /**
+ * Get a date that is a month previous
+ */
+export function fourWeeksAgoRounded(): Date {
+  const fourWeeks = new Date(Date.now() - WEEK * 4)
+
+  roundDate(fourWeeks)
+
+  return fourWeeks
+}
+
+/**
  * Return a date that is rounded to a year previous
  * @returns A year previous
  */
@@ -116,4 +127,13 @@ export function aYearAgoRounded(): Date {
   roundDate(yearAgo)
 
   return yearAgo
+}
+
+export const timeframeOptions = {
+  halfDay: { label: "6 hours ago", function: halfADayAgoRounded() },
+  day: { label: "24 hours ago", function: aDayAgoRounded() },
+  threeDays: { label: "3 days ago", function: threeDaysAgoRounded() },
+  week: { label: "1 week ago", function: aWeekAgoRounded() },
+  fourWeeks: { label: "4 weeks ago", function: fourWeeksAgoRounded() },
+  year: { label: " 1 year ago", function: aYearAgoRounded() },
 }

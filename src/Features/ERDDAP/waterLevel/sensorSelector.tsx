@@ -2,7 +2,7 @@ import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Col, Dropdown, DropdownMenu, DropdownToggle, NavLink, Row } from "reactstrap"
+import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 
 export const WaterLevelSensorSelector = ({ platforms }) => {
@@ -20,9 +20,9 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
       const options = platforms.map((p, index) => {
         const link = urlPartReplacer(paths.waterLevel.sensor, ":id", p.id as string)
         return (
-          <NavLink key={index} href={link} onClick={() => close()}>
+          <DropdownItem key={index} href={link} onClick={() => close()}>
             {p.id}
-          </NavLink>
+          </DropdownItem>
         )
       })
       setSensorOptions(options)

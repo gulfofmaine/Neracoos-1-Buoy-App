@@ -1,6 +1,5 @@
 import { WaterLevelChartDisplay } from "Features/ERDDAP/waterLevel/chart/chartDisplay"
 import { useUnitSystem } from "Features/Units"
-import { threeDaysAgoRounded } from "Shared/time"
 import { useEffect, useState } from "react"
 import { Alert } from "reactstrap"
 import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
@@ -8,13 +7,12 @@ import { UseDatasets } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 
-export const WaterLevelObservationBase = ({ platform }) => {
+export const WaterLevelObservationBase = ({ platform, timeframe }) => {
   const unitSystem = useUnitSystem()
-  const threeDaysAgo = threeDaysAgoRounded()
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
 
   useEffect(() => {
-    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, threeDaysAgo)
+    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, timeframe)
     setWaterLevel(waterLevelTimeseries)
   }, [platform])
 
@@ -36,7 +34,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
     <div style={{ width: "60vw" }}>
       {waterLevel ? (
         <>
-          <UseDatasets timeSeries={[waterLevel]} startTime={threeDaysAgo}>
+          <UseDatasets timeSeries={[waterLevel]} startTime={timeframe}>
             {({ datasets }) => {
               const times = datasets
                 .map((ds) => ds.timeSeries)
