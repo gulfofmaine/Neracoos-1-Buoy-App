@@ -1,8 +1,8 @@
 /**
  * Show more info about a platform
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Geometry } from "@turf/helpers"
 import React from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
@@ -37,25 +37,41 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
       </DropdownToggle>
 
       <DropdownMenu>
+        {platform.properties.links.map((link, index) => (
+          <a
+            className="dropdown-item nav-item"
+            style={{ display: "flex", alignItems: "center" }}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            role="menuitem"
+            key={`dynamic-link-#${index}`}
+          >
+            {link.title}
+            <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
+          </a>
+        ))}
         <a
           className="dropdown-item nav-item"
+          style={{ display: "flex", alignItems: "center" }}
           href={forecastUrl}
           target="_blank"
           rel="noopener noreferrer"
           role="menuitem"
         >
           Marine Forecast
-          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ marginLeft: ".5rem" }} />
+          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
         <a
           className="dropdown-item nav-item"
+          style={{ display: "flex", alignItems: "center" }}
           href="https://tidesandcurrents.noaa.gov/"
           target="_blank"
           rel="noopener noreferrer"
           role="menuitem"
         >
           Tides
-          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ marginLeft: ".5rem" }} />
+          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
       </DropdownMenu>
     </Dropdown>
