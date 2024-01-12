@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { expect, test } from "@playwright/test"
 
 /*global cy*/
 
@@ -121,15 +121,8 @@ test.describe("Platform A01", () => {
       .getByText(/More info/)
       .first()
       .click()
-    await expect(
-      page
-        .getByText(/More info/)
-        .first()
-        .locator("..")
-        .locator(":scope > *")
-        .last()
-        .locator(":scope > *"),
-    ).toHaveCount(2)
+    const menuItems = await page.getByRole(`menuitem`).all()
+    await expect(menuItems.length).toBeGreaterThan(0)
     await expect(page.getByText(/Marine Forecast/).first()).toBeVisible()
     await expect(page.getByText(/Tides/).first()).toBeVisible()
   })

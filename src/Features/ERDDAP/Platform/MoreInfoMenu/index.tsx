@@ -4,7 +4,7 @@
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Geometry } from "@turf/helpers"
-import React from "react"
+import { useEffect, useState } from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
@@ -19,13 +19,34 @@ type State = Readonly<typeof initialState>
  * Dropdown menu to more info about a platform
  */
 export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
-  const [state, setState] = React.useState<State>(initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [dynamicLinks, setDynamicLinks] = useState()
 
   const toggle = () => {
     setState((currentState) => ({
       dropdownOpen: !currentState.dropdownOpen,
     }))
   }
+
+  useEffect(() => {
+    if (platform) {
+      const links = platform.properties.links?.map((link, index) => (
+        <a
+          className="dropdown-item nav-item"
+          style={{ display: "flex", alignItems: "center" }}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          role="menuitem"
+          key={`dynamic-link-#${index}`}
+        >
+          {link.title}
+          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
+        </a>
+      ))
+      setDynamicLinks(links)
+    }
+  }, [platform])
 
   const { coordinates } = platform.geometry as Geometry
   const forecastUrl = `https://marine.weather.gov/MapClick.php?lon=${coordinates[0]}&lat=${coordinates[1]}`
@@ -37,20 +58,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
       </DropdownToggle>
 
       <DropdownMenu>
-        {platform.properties.links.map((link, index) => (
-          <a
-            className="dropdown-item nav-item"
-            style={{ display: "flex", alignItems: "center" }}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            role="menuitem"
-            key={`dynamic-link-#${index}`}
-          >
-            {link.title}
-            <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
-          </a>
-        ))}
+        {dynamicLinks}
         <a
           className="dropdown-item nav-item"
           style={{ display: "flex", alignItems: "center" }}
