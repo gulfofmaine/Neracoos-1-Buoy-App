@@ -1,17 +1,17 @@
 /**
  * Render prop components to standardize the loading of datasets
  */
-import * as React from "react"
 import { useQueries } from "@tanstack/react-query"
-import { Alert } from "reactstrap"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aWeekAgoRounded } from "Shared/time"
+import * as React from "react"
+import { Alert } from "reactstrap"
 
 import { DataTimeSeries } from "Shared/timeSeries"
-import { defaultQueryConfig } from "./hookConfig"
 import { PlatformTimeSeries } from "../types"
+import { defaultQueryConfig } from "./hookConfig"
 
-import { groupByServerDatasetConstraint, useDataset, getDatasetGroup } from "./tabledap"
+import { getDatasetGroup, groupByServerDatasetConstraint, useDataset } from "./tabledap"
 
 interface UseDatasetsProps {
   children: (props: UseDatasetsRenderProps) => JSX.Element

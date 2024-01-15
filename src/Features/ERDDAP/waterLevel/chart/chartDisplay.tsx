@@ -24,6 +24,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       softMax={14}
       unitSystem={unitSystem}
       data_type={standardName}
+      datumOffsets={timeSeries.datum_offsets}
+      floodLevels={timeSeries.flood_levels}
     />
   )
 }

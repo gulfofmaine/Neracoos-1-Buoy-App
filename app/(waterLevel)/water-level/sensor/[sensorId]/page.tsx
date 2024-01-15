@@ -19,6 +19,10 @@ export default function SensorIdPage({ params }) {
 
   useEffect(() => {
     if (data) {
+      data.features.forEach((feature) => {
+        if (feature.properties.readings[0]) {
+        }
+      })
       const platforms = filterForSensors(data)
       setWaterLevelPlatforms(platforms)
     }

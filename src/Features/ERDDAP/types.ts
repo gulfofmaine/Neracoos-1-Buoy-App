@@ -50,6 +50,8 @@ export interface PlatformTimeSeries {
   variable: string
   dataset: string
   start_time: string
+  flood_levels: FloodLevels[]
+  datum_offsets: DatumOffsets
   constraints: {
     [key: string]: string | number
   }
@@ -118,4 +120,19 @@ export interface DataType {
   short_name?: string
   long_name: string
   units: string
+}
+
+export interface FloodLevels {
+  name: string
+  min_value: number
+  description: string
+}
+
+export interface DatumOffsets {
+  datum_mhhw_meters?: Number
+  datum_mhw_meters?: Number
+  datum_mllw_meters?: Number
+  datum_mlw_meters?: Number
+  datum_msl_meters?: Number
+  datum_mtl_meters?: Number
 }
