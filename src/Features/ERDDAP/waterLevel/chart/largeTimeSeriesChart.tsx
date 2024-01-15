@@ -14,7 +14,7 @@ import {
   YAxis,
 } from "react-jsx-highcharts"
 
-import { DatumOffsets, FloodLevels } from "Features/ERDDAP/types"
+import { DatumOffsets, FloodLevels, FloodThreshold } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { colorCycle, colors } from "Shared/colors"
@@ -42,10 +42,10 @@ interface Props {
   unitSystem: UnitSystem
   /** Data type to display */
   data_type: string
-  /** Flood levels specific to sensor */
-  floodLevels: FloodLevels[]
-  /** Datum offsets specific to sensor */
-  datumOffsets: DatumOffsets
+  /** Flood thresholds specific to sensor */
+  floodThresholds: {
+    [key: string]: FloodThreshold
+  }
 }
 
 /**
@@ -58,31 +58,14 @@ export function LargeTimeSeriesWaterLevelChart({
   timeSeries,
   data_type,
   unitSystem,
-  floodLevels,
-  datumOffsets,
+  floodThresholds,
 }: Props) {
-  const [floodThresholds, setFloodThresholds] = useState<any>()
   const dataConverter = converter(data_type)
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2),
   ])
-
-  useEffect(() => {
-    if (floodLevels.length) {
-      const floodLevelsMap = floodLevels.reduce((acc, level, index) => {
-        if (!acc[level.name]) {
-          acc[level.name] =
-            level.name === "Major"
-              ? { minValue: level.min_value, maxValue: level.min_value + 1 }
-              : { minValue: level.min_value, maxValue: floodLevels[index - 1].min_value }
-        }
-        return acc
-      }, {})
-      setFloodThresholds(floodLevelsMap)
-    }
-  }, [floodLevels])
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>

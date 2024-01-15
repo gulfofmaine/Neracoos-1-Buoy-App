@@ -128,11 +128,16 @@ export interface FloodLevels {
   description: string
 }
 
+export interface FloodThreshold {
+  minValue: number
+  maxValue: number
+}
+
 export interface DatumOffsets {
-  datum_mhhw_meters?: Number
-  datum_mhw_meters?: Number
-  datum_mllw_meters?: Number
-  datum_mlw_meters?: Number
-  datum_msl_meters?: Number
-  datum_mtl_meters?: Number
+  datum_mhhw_meters?: number
+  datum_mhw_meters?: number
+  datum_mllw_meters?: number
+  datum_mlw_meters?: number
+  datum_msl_meters?: number
+  datum_mtl_meters?: number
 }
