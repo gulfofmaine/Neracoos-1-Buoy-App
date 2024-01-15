@@ -13,11 +13,11 @@ import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
-import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import { aDayAgoRounded } from "Shared/time"
+import { aDayAgoRounded, timeframeOptions } from "Shared/time"
+import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
@@ -59,6 +59,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   const router = useRouter()
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
+  const params = useParams()
 
   let radius: number
   if (selected) {
@@ -68,11 +69,9 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   }
   const opacity = selected ? "cc" : "7a"
 
-  const url = urlPartReplacer(
-    waterLevelSensorPage ? paths.waterLevel.sensor : paths.platforms.platform,
-    ":id",
-    platform.id,
-  )
+  const url = waterLevelSensorPage
+    ? `/water-level/sensor/${platform.id}/${timeframeOptions[2].label}/${params.datum}`
+    : urlPartReplacer(paths.platforms.platform, ":id", platform.id)
 
   const fillColor = old ? "grey" : `#cf5c00${opacity}`
   const strokeColor = old ? "grey" : colors.whatOrange
@@ -98,13 +97,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
         }, [router, url])}
       >
         <RPopup trigger={"hover"}>
-          <Button
-            color="dark"
-            size="sm"
-            onClick={useCallback(() => {
-              router.push(url)
-            }, [router, url])}
-          >
+          <Button color="dark" size="sm" href={url}>
             {platform.id}
           </Button>
         </RPopup>

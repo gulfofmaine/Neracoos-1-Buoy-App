@@ -4,13 +4,7 @@ import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "
 import { useDecodedUrl } from "util/hooks"
 import { DatumOffsets } from "../types"
 
-export const DatumSelector = ({
-  datumOffsets,
-  currentDatumOffset,
-}: {
-  datumOffsets: DatumOffsets
-  currentDatumOffset: string | undefined
-}) => {
+export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [datumOptions, setDatumOptions] = useState<any>()
   const params = useParams()
@@ -22,10 +16,13 @@ export const DatumSelector = ({
 
   useEffect(() => {
     if (datumOffsets) {
-      console.log("carrots", Object.keys(datumOffsets))
       const options = Object.keys(datumOffsets).map((d, index) => {
         return (
-          <DropdownItem key={`offset-${d}`} href={`/water-level/sensor/${sensorId}/${d}`} onClick={() => close()}>
+          <DropdownItem
+            key={`offset-${d}`}
+            href={`/water-level/sensor/${sensorId}/${params.timeframe}/${d}`}
+            onClick={() => close()}
+          >
             {d}
           </DropdownItem>
         )
@@ -35,9 +32,9 @@ export const DatumSelector = ({
   }, [datumOffsets])
 
   return (
-    <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px" }}>
+    <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px", marginTop: "20px" }}>
       <Col style={{ width: "85px", margin: 0 }}>
-        <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Station: </h6>
+        <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Datum: </h6>
       </Col>
       <Col style={{ margin: 0, padding: 0 }}>
         <Dropdown
@@ -46,7 +43,7 @@ export const DatumSelector = ({
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
           <DropdownToggle color={"#FFFFFF"} caret={true}>
-            {sensorId}
+            {decodeURIComponent(params.datum as string)}
           </DropdownToggle>
           {datumOptions && (
             <DropdownMenu end={true} style={{ padding: "5px" }}>

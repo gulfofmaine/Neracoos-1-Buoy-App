@@ -135,5 +135,4 @@ export const timeframeOptions = [
   { label: "3 days ago", function: threeDaysAgoRounded() },
   { label: "1 week ago", function: aWeekAgoRounded() },
   { label: "4 weeks ago", function: fourWeeksAgoRounded() },
-  { label: " 1 year ago", function: aYearAgoRounded() },
 ]

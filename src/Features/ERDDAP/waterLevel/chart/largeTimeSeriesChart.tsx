@@ -45,6 +45,7 @@ interface Props {
   floodThresholds: {
     [key: string]: FloodThreshold
   }
+  datumOffset: number
 }
 
 /**
@@ -58,13 +59,15 @@ export function LargeTimeSeriesWaterLevelChart({
   data_type,
   unitSystem,
   floodThresholds,
+  datumOffset,
 }: Props) {
   const dataConverter = converter(data_type)
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
-    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2),
+    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) + datumOffset,
   ])
+
   return (
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>

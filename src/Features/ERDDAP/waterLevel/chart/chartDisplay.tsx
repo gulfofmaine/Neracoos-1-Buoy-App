@@ -1,6 +1,7 @@
 import { PlatformTimeSeries } from "Features/ERDDAP/types"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
+import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
@@ -19,7 +20,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   unitSystem,
 }: ChartTimeSeriesDisplayProps) => {
   const [floodThresholds, setFloodThresholds] = useState<any>()
-  const [datumOffset, setDatumOffset] = useState<string>()
+  const [datumOffset, setDatumOffset] = useState<number>(0)
+  const params = useParams()
 
   useEffect(() => {
     if (timeSeries.flood_levels.length) {
@@ -27,18 +29,25 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         if (!acc[level.name]) {
           acc[level.name] =
             level.name === "Major"
-              ? { minValue: level.min_value, maxValue: level.min_value + 1 }
-              : { minValue: level.min_value, maxValue: timeSeries.flood_levels[index - 1].min_value }
+              ? { minValue: level.min_value + datumOffset, maxValue: level.min_value + 1 + datumOffset }
+              : {
+                  minValue: level.min_value + datumOffset,
+                  maxValue: timeSeries.flood_levels[index - 1].min_value + datumOffset,
+                }
         }
         return acc
       }, {})
       setFloodThresholds(floodLevelsMap)
     }
-    if (timeSeries.datum_offsets) {
-      const currentOffset = timeSeries.constraints["datum="] as string
-      setDatumOffset(Object.keys(timeSeries.datum_offsets).find((d) => d.includes(currentOffset.toLowerCase())))
+  }, [timeSeries, datumOffset])
+
+  useEffect(() => {
+    if (params.datum) {
+      const datum = decodeURIComponent(params.datum as string)
+      const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
+      setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
-  }, [timeSeries])
+  }, [params.datum])
 
   return (
     <div>
@@ -49,9 +58,10 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         softMax={14}
         unitSystem={unitSystem}
         data_type={standardName}
+        datumOffset={datumOffset}
         floodThresholds={floodThresholds}
       />
-      <DatumSelector datumOffsets={timeSeries.datum_offsets} currentDatumOffset={datumOffset} />
+      <DatumSelector datumOffsets={timeSeries.datum_offsets} />
     </div>
   )
 }

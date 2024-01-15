@@ -18,7 +18,7 @@ export const TimeframeSelector = ({ timeframe }) => {
     return (
       <DropdownItem
         key={index}
-        href={`/water-level/sensor/${params.sensorId}/${timeframeOptions[option].label}/datum`}
+        href={`/water-level/sensor/${params.sensorId}/${timeframeOptions[option].label}/${params.datum}`}
         onClick={() => handleTimeframeSelection(option)}
         style={{ cursor: "pointer" }}
       >
