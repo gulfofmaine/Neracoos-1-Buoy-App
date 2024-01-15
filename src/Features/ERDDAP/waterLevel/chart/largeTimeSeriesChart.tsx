@@ -14,14 +14,13 @@ import {
   YAxis,
 } from "react-jsx-highcharts"
 
-import { DatumOffsets, FloodLevels, FloodThreshold } from "Features/ERDDAP/types"
+import { FloodThreshold } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { colorCycle, colors } from "Shared/colors"
 import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"
-import { useEffect, useState } from "react"
 
 const plotOptions = {
   time: {
@@ -66,7 +65,6 @@ export function LargeTimeSeriesWaterLevelChart({
     r.time.valueOf(),
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2),
   ])
-
   return (
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>

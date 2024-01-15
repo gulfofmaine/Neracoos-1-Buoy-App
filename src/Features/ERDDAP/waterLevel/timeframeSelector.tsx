@@ -1,12 +1,13 @@
 import { timeframeOptions } from "Shared/time"
+import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 
-export const TimeframeSelector = ({ setTimeframe, timeframe }) => {
+export const TimeframeSelector = ({ timeframe }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const params = useParams()
 
   const handleTimeframeSelection = (option) => {
-    setTimeframe(timeframeOptions[option])
     setIsOpen(false)
   }
 
@@ -15,7 +16,12 @@ export const TimeframeSelector = ({ setTimeframe, timeframe }) => {
       return
     }
     return (
-      <DropdownItem key={index} onClick={() => handleTimeframeSelection(option)} style={{ cursor: "pointer" }}>
+      <DropdownItem
+        key={index}
+        href={`/water-level/sensor/${params.sensorId}/${timeframeOptions[option].label}/datum`}
+        onClick={() => handleTimeframeSelection(option)}
+        style={{ cursor: "pointer" }}
+      >
         {timeframeOptions[option].label}
       </DropdownItem>
     )
@@ -33,7 +39,7 @@ export const TimeframeSelector = ({ setTimeframe, timeframe }) => {
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
           <DropdownToggle color={"#FFFFFF"} caret={true}>
-            {timeframe.label}
+            {timeframe}
           </DropdownToggle>
           {options && <DropdownMenu end={true}>{options}</DropdownMenu>}
         </Dropdown>

@@ -1,6 +1,5 @@
 import { Feature } from "@turf/helpers"
-import { paths } from "Shared/constants"
-import { urlPartReplacer } from "Shared/urlParams"
+import { timeframeOptions } from "Shared/time"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListGroup } from "reactstrap"
@@ -33,7 +32,7 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: P
         sensors.map((s) => (
           <Link
             key={s.id}
-            href={urlPartReplacer(paths.waterLevel.sensor, ":id", s.id as string)}
+            href={`water-level/sensor/${s.id}/${timeframeOptions[2].label}/datum`}
             className="list-group-item list-group-item-action"
           >
             {s.id}

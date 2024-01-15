@@ -129,11 +129,11 @@ export function aYearAgoRounded(): Date {
   return yearAgo
 }
 
-export const timeframeOptions = {
-  halfDay: { label: "6 hours ago", function: halfADayAgoRounded() },
-  day: { label: "24 hours ago", function: aDayAgoRounded() },
-  threeDays: { label: "3 days ago", function: threeDaysAgoRounded() },
-  week: { label: "1 week ago", function: aWeekAgoRounded() },
-  fourWeeks: { label: "4 weeks ago", function: fourWeeksAgoRounded() },
-  year: { label: " 1 year ago", function: aYearAgoRounded() },
-}
+export const timeframeOptions = [
+  { label: "6 hours ago", function: halfADayAgoRounded() },
+  { label: "24 hours ago", function: aDayAgoRounded() },
+  { label: "3 days ago", function: threeDaysAgoRounded() },
+  { label: "1 week ago", function: aWeekAgoRounded() },
+  { label: "4 weeks ago", function: fourWeeksAgoRounded() },
+  { label: " 1 year ago", function: aYearAgoRounded() },
+]
