@@ -45,7 +45,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     if (params.datum) {
       const datum = decodeURIComponent(params.datum as string)
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
-      setDatumOffset(timeSeries.datum_offsets[offsetName])
+      offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
   }, [params.datum])
 

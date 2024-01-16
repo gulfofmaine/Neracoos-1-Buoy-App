@@ -28,6 +28,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12.8000001907349,
@@ -46,6 +48,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.59999990463257,
@@ -64,6 +68,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 270,
@@ -82,6 +88,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 23.8999996185303,
@@ -100,6 +108,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.59999990463257,
@@ -118,6 +128,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -166,6 +178,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1007,
@@ -184,6 +198,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12.3000001907349,
@@ -202,6 +218,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2,
@@ -220,6 +238,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -1.70000004768372,
@@ -238,6 +258,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.59999990463257,
@@ -256,6 +278,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 26.2999992370605,
@@ -274,6 +298,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -4,
@@ -292,6 +318,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -340,6 +368,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14.1000003814697,
@@ -358,6 +388,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.5,
@@ -376,6 +408,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 21,
@@ -394,6 +428,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -4,
@@ -412,6 +448,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -461,6 +499,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 95,
@@ -479,6 +519,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 15.3999996185303,
@@ -498,6 +540,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13,
@@ -517,6 +561,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.39999997615814,
@@ -535,6 +581,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -583,6 +631,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 310,
@@ -601,6 +651,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4,
@@ -619,6 +671,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13.6000003814697,
@@ -637,6 +691,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.600000023841858,
@@ -656,6 +712,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5,
@@ -674,6 +732,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 3.09999990463257,
@@ -692,6 +752,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7.19999980926514,
@@ -711,6 +773,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -2.59999990463257,
@@ -729,6 +793,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13,
@@ -748,6 +814,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 103,
@@ -766,6 +834,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1004.5,
@@ -785,6 +855,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 19.8999996185303,
@@ -804,6 +876,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 16.3999996185303,
@@ -823,6 +897,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -871,6 +947,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_met_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2999.3720703125,
@@ -889,6 +967,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_met_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7.09499979019165,
@@ -905,6 +985,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "E01_met_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.11100006103516,
@@ -921,6 +1003,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "E01_met_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.4083671569824,
@@ -940,6 +1024,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.5865707397461,
@@ -959,6 +1045,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.4281005859375,
@@ -978,6 +1066,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.990400016307831,
@@ -996,6 +1086,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_waves_mstrain_all",
           start_time: "2019-05-29T19:13:14Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.58270001411438,
@@ -1014,6 +1106,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_waves_mstrain_all",
           start_time: "2019-05-29T19:13:50Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 281.700012207031,
@@ -1030,6 +1124,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "E01_met_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 19.9444007873535,
@@ -1048,6 +1144,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_aanderaa_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 38.6580009460449,
@@ -1067,6 +1165,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 266.383209228516,
@@ -1085,6 +1185,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_aanderaa_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4,
@@ -1103,6 +1205,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_accelerometer_all",
           start_time: "2002-01-08T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1003.24731445312,
@@ -1121,6 +1225,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_met_all",
           start_time: "2001-07-09T12:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.9406394958496,
@@ -1140,6 +1246,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 36.4113998413086,
@@ -1159,6 +1267,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.3133850097656,
@@ -1178,6 +1288,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 38.0896987915039,
@@ -1196,6 +1308,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13.4460000991821,
@@ -1215,6 +1329,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12.8339996337891,
@@ -1234,6 +1350,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.4188423156738,
@@ -1253,6 +1371,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10.7512998580933,
@@ -1272,6 +1392,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "E01_sbe37_all",
           start_time: "2018-09-29T02:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -1358,6 +1480,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-05-23T17:14:27Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5.09999990463257,
@@ -1377,6 +1501,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-08-21T17:56:25Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 120,
@@ -1396,6 +1522,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-05-23T17:15:40Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13,
@@ -1415,6 +1543,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-05-23T17:15:24Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.39999997615814,
@@ -1434,6 +1564,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-05-23T17:14:56Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -1483,6 +1615,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 38.1357002258301,
@@ -1502,6 +1636,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.620599985122681,
@@ -1520,6 +1656,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_waves_mstrain_all",
           start_time: "2019-05-29T19:15:44Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.2595310211182,
@@ -1539,6 +1677,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.2566375732422,
@@ -1558,6 +1698,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.1930751800537,
@@ -1577,6 +1719,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 30.2813415527344,
@@ -1596,6 +1740,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 39.8199996948242,
@@ -1615,6 +1761,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.0648250579834,
@@ -1634,6 +1782,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 31.7215747833252,
@@ -1653,6 +1803,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 36.5200004577637,
@@ -1672,6 +1824,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_sbe37_all",
           start_time: "2001-07-08T00:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5.39599990844727,
@@ -1688,6 +1842,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "F01_met_all",
           start_time: "2000-07-10T19:00:02Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.8600001335144,
@@ -1704,6 +1860,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "F01_met_all",
           start_time: "2000-07-10T19:00:02Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 999.19775390625,
@@ -1722,6 +1880,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_met_all",
           start_time: "2000-07-10T19:00:02Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 322.100006103516,
@@ -1738,6 +1898,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "F01_met_all",
           start_time: "2000-07-10T19:00:02Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 19.9400005340576,
@@ -1756,6 +1918,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_met_all",
           start_time: "2000-07-10T19:00:02Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.419715642929077,
@@ -1774,6 +1938,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_accelerometer_all",
           start_time: "2002-01-08T17:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6,
@@ -1792,6 +1958,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "F01_accelerometer_all",
           start_time: "2002-01-08T17:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -1841,6 +2009,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe16_disox_all",
           start_time: "2019-05-29T19:06:36Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 31.7164306640625,
@@ -1860,6 +2030,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.74499797821045,
@@ -1878,6 +2050,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe16_disox_all",
           start_time: "2018-09-28T06:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.1159999370575,
@@ -1896,6 +2070,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_waves_mstrain_all",
           start_time: "2019-05-29T19:06:07Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 74.2200012207031,
@@ -1914,6 +2090,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_optode_all",
           start_time: "2008-10-01T15:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 23.2709121704102,
@@ -1933,6 +2111,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 15.7898998260498,
@@ -1951,6 +2131,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2008-10-01T15:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 15.7898998260498,
@@ -1970,6 +2152,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.24539041519165,
@@ -1988,6 +2172,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_accelerometer_all",
           start_time: "2002-03-09T00:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 30.4813995361328,
@@ -2007,6 +2193,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.9666233062744,
@@ -2026,6 +2214,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.74469375610352,
@@ -2044,6 +2234,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_optode_all",
           start_time: "2008-10-01T15:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.94079804420471,
@@ -2062,6 +2254,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe16_disox_all",
           start_time: "2018-09-28T06:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 31.5807323455811,
@@ -2081,6 +2275,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 40.0124015808105,
@@ -2100,6 +2296,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe37_all",
           start_time: "2001-07-10T04:34:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 43.5996894836426,
@@ -2118,6 +2316,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe16_disox_all",
           start_time: "2018-09-28T06:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 20.5499992370605,
@@ -2136,6 +2336,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_met_all",
           start_time: "2001-07-10T03:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4.92199993133545,
@@ -2152,6 +2354,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "A01_met_all",
           start_time: "2001-07-10T03:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 33.4486999511719,
@@ -2170,6 +2374,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_sbe16_disox_all",
           start_time: "2018-09-28T06:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 297.299987792969,
@@ -2186,6 +2392,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "A01_met_all",
           start_time: "2001-07-10T03:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2923.68310546875,
@@ -2204,6 +2412,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_met_all",
           start_time: "2001-07-10T03:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5.0059118270874,
@@ -2222,6 +2432,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_optode_all",
           start_time: "2008-10-01T15:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1003.22497558594,
@@ -2240,6 +2452,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_met_all",
           start_time: "2001-07-10T03:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.66400003433228,
@@ -2256,6 +2470,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "A01_met_all",
           start_time: "2001-07-10T03:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10,
@@ -2274,6 +2490,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "A01_accelerometer_all",
           start_time: "2002-03-09T00:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -2323,6 +2541,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -0.800000011920929,
@@ -2341,6 +2561,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1009,
@@ -2359,6 +2581,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4,
@@ -2377,6 +2601,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.90000009536743,
@@ -2395,6 +2621,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 16,
@@ -2413,6 +2641,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4.69999980926514,
@@ -2432,6 +2662,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 8,
@@ -2450,6 +2682,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10,
@@ -2468,6 +2702,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.29999995231628,
@@ -2487,6 +2723,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6,
@@ -2506,6 +2744,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 241,
@@ -2525,6 +2765,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 240,
@@ -2543,6 +2785,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 19.2999992370605,
@@ -2562,6 +2806,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -2646,6 +2892,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 22,
@@ -2665,6 +2913,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 3.09999990463257,
@@ -2683,6 +2933,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 320,
@@ -2701,6 +2953,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -2.40000009536743,
@@ -2719,6 +2973,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.699999988079071,
@@ -2738,6 +2994,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12,
@@ -2757,6 +3015,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 999.200012207031,
@@ -2776,6 +3036,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -2859,6 +3121,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_WLIS_MET",
           start_time: "2019-12-30T00:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1024.07434082031,
@@ -2875,6 +3139,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_WLIS_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13.3100004196167,
@@ -2891,6 +3157,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_WLIS_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.555139541626,
@@ -2907,6 +3175,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_WLIS_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 11.6999998092651,
@@ -2923,6 +3193,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_WLIS_MET",
           start_time: "2019-12-30T00:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 306.399993896484,
@@ -2939,6 +3211,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_WLIS_MET",
           start_time: "2019-12-30T00:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -3060,6 +3334,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5,
@@ -3078,6 +3354,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 70,
@@ -3096,6 +3374,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.29999995231628,
@@ -3114,6 +3394,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.59999990463257,
@@ -3132,6 +3414,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13,
@@ -3150,6 +3434,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 3.09999990463257,
@@ -3168,6 +3454,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 220,
@@ -3186,6 +3474,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7.19999980926514,
@@ -3204,6 +3494,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1005.70001220703,
@@ -3222,6 +3514,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 11.8000001907349,
@@ -3240,6 +3534,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -0.400000005960464,
@@ -3258,6 +3554,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4,
@@ -3276,6 +3574,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -3359,6 +3659,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_EXRX_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1007.03741455078,
@@ -3375,6 +3677,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_EXRX_MET",
           start_time: "2020-01-03T18:29:27Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14.6300001144409,
@@ -3391,6 +3695,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_EXRX_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 11.3800001144409,
@@ -3407,6 +3713,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_EXRX_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 25.1474456787109,
@@ -3423,6 +3731,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_EXRX_MET",
           start_time: "2020-01-03T18:29:27Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 20.2900009155273,
@@ -3439,6 +3749,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UCONN_EXRX_MET",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -3488,6 +3800,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.2999992370605,
@@ -3507,6 +3821,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -3670,6 +3986,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1,
@@ -3688,6 +4006,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7,
@@ -3706,6 +4026,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7,
@@ -3724,6 +4046,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.09999990463257,
@@ -3742,6 +4066,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1000.20001220703,
@@ -3760,6 +4086,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 15.3999996185303,
@@ -3778,6 +4106,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 240,
@@ -3796,6 +4126,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 3.5,
@@ -3814,6 +4146,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 11.6999998092651,
@@ -3832,6 +4166,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -3881,6 +4217,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.5534210205078,
@@ -3900,6 +4238,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7.44999980926514,
@@ -3919,6 +4259,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 25.2324466705322,
@@ -3938,6 +4280,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 16.1900005340576,
@@ -3956,6 +4300,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_met_all",
           start_time: "2001-07-16T16:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 33.818000793457,
@@ -3975,6 +4321,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.67000007629395,
@@ -3993,6 +4341,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_waves_mstrain_all",
           start_time: "2019-05-29T19:19:19Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 25.711051940918,
@@ -4012,6 +4362,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.9096946716309,
@@ -4031,6 +4383,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 23.9673461914062,
@@ -4050,6 +4404,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.088436126709,
@@ -4069,6 +4425,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13.8599996566772,
@@ -4088,6 +4446,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 38.6679992675781,
@@ -4107,6 +4467,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2322.9775390625,
@@ -4125,6 +4487,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_met_all",
           start_time: "2001-07-16T16:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1002.48999023438,
@@ -4143,6 +4507,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_met_all",
           start_time: "2001-07-16T16:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 34.6559982299805,
@@ -4162,6 +4528,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_sbe37_all",
           start_time: "2001-07-16T15:35:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 290.853210449219,
@@ -4180,6 +4548,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_aanderaa_all",
           start_time: "2018-07-09T15:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 18.4778995513916,
@@ -4198,6 +4568,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_aanderaa_all",
           start_time: "2018-07-09T15:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.40522074699402,
@@ -4216,6 +4588,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_accelerometer_all",
           start_time: "2003-07-09T05:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10.6666669845581,
@@ -4234,6 +4608,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "M01_accelerometer_all",
           start_time: "2003-07-09T05:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -4282,6 +4658,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1001.90002441406,
@@ -4300,6 +4678,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10.8000001907349,
@@ -4318,6 +4698,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.800000011920929,
@@ -4336,6 +4718,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.90000009536743,
@@ -4354,6 +4738,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 230,
@@ -4372,6 +4758,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 11.3000001907349,
@@ -4390,6 +4778,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -4436,6 +4826,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "I01_met_all",
           start_time: "2018-09-29T18:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.368049621582,
@@ -4455,6 +4847,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1.50999999046326,
@@ -4473,6 +4867,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_waves_mstrain_all",
           start_time: "2019-05-29T19:17:36Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 27.1389999389648,
@@ -4492,6 +4888,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 25.623713,
@@ -4511,6 +4909,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: undefined,
@@ -4530,6 +4930,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2976.54516601562,
@@ -4548,6 +4950,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_met_all",
           start_time: "2018-09-29T18:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.324,
@@ -4567,6 +4971,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 21.8259811401367,
@@ -4586,6 +4992,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.574795,
@@ -4605,6 +5013,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_sbe37_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1001.86364746094,
@@ -4623,6 +5033,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_met_all",
           start_time: "2018-09-29T18:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.29699993133545,
@@ -4639,6 +5051,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "I01_met_all",
           start_time: "2018-09-29T18:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.810143172740936,
@@ -4657,6 +5071,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_accelerometer_all",
           start_time: "2002-01-06T17:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12.126914024353,
@@ -4675,6 +5091,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_aanderaa_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.5348,
@@ -4693,6 +5111,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_aanderaa_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14.0900001525879,
@@ -4711,6 +5131,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_met_all",
           start_time: "2018-09-29T18:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 239,
@@ -4727,6 +5149,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "I01_met_all",
           start_time: "2018-09-29T18:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14.0784,
@@ -4745,6 +5169,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_aanderaa_all",
           start_time: "2001-07-27T08:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5,
@@ -4763,6 +5189,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "I01_accelerometer_all",
           start_time: "2002-01-06T17:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -4809,6 +5237,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "ca_weather_44139",
           start_time: "2020-08-20T12:46:24Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14,
@@ -4825,6 +5255,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "ca_weather_44139",
           start_time: "2020-08-20T12:46:24Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 20,
@@ -4841,6 +5273,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "ca_weather_44139",
           start_time: "2020-08-20T12:46:24Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -4890,6 +5324,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-08-21T18:26:42Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 16.8999996185303,
@@ -4908,6 +5344,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-05-23T15:58:17Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.400000005960464,
@@ -4926,6 +5364,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2019-05-23T17:09:45Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -4981,6 +5421,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12,
@@ -4999,6 +5441,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -4.59999990463257,
@@ -5017,6 +5461,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: undefined,
@@ -5035,6 +5481,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 25,
@@ -5053,6 +5501,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1012.70001220703,
@@ -5072,6 +5522,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10.3000001907349,
@@ -5090,6 +5542,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7.19999980926514,
@@ -5108,6 +5562,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 310,
@@ -5126,6 +5582,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -5174,6 +5632,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.90000009536743,
@@ -5193,6 +5653,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.5,
@@ -5212,6 +5674,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 8,
@@ -5230,6 +5694,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10,
@@ -5248,6 +5714,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -5296,6 +5764,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "UNH_CML",
           start_time: "2020-08-20T12:08:04Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 8.11804485321045,
@@ -5314,6 +5784,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "UNH_CML",
           start_time: "2020-08-20T12:08:04Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 31.9048309326172,
@@ -5332,6 +5804,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "UNH_CML",
           start_time: "2020-08-20T12:08:04Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 15.0569677352905,
@@ -5350,6 +5824,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "UNH_CML",
           start_time: "2020-08-20T12:06:38Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -5398,6 +5874,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -3.70000004768372,
@@ -5416,6 +5894,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1004.29998779297,
@@ -5435,6 +5915,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.400000005960464,
@@ -5453,6 +5935,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 11.8000001907349,
@@ -5471,6 +5955,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10.8000001907349,
@@ -5489,6 +5975,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 9.30000019073486,
@@ -5507,6 +5995,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 10.1000003814697,
@@ -5525,6 +6015,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 290,
@@ -5543,6 +6035,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -5589,6 +6083,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "B01_met_all",
           start_time: "2018-10-01T15:30:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 38.5866012573242,
@@ -5608,6 +6104,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 9.02929973602295,
@@ -5627,6 +6125,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 31.8993816375732,
@@ -5646,6 +6146,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.9866161346436,
@@ -5665,6 +6167,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1003.59619140625,
@@ -5683,6 +6187,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_met_all",
           start_time: "2018-10-01T15:30:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.448358088731766,
@@ -5701,6 +6207,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_accelerometer_all",
           start_time: "2002-03-28T21:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 34.5878982543945,
@@ -5720,6 +6228,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 23.7952518463135,
@@ -5739,6 +6249,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 32.282527923584,
@@ -5758,6 +6270,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 6.58599996566772,
@@ -5774,6 +6288,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "B01_met_all",
           start_time: "2018-10-01T15:30:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13.9881000518799,
@@ -5793,6 +6309,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2,
@@ -5811,6 +6329,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_accelerometer_all",
           start_time: "2002-03-28T21:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2993.36499023438,
@@ -5827,6 +6347,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "B01_met_all",
           start_time: "2018-10-01T15:30:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 292.899993896484,
@@ -5843,6 +6365,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "B01_met_all",
           start_time: "2018-10-01T15:30:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4.82600021362305,
@@ -5859,6 +6383,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "B01_met_all",
           start_time: "2018-10-01T15:30:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 39.8890991210938,
@@ -5878,6 +6404,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "B01_sbe37_all",
           start_time: "2001-07-09T21:15:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -5927,6 +6455,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.09999990463257,
@@ -5945,6 +6475,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1,
@@ -5964,6 +6496,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.400000005960464,
@@ -5982,6 +6516,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 260,
@@ -6000,6 +6536,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 999.5,
@@ -6019,6 +6557,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 12.3999996185303,
@@ -6038,6 +6578,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 3.09999990463257,
@@ -6056,6 +6598,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.09999990463257,
@@ -6074,6 +6618,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -6123,6 +6669,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.5,
@@ -6142,6 +6690,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 3,
@@ -6161,6 +6711,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 242,
@@ -6179,6 +6731,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 17.7999992370605,
@@ -6198,6 +6752,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -6254,6 +6810,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 330,
@@ -6272,6 +6830,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -4.30000019073486,
@@ -6290,6 +6850,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.300000011920929,
@@ -6308,6 +6870,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5,
@@ -6326,6 +6890,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1003.90002441406,
@@ -6344,6 +6910,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: -1.29999995231628,
@@ -6362,6 +6930,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14.1999998092651,
@@ -6380,6 +6950,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.5,
@@ -6398,6 +6970,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 113,
@@ -6416,6 +6990,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.899999976158142,
@@ -6434,6 +7010,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7.69999980926514,
@@ -6452,6 +7030,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 5,
@@ -6470,6 +7050,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14,
@@ -6488,6 +7070,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -6536,6 +7120,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0,
@@ -6554,6 +7140,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 9.30000019073486,
@@ -6572,6 +7160,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4.69999980926514,
@@ -6590,6 +7180,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1008.29998779297,
@@ -6609,6 +7201,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 240,
@@ -6627,6 +7221,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 8.10000038146973,
@@ -6645,6 +7241,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -6694,6 +7292,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 4.59999990463257,
@@ -6712,6 +7312,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 14.1999998092651,
@@ -6731,6 +7333,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1004.70001220703,
@@ -6750,6 +7354,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.7999992370605,
@@ -6769,6 +7375,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:00:00Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -6817,6 +7425,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T16:42:58Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 13.3000001907349,
@@ -6836,6 +7446,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T16:43:01Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1001,
@@ -6855,6 +7467,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T16:43:47Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 8.80000019073486,
@@ -6873,6 +7487,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T16:42:57Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 21.7999992370605,
@@ -6892,6 +7508,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T16:42:55Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [],
@@ -6930,6 +7548,8 @@ export const platforms: PlatformFeature[] = [
           constraints: {},
           dataset: "UNH_WBD",
           start_time: "2020-08-25T21:17:25Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -6979,6 +7599,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T13:38:08Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1005.09997558594,
@@ -6998,6 +7620,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T13:38:09Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 24.6000003814697,
@@ -7017,6 +7641,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T13:38:07Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -7066,6 +7692,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T19:50:18Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.300000011920929,
@@ -7085,6 +7713,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T19:50:15Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 18.5,
@@ -7104,6 +7734,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T19:50:12Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 26.5,
@@ -7123,6 +7755,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T19:50:10Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -7172,6 +7806,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:08:43Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 26.5,
@@ -7191,6 +7827,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:08:03Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -7240,6 +7878,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:19:57Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1006.40002441406,
@@ -7259,6 +7899,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:22:43Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 0.899999976158142,
@@ -7278,6 +7920,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:22:35Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 15.1999998092651,
@@ -7297,6 +7941,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "1970-02-26T20:22:35Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -7346,6 +7992,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:06Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 2.20000004768372,
@@ -7365,6 +8013,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:06Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1009.40002441406,
@@ -7384,6 +8034,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:06Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 19.7000007629395,
@@ -7403,6 +8055,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:06Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 19,
@@ -7422,6 +8076,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:13Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 290,
@@ -7440,6 +8096,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:15Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 9,
@@ -7458,6 +8116,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:07:18Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -7507,6 +8167,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:00:51Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 17.7999992370605,
@@ -7526,6 +8188,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:00:52Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 280,
@@ -7544,6 +8208,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:00:54Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 8,
@@ -7562,6 +8228,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T18:56:23Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
@@ -7610,6 +8278,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:35:53Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 7,
@@ -7628,6 +8298,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:35:53Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 1008.5,
@@ -7647,6 +8319,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:35:53Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 21.3999996185303,
@@ -7666,6 +8340,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:35:56Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
         {
           value: 18.7000007629395,
@@ -7685,6 +8361,8 @@ export const platforms: PlatformFeature[] = [
           },
           dataset: "cwwcNDBCMet",
           start_time: "2016-09-16T19:35:58Z",
+          flood_levels: [],
+          datum_offsets: {},
         },
       ],
       attribution: [
