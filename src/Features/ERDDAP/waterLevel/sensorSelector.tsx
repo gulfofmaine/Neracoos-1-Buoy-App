@@ -1,5 +1,3 @@
-import { paths } from "Shared/constants"
-import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
@@ -18,7 +16,8 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
   useEffect(() => {
     if (platforms) {
       const options = platforms.map((p, index) => {
-        const link = urlPartReplacer(paths.waterLevel.sensor, ":id", p.id as string)
+        const link = `/water-level/sensor/${p.id as string}/${params.timeframe}/${params.datum}`
+        // urlPartReplacer(paths.waterLevel.sensor, ":id", p.id as string)
         return (
           <DropdownItem key={index} href={link} onClick={() => close()}>
             {p.id}
