@@ -1,4 +1,5 @@
 import { PlatformTimeSeries } from "Features/ERDDAP/types"
+import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { useParams } from "next/navigation"
@@ -20,26 +21,39 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   unitSystem,
 }: ChartTimeSeriesDisplayProps) => {
   const [floodThresholds, setFloodThresholds] = useState<any>()
-  const [datumOffset, setDatumOffset] = useState<number>(0)
+  const [datumOffset, setDatumOffset] = useState<number | undefined>()
+  const [title, setTitle] = useState<string>()
   const params = useParams()
+  const dataConverter = converter(standardName)
+
+  const getDefaultTitle = () => {
+    if (!Object.keys(timeSeries.datum_offsets).length) {
+      return timeSeries.data_type.long_name
+    }
+  }
 
   useEffect(() => {
     if (timeSeries.flood_levels.length) {
       const floodLevelsMap = timeSeries.flood_levels.reduce((acc, level, index) => {
-        if (!acc[level.name]) {
+        if (!acc[level.name] && typeof datumOffset === "number") {
           acc[level.name] =
             level.name === "Major"
-              ? { minValue: level.min_value + datumOffset, maxValue: level.min_value + 1 + datumOffset }
+              ? {
+                  minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
+                  maxValue: dataConverter.convertToNumber(level.min_value, unitSystem) + 1 + datumOffset,
+                }
               : {
-                  minValue: level.min_value + datumOffset,
-                  maxValue: timeSeries.flood_levels[index - 1].min_value + datumOffset,
+                  minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
+                  maxValue:
+                    dataConverter.convertToNumber(timeSeries.flood_levels[index - 1].min_value, unitSystem) +
+                    datumOffset,
                 }
         }
         return acc
       }, {})
       setFloodThresholds(floodLevelsMap)
     }
-  }, [timeSeries, datumOffset])
+  }, [timeSeries, datumOffset, unitSystem])
 
   useEffect(() => {
     if (params.datum) {
@@ -49,13 +63,23 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }, [params.datum])
 
+  useEffect(() => {
+    if (timeSeries) {
+      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(params.datum as string)
+        ? (params.datum as string)
+        : getDefaultTitle()
+      setTitle(graphTitle)
+    }
+  }, [timeSeries])
+
   return (
     <div>
+      <h4 style={{ width: "100%", textAlign: "center" }}>{title}</h4>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
         name={timeSeries.data_type.long_name}
         softMin={-5}
-        softMax={14}
+        softMax={{ English: 20, Metric: 10 }}
         unitSystem={unitSystem}
         data_type={standardName}
         datumOffset={datumOffset}

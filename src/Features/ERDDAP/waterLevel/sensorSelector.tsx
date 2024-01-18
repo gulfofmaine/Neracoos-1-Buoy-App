@@ -17,7 +17,6 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
     if (platforms) {
       const options = platforms.map((p, index) => {
         const link = `/water-level/sensor/${p.id as string}/${params.timeframe}/${params.datum}`
-        // urlPartReplacer(paths.waterLevel.sensor, ":id", p.id as string)
         return (
           <DropdownItem key={index} href={link} onClick={() => close()}>
             {p.id}

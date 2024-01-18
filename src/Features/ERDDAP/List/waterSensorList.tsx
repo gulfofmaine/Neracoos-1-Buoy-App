@@ -26,14 +26,14 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: P
     }
   }, [platforms])
 
-  //Station defaults to 3 day timeframe and msl datum
+  //Station defaults to 3 day timeframe and mllw datum
   return (
     <ListGroup>
       {sensors &&
         sensors.map((s) => (
           <Link
             key={s.id}
-            href={`water-level/sensor/${s.id}/${timeframeOptions[2].label}/datum_msl_meters`}
+            href={`water-level/sensor/${s.id}/${timeframeOptions[2].label}/datum_mllw_meters`}
             className="list-group-item list-group-item-action"
           >
             {s.id}

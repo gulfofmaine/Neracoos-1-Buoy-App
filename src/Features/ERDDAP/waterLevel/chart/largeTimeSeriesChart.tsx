@@ -36,7 +36,7 @@ interface Props {
   /** Soft minimum for Y axis */
   softMin: number | undefined
   /** Soft maximum for Y axis */
-  softMax: number | undefined
+  softMax: any
   /** Unit system to display in */
   unitSystem: UnitSystem
   /** Data type to display */
@@ -45,7 +45,7 @@ interface Props {
   floodThresholds: {
     [key: string]: FloodThreshold
   }
-  datumOffset: number
+  datumOffset: number | undefined
 }
 
 /**
@@ -65,7 +65,8 @@ export function LargeTimeSeriesWaterLevelChart({
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
-    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) + datumOffset,
+    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
+      (datumOffset ? datumOffset : 0),
   ])
 
   return (
@@ -75,32 +76,62 @@ export function LargeTimeSeriesWaterLevelChart({
 
         <XAxis type="datetime" />
 
-        <YAxis softMin={softMin} softMax={floodThresholds?.Major.maxValue}>
-          <PlotBand
-            from={floodThresholds?.Minor.minValue}
-            to={floodThresholds?.Minor.maxValue}
-            color={"#79A4FF50 "}
-            label={{ text: "Minor Flooding", style: { fontSize: "11px", color: "gray" } }}
-          />
-          <PlotBand
-            from={floodThresholds?.Moderate.minValue}
-            to={floodThresholds?.Moderate.maxValue}
-            color={"#BE84FF50"}
-            label={{ text: "Moderate Flooding", style: { fontSize: "11px", color: "gray" } }}
-          />
-          <PlotBand
-            from={floodThresholds?.Major.minValue}
-            to={floodThresholds?.Major.maxValue}
-            color={"#FF798B50"}
-            label={{ text: "Major Flooding", style: { fontSize: "11px", color: "gray" } }}
-          />
-          <PlotBand
-            from={floodThresholds?.Action.minValue}
-            to={floodThresholds?.Action.maxValue}
-            color={"#ffff6e50"}
-            label={{ text: "Action", style: { fontSize: "11px", color: "gray" } }}
-          />
-
+        <YAxis softMin={softMin} softMax={softMax[unitSystem]}>
+          {floodThresholds && (
+            <div>
+              <PlotBand
+                from={floodThresholds.Minor?.minValue}
+                to={floodThresholds.Minor?.maxValue}
+                color={"#79A4FF30 "}
+                label={{
+                  text: `Minor Flooding ${round(floodThresholds.Minor?.minValue, 1)} ${dataConverter.unitName(
+                    unitSystem,
+                  )}`,
+                  verticalAlign: "bottom",
+                  y: -3,
+                  style: { fontSize: "11px", color: "gray" },
+                }}
+              />
+              <PlotBand
+                from={floodThresholds.Moderate?.minValue}
+                to={floodThresholds.Moderate?.maxValue}
+                color={"#BE84FF30"}
+                label={{
+                  text: `Moderate Flooding ${round(floodThresholds.Moderate?.minValue, 1)} ${dataConverter.unitName(
+                    unitSystem,
+                  )}`,
+                  verticalAlign: "bottom",
+                  y: -3,
+                  style: { fontSize: "11px", color: "gray" },
+                }}
+              />
+              <PlotBand
+                from={floodThresholds.Major?.minValue}
+                to={softMax[unitSystem]}
+                color={"#FF798B30"}
+                acrossPanes={false}
+                label={{
+                  text: `Major Flooding: ${round(floodThresholds.Major?.minValue, 1)} ${dataConverter.unitName(
+                    unitSystem,
+                  )}`,
+                  verticalAlign: "bottom",
+                  y: -3,
+                  style: { fontSize: "11px", color: "gray" },
+                }}
+              />
+              <PlotBand
+                from={floodThresholds.Action?.minValue}
+                to={floodThresholds.Action?.maxValue}
+                color={"#ffff6e30"}
+                label={{
+                  text: `Action ${round(floodThresholds.Action?.minValue, 1)} ${dataConverter.unitName(unitSystem)}`,
+                  verticalAlign: "bottom",
+                  y: -3,
+                  style: { fontSize: "11px", color: "gray" },
+                }}
+              />
+            </div>
+          )}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries name={name} marker={{ enabled: false }} data={data} color={colors.coastalMeadow} />
         </YAxis>

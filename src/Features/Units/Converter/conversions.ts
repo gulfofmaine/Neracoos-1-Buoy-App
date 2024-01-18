@@ -93,4 +93,13 @@ export class DataTypeConversion {
         return this.english_unit_display ? this.english_unit_display : this.english_unit
     }
   }
+
+  public unitName(unitSystem: UnitSystem): string {
+    switch (unitSystem) {
+      case UnitSystem.metric:
+        return this.metric_unit
+      default:
+        return this.english_unit
+    }
+  }
 }

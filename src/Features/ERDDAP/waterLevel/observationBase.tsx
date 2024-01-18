@@ -44,7 +44,6 @@ export const WaterLevelObservationBase = ({ platform, timeframe }) => {
 
               const waterLevelData = datasets[0]
               const standardName = waterLevel.data_type.standard_name
-              console.log(waterLevel)
 
               return (
                 <div>
