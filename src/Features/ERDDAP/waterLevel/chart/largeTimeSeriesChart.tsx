@@ -62,12 +62,14 @@ export function LargeTimeSeriesWaterLevelChart({
   datumOffset,
 }: Props) {
   const dataConverter = converter(data_type)
+  console.log(floodThresholds)
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
       (datumOffset ? datumOffset : 0),
   ])
+  console.log("bananas", data)
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>
@@ -76,7 +78,11 @@ export function LargeTimeSeriesWaterLevelChart({
 
         <XAxis type="datetime" />
 
-        <YAxis softMin={softMin} softMax={softMax[unitSystem]}>
+        <YAxis
+          softMin={softMin}
+          softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax[unitSystem]}
+          endOnTick={false}
+        >
           {floodThresholds && (
             <div>
               <PlotBand
@@ -107,7 +113,7 @@ export function LargeTimeSeriesWaterLevelChart({
               />
               <PlotBand
                 from={floodThresholds.Major?.minValue}
-                to={softMax[unitSystem]}
+                to={floodThresholds?.Major?.minValue + 3}
                 color={"#FF798B30"}
                 acrossPanes={false}
                 label={{
