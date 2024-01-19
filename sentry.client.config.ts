@@ -3,6 +3,7 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs"
+import * as Spotlight from "@spotlightjs/spotlight"
 
 /**
  * Load our package.json so that we can access the version
@@ -12,7 +13,8 @@ import * as Sentry from "@sentry/nextjs"
 const packageJson = require("./package.json")
 
 Sentry.init({
-  dsn: "https://eab04522f42c4efab9d5bfe7d8594e9c@o181061.ingest.sentry.io/1270344",
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
+  spotlight: process.env.NODE_ENV === "development",
 
   release: `v${packageJson.version}`,
 
@@ -37,3 +39,7 @@ Sentry.init({
     }),
   ],
 })
+
+if (process.env.NODE_ENV === "development") {
+  Spotlight.init()
+}

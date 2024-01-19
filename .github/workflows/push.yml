@@ -294,6 +294,7 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
             NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+            NEXT_PUBLIC_SENTRY_DSN=${{ secrets.SENTRY_DSN_PROD }}
 
       - name: Make GitOps directory
         run: mkdir gitops
@@ -372,6 +373,7 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           build-args: |
             NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
+            NEXT_PUBLIC_SENTRY_DSN=${{ secrets.SENTRY_DSN_DEV }}
 
       - name: Make GitOps directory
         run: mkdir gitops

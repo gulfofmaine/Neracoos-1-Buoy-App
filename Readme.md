@@ -23,7 +23,12 @@ Once the Github Actions workflow completes for the tag, Argo CD will pick up the
 
 ## Exception Tracking
 
-We're tracking exceptions with Sentry.
+We're tracking exceptions with [Sentry.io](https://sentry.io/) and have [Spotlight](https://spotlightjs.com/) configured for development.
+
+Spotlight requires a sidecar to run to capture and redirect exceptions to the front end.
+It can be run with `make spotlight`.
+
+Sentry get's it's connection information from the `NEXT_PUBLIC_SENTRY_DSN` environment variable, which is included on build and in production.
 
 ## Documentation
 

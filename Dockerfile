@@ -3,6 +3,8 @@ FROM node:21.4.0-alpine@sha256:9bfaec4816d320226b1533abd5d22d6a888105ee502b82067
 
 # Install dependencies only when needed
 FROM base AS deps
+ARG NEXT_PUBLIC_SENTRY_DSN
+
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -19,6 +21,9 @@ COPY . .
 
 # Rebuild the source code only when needed
 FROM base AS builder
+
+ARG NEXT_PUBLIC_SENTRY_DSN
+
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -32,6 +37,9 @@ RUN yarn build
 
 # Production image, copy all the files and run next
 FROM base AS runner
+
+ARG NEXT_PUBLIC_SENTRY_DSN
+
 WORKDIR /app
 
 ENV NODE_ENV production

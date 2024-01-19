@@ -49,3 +49,14 @@ storybook:
 
 build-storybook:
 	docker compose run client yarn build-storybook
+
+spotlight-docker:
+	docker run --rm \
+    --pull always \
+    --name spotlight \
+    --detach \
+    -p 8969:8969/tcp \
+    ghcr.io/getsentry/spotlight:latest
+
+spotlight:
+	npx @spotlightjs/spotlight
