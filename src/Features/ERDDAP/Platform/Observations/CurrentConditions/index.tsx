@@ -79,7 +79,6 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
               ) {
                 return null
               }
-
               return (
                 <DataCardDisplay
                   key={index}
@@ -96,7 +95,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   )
 }
 
-function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
+export function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
   let filterTimeSeries: PlatformTimeSeries[] = []
 
   dataTypes.forEach((dataType) => {

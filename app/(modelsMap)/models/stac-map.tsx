@@ -36,7 +36,7 @@ export const StacMap = () => {
 
       <SelectedLayerWMS />
 
-      {point ? <SelectedPoint point={point} setPoint={setPoint} /> : null}
+      {/* {point ? <SelectedPoint point={point} setPoint={setPoint} /> : null} */}
     </RMap>
   )
 }
@@ -87,7 +87,7 @@ const SelectedPoint = ({
  * Load WMS layer if a STAC layer is selected
  * @returns WMS Layer if STAC Item is selected
  */
-const SelectedLayerWMS = () => {
+export const SelectedLayerWMS = () => {
   const [currentLayer, setLayer] = useLayer()
 
   if (currentLayer.id && currentLayer.vars.length > 0) {

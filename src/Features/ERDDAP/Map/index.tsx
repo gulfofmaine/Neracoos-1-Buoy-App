@@ -4,6 +4,7 @@ import "ol/ol.css"
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
 import { usePathname, useRouter } from "next/navigation"
+
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { Button } from "reactstrap"
@@ -12,11 +13,11 @@ import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
-import { urlPartReplacer } from "Shared/urlParams"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import { aDayAgoRounded } from "Shared/time"
+import { aDayAgoRounded, timeframeOptions } from "Shared/time"
+import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
@@ -28,14 +29,16 @@ export interface Props {
   platformId?: string
   // Height to adjust map to match sidebar
   height?: number | string
+  // Already filtered platforms
+  platforms?: PlatformFeature[]
 }
 
-interface BaseProps extends Props {
+export interface BaseProps extends Props {
   // Loaded platforms
   platforms: PlatformFeature[]
 }
 
-interface View {
+export interface View {
   center: number[]
   zoom: number
 }
@@ -52,8 +55,11 @@ interface PlatformLayerProps {
 }
 
 // Build a RLayers feature for each platform
-const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
+export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
+  const path = usePathname()
+  const waterLevelSensorPage = path.includes("water-level")
+  const params = useParams()
 
   let radius: number
   if (selected) {
@@ -63,7 +69,9 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
   }
   const opacity = selected ? "cc" : "7a"
 
-  const url = urlPartReplacer(paths.platforms.platform, ":id", platform.id)
+  const url = waterLevelSensorPage
+    ? `/water-level/sensor/${platform.id}/${timeframeOptions[2].label}/${params.datum}`
+    : urlPartReplacer(paths.platforms.platform, ":id", platform.id)
 
   const fillColor = old ? "grey" : `#cf5c00${opacity}`
   const strokeColor = old ? "grey" : colors.whatOrange
@@ -89,13 +97,7 @@ const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) 
         }, [router, url])}
       >
         <RPopup trigger={"hover"}>
-          <Button
-            color="dark"
-            size="sm"
-            onClick={useCallback(() => {
-              router.push(url)
-            }, [router, url])}
-          >
+          <Button color="dark" size="sm" href={url}>
             {platform.id}
           </Button>
         </RPopup>
@@ -112,6 +114,9 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
+
+  // Check if the route was navigated to using the back button
+  // const isBackButtonUsed = router.asPath !== router.pathname;
 
   //If params change, set bounding box, then setView to align with map state
   //setView not in deps to avoid rerenders when user zooms
@@ -169,7 +174,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
+export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
   const { isLoading, data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
@@ -178,7 +183,7 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
   }, [])
 
   if (data?.features && isClient) {
-    return <ErddapMapBase platforms={data?.features} platformId={platformId} height={height} />
+    return <ErddapMapBase platforms={platforms ?? data?.features} platformId={platformId} height={height} />
   }
   return null
 }
@@ -190,7 +195,7 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height }: Props) => {
  * @param platformId Currently selected platform
  * @returns old, filtered, and selected platform
  */
-function filterPlatforms(platforms: PlatformFeature[], platformId: string | undefined) {
+export function filterPlatforms(platforms: PlatformFeature[], platformId: string | undefined) {
   const aDayAgo = aDayAgoRounded()
 
   const oldPlatforms: PlatformFeature[] = []

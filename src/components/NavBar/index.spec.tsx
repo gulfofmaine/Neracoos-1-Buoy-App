@@ -34,6 +34,10 @@ describe("The NavBar should have our primary links", () => {
     expect(screen.getByText("Model Viewer"))
   })
 
+  it("Includes the Water Level page", () => {
+    expect(screen.getByText("Water Level"))
+  })
+
   it("Has our regions", () => {
     const ourRegions: string[] = [
       regions.Boston,

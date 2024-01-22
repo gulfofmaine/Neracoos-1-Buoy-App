@@ -47,6 +47,7 @@ test.describe("Platform A01", () => {
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
+    await page.locator("#Tooltip-0").dispatchEvent("mouseout")
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#Tooltip-0").dispatchEvent("mouseover")
     await expect(page.getByText(/Data access/).first()).toBeVisible()

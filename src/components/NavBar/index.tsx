@@ -65,6 +65,11 @@ const NeracoosNavBar = () => {
                 <NavLink href={paths.models}>Model Viewer</NavLink>
               </NavItem>
             )}
+            {!isProd && (
+              <NavItem>
+                <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
+              </NavItem>
+            )}
             <NavItem>
               <NavLink href={paths.about}>About</NavLink>
             </NavItem>

@@ -7,7 +7,16 @@ const textStyle = { fontSize: ".8rem", padding: ".25rem" }
 const colSize = 10
 
 export const Footer: React.FunctionComponent = () => (
-  <div className="footer">
+  <div
+    className="footer"
+    style={{
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      paddingBottom: "10px",
+      height: "110px",
+    }}
+  >
     <Row style={{ ...textStyle, paddingTop: "1rem" }}>
       <Col md={colSize} className="mx-auto text-center">
         Copyright © 2021 ~ NERACOOS

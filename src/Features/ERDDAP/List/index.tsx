@@ -4,8 +4,8 @@
 import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import { Feature } from "@turf/helpers"
-import * as React from "react"
 import Link from "next/link"
+import * as React from "react"
 import { ListGroup } from "reactstrap"
 
 import { paths } from "Shared/constants"

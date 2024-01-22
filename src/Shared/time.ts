@@ -5,6 +5,7 @@
 const HOUR = 1000 * 60 * 60
 const HALF_DAY = HOUR * 12
 const DAY = HOUR * 24
+const THREE_DAYS = DAY * 3
 const WEEK = DAY * 7
 const YEAR = DAY * 365
 
@@ -86,6 +87,14 @@ export function aDayAgoRounded(): Date {
   return dayAgo
 }
 
+export function threeDaysAgoRounded(): Date {
+  const threeDaysAgo = new Date(Date.now() - THREE_DAYS)
+
+  roundDate(threeDaysAgo)
+
+  return threeDaysAgo
+}
+
 /**
  * Get a date that is a week previous
  */
@@ -95,6 +104,17 @@ export function aWeekAgoRounded(): Date {
   roundDate(weekAgo)
 
   return weekAgo
+}
+
+/**
+ * Get a date that is a month previous
+ */
+export function fourWeeksAgoRounded(): Date {
+  const fourWeeks = new Date(Date.now() - WEEK * 4)
+
+  roundDate(fourWeeks)
+
+  return fourWeeks
 }
 
 /**
@@ -108,3 +128,11 @@ export function aYearAgoRounded(): Date {
 
   return yearAgo
 }
+
+export const timeframeOptions = [
+  { label: "6 hours ago", function: halfADayAgoRounded() },
+  { label: "24 hours ago", function: aDayAgoRounded() },
+  { label: "3 days ago", function: threeDaysAgoRounded() },
+  { label: "1 week ago", function: aWeekAgoRounded() },
+  { label: "4 weeks ago", function: fourWeeksAgoRounded() },
+]

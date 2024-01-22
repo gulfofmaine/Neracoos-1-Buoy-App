@@ -49,7 +49,7 @@ export default function Layout({
         </Col>
 
         <Col xs={{ size: "12", order: `${isPlatformView ? "2" : "1"}` }} md={{ size: "6", order: "1" }}>
-          <ErddapMap height={params.regionId ? "80vh" : height} width="100%" {...(isPlatformView && { platformId })} />
+          <ErddapMap height={params.regionId ? "80vh" : height} {...(isPlatformView && { platformId })} />
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
       </Row>
