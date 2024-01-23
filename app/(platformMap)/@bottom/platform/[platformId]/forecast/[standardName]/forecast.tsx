@@ -1,7 +1,7 @@
 "use client"
+import { Forecast } from "Features/ERDDAP/Platform/Forecasts/Page"
 import { UsePlatform } from "Features/ERDDAP/hooks"
 import { useUnitSystem } from "Features/Units"
-import { Forecast } from "Features/ERDDAP/Platform/Forecasts/Page"
 
 export function ForecastChart({ platformId, standardName }: { platformId: string; standardName: string }) {
   const unitSystem = useUnitSystem()
