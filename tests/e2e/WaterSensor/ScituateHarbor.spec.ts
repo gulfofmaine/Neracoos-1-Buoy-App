@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test"
 
-const platformUrl = "/water-level/sensor/Scituate%20Harbor/3%20days%20ago/datum_mhhw_meters"
+const platformUrl = "/water-level/sensor/Gloucester%20Harbor/3%20days%20ago/datum_mhhw_meters"
 
-test.describe("Sensor station at Scituate Harbor", () => {
+test.describe("Sensor station at Gloucester Harbor", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("link", { name: "Water Level" }).click()
-    await page.getByRole("link", { name: "Scituate Harbor" }).click()
-    await expect(await page.getByText(/Station Scituate Harbor/)).toBeVisible()
+    await page.getByRole("link", { name: "Gloucester Harbor" }).click()
+    await expect(await page.getByText(/Station Gloucester Harbor/)).toBeVisible()
   })
 
   test("Shows plaform status and real time information", async ({ page }) => {
@@ -24,17 +24,18 @@ test.describe("Sensor station at Scituate Harbor", () => {
 
   test("Shows station selector", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(await page.getByRole("button", { name: "Scituate Harbor" })).toBeVisible()
+    await expect(await page.getByRole("button", { name: "Gloucester Harbor" })).toBeVisible()
   })
 
   test("Shows platform waterlevel graph", async ({ page }) => {
     await page.goto(platformUrl)
+    await page.waitForLoadState("load")
     await expect(page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
   })
 
   test("Selects sensor from station selector", async ({ page }) => {
     await page.goto(platformUrl)
-    await page.getByRole("button", { name: "Scituate Harbor" }).click()
+    await page.getByRole("button", { name: "Gloucester Harbor" }).click()
     await expect(await page.getByRole("menuitem", { name: "Hampton Harbor" })).toBeVisible()
     await page.getByRole("menuitem", { name: "Hampton Harbor" }).click()
     await expect(await page.getByText(/Station Hampton Harbor/)).toBeVisible()
