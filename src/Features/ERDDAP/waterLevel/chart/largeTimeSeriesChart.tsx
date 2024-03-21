@@ -62,14 +62,12 @@ export function LargeTimeSeriesWaterLevelChart({
   datumOffset,
 }: Props) {
   const dataConverter = converter(data_type)
-  console.log(floodThresholds)
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
       (datumOffset ? datumOffset : 0),
   ])
-  console.log("bananas", data)
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>
