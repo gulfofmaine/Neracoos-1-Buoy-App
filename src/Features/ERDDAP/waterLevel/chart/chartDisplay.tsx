@@ -6,6 +6,7 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
+import { getDatumDisplayName } from "Shared/dataTypes"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -72,7 +73,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   useEffect(() => {
     if (timeSeries) {
       const graphTitle = Object.keys(timeSeries.datum_offsets).includes(params.datum as string)
-        ? (params.datum as string)
+        ? getDatumDisplayName(params.datum as string)
         : getDefaultTitle()
       setTitle(graphTitle)
     }
