@@ -16,7 +16,7 @@ import { defaultQueryConfig } from "./hookConfig"
 
 const FORBIDDEN = "Forbidden"
 
-export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
+export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date, endTime?: Date) => {
   return async () => {
     const url = urlBuilder([timeSeries], startTime)
 
@@ -69,7 +69,7 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): 
 }
 
 /** Fetch a single dataset given a time series */
-export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date) {
+export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date, endTime?: Date) {
   const [enabled, setEnabled] = useState<boolean>(true)
 
   startTime = startTime ?? aWeekAgoRounded()

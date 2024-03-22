@@ -45,7 +45,11 @@ interface Props {
   floodThresholds: {
     [key: string]: FloodThreshold
   }
+  predictedTidesTimeSeries: ReadingTimeSeries[]
+  predictedTidesName: string
   datumOffset: number | undefined
+  startTime: Date
+  endTime: Date
 }
 
 /**
@@ -60,10 +64,21 @@ export function LargeTimeSeriesWaterLevelChart({
   unitSystem,
   floodThresholds,
   datumOffset,
+  predictedTidesTimeSeries,
+  predictedTidesName,
+  startTime,
+  endTime,
 }: Props) {
   const dataConverter = converter(data_type)
+  console.log("endTime", endTime)
 
   const data = timeSeries.map((r) => [
+    r.time.valueOf(),
+    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
+      (datumOffset ? datumOffset : 0),
+  ])
+
+  const predictedTidesData = predictedTidesTimeSeries?.map((r) => [
     r.time.valueOf(),
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
       (datumOffset ? datumOffset : 0),
@@ -74,7 +89,7 @@ export function LargeTimeSeriesWaterLevelChart({
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart height={"600px"} style={{ padding: "10px", border: "1px solid #d3d3d3" }} />
 
-        <XAxis type="datetime" />
+        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
         <YAxis
           softMin={softMin}
@@ -138,6 +153,12 @@ export function LargeTimeSeriesWaterLevelChart({
           )}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries name={name} marker={{ enabled: false }} data={data} color={colors.coastalMeadow} />
+          <SplineSeries
+            name={predictedTidesName}
+            marker={{ enabled: false }}
+            data={predictedTidesData}
+            color={colors.buoyYellow}
+          />
         </YAxis>
 
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />

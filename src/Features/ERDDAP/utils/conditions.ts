@@ -36,6 +36,8 @@ export const conditions = {
     "sea_surface_elevation",
   ],
 
+  waterLevelPredicted: ["predicted_sea_water_level"],
+
   windSpeed: ["wind_speed"],
   windGust: ["wind_gust", "wind_speed_of_gust"],
   windDirection: ["wind_from_direction"],

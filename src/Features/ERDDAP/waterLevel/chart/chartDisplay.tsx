@@ -12,6 +12,9 @@ interface ChartTimeSeriesDisplayProps {
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   standardName: string
+  predictedTidesDataset: DataTimeSeries
+  startTime: Date
+  endTime: Date
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
@@ -19,6 +22,9 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   dataset,
   standardName,
   unitSystem,
+  predictedTidesDataset,
+  startTime,
+  endTime,
 }: ChartTimeSeriesDisplayProps) => {
   const [floodThresholds, setFloodThresholds] = useState<any>()
   const [datumOffset, setDatumOffset] = useState<number | undefined>()
@@ -77,6 +83,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       <h4 style={{ width: "100%", textAlign: "center" }}>{title}</h4>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
+        predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
+        predictedTidesName={predictedTidesDataset?.name}
         name={timeSeries.data_type.long_name}
         softMin={-5}
         softMax={{ English: 20, Metric: 10 }}
@@ -84,6 +92,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         data_type={standardName}
         datumOffset={datumOffset}
         floodThresholds={floodThresholds}
+        startTime={startTime}
+        endTime={endTime}
       />
       <DatumSelector datumOffsets={timeSeries.datum_offsets} />
     </div>
