@@ -198,3 +198,22 @@ export function naturalBounds(dataType: string): Array<number | undefined> {
 
   return [undefined, undefined]
 }
+
+const datumDisplayNames = {
+  datum_mllw_meters: "Mean Low Low Water",
+  datum_mlw_meters: "Mean Low Water",
+  datum_mhhw_meters: "Mean High High Water",
+  datum_mhw_meters: "Mean High Water",
+  datum_mtl_meters: "Mean Tide Level",
+  datum_msl_meters: "Mean Sea Level",
+}
+
+/** Return the display name for datum types
+ *
+ * @param datumName - name of Datum from BuoyBarn
+ * @returns displayName for graph
+ */
+
+export function getDatumDisplayName(datum) {
+  return datumDisplayNames[datum]
+}

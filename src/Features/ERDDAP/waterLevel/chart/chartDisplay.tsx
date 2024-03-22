@@ -6,12 +6,16 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
+import { getDatumDisplayName } from "Shared/dataTypes"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   standardName: string
+  predictedTidesDataset: DataTimeSeries | null
+  startTime: Date
+  endTime: Date
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
@@ -19,12 +23,16 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   dataset,
   standardName,
   unitSystem,
+  predictedTidesDataset,
+  startTime,
+  endTime,
 }: ChartTimeSeriesDisplayProps) => {
   const [floodThresholds, setFloodThresholds] = useState<any>()
   const [datumOffset, setDatumOffset] = useState<number | undefined>()
   const [title, setTitle] = useState<string>()
   const params = useParams()
   const dataConverter = converter(standardName)
+  const sensorId = decodeURIComponent(params.sensorId as string)
 
   const getDefaultTitle = () => {
     if (!Object.keys(timeSeries.datum_offsets).length) {
@@ -66,7 +74,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   useEffect(() => {
     if (timeSeries) {
       const graphTitle = Object.keys(timeSeries.datum_offsets).includes(params.datum as string)
-        ? (params.datum as string)
+        ? getDatumDisplayName(params.datum as string)
         : getDefaultTitle()
       setTitle(graphTitle)
     }
@@ -74,9 +82,11 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   return (
     <div>
-      <h4 style={{ width: "100%", textAlign: "center" }}>{title}</h4>
+      <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
+        predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
+        predictedTidesName={predictedTidesDataset?.name}
         name={timeSeries.data_type.long_name}
         softMin={-5}
         softMax={{ English: 20, Metric: 10 }}
@@ -84,6 +94,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         data_type={standardName}
         datumOffset={datumOffset}
         floodThresholds={floodThresholds}
+        startTime={startTime}
+        endTime={endTime}
       />
       <DatumSelector datumOffsets={timeSeries.datum_offsets} />
     </div>

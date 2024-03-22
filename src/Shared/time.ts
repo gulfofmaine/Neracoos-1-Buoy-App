@@ -129,10 +129,22 @@ export function aYearAgoRounded(): Date {
   return yearAgo
 }
 
+export function weeksInFuture(numberOfWeeks): Date {
+  const weekFromToday = new Date(Date.now() + WEEK * numberOfWeeks)
+
+  roundDate(weekFromToday)
+
+  return weekFromToday
+}
+
 export const timeframeOptions = [
-  { label: "6 hours ago", function: halfADayAgoRounded() },
   { label: "24 hours ago", function: aDayAgoRounded() },
   { label: "3 days ago", function: threeDaysAgoRounded() },
   { label: "1 week ago", function: aWeekAgoRounded() },
   { label: "4 weeks ago", function: fourWeeksAgoRounded() },
+]
+
+export const projectedTimeframeOptions = [
+  { label: "1 week from today", function: weeksInFuture(1) },
+  { label: "2 weeks from today", function: weeksInFuture(2) },
 ]

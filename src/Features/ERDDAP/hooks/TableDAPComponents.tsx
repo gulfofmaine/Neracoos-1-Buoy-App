@@ -17,6 +17,7 @@ interface UseDatasetsProps {
   children: (props: UseDatasetsRenderProps) => JSX.Element
   timeSeries: PlatformTimeSeries[]
   startTime?: Date
+  endTime?: Date
 }
 
 export interface UseDatasetsRenderProps {
@@ -36,7 +37,12 @@ interface UseQueryGroupResult {
  * @param timeSeries Multiple time series to load the dataset for
  * @param startTime Load dataset back to this date
  */
-export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({ children, timeSeries, startTime }) => {
+export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
+  children,
+  timeSeries,
+  startTime,
+  endTime,
+}) => {
   const fetchGroups = groupByServerDatasetConstraint(timeSeries)
 
   startTime = startTime ?? aWeekAgoRounded()
@@ -44,8 +50,8 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({ childre
   const results: UseQueryGroupResult[] | undefined = useQueries({
     queries: fetchGroups.map((group) => ({
       ...defaultQueryConfig,
-      queryKey: ["erddap-dataset", group.datasets, startTime],
-      queryFn: () => getDatasetGroup(group, startTime),
+      queryKey: ["erddap-dataset", group.datasets, startTime, endTime],
+      queryFn: () => getDatasetGroup(group, startTime, endTime),
     })),
   })
 

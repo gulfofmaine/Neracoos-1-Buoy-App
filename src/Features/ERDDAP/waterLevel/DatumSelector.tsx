@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Alert, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { DatumOffsets } from "../types"
+import { getDatumDisplayName } from "Shared/dataTypes"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,10 +21,10 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
         return (
           <DropdownItem
             key={`offset-${d}`}
-            href={`/water-level/sensor/${sensorId}/${params.timeframe}/${d}`}
+            href={`/water-level/sensor/${sensorId}/${params.timeframe}/${params.projectedTimeframe}/${d}`}
             onClick={() => close()}
           >
-            {d}
+            {getDatumDisplayName(d)}
           </DropdownItem>
         )
       })
@@ -45,7 +46,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
               style={{ border: "1px solid black", borderRadius: "7px" }}
             >
               <DropdownToggle color={"#FFFFFF"} caret={true}>
-                {decodeURIComponent(params.datum as string)}
+                {getDatumDisplayName(decodeURIComponent(params.datum as string))}
               </DropdownToggle>
 
               {datumOptions && (

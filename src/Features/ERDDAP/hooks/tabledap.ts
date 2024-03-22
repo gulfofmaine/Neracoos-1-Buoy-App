@@ -16,7 +16,7 @@ import { defaultQueryConfig } from "./hookConfig"
 
 const FORBIDDEN = "Forbidden"
 
-export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => {
+export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date, endTime?: Date) => {
   return async () => {
     const url = urlBuilder([timeSeries], startTime)
 
@@ -54,7 +54,7 @@ export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date) => 
 
 const erddapService = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoybarn.neracoos.org") as string
 
-export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): string {
+export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, endTime?: Date): string {
   startTime = startTime ?? aWeekAgoRounded()
 
   const constraints = {
@@ -69,7 +69,7 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date): 
 }
 
 /** Fetch a single dataset given a time series */
-export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date) {
+export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date, endTime?: Date) {
   const [enabled, setEnabled] = useState<boolean>(true)
 
   startTime = startTime ?? aWeekAgoRounded()
@@ -116,8 +116,8 @@ export function groupByServerDatasetConstraint(readings: PlatformTimeSeries[]): 
   return results
 }
 
-export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date) => {
-  const url = urlBuilder(fetchGroup.datasets, startTime)
+export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date, endTime?: Date) => {
+  const url = urlBuilder(fetchGroup.datasets, startTime, endTime)
 
   Sentry.addBreadcrumb({
     category: "ERDDAP TableDAP Grouped Dataset",

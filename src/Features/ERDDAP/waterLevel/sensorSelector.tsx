@@ -16,7 +16,9 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
   useEffect(() => {
     if (platforms) {
       const options = platforms.map((p, index) => {
-        const link = `/water-level/sensor/${p.id as string}/${params.timeframe}/${params.datum}`
+        const link = `/water-level/sensor/${p.id as string}/${params.timeframe}/${params.projectedTimeframe}/${
+          params.datum
+        }`
         return (
           <DropdownItem key={index} href={link} onClick={() => close()}>
             {p.id}

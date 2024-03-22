@@ -1,9 +1,9 @@
-import { timeframeOptions } from "Shared/time"
+import { projectedTimeframeOptions, timeframeOptions } from "Shared/time"
 import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 
-export const TimeframeSelector = ({ timeframe }) => {
+export const TimeframeSelector = ({ timeframe, projected, timeframeSelections }) => {
   const [isOpen, setIsOpen] = useState(false)
   const params = useParams()
 
@@ -11,18 +11,22 @@ export const TimeframeSelector = ({ timeframe }) => {
     setIsOpen(false)
   }
 
-  const options = Object.keys(timeframeOptions).map((option, index) => {
+  const options = Object.keys(timeframeSelections).map((option, index) => {
     if (option === "year") {
       return
     }
     return (
       <DropdownItem
         key={index}
-        href={`/water-level/sensor/${params.sensorId}/${timeframeOptions[option].label}/${params.datum}`}
+        href={`/water-level/sensor/${params.sensorId}/${
+          projected ? decodeURIComponent(params.timeframe as string) : timeframeSelections[option].label
+        }/${projected ? timeframeSelections[option].label : decodeURIComponent(params.projectedTimeframe as string)}/${
+          params.datum
+        }`}
         onClick={() => handleTimeframeSelection(option)}
         style={{ cursor: "pointer" }}
       >
-        {timeframeOptions[option].label}
+        {timeframeSelections[option].label}
       </DropdownItem>
     )
   })
