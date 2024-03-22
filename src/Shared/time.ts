@@ -138,7 +138,6 @@ export function weeksInFuture(numberOfWeeks): Date {
 }
 
 export const timeframeOptions = [
-  { label: "6 hours ago", function: halfADayAgoRounded() },
   { label: "24 hours ago", function: aDayAgoRounded() },
   { label: "3 days ago", function: threeDaysAgoRounded() },
   { label: "1 week ago", function: aWeekAgoRounded() },

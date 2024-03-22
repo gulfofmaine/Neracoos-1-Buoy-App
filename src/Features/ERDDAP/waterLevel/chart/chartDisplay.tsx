@@ -32,6 +32,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   const [title, setTitle] = useState<string>()
   const params = useParams()
   const dataConverter = converter(standardName)
+  const sensorId = decodeURIComponent(params.sensorId as string)
 
   const getDefaultTitle = () => {
     if (!Object.keys(timeSeries.datum_offsets).length) {
@@ -81,7 +82,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   return (
     <div>
-      <h4 style={{ width: "100%", textAlign: "center" }}>{title}</h4>
+      <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
