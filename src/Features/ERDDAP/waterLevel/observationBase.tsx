@@ -26,10 +26,15 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
 
   return (
     <div style={{ width: "60vw" }}>
-      {waterLevel && predictedTides ? (
+      {waterLevel ? (
         <>
-          <UseDatasets timeSeries={[waterLevel, predictedTides]} startTime={timeframe} endTime={projectedTimeframe}>
+          <UseDatasets
+            timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
+            startTime={timeframe}
+            endTime={projectedTimeframe}
+          >
             {({ datasets }) => {
+              console.log("testing", datasets)
               const times = datasets
                 .map((ds) => ds.timeSeries)
                 .flat()
@@ -40,7 +45,7 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
               const endTime = new Date(times[times.length - 1])
 
               const waterLevelData = datasets[0]
-              const predictedTidesDataset = datasets[1]
+              const predictedTidesDataset = predictedTides ? datasets[1] : null
               const standardName = waterLevel.data_type.standard_name
 
               return (

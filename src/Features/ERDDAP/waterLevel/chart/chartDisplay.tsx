@@ -13,7 +13,7 @@ interface ChartTimeSeriesDisplayProps {
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   standardName: string
-  predictedTidesDataset: DataTimeSeries
+  predictedTidesDataset: DataTimeSeries | null
   startTime: Date
   endTime: Date
 }
