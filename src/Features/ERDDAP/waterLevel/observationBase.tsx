@@ -11,6 +11,7 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
   const unitSystem = useUnitSystem()
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
+  console.log("future", projectedTimeframe)
 
   useEffect(() => {
     const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, timeframe)
@@ -23,25 +24,11 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
     setPredictedTides(predictedTidesTimeseries)
   }, [platform])
 
-  // const { data: forecastInfo } = useForecastMeta()
-  // const forecasts = (forecastInfo as ForecastSource[])?.filter((f) => {
-  //   return f.forecast_type.toLowerCase().replace(/ /g, "_") === "sea_water_level"
-  // })
-
-  // const point = platform.geometry as Point
-  // const [lon, lat] = point.coordinates
-
-  // const forecast = useForecasts(lat, lon, forecasts ?? [])
-  // const forecastResults = (forecasts || []).map((f, index) => ({
-  //   meta: f,
-  //   result: forecast[index],
-  // }))
-
   return (
     <div style={{ width: "60vw" }}>
       {waterLevel && predictedTides ? (
         <>
-          <UseDatasets timeSeries={[waterLevel, predictedTides]} startTime={timeframe}>
+          <UseDatasets timeSeries={[waterLevel, predictedTides]} startTime={timeframe} endTime={projectedTimeframe}>
             {({ datasets }) => {
               const times = datasets
                 .map((ds) => ds.timeSeries)
@@ -64,7 +51,6 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
                     predictedTidesDataset={predictedTidesDataset}
                     startTime={startTime}
                     endTime={endTime}
-                    // forecasts={forecastResults}
                   />
                 </div>
               )
