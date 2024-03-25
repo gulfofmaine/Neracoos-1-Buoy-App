@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query"
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"
-import { aWeekAgoRounded } from "Shared/time"
+import { aWeekAgoRounded, weeksInFuture } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformTimeSeries, FetchGroup } from "../types"
@@ -56,10 +56,12 @@ const erddapService = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoyba
 
 export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, endTime?: Date): string {
   startTime = startTime ?? aWeekAgoRounded()
+  endTime = endTime ?? weeksInFuture(1)
 
   const constraints = {
     ...timeSeries[0].constraints,
     "time>=": startTime.toISOString(),
+    "time<=": endTime.toISOString(),
   }
 
   const variables = timeSeries.map((ts) => ts.variable)

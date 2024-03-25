@@ -11,7 +11,6 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
   const unitSystem = useUnitSystem()
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
-  console.log("future", projectedTimeframe)
 
   useEffect(() => {
     const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, timeframe)
@@ -34,7 +33,6 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
             endTime={projectedTimeframe}
           >
             {({ datasets }) => {
-              console.log("testing", datasets)
               const times = datasets
                 .map((ds) => ds.timeSeries)
                 .flat()

@@ -38,11 +38,11 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
         timeframeSelections={timeframeOptions}
       />
       {/* This should be uncommented back out when we can get future predicted tides in */}
-      {/* <TimeframeSelector
+      <TimeframeSelector
         timeframe={decodeURIComponent(params.projectedTimeframe as string)}
         projected={true}
         timeframeSelections={projectedTimeframeOptions}
-      /> */}
+      />
       {sensor && (
         <WaterLevelObservationBase
           platform={sensor}
