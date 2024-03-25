@@ -6,6 +6,7 @@ import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets, useDataset } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
+import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 
 export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimeframe }) => {
   const unitSystem = useUnitSystem()
@@ -13,11 +14,10 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
   console.log("future", projectedTimeframe)
 
-  //Because some gauges have both "sea_surface_height_above_sea_level", and "tidal_sea_surface_height_above_mean_lower_low_water", we want the latter always...
   useEffect(() => {
-    const waterLevelTimeseries = filterTimeSeries(
+    const waterLevelTimeseries = filterWaterLevelTimeSeries(
       platform.properties.readings,
-      ["tidal_sea_surface_height_above_mean_lower_low_water"],
+      conditions.waterLevel,
       timeframe,
     )
     setWaterLevel(waterLevelTimeseries)
@@ -39,7 +39,6 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
             endTime={projectedTimeframe}
           >
             {({ datasets }) => {
-              console.log("testing", datasets)
               const times = datasets
                 .map((ds) => ds.timeSeries)
                 .flat()

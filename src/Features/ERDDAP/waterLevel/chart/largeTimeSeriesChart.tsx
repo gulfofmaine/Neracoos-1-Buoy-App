@@ -33,7 +33,7 @@ interface Props {
   /** Time series data to dispaly */
   timeSeries: ReadingTimeSeries[]
   /** Name of data */
-  name: string
+  name: string | undefined
   /** Soft minimum for Y axis */
   softMin: number | undefined
   /** Soft maximum for Y axis */
@@ -84,7 +84,6 @@ export function LargeTimeSeriesWaterLevelChart({
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
       (datumOffset ? datumOffset : 0),
   ])
-  console.log(name, predictedTidesName)
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>
@@ -153,7 +152,7 @@ export function LargeTimeSeriesWaterLevelChart({
           )}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries
-            name={`observed ${name}`}
+            name={`Observed ${name}`}
             marker={{ enabled: false }}
             data={data}
             color={colors.coastalMeadow}

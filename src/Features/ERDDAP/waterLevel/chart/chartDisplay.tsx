@@ -87,7 +87,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         timeSeries={dataset.timeSeries}
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
         predictedTidesName={predictedTidesDataset?.name}
-        name={timeSeries.data_type.long_name}
+        name={title}
         softMin={-5}
         softMax={{ English: 20, Metric: 10 }}
         unitSystem={unitSystem}
