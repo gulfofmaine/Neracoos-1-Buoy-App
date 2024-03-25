@@ -13,8 +13,13 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
   console.log("future", projectedTimeframe)
 
+  //Because some gauges have both "sea_surface_height_above_sea_level", and "tidal_sea_surface_height_above_mean_lower_low_water", we want the latter always...
   useEffect(() => {
-    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, timeframe)
+    const waterLevelTimeseries = filterTimeSeries(
+      platform.properties.readings,
+      ["tidal_sea_surface_height_above_mean_lower_low_water"],
+      timeframe,
+    )
     setWaterLevel(waterLevelTimeseries)
     const predictedTidesTimeseries = filterTimeSeries(
       platform.properties.readings,
