@@ -21,7 +21,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
         return (
           <DropdownItem
             key={`offset-${d}`}
-            href={`/water-level/sensor/${sensorId}/${params.timeframe}/${params.projectedTimeframe}/${d}`}
+            href={`/water-level/sensor/${sensorId}/${params.startTime}/${params.projectedTimeframe}/${d}`}
             onClick={() => close()}
           >
             {getDatumDisplayName(d)}

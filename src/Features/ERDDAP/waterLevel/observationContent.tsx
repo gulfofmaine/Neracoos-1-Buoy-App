@@ -10,7 +10,7 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
   const sensor = usePlatform(allPlatforms, sensorId)
   const params = useParams()
   const [timeframe, setTimeframe] = useState<any>(
-    timeframeOptions.find((t) => t.label === decodeURIComponent(params.timeframe as string)),
+    timeframeOptions.find((t) => t.label === decodeURIComponent(params.startTime as string)),
   )
   const [projectedTimeframe, setProjectedTimeframe] = useState<any>(
     projectedTimeframeOptions.find((t) => t.label === decodeURIComponent(params.projectedTimeframe as string)),
@@ -18,7 +18,7 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
 
   useEffect(() => {
     if (timeframe) {
-      const timeframe = timeframeOptions.find((t) => t.label === decodeURIComponent(params.timeframe as string))
+      const timeframe = timeframeOptions.find((t) => t.label === decodeURIComponent(params.startTime as string))
       setTimeframe(timeframe)
     }
     if (projectedTimeframe) {
@@ -33,16 +33,15 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
     <div>
       <WaterLevelSensorSelector platforms={platforms} />
       <TimeframeSelector
-        timeframe={decodeURIComponent(params.timeframe as string)}
+        timeframe={decodeURIComponent(params.startTime as string)}
         projected={false}
         timeframeSelections={timeframeOptions}
       />
-      {/* This should be uncommented back out when we can get future predicted tides in */}
-      <TimeframeSelector
+      {/* <TimeframeSelector
         timeframe={decodeURIComponent(params.projectedTimeframe as string)}
         projected={true}
         timeframeSelections={projectedTimeframeOptions}
-      />
+      /> */}
       {sensor && (
         <WaterLevelObservationBase
           platform={sensor}

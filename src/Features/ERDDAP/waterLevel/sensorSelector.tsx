@@ -16,7 +16,7 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
   useEffect(() => {
     if (platforms) {
       const options = platforms.map((p, index) => {
-        const link = `/water-level/sensor/${p.id as string}/${params.timeframe}/${params.projectedTimeframe}/${
+        const link = `/water-level/sensor/${p.id as string}/${params.startTime}/${params.projectedTimeframe}/${
           params.datum
         }`
         return (
