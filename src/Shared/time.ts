@@ -32,6 +32,10 @@ export function getToday() {
   return new Date().toISOString().split("T")[0]
 }
 
+export function getIsoForPicker(date) {
+  return date.toISOString().split("T")[0]
+}
+
 /**
  * ISO date without milliseconds.
  *
@@ -145,15 +149,3 @@ export function weeksInFuture(numberOfWeeks): Date {
 
   return weekFromToday
 }
-
-export const timeframeOptions = [
-  { label: "24 hours ago", function: aDayAgoRounded() },
-  { label: "3 days ago", function: threeDaysAgoRounded() },
-  { label: "1 week ago", function: aWeekAgoRounded() },
-  { label: "4 weeks ago", function: fourWeeksAgoRounded() },
-]
-
-export const projectedTimeframeOptions = [
-  { label: "1 week from today", function: weeksInFuture(1) },
-  { label: "2 weeks from today", function: weeksInFuture(2) },
-]
