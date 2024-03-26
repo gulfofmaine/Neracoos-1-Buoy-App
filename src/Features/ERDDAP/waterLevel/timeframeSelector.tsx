@@ -36,7 +36,7 @@ export const TimeframeSelector = () => {
               justifyContent: "space-between",
             }}
           >
-            <label for="start">
+            <label>
               Start date:
               <input
                 className="ms-2"
@@ -48,7 +48,7 @@ export const TimeframeSelector = () => {
                 onChange={(e) => setStartTime(e.target.value)}
               />
             </label>
-            <label for="end">
+            <label>
               End date:
               <input
                 className="ms-2"
@@ -64,7 +64,7 @@ export const TimeframeSelector = () => {
               href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
               style={{ marginLeft: "10px" }}
             >
-              <Button>Plot Data</Button>
+              <Button color="primary">Plot Data</Button>
             </a>
           </Col>
         </div>
