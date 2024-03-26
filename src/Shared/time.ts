@@ -24,6 +24,15 @@ export function todayIso(): Date {
 }
 
 /**
+ * Get the current date in the formate that <input type="date"> accepts
+ * @returns Current date in YYYY-MM-DD format
+ */
+
+export function getToday() {
+  return new Date().toISOString().split("T")[0]
+}
+
+/**
  * ISO date without milliseconds.
  *
  * @param date

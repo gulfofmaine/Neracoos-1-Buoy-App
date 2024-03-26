@@ -1,4 +1,4 @@
-import { projectedTimeframeOptions, shortIso, timeframeOptions } from "Shared/time"
+import { getToday } from "Shared/time"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
@@ -8,75 +8,65 @@ import { Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row 
 
 export const TimeframeSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [startDate, setStartDate] = useState<any>()
-  const [endDate, setEndDate] = useState<any>()
+  const [startTime, setStartTime] = useState<any>()
+  const [endTime, setEndTime] = useState<any>()
   const params = useParams()
-  const startTime = decodeURIComponent(params.startTime as string)
-  const endTime = decodeURIComponent(params.endTime as string)
-
-  const getStartDate = (e) => {
-    const startDate = new Date(e.target.value)
-    // console.log(shortIso(startDate))
-    // const startDate = shortIso(e.value)
-    setStartDate(e.target.value)
-  }
+  const startTimeParams = decodeURIComponent(params.startTime as string)
+  const endTimeParams = decodeURIComponent(params.endTime as string)
 
   useEffect(() => {
-    setStartDate(startTime)
-    setEndDate(endTime)
-  }, [startTime, endTime])
-
-  const getEndDate = (e) => {
-    const endDate = new Date(e.target.value)
-    setEndDate(e.target.value)
-  }
-
-  // const options = Object.keys(timeframeSelections).map((option, index) => {
-  //   if (option === "year") {
-  //     return
-  //   }
-  //   return (
-  //     <DropdownItem
-  //       key={index}
-  //       href={`/water-level/sensor/${params.sensorId}/${
-  //         projected ? decodeURIComponent(params.startTime as string) : timeframeSelections[option].label
-  //       }/${projected ? timeframeSelections[option].label : decodeURIComponent(params.endTime as string)}/${
-  //         params.datum
-  //       }`}
-  //       onClick={() => handleTimeframeSelection(option)}
-  //       style={{ cursor: "pointer" }}
-  //     >
-  //       {timeframeSelections[option].label}
-  //     </DropdownItem>
-  //   )
-  // })
+    setStartTime(startTimeParams)
+    setEndTime(endTimeParams)
+  }, [startTimeParams, endTimeParams])
 
   return (
-    <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px" }}>
-      <Col style={{ width: "110px", margin: 0 }}>
+    <Row style={{ width: "75%", verticalAlign: "middle", marginBottom: "20px" }}>
+      <Col style={{ width: "100%", margin: 0 }}>
         <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Timeframe: </h6>
       </Col>
-      {startDate && endDate && (
+      {startTime && endTime && (
         <div>
-          <Col style={{ margin: 0, padding: 0 }}>
-            <label for="start">Start date:</label>
-            <input type="date" id="start" name="timeframe-start" value={startDate} onChange={(e) => getStartDate(e)} />
-            <label for="end">End date:</label>
-            <input type="date" id="end" name="timeframe-end" value={endDate} onChange={(e) => getEndDate(e)} />
-            {/* <Dropdown
-          isOpen={isOpen}
-          toggle={() => setIsOpen(!isOpen)}
-          style={{ border: "1px solid black", borderRadius: "7px" }}
-        >
-          <DropdownToggle color={"#FFFFFF"} caret={true}>
-            {timeframe}
-          </DropdownToggle>
-          {options && <DropdownMenu end={true}>{options}</DropdownMenu>}
-        </Dropdown> */}
+          <Col
+            style={{
+              margin: 0,
+              padding: 0,
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <label for="start">
+              Start date:
+              <input
+                className="ms-2"
+                type="date"
+                id="start"
+                name="timeframe-start"
+                max={getToday()}
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              />
+            </label>
+            <label for="end">
+              End date:
+              <input
+                className="ms-2"
+                type="date"
+                id="end"
+                name="timeframe-end"
+                min={startTime}
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              />
+            </label>
+            <a
+              href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
+              style={{ marginLeft: "10px" }}
+            >
+              <Button>Plot Data</Button>
+            </a>
           </Col>
-          <a href={`/water-level/sensor/${params.sensorId}/${startDate}/${endDate}/${params.datum}`}>
-            <Button>Submit</Button>
-          </a>
         </div>
       )}
     </Row>
