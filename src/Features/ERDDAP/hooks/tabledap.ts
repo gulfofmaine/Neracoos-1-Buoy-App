@@ -56,12 +56,11 @@ const erddapService = (process.env.NEXT_PUBLIC_ERDDAP_SERVICE || "https://buoyba
 
 export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, endTime?: Date): string {
   startTime = startTime ?? aWeekAgoRounded()
-  endTime = endTime ?? weeksInFuture(1)
 
   const constraints = {
     ...timeSeries[0].constraints,
     "time>=": startTime.toISOString(),
-    "time<=": endTime.toISOString(),
+    ...(endTime && { "time<=": endTime.toISOString() }),
   }
 
   const variables = timeSeries.map((ts) => ts.variable)
