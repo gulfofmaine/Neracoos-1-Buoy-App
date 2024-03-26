@@ -64,7 +64,7 @@ export const TimeframeSelector = () => {
               href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
               style={{ marginLeft: "10px" }}
             >
-              <Button color="primary">Plot Data</Button>
+              <Button color="primary">Plot Dates</Button>
             </a>
           </Col>
         </div>

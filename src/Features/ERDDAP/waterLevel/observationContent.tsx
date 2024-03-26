@@ -13,7 +13,6 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
   return (
     <div>
       <WaterLevelSensorSelector platforms={platforms} />
-      <TimeframeSelector />
       {sensor && <WaterLevelObservationBase platform={sensor} startTime={startTime} endTime={endTime} />}
     </div>
   )

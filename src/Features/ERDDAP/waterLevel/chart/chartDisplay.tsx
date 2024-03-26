@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
+import { TimeframeSelector } from "../timeframeSelector"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -97,6 +98,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />
+      <TimeframeSelector />
       <DatumSelector datumOffsets={timeSeries.datum_offsets} />
     </div>
   )
