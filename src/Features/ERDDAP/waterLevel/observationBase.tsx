@@ -7,18 +7,19 @@ import { UseDatasets, useDataset } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 
-export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimeframe }) => {
+export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
+  console.log(startTime, endTime)
 
   useEffect(() => {
-    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, timeframe)
+    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, startTime)
     setWaterLevel(waterLevelTimeseries)
     const predictedTidesTimeseries = filterTimeSeries(
       platform.properties.readings,
       conditions.waterLevelPredicted,
-      timeframe,
+      startTime,
     )
     setPredictedTides(predictedTidesTimeseries)
   }, [platform])
@@ -29,8 +30,8 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
         <>
           <UseDatasets
             timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
-            startTime={timeframe}
-            endTime={projectedTimeframe}
+            startTime={startTime}
+            endTime={endTime}
           >
             {({ datasets }) => {
               const times = datasets

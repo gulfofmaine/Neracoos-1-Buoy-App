@@ -9,46 +9,19 @@ import { TimeframeSelector } from "./timeframeSelector"
 export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms }) => {
   const sensor = usePlatform(allPlatforms, sensorId)
   const params = useParams()
-  const [timeframe, setTimeframe] = useState<any>(
-    timeframeOptions.find((t) => t.label === decodeURIComponent(params.startTime as string)),
-  )
-  const [projectedTimeframe, setProjectedTimeframe] = useState<any>(
-    projectedTimeframeOptions.find((t) => t.label === decodeURIComponent(params.projectedTimeframe as string)),
-  )
-
-  useEffect(() => {
-    if (timeframe) {
-      const timeframe = timeframeOptions.find((t) => t.label === decodeURIComponent(params.startTime as string))
-      setTimeframe(timeframe)
-    }
-    if (projectedTimeframe) {
-      const timeframe = projectedTimeframeOptions.find(
-        (t) => t.label === decodeURIComponent(params.projectedTimeframe as string),
-      )
-      setProjectedTimeframe(timeframe)
-    }
-  }, [timeframe, projectedTimeframe])
+  const startDate = new Date(params.startTime as string)
+  const endDate = new Date(params.endTime as string)
 
   return (
     <div>
       <WaterLevelSensorSelector platforms={platforms} />
-      <TimeframeSelector
-        timeframe={decodeURIComponent(params.startTime as string)}
-        projected={false}
-        timeframeSelections={timeframeOptions}
-      />
+      <TimeframeSelector />
       {/* <TimeframeSelector
         timeframe={decodeURIComponent(params.projectedTimeframe as string)}
         projected={true}
         timeframeSelections={projectedTimeframeOptions}
       /> */}
-      {sensor && (
-        <WaterLevelObservationBase
-          platform={sensor}
-          timeframe={timeframe.function}
-          projectedTimeframe={projectedTimeframe.function}
-        />
-      )}
+      {sensor && <WaterLevelObservationBase platform={sensor} startTime={startDate} endTime={endDate} />}
     </div>
   )
 }
