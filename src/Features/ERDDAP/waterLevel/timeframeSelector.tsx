@@ -7,16 +7,16 @@ import { Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row 
 // Defaults should be the url defaults (which is 3 days prior and a week out)
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
-  const [startTime, setStartTime] = useState<any>()
-  const [endTime, setEndTime] = useState<any>()
   const params = useParams()
+  const [startTime, setStartTime] = useState<any>(decodeURIComponent(params.startTime as string))
+  const [endTime, setEndTime] = useState<any>(decodeURIComponent(params.endTime as string))
   const startTimeParams = decodeURIComponent(params.startTime as string)
   const endTimeParams = decodeURIComponent(params.endTime as string)
 
   useEffect(() => {
     setStartTime(startTimeParams)
     setEndTime(graphFuture ? endTimeParams : getToday())
-  }, [startTimeParams, endTimeParams])
+  }, [startTimeParams, endTimeParams, graphFuture])
 
   return (
     <Row style={{ width: "75%", verticalAlign: "middle", marginBottom: "20px" }}>
