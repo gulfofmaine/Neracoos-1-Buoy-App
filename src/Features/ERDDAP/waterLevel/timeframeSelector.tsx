@@ -6,8 +6,7 @@ import { Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row 
 // date picker eith start and end date (so two of them) and a "graph" button that changes the url based on the value of the two dates.
 // Defaults should be the url defaults (which is 3 days prior and a week out)
 
-export const TimeframeSelector = () => {
-  const [isOpen, setIsOpen] = useState(false)
+export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
   const [startTime, setStartTime] = useState<any>()
   const [endTime, setEndTime] = useState<any>()
   const params = useParams()
@@ -16,7 +15,7 @@ export const TimeframeSelector = () => {
 
   useEffect(() => {
     setStartTime(startTimeParams)
-    setEndTime(endTimeParams)
+    setEndTime(graphFuture ? endTimeParams : getToday())
   }, [startTimeParams, endTimeParams])
 
   return (
@@ -56,6 +55,7 @@ export const TimeframeSelector = () => {
                 id="end"
                 name="timeframe-end"
                 min={startTime}
+                max={graphFuture ? undefined : getToday()}
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
               />

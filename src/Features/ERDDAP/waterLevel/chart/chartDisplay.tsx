@@ -98,7 +98,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />
-      <TimeframeSelector />
+      <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
       <DatumSelector datumOffsets={timeSeries.datum_offsets} />
     </div>
   )
