@@ -23,6 +23,24 @@ export function todayIso(): Date {
   return today
 }
 
+export function fullBeginningDateIso(date) {
+  const newDate = new Date(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds(),
+    date.getUTCMilliseconds(),
+  )
+  return newDate
+}
+
+export function manuallySetFullEODIso(date) {
+  date.setHours(23, 59, 59, 999)
+  return date
+}
+
 /**
  * Get the current date in the formate that <input type="date"> accepts
  * @returns Current date in YYYY-MM-DD format
@@ -51,7 +69,7 @@ export function shortIso(date: Date): string {
  *
  * @param date Date
  */
-function roundDate(date: Date) {
+export function roundDate(date: Date) {
   date.setUTCMinutes(Math.floor(date.getUTCMinutes() / 5) * 5)
 
   date.setSeconds(0)

@@ -1,7 +1,7 @@
-import { getToday } from "Shared/time"
+import { getIsoForPicker, getToday, manuallySetFullEODIso, shortIso } from "Shared/time"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
+import { Button, Col, Row } from "reactstrap"
 
 // date picker eith start and end date (so two of them) and a "graph" button that changes the url based on the value of the two dates.
 // Defaults should be the url defaults (which is 3 days prior and a week out)
@@ -13,9 +13,14 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const startTimeParams = decodeURIComponent(params.startTime as string)
   const endTimeParams = decodeURIComponent(params.endTime as string)
 
+  const getEndTime = (date) => {
+    const endTime = new Date(date)
+    setEndTime(getIsoForPicker(endTime))
+  }
+
   useEffect(() => {
-    setStartTime(startTimeParams)
-    setEndTime(graphFuture ? endTimeParams : getToday())
+    setStartTime(getIsoForPicker(new Date(startTimeParams)))
+    setEndTime(graphFuture ? getIsoForPicker(new Date(endTimeParams)) : getToday())
   }, [startTimeParams, endTimeParams, graphFuture])
 
   return (
@@ -57,7 +62,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                 min={startTime}
                 max={graphFuture ? undefined : getToday()}
                 value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
+                onChange={(e) => getEndTime(e.target.value)}
               />
             </label>
             <a
