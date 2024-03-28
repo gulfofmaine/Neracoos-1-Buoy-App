@@ -6,6 +6,7 @@ import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets, useDataset } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
+import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 import { getIsoForPicker, getToday } from "Shared/time"
 import { useParams, useRouter } from "next/navigation"
 
@@ -17,7 +18,11 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
 
   useEffect(() => {
-    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, startTime)
+    const waterLevelTimeseries = filterWaterLevelTimeSeries(
+      platform.properties.readings,
+      conditions.waterLevel,
+      startTime,
+    )
     setWaterLevel(waterLevelTimeseries)
     const predictedTidesTimeseries = filterTimeSeries(
       platform.properties.readings,
