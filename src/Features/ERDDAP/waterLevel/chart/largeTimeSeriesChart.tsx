@@ -71,7 +71,6 @@ export function LargeTimeSeriesWaterLevelChart({
   endTime,
 }: Props) {
   const dataConverter = converter(data_type)
-  console.log("endTime", endTime)
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
