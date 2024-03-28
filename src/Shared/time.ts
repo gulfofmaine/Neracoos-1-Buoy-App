@@ -23,6 +23,12 @@ export function todayIso(): Date {
   return today
 }
 
+/**
+ * Get correct start Date when setting a date range
+ * @param date Date that you want to start a range with
+ * @returns Returns the date accounting for hour offsets
+ */
+
 export function fullBeginningDateIso(date) {
   const newDate = new Date(
     date.getUTCFullYear(),
@@ -35,6 +41,12 @@ export function fullBeginningDateIso(date) {
   )
   return newDate
 }
+
+/**
+ * Get correct end Date when setting a date range (in some instances, the day will need to be offset by +1)
+ * @param date Date to end range with
+ * @returns Date accounting for hour offsets (not day offsets)
+ */
 
 export function manuallySetFullEODIso(date) {
   date.setHours(23, 59, 59, 999)
@@ -160,6 +172,11 @@ export function aYearAgoRounded(): Date {
   return yearAgo
 }
 
+/**
+ * Return a future date in time calculated by number of weeks
+ * @param numberOfWeeks number of weeks into future to calculate
+ * @returns Date that is that numberOfWeeks into future
+ */
 export function weeksInFuture(numberOfWeeks): Date {
   const weekFromToday = new Date(Date.now() + WEEK * numberOfWeeks)
 
