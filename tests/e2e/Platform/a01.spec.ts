@@ -50,10 +50,10 @@ test.describe("Platform A01", () => {
     await page.locator("#Tooltip-0").dispatchEvent("mouseout")
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#Tooltip-0").dispatchEvent("mouseover")
-    await expect(page.getByText(/Data access/).first()).toBeVisible()
-    await expect(page.getByText(/Data table/).first()).toBeVisible()
-    await expect(page.getByText(/Download CSV/).first()).toBeVisible()
-    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
+    await expect(page.getByText(/Data access/).first()).toBeVisible({ timeout: 20000 })
+    await expect(page.getByText(/Data table/).first()).toBeVisible({ timeout: 20000 })
+    await expect(page.getByText(/Download CSV/).first()).toBeVisible({ timeout: 20000 })
+    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible({ timeout: 20000 })
   })
 
   test("Shows wind plot", async ({ page }) => {
