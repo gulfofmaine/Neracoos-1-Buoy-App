@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query"
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"
-import { aWeekAgoRounded } from "Shared/time"
+import { aWeekAgoRounded, weeksInFuture } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformTimeSeries, FetchGroup } from "../types"
@@ -60,6 +60,7 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, e
   const constraints = {
     ...timeSeries[0].constraints,
     "time>=": startTime.toISOString(),
+    ...(endTime && { "time<=": endTime.toISOString() }),
   }
 
   const variables = timeSeries.map((ts) => ts.variable)

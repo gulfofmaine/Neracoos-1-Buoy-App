@@ -71,7 +71,6 @@ export function LargeTimeSeriesWaterLevelChart({
   endTime,
 }: Props) {
   const dataConverter = converter(data_type)
-  console.log("endTime", endTime)
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
@@ -84,7 +83,6 @@ export function LargeTimeSeriesWaterLevelChart({
     round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
       (datumOffset ? datumOffset : 0),
   ])
-  console.log(name, predictedTidesName)
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>

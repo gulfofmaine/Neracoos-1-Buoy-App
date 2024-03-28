@@ -6,21 +6,27 @@ import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets, useDataset } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
+import { getIsoForPicker, getToday } from "Shared/time"
+import { useParams, useRouter } from "next/navigation"
 
-export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimeframe }) => {
+export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
+  const params = useParams()
+  const router = useRouter()
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
-  console.log("future", projectedTimeframe)
 
   useEffect(() => {
-    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, timeframe)
+    const waterLevelTimeseries = filterTimeSeries(platform.properties.readings, conditions.waterLevel, startTime)
     setWaterLevel(waterLevelTimeseries)
     const predictedTidesTimeseries = filterTimeSeries(
       platform.properties.readings,
       conditions.waterLevelPredicted,
-      timeframe,
+      startTime,
     )
+    if (params.endTime > getToday() && !predictedTidesTimeseries) {
+      router.push(`/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getToday()}/${params.datum}`)
+    }
     setPredictedTides(predictedTidesTimeseries)
   }, [platform])
 
@@ -30,11 +36,10 @@ export const WaterLevelObservationBase = ({ platform, timeframe, projectedTimefr
         <>
           <UseDatasets
             timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
-            startTime={timeframe}
-            endTime={projectedTimeframe}
+            startTime={startTime}
+            endTime={endTime}
           >
             {({ datasets }) => {
-              console.log("testing", datasets)
               const times = datasets
                 .map((ds) => ds.timeSeries)
                 .flat()
