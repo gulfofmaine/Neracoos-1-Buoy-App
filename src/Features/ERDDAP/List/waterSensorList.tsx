@@ -1,5 +1,5 @@
 import { Feature } from "@turf/helpers"
-import { projectedTimeframeOptions, timeframeOptions } from "Shared/time"
+import { getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListGroup } from "reactstrap"
@@ -26,14 +26,16 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: P
     }
   }, [platforms])
 
-  //Station defaults to 3 day timeframe and mllw datum
+  //Station defaults to 3 day in past, week in future, and mllw datum
   return (
     <ListGroup>
       {sensors &&
         sensors.map((s) => (
           <Link
             key={s.id}
-            href={`water-level/sensor/${s.id}/${timeframeOptions[2].label}/${projectedTimeframeOptions[0].label}/datum_mllw_meters`}
+            href={`water-level/sensor/${s.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
+              weeksInFuture(1),
+            )}/datum_mllw_meters`}
             className="list-group-item list-group-item-action"
           >
             {s.id}

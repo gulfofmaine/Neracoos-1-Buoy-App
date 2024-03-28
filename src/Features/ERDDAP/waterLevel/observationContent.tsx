@@ -1,55 +1,20 @@
-import { projectedTimeframeOptions, timeframeOptions } from "Shared/time"
 import { useParams } from "next/navigation"
-import { useEffect, useState } from "react"
 import { usePlatform } from "../hooks"
 import { WaterLevelObservationBase } from "./observationBase"
 import { WaterLevelSensorSelector } from "./sensorSelector"
-import { TimeframeSelector } from "./timeframeSelector"
+import { fullBeginningDateIso, manuallySetFullEODIso } from "Shared/time"
 
 export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms }) => {
   const sensor = usePlatform(allPlatforms, sensorId)
   const params = useParams()
-  const [timeframe, setTimeframe] = useState<any>(
-    timeframeOptions.find((t) => t.label === decodeURIComponent(params.timeframe as string)),
-  )
-  const [projectedTimeframe, setProjectedTimeframe] = useState<any>(
-    projectedTimeframeOptions.find((t) => t.label === decodeURIComponent(params.projectedTimeframe as string)),
-  )
-
-  useEffect(() => {
-    if (timeframe) {
-      const timeframe = timeframeOptions.find((t) => t.label === decodeURIComponent(params.timeframe as string))
-      setTimeframe(timeframe)
-    }
-    if (projectedTimeframe) {
-      const timeframe = projectedTimeframeOptions.find(
-        (t) => t.label === decodeURIComponent(params.projectedTimeframe as string),
-      )
-      setProjectedTimeframe(timeframe)
-    }
-  }, [timeframe, projectedTimeframe])
+  const startTime = fullBeginningDateIso(new Date(decodeURIComponent(params.startTime as string)))
+  const endTime = manuallySetFullEODIso(new Date(decodeURIComponent(params.endTime as string)))
+  endTime?.setDate(endTime.getDate() + 1)
 
   return (
     <div>
       <WaterLevelSensorSelector platforms={platforms} />
-      <TimeframeSelector
-        timeframe={decodeURIComponent(params.timeframe as string)}
-        projected={false}
-        timeframeSelections={timeframeOptions}
-      />
-      {/* This should be uncommented back out when we can get future predicted tides in */}
-      {/* <TimeframeSelector
-        timeframe={decodeURIComponent(params.projectedTimeframe as string)}
-        projected={true}
-        timeframeSelections={projectedTimeframeOptions}
-      /> */}
-      {sensor && (
-        <WaterLevelObservationBase
-          platform={sensor}
-          timeframe={timeframe.function}
-          projectedTimeframe={projectedTimeframe.function}
-        />
-      )}
+      {sensor && <WaterLevelObservationBase platform={sensor} startTime={startTime} endTime={endTime} />}
     </div>
   )
 }

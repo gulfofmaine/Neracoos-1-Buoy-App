@@ -24,6 +24,49 @@ export function todayIso(): Date {
 }
 
 /**
+ * Get correct start Date when setting a date range
+ * @param date Date that you want to start a range with
+ * @returns Returns the date accounting for hour offsets
+ */
+
+export function fullBeginningDateIso(date) {
+  const newDate = new Date(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds(),
+    date.getUTCMilliseconds(),
+  )
+  return newDate
+}
+
+/**
+ * Get correct end Date when setting a date range (in some instances, the day will need to be offset by +1)
+ * @param date Date to end range with
+ * @returns Date accounting for hour offsets (not day offsets)
+ */
+
+export function manuallySetFullEODIso(date) {
+  date.setHours(23, 59, 59, 999)
+  return date
+}
+
+/**
+ * Get the current date in the formate that <input type="date"> accepts
+ * @returns Current date in YYYY-MM-DD format
+ */
+
+export function getToday() {
+  return new Date().toISOString().split("T")[0]
+}
+
+export function getIsoForPicker(date) {
+  return date.toISOString().split("T")[0]
+}
+
+/**
  * ISO date without milliseconds.
  *
  * @param date
@@ -38,7 +81,7 @@ export function shortIso(date: Date): string {
  *
  * @param date Date
  */
-function roundDate(date: Date) {
+export function roundDate(date: Date) {
   date.setUTCMinutes(Math.floor(date.getUTCMinutes() / 5) * 5)
 
   date.setSeconds(0)
@@ -129,6 +172,11 @@ export function aYearAgoRounded(): Date {
   return yearAgo
 }
 
+/**
+ * Return a future date in time calculated by number of weeks
+ * @param numberOfWeeks number of weeks into future to calculate
+ * @returns Date that is that numberOfWeeks into future
+ */
 export function weeksInFuture(numberOfWeeks): Date {
   const weekFromToday = new Date(Date.now() + WEEK * numberOfWeeks)
 
@@ -136,15 +184,3 @@ export function weeksInFuture(numberOfWeeks): Date {
 
   return weekFromToday
 }
-
-export const timeframeOptions = [
-  { label: "24 hours ago", function: aDayAgoRounded() },
-  { label: "3 days ago", function: threeDaysAgoRounded() },
-  { label: "1 week ago", function: aWeekAgoRounded() },
-  { label: "4 weeks ago", function: fourWeeksAgoRounded() },
-]
-
-export const projectedTimeframeOptions = [
-  { label: "1 week from today", function: weeksInFuture(1) },
-  { label: "2 weeks from today", function: weeksInFuture(2) },
-]
