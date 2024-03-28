@@ -6,9 +6,9 @@ import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets, useDataset } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
+import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 import { getIsoForPicker, getToday } from "Shared/time"
 import { useParams, useRouter } from "next/navigation"
-import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 
 export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
