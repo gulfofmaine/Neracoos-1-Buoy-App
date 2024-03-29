@@ -21,6 +21,15 @@ import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
+import {
+  floodLevelThresholdsAlertColors,
+  getSurpassedThreshold,
+  getWaterLevelThresholdsMap,
+  getWaterLevelThresholdsMapRawComp,
+} from "../utils/waterLevelThresholds"
+import { current } from "@reduxjs/toolkit"
+import { converter } from "Features/Units/Converter"
+import { useUnitSystem } from "Features/Units"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -60,6 +69,8 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
   const params = useParams()
+  const unitSystem = useUnitSystem()
+  const [floodAlert, setFloodAlert] = useState<string>("None")
 
   let radius: number
   if (selected) {
@@ -77,12 +88,27 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 
   const fillColor = old ? "grey" : `#cf5c00${opacity}`
   const strokeColor = old ? "grey" : colors.whatOrange
+  // console.log(platform.id, platform.properties.readings)
+
+  useEffect(() => {
+    if (platform) {
+      const currentWaterLevel = platform.properties.readings.find((r) => r.flood_levels.length)
+      if (!currentWaterLevel) {
+        setFloodAlert("NA")
+      } else {
+        const value = currentWaterLevel?.value
+        const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
+        const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
+        setFloodAlert(surpassedThreshold)
+      }
+    }
+  }, [platform])
 
   return (
     <RLayerVector>
       <RStyle.RStyle>
         <RStyle.RCircle radius={radius}>
-          <RStyle.RFill color={fillColor} />
+          <RStyle.RFill color={floodLevelThresholdsAlertColors(floodAlert, old, opacity)} />
           <RStyle.RStroke color={strokeColor} width={1.5} />
         </RStyle.RCircle>
       </RStyle.RStyle>

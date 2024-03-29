@@ -5,6 +5,12 @@ export const colors = {
   buoyYellow: "#ffcd22",
   whatOrange: "#ffae6d",
 
+  //water level map alert colors
+  alertAction: "#f8f35d",
+  alertMinor: "#187ca4",
+  alertModerate: "#552fa2",
+  alertMajor: "#c81824",
+
   // lighter tints for dark backgrounds
   snowySea: "#396475",
   dustyTeal: "#459dab",

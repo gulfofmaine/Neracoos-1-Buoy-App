@@ -60,6 +60,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         }
         return acc
       }, {})
+      console.log("bananas", floodLevelsMap)
       setFloodThresholds(floodLevelsMap)
     }
   }, [timeSeries, datumOffset, unitSystem])
