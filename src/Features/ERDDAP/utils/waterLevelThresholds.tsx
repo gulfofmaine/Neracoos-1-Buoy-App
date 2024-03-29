@@ -46,6 +46,5 @@ export const floodLevelThresholdsAlertColors = (alert, old, opacity) => {
     None: `#cf5c00${opacity}`,
   }
   const color = old ? "gray" : colorMap[alert]
-  console.log(color)
   return color
 }

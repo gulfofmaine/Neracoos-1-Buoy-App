@@ -54,7 +54,6 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   }, [height])
 
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
-  // console.log(oldPlatforms, filteredPlatforms, selectedPlatforms)
 
   return (
     <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>

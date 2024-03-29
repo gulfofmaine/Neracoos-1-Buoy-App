@@ -88,7 +88,6 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 
   const fillColor = old ? "grey" : `#cf5c00${opacity}`
   const strokeColor = old ? "grey" : colors.whatOrange
-  // console.log(platform.id, platform.properties.readings)
 
   useEffect(() => {
     if (platform) {
