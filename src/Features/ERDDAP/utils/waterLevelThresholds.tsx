@@ -1,25 +1,4 @@
-import { fa2 } from "@fortawesome/free-solid-svg-icons"
 import { colors } from "Shared/colors"
-
-export const getWaterLevelThresholdsMapWithDatum = (floodThresholds, datumOffset, dataConverter, unitSystem) => {
-  console.log("1:", floodThresholds, "2: ", datumOffset, "3:", dataConverter, "4: ", unitSystem)
-  const map = floodThresholds.reduce((acc, level, index) => {
-    if (!acc[level.name] && typeof datumOffset === "number") {
-      acc[level.name] =
-        level.name === "Major"
-          ? {
-              minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
-              maxValue: dataConverter.convertToNumber(level.min_value, unitSystem) + 1 + datumOffset,
-            }
-          : {
-              minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
-              maxValue: dataConverter.convertToNumber(floodThresholds[index - 1].min_value, unitSystem) + datumOffset,
-            }
-    }
-    return acc
-  }, {})
-  return map
-}
 
 export const getWaterLevelThresholdsMapRawComp = (floodThresholds) => {
   if (floodThresholds) {
