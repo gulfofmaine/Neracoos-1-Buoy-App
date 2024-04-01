@@ -76,8 +76,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     radius = window.innerWidth > adjustPxWidth ? 5 : 10
   }
 
-  const opacity = selected ? "cc" : "7a"
-
   const url = waterLevelSensorPage
     ? `/water-level/sensor/${platform.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
         weeksInFuture(1),
@@ -91,12 +89,13 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     } else {
       const value = currentWaterLevel?.value
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
-      const surpassedThreshold = getSurpassedThreshold(5, waterLevelThresholds)
+      const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodAlert(surpassedThreshold)
     }
   }, [])
 
   useEffect(() => {
+    const opacity = selected ? "f2" : "bf"
     const display = floodLevelThresholdsAlertColors(floodAlert, old, opacity)
     setDisplay(display)
   }, [floodAlert])
@@ -124,7 +123,7 @@ const Layer = ({ platform, url, router, radius, color, strokeColor, floodAlert }
       <RStyle.RStyle>
         <RStyle.RCircle radius={radius}>
           <RStyle.RFill color={color} />
-          <RStyle.RStroke color={strokeColor} width={1.5} />
+          <RStyle.RStroke color={strokeColor} width={1} />
         </RStyle.RCircle>
       </RStyle.RStyle>
 

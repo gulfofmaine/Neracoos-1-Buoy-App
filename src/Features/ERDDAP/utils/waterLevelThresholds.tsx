@@ -36,11 +36,12 @@ export const getSurpassedThreshold = (value, thresholds) => {
 }
 
 export const floodLevelThresholdsAlertColors = (alert, old, opacity) => {
+  console.log(opacity)
   const colorMap = {
-    Major: colors.alertMajor,
-    Moderate: colors.alertModerate,
-    Minor: colors.alertMinor,
-    Action: colors.alertAction,
+    Major: `${colors.alertMajor}${opacity}`,
+    Moderate: `${colors.alertModerate}${opacity}`,
+    Minor: `${colors.alertMinor}${opacity}`,
+    Action: `${colors.alertAction}${opacity}`,
     null: `#cf5c00${opacity}`,
     NA: `#cf5c00${opacity}`,
     None: `#cf5c00${opacity}`,
