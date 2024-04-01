@@ -21,6 +21,12 @@ import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
+import {
+  floodLevelThresholdsAlertColors,
+  getSurpassedThreshold,
+  getWaterLevelThresholdsMapRawComp,
+} from "../utils/waterLevelThresholds"
+import { PlatformLayer } from "."
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -55,11 +61,13 @@ interface PlatformLayerProps {
 }
 
 // Build a RLayers feature for each platform
-export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
+export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
   const params = useParams()
+  const [floodAlert, setFloodAlert] = useState<string>("None")
+  const [display, setDisplay] = useState()
 
   let radius: number
   if (selected) {
@@ -67,6 +75,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   } else {
     radius = window.innerWidth > adjustPxWidth ? 5 : 10
   }
+
   const opacity = selected ? "cc" : "7a"
 
   const url = waterLevelSensorPage
@@ -75,17 +84,50 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       )}/${params.datum}`
     : urlPartReplacer(paths.platforms.platform, ":id", platform.id)
 
-  const fillColor = old ? "grey" : `#cf5c00${opacity}`
-  const strokeColor = old ? "grey" : colors.whatOrange
+  useEffect(() => {
+    const currentWaterLevel = platform.properties.readings.find((r) => r.flood_levels.length)
+    if (!currentWaterLevel) {
+      setFloodAlert("NA")
+    } else {
+      const value = currentWaterLevel?.value
+      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
+      const surpassedThreshold = getSurpassedThreshold(5, waterLevelThresholds)
+      setFloodAlert(surpassedThreshold)
+    }
+  }, [])
 
+  useEffect(() => {
+    const display = floodLevelThresholdsAlertColors(floodAlert, old, opacity)
+    setDisplay(display)
+  }, [floodAlert])
+
+  if (display) {
+    return (
+      <Layer
+        platform={platform}
+        url={url}
+        router={router}
+        radius={radius}
+        color={display}
+        strokeColor={display}
+        floodAlert={floodAlert}
+      />
+    )
+  } else {
+    return null
+  }
+}
+
+const Layer = ({ platform, url, router, radius, color, strokeColor, floodAlert }) => {
   return (
     <RLayerVector>
       <RStyle.RStyle>
         <RStyle.RCircle radius={radius}>
-          <RStyle.RFill color={fillColor} />
+          <RStyle.RFill color={color} />
           <RStyle.RStroke color={strokeColor} width={1.5} />
         </RStyle.RCircle>
       </RStyle.RStyle>
+
       <RFeature
         geometry={useMemo(() => {
           const feature = new GeoJSON({
@@ -100,7 +142,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       >
         <RPopup trigger={"hover"}>
           <Button color="dark" size="sm" href={url}>
-            {platform.id}
+            {platform.id} <br></br>Flood level: {floodAlert ? floodAlert : "None"}
           </Button>
         </RPopup>
       </RFeature>

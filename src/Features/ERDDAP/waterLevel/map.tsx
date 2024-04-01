@@ -4,9 +4,10 @@ import { useParams, usePathname } from "next/navigation"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
-import { BaseProps, PlatformLayer, View, filterPlatforms } from "../Map"
+import { BaseProps, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
+import { WLPlatformLayer } from "../Map/WLPlatformLayer"
 
 const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
@@ -61,13 +62,13 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
       <EsriOceanReferenceLayer />
 
       {oldPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
+        <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
       ))}
       {filteredPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
+        <WLPlatformLayer key={p.id} platform={p} selected={false} old={false} />
       ))}
       {!!selectedPlatforms.length && (
-        <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+        <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
       )}
     </RMap>
   )

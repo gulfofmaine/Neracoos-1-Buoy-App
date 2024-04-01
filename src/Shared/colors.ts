@@ -6,10 +6,10 @@ export const colors = {
   whatOrange: "#ffae6d",
 
   //water level map alert colors
-  alertAction: "#f8f35d",
-  alertMinor: "#187ca4",
-  alertModerate: "#552fa2",
-  alertMajor: "#c81824",
+  alertAction: "#ffff6e",
+  alertMinor: "#79A4FF",
+  alertModerate: "#BE84FF",
+  alertMajor: "#ee2f3c",
 
   // lighter tints for dark backgrounds
   snowySea: "#396475",
