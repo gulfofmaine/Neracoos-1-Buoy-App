@@ -3,11 +3,13 @@ import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useParams, usePathname } from "next/navigation"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { RMap } from "rlayers"
+import { RMap, RStyle } from "rlayers"
 import { BaseProps, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import { WLPlatformLayer } from "../Map/WLPlatformLayer"
+import { color } from "highcharts"
+import { LegendItem } from "components/Map/legendItem"
 
 const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
@@ -57,20 +59,29 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
-      <EsriOceanBasemapLayer />
-      <EsriOceanReferenceLayer />
+    <div style={{ position: "relative" }}>
+      <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
+        <EsriOceanBasemapLayer />
+        <EsriOceanReferenceLayer />
 
-      {oldPlatforms.map((p) => (
-        <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
-      ))}
-      {filteredPlatforms.map((p) => (
-        <WLPlatformLayer key={p.id} platform={p} selected={false} old={false} />
-      ))}
-      {!!selectedPlatforms.length && (
-        <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
-      )}
-    </RMap>
+        {oldPlatforms.map((p) => (
+          <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
+        ))}
+        {filteredPlatforms.map((p) => (
+          <WLPlatformLayer key={p.id} platform={p} selected={false} old={false} />
+        ))}
+        {!!selectedPlatforms.length && (
+          <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+        )}
+        <div className="legend-container">
+          <LegendItem color={"#80ff00"} text={"No Flooding"} />
+          <LegendItem color={"#ffff00"} text={"Action"} />
+          <LegendItem color={"#ff9000"} text={"Minor"} />
+          <LegendItem color={"#ff2000"} text={"Moderate"} />
+          <LegendItem color={"#aa00ff"} text={"Major"} />
+        </div>
+      </RMap>
+    </div>
   )
 }
 

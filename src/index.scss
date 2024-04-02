@@ -7,11 +7,6 @@ $metallic-seaweed: #178596;
 $coastal-meadow: #2ab78f;
 $buoy-yellow: #ffcd22;
 $what-orange: #ffae6d;
-$alert-action: #f8f35d;
-$alert-minor: #187ca4;
-$alert-moderate: #552fa2;
-$alert-major: #ee2f3c;
-$flood-none: #80ff00;
 
 $primary: $neracoos-blue;
 // $primary: $old-neracoos-blue;
@@ -80,4 +75,26 @@ nav.navbar {
 
 .tooltip-inner a {
   color: $coastal-meadow;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+.legend-container {
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 5px;
+  margin-right: 10px;
 }
