@@ -76,3 +76,25 @@ nav.navbar {
 .tooltip-inner a {
   color: $coastal-meadow;
 }
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+.legend-container {
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 5px;
+  margin-right: 10px;
+}
