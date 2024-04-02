@@ -30,7 +30,7 @@ export default function SensorIdPage({ params }) {
 
   return (
     <Row>
-      <Col style={{ width: "20vw" }}>
+      <Col xs={{ size: "12", order: "2" }} md={{ size: "4", order: "1" }}>
         <div style={{ width: "100%" }}>
           <PlatformInfo id={id} />
           {waterLevelPlatforms && (
@@ -45,7 +45,7 @@ export default function SensorIdPage({ params }) {
           )}
         </div>
       </Col>
-      <Col>
+      <Col xs={{ size: "12", order: "1" }} md={{ size: "4", order: "2" }}>
         {data && (
           <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
         )}

@@ -14,6 +14,7 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
   const params = useParams()
   const router = useRouter()
+  const windowWidth = window.innerWidth
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
 
@@ -36,7 +37,7 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   }, [platform])
 
   return (
-    <div style={{ width: "60vw" }}>
+    <div className="chart-display">
       {waterLevel ? (
         <>
           <UseDatasets
