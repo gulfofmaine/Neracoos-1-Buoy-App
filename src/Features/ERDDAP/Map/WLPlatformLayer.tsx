@@ -22,7 +22,7 @@ import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import {
-  floodLevelThresholdsAlertColors,
+  floodLevelThresholdColors,
   getSurpassedThreshold,
   getWaterLevelThresholdsMapRawComp,
 } from "../utils/waterLevelThresholds"
@@ -66,7 +66,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
   const params = useParams()
-  const [floodAlert, setFloodAlert] = useState<string>("None")
+  const [floodThreshold, setFloodThreshold] = useState<string>("None")
   const [display, setDisplay] = useState()
 
   let radius: number
@@ -85,20 +85,20 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find((r) => r.flood_levels.length)
     if (!currentWaterLevel) {
-      setFloodAlert("NA")
+      setFloodThreshold("NA")
     } else {
       const value = currentWaterLevel?.value
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
-      setFloodAlert(surpassedThreshold)
+      setFloodThreshold(surpassedThreshold)
     }
   }, [])
 
   useEffect(() => {
     const opacity = selected ? "f2" : "bf"
-    const display = floodLevelThresholdsAlertColors(floodAlert, old, opacity)
+    const display = floodLevelThresholdColors(floodThreshold, old, opacity)
     setDisplay(display)
-  }, [floodAlert])
+  }, [floodThreshold])
 
   if (display) {
     return (
@@ -108,8 +108,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
         router={router}
         radius={radius}
         color={display}
-        strokeColor={display}
-        floodAlert={floodAlert}
+        floodThreshold={floodThreshold}
       />
     )
   } else {
@@ -117,14 +116,14 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   }
 }
 
-const Layer = ({ platform, url, router, radius, color, strokeColor, floodAlert }) => {
+const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
   return (
     <RLayerVector>
       <RStyle.RStyle>
-        <RStyle.RCircle radius={radius}>
+        <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
           <RStyle.RFill color={color} />
-          <RStyle.RStroke color={strokeColor} width={1} />
-        </RStyle.RCircle>
+          <RStyle.RStroke color={"000000"} width={0.5} />
+        </RStyle.RRegularShape>
       </RStyle.RStyle>
 
       <RFeature
@@ -141,7 +140,7 @@ const Layer = ({ platform, url, router, radius, color, strokeColor, floodAlert }
       >
         <RPopup trigger={"hover"}>
           <Button color="dark" size="sm" href={url}>
-            {platform.id} <br></br>Flood level: {floodAlert ? floodAlert : "None"}
+            {platform.id} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
           </Button>
         </RPopup>
       </RFeature>
