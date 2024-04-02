@@ -99,7 +99,7 @@ export function LargeTimeSeriesWaterLevelChart({
               <PlotBand
                 from={floodThresholds.Minor?.minValue}
                 to={floodThresholds.Minor?.maxValue}
-                color={"#79A4FF30 "}
+                color={`${colors.minorThreshold}30`}
                 label={{
                   text: `Minor Flooding ${round(floodThresholds.Minor?.minValue, 1)} ${dataConverter.unitName(
                     unitSystem,
@@ -112,7 +112,7 @@ export function LargeTimeSeriesWaterLevelChart({
               <PlotBand
                 from={floodThresholds.Moderate?.minValue}
                 to={floodThresholds.Moderate?.maxValue}
-                color={"#BE84FF30"}
+                color={`${colors.moderateThreshold}30`}
                 label={{
                   text: `Moderate Flooding ${round(floodThresholds.Moderate?.minValue, 1)} ${dataConverter.unitName(
                     unitSystem,
@@ -125,7 +125,7 @@ export function LargeTimeSeriesWaterLevelChart({
               <PlotBand
                 from={floodThresholds.Major?.minValue}
                 to={floodThresholds?.Major?.minValue + 3}
-                color={"#FF798B30"}
+                color={`${colors.majorThreshold}30`}
                 acrossPanes={false}
                 label={{
                   text: `Major Flooding: ${round(floodThresholds.Major?.minValue, 1)} ${dataConverter.unitName(
@@ -139,7 +139,7 @@ export function LargeTimeSeriesWaterLevelChart({
               <PlotBand
                 from={floodThresholds.Action?.minValue}
                 to={floodThresholds.Action?.maxValue}
-                color={"#ffff6e30"}
+                color={`${colors.actionThreshold}30`}
                 label={{
                   text: `Action ${round(floodThresholds.Action?.minValue, 1)} ${dataConverter.unitName(unitSystem)}`,
                   verticalAlign: "bottom",
