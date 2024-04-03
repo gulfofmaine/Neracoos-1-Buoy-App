@@ -7,7 +7,14 @@ import { UseDatasets, useDataset } from "../hooks"
 import { PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
-import { getIsoForPicker, getToday } from "Shared/time"
+import {
+  aDayAgoRounded,
+  daysInFuture,
+  getIsoForPicker,
+  getToday,
+  manuallySetFullEODIso,
+  threeDaysAgoRounded,
+} from "Shared/time"
 import { useParams, useRouter } from "next/navigation"
 
 export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
@@ -30,6 +37,15 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
       conditions.waterLevelPredicted,
       startTime,
     )
+    if (predictedTidesTimeseries && windowWidth < 576) {
+      const startTime = aDayAgoRounded()
+      const endTime = daysInFuture(1)
+      router.push(
+        `/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getIsoForPicker(
+          manuallySetFullEODIso(endTime),
+        )}/${params.datum}`,
+      )
+    }
     if (params.endTime > getToday() && !predictedTidesTimeseries) {
       router.push(`/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getToday()}/${params.datum}`)
     }

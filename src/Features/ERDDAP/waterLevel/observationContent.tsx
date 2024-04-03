@@ -10,6 +10,7 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
   const startTime = fullBeginningDateIso(new Date(decodeURIComponent(params.startTime as string)))
   const endTime = manuallySetFullEODIso(new Date(decodeURIComponent(params.endTime as string)))
   endTime?.setDate(endTime.getDate() + 1)
+  console.log(startTime, endTime)
 
   return (
     <div>
