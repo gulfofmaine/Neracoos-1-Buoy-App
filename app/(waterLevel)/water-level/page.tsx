@@ -24,8 +24,12 @@ export default function WaterLevelIndexPage() {
   return (
     <>
       <Row>
-        <Col>{waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}</Col>
-        <Col>{waterLevelPlatforms && <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} />}</Col>
+        <Col sm={{ order: "2" }} md={{ order: "1", size: "6" }}>
+          {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
+        </Col>
+        <Col sm={{ order: "1" }} md={{ order: "2", size: "6" }}>
+          {waterLevelPlatforms && <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} />}
+        </Col>
       </Row>
     </>
   )
