@@ -32,7 +32,9 @@ export default function SensorIdPage({ params }) {
     <Row>
       <Col xs={{ size: "12", order: "2" }} md={{ size: "4", order: "1" }}>
         <div style={{ width: "100%" }}>
-          <PlatformInfo id={id} />
+          <Col>
+            <PlatformInfo id={id} />
+          </Col>
           {waterLevelPlatforms && (
             <div style={{ marginTop: "2vh" }}>
               <ErddapWaterLevelMapBase

@@ -88,6 +88,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       setFloodThreshold("NA")
     } else {
       const value = currentWaterLevel?.value
+      console.log(platform.id, value, currentWaterLevel?.flood_levels)
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodThreshold(surpassedThreshold)
