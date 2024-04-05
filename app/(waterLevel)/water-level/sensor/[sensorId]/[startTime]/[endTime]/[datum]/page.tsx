@@ -30,13 +30,10 @@ export default function SensorIdPage({ params }) {
 
   return (
     <div>
-      {window.innerWidth < 576 ? (
-        <Col>
+      <Row>
+        <Col sm={{ size: "6" }} md={{ size: "4" }}>
           <PlatformInfo id={id} />
-          {data && (
-            <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
-          )}
-          {waterLevelPlatforms && (
+          {window.innerWidth > 567 && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
               platformId={id}
@@ -45,30 +42,22 @@ export default function SensorIdPage({ params }) {
             />
           )}
         </Col>
-      ) : (
-        <Row>
-          <Col md={{ size: "4" }}>
-            <PlatformInfo id={id} />
-            {waterLevelPlatforms && (
-              <ErddapWaterLevelMapBase
-                platforms={waterLevelPlatforms}
-                platformId={id}
-                height={"30vh"}
-                mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
-              />
-            )}
+        <Col sm={{ size: "6" }}>
+          {data && (
+            <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
+          )}
+        </Col>
+        {window.innerWidth <= 567 && waterLevelPlatforms && (
+          <Col sm={{ size: "6" }}>
+            <ErddapWaterLevelMapBase
+              platforms={waterLevelPlatforms}
+              platformId={id}
+              height={"30vh"}
+              mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
+            />
           </Col>
-          <Col>
-            {data && (
-              <WaterLevelObservationContent
-                sensorId={id}
-                platforms={waterLevelPlatforms}
-                allPlatforms={data.features}
-              />
-            )}
-          </Col>
-        </Row>
-      )}
+        )}
+      </Row>
     </div>
   )
 }
