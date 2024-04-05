@@ -1,4 +1,4 @@
-import { PlatformInfo } from "Pages/Platforms/platformInfo"
+import { PlatformInfo } from "components/PlatformInfo/platformInfo"
 import { useDecodedUrl } from "util/hooks"
 
 export default async function PlatformSidebar({ params }: { params: { platformId: string } }) {

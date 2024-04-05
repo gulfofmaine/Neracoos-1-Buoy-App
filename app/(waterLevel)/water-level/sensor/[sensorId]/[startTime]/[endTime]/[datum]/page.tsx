@@ -5,7 +5,7 @@ import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
 
 import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
-import { PlatformInfo } from "Pages/Platforms/platformInfo"
+import { PlatformInfo } from "components/PlatformInfo/platformInfo"
 
 import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
