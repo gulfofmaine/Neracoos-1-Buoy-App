@@ -29,29 +29,46 @@ export default function SensorIdPage({ params }) {
   }, [data])
 
   return (
-    <Row>
-      <Col xs={{ size: "12", order: "2" }} md={{ size: "4", order: "1" }}>
-        <div style={{ width: "100%" }}>
-          <Col>
-            <PlatformInfo id={id} />
-          </Col>
+    <div>
+      {window.innerWidth < 576 ? (
+        <Col>
+          <PlatformInfo id={id} />
+          {data && (
+            <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
+          )}
           {waterLevelPlatforms && (
-            <div style={{ marginTop: "2vh" }}>
+            <ErddapWaterLevelMapBase
+              platforms={waterLevelPlatforms}
+              platformId={id}
+              height={"30vh"}
+              mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
+            />
+          )}
+        </Col>
+      ) : (
+        <Row>
+          <Col md={{ size: "4" }}>
+            <PlatformInfo id={id} />
+            {waterLevelPlatforms && (
               <ErddapWaterLevelMapBase
                 platforms={waterLevelPlatforms}
                 platformId={id}
                 height={"30vh"}
                 mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
               />
-            </div>
-          )}
-        </div>
-      </Col>
-      <Col xs={{ size: "12", order: "1" }} md={{ size: "4", order: "2" }}>
-        {data && (
-          <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
-        )}
-      </Col>
-    </Row>
+            )}
+          </Col>
+          <Col>
+            {data && (
+              <WaterLevelObservationContent
+                sensorId={id}
+                platforms={waterLevelPlatforms}
+                allPlatforms={data.features}
+              />
+            )}
+          </Col>
+        </Row>
+      )}
+    </div>
   )
 }
