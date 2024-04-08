@@ -71,24 +71,25 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   let radius: number
   if (selected) {
-    radius = window.innerWidth > adjustPxWidth ? 10 : 15
+    radius = window.innerWidth > adjustPxWidth ? 12 : 17
   } else {
-    radius = window.innerWidth > adjustPxWidth ? 5 : 10
+    radius = window.innerWidth > adjustPxWidth ? 7 : 12
   }
 
   const url = waterLevelSensorPage
     ? `/water-level/sensor/${platform.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
         weeksInFuture(1),
-      )}/${params.datum}`
+      )}/${params.datum ? params.datum : "datum_mllw_meters"}`
     : urlPartReplacer(paths.platforms.platform, ":id", platform.id)
 
   useEffect(() => {
-    const currentWaterLevel = platform.properties.readings.find((r) => r.flood_levels.length)
+    const currentWaterLevel = platform.properties.readings.find(
+      (r) => r.flood_levels.length && r.variable !== "predictedWL",
+    )
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
       const value = currentWaterLevel?.value
-      console.log(platform.id, value, currentWaterLevel?.flood_levels)
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodThreshold(surpassedThreshold)
