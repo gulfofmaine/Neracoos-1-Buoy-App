@@ -28,7 +28,7 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
   }, [platforms])
 
   return (
-    <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px" }}>
+    <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px", marginTop: "10px" }}>
       <Col style={{ width: "85px", margin: 0 }}>
         <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Station: </h6>
       </Col>

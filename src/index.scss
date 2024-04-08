@@ -98,3 +98,13 @@ nav.navbar {
   padding: 5px;
   margin-right: 10px;
 }
+
+.chart-display {
+  width: 60vw;
+}
+
+@media (max-width: 576px) {
+  .chart-display {
+    width: 100%;
+  }
+}

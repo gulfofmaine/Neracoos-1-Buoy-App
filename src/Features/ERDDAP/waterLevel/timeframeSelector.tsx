@@ -24,7 +24,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   }, [startTimeParams, endTimeParams, graphFuture])
 
   return (
-    <Row style={{ width: "75%", verticalAlign: "middle", marginBottom: "20px" }}>
+    <Row style={{ width: "80%", verticalAlign: "middle", marginBottom: "20px" }}>
       <Col style={{ width: "100%", margin: 0 }}>
         <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Timeframe: </h6>
       </Col>
@@ -36,14 +36,13 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               padding: 0,
               width: "100%",
               display: "flex",
-              alignItems: "center",
+              alignItems: "end",
               justifyContent: "space-between",
             }}
           >
-            <label>
+            <label style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               Start date:
               <input
-                className="ms-2"
                 type="date"
                 id="start"
                 name="timeframe-start"
@@ -52,10 +51,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                 onChange={(e) => setStartTime(e.target.value)}
               />
             </label>
-            <label>
+            <label style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               End date:
               <input
-                className="ms-2"
                 type="date"
                 id="end"
                 name="timeframe-end"
@@ -69,7 +67,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
               style={{ marginLeft: "10px" }}
             >
-              <Button color="primary">Plot Dates</Button>
+              <Button color="primary" size="sm" style={{ whiteSpace: "nowrap" }}>
+                Plot Dates
+              </Button>
             </a>
           </Col>
         </div>

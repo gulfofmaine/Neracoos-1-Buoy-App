@@ -184,3 +184,16 @@ export function weeksInFuture(numberOfWeeks): Date {
 
   return weekFromToday
 }
+
+/**
+ * Return a future date in time calculated by number of days
+ * @param numberOfDays number of days into future to calculate
+ * @returns Date that is that numberOfDays into future
+ */
+export function daysInFuture(numberOfDays): Date {
+  const dayFromToday = new Date(Date.now() + DAY * numberOfDays)
+
+  roundDate(dayFromToday)
+
+  return dayFromToday
+}
