@@ -11,8 +11,12 @@ import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
 import { Col, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
+import { createBreakpoint } from "react-use"
+
+const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
 export default function SensorIdPage({ params }) {
+  const breakpoint = useBreakpoint()
   const { data } = usePlatforms()
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
   const id = useDecodedUrl(params.sensorId)
@@ -33,7 +37,7 @@ export default function SensorIdPage({ params }) {
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
           <PlatformInfo id={id} />
-          {window.innerWidth > 567 && waterLevelPlatforms && (
+          {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
               platformId={id}
@@ -47,7 +51,7 @@ export default function SensorIdPage({ params }) {
             <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
           )}
         </Col>
-        {window.innerWidth <= 567 && waterLevelPlatforms && (
+        {breakpoint === "S" && waterLevelPlatforms && (
           <Col sm={{ size: "6" }}>
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
