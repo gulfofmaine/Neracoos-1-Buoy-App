@@ -11,7 +11,6 @@ import { aDayAgoRounded } from "Shared/time"
 
 import { PlatformMatchParams } from "./types"
 import { WaterLevelSensorSelector } from "Features/ERDDAP/waterLevel/sensorSelector"
-import { ListGroup, ListGroupItem } from "reactstrap"
 
 /**
  * Display our platform info panel for the select platform.
