@@ -1,33 +1,15 @@
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import {
-  Alert,
-  Col,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Input,
-  InputGroup,
-  ListGroup,
-  ListGroupItem,
-  Row,
-} from "reactstrap"
-import { useDecodedUrl } from "util/hooks"
+import { Alert, Col, InputGroup, ListGroup, ListGroupItem, Row } from "reactstrap"
 import { DatumOffsets } from "../types"
 import { getDatumDisplayName } from "Shared/dataTypes"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
-  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const [datumOptions, setDatumOptions] = useState<any>()
   const params = useParams()
-  const sensorId = useDecodedUrl(params.sensorId as string)
   const [datumSelected, setDatumSelected] = useState(params.datum)
 
-  const close = () => {
-    setIsOpen(false)
-  }
   console.log(datumOffsets)
 
   const handleChange = (offset) => {

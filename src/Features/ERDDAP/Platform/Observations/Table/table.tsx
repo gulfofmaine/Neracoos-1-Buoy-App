@@ -11,7 +11,7 @@ import { conditions } from "../../../utils/conditions"
 
 import { itemStyle, TableItem } from "./item"
 import { DatumOffsets } from "Features/ERDDAP/types"
-import { useParams, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
 
 interface Props extends UsePlatformRenderProps {
@@ -34,15 +34,14 @@ export const ErddapObservationTable: React.FC<Props> = ({
   laterThan,
   children,
 }: Props) => {
-  const pathname = usePathname()
   const [datumOptions, setDatumOptions] = useState<DatumOffsets | undefined>()
 
   useEffect(() => {
-    if (platform.properties.readings.length) {
+    if (platform.properties.readings.length && children) {
       const wlReading = platform.properties.readings.find((r) => Object.keys(r.datum_offsets).length)
       setDatumOptions(wlReading?.datum_offsets)
     }
-  }, [])
+  }, [children])
 
   const readings = platform.properties.readings.filter((d) => {
     if (d.time) {
@@ -100,7 +99,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
         </ListGroupItem>
       ) : null}
       {children && <ListGroupItem>{children}</ListGroupItem>}
-      {pathname.includes("water-level") && datumOptions ? <DatumSelector datumOffsets={datumOptions} /> : null}
+      {children && datumOptions ? <DatumSelector datumOffsets={datumOptions} /> : null}
     </ListGroup>
   )
 }
