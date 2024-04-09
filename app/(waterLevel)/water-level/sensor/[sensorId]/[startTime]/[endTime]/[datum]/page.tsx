@@ -5,13 +5,13 @@ import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
 
 import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
-import { PlatformInfo } from "components/PlatformInfo/platformInfo"
 
 import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
 import { Col, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { createBreakpoint } from "react-use"
+import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
@@ -36,7 +36,7 @@ export default function SensorIdPage({ params }) {
     <div>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          <PlatformInfo id={id} />
+          <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}

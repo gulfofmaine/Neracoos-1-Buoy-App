@@ -15,6 +15,7 @@ interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
   unitSystem: UnitSystem
   laterThan?: Date
+  children?: any
 }
 
 const timeDelta = 60 * 60 * 1000
@@ -23,7 +24,13 @@ const timeDelta = 60 * 60 * 1000
  * Recent platform observation values
  * @param platform
  */
-export const ErddapObservationTable: React.FC<Props> = ({ platform, unitSelector, unitSystem, laterThan }: Props) => {
+export const ErddapObservationTable: React.FC<Props> = ({
+  platform,
+  unitSelector,
+  unitSystem,
+  laterThan,
+  children,
+}: Props) => {
   const readings = platform.properties.readings.filter((d) => {
     if (d.time) {
       if (laterThan) {
@@ -79,6 +86,7 @@ export const ErddapObservationTable: React.FC<Props> = ({ platform, unitSelector
           <b>Unit system:</b> {unitSelector}
         </ListGroupItem>
       ) : null}
+      {children && <ListGroupItem>{children}</ListGroupItem>}
     </ListGroup>
   )
 }

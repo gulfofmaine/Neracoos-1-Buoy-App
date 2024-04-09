@@ -12,10 +12,5 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
   endTime?.setDate(endTime.getDate() + 1)
   console.log(startTime, endTime)
 
-  return (
-    <div>
-      <WaterLevelSensorSelector platforms={platforms} />
-      {sensor && <WaterLevelObservationBase platform={sensor} startTime={startTime} endTime={endTime} />}
-    </div>
-  )
+  return <div>{sensor && <WaterLevelObservationBase platform={sensor} startTime={startTime} endTime={endTime} />}</div>
 }
