@@ -1,4 +1,4 @@
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import {
   Alert,
@@ -7,6 +7,8 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Input,
+  InputGroup,
   ListGroup,
   ListGroupItem,
   Row,
@@ -17,26 +19,36 @@ import { getDatumDisplayName } from "Shared/dataTypes"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
   const [datumOptions, setDatumOptions] = useState<any>()
   const params = useParams()
   const sensorId = useDecodedUrl(params.sensorId as string)
+  const [datumSelected, setDatumSelected] = useState(params.datum)
 
   const close = () => {
     setIsOpen(false)
   }
   console.log(datumOffsets)
 
+  const handleChange = (offset) => {
+    router.push(`/water-level/sensor/${params.sensorId}/${params.startTime}/${params.endTime}/${offset}`)
+  }
+
   useEffect(() => {
     if (datumOffsets) {
       const options = Object.keys(datumOffsets).map((d, index) => {
         return (
-          <DropdownItem
-            key={`offset-${d}`}
-            href={`/water-level/sensor/${sensorId}/${params.startTime}/${params.endTime}/${d}`}
-            onClick={() => close()}
-          >
+          <lable>
+            <input
+              type="radio"
+              id={`offset-${d}`}
+              value={d}
+              key={`offset-${d}`}
+              checked={datumSelected === d}
+              onChange={() => handleChange(d)}
+            ></input>
             {getDatumDisplayName(d)}
-          </DropdownItem>
+          </lable>
         )
       })
       setDatumOptions(options.length ? options : null)
@@ -44,30 +56,16 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
   }, [datumOffsets])
 
   return (
-    <ListGroup>
+    <ListGroup style={{ marginBottom: "20px", marginTop: "20px" }}>
       <ListGroupItem>
-        <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px", marginTop: "20px" }}>
+        <Row style={{ width: "fit-content", verticalAlign: "middle" }}>
           {datumOptions ? (
             <div>
               <Col style={{ width: "85px", margin: 0 }}>
                 <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Datum: </h6>
               </Col>
               <Col style={{ margin: 0, padding: 0 }}>
-                <Dropdown
-                  isOpen={isOpen}
-                  toggle={() => setIsOpen(!isOpen)}
-                  style={{ border: "1px solid black", borderRadius: "7px" }}
-                >
-                  <DropdownToggle color={"#FFFFFF"} caret={true}>
-                    {getDatumDisplayName(decodeURIComponent(params.datum as string))}
-                  </DropdownToggle>
-
-                  {datumOptions && (
-                    <DropdownMenu end={true} style={{ padding: "5px" }}>
-                      {datumOptions}
-                    </DropdownMenu>
-                  )}
-                </Dropdown>
+                <InputGroup className="datum-radio-group">{datumOptions}</InputGroup>
               </Col>
             </div>
           ) : (
