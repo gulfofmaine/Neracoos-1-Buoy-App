@@ -38,7 +38,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
     if (datumOffsets) {
       const options = Object.keys(datumOffsets).map((d, index) => {
         return (
-          <lable>
+          <label>
             <input
               type="radio"
               id={`offset-${d}`}
@@ -46,9 +46,10 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
               key={`offset-${d}`}
               checked={datumSelected === d}
               onChange={() => handleChange(d)}
+              style={{ marginRight: "5px" }}
             ></input>
             {getDatumDisplayName(d)}
-          </lable>
+          </label>
         )
       })
       setDatumOptions(options.length ? options : null)
