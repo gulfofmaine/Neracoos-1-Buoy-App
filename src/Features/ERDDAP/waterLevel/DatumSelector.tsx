@@ -20,7 +20,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
     if (datumOffsets) {
       const options = Object.keys(datumOffsets).map((d, index) => {
         return (
-          <label>
+          <label key={`radio-label-${index}`}>
             <input
               type="radio"
               id={`offset-${d}`}
