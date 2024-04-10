@@ -82,12 +82,10 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }, [timeSeries])
 
-  console.log("apples", startTime)
-
   return (
     <div>
       <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
-      <p style={{ textAlign: "center" }}>{`Current timeframe: ${displayShortIso(startTime)} - ${displayShortIso(
+      <p style={{ textAlign: "center" }}>{`${displayShortIso(startTime)} - ${displayShortIso(
         manuallySetFullEODIso(endTime),
       )}`}</p>
       <LargeTimeSeriesWaterLevelChart

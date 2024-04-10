@@ -10,8 +10,6 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
   const params = useParams()
   const [datumSelected, setDatumSelected] = useState(params.datum)
 
-  console.log(datumOffsets)
-
   const handleChange = (offset) => {
     router.push(`/water-level/sensor/${params.sensorId}/${params.startTime}/${params.endTime}/${offset}`)
   }

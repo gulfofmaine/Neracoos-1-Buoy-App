@@ -88,7 +88,13 @@ export function LargeTimeSeriesWaterLevelChart({
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart height={"600px"} style={{ padding: "10px", border: "1px solid #d3d3d3" }} />
-        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
+        <XAxis
+          type="datetime"
+          min={startTime?.valueOf()}
+          max={endTime?.valueOf()}
+          crosshair={true}
+          gridLineWidth={0.5}
+        />
         <YAxis
           softMin={softMin}
           softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax[unitSystem]}
@@ -165,7 +171,7 @@ export function LargeTimeSeriesWaterLevelChart({
             />
           )}
         </YAxis>
-        <Legend layout="vertical" />
+        <Legend layout="horizontal" />
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
       </HighchartsChart>
     </HighchartsProvider>
