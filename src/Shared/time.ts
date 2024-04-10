@@ -77,6 +77,17 @@ export function shortIso(date: Date): string {
 }
 
 /**
+ * ISO date for display
+ *
+ * @param date
+ * @returns ISO date in format: Weekday Month DD YYYY hh:mm:ss GMT
+ */
+export function displayShortIso(date: Date): string {
+  const newDate = date.toISOString().split(".")[0].split("T").join(" ") + " GMT"
+  return new Date(newDate).toString().split("-")[0]
+}
+
+/**
  * Round to the 5 minutes and set everything less to 0
  *
  * @param date Date

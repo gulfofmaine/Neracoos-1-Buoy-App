@@ -8,6 +8,7 @@ import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
 import { TimeframeSelector } from "../timeframeSelector"
+import { displayShortIso, getIsoForPicker, manuallySetFullEODIso, roundDate, shortIso } from "Shared/time"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -81,9 +82,14 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }, [timeSeries])
 
+  console.log("apples", startTime)
+
   return (
     <div>
       <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
+      <p style={{ textAlign: "center" }}>{`Current timeframe: ${displayShortIso(startTime)} - ${displayShortIso(
+        manuallySetFullEODIso(endTime),
+      )}`}</p>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}

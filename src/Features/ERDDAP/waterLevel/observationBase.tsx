@@ -24,6 +24,7 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const windowWidth = window.innerWidth
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
+  console.log("bananas", platform.properties.mooring_site_desc)
 
   useEffect(() => {
     const waterLevelTimeseries = filterWaterLevelTimeSeries(
@@ -70,6 +71,7 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
 
               const startTime = new Date(times[0])
               const endTime = new Date(times[times.length - 1])
+              console.log(times[times.length - 1])
 
               const waterLevelData = datasets[0]
               const predictedTidesDataset = predictedTides ? datasets[1] : null
