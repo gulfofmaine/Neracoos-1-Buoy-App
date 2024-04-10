@@ -2,11 +2,14 @@
  * Types that the Platform pages use to match URL parameters.
  */
 
+import { PlatformFeature } from "Features/ERDDAP/types"
+
 export interface PlatformMatchParams {
   /**
    * Platform ID from URL parameter
    */
   id: string
+  sensors?: PlatformFeature[] | undefined
 }
 
 export type PlatformObservationMatchParams = PlatformMatchParams & {

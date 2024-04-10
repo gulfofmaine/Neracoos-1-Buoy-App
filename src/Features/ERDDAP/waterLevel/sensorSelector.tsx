@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 
-export const WaterLevelSensorSelector = ({ platforms }) => {
+export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
@@ -14,8 +14,8 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
   }
 
   useEffect(() => {
-    if (platforms) {
-      const options = platforms.map((p, index) => {
+    if (sensors) {
+      const options = sensors.map((p, index) => {
         const link = `/water-level/sensor/${p.id as string}/${params.startTime}/${params.endTime}/${params.datum}`
         return (
           <DropdownItem key={index} href={link} onClick={() => close()}>
@@ -25,10 +25,10 @@ export const WaterLevelSensorSelector = ({ platforms }) => {
       })
       setSensorOptions(options)
     }
-  }, [platforms])
+  }, [sensors])
 
   return (
-    <Row style={{ width: "fit-content", verticalAlign: "middle", marginBottom: "20px", marginTop: "10px" }}>
+    <Row style={{ width: "fit-content", verticalAlign: "middle" }}>
       <Col style={{ width: "85px", margin: 0 }}>
         <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Station: </h6>
       </Col>
