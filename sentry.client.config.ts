@@ -41,5 +41,5 @@ Sentry.init({
 })
 
 if (process.env.NODE_ENV === "development") {
-  Spotlight.init({anchor: "bottomLeft"})
+  Spotlight.init({ anchor: "bottomLeft" })
 }
