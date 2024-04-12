@@ -85,7 +85,7 @@
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.15",
     "@types/react-test-renderer": "18.0.7",
-    "eslint": "^8.55.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-storybook": "^0.6.15",
     "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "3.0.3",
