@@ -20,6 +20,8 @@ updates:
           - "react"
           - "react-dom"
           - "react-test-renderer"
+          - "@types/react"
+          - "@types/react-dom"
       react-query:
         patterns:
           - "@tanstack/*"
@@ -28,6 +30,17 @@ updates:
           - "next"
           - "eslint-config-next"
           - "@next/eslint-plugin-next"
+      testing-library:
+        patterns:
+          - "@testing-library/*"
+      bootstrap:
+        patterns:
+          - bootstrap
+          - reactstrap
+      openlayers:
+        patterns:
+          - rlayers
+          - ol
 
   - package-ecosystem: docker
     directory: "/"
