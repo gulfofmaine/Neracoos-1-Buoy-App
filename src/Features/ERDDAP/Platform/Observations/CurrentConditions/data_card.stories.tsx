@@ -1,12 +1,12 @@
 import * as React from "react"
 
-import { DataCard, DataCardDisplay } from "./data_card"
+import { DataCardDisplay } from "./data_card"
 import { UnitSystem } from "Features/Units/types"
 
 import { platform } from "stories/platform"
 
 export default {
-  component: DataCard,
+  component: DataCardDisplay,
   title: "ERDDAP/CurrentConditions/Data Card",
   parameters: {
     storyshots: {

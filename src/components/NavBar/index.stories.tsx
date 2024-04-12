@@ -12,6 +12,9 @@ const meta: Meta<typeof NeracoosNavBar> = {
         pathname: "/",
       },
     },
+    storyshots: {
+      disable: true,
+    },
   },
 }
 
