@@ -35,7 +35,7 @@ cov:
 	docker compose exec client yarn test --coverage
 
 test:
-	docker compose run -e CI=true client yarn test
+	docker compose run -e CI=true client yarn test-ci
 
 test-watch:
 	docker compose exec client yarn test
@@ -45,7 +45,7 @@ cov-html:
 
 
 storybook:
-	docker compose run -p 9009:9009 client yarn storybook
+	docker compose run -p 6006:6006 client yarn storybook
 
 build-storybook:
 	docker compose run client yarn build-storybook

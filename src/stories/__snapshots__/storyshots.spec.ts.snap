@@ -1,435 +1,221 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots App/Error Page Five Hundred Page 1`] = `
-<div
-  className="row"
->
-  <div
-    className="col-md-8 offset-md-2"
-  >
-    <h1>
-      The data has escaped
-    </h1>
-    <img
-      alt="Track of a lost buoy"
-      data-nimg="1"
-      decoding="async"
-      height={40}
-      loading="lazy"
-      onError={[Function]}
-      onLoad={[Function]}
-      src="/_next/image?url=%2Fimg.jpg&w=96&q=75"
-      srcSet="/_next/image?url=%2Fimg.jpg&w=48&q=75 1x, /_next/image?url=%2Fimg.jpg&w=96&q=75 2x"
-      style={
-        {
-          "color": "transparent",
-          "height": "auto",
-          "maxWidth": "100%",
-        }
-      }
-      width={40}
-    />
-    <p>
-      Despite our best intentions, something has gone wrong while trying to display the data.
-    </p>
-    <p>
-      If you saw a 
-      <b>
-        It looks like we're having issues
-      </b>
-       form, we hope that you filled it out, as it will help us fix the issue. Otherwise you can email 
-      <a
-        href="mailto:info@neracoos.org"
-      >
-        info@neracoos.org
-      </a>
-       with information about the error, or try to launch the form.
-    </p>
-    <button
-      className="btn btn-primary"
-      onClick={[Function]}
-      type="button"
-    >
-      I've got an idea what went wrong, please show me the form
-    </button>
-    <p
-      style={
-        {
-          "paddingTop": "1rem",
-        }
-      }
-    >
-      Sometimes issues are short lived, so if you give it a minute, then try reloading the page, hopefully you will be able to get to the data. If you can't and this error shows up again, please fill out the form, or email us for help.
-    </p>
-    <button
-      className="btn btn-danger"
-      onClick={[Function]}
-      type="button"
-    >
-      Try again
-    </button>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Components/Footer Footer 1`] = `
-<div
-  className="footer"
-  style={
-    {
-      "bottom": 0,
-      "height": "110px",
-      "paddingBottom": "10px",
-      "position": "absolute",
-      "width": "100%",
-    }
-  }
->
-  <div
-    className="row"
-    style={
-      {
-        "fontSize": ".8rem",
-        "padding": ".25rem",
-        "paddingTop": "1rem",
-      }
-    }
-  >
-    <div
-      className="mx-auto text-center col-md-10"
-    >
-      Copyright © 2021 ~ NERACOOS
-    </div>
-  </div>
-  <div
-    className="row"
-    style={
-      {
-        "fontSize": ".8rem",
-        "padding": ".25rem",
-      }
-    }
-  >
-    <div
-      className="mx-auto text-center col-md-10"
-    >
-      Use
-       
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
-      >
-        this form
-      </a>
-       
-      to send us feedback or bug reports
-    </div>
-  </div>
-  <div
-    className="row"
-    style={
-      {
-        "fontSize": ".8rem",
-        "padding": ".25rem",
-      }
-    }
-  >
-    <div
-      className="mx-auto text-center col-md-10"
-    >
-      Product of 
-      <a
-        href="http://www.neracoos.org/"
-      >
-        NERACOOS.org
-      </a>
-       - Developed and maintained by the
-       
-      <a
-        href="https://gmri.org/commitments/science/ocean-data-products/"
-      >
-        Gulf of Maine Research Institute
-      </a>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Components/NavBar Nav Bar 1`] = `
+exports[`Storybook Tests Components/Footer footer 1`] = `
 <div>
-  <nav
-    className="navbar navbar-expand-md navbar-dark"
+  <div
+    class="footer"
+    style="position: absolute; bottom: 0px; width: 100%; padding-bottom: 10px; height: 110px;"
   >
     <div
-      className="container-fluid"
+      class="row"
+      style="font-size: .8rem; padding: 1rem .25rem .25rem .25rem;"
     >
-      <a
-        className="navbar-brand"
-        href="http://neracoos.org"
-      >
-        <img
-          alt="NERACOOS"
-          data-nimg="1"
-          decoding="async"
-          height={30}
-          loading="lazy"
-          onError={[Function]}
-          onLoad={[Function]}
-          src="/_next/image?url=%2Fimg.jpg&w=64&q=75"
-          srcSet="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=64&q=75 2x"
-          style={
-            {
-              "color": "transparent",
-            }
-          }
-          width={30}
-        />
-      </a>
-      <button
-        aria-label="Toggle navigation"
-        className="navbar-toggler"
-        onClick={[Function]}
-        type="button"
-      >
-        <span
-          className="navbar-toggler-icon"
-        />
-      </button>
       <div
-        className="justify-content-end collapse navbar-collapse"
-        style={{}}
+        class="mx-auto text-center col-md-10"
       >
-        <ul
-          className="ml-auto navbar-nav"
+        Copyright © 2021 ~ NERACOOS
+      </div>
+    </div>
+    <div
+      class="row"
+      style="font-size: .8rem; padding: .25rem;"
+    >
+      <div
+        class="mx-auto text-center col-md-10"
+      >
+        Use
+         
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
         >
+          this form
+        </a>
+         
+        to send us feedback or bug reports
+      </div>
+    </div>
+    <div
+      class="row"
+      style="font-size: .8rem; padding: .25rem;"
+    >
+      <div
+        class="mx-auto text-center col-md-10"
+      >
+        Product of 
+        <a
+          href="http://www.neracoos.org/"
+        >
+          NERACOOS.org
+        </a>
+         - Developed and maintained by the
+         
+        <a
+          href="https://gmri.org/commitments/science/ocean-data-products/"
+        >
+          Gulf of Maine Research Institute
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storybook Tests ERDDAP/Info/Panel platformInfo 1`] = `
+<div>
+  <div
+    class="card"
+    role="complementary"
+  >
+    <div
+      class="card-body"
+    >
+      <div
+        class="card-title"
+        role="header"
+      >
+        Station 
+        M01
+      </div>
+      <p
+        class="card-text"
+      >
+        Jordan Basin
+        <br />
+        <b>
+          NDBC ID:
+        </b>
+         
+        44037
+        <br />
+        <b>
+          Lat:
+        </b>
+         
+        43.5
+         
+        <b>
+          Lon:
+        </b>
+         
+        -67.87
+        <br />
+        <a
+          href="http://gyre.umeoce.maine.edu/gomoos.php"
+        >
+          University of Maine
+        </a>
+        <br />
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storybook Tests ERDDAP/Superlatives Configurable 1`] = `
+<div>
+  <div
+    class="card"
+    style="margin-top: 1rem; margin-bottom: 1rem;"
+  >
+    <div
+      class="card-header"
+    >
+      <h5>
+        Latest Conditions
+      </h5>
+    </div>
+    <div
+      class="card-body"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col"
+        >
+          <h6>
+            Highest Winds
+          </h6>
+          <div>
+            22.8
+             
+            Knots
+          </div>
           <a
-            className="nav-link active"
-            href="/"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onTouchStart={[Function]}
+            href="/platform/WLIS"
           >
-            Home
-          </a>
-          <li
-            className="dropdown nav-item"
-            onKeyDown={[Function]}
-          >
-            <a
-              aria-expanded={false}
-              aria-haspopup={true}
-              className="dropdown-toggle nav-link"
-              href="#"
-              onClick={[Function]}
-            >
-              Regions
-            </a>
-            <div
-              aria-hidden={true}
-              className="dropdown-menu dropdown-menu-end"
-              role="menu"
-              tabIndex="-1"
-            >
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/GOM"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Gulf Of Maine
-              </a>
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/LONG"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Long Island Sound
-              </a>
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/GREAT"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Great Bay, NH
-              </a>
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/BOSTON"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Boston Harbor
-              </a>
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/CAPE"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Cape Cod / Buzzards Bay
-              </a>
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/NARRAGANSETT"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Narragansett Bay
-              </a>
-              <a
-                className="nav-link dropdown-item btn"
-                href="/region/NEWFOUNDLAND"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onTouchStart={[Function]}
-              >
-                Newfoundland
-              </a>
+            <div>
+              WLIS
+               - 
+              Western Long Island Sound
             </div>
-          </li>
-          <li
-            className="nav-item"
+          </a>
+        </div>
+        <div
+          class="col"
+        >
+          <h6>
+            Biggest Waves
+          </h6>
+          <div>
+            8.3
+             
+            Feet
+          </div>
+          <a
+            href="/platform/44008"
           >
-            <a
-              className="nav-link"
-              href="/models"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onTouchStart={[Function]}
-            >
-              Model Viewer
-            </a>
-          </li>
-          <li
-            className="nav-item"
-          >
-            <a
-              className="nav-link"
-              href="/water-level"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onTouchStart={[Function]}
-            >
-              Water Level
-            </a>
-          </li>
-          <li
-            className="nav-item"
-          >
-            <a
-              className="nav-link"
-              href="/about"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onTouchStart={[Function]}
-            >
-              About
-            </a>
-          </li>
-        </ul>
+            <div>
+              44008
+               - 
+              Nantucket 54NM Southeast of Nantucket
+            </div>
+          </a>
+        </div>
       </div>
     </div>
-  </nav>
+  </div>
 </div>
 `;
 
-exports[`Storyshots ERDDAP/Info/Panel Platform Info 1`] = `
-<div
-  className="card"
-  role="complementary"
->
+exports[`Storybook Tests ERDDAP/Superlatives ShouldNotShowOutdatedData 1`] = `
+<div>
   <div
-    className="card-body"
+    class="card"
+    style="margin-top: 1rem; margin-bottom: 1rem;"
   >
     <div
-      className="card-title"
-      role="header"
+      class="card-header"
     >
-      Station 
-      M01
+      <h5>
+        Latest Conditions
+      </h5>
     </div>
-    <p
-      className="card-text"
-    >
-      Jordan Basin
-      <br />
-      <b>
-        NDBC ID:
-      </b>
-       
-      44037
-      <br />
-      <b>
-        Lat:
-      </b>
-       
-      43.5
-       
-      <b>
-        Lon:
-      </b>
-       
-      -67.87
-      <br />
-      <a
-        href="http://gyre.umeoce.maine.edu/gomoos.php"
-      >
-        University of Maine
-      </a>
-      <br />
-    </p>
-  </div>
-</div>
-`;
-
-exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
-<div
-  className="card"
-  style={
-    {
-      "marginBottom": "1rem",
-      "marginTop": "1rem",
-    }
-  }
->
-  <div
-    className="card-header"
-  >
-    <h5>
-      Latest Conditions
-    </h5>
-  </div>
-  <div
-    className="card-body"
-  >
     <div
-      className="row"
+      class="card-body"
     >
       <div
-        className="col"
+        class="row"
       >
-        <h6>
-          Highest Winds
-        </h6>
-        <div>
-           -- -- 
+        <div
+          class="col"
+        >
+          <h6>
+            Highest Winds
+          </h6>
+          <div>
+             -- -- 
+          </div>
         </div>
-      </div>
-      <div
-        className="col"
-      >
-        <h6>
-          Biggest Waves
-        </h6>
-        <div>
-           -- -- 
+        <div
+          class="col"
+        >
+          <h6>
+            Biggest Waves
+          </h6>
+          <div>
+             -- -- 
+          </div>
         </div>
       </div>
     </div>
@@ -437,98 +223,50 @@ exports[`Storyshots ERDDAP/Superlatives Configurable 1`] = `
 </div>
 `;
 
-exports[`Storyshots ERDDAP/Superlatives Should Not Show Outdated Data 1`] = `
-<div
-  className="card"
-  style={
-    {
-      "marginBottom": "1rem",
-      "marginTop": "1rem",
-    }
-  }
->
+exports[`Storybook Tests Units/UnitSelector/configurable english 1`] = `
+<div>
   <div
-    className="card-header"
+    class="unit-selector btn-group"
+    role="group"
   >
-    <h5>
-      Latest Conditions
-    </h5>
-  </div>
-  <div
-    className="card-body"
-  >
-    <div
-      className="row"
+    <button
+      class="btn btn-light btn-sm"
+      id="Metric"
+      type="button"
     >
-      <div
-        className="col"
-      >
-        <h6>
-          Highest Winds
-        </h6>
-        <div>
-           -- -- 
-        </div>
-      </div>
-      <div
-        className="col"
-      >
-        <h6>
-          Biggest Waves
-        </h6>
-        <div>
-           -- -- 
-        </div>
-      </div>
-    </div>
+      Metric
+    </button>
+    <button
+      class="btn btn-primary btn-sm active"
+      id="English"
+      type="button"
+    >
+      English
+    </button>
   </div>
 </div>
 `;
 
-exports[`Storyshots Units/UnitSelector/configurable English 1`] = `
-<div
-  className="unit-selector btn-group"
-  role="group"
->
-  <button
-    className="btn btn-light btn-sm"
-    id="Metric"
-    onClick={[Function]}
-    type="button"
+exports[`Storybook Tests Units/UnitSelector/configurable metric 1`] = `
+<div>
+  <div
+    class="unit-selector btn-group"
+    role="group"
   >
-    Metric
-  </button>
-  <button
-    className="btn btn-primary btn-sm active"
-    id="English"
-    onClick={[Function]}
-    type="button"
-  >
-    English
-  </button>
-</div>
-`;
-
-exports[`Storyshots Units/UnitSelector/configurable Metric 1`] = `
-<div
-  className="unit-selector btn-group"
-  role="group"
->
-  <button
-    className="btn btn-primary btn-sm active"
-    id="Metric"
-    onClick={[Function]}
-    type="button"
-  >
-    Metric
-  </button>
-  <button
-    className="btn btn-light btn-sm"
-    id="English"
-    onClick={[Function]}
-    type="button"
-  >
-    English
-  </button>
+    <button
+      class="btn btn-primary btn-sm active"
+      id="Metric"
+      type="button"
+    >
+      Metric
+    </button>
+    <button
+      class="btn btn-light btn-sm"
+      id="English"
+      type="button"
+    >
+      English
+    </button>
+  </div>
 </div>
 `;

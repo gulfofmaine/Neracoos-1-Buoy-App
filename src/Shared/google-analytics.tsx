@@ -10,11 +10,10 @@ import ReactGA from "react-ga4"
 import { usePathname } from "next/navigation"
 
 interface Props {
-  children: JSX.Element
   trackingId?: string
 }
 
-export function GAListener({ children, trackingId }: Props) {
+export function GAListener({ children, trackingId }: React.PropsWithChildren<Props>) {
   const path = usePathname()
 
   useEffect(() => {
