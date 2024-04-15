@@ -203,7 +203,7 @@ jobs:
           path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
 
       # This command should work and only be ran on cold cache
-      - run: npm run playwright install
+      - run: npx playwright install
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Wait for container to become available
