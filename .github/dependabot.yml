@@ -41,6 +41,12 @@ updates:
         patterns:
           - rlayers
           - ol
+      redux:
+        patterns:
+          - redux-devtools-extension
+          - redux-mock-store
+          - "@reduxjs/toolkit"
+          - "react-redux"
 
   - package-ecosystem: docker
     directory: "/"
