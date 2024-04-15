@@ -6,7 +6,7 @@ services:
       context: .
       target: runner
     image: gmri/neracoos-mariners-dashboard
-    # command: "yarn dev"
+    # command: "npm run dev"
     stdin_open: true
     ports:
       - "3000:3000"
@@ -19,7 +19,7 @@ services:
   # test:
   #   build: .
   #   image: neracoos-react
-  #   command: "yarn test --watchAll" # --coverage"
+  #   command: "npm run test --watchAll" # --coverage"
   #   environment:
   #     NEXT_PUBLIC_ERDDAP_SERVICE: http://localhost:8080/api/platforms/
   #   volumes:

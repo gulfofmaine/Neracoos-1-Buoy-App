@@ -6,7 +6,7 @@ services:
     build:
       context: .
       target: dev
-    command: yarn dev
+    command: npm run dev
     stdin_open: true
     volumes:
       - .:/app:cached

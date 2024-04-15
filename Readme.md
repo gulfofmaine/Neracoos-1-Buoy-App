@@ -55,4 +55,4 @@ You can also run `make cov` to generate code coverage, and `make cov-html` to vi
 
 There are also integration tests that can be run with [Playwright](https://playwright.dev/). This is does a full browser based test to make sure that data can be loaded.
 
-To run, first start the app with `make serve`, then `yarn test:e2e` for headless tests, or `yarn test:e2e:ui` to view the browser testing.
+To run, first start the app with `make serve`, then `npm run test:e2e` for headless tests, or `npm run test:e2e:ui` to view the browser testing.
