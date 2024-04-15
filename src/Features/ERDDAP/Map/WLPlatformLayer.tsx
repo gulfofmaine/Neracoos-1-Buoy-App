@@ -27,6 +27,7 @@ import {
   getWaterLevelThresholdsMapRawComp,
 } from "../utils/waterLevelThresholds"
 import { PlatformLayer } from "."
+import { platformName } from "../utils/platformName"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -142,7 +143,7 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
       >
         <RPopup trigger={"hover"}>
           <Button color="dark" size="sm" href={url}>
-            {platform.id} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
+            {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
           </Button>
         </RPopup>
       </RFeature>

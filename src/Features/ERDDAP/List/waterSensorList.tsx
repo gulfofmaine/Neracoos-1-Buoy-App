@@ -1,15 +1,17 @@
-import { Feature } from "@turf/helpers"
 import { getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListGroup } from "reactstrap"
 
+import { platformName } from "../utils/platformName"
+import { PlatformFeature } from "../types"
+
 interface Props {
-  platforms: Feature[]
+  platforms: PlatformFeature[]
 }
 
 export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: Props) => {
-  const [sensors, setSensors] = useState<Feature[]>()
+  const [sensors, setSensors] = useState<PlatformFeature[]>()
 
   useEffect(() => {
     if (platforms) {
@@ -38,7 +40,7 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: P
             )}/datum_mllw_meters`}
             className="list-group-item list-group-item-action"
           >
-            {s.id}
+            {platformName(s)}
           </Link>
         ))}
     </ListGroup>

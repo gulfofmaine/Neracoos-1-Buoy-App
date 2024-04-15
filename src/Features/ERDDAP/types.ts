@@ -29,6 +29,7 @@ export interface PlatformProperties {
   attribution: PlatformAttribution[]
   mooring_site_desc: string
   nbdc_site_id?: string
+  station_name?: string
   // uscg_light_letter?: string
   // watch_circle_radius?: number
 }

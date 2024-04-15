@@ -21,6 +21,7 @@ import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
+import { platformName } from "../utils/platformName"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -100,7 +101,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       >
         <RPopup trigger={"hover"}>
           <Button color="dark" size="sm" href={url}>
-            {platform.id}
+            {platformName(platform)}
           </Button>
         </RPopup>
       </RFeature>

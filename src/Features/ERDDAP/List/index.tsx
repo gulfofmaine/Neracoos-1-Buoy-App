@@ -13,6 +13,8 @@ import { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { UsePlatforms } from "../hooks"
+import { platformName } from "../utils/platformName"
+import { PlatformFeature } from "../types"
 
 interface Props {
   /** Bounding box to filter platforms by */
@@ -20,7 +22,7 @@ interface Props {
 }
 
 interface BaseProps extends Props {
-  platforms: Feature[]
+  platforms: PlatformFeature[]
 }
 
 /**
@@ -56,7 +58,7 @@ export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platf
               href={urlPartReplacer(paths.platforms.platform, ":id", id as string)}
               className="list-group-item list-group-item-action"
             >
-              {id}
+              {platformName(platform)}
             </Link>
           )
         })

@@ -3232,6 +3232,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [6],
+      station_name: "Western Long Island Sound",
     },
   },
   {
@@ -5735,6 +5736,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [3],
+      station_name: "Southeast of Nantucket",
     },
   },
   {
