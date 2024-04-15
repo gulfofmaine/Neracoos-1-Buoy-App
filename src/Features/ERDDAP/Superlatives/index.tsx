@@ -18,6 +18,7 @@ import { urlPartReplacer } from "Shared/urlParams"
 import { usePlatforms } from "../hooks/buoyBarn"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
+import { platformName } from "../utils/platformName"
 
 const waveHeight = new Set(conditions.waveHeight)
 const windSpeed = new Set(conditions.windSpeed)
@@ -202,9 +203,7 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({ pl
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
       </div>
       <Link href={url}>
-        <div>
-          {platform.id} - {platform.properties.mooring_site_desc}
-        </div>
+        <div>{platformName(platform)}</div>
       </Link>
     </React.Fragment>
   )

@@ -145,9 +145,7 @@ exports[`Storybook Tests ERDDAP/Superlatives Configurable 1`] = `
             href="/platform/WLIS"
           >
             <div>
-              WLIS
-               - 
-              Western Long Island Sound
+              WLIS: Western Long Island Sound
             </div>
           </a>
         </div>
@@ -166,9 +164,7 @@ exports[`Storybook Tests ERDDAP/Superlatives Configurable 1`] = `
             href="/platform/44008"
           >
             <div>
-              44008
-               - 
-              Nantucket 54NM Southeast of Nantucket
+              44008: Southeast of Nantucket
             </div>
           </a>
         </div>

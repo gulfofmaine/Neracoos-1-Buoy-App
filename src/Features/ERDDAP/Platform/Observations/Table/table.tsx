@@ -13,6 +13,7 @@ import { itemStyle, TableItem } from "./item"
 import { DatumOffsets } from "Features/ERDDAP/types"
 import { usePathname } from "next/navigation"
 import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
+import { platformName } from "Features/ERDDAP/utils/platformName"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
@@ -76,7 +77,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
           })}
         </ListGroupItem>
       ) : (
-        <ListGroupItem style={itemStyle}>There is no recent data from {platform.id}</ListGroupItem>
+        <ListGroupItem style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroupItem>
       )}
 
       <TableItem {...commonProps} data_type={conditions.windSpeed} name="Wind Speed" />
