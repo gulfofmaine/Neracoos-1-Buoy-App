@@ -30,7 +30,7 @@ export function useQueryParam<T>(key: string): [T | undefined, (newQuery: T) => 
 
   const paramValue = searchParams.get(key)
 
-  const value = React.useMemo(() => JSURL.parse(paramValue), [paramValue])
+  const value: T | undefined = React.useMemo(() => (paramValue ? JSURL.parse(paramValue) : undefined), [paramValue])
 
   const setValue = React.useCallback(
     (newValue: T) => {
