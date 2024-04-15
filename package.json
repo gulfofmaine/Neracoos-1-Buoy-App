@@ -21,7 +21,7 @@
     "error": "10.4.0",
     "highcharts": "^11.4.1",
     "jsurl2": "^2.1.0",
-    "next": "14.2.0",
+    "next": "14.2.1",
     "ol": "^8.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@estruyf/github-actions-reporter": "^1.6.0",
-    "@next/eslint-plugin-next": "^14.0.3",
+    "@next/eslint-plugin-next": "^14.2.1",
     "@playwright/test": "^1.40.1",
     "@storybook/addon-a11y": "^8.0.8",
     "@storybook/addon-essentials": "^8.0.8",
