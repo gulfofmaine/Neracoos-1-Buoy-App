@@ -33,7 +33,6 @@
     "react-select": "^5.8.0",
     "react-use": "^17.5.0",
     "reactstrap": "9.2.0",
-    "redux-first-history": "^5.1.1",
     "rlayers": "^2.3.1",
     "sass": "^1.75.0",
     "sharp": "^0.33.3"
