@@ -1,8 +1,6 @@
 #syntax=docker/dockerfile:1.2
 FROM node:21.7.3-alpine@sha256:6d0f18a1c67dc218c4af50c21256616286a53c09e500fadf025b6d342e1c90ae AS base
 
-RUN npm install -g --force yarn@1.22.22
-
 # Install dependencies only when needed
 FROM base AS deps
 ARG NEXT_PUBLIC_SENTRY_DSN
@@ -11,10 +9,10 @@ ARG NEXT_PUBLIC_SENTRY_DSN
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json package-lock.json ./
 
-RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn \
-  yarn --frozen-lockfile
+RUN --mount=type=cache,id=npm,target=/root/.npm \
+  npm ci
 
 FROM base as dev
 WORKDIR /app
@@ -35,7 +33,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN yarn build
+RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner

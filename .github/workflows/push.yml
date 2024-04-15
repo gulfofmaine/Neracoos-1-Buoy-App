@@ -117,7 +117,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test-with-coverage
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client npm run test-with-coverage
 
       - name: Codacy Coverage Reporter
         if: env.CODACY_PROJECT_TOKEN != null
@@ -130,13 +130,13 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
-        run: docker compose -f docker-compose.dev.yaml run -e CI=true client yarn test-ci
+        run: docker compose -f docker-compose.dev.yaml run -e CI=true client npm run test-ci
 
-      - name: Yarn Build
-        run: docker compose -f docker-compose.dev.yaml run client yarn build
+      - name: npm run Build
+        run: docker compose -f docker-compose.dev.yaml run client npm run build
 
       - name: Build Storybook Pages
-        run: docker compose -f docker-compose.dev.yaml run client yarn build-storybook
+        run: docker compose -f docker-compose.dev.yaml run client npm run build-storybook
 
       # - name: Cache Storybook Build
       #   uses: actions/cache@v4
@@ -168,7 +168,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: yarn
+          cache: npm
 
       - name: Cache Docker image
         uses: actions/cache@v4
@@ -186,7 +186,7 @@ jobs:
       - name: Start container
         run: docker compose up -d client
 
-      - run: yarn install --frozen-lockfile
+      - run: npm install --frozen-lockfile
 
       # Use Playwright version as part of the cache key
       # AFAIK this is a x-platform way to get your installed Playwright version.
@@ -203,7 +203,7 @@ jobs:
           path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
 
       # This command should work and only be ran on cold cache
-      - run: yarn playwright install
+      - run: npx playwright install
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Wait for container to become available
@@ -211,7 +211,7 @@ jobs:
         timeout-minutes: 1
 
       - name: Run Playwright tests
-        run: yarn test:e2e
+        run: npm run test:e2e
 
       - uses: actions/upload-artifact@v4
         if: always()

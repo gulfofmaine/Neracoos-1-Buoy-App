@@ -28,27 +28,27 @@ rm-docs:
 	rm -r docs/ || true
 
 docs: rm-docs
-	docker-compose exec client yarn docs
+	docker-compose exec client npm run docs
 	python3 -m http.server -d docs/
 
 cov:
-	docker compose exec client yarn test --coverage
+	docker compose exec client npm run test --coverage
 
 test:
-	docker compose run -e CI=true client yarn test-ci
+	docker compose run -e CI=true client npm run test-ci
 
 test-watch:
-	docker compose exec client yarn test
+	docker compose exec client npm run test
 
 cov-html:
 	open coverage/lcov-report/index.html
 
 
 storybook:
-	docker compose run -p 6006:6006 client yarn storybook
+	docker compose run -p 6006:6006 client npm run storybook
 
 build-storybook:
-	docker compose run client yarn build-storybook
+	docker compose run client npm run build-storybook
 
 spotlight-docker:
 	docker run --rm \

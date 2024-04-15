@@ -3,4 +3,3 @@ NEXT_PUBLIC_ERDDAP_SERVICE = "https://buoybarn.neracoos.org"
 
 [tools]
 node = "21"
-yarn = "1.22.19"
