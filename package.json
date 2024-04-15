@@ -22,7 +22,7 @@
     "highcharts": "^11.4.1",
     "jsurl2": "^2.1.0",
     "next": "14.2.1",
-    "ol": "^8.1.0",
+    "ol": "^9.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-app-polyfill": "^3.0.0",
@@ -34,7 +34,7 @@
     "react-use": "^17.5.0",
     "reactstrap": "9.2.0",
     "redux-first-history": "^5.1.1",
-    "rlayers": "^2.1.0",
+    "rlayers": "^2.3.1",
     "sass": "^1.69.5",
     "sharp": "^0.33.2"
   },
