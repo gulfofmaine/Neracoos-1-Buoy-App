@@ -186,7 +186,7 @@ jobs:
       - name: Start container
         run: docker compose up -d client
 
-      - run: npm run install --frozen-lockfile
+      - run: npm install --frozen-lockfile
 
       # Use Playwright version as part of the cache key
       # AFAIK this is a x-platform way to get your installed Playwright version.
