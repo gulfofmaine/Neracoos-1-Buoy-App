@@ -9,6 +9,7 @@ import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
 import { TimeframeSelector } from "../timeframeSelector"
 import { displayShortIso, getIsoForPicker, manuallySetFullEODIso, roundDate, shortIso } from "Shared/time"
+import { round } from "@turf/helpers"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -41,6 +42,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       return timeSeries.data_type.long_name
     }
   }
+  console.log(dataConverter.convertToNumber(datumOffset as number, unitSystem))
 
   useEffect(() => {
     if (timeSeries.flood_levels.length) {
@@ -49,14 +51,21 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
           acc[level.name] =
             level.name === "Major"
               ? {
-                  minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
-                  maxValue: dataConverter.convertToNumber(level.min_value, unitSystem) + 1 + datumOffset,
+                  minValue:
+                    dataConverter.convertToNumber(level.min_value, unitSystem) -
+                    dataConverter.convertToNumber(datumOffset, unitSystem),
+                  maxValue:
+                    dataConverter.convertToNumber(level.min_value, unitSystem) +
+                    1 -
+                    dataConverter.convertToNumber(datumOffset, unitSystem),
                 }
               : {
-                  minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
+                  minValue:
+                    dataConverter.convertToNumber(level.min_value, unitSystem) -
+                    dataConverter.convertToNumber(datumOffset, unitSystem),
                   maxValue:
-                    dataConverter.convertToNumber(timeSeries.flood_levels[index - 1].min_value, unitSystem) +
-                    datumOffset,
+                    dataConverter.convertToNumber(timeSeries.flood_levels[index - 1].min_value, unitSystem) -
+                    dataConverter.convertToNumber(datumOffset, unitSystem),
                 }
         }
         return acc
@@ -93,7 +102,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
         predictedTidesName={predictedTidesDataset?.name}
         name={title}
-        softMin={-5}
+        softMin={0}
         softMax={{ English: 20, Metric: 10 }}
         unitSystem={unitSystem}
         data_type={standardName}

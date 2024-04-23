@@ -74,14 +74,14 @@ export function LargeTimeSeriesWaterLevelChart({
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
-    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
-      (datumOffset ? datumOffset : 0),
+    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) -
+      (datumOffset ? round(dataConverter.convertToNumber(datumOffset, unitSystem)) : 0),
   ])
 
   const predictedTidesData = predictedTidesTimeSeries?.map((r) => [
     r.time.valueOf(),
-    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
-      (datumOffset ? datumOffset : 0),
+    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) -
+      (datumOffset ? round(dataConverter.convertToNumber(datumOffset, unitSystem)) : 0),
   ])
 
   return (
