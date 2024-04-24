@@ -9,6 +9,8 @@ import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
 import { TimeframeSelector } from "../timeframeSelector"
 import { displayShortIso, getIsoForPicker, manuallySetFullEODIso, roundDate, shortIso } from "Shared/time"
+import { round } from "@turf/helpers"
+import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -49,14 +51,16 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
           acc[level.name] =
             level.name === "Major"
               ? {
-                  minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
-                  maxValue: dataConverter.convertToNumber(level.min_value, unitSystem) + 1 + datumOffset,
+                  minValue: dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem),
+                  maxValue:
+                    dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem) + 1,
                 }
               : {
-                  minValue: dataConverter.convertToNumber(level.min_value, unitSystem) + datumOffset,
-                  maxValue:
-                    dataConverter.convertToNumber(timeSeries.flood_levels[index - 1].min_value, unitSystem) +
-                    datumOffset,
+                  minValue: dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem),
+                  maxValue: dataConverter.convertToNumber(
+                    getValueWithOffset(timeSeries.flood_levels[index - 1].min_value, datumOffset),
+                    unitSystem,
+                  ),
                 }
         }
         return acc
@@ -71,7 +75,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
       offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
-  }, [params.datum])
+  }, [params.datum, unitSystem])
 
   useEffect(() => {
     if (timeSeries) {
@@ -93,11 +97,11 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
         predictedTidesName={predictedTidesDataset?.name}
         name={title}
-        softMin={-5}
+        softMin={0}
         softMax={{ English: 20, Metric: 10 }}
         unitSystem={unitSystem}
         data_type={standardName}
-        datumOffset={datumOffset}
+        datumOffset={datumOffset || 0}
         floodThresholds={floodThresholds}
         startTime={startTime}
         endTime={endTime}

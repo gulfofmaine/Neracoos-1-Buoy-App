@@ -22,6 +22,7 @@ import { colorCycle, colors } from "Shared/colors"
 import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"
+import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 
 const plotOptions = {
   time: {
@@ -48,7 +49,8 @@ interface Props {
   }
   predictedTidesTimeSeries: ReadingTimeSeries[] | undefined
   predictedTidesName: string | undefined
-  datumOffset: number | undefined
+  /** Datum offset BEFORE unit conversion */
+  datumOffset: number
   startTime: Date
   endTime: Date
 }
@@ -74,14 +76,12 @@ export function LargeTimeSeriesWaterLevelChart({
 
   const data = timeSeries.map((r) => [
     r.time.valueOf(),
-    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
-      (datumOffset ? datumOffset : 0),
+    round(dataConverter.convertToNumber(getValueWithOffset(r.reading as number, datumOffset), unitSystem) as number, 2),
   ])
 
   const predictedTidesData = predictedTidesTimeSeries?.map((r) => [
     r.time.valueOf(),
-    round(dataConverter.convertToNumber(r.reading as number, unitSystem) as number, 2) +
-      (datumOffset ? datumOffset : 0),
+    round(dataConverter.convertToNumber(getValueWithOffset(r.reading as number, datumOffset), unitSystem) as number, 2),
   ])
 
   return (

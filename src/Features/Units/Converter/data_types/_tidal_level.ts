@@ -17,3 +17,7 @@ export class TidalLevel extends DataTypeConversion {
     super(data_type, display_name, "m", "m", "ft", "Meters", "Feet")
   }
 }
+
+export const getValueWithOffset = (value: number, offset: number) => {
+  return value - offset
+}
