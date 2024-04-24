@@ -101,7 +101,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         softMax={{ English: 20, Metric: 10 }}
         unitSystem={unitSystem}
         data_type={standardName}
-        datumOffset={datumOffset}
+        datumOffset={datumOffset || 0}
         floodThresholds={floodThresholds}
         startTime={startTime}
         endTime={endTime}
