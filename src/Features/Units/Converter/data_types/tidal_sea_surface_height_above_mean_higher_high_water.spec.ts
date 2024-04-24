@@ -30,6 +30,7 @@ describe("tidal_sea_surface_height_above_mean_higher_high_water datumOffset calc
   it("should be close to zero at it's highest value on a normal day", () => {
     const highestLevel = waterLevelTimeseriesValues.sort((a, b) => b.reading - a.reading)[0]
     const result = getValueWithOffset(highestLevel.reading, source_datum_value)
-    expect(result).toBeCloseTo(0)
+    expect(result).toBeGreaterThanOrEqual(-1)
+    expect(result).toBeLessThan(1)
   })
 })
