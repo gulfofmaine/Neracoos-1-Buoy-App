@@ -13,6 +13,7 @@ import { UseDatasets } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { conditions } from "../../../utils/conditions"
 import { pickWindTimeSeries } from "../../../utils/wind"
+import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
 
 import { DataCardDisplay } from "./data_card"
 import { DisplayWindCard } from "./wind"
@@ -30,33 +31,13 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   const unitSystem = useUnitSystem()
 
   const halfDayAgo = halfADayAgoRounded()
-
-  const airTemp = filterTimeSeries(platform.properties.readings, conditions.airTemp, halfDayAgo)
-  const airPressure = filterTimeSeries(platform.properties.readings, conditions.airPressure, halfDayAgo)
-  const waveHeight = filterTimeSeries(platform.properties.readings, conditions.waveHeight, halfDayAgo)
-  const wavePeriod = filterTimeSeries(platform.properties.readings, conditions.wavePeriod, halfDayAgo)
-  const waveDirection = filterTimeSeries(platform.properties.readings, conditions.waveDirection, halfDayAgo)
-  const waterTemp = filterTimeSeries(platform.properties.readings, conditions.waterTemp, halfDayAgo)
-  const waterLevel = filterTimeSeries(platform.properties.readings, conditions.waterLevel, halfDayAgo)
-  const visibility = filterTimeSeries(platform.properties.readings, conditions.visibility, halfDayAgo)
-
-  const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, halfDayAgo)
-
-  const timeSeriesWithNull = [
-    waveHeight,
-    wavePeriod,
-    waveDirection,
-    airPressure,
-    airTemp,
-    waterTemp,
-    waterLevel,
-    visibility,
-    ...windTimeSeries,
-  ]
-  const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
+  const { before, windTimeSeries, timeSeries, after, allCurrentConditionsTimeseries } = currentConditionsTimeseries(
+    platform,
+    halfDayAgo,
+  )
 
   return (
-    <UseDatasets timeSeries={timeSeries} startTime={halfDayAgo}>
+    <UseDatasets timeSeries={allCurrentConditionsTimeseries} startTime={halfDayAgo}>
       {({ datasets }) => {
         const times = datasets
           .map((ds) => ds.timeSeries)
@@ -69,14 +50,41 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
 
         return (
           <Row>
+            {datasets.map((dataset, index) => {
+              const datasetTimeSeries = before.find((ts) => ts.variable === dataset.name)
+              if (!datasetTimeSeries) {
+                return null
+              }
+              return (
+                <DataCardDisplay
+                  key={index}
+                  timeSeries={datasetTimeSeries}
+                  readings={dataset.timeSeries}
+                  {...{ platform, unitSystem, startTime, endTime }}
+                />
+              )
+            })}
+
             <DisplayWindCard timeSeries={windTimeSeries} {...{ datasets, platform, unitSystem, startTime, endTime }} />
 
             {datasets.map((dataset, index) => {
               const datasetTimeSeries = timeSeries.find((ts) => ts.variable === dataset.name)
-              if (
-                !datasetTimeSeries ||
-                new Set(windTimeSeries.map((ts) => ts.variable)).has(datasetTimeSeries.variable)
-              ) {
+              if (!datasetTimeSeries) {
+                return null
+              }
+              return (
+                <DataCardDisplay
+                  key={index}
+                  timeSeries={datasetTimeSeries}
+                  readings={dataset.timeSeries}
+                  {...{ platform, unitSystem, startTime, endTime }}
+                />
+              )
+            })}
+
+            {datasets.map((dataset, index) => {
+              const datasetTimeSeries = after.find((ts) => ts.variable === dataset.name)
+              if (!datasetTimeSeries) {
                 return null
               }
               return (

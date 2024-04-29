@@ -16,7 +16,7 @@ describe("<ErddapObservationTable>", () => {
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(4)
+    expect(screen.getAllByRole("link").length).toBe(3)
     expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
     expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 Knots")
   })
@@ -30,7 +30,7 @@ describe("<ErddapObservationTable>", () => {
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(4)
+    expect(screen.getAllByRole("link").length).toBe(3)
     expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
     expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 2 Meters/Second")
   })
