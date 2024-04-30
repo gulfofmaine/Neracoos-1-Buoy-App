@@ -46,7 +46,7 @@ export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) 
   const tooltipId = `${timeSeries.data_type.standard_name}-tooltip`
 
   let name = timeSeries.data_type.long_name
-  if (timeSeries.depth) {
+  if (timeSeries.depth && timeSeries.depth > 0) {
     name = `${name} @ ${timeSeries.depth}m`
   }
 
