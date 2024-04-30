@@ -19,16 +19,15 @@ export function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: st
   return null
 }
 
-
 /**
  * Filters timeseries that should be displayed on current conditions page or in sidebar.
  * They are grouped by timeseries that are manually selected to before or after the normal set of conditions,
  * the wind timeseries, and the remaining selection with those three groups filtered out.
- * 
+ *
  * Additionally return all of the filtered timeseries
- * @param platform 
- * @param laterThan 
- * @returns 
+ * @param platform
+ * @param laterThan
+ * @returns
  */
 export function currentConditionsTimeseries(platform: PlatformFeature, laterThan: Date) {
   const before = platform.properties.readings.filter((ts) => ts.highlighted === "Before")
@@ -45,7 +44,7 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
   const waterLevel = filterTimeSeries(notHighlighted, conditions.waterLevel, laterThan)
   const visibility = filterTimeSeries(notHighlighted, conditions.visibility, laterThan)
 
-  const {timeSeries: windTimeSeries } = pickWindTimeSeries(platform, laterThan)
+  const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, laterThan)
 
   const timeSeriesWithNull = [
     waveHeight,
@@ -59,12 +58,7 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
   ]
   const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
-  const allWithNull = [
-    ...before,
-    ...windTimeSeries,
-    ...timeSeries,
-    ...after
-  ]
+  const allWithNull = [...before, ...windTimeSeries, ...timeSeries, ...after]
   const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
   return {
@@ -72,6 +66,6 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
     after,
     windTimeSeries,
     timeSeries,
-    allCurrentConditionsTimeseries
+    allCurrentConditionsTimeseries,
   }
 }
