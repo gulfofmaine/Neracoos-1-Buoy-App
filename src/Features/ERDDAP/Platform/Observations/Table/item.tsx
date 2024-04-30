@@ -47,7 +47,7 @@ export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) 
 
   let name = timeSeries.data_type.long_name
   if (timeSeries.depth) {
-    name = `${name} @ ${timeSeries.depth} m`
+    name = `${name} @ ${timeSeries.depth}m`
   }
 
   return (
@@ -66,7 +66,7 @@ export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) 
           id={tooltipId}
         >
           <Sentry.ErrorBoundary fallback={<b>Error displaying {timeSeries.data_type.long_name}</b>} showDialog={false}>
-            <TableItemDisplay name={timeSeries.data_type.long_name} unitSystem={unitSystem} timeSeries={timeSeries} />
+            <TableItemDisplay name={name} unitSystem={unitSystem} timeSeries={timeSeries} />
           </Sentry.ErrorBoundary>
         </span>
       </Link>
