@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { PlatformFeatureWithDatasets } from "Features/ERDDAP/types"
+import { PlatformFeatureWithDatasets, PlatformFeature } from "Features/ERDDAP/types"
 import { forecastToStandardNames } from "Features/ERDDAP/Platform/Forecasts/Page"
 
-const platform_base = {
+const platform_base: PlatformFeature = {
   id: "M01",
   type: "Feature",
   geometry: {
@@ -32,6 +32,7 @@ const platform_base = {
         error: "",
         loadStartTimes: [],
         loading: false,
+        highlighted: "No",
         readings: [
           {
             reading: 4.55,
@@ -149,6 +150,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 33.9589462280273,
@@ -172,6 +174,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 9.89000034332275,
@@ -195,6 +198,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 25.5368404388428,
@@ -218,6 +222,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 32.5026893615723,
@@ -241,6 +246,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 6.34700012207031,
@@ -264,6 +270,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 25.2565860748291,
@@ -287,6 +294,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 31.966287612915,
@@ -310,6 +318,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 30.9360008239746,
@@ -333,6 +342,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 32.4659996032715,
@@ -356,6 +366,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 37.0120010375977,
@@ -379,6 +390,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 290.853210449219,
@@ -401,6 +413,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 1.39300000667572,
@@ -422,6 +435,7 @@ const platform_base = {
         error: "",
         loadStartTimes: [],
         loading: false,
+        highlighted: "Before",
         readings: [
           {
             reading: 2.85,
@@ -538,6 +552,7 @@ const platform_base = {
         loadStartTimes: [],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 5.13100004196167,
@@ -560,6 +575,7 @@ const platform_base = {
         error: "",
         loadStartTimes: [new Date("2020-01-28T14:18:01.570Z")],
         loading: false,
+        highlighted: "After",
         readings: [
           {
             reading: 5.92,
@@ -1919,6 +1935,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
+        highlighted: "After",
         readings: [
           {
             reading: 5,
@@ -2602,6 +2619,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
+        highlighted: "Before",
         readings: [
           {
             reading: 0.696,
@@ -6629,6 +6647,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
+        highlighted: "No",
         readings: [
           {
             reading: 2977.7466,
@@ -10654,6 +10673,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
+        highlighted: "No",
         readings: [
           {
             reading: 355.92,
@@ -14679,6 +14699,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
+        highlighted: "No",
         readings: [
           {
             reading: 8.46,
@@ -18706,6 +18727,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
+        highlighted: "No",
         readings: [
           {
             reading: 1004.6906,
@@ -22731,6 +22753,7 @@ const platform_base = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         readings: [],
+        highlighted: "No",
       },
       {
         value: 3.33200001716614,
@@ -22750,6 +22773,7 @@ const platform_base = {
         error: "",
         loadStartTimes: ["2020-01-28T14:20:13.209Z"],
         loading: false,
+        highlighted: "No",
         readings: [
           {
             reading: 10.31,

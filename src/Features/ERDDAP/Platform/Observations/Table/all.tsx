@@ -38,17 +38,7 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
         if (dataset.depth) {
           name = name + " @ " + dataset.depth + "m"
         }
-        return (
-          <TableItem
-            key={index}
-            platform={platform}
-            readings={[dataset]}
-            data_type={dataset.data_type.standard_name}
-            name={name}
-            unitSystem={unitSystem}
-            exact={true}
-          />
-        )
+        return <TableItem key={index} platform={platform} timeSeries={dataset} unitSystem={unitSystem} />
       })}
     </ListGroup>
   )

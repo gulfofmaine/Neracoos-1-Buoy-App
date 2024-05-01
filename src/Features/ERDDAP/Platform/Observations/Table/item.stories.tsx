@@ -22,22 +22,19 @@ export default {
   },
 }
 
+const windSpeed = platform.properties.readings.find((ts) => ts.data_type.standard_name === "wind_speed")
+
 export const english = (args) => <TableItem {...args} />
 english.args = {
   unitSystem: UnitSystem.english,
-  later_then: new Date("2/3/2020"),
-  data_type: "wind_speed",
-  name: "Wind Speed",
   platform,
-  readings: platform.properties.readings,
+  timeSeries: windSpeed,
 }
 
 export const metric = (args) => <TableItem {...args} />
 metric.args = {
   unitSystem: UnitSystem.metric,
-  later_then: new Date("2/3/2020"),
-  data_type: "wind_speed",
-  name: "Wind Speed",
   platform,
   readings: platform.properties.readings,
+  timeSeries: windSpeed,
 }

@@ -6,66 +6,6 @@ import { UnitSystem } from "Features/Units/types"
 import { PlatformFeature } from "../../../types"
 import { TableItem } from "./item"
 
-describe("TableItem", () => {
-  it("Selectes and renders correct data", () => {
-    render(
-      <TableItem
-        platform={platform}
-        readings={platform.properties.readings}
-        data_type="wind_speed"
-        name="Wind Speed"
-        unitSystem={UnitSystem.english}
-      />,
-    )
-
-    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed:")
-  })
-
-  it("Rounds the wind speed", () => {
-    render(
-      <TableItem
-        platform={platform}
-        readings={platform.properties.readings}
-        data_type="wind_speed"
-        name="Wind Speed"
-        unitSystem={UnitSystem.metric}
-      />,
-    )
-
-    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
-  })
-
-  it("Returns null when there is not a matching datatype", () => {
-    render(
-      <TableItem
-        platform={platform}
-        readings={platform.properties.readings}
-        data_type="air_temp"
-        unitSystem={UnitSystem.english}
-        name="Air Temp"
-      />,
-    )
-
-    expect(screen.queryByRole("link")).not.toBeInTheDocument()
-  })
-
-  it("Returns only the first selected datatype", () => {
-    // Need to have a div in the body for the tooltip to attach to
-    render(
-      <TableItem
-        platform={platform}
-        readings={platform.properties.readings}
-        data_type={["significant_wave_height", "significant_height_of_wind_and_swell_waves_3"]}
-        unitSystem={UnitSystem.english}
-        name="Wave Height"
-      />,
-    )
-
-    expect(screen.getByRole("link")).toHaveTextContent("Wave Height: 0.8 Feet")
-    expect(screen.getByRole("link")).not.toHaveTextContent("Wave Height: 1.1 Feet")
-  })
-})
-
 const platform: PlatformFeature = {
   geometry: {
     coordinates: [0, 0],
@@ -143,3 +83,19 @@ const platform: PlatformFeature = {
   },
   type: "Feature",
 }
+
+describe("TableItem", () => {
+  const windSpeed = platform.properties.readings.find((ts) => ts.data_type.standard_name === "wind_speed")
+
+  it("Selectes and renders correct data", () => {
+    render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.english} />)
+
+    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed:")
+  })
+
+  it("Rounds the wind speed", () => {
+    render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.metric} />)
+
+    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
+  })
+})

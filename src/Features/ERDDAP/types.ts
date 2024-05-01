@@ -56,6 +56,7 @@ export interface PlatformTimeSeries {
   constraints: {
     [key: string]: string | number
   }
+  highlighted: "No" | "Before" | "After"
 }
 
 export type PlatformDataset = PlatformTimeSeries & {
