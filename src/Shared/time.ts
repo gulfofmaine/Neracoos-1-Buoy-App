@@ -88,6 +88,22 @@ export function displayShortIso(date: Date): string {
 }
 
 /**
+ * ISO date for display
+ *
+ * @param date
+ * @returns ISO date in format: DD Month hh:mm:ss
+ */
+export function shortestDisplayIso(date: Date): string {
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
+
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`
+}
+
+/**
  * Round to the 5 minutes and set everything less to 0
  *
  * @param date Date

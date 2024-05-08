@@ -13,6 +13,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  PlotLine,
 } from "react-jsx-highcharts"
 
 import { FloodThreshold } from "Features/ERDDAP/types"
@@ -23,6 +24,7 @@ import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
+import { displayShortIso, shortestDisplayIso } from "Shared/time"
 
 const plotOptions = {
   time: {
@@ -79,6 +81,8 @@ export function LargeTimeSeriesWaterLevelChart({
     round(dataConverter.convertToNumber(getValueWithOffset(r.reading as number, datumOffset), unitSystem) as number, 2),
   ])
 
+  const latestTime = data.map((d) => d[0]).sort((a, b) => a - b)[data.length - 1]
+
   const predictedTidesData = predictedTidesTimeSeries?.map((r) => [
     r.time.valueOf(),
     round(dataConverter.convertToNumber(getValueWithOffset(r.reading as number, datumOffset), unitSystem) as number, 2),
@@ -94,7 +98,29 @@ export function LargeTimeSeriesWaterLevelChart({
           max={endTime?.valueOf()}
           crosshair={true}
           gridLineWidth={0.5}
-        />
+          showLastLabel={true}
+          minTickInterval={24 * 3600 * 1000}
+        >
+          <PlotLine
+            color={"#d3d3d3"}
+            value={latestTime}
+            width={1}
+            label={{
+              text: shortestDisplayIso(new Date(latestTime)),
+              rotation: 0,
+              align: "center",
+              verticalAlign: "bottom",
+              y: -5,
+              style: {
+                zIndex: 10,
+                fontWeight: "600",
+                padding: "5px",
+                backgroundColor: "#d3d3d3",
+                border: "1px solid black",
+              },
+            }}
+          />
+        </XAxis>
         <YAxis
           softMin={softMin}
           softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax[unitSystem]}
