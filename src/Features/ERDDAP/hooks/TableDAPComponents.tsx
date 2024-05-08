@@ -73,6 +73,8 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
     }
   }
 
+  console.log(results)
+
   return (
     <React.Fragment>
       {loadingGroups.length > 0 ? <Alert color="primary">Loading data</Alert> : null}

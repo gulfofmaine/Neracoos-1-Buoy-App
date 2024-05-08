@@ -87,6 +87,30 @@ export function displayShortIso(date: Date): string {
   return new Date(newDate).toString().split("-")[0]
 }
 
+export function shortestDisplayIso(date: Date): string {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+  const hours = date.getHours() // Get the hours (0-23)
+  const minutes = date.getMinutes() // Get the minutes (0-59)
+  const seconds = date.getSeconds()
+
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`
+}
+
 /**
  * Round to the 5 minutes and set everything less to 0
  *
