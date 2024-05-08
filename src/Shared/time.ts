@@ -87,23 +87,15 @@ export function displayShortIso(date: Date): string {
   return new Date(newDate).toString().split("-")[0]
 }
 
+/**
+ * ISO date for display
+ *
+ * @param date
+ * @returns ISO date in format: DD Month hh:mm:ss
+ */
 export function shortestDisplayIso(date: Date): string {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ]
-  const hours = date.getHours() // Get the hours (0-23)
-  const minutes = date.getMinutes() // Get the minutes (0-59)
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
   const seconds = date.getSeconds()
 
   return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
