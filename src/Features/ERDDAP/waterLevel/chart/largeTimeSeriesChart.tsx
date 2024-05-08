@@ -101,14 +101,7 @@ export function LargeTimeSeriesWaterLevelChart({
           crosshair={true}
           gridLineWidth={0.5}
           showLastLabel={true}
-          // tickPositioner={function () {
-          //   const positions = this.tickPositions
-          //   console.log(positions)
-          //   console.log(this)
-
-          //   positions.push(latestTime)
-          //   return positions
-          // }}
+          minTickInterval={24 * 3600 * 1000}
         >
           <PlotLine
             color={"#d3d3d3"}
