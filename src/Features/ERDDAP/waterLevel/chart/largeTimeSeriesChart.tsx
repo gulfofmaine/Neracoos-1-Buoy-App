@@ -88,8 +88,6 @@ export function LargeTimeSeriesWaterLevelChart({
     round(dataConverter.convertToNumber(getValueWithOffset(r.reading as number, datumOffset), unitSystem) as number, 2),
   ])
 
-  console.log(latestTime)
-
   return (
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
