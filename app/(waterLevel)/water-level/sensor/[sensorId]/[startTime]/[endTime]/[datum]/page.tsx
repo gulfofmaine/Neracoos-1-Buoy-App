@@ -41,7 +41,7 @@ export default function SensorIdPage({ params }) {
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
               platformId={id}
-              height={"30vh"}
+              height={"40vh"}
               mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
             />
           )}

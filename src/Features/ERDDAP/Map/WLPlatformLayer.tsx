@@ -105,14 +105,16 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   if (display) {
     return (
-      <Layer
-        platform={platform}
-        url={url}
-        router={router}
-        radius={radius}
-        color={display}
-        floodThreshold={floodThreshold}
-      />
+      <div style={{ zIndex: 10 }}>
+        <Layer
+          platform={platform}
+          url={url}
+          router={router}
+          radius={radius}
+          color={display}
+          floodThreshold={floodThreshold}
+        />
+      </div>
     )
   } else {
     return null
@@ -121,7 +123,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
 const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
   return (
-    <RLayerVector>
+    <RLayerVector zIndex={10}>
       <RStyle.RStyle>
         <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
           <RStyle.RFill color={color} />
@@ -141,8 +143,8 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
           router.push(url)
         }, [router, url])}
       >
-        <RPopup trigger={"hover"}>
-          <Button color="dark" size="sm" href={url}>
+        <RPopup trigger={"hover"} autoPosition={true}>
+          <Button color="dark" size="sm" href={url} className="map-popup">
             {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
           </Button>
         </RPopup>
