@@ -67,7 +67,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
   const params = useParams()
-  const [floodThreshold, setFloodThreshold] = useState<string>("None")
+  const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState()
 
   let radius: number
