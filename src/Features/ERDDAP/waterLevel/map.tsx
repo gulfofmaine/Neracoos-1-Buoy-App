@@ -61,6 +61,14 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   return (
     <div style={{ position: "relative" }}>
       <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
+        <div className="legend-container">
+          <LegendItem color={"#80ff00"} text={"No Flooding"} />
+          <LegendItem color={"#ffff00"} text={"Action"} />
+          <LegendItem color={"#ff9000"} text={"Minor"} />
+          <LegendItem color={"#ff2000"} text={"Moderate"} />
+          <LegendItem color={"#aa00ff"} text={"Major"} />
+          <LegendItem color={"grey"} text={"No Flood Threshold Data"} />
+        </div>
         <EsriOceanBasemapLayer />
         <EsriOceanReferenceLayer />
 
@@ -73,14 +81,6 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
         {!!selectedPlatforms.length && (
           <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
         )}
-        <div className="legend-container">
-          <LegendItem color={"#80ff00"} text={"No Flooding"} />
-          <LegendItem color={"#ffff00"} text={"Action"} />
-          <LegendItem color={"#ff9000"} text={"Minor"} />
-          <LegendItem color={"#ff2000"} text={"Moderate"} />
-          <LegendItem color={"#aa00ff"} text={"Major"} />
-          <LegendItem color={"grey"} text={"No Flood Threshold Data"} />
-        </div>
       </RMap>
     </div>
   )
