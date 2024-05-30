@@ -34,7 +34,7 @@
     "react-use": "^17.5.0",
     "reactstrap": "9.2.0",
     "rlayers": "^2.3.1",
-    "sass": "^1.77.0",
+    "sass": "^1.77.3",
     "sharp": "^0.33.3"
   },
   "scripts": {
