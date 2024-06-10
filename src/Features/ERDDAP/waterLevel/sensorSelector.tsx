@@ -42,7 +42,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             {sensorId}
           </DropdownToggle>
           {sensorOptions && (
-            <DropdownMenu end={true} style={{ padding: "5px" }}>
+            <DropdownMenu end={true} style={{ padding: "5px", maxHeight: "215px", overflow: "scroll" }}>
               {sensorOptions}
             </DropdownMenu>
           )}
