@@ -84,7 +84,7 @@ export function shortIso(date: Date): string {
  */
 export function displayShortIso(date: Date): string {
   const newDate = date.toISOString().split(".")[0].split("T").join(" ") + " GMT"
-  return new Date(newDate).toString().split("-")[0]
+  return new Date(newDate).toString().split("GMT")[0] + " EST"
 }
 
 /**
