@@ -66,6 +66,7 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, e
   const variables = timeSeries.map((ts) => ts.variable)
   const server = timeSeries[0].cors_proxy_url ? erddapService + timeSeries[0].cors_proxy_url : timeSeries[0].server
 
+  console.log("bananas", tabledapUrl(server, timeSeries[0].dataset, variables, constraints))
   return tabledapUrl(server, timeSeries[0].dataset, variables, constraints)
 }
 
@@ -129,7 +130,7 @@ export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date, 
   })
 
   const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), 5000)
+  const timeoutId = setTimeout(() => controller.abort(), 10000)
 
   const result = await fetch(url, { signal: controller.signal })
 
