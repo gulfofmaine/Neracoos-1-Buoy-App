@@ -66,7 +66,6 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, e
   const variables = timeSeries.map((ts) => ts.variable)
   const server = timeSeries[0].cors_proxy_url ? erddapService + timeSeries[0].cors_proxy_url : timeSeries[0].server
 
-  console.log("bananas", tabledapUrl(server, timeSeries[0].dataset, variables, constraints))
   return tabledapUrl(server, timeSeries[0].dataset, variables, constraints)
 }
 
