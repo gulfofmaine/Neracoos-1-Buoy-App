@@ -123,7 +123,11 @@ export function LargeTimeSeriesWaterLevelChart({
         </XAxis>
         <YAxis
           softMin={softMin}
-          softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax}
+          softMax={
+            floodThresholds
+              ? floodThresholds?.Major?.minValue + dataConverter.convertToNumber(0.5, unitSystem)
+              : softMax
+          }
           endOnTick={false}
         >
           {floodThresholds && (
