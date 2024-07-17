@@ -38,9 +38,9 @@ interface Props {
   /** Name of data */
   name: string | undefined
   /** Soft minimum for Y axis */
-  softMin: number | undefined
+  softMin: number
   /** Soft maximum for Y axis */
-  softMax: any
+  softMax: number
   /** Unit system to display in */
   unitSystem: UnitSystem
   /** Data type to display */
@@ -123,7 +123,7 @@ export function LargeTimeSeriesWaterLevelChart({
         </XAxis>
         <YAxis
           softMin={softMin}
-          softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax[unitSystem]}
+          softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax}
           endOnTick={false}
         >
           {floodThresholds && (
