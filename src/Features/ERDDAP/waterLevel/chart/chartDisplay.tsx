@@ -34,6 +34,9 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   const [floodThresholds, setFloodThresholds] = useState<any>()
   const [datumOffset, setDatumOffset] = useState<number | undefined>()
   const [title, setTitle] = useState<string>()
+  const [yMax, setYMax] = useState<number>()
+  const [yMin, setYMin] = useState<number>()
+
   const params = useParams()
   const dataConverter = converter(standardName)
   const sensorId = decodeURIComponent(params.sensorId as string)
@@ -42,6 +45,12 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     if (!Object.keys(timeSeries.datum_offsets).length) {
       return timeSeries.data_type.long_name
     }
+  }
+
+  const getMaxThreshold = () => {
+    return Object.keys(floodThresholds).reduce((max, f) => {
+      return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
+    }, 0)
   }
 
   useEffect(() => {
@@ -75,7 +84,17 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
       offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
-  }, [params.datum, unitSystem])
+  }, [params.datum, timeSeries])
+
+  useEffect(() => {
+    const allReadings = dataset.timeSeries.map((t) => t.reading)
+    setYMax(
+      floodThresholds
+        ? dataConverter.convertToNumber(getMaxThreshold(), unitSystem)
+        : dataConverter.convertToNumber(Math.max(...allReadings), unitSystem),
+    )
+    setYMin(dataConverter.convertToNumber(Math.min(...allReadings), unitSystem))
+  }, [floodThresholds, dataset, unitSystem])
 
   useEffect(() => {
     if (timeSeries) {
@@ -97,8 +116,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
         predictedTidesName={predictedTidesDataset?.name}
         name={title}
-        softMin={0}
-        softMax={{ English: 20, Metric: 10 }}
+        softMin={yMin as number}
+        softMax={yMax as number}
         unitSystem={unitSystem}
         data_type={standardName}
         datumOffset={datumOffset || 0}
