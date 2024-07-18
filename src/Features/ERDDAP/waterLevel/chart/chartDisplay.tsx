@@ -47,6 +47,12 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }
 
+  const getMaxThreshold = () => {
+    return Object.keys(floodThresholds).reduce((max, f) => {
+      return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
+    }, 0)
+  }
+
   useEffect(() => {
     if (timeSeries.flood_levels.length) {
       const floodLevelsMap = timeSeries.flood_levels.reduce((acc, level, index) => {
@@ -78,11 +84,17 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
       offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
-    const allReadings = dataset.timeSeries.map((t) => t.reading)
+  }, [params.datum, timeSeries])
 
-    setYMax(dataConverter.convertToNumber(Math.max(...allReadings), unitSystem))
+  useEffect(() => {
+    const allReadings = dataset.timeSeries.map((t) => t.reading)
+    setYMax(
+      floodThresholds
+        ? dataConverter.convertToNumber(getMaxThreshold(), unitSystem)
+        : dataConverter.convertToNumber(Math.max(...allReadings), unitSystem),
+    )
     setYMin(dataConverter.convertToNumber(Math.min(...allReadings), unitSystem))
-  }, [params.datum, unitSystem, dataset])
+  }, [floodThresholds, dataset, unitSystem])
 
   useEffect(() => {
     if (timeSeries) {
