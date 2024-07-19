@@ -2,7 +2,7 @@ import { PlatformTimeSeries } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
@@ -38,6 +38,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   const [yMin, setYMin] = useState<number>()
 
   const params = useParams()
+  const searchParams = useSearchParams()
   const dataConverter = converter(standardName)
   const sensorId = decodeURIComponent(params.sensorId as string)
 
@@ -98,8 +99,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   useEffect(() => {
     if (timeSeries) {
-      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(params.datum as string)
-        ? getDatumDisplayName(params.datum as string)
+      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(searchParams.get("datum") as string)
+        ? getDatumDisplayName(searchParams.get("datum") as string)
         : getDefaultTitle()
       setTitle(graphTitle)
     }
@@ -108,9 +109,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   return (
     <div>
       <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
-      <p style={{ textAlign: "center" }}>{`${displayShortIso(startTime)} - ${displayShortIso(
-        manuallySetFullEODIso(endTime),
-      )}`}</p>
+      <p style={{ textAlign: "center" }}>{`${displayShortIso(startTime)} - ${displayShortIso(endTime)}`}</p>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}

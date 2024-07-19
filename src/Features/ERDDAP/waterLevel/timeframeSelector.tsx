@@ -49,18 +49,26 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     return true
   }
 
-  const [cleanedParams, setCleanedParams] = useState({
+  const cleanedParams = {
     start: searchParams.get("start"),
     end: searchParams.get("end"),
-  })
+    datum: searchParams.get("datum"),
+  }
 
   const handleSearchParamChange = (e) => {
-    const newParams = {
-      ...cleanedParams,
-      [e.target.name]: e.target.value,
+    if (e.target.name === "end") {
+      const newParams = {
+        ...cleanedParams,
+        [e.target.name]: manuallySetFullEODIso(new Date(e.target.value)),
+      }
+      router.push(`${pathname}?${queryString.stringify(newParams)}`)
+    } else {
+      const newParams = {
+        ...cleanedParams,
+        [e.target.name]: e.target.value,
+      }
+      router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
-    console.log("bananas", newParams)
-    router.push(`${pathname}?${queryString.stringify(newParams)}`)
   }
 
   const revertToDefaultDate = () => {

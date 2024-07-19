@@ -48,8 +48,9 @@ export function fullBeginningDateIso(date) {
  * @returns Date accounting for hour offsets (not day offsets)
  */
 
-export function manuallySetFullEODIso(date) {
+export function manuallySetFullEODIso(date: Date) {
   date.setHours(23, 59, 59, 999)
+  date.setDate(date.getDate() + 1)
   return date
 }
 

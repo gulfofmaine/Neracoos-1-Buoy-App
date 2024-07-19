@@ -20,12 +20,10 @@ export const WaterLevelObservationContent = ({ sensorId, platforms, allPlatforms
 
   useEffect(() => {
     setStartTime(fullBeginningDateIso(new Date(cleanedSearchParams.startTime as string)))
-    setEndTime(
-      manuallySetFullEODIso(new Date(cleanedSearchParams.endTime as string)).setDate(
-        new Date(cleanedSearchParams.endTime as string).getDate() + 1,
-      ),
-    )
+    setEndTime(manuallySetFullEODIso(new Date(cleanedSearchParams.endTime as string)))
   }, [cleanedSearchParams])
+
+  console.log(manuallySetFullEODIso(new Date(cleanedSearchParams.endTime as string)))
 
   useEffect(() => {
     setCleanedSearchParams({
