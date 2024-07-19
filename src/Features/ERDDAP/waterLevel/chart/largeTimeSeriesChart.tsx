@@ -191,6 +191,7 @@ export function LargeTimeSeriesWaterLevelChart({
             marker={{ enabled: false }}
             data={data}
             color={colors.coastalMeadow}
+            lineWidth={1.5}
           />
           {predictedTidesData && (
             <SplineSeries
