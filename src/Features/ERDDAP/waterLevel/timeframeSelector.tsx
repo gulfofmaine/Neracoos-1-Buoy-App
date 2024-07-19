@@ -8,7 +8,9 @@ import {
   threeDaysAgoRounded,
   weeksInFuture,
 } from "Shared/time"
-import { useParams } from "next/navigation"
+import queryString from "query-string"
+
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Button, Col, Row, Tooltip, UncontrolledTooltip } from "reactstrap"
 
@@ -17,15 +19,18 @@ import { Button, Col, Row, Tooltip, UncontrolledTooltip } from "reactstrap"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
   const params = useParams()
-  const [startTime, setStartTime] = useState<any>(decodeURIComponent(params.startTime as string))
-  const [endTime, setEndTime] = useState<any>(decodeURIComponent(params.endTime as string))
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [startTime, setStartTime] = useState<any>(decodeURIComponent(searchParams.get("start") as string))
+  const [endTime, setEndTime] = useState<any>(decodeURIComponent(searchParams.get("end") as string))
   const [validDate, setValidDate] = useState<boolean>(true)
-  const startTimeParams = decodeURIComponent(params.startTime as string)
-  const endTimeParams = decodeURIComponent(params.endTime as string)
+  const startTimeParams = decodeURIComponent(searchParams.get("start") as string)
+  const endTimeParams = decodeURIComponent(searchParams.get("end") as string)
 
   const getEndTime = (date) => {
     const endTime = new Date(date)
-    setEndTime(getIsoForPicker(endTime))
+    return getIsoForPicker(endTime)
   }
 
   const validateTimeframe = (start, end) => {
@@ -42,6 +47,20 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
       return false
     }
     return true
+  }
+
+  const [cleanedParams, setCleanedParams] = useState({
+    start: searchParams.get("start"),
+    end: searchParams.get("end"),
+  })
+
+  const handleSearchParamChange = (e) => {
+    const newParams = {
+      ...cleanedParams,
+      [e.target.name]: e.target.value,
+    }
+    console.log("bananas", newParams)
+    router.push(`${pathname}?${queryString.stringify(newParams)}`)
   }
 
   const revertToDefaultDate = () => {
@@ -79,10 +98,10 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             <input
               type="date"
               id="start"
-              name="timeframe-start"
+              name="start"
               max={getToday()}
               value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
+              onChange={(e) => handleSearchParamChange(e)}
             />
           </label>
           <label style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
@@ -90,11 +109,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             <input
               type="date"
               id="end"
-              name="timeframe-end"
+              name="end"
               min={startTime}
               max={graphFuture ? undefined : getToday()}
               value={endTime}
-              onChange={(e) => getEndTime(e.target.value)}
+              onChange={(e) => handleSearchParamChange(e)}
             />
           </label>
           <div>
@@ -108,7 +127,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               <a
                 href={`/water-level/sensor/${params.sensorId}/${getIsoForPicker(
                   threeDaysAgoRounded(),
-                )}/${getIsoForPicker(weeksInFuture(1))}/${params.datum}`}
+                )}/${getIsoForPicker(weeksInFuture(1))}/${searchParams.get("datum")}`}
               >
                 <Revert fill={"#000000"} />
               </a>
@@ -116,14 +135,14 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             <UncontrolledTooltip placement="top" target="revert-default-date">
               Revert to default date
             </UncontrolledTooltip>
-            <Button color="primary" size="sm" disabled={!startTime || !endTime || !validDate}>
+            {/* <Button color="primary" size="sm" disabled={!startTime || !endTime || !validDate}>
               <a
                 href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
                 style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
               >
                 Plot Dates
               </a>
-            </Button>
+            </Button> */}
           </div>
         </Col>
       </div>

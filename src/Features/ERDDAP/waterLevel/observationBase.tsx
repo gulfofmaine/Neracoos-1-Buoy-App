@@ -20,6 +20,7 @@ import { useParams, useRouter } from "next/navigation"
 export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
   const params = useParams()
+
   const router = useRouter()
   const windowWidth = window.innerWidth
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
@@ -37,20 +38,20 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
       conditions.waterLevelPredicted,
       startTime,
     )
-    if (predictedTidesTimeseries && windowWidth < 576) {
-      const startTime = aDayAgoRounded()
-      const endTime = daysInFuture(1)
-      router.push(
-        `/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getIsoForPicker(
-          manuallySetFullEODIso(endTime),
-        )}/${params.datum}`,
-      )
-    }
-    if (params.endTime > getToday() && !predictedTidesTimeseries) {
-      router.push(`/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getToday()}/${params.datum}`)
-    }
+    // if (predictedTidesTimeseries && windowWidth < 576) {
+    //   const startTime = aDayAgoRounded()
+    //   const endTime = daysInFuture(1)
+    //   router.push(
+    //     `/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getIsoForPicker(
+    //       manuallySetFullEODIso(endTime)
+    //     )}/${params.datum}`
+    //   )
+    // }
+    // if (endTime > getToday() && !predictedTidesTimeseries) {
+    //   router.push(`/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getToday()}/${params.datum}`)
+    // }
     setPredictedTides(predictedTidesTimeseries)
-  }, [platform])
+  }, [platform, startTime, endTime])
 
   return (
     <div className="chart-display">
@@ -76,6 +77,7 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
               const standardName = waterLevel.data_type.standard_name
 
               return (
+                // <p>hey</p>
                 <div style={{ marginTop: "10px" }}>
                   <WaterLevelChartDisplay
                     {...{ dataset: waterLevelData, standardName, unitSystem }}
