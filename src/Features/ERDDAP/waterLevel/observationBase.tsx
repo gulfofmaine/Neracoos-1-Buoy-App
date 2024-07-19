@@ -15,11 +15,14 @@ import {
   manuallySetFullEODIso,
   threeDaysAgoRounded,
 } from "Shared/time"
-import { useParams, useRouter } from "next/navigation"
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import queryString from "query-string"
 
 export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
   const params = useParams()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   const router = useRouter()
   const windowWidth = window.innerWidth
@@ -38,18 +41,22 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
       conditions.waterLevelPredicted,
       startTime,
     )
-    // if (predictedTidesTimeseries && windowWidth < 576) {
-    //   const startTime = aDayAgoRounded()
-    //   const endTime = daysInFuture(1)
-    //   router.push(
-    //     `/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getIsoForPicker(
-    //       manuallySetFullEODIso(endTime)
-    //     )}/${params.datum}`
-    //   )
-    // }
-    // if (endTime > getToday() && !predictedTidesTimeseries) {
-    //   router.push(`/water-level/sensor/${params.sensorId}/${getIsoForPicker(startTime)}/${getToday()}/${params.datum}`)
-    // }
+    if (predictedTidesTimeseries && windowWidth < 576) {
+      const newParams = {
+        start: getIsoForPicker(aDayAgoRounded()),
+        end: getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
+        datum: searchParams.get("datum"),
+      }
+      router.push(`${pathname}?${queryString.stringify(newParams)}`)
+    }
+    if (endTime > getToday() && !predictedTidesTimeseries) {
+      const newParams = {
+        start: getIsoForPicker(startTime),
+        end: getToday(),
+        datum: searchParams.get("datum"),
+      }
+      router.push(`${pathname}?${queryString.stringify(newParams)}`)
+    }
     setPredictedTides(predictedTidesTimeseries)
   }, [platform, startTime, endTime])
 

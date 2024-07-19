@@ -43,9 +43,6 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: P
                 datum: "datum_mllw_meters",
               },
             }}
-            // href={`water-level/sensor/${s.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
-            //   weeksInFuture(1),
-            // )}/datum_mllw_meters`}
             className="list-group-item list-group-item-action"
           >
             {platformName(s)}
