@@ -1,17 +1,30 @@
-import { useParams, useRouter } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Alert, Col, InputGroup, ListGroup, ListGroupItem, Row } from "reactstrap"
 import { DatumOffsets } from "../types"
 import { getDatumDisplayName } from "Shared/dataTypes"
+import queryString from "query-string"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const router = useRouter()
   const [datumOptions, setDatumOptions] = useState<any>()
-  const params = useParams()
-  const [datumSelected, setDatumSelected] = useState(params.datum)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [datumSelected, setDatumSelected] = useState(searchParams.get("datum"))
 
-  const handleChange = (offset) => {
-    router.push(`/water-level/sensor/${params.sensorId}/${params.startTime}/${params.endTime}/${offset}`)
+  const handleChange = (e) => {
+    const cleanedParams = {
+      start: searchParams.get("start"),
+      end: searchParams.get("end"),
+      datum: searchParams.get("datum"),
+    }
+    const newParams = {
+      ...cleanedParams,
+      datum: e.target.value,
+    }
+    console.log(e.target.value)
+    router.push(`${pathname}?${queryString.stringify(newParams)}`)
+    // router.push(`/water-level/sensor/${params.sensorId}/${params.startTime}/${params.endTime}/${offset}`)
   }
 
   useEffect(() => {
@@ -25,7 +38,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
               value={d}
               key={`offset-${d}`}
               checked={datumSelected === d}
-              onChange={() => handleChange(d)}
+              onChange={(e) => handleChange(e)}
               style={{ marginRight: "5px" }}
             ></input>
             {getDatumDisplayName(d)}
@@ -34,7 +47,11 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
       })
       setDatumOptions(options.length ? options : null)
     }
-  }, [datumOffsets])
+  }, [datumOffsets, datumSelected])
+
+  useEffect(() => {
+    setDatumSelected(searchParams.get("datum"))
+  }, [searchParams])
 
   return (
     <ListGroup style={{ marginBottom: "20px", marginTop: "20px" }}>

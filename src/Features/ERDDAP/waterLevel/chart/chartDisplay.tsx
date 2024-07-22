@@ -80,12 +80,12 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   }, [timeSeries, datumOffset, unitSystem])
 
   useEffect(() => {
-    if (params.datum) {
-      const datum = decodeURIComponent(params.datum as string)
+    if (searchParams.get("datum")) {
+      const datum = searchParams.get("datum") as string
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
       offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
-  }, [params.datum, timeSeries])
+  }, [searchParams, timeSeries])
 
   useEffect(() => {
     const allReadings = dataset.timeSeries.map((t) => t.reading)
@@ -104,7 +104,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         : getDefaultTitle()
       setTitle(graphTitle)
     }
-  }, [timeSeries])
+  }, [timeSeries, searchParams])
 
   return (
     <div>
