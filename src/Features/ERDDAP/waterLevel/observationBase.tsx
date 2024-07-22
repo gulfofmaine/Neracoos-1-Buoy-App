@@ -18,17 +18,17 @@ import {
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 import queryString from "query-string"
 
-export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
+export const WaterLevelObservationBase = ({ platform }) => {
   const unitSystem = useUnitSystem()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const startTime = new Date(searchParams.get("start") as string)
+  const endTime = new Date(searchParams.get("end") as string)
 
   const router = useRouter()
   const windowWidth = window.innerWidth
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
-
-  console.log(predictedTides)
 
   useEffect(() => {
     const waterLevelTimeseries = filterWaterLevelTimeSeries(
@@ -50,16 +50,16 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
       }
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
-    if (endTime > getToday() && !predictedTidesTimeseries) {
+    if (!predictedTidesTimeseries) {
       const newParams = {
         start: getIsoForPicker(startTime),
-        end: getToday(),
+        end: new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
         datum: searchParams.get("datum"),
       }
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
     setPredictedTides(predictedTidesTimeseries)
-  }, [platform, startTime, endTime])
+  }, [platform])
 
   return (
     <div className="chart-display">
@@ -68,7 +68,7 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
           <UseDatasets
             timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
             startTime={startTime}
-            endTime={endTime}
+            endTime={manuallySetFullEODIso(endTime)}
           >
             {({ datasets }) => {
               const times = datasets

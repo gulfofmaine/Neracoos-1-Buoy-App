@@ -139,23 +139,23 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
         </RStyle.RRegularShape>
       </RStyle.RStyle>
 
-      <Link href={url}>
-        <RFeature
-          geometry={useMemo(() => {
-            const feature = new GeoJSON({
-              dataProjection: "EPSG:4326",
-              featureProjection: "EPSG:3857",
-            }).readFeature(platform)
-            return feature.getGeometry()
-          }, [platform])}
-        >
-          <RPopup trigger={"hover"} autoPosition={true}>
-            <Button color="dark" size="sm" href={url} className="map-popup">
-              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
-            </Button>
-          </RPopup>
-        </RFeature>
-      </Link>
+      {/* <Link href={url}> */}
+      <RFeature
+        geometry={useMemo(() => {
+          const feature = new GeoJSON({
+            dataProjection: "EPSG:4326",
+            featureProjection: "EPSG:3857",
+          }).readFeature(platform)
+          return feature.getGeometry()
+        }, [platform])}
+      >
+        <RPopup trigger={"hover"} autoPosition={true}>
+          <Button color="dark" size="sm" href={url} className="map-popup">
+            {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
+          </Button>
+        </RPopup>
+      </RFeature>
+      {/* </Link> */}
     </RLayerVector>
   )
 }
