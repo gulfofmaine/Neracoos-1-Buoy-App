@@ -20,7 +20,6 @@ import queryString from "query-string"
 
 export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const unitSystem = useUnitSystem()
-  const params = useParams()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -28,6 +27,8 @@ export const WaterLevelObservationBase = ({ platform, startTime, endTime }) => {
   const windowWidth = window.innerWidth
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
+
+  console.log(predictedTides)
 
   useEffect(() => {
     const waterLevelTimeseries = filterWaterLevelTimeSeries(

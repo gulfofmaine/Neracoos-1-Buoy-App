@@ -18,7 +18,6 @@ import { Button, Col, Row, Tooltip, UncontrolledTooltip } from "reactstrap"
 // Defaults should be the url defaults (which is 3 days prior and a week out)
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
-  const params = useParams()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -27,11 +26,6 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const [validDate, setValidDate] = useState<boolean>(true)
   const startTimeParams = decodeURIComponent(searchParams.get("start") as string)
   const endTimeParams = decodeURIComponent(searchParams.get("end") as string)
-
-  const getEndTime = (date) => {
-    const endTime = new Date(date)
-    return getIsoForPicker(endTime)
-  }
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
@@ -59,7 +53,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     if (e.target.name === "end") {
       const newParams = {
         ...cleanedParams,
-        [e.target.name]: manuallySetFullEODIso(new Date(e.target.value)),
+        [e.target.name]: getIsoForPicker(manuallySetFullEODIso(new Date(e.target.value))),
       }
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     } else {
@@ -125,7 +119,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             />
           </label>
           <div>
-            <Button
+            {/* <Button
               color="light"
               outline
               size="sm"
@@ -142,7 +136,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             </Button>
             <UncontrolledTooltip placement="top" target="revert-default-date">
               Revert to default date
-            </UncontrolledTooltip>
+            </UncontrolledTooltip> */}
             {/* <Button color="primary" size="sm" disabled={!startTime || !endTime || !validDate}>
               <a
                 href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
