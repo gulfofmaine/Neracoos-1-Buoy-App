@@ -17,7 +17,7 @@ import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import { urlPartReplacer } from "Shared/urlParams"
+import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
@@ -67,8 +67,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const router = useRouter()
   const path = usePathname()
   const searchParams = useSearchParams()
-  const waterLevelSensorPage = path.includes("water-level")
-  const params = useParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState()
 
@@ -79,7 +77,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     radius = window.innerWidth > adjustPxWidth ? 7 : 12
   }
 
-  const sensorPage = path.includes("sensor")
+  const isSensorPage = path.includes("sensor")
 
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find(
@@ -101,17 +99,13 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     setDisplay(display)
   }, [floodThreshold])
 
-  const query = sensorPage
-    ? {
-        start: searchParams.get("start"),
-        end: searchParams.get("end"),
-        datum: searchParams.get("datum"),
-      }
-    : {
-        start: getIsoForPicker(threeDaysAgoRounded()),
-        end: getIsoForPicker(weeksInFuture(1)),
-        datum: "datum_mllw_meters",
-      }
+  const query = isSensorPage
+    ? buildSearchParamsQuery(searchParams.get("start"), searchParams.get("end"), searchParams.get("datum"))
+    : buildSearchParamsQuery(
+        getIsoForPicker(threeDaysAgoRounded()),
+        getIsoForPicker(weeksInFuture(1)),
+        "datum_mllw_meters",
+      )
 
   if (display) {
     return (

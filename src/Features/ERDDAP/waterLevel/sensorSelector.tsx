@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,11 +27,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             onClick={() => close()}
             href={{
               pathname: `/water-level/sensor/${p.id as string}`,
-              query: {
-                start: startTime,
-                end: endTime,
-                datum: "datum_mllw_meters",
-              },
+              query: buildSearchParamsQuery(startTime, endTime, "datum_mllw_meters"),
             }}
             className="list-group-item list-group-item-action"
           >

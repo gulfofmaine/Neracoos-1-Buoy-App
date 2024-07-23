@@ -30,3 +30,11 @@ export function urlPartReplacer(url: string, key: string, value: string): string
     .map((part) => (part === key ? value : part))
     .join("/")
 }
+
+export const buildSearchParamsQuery = (start, end, datum) => {
+  return {
+    start,
+    end,
+    datum,
+  }
+}

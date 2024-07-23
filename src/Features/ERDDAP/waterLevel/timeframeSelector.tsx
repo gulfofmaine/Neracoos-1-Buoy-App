@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Alert, Button, Card, Col, Row, UncontrolledTooltip } from "reactstrap"
 import { Revert } from "Shared/icons/Revert"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
   const router = useRouter()
@@ -33,11 +34,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     return ""
   }
 
-  const cleanedParams = {
-    start: searchParams.get("start"),
-    end: searchParams.get("end"),
-    datum: searchParams.get("datum"),
-  }
+  const cleanedParams = buildSearchParamsQuery(
+    searchParams.get("start"),
+    searchParams.get("end"),
+    searchParams.get("datum"),
+  )
 
   const handleSearchParamChange = (e) => {
     if (e.target.name === "end") {
@@ -115,11 +116,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               <Link
                 href={{
                   pathname: `/water-level/sensor/${params.sensorId}`,
-                  query: {
-                    start: getIsoForPicker(threeDaysAgoRounded()),
-                    end: getIsoForPicker(weeksInFuture(1)),
-                    datum: searchParams.get("datum"),
-                  },
+                  query: buildSearchParamsQuery(
+                    getIsoForPicker(threeDaysAgoRounded()),
+                    getIsoForPicker(weeksInFuture(1)),
+                    searchParams.get("datum"),
+                  ),
                 }}
               >
                 <Revert fill={"#000000"} />

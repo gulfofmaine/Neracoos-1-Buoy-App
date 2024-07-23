@@ -18,6 +18,7 @@ import {
 } from "Shared/time"
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 import queryString from "query-string"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 
 export const WaterLevelObservationBase = ({ platform }) => {
   const unitSystem = useUnitSystem()
@@ -44,19 +45,19 @@ export const WaterLevelObservationBase = ({ platform }) => {
       startTime,
     )
     if (predictedTidesTimeseries && windowWidth < 576) {
-      const newParams = {
-        start: getIsoForPicker(aDayAgoRounded()),
-        end: getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
-        datum: searchParams.get("datum"),
-      }
+      const newParams = buildSearchParamsQuery(
+        getIsoForPicker(aDayAgoRounded()),
+        getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
+        searchParams.get("datum"),
+      )
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
     if (!predictedTidesTimeseries) {
-      const newParams = {
-        start: getIsoForPicker(startTime),
-        end: new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
-        datum: searchParams.get("datum"),
-      }
+      const newParams = buildSearchParamsQuery(
+        getIsoForPicker(startTime),
+        new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
+        searchParams.get("datum"),
+      )
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
     setPredictedTides(predictedTidesTimeseries)
