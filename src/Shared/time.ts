@@ -43,13 +43,14 @@ export function fullBeginningDateIso(date) {
 }
 
 /**
- * Get correct end Date when setting a date range (in some instances, the day will need to be offset by +1)
+ * Get correct end Date when setting a date range (date increase by 1 to account for timezone)
  * @param date Date to end range with
- * @returns Date accounting for hour offsets (not day offsets)
+ * @returns Date accounting for hour and date offsets (based on a relative time)
  */
 
-export function manuallySetFullEODIso(date) {
+export function manuallySetFullEODIso(date: Date) {
   date.setHours(23, 59, 59, 999)
+  date.setDate(date.getDate() + 1)
   return date
 }
 

@@ -105,8 +105,14 @@ nav.navbar {
   margin-right: 10px;
 }
 
-.map-popup {
+.map-popup-custom {
   z-index: 10;
+  background-color: #00000095;
+  color: #ffffff;
+  font-size: small;
+  padding: 5px;
+  border-radius: 5px;
+  // cursor:
 }
 
 .chart-display {

@@ -143,3 +143,11 @@ export interface DatumOffsets {
   datum_msl_meters?: number
   datum_mtl_meters?: number
 }
+
+export type DatumOffsetOptions =
+  | "datum_mhhw_meters"
+  | "datum_mhw_meters"
+  | "datum_mllw_meters"
+  | "datum_mlw_meters"
+  | "datum_msl_meters"
+  | "datum_mtl_meters"

@@ -102,15 +102,16 @@ export function LargeTimeSeriesWaterLevelChart({
           minTickInterval={24 * 3600 * 1000}
         >
           <PlotLine
-            color={"#d3d3d3"}
+            color={"#a1a1a1"}
             value={latestTime}
-            width={1}
+            width={1.5}
             label={{
-              text: shortestDisplayIso(new Date(latestTime)),
+              text: `Latest: ${shortestDisplayIso(new Date(latestTime))}`,
               rotation: 0,
-              align: "center",
+              align: "right",
               verticalAlign: "bottom",
               y: -5,
+              x: -5,
               style: {
                 zIndex: 10,
                 fontWeight: "600",
@@ -191,6 +192,7 @@ export function LargeTimeSeriesWaterLevelChart({
             marker={{ enabled: false }}
             data={data}
             color={colors.coastalMeadow}
+            lineWidth={1.5}
           />
           {predictedTidesData && (
             <SplineSeries

@@ -5,6 +5,7 @@ import { ListGroup } from "reactstrap"
 
 import { platformName } from "../utils/platformName"
 import { PlatformFeature } from "../types"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 
 interface Props {
   platforms: PlatformFeature[]
@@ -35,9 +36,14 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms }: P
         sensors.map((s) => (
           <Link
             key={s.id}
-            href={`water-level/sensor/${s.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
-              weeksInFuture(1),
-            )}/datum_mllw_meters`}
+            href={{
+              pathname: `water-level/sensor/${s.id}`,
+              query: buildSearchParamsQuery(
+                getIsoForPicker(threeDaysAgoRounded()),
+                getIsoForPicker(weeksInFuture(1)),
+                "datum_mllw_meters",
+              ),
+            }}
             className="list-group-item list-group-item-action"
           >
             {platformName(s)}

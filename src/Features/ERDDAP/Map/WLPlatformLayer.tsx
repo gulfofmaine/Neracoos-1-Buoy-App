@@ -3,7 +3,7 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
@@ -17,10 +17,10 @@ import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import { urlPartReplacer } from "Shared/urlParams"
+import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
-import { PlatformFeature } from "../types"
+import { DatumOffsetOptions, DatumOffsets, PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
@@ -28,6 +28,7 @@ import {
 } from "../utils/waterLevelThresholds"
 import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
+import Link from "next/link"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -65,8 +66,7 @@ interface PlatformLayerProps {
 export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
   const path = usePathname()
-  const waterLevelSensorPage = path.includes("water-level")
-  const params = useParams()
+  const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState()
 
@@ -77,11 +77,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     radius = window.innerWidth > adjustPxWidth ? 7 : 12
   }
 
-  const url = waterLevelSensorPage
-    ? `/water-level/sensor/${platform.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
-        weeksInFuture(1),
-      )}/${params.datum ? params.datum : "datum_mllw_meters"}`
-    : urlPartReplacer(paths.platforms.platform, ":id", platform.id)
+  const isSensorPage = path.includes("sensor")
 
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find(
@@ -103,12 +99,27 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     setDisplay(display)
   }, [floodThreshold])
 
+  const query = isSensorPage
+    ? buildSearchParamsQuery(
+        searchParams.get("start") as string,
+        searchParams.get("end") as string,
+        searchParams.get("datum") as DatumOffsetOptions,
+      )
+    : buildSearchParamsQuery(
+        getIsoForPicker(threeDaysAgoRounded()),
+        getIsoForPicker(weeksInFuture(1)),
+        "datum_mllw_meters",
+      )
+
   if (display) {
     return (
       <div style={{ zIndex: 10 }}>
         <Layer
           platform={platform}
-          url={url}
+          url={{
+            pathname: `/water-level/sensor/${platform.id}`,
+            query,
+          }}
           router={router}
           radius={radius}
           color={display}
@@ -131,24 +142,23 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
         </RStyle.RRegularShape>
       </RStyle.RStyle>
 
-      <RFeature
-        geometry={useMemo(() => {
-          const feature = new GeoJSON({
-            dataProjection: "EPSG:4326",
-            featureProjection: "EPSG:3857",
-          }).readFeature(platform)
-          return feature.getGeometry()
-        }, [platform])}
-        onClick={useCallback(() => {
-          router.push(url)
-        }, [router, url])}
-      >
-        <RPopup trigger={"hover"} autoPosition={true}>
-          <Button color="dark" size="sm" href={url} className="map-popup">
-            {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
-          </Button>
-        </RPopup>
-      </RFeature>
+      <Link href={url}>
+        <RFeature
+          geometry={useMemo(() => {
+            const feature = new GeoJSON({
+              dataProjection: "EPSG:4326",
+              featureProjection: "EPSG:3857",
+            }).readFeature(platform)
+            return feature.getGeometry()
+          }, [platform])}
+        >
+          <RPopup trigger={"hover"} autoPosition={true}>
+            <div className="map-popup-custom">
+              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
+            </div>
+          </RPopup>
+        </RFeature>
+      </Link>
     </RLayerVector>
   )
 }

@@ -1,13 +1,18 @@
-import { useParams } from "next/navigation"
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
+  const searchParams = useSearchParams()
   const sensorId = useDecodedUrl(params.sensorId as string)
+  const endTime = searchParams.get("end")
+  const startTime = searchParams.get("start")
 
   const close = () => {
     setIsOpen(false)
@@ -16,11 +21,18 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
   useEffect(() => {
     if (sensors) {
       const options = sensors.map((p, index) => {
-        const link = `/water-level/sensor/${p.id as string}/${params.startTime}/${params.endTime}/${params.datum}`
         return (
-          <DropdownItem key={index} href={link} onClick={() => close()}>
+          <Link
+            key={`dropdown-${index}`}
+            onClick={() => close()}
+            href={{
+              pathname: `/water-level/sensor/${p.id as string}`,
+              query: buildSearchParamsQuery(startTime as string, endTime as string, "datum_mllw_meters"),
+            }}
+            className="list-group-item list-group-item-action"
+          >
             {p.id}
-          </DropdownItem>
+          </Link>
         )
       })
       setSensorOptions(options)
@@ -42,7 +54,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             {sensorId}
           </DropdownToggle>
           {sensorOptions && (
-            <DropdownMenu end={true} style={{ padding: "5px", maxHeight: "215px", overflow: "scroll" }}>
+            <DropdownMenu end={true} style={{ padding: 0, border: "1px", maxHeight: "215px", overflow: "scroll" }}>
               {sensorOptions}
             </DropdownMenu>
           )}

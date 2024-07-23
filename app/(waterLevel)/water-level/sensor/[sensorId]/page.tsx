@@ -12,6 +12,7 @@ import { Col, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { createBreakpoint } from "react-use"
 import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
+import { useSearchParams } from "next/navigation"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
