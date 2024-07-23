@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test"
 
-const platformUrl = "/water-level/sensor/Gloucester%20Harbor/2024-03-23/2024-03-24/datum_mllw_meters"
+const platformUrl =
+  "http://localhost:3000/water-level/sensor/Gloucester%20Harbor?start=2024-07-20&end=2024-07-28&datum=datum_mllw_meters"
 
 test.describe("Sensor station at Gloucester Harbor", () => {
   test("Can get to from Home Page", async ({ page }) => {
@@ -36,8 +37,7 @@ test.describe("Sensor station at Gloucester Harbor", () => {
   test("Selects sensor from station selector", async ({ page }) => {
     await page.goto(platformUrl)
     await page.getByRole("button", { name: "Gloucester Harbor" }).click()
-    await expect(await page.getByRole("menuitem", { name: "Hampton Harbor" })).toBeVisible()
-    await page.getByRole("menuitem", { name: "Hampton Harbor" }).click()
+    await page.getByRole("link", { name: "Hampton Harbor" }).click()
     await expect(await page.getByText(/Station Hampton Harbor/)).toBeVisible()
     await expect(await page.url()).toContain("/water-level/sensor/Hampton%20Harbor")
   })
