@@ -80,9 +80,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     radius = window.innerWidth > adjustPxWidth ? 7 : 12
   }
 
-  const url = `/water-level/sensor/${platform.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
-    weeksInFuture(1),
-  )}/${params.datum ? params.datum : "datum_mllw_meters"}`
+  const sensorPage = path.includes("sensor")
 
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find(
@@ -104,6 +102,18 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     setDisplay(display)
   }, [floodThreshold])
 
+  const query = sensorPage
+    ? {
+        start: searchParams.get("start"),
+        end: searchParams.get("end"),
+        datum: searchParams.get("datum"),
+      }
+    : {
+        start: getIsoForPicker(threeDaysAgoRounded()),
+        end: getIsoForPicker(weeksInFuture(1)),
+        datum: "datum_mllw_meters",
+      }
+
   if (display) {
     return (
       <div style={{ zIndex: 10 }}>
@@ -111,11 +121,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
           platform={platform}
           url={{
             pathname: `/water-level/sensor/${platform.id}`,
-            query: {
-              start: searchParams.get("start"),
-              end: searchParams.get("end"),
-              datum: searchParams.get("datum"),
-            },
+            query,
           }}
           router={router}
           radius={radius}
