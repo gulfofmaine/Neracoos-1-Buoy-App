@@ -1,9 +1,8 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Alert, Col, InputGroup, ListGroup, ListGroupItem, Row } from "reactstrap"
 import { DatumOffsets } from "../types"
 import { getDatumDisplayName } from "Shared/dataTypes"
-import queryString from "query-string"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const router = useRouter()
@@ -12,20 +11,15 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
   const searchParams = useSearchParams()
   const [datumSelected, setDatumSelected] = useState(searchParams.get("datum"))
 
-  const handleChange = (e) => {
-    const cleanedParams = {
-      start: searchParams.get("start"),
-      end: searchParams.get("end"),
-      datum: searchParams.get("datum"),
-    }
-    const newParams = {
-      ...cleanedParams,
-      datum: e.target.value,
-    }
-    console.log(e.target.value)
-    router.push(`${pathname}?${queryString.stringify(newParams)}`)
-    // router.push(`/water-level/sensor/${params.sensorId}/${params.startTime}/${params.endTime}/${offset}`)
-  }
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams],
+  )
 
   useEffect(() => {
     if (datumOffsets) {
@@ -38,7 +32,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
               value={d}
               key={`offset-${d}`}
               checked={datumSelected === d}
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => router.push(pathname + "?" + createQueryString("datum", e.target.value))}
               style={{ marginRight: "5px" }}
             ></input>
             {getDatumDisplayName(d)}

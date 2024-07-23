@@ -29,7 +29,6 @@ import {
 import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
 import Link from "next/link"
-import queryString from "query-string"
 
 export interface Props {
   // Bounding box for fitting to a region

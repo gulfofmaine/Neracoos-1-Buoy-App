@@ -25,7 +25,6 @@ export const WaterLevelObservationBase = ({ platform }) => {
   const searchParams = useSearchParams()
   const startTime = new Date(searchParams.get("start") as string)
   const endTime = new Date(searchParams.get("end") as string)
-  const datum = searchParams.get("datum")
 
   const router = useRouter()
   const windowWidth = window.innerWidth
@@ -53,7 +52,6 @@ export const WaterLevelObservationBase = ({ platform }) => {
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
     if (!predictedTidesTimeseries) {
-      console.log(waterLevelTimeseries)
       const newParams = {
         start: getIsoForPicker(startTime),
         end: new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
