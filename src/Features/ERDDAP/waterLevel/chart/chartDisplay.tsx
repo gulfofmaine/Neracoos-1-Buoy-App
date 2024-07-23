@@ -8,7 +8,14 @@ import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
 import { TimeframeSelector } from "../timeframeSelector"
-import { displayShortIso, getIsoForPicker, manuallySetFullEODIso, roundDate, shortIso } from "Shared/time"
+import {
+  displayShortIso,
+  fullBeginningDateIso,
+  getIsoForPicker,
+  manuallySetFullEODIso,
+  roundDate,
+  shortIso,
+} from "Shared/time"
 import { round } from "@turf/helpers"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 

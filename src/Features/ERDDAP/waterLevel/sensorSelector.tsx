@@ -10,6 +10,8 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
   const params = useParams()
   const searchParams = useSearchParams()
   const sensorId = useDecodedUrl(params.sensorId as string)
+  const endTime = searchParams.get("end")
+  const startTime = searchParams.get("start")
 
   const close = () => {
     setIsOpen(false)
@@ -25,9 +27,9 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             href={{
               pathname: `/water-level/sensor/${p.id as string}`,
               query: {
-                start: searchParams.get("start"),
-                end: searchParams.get("end"),
-                datum: searchParams.get("datum"),
+                start: startTime,
+                end: endTime,
+                datum: "datum_mllw_meters",
               },
             }}
             className="list-group-item list-group-item-action"

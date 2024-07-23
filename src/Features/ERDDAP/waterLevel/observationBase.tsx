@@ -10,6 +10,7 @@ import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentCond
 import {
   aDayAgoRounded,
   daysInFuture,
+  fullBeginningDateIso,
   getIsoForPicker,
   getToday,
   manuallySetFullEODIso,
@@ -52,6 +53,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
     if (!predictedTidesTimeseries) {
+      console.log(waterLevelTimeseries)
       const newParams = {
         start: getIsoForPicker(startTime),
         end: new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
@@ -68,7 +70,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
         <>
           <UseDatasets
             timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
-            startTime={startTime}
+            startTime={fullBeginningDateIso(startTime)}
             endTime={manuallySetFullEODIso(endTime)}
           >
             {({ datasets }) => {

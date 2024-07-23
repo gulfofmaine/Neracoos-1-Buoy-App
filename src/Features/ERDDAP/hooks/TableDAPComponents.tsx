@@ -43,6 +43,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
   startTime,
   endTime,
 }) => {
+  console.log("bananas", startTime)
   const fetchGroups = groupByServerDatasetConstraint(timeSeries)
 
   startTime = startTime ?? aWeekAgoRounded()
