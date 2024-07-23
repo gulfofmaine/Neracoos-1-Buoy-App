@@ -4,7 +4,7 @@ import queryString from "query-string"
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Alert, Button, Card, Col, UncontrolledTooltip } from "reactstrap"
 import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
@@ -15,9 +15,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const params = useParams()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const startTime = searchParams.get("start") as string
-  const endTime = searchParams.get("end") as string
-  const [validDate, setValidDate] = useState<string>("")
+  const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
+  const [endTime, setEndTime] = useState<any>(searchParams.get("end"))
+  const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
@@ -35,29 +35,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     return ""
   }
 
-  const cleanedParams = buildSearchParamsQuery(
-    searchParams.get("start") as string,
-    searchParams.get("end") as string,
-    searchParams.get("datum") as DatumOffsetOptions,
-  )
-
-  const handleSearchParamChange = (e) => {
-    if (e.target.name === "end") {
-      const newParams = {
-        ...cleanedParams,
-        [e.target.name]: getIsoForPicker(new Date(e.target.value)),
-      }
-      const valid = validateTimeframe(searchParams.get("start"), e.target.value)
-      valid === "" ? router.push(`${pathname}?${queryString.stringify(newParams)}`) : setValidDate(valid)
-    } else {
-      const newParams = {
-        ...cleanedParams,
-        [e.target.name]: e.target.value,
-      }
-      const valid = validateTimeframe(e.target.value, searchParams.get("end"))
-      valid === "" ? router.push(`${pathname}?${queryString.stringify(newParams)}`) : setValidDate(valid)
-    }
-  }
+  useEffect(() => {
+    setValidDateMessage(validateTimeframe(startTime, endTime))
+  }, [startTime, endTime])
 
   return (
     <Card
@@ -72,7 +52,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
       <Col style={{ width: "100%", margin: 0 }}>
         <h6 style={{ width: "100%", fontWeight: "bold" }}>Timeframe: </h6>
       </Col>
-      {validDate !== "" && <Alert color="warning">{validDate}</Alert>}
+      {validDateMessage !== "" && <Alert color="warning">{validDateMessage}</Alert>}
       <div>
         <Col
           style={{
@@ -91,7 +71,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               name="start"
               max={getToday()}
               value={startTime}
-              onChange={(e) => handleSearchParamChange(e)}
+              onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
+              required
             />
           </label>
           <label style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "20px" }}>
@@ -103,7 +84,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               min={startTime}
               max={graphFuture ? undefined : getToday()}
               value={endTime}
-              onChange={(e) => handleSearchParamChange(e)}
+              onInput={(e) => setEndTime(getIsoForPicker(new Date((e.target as HTMLInputElement).value)))}
+              required
             />
           </label>
           <div>
@@ -130,6 +112,27 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             <UncontrolledTooltip placement="top" target="revert-default-date">
               Revert to default date
             </UncontrolledTooltip>
+            <Button
+              color="primary"
+              size="sm"
+              id="plot-date-button"
+              disabled={!startTime || !endTime || validDateMessage !== ""}
+            >
+              <Link
+                href={{
+                  pathname,
+                  query: buildSearchParamsQuery(startTime, endTime, searchParams.get("datum") as DatumOffsetOptions),
+                }}
+                style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
+              >
+                Plot Dates
+              </Link>
+            </Button>
+            {validDateMessage !== "" && (
+              <UncontrolledTooltip placement="top" target="plot-date-button">
+                {validDateMessage}
+              </UncontrolledTooltip>
+            )}
           </div>
         </Col>
       </div>
