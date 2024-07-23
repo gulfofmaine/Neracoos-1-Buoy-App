@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Alert } from "reactstrap"
 import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets, useDataset } from "../hooks"
-import { PlatformTimeSeries } from "../types"
+import { DatumOffsetOptions, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 import {
@@ -48,7 +48,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
       const newParams = buildSearchParamsQuery(
         getIsoForPicker(aDayAgoRounded()),
         getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
-        searchParams.get("datum"),
+        searchParams.get("datum") as DatumOffsetOptions,
       )
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }
@@ -56,7 +56,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
       const newParams = buildSearchParamsQuery(
         getIsoForPicker(startTime),
         new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
-        searchParams.get("datum"),
+        searchParams.get("datum") as DatumOffsetOptions,
       )
       router.push(`${pathname}?${queryString.stringify(newParams)}`)
     }

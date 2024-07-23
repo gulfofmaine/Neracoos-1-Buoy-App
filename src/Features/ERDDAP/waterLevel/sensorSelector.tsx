@@ -27,7 +27,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             onClick={() => close()}
             href={{
               pathname: `/water-level/sensor/${p.id as string}`,
-              query: buildSearchParamsQuery(startTime, endTime, "datum_mllw_meters"),
+              query: buildSearchParamsQuery(startTime as string, endTime as string, "datum_mllw_meters"),
             }}
             className="list-group-item list-group-item-action"
           >

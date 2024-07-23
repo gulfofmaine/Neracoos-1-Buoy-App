@@ -20,7 +20,7 @@ import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } f
 import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
-import { PlatformFeature } from "../types"
+import { DatumOffsetOptions, DatumOffsets, PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
@@ -100,7 +100,11 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   }, [floodThreshold])
 
   const query = isSensorPage
-    ? buildSearchParamsQuery(searchParams.get("start"), searchParams.get("end"), searchParams.get("datum"))
+    ? buildSearchParamsQuery(
+        searchParams.get("start") as string,
+        searchParams.get("end") as string,
+        searchParams.get("datum") as DatumOffsetOptions,
+      )
     : buildSearchParamsQuery(
         getIsoForPicker(threeDaysAgoRounded()),
         getIsoForPicker(weeksInFuture(1)),

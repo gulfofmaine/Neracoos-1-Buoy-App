@@ -1,3 +1,5 @@
+import { DatumOffsetOptions } from "Features/ERDDAP/types"
+
 /**
  * Return key, value pairs for a url parameter string
  *
@@ -31,7 +33,7 @@ export function urlPartReplacer(url: string, key: string, value: string): string
     .join("/")
 }
 
-export const buildSearchParamsQuery = (start, end, datum) => {
+export const buildSearchParamsQuery = (start: string, end: string, datum: DatumOffsetOptions) => {
   return {
     start,
     end,

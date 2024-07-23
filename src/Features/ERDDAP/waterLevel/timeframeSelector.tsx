@@ -1,13 +1,14 @@
-import { getIsoForPicker, getToday, manuallySetFullEODIso, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import queryString from "query-string"
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 
-import { useEffect, useState } from "react"
-import { Alert, Button, Card, Col, Row, UncontrolledTooltip } from "reactstrap"
+import { useState } from "react"
+import { Alert, Button, Card, Col, UncontrolledTooltip } from "reactstrap"
 import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
+import { DatumOffsetOptions } from "../types"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
   const router = useRouter()
@@ -35,9 +36,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   }
 
   const cleanedParams = buildSearchParamsQuery(
-    searchParams.get("start"),
-    searchParams.get("end"),
-    searchParams.get("datum"),
+    searchParams.get("start") as string,
+    searchParams.get("end") as string,
+    searchParams.get("datum") as DatumOffsetOptions,
   )
 
   const handleSearchParamChange = (e) => {
@@ -119,7 +120,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                   query: buildSearchParamsQuery(
                     getIsoForPicker(threeDaysAgoRounded()),
                     getIsoForPicker(weeksInFuture(1)),
-                    searchParams.get("datum"),
+                    searchParams.get("datum") as DatumOffsetOptions,
                   ),
                 }}
               >
