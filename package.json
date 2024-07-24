@@ -22,7 +22,7 @@
     "highcharts": "^11.4.1",
     "jsurl2": "^2.2.0",
     "next": "14.2.4",
-    "ol": "^9.1.0",
+    "ol": "^9.2.4",
     "prop-types": "^15.8.1",
     "query-string": "^9.1.0",
     "react": "^18.3.1",
@@ -34,7 +34,7 @@
     "react-select": "^5.8.0",
     "react-use": "^17.5.0",
     "reactstrap": "9.2.0",
-    "rlayers": "^2.3.1",
+    "rlayers": "^2.3.2",
     "sass": "^1.77.4",
     "sharp": "^0.33.3"
   },
