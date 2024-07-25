@@ -1,7 +1,7 @@
 /**
  * Render prop components to standardize the loading of datasets
  */
-import { useQueries } from "@tanstack/react-query"
+import { useQueries, useQueryClient } from "@tanstack/react-query"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aWeekAgoRounded } from "Shared/time"
 import * as React from "react"
@@ -18,10 +18,12 @@ interface UseDatasetsProps {
   timeSeries: PlatformTimeSeries[]
   startTime?: Date
   endTime?: Date
+  platformId?: string
 }
 
 export interface UseDatasetsRenderProps {
   datasets: DataTimeSeries[]
+  platforms: PlatformTimeSeries
 }
 
 interface UseQueryGroupResult {
@@ -42,8 +44,10 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
   timeSeries,
   startTime,
   endTime,
+  platformId,
 }) => {
   const fetchGroups = groupByServerDatasetConstraint(timeSeries)
+  const queryClient = useQueryClient()
 
   startTime = startTime ?? aWeekAgoRounded()
 
@@ -72,6 +76,40 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
       }
     }
   }
+  let updatedPlatforms
+
+  if (loadedDatasets && platformId) {
+    const platforms: any = queryClient.getQueryData(["buoybarn-platforms"])
+    if (platforms) {
+      const platform = platforms.features.find((f) => f.id === platformId)
+      const latestReading = loadedDatasets.map((d) => {
+        return {
+          name: d.name,
+          latestValue: d.timeSeries[d.timeSeries.length - 1].reading,
+          time: d.timeSeries[d.timeSeries.length - 1].time.toISOString(),
+        }
+      })
+
+      const updatedReadings = platform.properties.readings.map((reading) => {
+        const update = latestReading.find((r) => r.name === reading.variable)
+        return update ? { ...reading, value: update.latestValue, time: update.time } : { ...reading }
+      })
+
+      const updatedPlatform = {
+        ...platform,
+        properties: {
+          ...platform.properties,
+          readings: updatedReadings,
+        },
+      }
+
+      updatedPlatforms = {
+        ...platforms,
+        features: platforms.features.map((f) => (f.id === platformId ? updatedPlatform : f)),
+      }
+      // queryClient.setQueryData(['buoybarn-platforms'], platforms);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -79,7 +117,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
 
       {errorGroups.length > 0 ? <Alert color="warning">Error loading datasets</Alert> : null}
 
-      {loadedDatasets.length > 0 ? children({ datasets: loadedDatasets }) : null}
+      {loadedDatasets.length > 0 ? children({ datasets: loadedDatasets, platforms: updatedPlatforms }) : null}
     </React.Fragment>
   )
 }

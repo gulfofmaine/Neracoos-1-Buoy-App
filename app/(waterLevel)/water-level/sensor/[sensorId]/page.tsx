@@ -1,5 +1,5 @@
 "use client"
-import { usePlatforms } from "Features/ERDDAP/hooks"
+import { usePlatform, usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
@@ -19,8 +19,9 @@ const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 export default function SensorIdPage({ params }) {
   const breakpoint = useBreakpoint()
   const { data } = usePlatforms()
-  const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
   const id = useDecodedUrl(params.sensorId)
+  const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
+  const [platform, setPlatform] = useState<PlatformFeature>()
 
   useEffect(() => {
     if (data) {
@@ -30,6 +31,10 @@ export default function SensorIdPage({ params }) {
       })
       const platforms = filterForSensors(data)
       setWaterLevelPlatforms(platforms)
+      if (id) {
+        const platform = usePlatform(platforms, id)
+        setPlatform(platform)
+      }
     }
   }, [data])
 
@@ -37,7 +42,9 @@ export default function SensorIdPage({ params }) {
     <div>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />
+          {waterLevelPlatforms && platform && (
+            <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
+          )}
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
