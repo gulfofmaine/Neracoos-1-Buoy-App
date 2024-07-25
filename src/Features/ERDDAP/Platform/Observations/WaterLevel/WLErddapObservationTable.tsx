@@ -7,9 +7,11 @@ import { ListGroup, ListGroupItem } from "reactstrap"
 import { UnitSystem } from "Features/Units/types"
 
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
-import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
+import { currentConditionsTimeseries, filterTimeSeries } from "../../../utils/currentConditionsTimeseries"
 
-import { itemStyle, TableItem } from "./item"
+import { itemStyle, TableItem } from "../Table/item"
+import { DatumOffsets } from "Features/ERDDAP/types"
+import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
 import { platformName } from "Features/ERDDAP/utils/platformName"
 
 interface Props extends UsePlatformRenderProps {
@@ -23,13 +25,28 @@ interface Props extends UsePlatformRenderProps {
  * Recent platform observation values
  * @param platform
  */
-export const ErddapObservationTable: React.FC<Props> = ({
+export const WLErddapObservationTable: React.FC<Props> = ({
   platform,
   unitSelector,
   unitSystem,
   laterThan,
   children,
 }: Props) => {
+  const [datumOptions, setDatumOptions] = useState<DatumOffsets | undefined>()
+
+  useEffect(() => {
+    if (platform.properties.readings.length && children) {
+      const wlReading = platform.properties.readings.find((r) => Object.keys(r.datum_offsets).length)
+      setDatumOptions(wlReading?.datum_offsets)
+    }
+  }, [platform])
+
+  const waterLevelTimeseries = filterTimeSeries(
+    platform.properties.readings.filter((ts) => ts.highlighted === "No"),
+    ["tidal_sea_surface_height_above_mean_lower_low_water"],
+    laterThan,
+  )
+
   const { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, laterThan)
   const times = allCurrentConditionsTimeseries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
@@ -50,9 +67,15 @@ export const ErddapObservationTable: React.FC<Props> = ({
       ) : (
         <ListGroupItem style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroupItem>
       )}
-      {allCurrentConditionsTimeseries.map((timeSeries, index) => {
-        return <TableItem key={index} timeSeries={timeSeries} platform={platform} unitSystem={unitSystem} />
-      })}
+      {waterLevelTimeseries && (
+        <TableItem
+          key="WL-ts"
+          timeSeries={waterLevelTimeseries}
+          platform={platform}
+          unitSystem={unitSystem}
+          startTime={laterThan}
+        />
+      )}
 
       {unitSelector ? (
         <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
@@ -60,6 +83,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
         </ListGroupItem>
       ) : null}
       {children && <ListGroupItem>{children}</ListGroupItem>}
+      {children && <DatumSelector datumOffsets={datumOptions as DatumOffsets} />}
     </ListGroup>
   )
 }
