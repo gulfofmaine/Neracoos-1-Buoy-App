@@ -23,7 +23,6 @@ interface UseDatasetsProps {
 
 export interface UseDatasetsRenderProps {
   datasets: DataTimeSeries[]
-  platforms: PlatformTimeSeries
 }
 
 interface UseQueryGroupResult {
@@ -76,7 +75,6 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
       }
     }
   }
-  let updatedPlatforms
 
   if (loadedDatasets && platformId) {
     const platforms: any = queryClient.getQueryData(["buoybarn-platforms"])
@@ -102,12 +100,15 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
           readings: updatedReadings,
         },
       }
-
-      updatedPlatforms = {
+      const updatedPlatforms = {
         ...platforms,
         features: platforms.features.map((f) => (f.id === platformId ? updatedPlatform : f)),
       }
-      // queryClient.setQueryData(['buoybarn-platforms'], platforms);
+      const updatedValues = updatedReadings.map((r) => r.value).toString()
+      const originalValues = platform.properties.readings.map((r) => r.value).toString()
+      if (originalValues !== updatedValues) {
+        queryClient.setQueryData(["buoybarn-platforms"], updatedPlatforms)
+      }
     }
   }
 
@@ -117,7 +118,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
 
       {errorGroups.length > 0 ? <Alert color="warning">Error loading datasets</Alert> : null}
 
-      {loadedDatasets.length > 0 ? children({ datasets: loadedDatasets, platforms: updatedPlatforms }) : null}
+      {loadedDatasets.length > 0 ? children({ datasets: loadedDatasets }) : null}
     </React.Fragment>
   )
 }
