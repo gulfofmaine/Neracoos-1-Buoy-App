@@ -25,14 +25,14 @@ export const WaterLevelSensorInfo: React.FC<PlatformMatchParams> = ({ id, sensor
         <React.Fragment>
           <PlatformAlerts platform={platform} />
           <ErddapPlatformInfoPanel platform={platform} />
-          <ErddapObservationTable
+          <WLErddapObservationTable
             platform={platform}
             unitSelector={<UnitSelector />}
             unitSystem={unitSystem}
             laterThan={aDayAgo}
           >
             <WaterLevelSensorSelector sensors={sensors} />
-          </ErddapObservationTable>
+          </WLErddapObservationTable>
         </React.Fragment>
       )}
     </UsePlatform>
