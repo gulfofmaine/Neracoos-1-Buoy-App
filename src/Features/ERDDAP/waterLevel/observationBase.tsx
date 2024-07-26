@@ -65,7 +65,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
             endTime={manuallySetFullEODIso(endTime)}
             platformId={platform.id}
           >
-            {({ datasets, platforms }) => {
+            {({ datasets }) => {
               const times = datasets
                 .map((ds) => ds.timeSeries)
                 .flat()
