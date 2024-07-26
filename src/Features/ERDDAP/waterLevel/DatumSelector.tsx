@@ -10,6 +10,8 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [datumSelected, setDatumSelected] = useState(searchParams.get("datum"))
+  const endTime = searchParams.get("end")
+  const startTime = searchParams.get("start")
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -41,7 +43,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
       })
       setDatumOptions(options.length ? options : null)
     }
-  }, [datumOffsets, datumSelected])
+  }, [datumOffsets, datumSelected, startTime, endTime])
 
   useEffect(() => {
     setDatumSelected(searchParams.get("datum"))
