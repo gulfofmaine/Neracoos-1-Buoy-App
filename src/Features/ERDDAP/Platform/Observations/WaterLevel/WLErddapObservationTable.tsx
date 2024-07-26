@@ -68,13 +68,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
         <ListGroupItem style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroupItem>
       )}
       {waterLevelTimeseries && (
-        <TableItem
-          key="WL-ts"
-          timeSeries={waterLevelTimeseries}
-          platform={platform}
-          unitSystem={unitSystem}
-          startTime={laterThan}
-        />
+        <TableItem key="WL-ts" timeSeries={waterLevelTimeseries} platform={platform} unitSystem={unitSystem} />
       )}
 
       {unitSelector ? (
