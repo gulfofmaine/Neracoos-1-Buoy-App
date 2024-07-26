@@ -8,7 +8,7 @@ export interface PlatformMatchParams {
   /**
    * Platform ID from URL parameter
    */
-  platform: PlatformFeature
+  id: string
   sensors?: PlatformFeature[] | undefined
 }
 

@@ -1,5 +1,5 @@
 "use client"
-import { usePlatform, usePlatforms } from "Features/ERDDAP/hooks"
+import { usePlatforms } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
@@ -12,15 +12,15 @@ import { Col, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { createBreakpoint } from "react-use"
 import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
+import { useSearchParams } from "next/navigation"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
 export default function SensorIdPage({ params }) {
   const breakpoint = useBreakpoint()
   const { data } = usePlatforms()
-  const id = useDecodedUrl(params.sensorId)
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
-  const [platform, setPlatform] = useState<PlatformFeature>()
+  const id = useDecodedUrl(params.sensorId)
 
   useEffect(() => {
     if (data) {
@@ -30,10 +30,6 @@ export default function SensorIdPage({ params }) {
       })
       const platforms = filterForSensors(data)
       setWaterLevelPlatforms(platforms)
-      if (id) {
-        const platform = usePlatform(platforms, id)
-        setPlatform(platform)
-      }
     }
   }, [data])
 
@@ -41,9 +37,7 @@ export default function SensorIdPage({ params }) {
     <div>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          {waterLevelPlatforms && platform && (
-            <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
-          )}
+          {waterLevelPlatforms && <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />}
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
