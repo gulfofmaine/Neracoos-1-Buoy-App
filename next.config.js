@@ -13,6 +13,31 @@ const nextConfig = {
   //   disableStaticImages: true
   // }
   output: "standalone",
+  redirects: async () => {
+    return [
+      // Redirects for tide gauge signs https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/3011
+      {
+        source: "/s/fore-river-tide-gauge",
+        destination: "/platform/Fore%20River%20Tide%20Gauge",
+        permanent: false,
+      },
+      {
+        source: "/s/machias-tide-gauge",
+        destination: "/platform/Machias%20tide%20gauge",
+        permanent: false,
+      },
+      {
+        source: "/s/boothbay-harbor-tide-gauge",
+        destination: "/platform/Boothbay%20Harbor%20Tide%20Gauge",
+        permanent: false,
+      },
+      {
+        source: "/s/port-clyde-tide-gauge",
+        destination: "/platform/Port%20Clyde%20Tide%20Gauge",
+        permanent: false,
+      },
+    ]
+  },
 }
 
 // Injected content via Sentry wizard below
