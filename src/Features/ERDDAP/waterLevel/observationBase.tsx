@@ -3,20 +3,12 @@ import { useUnitSystem } from "Features/Units"
 import { useEffect, useState } from "react"
 import { Alert } from "reactstrap"
 import { filterTimeSeries } from "../Platform/Observations/CurrentConditions"
-import { UseDatasets, useDataset } from "../hooks"
+import { UseDatasets } from "../hooks"
 import { DatumOffsetOptions, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
-import {
-  aDayAgoRounded,
-  daysInFuture,
-  fullBeginningDateIso,
-  getIsoForPicker,
-  getToday,
-  manuallySetFullEODIso,
-  threeDaysAgoRounded,
-} from "Shared/time"
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import { aDayAgoRounded, fullBeginningDateIso, getIsoForPicker, getToday, manuallySetFullEODIso } from "Shared/time"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import queryString from "query-string"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 
@@ -71,6 +63,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
             timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
             startTime={fullBeginningDateIso(startTime)}
             endTime={manuallySetFullEODIso(endTime)}
+            platformId={platform.id}
           >
             {({ datasets }) => {
               const times = datasets

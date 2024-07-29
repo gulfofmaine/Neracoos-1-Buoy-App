@@ -37,7 +37,7 @@ export default function SensorIdPage({ params }) {
     <div>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />
+          {waterLevelPlatforms && <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />}
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}

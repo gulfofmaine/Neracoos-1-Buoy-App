@@ -3,14 +3,14 @@ import React from "react"
 
 import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"
 import { ErddapPlatformInfoPanel } from "Features/ERDDAP/Platform/Info"
-import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table"
-import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 
 import { UnitSelector, useUnitSystem } from "Features/Units"
 import { aDayAgoRounded } from "Shared/time"
 
 import { PlatformMatchParams } from "./types"
 import { WaterLevelSensorSelector } from "Features/ERDDAP/waterLevel/sensorSelector"
+import { WLErddapObservationTable } from "Features/ERDDAP/Platform/Observations/WaterLevel/WLErddapObservationTable"
+import { UsePlatform, ErddapObservationTable } from "Features/ERDDAP"
 
 /**
  * Display our platform info panel for the select platform.
@@ -25,14 +25,14 @@ export const WaterLevelSensorInfo: React.FC<PlatformMatchParams> = ({ id, sensor
         <React.Fragment>
           <PlatformAlerts platform={platform} />
           <ErddapPlatformInfoPanel platform={platform} />
-          <ErddapObservationTable
+          <WLErddapObservationTable
             platform={platform}
             unitSelector={<UnitSelector />}
             unitSystem={unitSystem}
             laterThan={aDayAgo}
           >
             <WaterLevelSensorSelector sensors={sensors} />
-          </ErddapObservationTable>
+          </WLErddapObservationTable>
         </React.Fragment>
       )}
     </UsePlatform>
