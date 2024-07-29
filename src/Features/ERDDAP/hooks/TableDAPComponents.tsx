@@ -76,6 +76,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
     }
   }
 
+  //Combine latest values from useDataset and combines them into usePlatform data. If the recent value from useDataset is different than the value from usePlatform, it will pull into update usePlatform.
   if (loadedDatasets && platformId) {
     const platforms: any = queryClient.getQueryData(["buoybarn-platforms"])
     if (platforms) {
@@ -92,7 +93,6 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
         const update = latestReading.find((r) => r.name === reading.variable)
         return update ? { ...reading, value: update.latestValue, time: update.time } : { ...reading }
       })
-
       const updatedPlatform = {
         ...platform,
         properties: {
@@ -106,6 +106,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
       }
       const updatedValues = updatedReadings.map((r) => r.value).toString()
       const originalValues = platform.properties.readings.map((r) => r.value).toString()
+      // If original values are different than the new values (i.e. a new reading was taken),then set usePlatform data to the updated values.
       if (originalValues !== updatedValues) {
         queryClient.setQueryData(["buoybarn-platforms"], updatedPlatforms)
       }
