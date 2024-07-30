@@ -1,68 +1,58 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Revert } from "Shared/icons/Revert"
-import {
-  getIsoForPicker,
-  getToday,
-  manuallySetFullEODIso,
-  shortIso,
-  threeDaysAgoRounded,
-  weeksInFuture,
-} from "Shared/time"
-import { useParams } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Button, Col, Row, Tooltip, UncontrolledTooltip } from "reactstrap"
+import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import queryString from "query-string"
 
-// date picker eith start and end date (so two of them) and a "graph" button that changes the url based on the value of the two dates.
-// Defaults should be the url defaults (which is 3 days prior and a week out)
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
+
+import { useEffect, useState } from "react"
+import { Alert, Button, Card, Col, UncontrolledTooltip } from "reactstrap"
+import { Revert } from "Shared/icons/Revert"
+import { buildSearchParamsQuery } from "Shared/urlParams"
+import { DatumOffsetOptions } from "../types"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
+  const router = useRouter()
   const params = useParams()
-  const [startTime, setStartTime] = useState<any>(decodeURIComponent(params.startTime as string))
-  const [endTime, setEndTime] = useState<any>(decodeURIComponent(params.endTime as string))
-  const [validDate, setValidDate] = useState<boolean>(true)
-  const startTimeParams = decodeURIComponent(params.startTime as string)
-  const endTimeParams = decodeURIComponent(params.endTime as string)
-
-  const getEndTime = (date) => {
-    const endTime = new Date(date)
-    setEndTime(getIsoForPicker(endTime))
-  }
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
+  const [endTime, setEndTime] = useState<any>(searchParams.get("end"))
+  const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
     if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
-      return false
+      return "Please choose a timeframe that spans less than two weeks"
     }
     //check if timeframe is recent enough
     if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
-      return false
+      return "Please choose a more recent date"
     }
     //check if endDate is before startDate
     if (new Date(end).getTime() - new Date(start).getTime() < 0) {
-      return false
+      return "Please choose a date where the start is before the end"
     }
-    return true
-  }
-
-  const revertToDefaultDate = () => {
-    setStartTime(getIsoForPicker(threeDaysAgoRounded()))
-    setEndTime(getIsoForPicker(weeksInFuture(1)))
+    return ""
   }
 
   useEffect(() => {
-    setValidDate(validateTimeframe(startTime, endTime))
+    setValidDateMessage(validateTimeframe(startTime, endTime))
   }, [startTime, endTime])
 
-  useEffect(() => {
-    setStartTime(getIsoForPicker(new Date(startTimeParams)))
-    setEndTime(graphFuture ? getIsoForPicker(new Date(endTimeParams)) : getToday())
-  }, [startTimeParams, endTimeParams, graphFuture])
-
   return (
-    <Row style={{ width: "80%", verticalAlign: "middle", marginBottom: "20px" }}>
+    <Card
+      style={{
+        width: "fit-content",
+        padding: "20px",
+        marginTop: "20px",
+        verticalAlign: "middle",
+        marginBottom: "20px",
+      }}
+    >
       <Col style={{ width: "100%", margin: 0 }}>
-        <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Timeframe: </h6>
+        <h6 style={{ width: "100%", fontWeight: "bold" }}>Timeframe: </h6>
       </Col>
+      {validDateMessage !== "" && <Alert color="warning">{validDateMessage}</Alert>}
       <div>
         <Col
           style={{
@@ -71,30 +61,31 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             width: "100%",
             display: "flex",
             alignItems: "end",
-            justifyContent: "space-between",
           }}
         >
-          <label style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <label style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "20px" }}>
             Start date:
             <input
               type="date"
               id="start"
-              name="timeframe-start"
+              name="start"
               max={getToday()}
               value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
+              onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
+              required
             />
           </label>
-          <label style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <label style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "20px" }}>
             End date:
             <input
               type="date"
               id="end"
-              name="timeframe-end"
+              name="end"
               min={startTime}
               max={graphFuture ? undefined : getToday()}
               value={endTime}
-              onChange={(e) => getEndTime(e.target.value)}
+              onInput={(e) => setEndTime(getIsoForPicker(new Date((e.target as HTMLInputElement).value)))}
+              required
             />
           </label>
           <div>
@@ -105,28 +96,46 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               style={{ marginRight: "5px", border: "grey" }}
               id="revert-default-date"
             >
-              <a
-                href={`/water-level/sensor/${params.sensorId}/${getIsoForPicker(
-                  threeDaysAgoRounded(),
-                )}/${getIsoForPicker(weeksInFuture(1))}/${params.datum}`}
+              <Link
+                href={{
+                  pathname: `/water-level/sensor/${params.sensorId}`,
+                  query: buildSearchParamsQuery(
+                    getIsoForPicker(threeDaysAgoRounded()),
+                    getIsoForPicker(weeksInFuture(1)),
+                    searchParams.get("datum") as DatumOffsetOptions,
+                  ),
+                }}
               >
                 <Revert fill={"#000000"} />
-              </a>
+              </Link>
             </Button>
             <UncontrolledTooltip placement="top" target="revert-default-date">
               Revert to default date
             </UncontrolledTooltip>
-            <Button color="primary" size="sm" disabled={!startTime || !endTime || !validDate}>
-              <a
-                href={`/water-level/sensor/${params.sensorId}/${startTime}/${endTime}/${params.datum}`}
+            <Button
+              color="primary"
+              size="sm"
+              id="plot-date-button"
+              disabled={!startTime || !endTime || validDateMessage !== ""}
+            >
+              <Link
+                href={{
+                  pathname,
+                  query: buildSearchParamsQuery(startTime, endTime, searchParams.get("datum") as DatumOffsetOptions),
+                }}
                 style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
               >
                 Plot Dates
-              </a>
+              </Link>
             </Button>
+            {validDateMessage !== "" && (
+              <UncontrolledTooltip placement="top" target="plot-date-button">
+                {validDateMessage}
+              </UncontrolledTooltip>
+            )}
           </div>
         </Col>
       </div>
-    </Row>
+    </Card>
   )
 }

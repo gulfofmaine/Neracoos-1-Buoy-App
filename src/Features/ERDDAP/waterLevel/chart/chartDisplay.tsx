@@ -2,13 +2,19 @@ import { PlatformTimeSeries } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import { DatumSelector } from "../DatumSelector"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
 import { TimeframeSelector } from "../timeframeSelector"
-import { displayShortIso, getIsoForPicker, manuallySetFullEODIso, roundDate, shortIso } from "Shared/time"
+import {
+  displayShortIso,
+  fullBeginningDateIso,
+  getIsoForPicker,
+  manuallySetFullEODIso,
+  roundDate,
+  shortIso,
+} from "Shared/time"
 import { round } from "@turf/helpers"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 
@@ -34,7 +40,11 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   const [floodThresholds, setFloodThresholds] = useState<any>()
   const [datumOffset, setDatumOffset] = useState<number | undefined>()
   const [title, setTitle] = useState<string>()
+  const [yMax, setYMax] = useState<number>()
+  const [yMin, setYMin] = useState<number>()
+
   const params = useParams()
+  const searchParams = useSearchParams()
   const dataConverter = converter(standardName)
   const sensorId = decodeURIComponent(params.sensorId as string)
 
@@ -42,6 +52,12 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     if (!Object.keys(timeSeries.datum_offsets).length) {
       return timeSeries.data_type.long_name
     }
+  }
+
+  const getMaxThreshold = () => {
+    return Object.keys(floodThresholds).reduce((max, f) => {
+      return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
+    }, 0)
   }
 
   useEffect(() => {
@@ -70,35 +86,43 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   }, [timeSeries, datumOffset, unitSystem])
 
   useEffect(() => {
-    if (params.datum) {
-      const datum = decodeURIComponent(params.datum as string)
+    if (searchParams.get("datum")) {
+      const datum = searchParams.get("datum") as string
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
       offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
     }
-  }, [params.datum, unitSystem])
+  }, [searchParams, timeSeries])
+
+  useEffect(() => {
+    const allReadings = dataset.timeSeries.map((t) => t.reading)
+    setYMax(
+      floodThresholds
+        ? dataConverter.convertToNumber(getMaxThreshold(), unitSystem)
+        : dataConverter.convertToNumber(Math.max(...allReadings), unitSystem),
+    )
+    setYMin(dataConverter.convertToNumber(Math.min(...allReadings), unitSystem))
+  }, [floodThresholds, dataset, unitSystem])
 
   useEffect(() => {
     if (timeSeries) {
-      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(params.datum as string)
-        ? getDatumDisplayName(params.datum as string)
+      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(searchParams.get("datum") as string)
+        ? getDatumDisplayName(searchParams.get("datum") as string)
         : getDefaultTitle()
       setTitle(graphTitle)
     }
-  }, [timeSeries])
+  }, [timeSeries, searchParams])
 
   return (
     <div>
       <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
-      <p style={{ textAlign: "center" }}>{`${displayShortIso(startTime)} - ${displayShortIso(
-        manuallySetFullEODIso(endTime),
-      )}`}</p>
+      <p style={{ textAlign: "center" }}>{`${displayShortIso(startTime)} - ${displayShortIso(endTime)}`}</p>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
         predictedTidesName={predictedTidesDataset?.name}
         name={title}
-        softMin={0}
-        softMax={{ English: 20, Metric: 10 }}
+        softMin={yMin as number}
+        softMax={yMax as number}
         unitSystem={unitSystem}
         data_type={standardName}
         datumOffset={datumOffset || 0}

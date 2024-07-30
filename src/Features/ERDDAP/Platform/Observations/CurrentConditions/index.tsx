@@ -37,7 +37,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   )
 
   return (
-    <UseDatasets timeSeries={allCurrentConditionsTimeseries} startTime={halfDayAgo}>
+    <UseDatasets timeSeries={allCurrentConditionsTimeseries} startTime={halfDayAgo} platformId={platform.id}>
       {({ datasets }) => {
         const times = datasets
           .map((ds) => ds.timeSeries)

@@ -12,6 +12,7 @@ import { Col, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { createBreakpoint } from "react-use"
 import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
+import { useSearchParams } from "next/navigation"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
@@ -36,7 +37,7 @@ export default function SensorIdPage({ params }) {
     <div>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />
+          {waterLevelPlatforms && <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />}
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}

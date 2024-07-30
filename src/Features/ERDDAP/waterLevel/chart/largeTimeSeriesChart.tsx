@@ -38,9 +38,9 @@ interface Props {
   /** Name of data */
   name: string | undefined
   /** Soft minimum for Y axis */
-  softMin: number | undefined
+  softMin: number
   /** Soft maximum for Y axis */
-  softMax: any
+  softMax: number
   /** Unit system to display in */
   unitSystem: UnitSystem
   /** Data type to display */
@@ -102,15 +102,16 @@ export function LargeTimeSeriesWaterLevelChart({
           minTickInterval={24 * 3600 * 1000}
         >
           <PlotLine
-            color={"#d3d3d3"}
+            color={"#a1a1a1"}
             value={latestTime}
-            width={1}
+            width={1.5}
             label={{
-              text: shortestDisplayIso(new Date(latestTime)),
+              text: `Latest: ${shortestDisplayIso(new Date(latestTime))}`,
               rotation: 0,
-              align: "center",
+              align: "right",
               verticalAlign: "bottom",
               y: -5,
+              x: -5,
               style: {
                 zIndex: 10,
                 fontWeight: "600",
@@ -123,7 +124,11 @@ export function LargeTimeSeriesWaterLevelChart({
         </XAxis>
         <YAxis
           softMin={softMin}
-          softMax={floodThresholds ? floodThresholds?.Major?.minValue + 3 : softMax[unitSystem]}
+          softMax={
+            floodThresholds
+              ? floodThresholds?.Major?.minValue + dataConverter.convertToNumber(0.5, unitSystem)
+              : softMax
+          }
           endOnTick={false}
         >
           {floodThresholds && (
@@ -187,6 +192,7 @@ export function LargeTimeSeriesWaterLevelChart({
             marker={{ enabled: false }}
             data={data}
             color={colors.coastalMeadow}
+            lineWidth={1.5}
           />
           {predictedTidesData && (
             <SplineSeries

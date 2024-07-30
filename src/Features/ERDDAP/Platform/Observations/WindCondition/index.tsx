@@ -40,7 +40,7 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   }
 
   return (
-    <UseDatasets timeSeries={timeSeries} startTime={startDate}>
+    <UseDatasets timeSeries={timeSeries} startTime={startDate} platformId={platform.id}>
       {({ datasets }) => (
         <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets, startDate }} />
       )}

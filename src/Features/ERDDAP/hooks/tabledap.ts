@@ -129,7 +129,7 @@ export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date, 
   })
 
   const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), 5000)
+  const timeoutId = setTimeout(() => controller.abort(), 10000)
 
   const result = await fetch(url, { signal: controller.signal })
 
