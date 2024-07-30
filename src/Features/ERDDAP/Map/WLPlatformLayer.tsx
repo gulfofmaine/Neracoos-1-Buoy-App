@@ -14,7 +14,7 @@ import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { ReactElement, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
@@ -68,15 +68,13 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const path = usePathname()
   const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
-  const [display, setDisplay] = useState()
-
+  const [display, setDisplay] = useState("grey")
   let radius: number
   if (selected) {
     radius = window.innerWidth > adjustPxWidth ? 12 : 17
   } else {
     radius = window.innerWidth > adjustPxWidth ? 7 : 12
   }
-
   const isSensorPage = path.includes("sensor")
 
   useEffect(() => {
@@ -89,15 +87,14 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       const value = currentWaterLevel?.value
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
+      // platform.id === "CASM1" && console.log("WTF", surpassedThreshold)
       setFloodThreshold(surpassedThreshold)
+      const opacity = selected ? "f2" : "bf"
+      platform.id === "CASM1" && console.log("hello!", value)
+      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+      setDisplay(display)
     }
-  }, [])
-
-  useEffect(() => {
-    const opacity = selected ? "f2" : "bf"
-    const display = floodLevelThresholdColors(floodThreshold, old, opacity)
-    setDisplay(display)
-  }, [floodThreshold])
+  }, [platform.properties.readings])
 
   const query = isSensorPage
     ? buildSearchParamsQuery(
@@ -111,9 +108,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
         "datum_mllw_meters",
       )
 
-  if (display) {
-    return (
-      <div style={{ zIndex: 10 }}>
+  return (
+    <div style={{ zIndex: 10 }}>
+      {platform && display && floodThreshold && (
         <Layer
           platform={platform}
           url={{
@@ -125,11 +122,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
           color={display}
           floodThreshold={floodThreshold}
         />
-      </div>
-    )
-  } else {
-    return null
-  }
+      )}
+    </div>
+  )
 }
 
 const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {

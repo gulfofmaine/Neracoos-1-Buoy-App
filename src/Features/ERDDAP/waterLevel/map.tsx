@@ -10,6 +10,7 @@ import { PlatformFeature } from "../types"
 import { WLPlatformLayer } from "../Map/WLPlatformLayer"
 import { color } from "highcharts"
 import { LegendItem } from "components/Map/legendItem"
+import { platform } from "os"
 
 const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
 
@@ -72,9 +73,9 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
         <EsriOceanBasemapLayer />
         <EsriOceanReferenceLayer />
 
-        {oldPlatforms.map((p) => (
-          <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
-        ))}
+        {oldPlatforms.map((p) => {
+          return <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
+        })}
         {filteredPlatforms.map((p) => (
           <WLPlatformLayer key={p.id} platform={p} selected={false} old={false} />
         ))}
