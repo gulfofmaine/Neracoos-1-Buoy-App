@@ -29,6 +29,7 @@ import {
 import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
 import Link from "next/link"
+import { Feature } from "ol"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -149,7 +150,7 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
               dataProjection: "EPSG:4326",
               featureProjection: "EPSG:3857",
             }).readFeature(platform)
-            return feature.getGeometry()
+            return (feature as Feature).getGeometry()
           }, [platform])}
         >
           <RPopup trigger={"hover"} autoPosition={true}>
