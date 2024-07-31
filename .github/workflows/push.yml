@@ -28,14 +28,14 @@ jobs:
             mariners-dashboard-image-
 
       - name: "Login to Docker Hub"
-        uses: docker/login-action@v3.2.0
+        uses: docker/login-action@v3.3.0
         continue-on-error: true
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        uses: docker/build-push-action@v6.3.0
+        uses: docker/build-push-action@v6.5.0
         with:
           context: .
           target: dev
@@ -80,7 +80,7 @@ jobs:
           docker image ls -a
 
       - name: Build Docker Image
-        uses: docker/build-push-action@v6.3.0
+        uses: docker/build-push-action@v6.5.0
         with:
           context: .
           target: runner
@@ -276,7 +276,7 @@ jobs:
           docker image ls -a
 
       - name: "Login to Docker Hub"
-        uses: docker/login-action@v3.2.0
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -286,7 +286,7 @@ jobs:
         id: tagName
 
       - name: Build and push Docker Image
-        uses: docker/build-push-action@v6.3.0
+        uses: docker/build-push-action@v6.5.0
         with:
           context: .
           push: true
@@ -355,7 +355,7 @@ jobs:
           docker image ls -a
 
       - name: "Login to Docker Hub"
-        uses: docker/login-action@v3.2.0
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -365,7 +365,7 @@ jobs:
         run: echo "tag=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker Image
-        uses: docker/build-push-action@v6.3.0
+        uses: docker/build-push-action@v6.5.0
         with:
           context: .
           push: true

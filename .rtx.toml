@@ -2,4 +2,4 @@
 NEXT_PUBLIC_ERDDAP_SERVICE = "https://buoybarn.neracoos.org"
 
 [tools]
-node = "21"
+node = "22"
