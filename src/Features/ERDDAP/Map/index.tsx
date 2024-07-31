@@ -22,6 +22,7 @@ import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import { platformName } from "../utils/platformName"
+import { Feature } from "ol"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -93,7 +94,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
             dataProjection: "EPSG:4326",
             featureProjection: "EPSG:3857",
           }).readFeature(platform)
-          return feature.getGeometry()
+          return (feature as Feature).getGeometry()
         }, [platform])}
         onClick={useCallback(() => {
           router.push(url)
