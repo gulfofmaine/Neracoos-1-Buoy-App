@@ -88,14 +88,12 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       const value = currentWaterLevel?.value
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
-      // platform.id === "CASM1" && console.log("WTF", surpassedThreshold)
       setFloodThreshold(surpassedThreshold)
       const opacity = selected ? "f2" : "bf"
-      platform.id === "CASM1" && console.log("hello!", value)
       const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
       setDisplay(display)
     }
-  }, [platform.properties.readings])
+  }, [platform.properties.readings, selected, old, platform])
 
   const query = isSensorPage
     ? buildSearchParamsQuery(
