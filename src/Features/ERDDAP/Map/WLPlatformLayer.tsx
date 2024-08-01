@@ -7,20 +7,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import { Button } from "reactstrap"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
-import { colors } from "Shared/colors"
-import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { ReactElement, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
-import { DatumOffsetOptions, DatumOffsets, PlatformFeature } from "../types"
+import { DatumOffsetOptions, PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
