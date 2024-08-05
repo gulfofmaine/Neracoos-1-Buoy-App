@@ -75,6 +75,8 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   }
   const isSensorPage = path.includes("sensor")
 
+  platform.id === "CASM1" && console.log(display)
+
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find(
       (r) => r.flood_levels.length && r.variable !== "predictedWL",
@@ -124,14 +126,17 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 }
 
 const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
+  platform.id === "CASM1" && console.log("bananas", color)
   return (
     <RLayerVector zIndex={10}>
-      <RStyle.RStyle>
-        <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
-          <RStyle.RFill color={color} />
-          <RStyle.RStroke color={"000000"} width={0.5} />
-        </RStyle.RRegularShape>
-      </RStyle.RStyle>
+      {color && (
+        <RStyle.RStyle>
+          <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
+            <RStyle.RFill color={color} />
+            <RStyle.RStroke color={"000000"} width={0.5} />
+          </RStyle.RRegularShape>
+        </RStyle.RStyle>
+      )}
 
       <Link href={url}>
         <RFeature
