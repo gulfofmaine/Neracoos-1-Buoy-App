@@ -47,16 +47,18 @@ export const WLErddapObservationTable: React.FC<Props> = ({
     laterThan,
   )
 
+  const time = waterLevelTimeseries?.time ? new Date(waterLevelTimeseries.time) : null
+
   const { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, laterThan)
   const times = allCurrentConditionsTimeseries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
-      {times.length > 0 ? (
+      {times.length > 0 && time ? (
         <ListGroupItem style={itemStyle}>
           <b>Last updated at:</b>{" "}
-          {times[times.length - 1].toLocaleString(undefined, {
+          {time.toLocaleString(undefined, {
             hour: "2-digit",
             hour12: true,
             minute: "2-digit",

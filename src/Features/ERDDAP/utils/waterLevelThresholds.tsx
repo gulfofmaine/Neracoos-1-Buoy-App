@@ -31,11 +31,12 @@ export const getSurpassedThreshold = (value, thresholds) => {
   })
   if (range) {
     return range.name
+  } else {
+    return "None"
   }
-  return null
 }
 
-export const floodLevelThresholdColors = (alert, old, opacity) => {
+export const floodLevelThresholdColors = (alert, old, opacity, platform) => {
   const colorMap = {
     Major: `${colors.majorThreshold}${opacity}`,
     Moderate: `${colors.moderateThreshold}${opacity}`,
