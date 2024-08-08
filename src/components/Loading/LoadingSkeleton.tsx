@@ -6,24 +6,9 @@ import { paths } from "Shared/constants"
 
 export const LoadingSkeleton = () => {
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "58px",
-        right: "0",
-        width: "100vw",
-        height: "100vh",
-        zIndex: "250",
-        backgroundColor: "grey",
-        opacity: ".5",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      \{" "}
+    <div className="loading-container" style={{}}>
       <NavbarBrand href={paths.neracoos}>
-        <Image src={neracoosLogo} alt="NERACOOS" height={30} />
+        <Image src={neracoosLogo} alt="NERACOOS" height={30} className="loading-logo" />
       </NavbarBrand>
     </div>
   )
