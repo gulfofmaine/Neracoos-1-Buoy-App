@@ -9,7 +9,7 @@ export const LoadingSkeleton = () => {
     <div
       style={{
         position: "absolute",
-        top: "0",
+        top: "58px",
         right: "0",
         width: "100vw",
         height: "100vh",

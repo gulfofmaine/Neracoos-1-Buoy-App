@@ -49,7 +49,7 @@ const NeracoosNavBar = () => {
 
   return (
     <div>
-      <Navbar dark={true} expand="md">
+      <Navbar dark={true} expand="md" style={{ height: "58px" }}>
         <NavbarBrand href={paths.neracoos}>
           <Image src={neracoosLogo} alt="NERACOOS" height={30} />
         </NavbarBrand>
