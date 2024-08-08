@@ -131,3 +131,35 @@ nav.navbar {
     width: 100%;
   }
 }
+
+.loading-container {
+  position: absolute;
+  top: 58px;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 250;
+  background-color: grey;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-logo {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
