@@ -3,7 +3,7 @@
  */
 import { useQueries, useQueryClient } from "@tanstack/react-query"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
-import { aWeekAgoRounded } from "Shared/time"
+import { aDayAgoRounded, aWeekAgoRounded, daysInFuture } from "Shared/time"
 import * as React from "react"
 import { Alert } from "reactstrap"
 
@@ -82,17 +82,28 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
     if (platforms) {
       const platform = platforms.features.find((f) => f.id === platformId)
       const latestReading = loadedDatasets.map((d) => {
+        const max = !d.name.includes("predicted")
+          ? Math.max(...d.timeSeries.filter((ts) => ts.time < aDayAgoRounded()).map((t) => t.reading))
+          : Math.max(
+              ...d.timeSeries
+                .filter((ts) => ts.time > new Date(Date.now()) && ts.time < daysInFuture(1))
+                .map((t) => t.reading),
+            )
         return {
           name: d.name,
           latestValue: d.timeSeries[d.timeSeries.length - 1].reading,
           time: d.timeSeries[d.timeSeries.length - 1].time.toISOString(),
+          maxReading: max,
         }
       })
 
       const updatedReadings = platform.properties.readings.map((reading) => {
         const update = latestReading.find((r) => r.name === reading.variable)
-        return update ? { ...reading, value: update.latestValue, time: update.time } : { ...reading }
+        return update
+          ? { ...reading, value: update.latestValue, time: update.time, maxReading: update.maxReading }
+          : { ...reading }
       })
+
       const updatedPlatform = {
         ...platform,
         properties: {
