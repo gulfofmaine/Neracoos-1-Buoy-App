@@ -5,7 +5,7 @@ test.describe("Platform redirects", () => {
   test("Can redirect to platform page", async ({ page }) => {
     await page.goto("/s/port-clyde-tide-gauge")
     await expect(await page.getByText("Port Clyde Tide Gauge").first()).toBeVisible()
-    await expect(await page.getByText("Mean Lower Low Water").first()).toBeVisible()
+    await expect(await page.getByText("Last updated at:").first()).toBeVisible()
     await expect(page.url()).toBe("http://127.0.0.1:3000/platform/Port%20Clyde%20Tide%20Gauge")
   })
 })
