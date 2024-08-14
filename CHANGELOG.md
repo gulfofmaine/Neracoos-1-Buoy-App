@@ -4,11 +4,98 @@
 
 Additions:
 
-- Adds sea level to current conditions table.
-
 Changes:
 
 Fixes:
+
+## 1.0.0 - 8/14/24
+
+Additions:
+
+- Adds sea level to current conditions table.
+- Add tide level standards and conversions [2501](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2501)
+- Set up Prettier with Pre-commit and GHA [2594](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2594)
+- Set up Sentry for Next and add error handling to app [2599](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2599)
+- add dynamic menu items [2738](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2738)
+- Setup Spotlight to capture dev exceptions [2749](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2749)
+- Highlighted timeseries [2880](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2880)
+- Water level page:
+  - Set up [2719](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2719) and [2792(https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2792)]
+  - Predicted tides [2789](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2789) and [2793](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2793)
+  - get working model of color changing map up [2798](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2798)
+  - persist unit selection on page refresh and new platform/sensor selection [2899](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2899)
+  - Fix slow loading PredWL dataset loading [2846](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2946)
+  - make y-axis dynamic for min and max [2987](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2987)
+  - refactor with search params [2999](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2999)
+  - Add redirects for tide gauges [3012](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3012)
+
+Changes:
+
+- Remove Cypress and replace with Playwright [2662](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2662)
+- Remove React-router-dom
+- Remove redux-first-history [2846](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2846)
+- Convert from Yarn to NPM [2836](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2836)
+- Update wind to take knots [3061](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3061)
+- Migrated to Next.js
+  - [2488](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2488)
+  - Migrate about page to App Router [2596](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2596)
+  - Platform pages using Next.js app router [2627](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2627)
+  - Refactor Model Viewer to work with Next app router [2639](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2639)
+  - transfer models page to next [2645](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2645)
+- Dependency Updates:
+  - @adobe/css-tools from 4.3.1 to 4.3.3
+  - @babel/traverse from 7.22.8 to 7.23.2
+  - @estruyf/github-actions-reporter from 1.3.0 to 1.9.0
+  - @playwright/test from 1.39.0 to 1.46.0
+  - Sentry:
+    - @sentry/nextjs from 7.74.1 to 7.114.0
+    - @sentry/react from 7.59.2 to 7.114.0
+  - @spotlightjs/spotlight from 1.2.7 to 2.3.1
+  - Testing:
+    - @testing-library/dom from 9.3.1 to 9.3.4
+    - @testing-library/jest-dom from 5.17.0 to 6.4.2
+    - @testing-library/user-event from 14.4.3 to 14.5.1
+  - Types:
+    - @types/jest from 29.5.3 to 29.5.5
+    - @types/node from 20.4.2 to 22.2.0
+    - @types/react from 18.2.15 to 18.3.3
+    - @types/react-dom from 18.2.7 to 18.2.15
+    - @types/react-test-renderer from 18.0.0 to 18.0.7
+  - cypress from 12.17.1 to 13.2.0
+  - Docker:
+    - docker/build-push-action from 4.1.1 to 6.5.0
+    - docker/login-action from 2.2.0 to 3.3.0
+    - docker/setup-buildx-action from 2.9.1 to 3.6.1
+  - eslint from 8.51.0 to 8.57.0
+  - eslint-config-next from 13.5.4 to 14.0.0
+  - express from 4.18.2 to 4.19.2
+  - highcharts from 11.1.0 to 11.4.6
+  - jest-environment-jsdom from 29.6.1 to 29.7.0
+  - nginx from 2d19418 to 4c93a3b
+  - next from 13.5.4 to 14.0.1
+  - node from 20.4.0-alpine to 22.5.1-alpine
+  - ol from 7.4.0 to 8.1.0
+  - react-redux from 8.1.1 to 8.1.3
+  - react-router-dom from 6.14.2 to 6.17.0
+  - react-use from 17.4.0 to 17.5.1
+  - sass from 1.63.6 to 1.77.8
+  - sharp from 0.32.6 to 0.33.4
+  - typescript from 4.9.5 to 5.5.4
+  - undici from 5.27.2 to 5.28.4
+  - webpack from 5.88.2 to 5.89.0
+  - @reduxjs/toolkit from 1.9.5 to 1.9.7
+  - @turf/boolean-contains from 6.5.0 to 7.0.0
+  - Font-awesome core from 5.3.0 to 6.6.0
+  - Storybook group from 7.1.0 to 8.2.9
+  - React-query from 4.29.25 to 5.51.23
+
+Fixes:
+
+- fix reload loop [2652](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2652)
+- Fix modeling page 304 [2655](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2655)
+- Group Next and related Dependabot updates [2664](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2664)
+- Fix zoom bugs on regional map [2661](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2661) and [2685](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2685)
+- fix sensor tests [2786](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/2786)
 
 ## 0.10.7 - 07/19/2023
 
