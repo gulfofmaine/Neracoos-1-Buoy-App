@@ -13,7 +13,6 @@ export const getWaterLevelThresholdsMapRawComp = (floodThresholds) => {
       }
     })
   }
-  return null
 }
 
 const compChart = {
@@ -23,7 +22,7 @@ const compChart = {
 }
 
 export const getSurpassedThreshold = (value, thresholds) => {
-  const range = thresholds.find((t) => {
+  const range = thresholds?.find((t) => {
     if (t.name === "Major") {
       return value >= t.min_value
     }

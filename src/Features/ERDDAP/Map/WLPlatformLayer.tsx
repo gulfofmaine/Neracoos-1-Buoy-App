@@ -84,7 +84,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     const latestMaxLevel = platform.properties.readings.find(
       (r) => r.flood_levels.length && r.variable !== "predictedWL",
     )
-    console.log(latestMaxLevel)
     if (!latestMaxLevel) {
       setFloodThreshold("NA")
     }
@@ -100,27 +99,26 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     const latestMaxLevel = platform.properties.readings.find(
       (r) => r.flood_levels.length && r.variable !== "predictedWL",
     )
-    const predictedMax = platform.properties.readings.find(
-      (r) => r.flood_levels.length && r.variable.includes("predicted"),
-    )
+    const predictedMax = platform.properties.readings.find((r) => r.variable === "predictedWL")
+    platform.id === "CASM1" && console.log(predictedMax)
     if (!predictedMax) {
       setPredictedFloodThreshold("NA")
     } else if (predictedMax) {
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(latestMaxLevel?.flood_levels)
-      const predictedSurpassedThreshold = getSurpassedThreshold(predictedMax?.value, waterLevelThresholds)
+      const predictedSurpassedThreshold = getSurpassedThreshold(predictedMax?.maxReading, waterLevelThresholds)
       setPredictedFloodThreshold(predictedSurpassedThreshold)
     }
-  }, [platform])
+  }, [platform.properties, platform.id])
 
   useEffect(() => {
     const opacity = selected ? "f2" : "bf"
-    const display = floodLevelThresholdColors(floodThreshold, old, opacity)
+    const display = floodLevelThresholdColors(floodThreshold, old, opacity, platform)
     setDisplay(display)
   }, [floodThreshold])
 
   useEffect(() => {
     const opacity = selected ? "f2" : "bf"
-    const display = floodLevelThresholdColors(floodThreshold, old, opacity)
+    const display = floodLevelThresholdColors(floodThreshold, old, opacity, platform)
     setPredictedDisplay(display)
   }, [predictedfloodThreshold])
 
@@ -138,7 +136,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   return (
     <div style={{ zIndex: 10 }}>
-      {platform && display && floodThreshold && (
+      {platform && display && floodThreshold && predictedfloodThreshold && (
         <Layer
           platform={platform}
           url={{
@@ -150,42 +148,31 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
           color={display}
           predColor={predictedDisplay}
           floodThreshold={floodThreshold}
+          predFloodThreshold={predictedfloodThreshold}
         />
       )}
     </div>
   )
 }
 
-const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor }) => {
-  const [flood, setFlood] = useState(floodThreshold)
-
-  useEffect(() => {
-    setFlood(floodThreshold)
-  }, [floodThreshold])
-
-  console.log(floodThreshold)
-
+const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor, predFloodThreshold }) => {
   return (
     <RLayerVector zIndex={10}>
       {
         <RStyleArray>
-          {
-            <RStyle.RStyle zIndex={20}>
-              <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
-                <RStyle.RFill color={predColor ? predColor : "grey"} />
-                <RStyle.RStroke color={"000000"} width={0.5} />
-              </RStyle.RRegularShape>
-            </RStyle.RStyle>
-          }
+          <RStyle.RStyle zIndex={20}>
+            <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
+              <RStyle.RFill color={predColor ? predColor : "grey"} />
+              <RStyle.RStroke color={"000000"} width={0.5} />
+            </RStyle.RRegularShape>
+          </RStyle.RStyle>
 
-          {color && (
-            <RStyle.RStyle zIndex={25}>
-              <RStyle.RRegularShape radius={radius / 2} points={40} angle={0}>
-                <RStyle.RFill color={color ? color : "grey"} />
-                <RStyle.RStroke color={"#000000"} width={0.5} />
-              </RStyle.RRegularShape>
-            </RStyle.RStyle>
-          )}
+          <RStyle.RStyle zIndex={25}>
+            <RStyle.RRegularShape radius={radius / 2} points={40} angle={0}>
+              <RStyle.RFill color={color ? color : "grey"} />
+              <RStyle.RStroke color={"#000000"} width={0.5} />
+            </RStyle.RRegularShape>
+          </RStyle.RStyle>
         </RStyleArray>
       }
 
@@ -201,7 +188,8 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
         >
           <RPopup trigger={"hover"} autoPosition={true}>
             <div className="map-popup-custom">
-              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
+              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"} <br></br>{" "}
+              Predicted Flood Level: {predFloodThreshold ? predFloodThreshold : "None"}
             </div>
           </RPopup>
         </RFeature>
