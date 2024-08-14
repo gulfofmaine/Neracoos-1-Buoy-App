@@ -106,7 +106,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   return (
     <div style={{ zIndex: 10 }}>
-      {platform && display && floodThreshold && (
+      {platform && display && (
         <Layer
           platform={platform}
           url={{
@@ -124,8 +124,13 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 }
 
 const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    setKey((prevKey) => prevKey + 1) // Increment key on state change
+  }, [color])
   return (
-    <RLayerVector zIndex={10}>
+    <RLayerVector zIndex={10} key={key}>
       {color && (
         <RStyle.RStyle>
           <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
