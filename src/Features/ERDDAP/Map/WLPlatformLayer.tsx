@@ -7,20 +7,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import { Button } from "reactstrap"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
-import { colors } from "Shared/colors"
-import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
+import { buildSearchParamsQuery } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
-import { DatumOffsetOptions, DatumOffsets, PlatformFeature } from "../types"
+import { DatumOffsetOptions, PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
@@ -72,7 +69,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [predictedfloodThreshold, setPredictedFloodThreshold] = useState<string>("")
 
-  const [display, setDisplay] = useState()
+  const [display, setDisplay] = useState("grey")
   const [predictedDisplay, setPredictedDisplay] = useState()
 
   let radius: number
@@ -81,7 +78,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   } else {
     radius = window.innerWidth > adjustPxWidth ? 7 : 12
   }
-
   const isSensorPage = path.includes("sensor")
 
   useEffect(() => {
@@ -140,9 +136,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
         "datum_mllw_meters",
       )
 
-  if (display) {
-    return (
-      <div style={{ zIndex: 10 }}>
+  return (
+    <div style={{ zIndex: 10 }}>
+      {platform && display && floodThreshold && (
         <Layer
           platform={platform}
           url={{
@@ -155,11 +151,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
           predColor={predictedDisplay}
           floodThreshold={floodThreshold}
         />
-      </div>
-    )
-  } else {
-    return null
-  }
+      )}
+    </div>
+  )
 }
 
 const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor }) => {

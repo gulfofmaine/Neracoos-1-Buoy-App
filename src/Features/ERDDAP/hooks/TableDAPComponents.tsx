@@ -119,7 +119,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
       const originalValues = platform.properties.readings.map((r) => r.value).toString()
       // If original values are different than the new values (i.e. a new reading was taken),then set usePlatform data to the updated values.
       if (originalValues !== updatedValues) {
-        queryClient.setQueryData(["buoybarn-platforms"], updatedPlatforms)
+        queryClient.setQueryData(["buoybarn-platforms"], (originalValues) => updatedPlatforms)
       }
     }
   }
