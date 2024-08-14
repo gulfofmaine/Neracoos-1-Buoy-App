@@ -8,7 +8,7 @@ import { Temperature } from "./_temperature"
 import { TidalLevel } from "./_tidal_level"
 import { Visibility } from "./_visibility"
 import { WaveHeight } from "./_wave_height"
-import { WindSpeed } from "./_wind_speed"
+import { WindSpeed, WindSpeedKnots } from "./_wind_speed"
 
 import { air_pressure } from "./air_pressure"
 
@@ -247,7 +247,9 @@ export const data_types: DataTypesObject = {
     "m/s, degrees",
   ),
   wind_speed_of_gust: new WindSpeed("wind_speed_of_gust", "Wind Gust"),
+  wind_speed_of_gust_knots: new WindSpeedKnots("wind_speed_of_gust_knots", "Wind Gust"),
   wind_speed_sc: new WindSpeed("wind_speed_sc", "Scalar Average Wind Speed"),
   wind_speed_ve: new WindSpeed("wind_speed_ve", "Vector Average Wind Speed"),
   wind_speed: new WindSpeed("wind_speed", "Wind Speed"),
+  wind_speed_knots: new WindSpeedKnots("wind_speed_knots", "Wind Speed"),
 }
