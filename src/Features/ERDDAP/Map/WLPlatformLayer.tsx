@@ -100,7 +100,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       (r) => r.flood_levels.length && r.variable !== "predictedWL",
     )
     const predictedMax = platform.properties.readings.find((r) => r.variable === "predictedWL")
-    platform.id === "CASM1" && console.log(predictedMax)
     if (!predictedMax) {
       setPredictedFloodThreshold("NA")
     } else if (predictedMax) {
@@ -133,10 +132,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
         getIsoForPicker(weeksInFuture(1)),
         "datum_mllw_meters",
       )
-
   return (
     <div style={{ zIndex: 10 }}>
-      {platform && display && floodThreshold && predictedfloodThreshold && (
+      {platform && display && (
         <Layer
           platform={platform}
           url={{
@@ -156,8 +154,14 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 }
 
 const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor, predFloodThreshold }) => {
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    setKey((prevKey) => prevKey + 1) // Increment key on state change
+  }, [predColor, color])
+
   return (
-    <RLayerVector zIndex={10}>
+    <RLayerVector zIndex={10} key={key}>
       {
         <RStyleArray>
           <RStyle.RStyle zIndex={20}>
