@@ -50,6 +50,7 @@ export interface PlatformTimeSeries {
   cors_proxy_url?: string
   variable: string
   dataset: string
+  maxReading?: number
   start_time: string
   flood_levels: FloodLevels[]
   datum_offsets: DatumOffsets

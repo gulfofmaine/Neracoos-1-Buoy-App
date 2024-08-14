@@ -27,6 +27,7 @@ import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
 import Link from "next/link"
 import { Feature } from "ol"
+import { RStyleArray } from "rlayers/style"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -66,7 +67,11 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const path = usePathname()
   const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
+  const [predictedfloodThreshold, setPredictedFloodThreshold] = useState<string>("")
+
   const [display, setDisplay] = useState("grey")
+  const [predictedDisplay, setPredictedDisplay] = useState()
+
   let radius: number
   if (selected) {
     radius = window.innerWidth > adjustPxWidth ? 12 : 17
@@ -76,21 +81,45 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const isSensorPage = path.includes("sensor")
 
   useEffect(() => {
-    const currentWaterLevel = platform.properties.readings.find(
+    const latestMaxLevel = platform.properties.readings.find(
       (r) => r.flood_levels.length && r.variable !== "predictedWL",
     )
-    if (!currentWaterLevel) {
+    if (!latestMaxLevel) {
       setFloodThreshold("NA")
-    } else {
-      const value = currentWaterLevel?.value
-      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
+    }
+    if (latestMaxLevel) {
+      const value = latestMaxLevel?.maxReading
+      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(latestMaxLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "f2" : "bf"
-      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-      setDisplay(display)
     }
-  }, [platform.properties.readings, selected, old, platform])
+  }, [platform])
+
+  useEffect(() => {
+    const latestMaxLevel = platform.properties.readings.find(
+      (r) => r.flood_levels.length && r.variable !== "predictedWL",
+    )
+    const predictedMax = platform.properties.readings.find((r) => r.variable === "predictedWL")
+    if (!predictedMax) {
+      setPredictedFloodThreshold("NA")
+    } else if (predictedMax) {
+      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(latestMaxLevel?.flood_levels)
+      const predictedSurpassedThreshold = getSurpassedThreshold(predictedMax?.maxReading, waterLevelThresholds)
+      setPredictedFloodThreshold(predictedSurpassedThreshold)
+    }
+  }, [platform.properties, platform.id])
+
+  useEffect(() => {
+    const opacity = selected ? "f2" : "bf"
+    const display = floodLevelThresholdColors(floodThreshold, old, opacity, platform)
+    setDisplay(display)
+  }, [floodThreshold])
+
+  useEffect(() => {
+    const opacity = selected ? "f2" : "bf"
+    const display = floodLevelThresholdColors(floodThreshold, old, opacity, platform)
+    setPredictedDisplay(display)
+  }, [predictedfloodThreshold])
 
   const query = isSensorPage
     ? buildSearchParamsQuery(
@@ -103,10 +132,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
         getIsoForPicker(weeksInFuture(1)),
         "datum_mllw_meters",
       )
-
   return (
     <div style={{ zIndex: 10 }}>
-      {platform && display && floodThreshold && (
+      {platform && display && (
         <Layer
           platform={platform}
           url={{
@@ -116,24 +144,41 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
           router={router}
           radius={radius}
           color={display}
+          predColor={predictedDisplay}
           floodThreshold={floodThreshold}
+          predFloodThreshold={predictedfloodThreshold}
         />
       )}
     </div>
   )
 }
 
-const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
+const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor, predFloodThreshold }) => {
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    setKey((prevKey) => prevKey + 1) // Increment key on state change
+  }, [predColor, color])
+
   return (
-    <RLayerVector zIndex={10}>
-      {color && (
-        <RStyle.RStyle>
-          <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
-            <RStyle.RFill color={color} />
-            <RStyle.RStroke color={"000000"} width={0.5} />
-          </RStyle.RRegularShape>
-        </RStyle.RStyle>
-      )}
+    <RLayerVector zIndex={10} key={key}>
+      {
+        <RStyleArray>
+          <RStyle.RStyle zIndex={20}>
+            <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
+              <RStyle.RFill color={predColor ? predColor : "grey"} />
+              <RStyle.RStroke color={"000000"} width={0.5} />
+            </RStyle.RRegularShape>
+          </RStyle.RStyle>
+
+          <RStyle.RStyle zIndex={25}>
+            <RStyle.RRegularShape radius={radius / 2} points={40} angle={0}>
+              <RStyle.RFill color={color ? color : "grey"} />
+              <RStyle.RStroke color={"#000000"} width={0.5} />
+            </RStyle.RRegularShape>
+          </RStyle.RStyle>
+        </RStyleArray>
+      }
 
       <Link href={url}>
         <RFeature
@@ -147,7 +192,8 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
         >
           <RPopup trigger={"hover"} autoPosition={true}>
             <div className="map-popup-custom">
-              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
+              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"} <br></br>{" "}
+              Predicted Flood Level: {predFloodThreshold ? predFloodThreshold : "None"}
             </div>
           </RPopup>
         </RFeature>
