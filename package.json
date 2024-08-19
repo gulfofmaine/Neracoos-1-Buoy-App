@@ -54,7 +54,7 @@
     "types": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build-serve-storybook": "yarn build-storybook --quiet && npx http-server storybook-static --port 6006 --silent",
+    "build-serve-storybook": "npm run build-storybook --quiet && npx http-server storybook-static --port 6006 --silent",
     "test-storybook": "test-storybook",
     "lint": "next lint"
   },
