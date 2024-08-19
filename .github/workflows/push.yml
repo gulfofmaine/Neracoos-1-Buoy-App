@@ -167,26 +167,21 @@ jobs:
           key: ${{ runner.os }}-playwright-storybook-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        working-directory: frontend
         run: npm ci
 
       - name: Install Playwright Browsers and OS dependencies
-        working-directory: frontend
         run: npx playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: 🏗 Install Playwright OS dependencies
-        working-directory: frontend
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: |
           npx playwright install-deps
 
       - name: Build Storybook
-        working-directory: frontend
         run: npm run build-storybook --quiet
 
       - name: Serve Storybook and run tests
-        working-directory: frontend
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
