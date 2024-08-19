@@ -6,11 +6,7 @@ import { loaded } from "./test-data"
 export default {
   component: EdrTable,
   title: "Modeling/Table",
-  parameters: {
-    storyshots: {
-      disable: true,
-    },
-  },
+  tags: ["skip-snapshot"],
 }
 
 export const Table = (args) => <EdrTable {...args} />

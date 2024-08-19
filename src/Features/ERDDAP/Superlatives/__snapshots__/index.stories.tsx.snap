@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ERDDAP/Superlatives Configurable smoke-test 1`] = `
+<div class="card"
+     style="margin-top: 1rem; margin-bottom: 1rem;"
+>
+  <div class="card-header">
+    <h5>
+      Latest Conditions
+    </h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <h6>
+          Highest Winds
+        </h6>
+        <div>
+          22.8 Knots
+        </div>
+        <a href="/platform/WLIS">
+          <div>
+            WLIS: Western Long Island Sound
+          </div>
+        </a>
+      </div>
+      <div class="col">
+        <h6>
+          Biggest Waves
+        </h6>
+        <div>
+          8.3 Feet
+        </div>
+        <a href="/platform/44008">
+          <div>
+            44008: Southeast of Nantucket
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ERDDAP/Superlatives ShouldNotShowOutdatedData smoke-test 1`] = `
+<div class="card"
+     style="margin-top: 1rem; margin-bottom: 1rem;"
+>
+  <div class="card-header">
+    <h5>
+      Latest Conditions
+    </h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <h6>
+          Highest Winds
+        </h6>
+        <div>
+          -- --
+        </div>
+      </div>
+      <div class="col">
+        <h6>
+          Biggest Waves
+        </h6>
+        <div>
+          -- --
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

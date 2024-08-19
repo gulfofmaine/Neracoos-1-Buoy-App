@@ -2,6 +2,7 @@ import type { StorybookConfig } from "@storybook/nextjs"
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.[jt]s", "../src/**/*.stories.[jt]sx", "../app/**/*.stories.[jt]sx"],
+
   addons: [
     "@storybook/addon-a11y",
     "@storybook/addon-links",
@@ -9,9 +10,13 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     // "@chromatic-com/storybook"
   ],
+
   framework: "@storybook/nextjs",
-  docs: {
-    autodocs: true,
+
+  docs: {},
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
   },
 }
 export default config

@@ -7,9 +7,7 @@ import { WindTimeSeriesChart } from "./WindTimeSeries"
 export default {
   component: WindTimeSeriesChart,
   title: "Components/Charts/WindTimeSeriesChart",
-  parameters: {
-    storyshots: { disable: true },
-  },
+  tags: ["skip-snapshot"],
 }
 
 /** Must be manually tested. Does not snapshot correctly */

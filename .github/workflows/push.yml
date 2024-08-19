@@ -149,6 +149,51 @@ jobs:
       #     rm -rf /tmp/storybook-public
       #     cp -r storybook-public /tmp/storybook-public
 
+  test-storybook:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn
+
+      - uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-storybook-${{ hashFiles('yarn.lock') }}
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install Playwright Browsers and OS dependencies
+        working-directory: frontend
+        run: npx playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+
+      - name: 🏗 Install Playwright OS dependencies
+        working-directory: frontend
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: |
+          npx playwright install-deps
+      - name: Build Storybook
+        working-directory: frontend
+        run: npm run build-storybook --quiet
+
+      - name: Serve Storybook and run tests
+        working-directory: frontend
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && npm run test-storybook"
   playwright:
     name: Playwright integration tests
     runs-on: ubuntu-20.04
@@ -248,7 +293,7 @@ jobs:
   push_image:
     name: Build and push tagged image to Docker Hub
     runs-on: ubuntu-20.04
-    needs: [unit_tests, playwright]
+    needs: [unit_tests, test-storybook, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |
@@ -331,7 +376,7 @@ jobs:
   push_dev_image:
     name: Build and push dev image to Docker Hub
     runs-on: ubuntu-20.04
-    needs: [unit_tests, playwright]
+    needs: [unit_tests, test-storybook, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
     if: |

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App/Error Page fiveHundredPage smoke-test 1`] = `
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      The data has escaped
+    </h1>
+    <img alt="Track of a lost buoy"
+         loading="lazy"
+         width="1350"
+         height="502"
+         decoding="async"
+         data-nimg="1"
+         srcset="/static/media/app/n_walkabout.png?w=1920&amp;q=75 1x, /static/media/app/n_walkabout.png?w=3840&amp;q=75 2x"
+         src="/static/media/app/n_walkabout.png?w=3840&amp;q=75"
+         style="color: transparent; max-width: 100%; height: auto;"
+    >
+    <p>
+      Despite our best intentions, something has gone wrong while trying to display the data.
+    </p>
+    <p>
+      If you saw a
+      <b>
+        It looks like we're having issues
+      </b>
+      form, we hope that you filled it out, as it will help us fix the issue. Otherwise you can email
+      <a href="mailto:info@neracoos.org">
+        info@neracoos.org
+      </a>
+      with information about the error, or try to launch the form.
+    </p>
+    <button type="button"
+            class="btn btn-primary"
+    >
+      I've got an idea what went wrong, please show me the form
+    </button>
+    <p style="padding-top: 1rem;">
+      Sometimes issues are short lived, so if you give it a minute, then try reloading the page, hopefully you will be able to get to the data. If you can't and this error shows up again, please fill out the form, or email us for help.
+    </p>
+    <button type="button"
+            class="btn btn-danger"
+    >
+      Try again
+    </button>
+  </div>
+</div>
+`;

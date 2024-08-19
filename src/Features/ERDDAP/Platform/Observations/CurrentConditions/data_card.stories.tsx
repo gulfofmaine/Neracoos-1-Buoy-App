@@ -8,11 +8,7 @@ import { platform } from "stories/platform"
 export default {
   component: DataCardDisplay,
   title: "ERDDAP/CurrentConditions/Data Card",
-  parameters: {
-    storyshots: {
-      disable: true,
-    },
-  },
+  tags: ["skip-snapshot"],
 }
 
 export const configurable = (args) => <DataCardDisplay {...args} />

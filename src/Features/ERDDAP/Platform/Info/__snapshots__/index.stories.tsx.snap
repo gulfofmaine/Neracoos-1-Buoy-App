@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ERDDAP/Info/Panel platformInfo smoke-test 1`] = `
+<div role="complementary"
+     class="card"
+>
+  <div class="card-body">
+    <div role="header"
+         class="card-title"
+    >
+      Station M01
+    </div>
+    <p class="card-text">
+      Jordan Basin
+      <br>
+      <b>
+        NDBC ID:
+      </b>
+      44037
+      <br>
+      <b>
+        Lat:
+      </b>
+      43.5
+      <b>
+        Lon:
+      </b>
+      -67.87
+      <br>
+      <a href="http://gyre.umeoce.maine.edu/gomoos.php">
+        University of Maine
+      </a>
+      <br>
+    </p>
+  </div>
+</div>
+`;

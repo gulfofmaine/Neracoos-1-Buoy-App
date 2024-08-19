@@ -8,11 +8,7 @@ import { platform } from "stories/platform"
 export default {
   component: TableItem,
   title: "ERDDAP/ObservationTable/Item",
-  parameters: {
-    storyshots: {
-      disable: true,
-    },
-  },
+  tags: ["skip-snapshot"],
   argTypes: {
     later_then: {
       control: {

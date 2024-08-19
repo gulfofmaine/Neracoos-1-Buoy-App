@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Units/UnitSelector/configurable english smoke-test 1`] = `
+<div role="group"
+     class="unit-selector btn-group"
+>
+  <button type="button"
+          id="Metric"
+          class="btn btn-light btn-sm"
+  >
+    Metric
+  </button>
+  <button type="button"
+          id="English"
+          class="btn btn-primary btn-sm active"
+  >
+    English
+  </button>
+</div>
+`;
+
+exports[`Units/UnitSelector/configurable metric smoke-test 1`] = `
+<div role="group"
+     class="unit-selector btn-group"
+>
+  <button type="button"
+          id="Metric"
+          class="btn btn-primary btn-sm active"
+  >
+    Metric
+  </button>
+  <button type="button"
+          id="English"
+          class="btn btn-light btn-sm"
+  >
+    English
+  </button>
+</div>
+`;

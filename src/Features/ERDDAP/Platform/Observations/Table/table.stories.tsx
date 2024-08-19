@@ -9,11 +9,7 @@ import { platform } from "stories/platform"
 export default {
   component: ErddapObservationTable,
   title: "ERDDAP/ObservationTable/Current",
-  parameters: {
-    storyshots: {
-      disable: true,
-    },
-  },
+  tags: ["skip-snapshot"],
   argTypes: {
     unitSelector: { control: { disable: true } },
   },

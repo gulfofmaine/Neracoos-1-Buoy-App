@@ -56,3 +56,9 @@ You can also run `make cov` to generate code coverage, and `make cov-html` to vi
 There are also integration tests that can be run with [Playwright](https://playwright.dev/). This is does a full browser based test to make sure that data can be loaded.
 
 To run, first start the app with `make serve`, then `npm run test:e2e` for headless tests, or `npm run test:e2e:ui` to view the browser testing.
+
+### Storybook
+
+[Storybook](storybook.js.org/) is used for frontend component development, and the stories also serve as [Jest Snapshots](https://storybook.js.org/docs/writing-tests/snapshot-testing/storyshots-migration-guide#migrating-tests-from-storyshots) to catch when there are changes in component structure.
+
+Run `yarn test-storybook` with `yarn build-serve-storybook` (to make sure it's a more static representation) running locally in order to run the tests (and potentially update them).

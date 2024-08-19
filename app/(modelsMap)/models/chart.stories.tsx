@@ -6,11 +6,7 @@ import { loaded } from "./test-data"
 export default {
   component: ModelChart,
   title: "Modeling/Chart",
-  parameters: {
-    storyshots: {
-      disable: true,
-    },
-  },
+  tags: ["skip-snapshot"],
 }
 
 export const Chart = (args) => <ModelChart {...args} />

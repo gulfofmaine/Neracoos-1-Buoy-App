@@ -12,10 +12,8 @@ const meta: Meta<typeof NeracoosNavBar> = {
         pathname: "/",
       },
     },
-    storyshots: {
-      disable: true,
-    },
   },
+  tags: ["skip-snapshot"],
 }
 
 export default meta

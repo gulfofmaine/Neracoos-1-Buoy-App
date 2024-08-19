@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components/Footer footer smoke-test 1`] = `
+<div class="footer"
+     style="position: absolute; bottom: 0px; width: 100%; padding-bottom: 10px; height: 110px;"
+>
+  <div class="row"
+       style="font-size: 0.8rem; padding: 1rem 0.25rem 0.25rem;"
+  >
+    <div class="mx-auto text-center col-md-10">
+      Copyright © 2021 ~ NERACOOS
+    </div>
+  </div>
+  <div class="row"
+       style="font-size: 0.8rem; padding: 0.25rem;"
+  >
+    <div class="mx-auto text-center col-md-10">
+      Use
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link">
+        this form
+      </a>
+      to send us feedback or bug reports
+    </div>
+  </div>
+  <div class="row"
+       style="font-size: 0.8rem; padding: 0.25rem;"
+  >
+    <div class="mx-auto text-center col-md-10">
+      Product of
+      <a href="http://www.neracoos.org/">
+        NERACOOS.org
+      </a>
+      - Developed and maintained by the
+      <a href="https://gmri.org/commitments/science/ocean-data-products/">
+        Gulf of Maine Research Institute
+      </a>
+    </div>
+  </div>
+</div>
+`;
