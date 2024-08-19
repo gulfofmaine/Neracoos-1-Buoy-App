@@ -12,8 +12,8 @@ exports[`App/Error Page fiveHundredPage smoke-test 1`] = `
          height="502"
          decoding="async"
          data-nimg="1"
-         srcset="/static/media/app/n_walkabout.png?w=1920&amp;q=75 1x, /static/media/app/n_walkabout.png?w=3840&amp;q=75 2x"
-         src="/static/media/app/n_walkabout.png?w=3840&amp;q=75"
+         srcset="/static/media/n_walkabout.fea4c465.png?w=1920&amp;q=75 1x, /static/media/n_walkabout.fea4c465.png?w=3840&amp;q=75 2x"
+         src="/static/media/n_walkabout.fea4c465.png?w=3840&amp;q=75"
          style="color: transparent; max-width: 100%; height: auto;"
     >
     <p>
