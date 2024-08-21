@@ -6,11 +6,10 @@ import { defineConfig, devices } from "@playwright/test"
  */
 // require('dotenv').config();
 
-let reporters: [string][] = [["html"]]
+let reporters: [string][] = [["html"], ["list"]]
 
 if (process.env.CI) {
   reporters.push(["github"])
-  reporters.push(["@estruyf/github-actions-reporter"])
 }
 
 /**
@@ -19,6 +18,15 @@ if (process.env.CI) {
 export default defineConfig({
   testDir: "./tests",
   /* Run tests in files in parallel */
+  /** double default timeout */
+  // timeout: 60000,
+  // expect: {
+  //   /**
+  //    * Maximum time expect() should wait for the condition to be met.
+  //    * Defaults to 5000.
+  //    */
+  //   timeout: 10000,
+  // },
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,

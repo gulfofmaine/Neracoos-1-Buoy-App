@@ -59,7 +59,6 @@
     "lint": "next lint"
   },
   "devDependencies": {
-    "@estruyf/github-actions-reporter": "^1.9.0",
     "@next/eslint-plugin-next": "^14.2.5",
     "@playwright/test": "^1.46.0",
     "@storybook/addon-a11y": "^8.2.9",

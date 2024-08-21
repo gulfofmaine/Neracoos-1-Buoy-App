@@ -19,14 +19,14 @@ test.describe("Platfrom M01", () => {
 
   test("Shows platform status", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(page.getByText(/Lat:/).first()).toBeVisible()
+    await expect(await page.getByText(/Lat:/).first()).toBeVisible()
     await expect(page.getByText(/Lon:/).first()).toBeVisible()
     await expect(page.getByText(/Last updated at:/).first()).toBeVisible()
   })
 
   test("Shows current conditions", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(page.getByText(/Latest Conditions/).first()).toBeVisible()
+    await expect(await page.getByText(/Latest Conditions/).first()).toBeVisible()
     await expect(page.getByText(/Air Temperature -/).first()).toBeVisible()
 
     const cards = await page.locator(".card")
@@ -40,7 +40,7 @@ test.describe("Platfrom M01", () => {
       .first()
       .click()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Air Temperature/)
         .first(),
@@ -54,7 +54,7 @@ test.describe("Platfrom M01", () => {
       .first()
       .click()
     await page.locator('[href="/platform/M01/observations/wind"]').first().click()
-    await expect(page.getByRole("heading", { name: "Wind" })).toBeVisible({ timeout: 10000 })
+    await expect(await page.getByRole("heading", { name: "Wind" })).toBeVisible({ timeout: 10000 })
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     await page.locator("svg.highcharts-root").getByText(/Gust/).first().click()
     await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
@@ -63,7 +63,7 @@ test.describe("Platfrom M01", () => {
       .getByText(/Direction/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
+    await expect(await page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
   })
 
   test("Shows wave forecast", async ({ page }) => {
@@ -71,7 +71,7 @@ test.describe("Platfrom M01", () => {
     await page.locator("#forecast").click()
     await page.locator("[href='/platform/M01/forecast/significant_wave_height']").click()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Significant Wave Height Forecast/)
         .first(),
@@ -82,7 +82,7 @@ test.describe("Platfrom M01", () => {
       .first()
       .click()
     await expect(
-      page
+      await page
         .locator("svg.highcharts-root")
         .getByText(/Meters/)
         .first(),
@@ -91,7 +91,7 @@ test.describe("Platfrom M01", () => {
       .getByText(/English/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
+    await expect(await page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
     await page
       .getByText(/Significant Wave Height - observations/)
       .first()
@@ -123,7 +123,7 @@ test.describe("Platfrom M01", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    const element = page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
+    const element = await page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
     const text = await element.textContent()
 
     const year = new Date().getFullYear()
@@ -146,7 +146,7 @@ test.describe("Platfrom M01", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    await expect(page.getByText(/Sigma-T @ 1m/).first()).toBeVisible()
+    await expect(await page.getByText(/Sigma-T @ 1m/).first()).toBeVisible()
   })
 
   test("Can perisist observation view on hard refresh", async ({ page }) => {
@@ -160,27 +160,27 @@ test.describe("Platfrom M01", () => {
       .first()
       .click()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#Tooltip-0").dispatchEvent("mouseover")
-    await expect(page.getByText(/Data access/).first()).toBeVisible()
+    await expect(await page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
     await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
     await page.reload()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#Tooltip-0").dispatchEvent("mouseover")
-    await expect(page.getByText(/Data access/).first()).toBeVisible()
+    await expect(await page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
     await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()

@@ -8,7 +8,7 @@ test.describe("Platfrom 44007", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("link", { name: "Regions" }).click()
-    await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
+    await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).first().click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
     await page.getByRole("link", { name: "44007", exact: true }).click()
     await expect(await page.getByText("Station 44007")).toBeVisible()
@@ -16,14 +16,14 @@ test.describe("Platfrom 44007", () => {
 
   test.skip("Shows platform status", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(page.getByText(/Lat:/).first()).toBeVisible()
+    await expect(await page.getByText(/Lat:/).first()).toBeVisible()
     await expect(page.getByText(/Lon:/).first()).toBeVisible()
     await expect(page.getByText(/Last updated at:/).first()).toBeVisible()
   })
 
   test.skip("Shows current conditions", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(page.getByText(/Latest Conditions/).first()).toBeVisible()
+    await expect(await page.getByText(/Latest Conditions/).first()).toBeVisible()
     await expect(page.getByText(/Winds -/).first()).toBeVisible()
 
     const cards = await page.locator(".card")
@@ -37,7 +37,7 @@ test.describe("Platfrom 44007", () => {
       .first()
       .click()
     await page.locator("[href='/platform/44007/observations/wind']").first().click()
-    await expect(page.locator("h4").getByText(/Wind/).first()).toBeVisible()
+    await expect(await page.getByRole('heading', { name: 'Wind' })).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
     await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
@@ -46,7 +46,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/Direction/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
+    await expect(await page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#Tooltip-0").dispatchEvent("mouseover")
     await expect(page.getByText(/Data access/).first()).toBeVisible()
@@ -60,7 +60,7 @@ test.describe("Platfrom 44007", () => {
     await page.locator("#forecast").click()
     await page.locator("[href='/platform/44007/forecast/significant_wave_height']").click()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Significant Wave Height Forecast/)
         .first(),
@@ -70,7 +70,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/Metric/)
       .first()
       .click()
-    await expect(
+    await expect(await 
       page
         .locator("svg.highcharts-root")
         .getByText(/Meters/)
@@ -80,7 +80,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/English/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
+    await expect(await page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
     await page
       .getByText(/Wave Height - observations/)
       .first()
@@ -113,7 +113,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    const element = page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
+    const element = await page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
     const text = await element.textContent()
 
     const year = new Date().getFullYear()
@@ -136,7 +136,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    await expect(page.getByText(/Wind Speed:/).first()).toBeVisible()
+    await expect(await page.getByText(/Wind Speed:/).first()).toBeVisible()
   })
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
@@ -149,7 +149,7 @@ test.describe("Platfrom 44007", () => {
       .first()
       .click()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Air Temperature/)
         .first(),
@@ -162,7 +162,7 @@ test.describe("Platfrom 44007", () => {
     await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
     await page.reload()
     await expect(
-      page
+      await page
         .locator("h4")
         .getByText(/Air Temperature/)
         .first(),
