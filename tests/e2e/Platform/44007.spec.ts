@@ -37,7 +37,7 @@ test.describe("Platfrom 44007", () => {
       .first()
       .click()
     await page.locator("[href='/platform/44007/observations/wind']").first().click()
-    await expect(await page.getByRole('heading', { name: 'Wind' })).toBeVisible()
+    await expect(await page.getByRole("heading", { name: "Wind" })).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
     await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
@@ -70,8 +70,8 @@ test.describe("Platfrom 44007", () => {
       .getByText(/Metric/)
       .first()
       .click()
-    await expect(await 
-      page
+    await expect(
+      await page
         .locator("svg.highcharts-root")
         .getByText(/Meters/)
         .first(),
