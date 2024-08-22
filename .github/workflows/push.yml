@@ -190,7 +190,7 @@ jobs:
     name: Playwright integration tests
     runs-on: ubuntu-20.04
     needs: build-prod
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     env:
       # Playwright uses this env var for the browser install path. See:
