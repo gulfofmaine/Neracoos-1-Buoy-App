@@ -10,10 +10,12 @@ import { urlPartReplacer } from "Shared/urlParams"
 
 export const NavLink = ({
   href,
+  prefetch,
   children,
   onClick,
 }: {
   href: string
+  prefetch?: boolean
   children: React.ReactNode
   onClick: () => void
 }) => {
@@ -26,6 +28,7 @@ export const NavLink = ({
       href={href}
       className={isActive ? "nav-link dropdown-item btn" : "nav-link dropdown-item btn"}
       onClick={onClick}
+      prefetch={prefetch === false ? prefetch : true}
     >
       {children}
     </Link>
@@ -56,7 +59,7 @@ export class RegionDropdown extends React.Component<Props, State> {
     const regions = regionList.map((region, key) => {
       const to = urlPartReplacer(paths.regions.region, ":id", region.slug)
       return (
-        <NavLink key={key} href={to} onClick={this.close}>
+        <NavLink key={key} href={to} onClick={this.close} prefetch={true}>
           {region.name}
         </NavLink>
       )

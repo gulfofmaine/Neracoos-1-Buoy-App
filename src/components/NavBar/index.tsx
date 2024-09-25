@@ -14,7 +14,7 @@ import { RegionDropdown } from "./regionDropdown"
 
 import neracoosLogo from "./neracoos_logo.png"
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({ href, prefetch, children }: { href: string; prefetch?: boolean; children: React.ReactNode }) {
   const pathname = usePathname()
 
   let isActive = false
@@ -26,7 +26,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   }
 
   return (
-    <Link href={href} className={"nav-link" + (isActive ? " active" : "")}>
+    <Link href={href} prefetch={prefetch === false ? false : true} className={"nav-link" + (isActive ? " active" : "")}>
       {children}
     </Link>
   )
@@ -62,12 +62,16 @@ const NeracoosNavBar = () => {
             <RegionDropdown closeParent={close} />
             {!isProd && (
               <NavItem>
-                <NavLink href={paths.models}>Model Viewer</NavLink>
+                <NavLink href={paths.models} prefetch={false}>
+                  Model Viewer
+                </NavLink>
               </NavItem>
             )}
             {!isProd && (
               <NavItem>
-                <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
+                <NavLink href={paths.waterLevel.root} prefetch={false}>
+                  Water Level
+                </NavLink>
               </NavItem>
             )}
             <NavItem>
