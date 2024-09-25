@@ -1,5 +1,6 @@
 import React from "react"
+import { Loading } from "../../src/Shared/icons/Loading"
 
-export default function LoadingComp() {
-  return <div>THIS IS LOADING</div>
+export default function Load() {
+  return <Loading />
 }
