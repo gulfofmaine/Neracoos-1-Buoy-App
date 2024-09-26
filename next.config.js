@@ -6,6 +6,7 @@ const nextConfig = {
   experimental: {
     craCompat: false,
     instrumentationHook: true,
+    serverComponentsExternalPackages: ["web-worker"],
   },
   // Remove this to leverage Next.js' static image handling
   // read more here: https://nextjs.org/docs/api-reference/next/image
