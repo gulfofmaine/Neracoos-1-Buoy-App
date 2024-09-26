@@ -51,7 +51,7 @@ export const TimeControl = () => {
   const [layer, item] = useCurrentItem()
   const [time, setTime] = useTime()
 
-  if (layer && item) {
+  if (layer && item && item.properties) {
     const times: string[] = item.properties["cube:dimensions"].time.values ?? []
     const options = times.map((t) => ({ value: t, label: t }))
 

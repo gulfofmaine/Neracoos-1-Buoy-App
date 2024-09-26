@@ -3,7 +3,7 @@
  */
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Geometry } from "@turf/helpers"
+import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 
@@ -48,7 +48,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
     }
   }, [platform])
 
-  const { coordinates } = platform.geometry as Geometry
+  const { coordinates } = platform.geometry as Point
   const forecastUrl = `https://marine.weather.gov/MapClick.php?lon=${coordinates[0]}&lat=${coordinates[1]}`
 
   return (

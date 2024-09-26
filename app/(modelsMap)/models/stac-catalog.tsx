@@ -243,7 +243,7 @@ const CategoryAccordion = ({
 const StandardName = ({ standard_name, items }: { standard_name: string; items: IItem[] }) => {
   const long_name = items
     .map((item) =>
-      Object.values(item.properties["cube:variables"])
+      Object.values(item.properties!["cube:variables"])
         .filter(
           (value) =>
             (value as object)["gmri-cube:attrs"].standard_name === standard_name &&
@@ -280,7 +280,7 @@ const StandardItem = ({ standard_name, item }: { standard_name: string; item: II
   const [currentLayer, setLayer] = useLayer()
   const [compareLayers, toggleCompareLayer] = useCompare()
 
-  const cube_variable = Object.entries(item.properties["cube:variables"]).find(
+  const cube_variable = Object.entries(item.properties!["cube:variables"]).find(
     ([key, value]) => (value as object)["gmri-cube:attrs"].standard_name === standard_name,
   )
 

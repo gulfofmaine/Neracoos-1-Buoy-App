@@ -1,4 +1,4 @@
-import { Feature } from "@turf/helpers"
+import type { Feature } from "geojson"
 import { PlatformProperties } from "../types"
 
 interface PlatformNameProp extends Pick<PlatformProperties, "station_name"> {}
