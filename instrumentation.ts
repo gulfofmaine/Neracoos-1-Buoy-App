@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/nextjs';
+import * as Sentry from "@sentry/nextjs"
 
 /**
  * Load our package.json so that we can access the version
@@ -8,7 +8,7 @@ import * as Sentry from '@sentry/nextjs';
 const packageJson = require("./package.json")
 
 export function register() {
-  if (process.env.NEXT_RUNTIME === 'nodejs' || process.env.NEXT_RUNTIME === 'edge') {
+  if (process.env.NEXT_RUNTIME === "nodejs" || process.env.NEXT_RUNTIME === "edge") {
     Sentry.init({
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
       spotlight: process.env.NODE_ENV === "development",
