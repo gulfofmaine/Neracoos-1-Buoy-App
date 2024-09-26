@@ -15,9 +15,11 @@ spec:
         - name: mariners-dashboard
           image: gmri/neracoos-mariners-dashboard
           resources:
-            limits:
-              memory: "128Mi"
+            requests:
+              memory: "300Mi"
               cpu: "100m"
+            limits:
+              memory: "300Mi"
           ports:
             - containerPort: 3000
               name: http
