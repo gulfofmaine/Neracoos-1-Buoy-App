@@ -1,1 +1,79 @@
-[{"name":"Home-startup","brName":"general","avgTime":3466,"sem":1623,"repeats":23,"minValue":321,"maxValue":26525,"earliestTime":"9/26/2024, 10:16:19 AM","latestTime":"9/26/2024, 11:00:08 AM"},{"name":"Home-Content","brName":"general","avgTime":3774,"sem":1767,"repeats":21,"minValue":331,"maxValue":26531,"earliestTime":"9/26/2024, 10:18:31 AM","latestTime":"9/26/2024, 11:00:08 AM"},{"name":"Home-Platforms","brName":"general","avgTime":3792,"sem":1766,"repeats":21,"minValue":335,"maxValue":26537,"earliestTime":"9/26/2024, 10:18:31 AM","latestTime":"9/26/2024, 11:00:08 AM"},{"name":"Platform-startup","brName":"general","avgTime":909,"sem":146,"repeats":15,"minValue":374,"maxValue":2169,"earliestTime":"9/26/2024, 10:52:15 AM","latestTime":"9/26/2024, 11:00:08 AM"},{"name":"Navigate-Startup","brName":"general","avgTime":796,"sem":180,"repeats":9,"minValue":368,"maxValue":2065,"earliestTime":"9/26/2024, 10:55:19 AM","latestTime":"9/26/2024, 11:00:08 AM"},{"name":"Navigate-Regions","brName":"general","avgTime":438,"sem":53,"repeats":9,"minValue":215,"maxValue":759,"earliestTime":"9/26/2024, 10:55:20 AM","latestTime":"9/26/2024, 11:00:10 AM"},{"name":"Navigate-Platform","brName":"general","avgTime":163,"sem":6,"repeats":7,"minValue":142,"maxValue":181,"earliestTime":"9/26/2024, 10:55:20 AM","latestTime":"9/26/2024, 10:56:01 AM"}]
+[
+  {
+    "name": "Home-startup",
+    "brName": "general",
+    "avgTime": 3466,
+    "sem": 1623,
+    "repeats": 23,
+    "minValue": 321,
+    "maxValue": 26525,
+    "earliestTime": "9/26/2024, 10:16:19 AM",
+    "latestTime": "9/26/2024, 11:00:08 AM"
+  },
+  {
+    "name": "Home-Content",
+    "brName": "general",
+    "avgTime": 3774,
+    "sem": 1767,
+    "repeats": 21,
+    "minValue": 331,
+    "maxValue": 26531,
+    "earliestTime": "9/26/2024, 10:18:31 AM",
+    "latestTime": "9/26/2024, 11:00:08 AM"
+  },
+  {
+    "name": "Home-Platforms",
+    "brName": "general",
+    "avgTime": 3792,
+    "sem": 1766,
+    "repeats": 21,
+    "minValue": 335,
+    "maxValue": 26537,
+    "earliestTime": "9/26/2024, 10:18:31 AM",
+    "latestTime": "9/26/2024, 11:00:08 AM"
+  },
+  {
+    "name": "Platform-startup",
+    "brName": "general",
+    "avgTime": 909,
+    "sem": 146,
+    "repeats": 15,
+    "minValue": 374,
+    "maxValue": 2169,
+    "earliestTime": "9/26/2024, 10:52:15 AM",
+    "latestTime": "9/26/2024, 11:00:08 AM"
+  },
+  {
+    "name": "Navigate-Startup",
+    "brName": "general",
+    "avgTime": 796,
+    "sem": 180,
+    "repeats": 9,
+    "minValue": 368,
+    "maxValue": 2065,
+    "earliestTime": "9/26/2024, 10:55:19 AM",
+    "latestTime": "9/26/2024, 11:00:08 AM"
+  },
+  {
+    "name": "Navigate-Regions",
+    "brName": "general",
+    "avgTime": 438,
+    "sem": 53,
+    "repeats": 9,
+    "minValue": 215,
+    "maxValue": 759,
+    "earliestTime": "9/26/2024, 10:55:20 AM",
+    "latestTime": "9/26/2024, 11:00:10 AM"
+  },
+  {
+    "name": "Navigate-Platform",
+    "brName": "general",
+    "avgTime": 163,
+    "sem": 6,
+    "repeats": 7,
+    "minValue": 142,
+    "maxValue": 181,
+    "earliestTime": "9/26/2024, 10:55:20 AM",
+    "latestTime": "9/26/2024, 10:56:01 AM"
+  }
+]
