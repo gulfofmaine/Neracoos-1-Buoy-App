@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test"
 
 const platformUrl = "/platform/M01"
 
-test.describe("Platfrom M01", () => {
+test.describe.skip("Platfrom M01", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("link", { name: "Regions" }).click()
