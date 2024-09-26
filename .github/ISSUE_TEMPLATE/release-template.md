@@ -1,10 +1,9 @@
 ---
 name: Release Template
 about: This template is used when a new version is released
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 - [ ] Decide on version (major, minor, patch)
