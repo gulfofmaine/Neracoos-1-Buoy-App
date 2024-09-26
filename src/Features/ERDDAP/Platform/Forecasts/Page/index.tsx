@@ -4,7 +4,7 @@
  */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
-import { Point } from "@turf/helpers"
+import type { Point } from "geojson"
 import React from "react"
 import { Alert, Row, Col, Tooltip } from "reactstrap"
 

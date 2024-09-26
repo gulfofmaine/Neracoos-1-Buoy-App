@@ -106,7 +106,7 @@ const LayerWMS = ({ layerId, dataVar }: { layerId: string; dataVar: string }) =>
   const itemQuery = useLatestItemByCollectionIdQuery(layerId)
   const [time, setTime] = useTime()
 
-  if (itemQuery.data) {
+  if (itemQuery.data && itemQuery.data.properties) {
     const times: string[] = itemQuery.data.properties["cube:dimensions"].time.values ?? []
     const foundTime = times.find((t) => t === time)
 

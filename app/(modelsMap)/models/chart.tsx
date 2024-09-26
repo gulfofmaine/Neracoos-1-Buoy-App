@@ -34,20 +34,22 @@ export const ModelChart = ({ loaded }: Props) => {
 
   loaded.forEach(({ item, layer, response }) => {
     layer.vars.forEach((l_var) => {
-      const unit = item.properties["cube:variables"][l_var].unit
-      const layer_data = {
-        id: `${layer.id}-${l_var}`,
-        description: `${item.id} - ${item.properties["cube:variables"][l_var].description}`,
-        data: response.ranges[l_var].values.map((v, i) => [
-          new Date(response.domain.axes.t.values[i]).valueOf(),
-          round(v as number, 2),
-        ]),
-        directional: unit === "degree",
-        unit,
-        standard_name: response.parameters[l_var].observedProperty.id,
-      }
+      if (item.properties) {
+        const unit = item.properties["cube:variables"][l_var].unit
+        const layer_data = {
+          id: `${layer.id}-${l_var}`,
+          description: `${item.id} - ${item.properties["cube:variables"][l_var].description}`,
+          data: response.ranges[l_var].values.map((v, i) => [
+            new Date(response.domain.axes.t.values[i]).valueOf(),
+            round(v as number, 2),
+          ]),
+          directional: unit === "degree",
+          unit,
+          standard_name: response.parameters[l_var].observedProperty.id,
+        }
 
-      data.push(layer_data)
+        data.push(layer_data)
+      }
     })
   })
 

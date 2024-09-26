@@ -2,7 +2,7 @@
  * Types related to the ERDDAP service
  */
 
-import { Feature } from "@turf/helpers"
+import type { Feature } from "geojson"
 
 import { ReadingTimeSeries } from "Shared/timeSeries"
 

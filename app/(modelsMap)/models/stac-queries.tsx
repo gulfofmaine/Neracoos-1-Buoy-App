@@ -97,8 +97,8 @@ async function getLatestItemByCollectionId(catalog: ICatalog, id: string, depth:
   const items = await collection.get_items()
 
   const item = items.reduce((a, b) => {
-    const aDate = new Date(a.properties["cube:dimensions"].forecast_reference_time.values[0])
-    const bDate = new Date(b.properties["cube:dimensions"].forecast_reference_time.values[0])
+    const aDate = new Date(a.properties!["cube:dimensions"].forecast_reference_time.values[0])
+    const bDate = new Date(b.properties!["cube:dimensions"].forecast_reference_time.values[0])
 
     if (aDate.valueOf() < bDate.valueOf()) {
       return b
