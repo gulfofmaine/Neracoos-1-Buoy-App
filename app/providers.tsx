@@ -1,12 +1,12 @@
 "use client"
 import { useState } from "react"
-import { Provider } from "react-redux"
+import dynamic from "next/dynamic"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 import { GAListener } from "Shared/google-analytics"
 
-import { store } from "./store"
+const ReduxStore = dynamic(() => import("./store.tsx"), { ssr: false })
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -23,12 +23,12 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
+      <ReduxStore>
         <GAListener trackingId={process.env.NODE_ENV === "production" ? "G-MVZR2D0XKJ" : undefined}>
           {children}
           <ReactQueryDevtools />
         </GAListener>
-      </Provider>
+      </ReduxStore>
     </QueryClientProvider>
   )
 }

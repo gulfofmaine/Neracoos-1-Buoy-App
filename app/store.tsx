@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
+import { Provider } from "react-redux"
 
 import { unitReducer as unit } from "Features/Units"
 
@@ -37,4 +38,8 @@ function loadFromLocalStorage() {
     console.error("Could not load state", e)
     return undefined
   }
+}
+
+export default function ReduxStore({ children }) {
+  return <Provider store={store}>{children}</Provider>
 }

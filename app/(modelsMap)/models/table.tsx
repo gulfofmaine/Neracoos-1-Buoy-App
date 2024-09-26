@@ -27,8 +27,8 @@ export const EdrTable = ({ loaded, after }: { loaded: LoadedData[]; after: Date 
             return (
               <React.Fragment key={item.id}>
                 {layer.vars.map((l_var, i) => {
-                  const unit = item.properties["cube:variables"][l_var].unit
-                  const standard_name = item.properties["cube:variables"][l_var].description
+                  const unit = item.properties!["cube:variables"][l_var].unit
+                  const standard_name = item.properties!["cube:variables"][l_var].description
                   return (
                     <ItemVarRow
                       l_var={l_var}

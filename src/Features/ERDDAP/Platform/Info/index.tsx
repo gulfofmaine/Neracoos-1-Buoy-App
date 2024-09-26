@@ -1,7 +1,7 @@
 /**
  * Platform info panel
  */
-import { Geometry } from "@turf/helpers"
+import type { Point } from "geojson"
 import * as React from "react"
 import { Card, CardBody, CardText, CardTitle } from "reactstrap"
 
@@ -29,8 +29,8 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
               <br />
             </React.Fragment>
           ) : null}
-          <b>Lat:</b> {round((platform.geometry as Geometry).coordinates[1] as number)} <b>Lon:</b>{" "}
-          {round((platform.geometry as Geometry).coordinates[0] as number)}
+          <b>Lat:</b> {round((platform.geometry as Point).coordinates[1] as number)} <b>Lon:</b>{" "}
+          {round((platform.geometry as Point).coordinates[0] as number)}
           <br />
           {platform.properties.attribution.map((attr, key) => (
             <React.Fragment key={key}>

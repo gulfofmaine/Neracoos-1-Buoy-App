@@ -47,6 +47,9 @@ updates:
           - redux-mock-store
           - "@reduxjs/toolkit"
           - "react-redux"
+      turf:
+        patterns:
+          - "@turf/*"
 
   - package-ecosystem: docker
     directory: "/"

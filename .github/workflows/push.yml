@@ -314,6 +314,9 @@ jobs:
           git config --global user.name 'NERACOOS Mariners Dashboard CI'
           git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard to ${{ steps.tagName.outputs.tag }}' && git push)
 
+      - name: Copy Next.JS sourcemaps
+        run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
+
       - name: Create Sentry Release
         uses: getsentry/action-release@v1.7.0
         env:
@@ -323,6 +326,7 @@ jobs:
         with:
           environment: production
           version: ${{ steps.tagName.outputs.tag }}
+          sourcemaps: ./next-build
 
   push_dev_image:
     name: Build and push dev image to Docker Hub
@@ -393,6 +397,9 @@ jobs:
           git config --global user.name 'NERACOOS Mariners Dashboard CI'
           git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard dev deployment to ${{ steps.tagName.outputs.tag }}' && git push)
 
+      - name: Copy Next.JS sourcemaps
+        run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
+
       - name: Create Sentry Release
         uses: getsentry/action-release@v1.7.0
         env:
@@ -402,3 +409,4 @@ jobs:
         with:
           environment: dev
           version: ${{ steps.tagName.outputs.tag }}
+          sourcemaps: ./next-build
