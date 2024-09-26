@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Home-startup",
+    "brName": "general",
+    "avgTime": 3213,
+    "sem": 1501,
+    "repeats": 25,
+    "minValue": 284,
+    "maxValue": 26525,
+    "earliestTime": "9/26/2024, 10:16:19 AM",
+    "latestTime": "9/26/2024, 2:04:41 PM"
+  },
+  {
+    "name": "Home-Content",
+    "brName": "general",
+    "avgTime": 3475,
+    "sem": 1623,
+    "repeats": 23,
+    "minValue": 296,
+    "maxValue": 26531,
+    "earliestTime": "9/26/2024, 10:18:31 AM",
+    "latestTime": "9/26/2024, 2:04:41 PM"
+  },
+  {
+    "name": "Home-Platforms",
+    "brName": "general",
+    "avgTime": 3492,
+    "sem": 1623,
+    "repeats": 23,
+    "minValue": 313,
+    "maxValue": 26537,
+    "earliestTime": "9/26/2024, 10:18:31 AM",
+    "latestTime": "9/26/2024, 2:04:41 PM"
+  },
+  {
+    "name": "Platform-startup",
+    "brName": "general",
+    "avgTime": 846,
+    "sem": 135,
+    "repeats": 17,
+    "minValue": 338,
+    "maxValue": 2169,
+    "earliestTime": "9/26/2024, 10:52:15 AM",
+    "latestTime": "9/26/2024, 2:04:42 PM"
+  },
+  {
+    "name": "Navigate-Startup",
+    "brName": "general",
+    "avgTime": 706,
+    "sem": 158,
+    "repeats": 11,
+    "minValue": 298,
+    "maxValue": 2065,
+    "earliestTime": "9/26/2024, 10:55:19 AM",
+    "latestTime": "9/26/2024, 2:04:42 PM"
+  },
+  {
+    "name": "Navigate-Regions",
+    "brName": "general",
+    "avgTime": 404,
+    "sem": 49,
+    "repeats": 11,
+    "minValue": 215,
+    "maxValue": 759,
+    "earliestTime": "9/26/2024, 10:55:20 AM",
+    "latestTime": "9/26/2024, 2:04:42 PM"
+  },
+  {
+    "name": "Navigate-Platform",
+    "brName": "general",
+    "avgTime": 165,
+    "sem": 5,
+    "repeats": 9,
+    "minValue": 142,
+    "maxValue": 181,
+    "earliestTime": "9/26/2024, 10:55:20 AM",
+    "latestTime": "9/26/2024, 2:04:42 PM"
+  }
+]

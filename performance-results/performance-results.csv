@@ -1,0 +1,8 @@
+name,brName,avgTime,sem,repeats,minValue,maxValue,earliestTime,latestTime
+Home-startup,general,3213,1501,25,284,26525,"9/26/2024, 10:16:19 AM","9/26/2024, 2:04:41 PM"
+Home-Content,general,3475,1623,23,296,26531,"9/26/2024, 10:18:31 AM","9/26/2024, 2:04:41 PM"
+Home-Platforms,general,3492,1623,23,313,26537,"9/26/2024, 10:18:31 AM","9/26/2024, 2:04:41 PM"
+Platform-startup,general,846,135,17,338,2169,"9/26/2024, 10:52:15 AM","9/26/2024, 2:04:42 PM"
+Navigate-Startup,general,706,158,11,298,2065,"9/26/2024, 10:55:19 AM","9/26/2024, 2:04:42 PM"
+Navigate-Regions,general,404,49,11,215,759,"9/26/2024, 10:55:20 AM","9/26/2024, 2:04:42 PM"
+Navigate-Platform,general,165,5,9,142,181,"9/26/2024, 10:55:20 AM","9/26/2024, 2:04:42 PM"

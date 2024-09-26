@@ -56,3 +56,7 @@ You can also run `make cov` to generate code coverage, and `make cov-html` to vi
 There are also integration tests that can be run with [Playwright](https://playwright.dev/). This is does a full browser based test to make sure that data can be loaded.
 
 To run, first start the app with `make serve`, then `npm run test:e2e` for headless tests, or `npm run test:e2e:ui` to view the browser testing.
+
+### Performance tests
+
+Run `make serve` for a local test server, or `kubectl -n mariners-dashboard-dev port-forward svc/mariners-dashboard 3000:80` to test against the dev server. Then run `npm run test:speed` to run performance tests.
