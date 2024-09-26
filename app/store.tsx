@@ -40,9 +40,6 @@ function loadFromLocalStorage() {
   }
 }
 
-
 export default function ReduxStore({ children }) {
-  return (
-    <Provider store={store}>{children}</Provider>
-  )
+  return <Provider store={store}>{children}</Provider>
 }
