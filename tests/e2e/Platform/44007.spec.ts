@@ -26,6 +26,8 @@ test.describe("Platfrom 44007", () => {
     await expect(page.getByText(/Latest Conditions/).first()).toBeVisible()
     await expect(page.getByText(/Winds -/).first()).toBeVisible()
 
+    await expect(page.getByText("Loading data").first()).toBeHidden()
+
     const cards = await page.locator(".card")
     await expect(await cards.count()).toBeGreaterThan(3)
   })
