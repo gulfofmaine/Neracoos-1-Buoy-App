@@ -5,12 +5,13 @@ import { initialState, UnitSystem } from "./types"
 const unitSlice = createSlice({
   name: "unit",
   initialState,
-  reducers: {
-    unitSwitch(state, action: PayloadAction<UnitSystem>) {
+
+  reducers: (create) => ({
+    unitSwitch: create.reducer((state, action: PayloadAction<UnitSystem>) => {
       const system = action.payload
       state.system = system
-    },
-  },
+    }),
+  }),
 })
 
 export const { unitSwitch } = unitSlice.actions
