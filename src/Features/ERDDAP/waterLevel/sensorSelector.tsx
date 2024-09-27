@@ -1,4 +1,5 @@
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
