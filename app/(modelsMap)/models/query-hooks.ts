@@ -93,7 +93,7 @@ export function useCompare(): [Layer[], (Layer) => void] {
       ...(layers ?? []).filter((l) => l.id !== currentLayer.id),
       ...(layers ?? [])
         .filter((l) => l.id === currentLayer.id)
-        .map((l) => ({ ...l, vars: l.vars?.filter((v) => v !== (currentLayer.vars ?? [])[0] ?? true) })),
+        .map((l) => ({ ...l, vars: l.vars?.filter((v) => v !== currentLayer.vars[0]) })),
     ]
 
     setCompare(compareLayers)
