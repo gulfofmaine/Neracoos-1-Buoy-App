@@ -1,7 +1,8 @@
 import * as JSURL from "jsurl2"
 import { fromLonLat, toLonLat } from "ol/proj"
 import React from "react"
-import { useSearchParams, useRouter, usePathname } from "next/navigation"
+import { useSearchParams, usePathname } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
 import type { RView } from "rlayers/RMap"
 
 import { round } from "Shared/math"

@@ -1,7 +1,8 @@
 import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import queryString from "query-string"
 
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
 import Link from "next/link"
 
 import { useEffect, useState } from "react"

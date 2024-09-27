@@ -1,5 +1,6 @@
 "use client"
 import dynamic from "next/dynamic"
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar"
 import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
@@ -44,6 +45,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <ReduxStore>
         <GAListener trackingId={process.env.NODE_ENV === "production" ? "G-MVZR2D0XKJ" : undefined}>
           {children}
+          <ProgressBar height="4px" color="#ffcd22" options={{ showSpinner: false }} shallowRouting />
           <ReactQueryDevtools />
         </GAListener>
       </ReduxStore>
