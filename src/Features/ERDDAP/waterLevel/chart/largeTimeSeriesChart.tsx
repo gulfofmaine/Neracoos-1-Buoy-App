@@ -3,6 +3,7 @@
  * Single large time series chart component
  */
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import {
   Chart,
   Legend,
@@ -26,6 +27,7 @@ import { pointFormatMaker } from "components/Charts/formatter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { displayShortIso, shortestDisplayIso } from "Shared/time"
 
+addAccessibility(Highcharts)
 const plotOptions = {
   time: {
     useUTC: false,
