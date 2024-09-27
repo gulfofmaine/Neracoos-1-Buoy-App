@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, PropsWithChildren } from "react"
 import { configureStore } from "@reduxjs/toolkit"
 import { Provider } from "react-redux"
 
@@ -46,7 +46,7 @@ function loadFromLocalStorage() {
   }
 }
 
-export default function ReduxStore({ children }: React.PropsWithChildren) {
+export default function ReduxStore({ children }: PropsWithChildren) {
   const storeRef = useRef<MakeStore>()
 
   if (!storeRef.current) {
