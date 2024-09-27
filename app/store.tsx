@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import { configureStore } from "@reduxjs/toolkit"
 import { Provider } from "react-redux"
 
@@ -5,20 +6,25 @@ import { unitReducer as unit } from "Features/Units"
 
 const preloadedState = loadFromLocalStorage()
 
-export const store = configureStore({
-  reducer: {
-    unit,
-  },
-  preloadedState: {
-    unit: preloadedState,
-  },
-})
+export const makeStore = () => {
+  const store = configureStore({
+    reducer: {
+      unit,
+    },
+    preloadedState: {
+      unit: preloadedState,
+    },
+  })
+  store.subscribe(() => {
+    saveToLocalStorage(store.getState().unit)
+  })
 
-store.subscribe(() => {
-  saveToLocalStorage(store.getState().unit)
-})
+  return store
+}
 
-export type RootState = ReturnType<typeof store.getState>
+export type MakeStore = ReturnType<typeof makeStore>
+
+export type RootState = ReturnType<MakeStore["getState"]>
 
 function saveToLocalStorage(state) {
   try {
@@ -40,6 +46,11 @@ function loadFromLocalStorage() {
   }
 }
 
-export default function ReduxStore({ children }) {
-  return <Provider store={store}>{children}</Provider>
+export default function ReduxStore({ children }: React.PropsWithChildren) {
+  const storeRef = useRef<MakeStore>()
+
+  if (!storeRef.current) {
+    storeRef.current = makeStore()
+  }
+  return <Provider store={storeRef.current}>{children}</Provider>
 }
