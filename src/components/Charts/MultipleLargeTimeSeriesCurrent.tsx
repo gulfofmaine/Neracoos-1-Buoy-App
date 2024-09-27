@@ -3,6 +3,7 @@
  * Time series chart component for displaying multiple sets of time series data with current time line
  */
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import React, { useEffect, useState } from "react"
 import {
   Chart,
@@ -21,6 +22,7 @@ import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { StyledTimeSeries } from "Shared/timeSeries"
 
+addAccessibility(Highcharts)
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
     if (this.point) {

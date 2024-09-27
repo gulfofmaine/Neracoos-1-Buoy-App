@@ -4,6 +4,7 @@
  * in addition to wind barbs for wind direction
  */
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import addWindBarbModule from "highcharts/modules/windbarb"
 import * as React from "react"
 import {
@@ -24,6 +25,8 @@ import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion/compassDirection"
+
+addAccessibility(Highcharts)
 
 const dataConverter = converter("wind_speed")
 

@@ -1,4 +1,5 @@
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import * as React from "react"
 import {
   Chart,
@@ -15,6 +16,8 @@ import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 
 import { LoadedData } from "./types"
+
+addAccessibility(Highcharts)
 
 interface Props {
   loaded: LoadedData[]

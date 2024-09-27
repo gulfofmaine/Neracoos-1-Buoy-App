@@ -3,6 +3,7 @@
  * Single large time series chart component
  */
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import * as React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
 
@@ -13,6 +14,8 @@ import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
 import { pointFormatMaker } from "./formatter"
+
+addAccessibility(Highcharts)
 
 const plotOptions = {
   time: {

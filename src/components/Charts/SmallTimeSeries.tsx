@@ -2,6 +2,7 @@
  * Small time series chart component (as seen on current conditions page)
  */
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import * as React from "react"
 import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
 
@@ -12,6 +13,7 @@ import { ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "./formatter"
 import { UnitSystem } from "Features/Units/types"
 
+addAccessibility(Highcharts)
 const plotOptions = {
   time: {
     useUTC: false,

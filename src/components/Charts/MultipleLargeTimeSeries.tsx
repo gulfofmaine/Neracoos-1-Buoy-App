@@ -2,6 +2,7 @@
  * Time series chart component for displaying multiple sets of time series data
  */
 import Highcharts from "highcharts"
+import addAccessibility from "highcharts/modules/accessibility"
 import * as React from "react"
 import {
   Chart,
@@ -19,6 +20,7 @@ import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 
+addAccessibility(Highcharts)
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
     if (this.point) {
