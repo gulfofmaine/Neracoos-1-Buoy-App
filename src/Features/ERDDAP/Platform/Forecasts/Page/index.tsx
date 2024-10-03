@@ -81,20 +81,18 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
         return []
       }
 
-      return [{
-        meta: f,
-        data: filteredData,
-        }
+      return [
+        {
+          meta: f,
+          data: filteredData,
+        },
       ]
     }
 
     return []
-  }
-)
+  })
 
   const chartData: UrlStyledTimeSeries[] = []
-
-  
 
   if (dataset && timeSeries) {
     chartData.push({
@@ -109,13 +107,13 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
 
   forecastResults.forEach(({ data, meta }, index) => {
     chartData.push({
-        timeSeries: data,
-        name: meta.name + " - forecast",
-        unit: meta.units,
-        url: meta.source_url,
-        dashStyle: "Solid",
-        color: colorCycle[index + 1],
-      })
+      timeSeries: data,
+      name: meta.name + " - forecast",
+      unit: meta.units,
+      url: meta.source_url,
+      dashStyle: "Solid",
+      color: colorCycle[index + 1],
+    })
   })
 
   const unitSystem = useUnitSystem()
@@ -140,21 +138,19 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
           <h4>
             {forecasts[0].forecast_type} Forecast{" "}
             {forecastResults.length > 0 ? (
-            <ForecastInfo>
-              Data access:
-              <ul style={{ paddingLeft: "1rem" }}>
-                {chartData.map((ts, id) => (
-                  <li key={id}>
-                    <a href={ts.url}>{ts.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </ForecastInfo>
+              <ForecastInfo>
+                Data access:
+                <ul style={{ paddingLeft: "1rem" }}>
+                  {chartData.map((ts, id) => (
+                    <li key={id}>
+                      <a href={ts.url}>{ts.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </ForecastInfo>
             ) : null}
           </h4>
-          {isPending ? (
-                <Alert color="primary">Loading forecast data...</Alert>
-            ) : null}
+          {isPending ? <Alert color="primary">Loading forecast data...</Alert> : null}
         </div>
 
         <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
