@@ -6,13 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import type { Point } from "geojson"
 import React from "react"
-import { Alert, Row, Col, Tooltip } from "reactstrap"
+import { Alert, Row, Col, Tooltip, Badge } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
-import { aDayAgoRounded } from "Shared/time"
+import { aDayAgoRounded, calcAnyHourAgoRounded } from "Shared/time"
 import { StyledTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
@@ -68,16 +68,35 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
 
   const results = useForecasts(lat, lon, forecasts ?? [])
 
-  const forecastResults = (forecasts || []).map((f, index) => ({
-    meta: f,
-    result: results[index],
-  }))
+  const aDayAgo = aDayAgoRounded()
+  const twoWeeksFromNow = calcAnyHourAgoRounded(-24 * 14)
+
+  const forecastResults = (forecasts || []).flatMap((f, index) => {
+    const result = results[index]
+
+    if (result?.data) {
+      const filteredData = result.data.filter((r) => aDayAgoRounded() < r.time && r.time < twoWeeksFromNow)
+
+      if (filteredData.length <= 0) {
+        return []
+      }
+
+      return [{
+        meta: f,
+        data: filteredData,
+        }
+      ]
+    }
+
+    return []
+  }
+)
 
   const chartData: UrlStyledTimeSeries[] = []
 
-  if (dataset && timeSeries) {
-    const aDayAgo = aDayAgoRounded()
+  
 
+  if (dataset && timeSeries) {
     chartData.push({
       ...dataset,
       timeSeries: dataset.timeSeries.filter((r) => aDayAgo < r.time),
@@ -88,22 +107,21 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     })
   }
 
-  forecastResults.forEach(({ result, meta }, index) => {
-    if (result?.data) {
-      chartData.push({
-        timeSeries: result.data as ReadingTimeSeries[],
+  forecastResults.forEach(({ data, meta }, index) => {
+    chartData.push({
+        timeSeries: data,
         name: meta.name + " - forecast",
         unit: meta.units,
         url: meta.source_url,
         dashStyle: "Solid",
         color: colorCycle[index + 1],
       })
-    }
   })
 
   const unitSystem = useUnitSystem()
 
-  if (forecasts === undefined || forecasts.length < 1) {
+  const isPending = results.some((r) => r.isPending)
+  if (forecasts === undefined || forecasts.length < 1 || (isPending === false && forecastResults.length < 1)) {
     return (
       <Row>
         <Col>
@@ -121,6 +139,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
         <div style={{ textAlign: "center" }}>
           <h4>
             {forecasts[0].forecast_type} Forecast{" "}
+            {forecastResults.length > 0 ? (
             <ForecastInfo>
               Data access:
               <ul style={{ paddingLeft: "1rem" }}>
@@ -131,7 +150,11 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
                 ))}
               </ul>
             </ForecastInfo>
+            ) : null}
           </h4>
+          {isPending ? (
+                <Alert color="primary">Loading forecast data...</Alert>
+            ) : null}
         </div>
 
         <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />
