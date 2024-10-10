@@ -118,8 +118,8 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
   return (
     <React.Fragment>
       {loadingGroups.length > 0
-        ? loadingDatasetName.map((d) => (
-            <Alert color="primary">
+        ? loadingDatasetName.map((d, index) => (
+            <Alert color="primary" key={`loading-alert-${index}`}>
               <span style={{ marginRight: "10px" }}>{`Loading ${d?.data_type.long_name} dataset`}</span>
               <Spinner size="sm"></Spinner>
             </Alert>
