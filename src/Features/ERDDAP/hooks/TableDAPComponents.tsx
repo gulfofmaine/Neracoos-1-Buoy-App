@@ -5,7 +5,7 @@ import { useQueries, useQueryClient } from "@tanstack/react-query"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aWeekAgoRounded } from "Shared/time"
 import * as React from "react"
-import { Alert } from "reactstrap"
+import { Alert, Spinner } from "reactstrap"
 
 import { DataTimeSeries } from "Shared/timeSeries"
 import { PlatformTimeSeries } from "../types"
@@ -113,9 +113,18 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
     }
   }
 
+  const loadingDatasetName = timeSeries.filter((ts) => !loadedDatasets.map((d) => d.name).includes(ts.variable))
+
   return (
     <React.Fragment>
-      {loadingGroups.length > 0 ? <Alert color="primary">Loading data</Alert> : null}
+      {loadingGroups.length > 0
+        ? loadingDatasetName.map((d) => (
+            <Alert color="primary">
+              <span style={{ marginRight: "10px" }}>{`Loading ${d?.data_type.long_name} dataset`}</span>
+              <Spinner size="sm"></Spinner>
+            </Alert>
+          ))
+        : null}
 
       {errorGroups.length > 0 ? <Alert color="warning">Error loading datasets</Alert> : null}
 
@@ -123,6 +132,8 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
     </React.Fragment>
   )
 }
+
+/* HTML: <div class="loader"></div> */
 
 interface UseDatasetProps {
   /** Override default loading alert */
