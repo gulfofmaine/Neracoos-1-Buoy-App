@@ -50,7 +50,6 @@ export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) 
     name = `${name} @ ${timeSeries.depth}m`
   }
 
-  console.log(timeSeries, name, unitSystem)
   return (
     <React.Fragment>
       <Link
