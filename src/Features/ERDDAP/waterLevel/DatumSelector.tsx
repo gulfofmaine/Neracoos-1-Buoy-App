@@ -41,6 +41,20 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
           </label>
         )
       })
+      options.push(
+        <label key={`radio-label-navd88`}>
+          <input
+            type="radio"
+            id={`offset-navd88`}
+            value="NAVD88 coming soon"
+            key={`offset-navd88`}
+            checked={false}
+            disabled
+            style={{ marginRight: "5px" }}
+          ></input>
+          NAVD88 (coming soon)
+        </label>,
+      )
       setDatumOptions(options.length ? options : null)
     }
   }, [datumOffsets, datumSelected, startTime, endTime])
