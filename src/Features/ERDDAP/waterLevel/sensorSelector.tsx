@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { buildSearchParamsQuery } from "Shared/urlParams"
+import { platformName } from "Features/ERDDAP/utils/platformName"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,7 +38,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
               }}
               className="list-group-item list-group-item-action"
             >
-              {p.id} {p.properties.station_name ? `- ${p.properties.station_name}` : null}
+              {platformName(p)}
             </Link>
           )
         })
@@ -57,7 +58,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
           <DropdownToggle color={"#FFFFFF"} caret={true}>
-            {sensor.id} {sensor.properties.station_name ? `- ${sensor.properties.station_name}` : null}
+            {platformName(sensor)}
           </DropdownToggle>
           {sensorOptions && (
             <DropdownMenu end={true} style={{ padding: 0, border: "1px", maxHeight: "215px", overflow: "scroll" }}>
