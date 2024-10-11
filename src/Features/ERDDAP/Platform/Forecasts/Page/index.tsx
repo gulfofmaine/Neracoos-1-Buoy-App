@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import type { Point } from "geojson"
 import React from "react"
-import { Alert, Row, Col, Tooltip, Badge } from "reactstrap"
+import { Alert, Row, Col, Tooltip } from "reactstrap"
 
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
-import { aDayAgoRounded, calcAnyHourAgoRounded } from "Shared/time"
-import { StyledTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { aDayAgoRounded, weeksInFuture } from "Shared/time"
+import { StyledTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
@@ -69,7 +69,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   const results = useForecasts(lat, lon, forecasts ?? [])
 
   const aDayAgo = aDayAgoRounded()
-  const twoWeeksFromNow = calcAnyHourAgoRounded(-24 * 14)
+  const twoWeeksFromNow = weeksInFuture(2)
 
   const forecastResults = (forecasts || []).flatMap((f, index) => {
     const result = results[index]
