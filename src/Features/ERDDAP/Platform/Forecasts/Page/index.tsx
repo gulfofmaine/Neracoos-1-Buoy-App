@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import type { Point } from "geojson"
 import React from "react"
-import { Alert, Row, Col, Tooltip } from "reactstrap"
+import { Row, Col, Tooltip } from "reactstrap"
 
+import { LoadingAlert, WarningAlert } from "components/Alerts"
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
@@ -123,9 +124,9 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     return (
       <Row>
         <Col>
-          <Alert color="warning">
+          <WarningAlert>
             <h4>No forecast available for {forecast_type}</h4>
-          </Alert>
+          </WarningAlert>
         </Col>
       </Row>
     )
@@ -150,7 +151,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
               </ForecastInfo>
             ) : null}
           </h4>
-          {isPending ? <Alert color="primary">Loading forecast data...</Alert> : null}
+          {isPending ? <LoadingAlert>Loading forecast data...</LoadingAlert> : null}
         </div>
 
         <ForecastChart type={forecast_type} unitSystem={unitSystem} data={chartData} />

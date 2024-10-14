@@ -1,11 +1,12 @@
 import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import queryString from "query-string"
 
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
 import Link from "next/link"
-
 import { useEffect, useState } from "react"
-import { Alert, Button, Card, Col, UncontrolledTooltip } from "reactstrap"
+import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
+
+import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { DatumOffsetOptions } from "../types"
@@ -52,7 +53,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
       <Col style={{ width: "100%", margin: 0 }}>
         <h6 style={{ width: "100%", fontWeight: "bold" }}>Timeframe: </h6>
       </Col>
-      {validDateMessage !== "" && <Alert color="warning">{validDateMessage}</Alert>}
+      {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
         <Col
           style={{

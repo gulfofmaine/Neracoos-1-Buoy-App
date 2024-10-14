@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storybook Tests Components/Alerts/Loading Loading 1`] = `
+<div>
+  <div
+    class="alert alert-light fade"
+    role="alert"
+  >
+    <span
+      style="margin-right: 10px;"
+    >
+      Loading platform data files
+    </span>
+    <div
+      class="spinner-border-sm spinner-border text-warning"
+      role="status"
+    >
+      <span
+        class="visually-hidden"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storybook Tests Components/Alerts/PlatformLoading PlatformLoading 1`] = `
+<div>
+  <div
+    class="alert alert-light fade"
+    role="alert"
+  >
+    <span
+      style="margin-right: 10px;"
+    >
+      Loading 
+      test
+       dataset
+    </span>
+    <div
+      class="spinner-border-sm spinner-border text-warning"
+      role="status"
+    >
+      <span
+        class="visually-hidden"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storybook Tests Components/Alerts/Warning Warning 1`] = `
+<div>
+  <div
+    class="alert alert-warning fade"
+    role="alert"
+  >
+    This is a warning
+  </div>
+</div>
+`;
+
 exports[`Storybook Tests Components/Footer footer 1`] = `
 <div>
   <div

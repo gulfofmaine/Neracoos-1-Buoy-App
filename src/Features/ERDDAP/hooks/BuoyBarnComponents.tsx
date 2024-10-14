@@ -2,7 +2,8 @@
  * Components to use React-Query in a common way
  */
 import * as React from "react"
-import { Alert } from "reactstrap"
+
+import { LoadingAlert, WarningAlert } from "components/Alerts"
 
 import { PlatformFeature, PlatformFeatureCollection } from "../types"
 
@@ -40,7 +41,7 @@ export const UsePlatforms: React.FunctionComponent<UsePlatformsProps> = ({ child
       return loading
     }
 
-    return <Alert color="primary">Loading platform data</Alert>
+    return <LoadingAlert>Loading platform data</LoadingAlert>
   }
 
   if (data) {
@@ -53,7 +54,7 @@ export const UsePlatforms: React.FunctionComponent<UsePlatformsProps> = ({ child
     return error
   }
 
-  return <Alert color="warning">Unable to load platforms</Alert>
+  return <WarningAlert>Unable to load platforms</WarningAlert>
 }
 
 interface UsePlatformProps extends BaseProps {
@@ -89,7 +90,7 @@ export const UsePlatform: React.FunctionComponent<UsePlatformProps> = ({ childre
         return error
       }
 
-      return <Alert>Unable to load platform information for {decodeURIComponent(platformId)}.</Alert>
+      return <WarningAlert>Unable to load platform information for {decodeURIComponent(platformId)}.</WarningAlert>
     }}
   </UsePlatforms>
 )
