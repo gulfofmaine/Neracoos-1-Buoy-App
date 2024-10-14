@@ -5,8 +5,9 @@
 import Link from "next/link"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { Alert, Card, CardBody, CardHeader, Col, Row } from "reactstrap"
+import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
 
+import { WarningAlert } from "components/Alerts"
 import { useUnitSystem } from "Features/Units"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
@@ -37,7 +38,7 @@ export const Superlatives: React.FunctionComponent = () => {
       {data ? (
         <ShowSuperlatives platforms={data?.features} unitSystem={unitSystem} searchStartTime={startTime} />
       ) : (
-        <Alert color="primary">Trouble loading platform data</Alert>
+        <WarningAlert>Trouble loading platform data</WarningAlert>
       )}
     </>
   )

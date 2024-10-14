@@ -102,7 +102,18 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
         }, [router, url])}
       >
         <RPopup trigger={"hover"}>
-          <Button color="dark" size="sm" href={url}>
+          <Button
+            color="dark"
+            size="sm"
+            href={url}
+            onClick={useCallback(
+              (event) => {
+                event.preventDefault()
+                router.push(url)
+              },
+              [router, url],
+            )}
+          >
             {platformName(platform)}
           </Button>
         </RPopup>

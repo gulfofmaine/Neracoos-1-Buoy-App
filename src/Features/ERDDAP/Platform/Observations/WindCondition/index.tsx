@@ -2,8 +2,9 @@
  * Wind Observed conditions component
  */
 import React from "react"
-import { Alert, Col, Row } from "reactstrap"
+import { Col, Row } from "reactstrap"
 
+import { WarningAlert } from "components/Alerts"
 import { WindTimeSeriesChart } from "components/Charts"
 import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
@@ -82,7 +83,7 @@ interface WindErrorProps {
 const WindError: React.FunctionComponent<WindErrorProps> = ({ message }) => (
   <Row>
     <Col>
-      <Alert color="warning">{message}</Alert>
+      <WarningAlert>{message}</WarningAlert>
     </Col>
   </Row>
 )

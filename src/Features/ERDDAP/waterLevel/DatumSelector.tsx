@@ -1,9 +1,12 @@
 import { usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 import { useCallback, useEffect, useState } from "react"
-import { Alert, Col, InputGroup, ListGroup, ListGroupItem, Row } from "reactstrap"
-import { DatumOffsets } from "../types"
+import { Col, InputGroup, ListGroup, ListGroupItem, Row } from "reactstrap"
+
+import { WarningAlert } from "components/Alerts"
 import { getDatumDisplayName } from "Shared/dataTypes"
+
+import { DatumOffsets } from "../types"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const router = useRouter()
@@ -64,7 +67,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
               </Col>
             </div>
           ) : (
-            <Alert color="warning">Datum selection is not available for this sensor</Alert>
+            <WarningAlert>Datum selection is not available for this sensor</WarningAlert>
           )}
         </Row>
       </ListGroupItem>
