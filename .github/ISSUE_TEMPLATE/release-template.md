@@ -10,7 +10,7 @@ assignees: ""
 - [ ] Work on `main`
 - [ ] Bump version in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/main/package.json
 - [ ] Build and test locally
-  - [ ] Jest `make test-frontend`
+  - [ ] Jest `make test`
   - [ ] Playwright `npm run test:e2e:ui`
 - [ ] Update Changelog https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/main/CHANGELOG.md ([compare to previous release (update this url once loaded)](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v0.1.1/...main)
 - [ ] Create commit with name in the format of `v{major}.{minor}.{patch}`

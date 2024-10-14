@@ -8,6 +8,75 @@ Changes:
 
 Fixes:
 
+Dependency updates:
+
+## 1.0.1 - 9/27/2024
+
+Additions:
+
+- Performace testing with Playwright [#3107](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3107) to try to get a handle on slow loading [#3083](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/3083)
+
+Changes:
+
+- Added accessibility helper to Highcharts [#3130](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3130)
+
+Fixes:
+
+- Get source maps to be uploaded to Sentry again, to make it more reasonable to debug errors [#3117](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3117)
+- Show an error when a global (500 level) error occurs [#3117](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3117)
+- Remove old OpenLayers CSS links [#3141](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3141)
+- Adjust queryClient init so that `useState` doesn't cause failures with Suspense [#3138](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3138)
+- Disable SSR rendering for Redux store to avoid session storage issues [#3116](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3116)
+- Move redux provider to use `useRef` pattern [#3136](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3136)
+- Fix critical build dependency error thrown from web-worker [#3126](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3126)
+- Update container memory requests (which were set in Create React App era and starving it) [#3108](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3108)
+- Test wind speed in knots correctly [#3074](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3074)
+- Skipping M01 tests while it's not functioning
+- added wait till current conditions tests aren't fetching data before counting cards displayed
+- Removed `yarn.lock` to prevent some confusion
+
+Dependency updates:
+
+- Docker build push action from 6.5.0 to 6.7.0
+- Prettier pre-commit hook from 3.0.3 to 3.3.3
+- Node from 22.5.1 to 22.9.0
+- Redux toolkit from 1.9.7 to 2.2.7
+- Sentry Next JS from 7.114.0 to 8.32.0
+- Spotlight from 2.3.1 to 2.4.1
+- Tanstack React Query and devtools from 5.51.23 to 5.58.0
+- Turf from 6.5.0 to 7.1.0
+  - Bbox polygon
+  - Boolean contains
+  - Helpers
+- Highcharts from 11.4.6 to 11.4.8
+- Next from 14.2.5 to 14.2.13
+- OpenLayers from 10.0.0 to 10.2.1
+- React Redux from 8.1.3 to 9.1.2
+- React Slect from 5.8.0 to 5.8.1
+- RLayers from 3.1.0 to 3.2.0
+- Sass from 1.77.8 to 1.9.3
+- Sharp from 0.33.4 to 0.33.5
+- Github Actions reporter from 1.9.0 to 1.9.2
+- Eslint plugin next from 14.2.5 to 14.2.13
+- Playwright from 1.46.0 to 1.47.2
+- Storybook from 8.2.9 to 8.3.3
+  - Addon a11y
+  - Addon essentials
+  - Addon interactions
+  - Addon links
+  - Addon onboarding
+  - Blocks
+  - Next JS
+  - Test
+- React testing libray from 16.0.0 to 16.0.1
+- Types
+  - Node from 22.2.0 to 22.7.3
+  - React from 18.3.3 to 18.3.9
+- Eslint config next from 14.2.5 to 14.2.3
+- Eslint plugin storybook from 0.8.0 to 0.9.0
+- Typescript from 5.5.4 to 5.6.2
+- Wait on from 7.2.0 to 8.0.1
+
 ## 1.0.0 - 8/14/24
 
 Additions:
