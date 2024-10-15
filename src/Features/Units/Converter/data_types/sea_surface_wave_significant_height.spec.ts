@@ -17,7 +17,7 @@ describe("sea_surface_wave_significant_height conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_wave_significant_height.displayName(UnitSystem.english)).toBe("Feet")
+    expect(sea_surface_wave_significant_height.displayName(UnitSystem.english)).toBe("ft")
     expect(sea_surface_wave_significant_height.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

@@ -17,7 +17,7 @@ describe("sea_surface_height_above_geopotential_datum conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_height_above_geopotential_datum.displayName(UnitSystem.english)).toBe("Feet")
+    expect(sea_surface_height_above_geopotential_datum.displayName(UnitSystem.english)).toBe("ft")
     expect(sea_surface_height_above_geopotential_datum.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

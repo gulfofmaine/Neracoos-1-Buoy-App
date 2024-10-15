@@ -14,7 +14,7 @@ export class TidalLevel extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
   ) {
-    super(data_type, display_name, "m", "m", "ft", "Meters", "Feet")
+    super(data_type, display_name, "m", "m", "ft", "Meters", "ft")
   }
 }
 

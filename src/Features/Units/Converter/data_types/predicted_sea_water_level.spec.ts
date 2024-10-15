@@ -17,7 +17,7 @@ describe("predicted_sea_water_level conversions", () => {
   })
 
   it("display names", () => {
-    expect(predicted_sea_water_level.displayName(UnitSystem.english)).toBe("Feet")
+    expect(predicted_sea_water_level.displayName(UnitSystem.english)).toBe("ft")
     expect(predicted_sea_water_level.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

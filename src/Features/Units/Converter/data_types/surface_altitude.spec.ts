@@ -17,7 +17,7 @@ describe("surface_altitude conversions", () => {
   })
 
   it("display names", () => {
-    expect(surface_altitude.displayName(UnitSystem.english)).toBe("Feet")
+    expect(surface_altitude.displayName(UnitSystem.english)).toBe("ft")
     expect(surface_altitude.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })

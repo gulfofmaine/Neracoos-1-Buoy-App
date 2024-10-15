@@ -42,6 +42,6 @@ test.describe("Home page", function () {
     await expect(page.getByText(/Highest Winds/).first()).toBeVisible()
     await expect(page.getByText(/Knots/).first()).toBeVisible()
     await expect(page.getByText(/Biggest Waves/).first()).toBeVisible()
-    await expect(page.getByText(/Feet/).first()).toBeVisible()
+    await expect(page.getByText(/ft/).first()).toBeVisible()
   })
 })
