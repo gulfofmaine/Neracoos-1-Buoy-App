@@ -11,7 +11,8 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
   const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
   const searchParams = useSearchParams()
-  const sensor = sensors.find((s) => s.id === useDecodedUrl(params.sensorId as string))
+  const decodedId = useDecodedUrl(params.sensorId as string)
+  const sensor = sensors.find((s) => s.id === decodedId)
   const endTime = searchParams.get("end")
   const startTime = searchParams.get("start")
 
