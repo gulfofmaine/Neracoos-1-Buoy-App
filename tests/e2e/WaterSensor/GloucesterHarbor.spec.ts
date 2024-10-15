@@ -31,7 +31,7 @@ test.describe("Sensor station at Gloucester Harbor", () => {
   test("Shows platform waterlevel graph", async ({ page }) => {
     await page.goto(platformUrl)
     await page.waitForLoadState("load")
-    await expect(page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
+    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
   })
 
   test("Selects sensor from station selector", async ({ page }) => {

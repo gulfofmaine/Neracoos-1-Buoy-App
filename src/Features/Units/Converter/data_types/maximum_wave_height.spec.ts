@@ -17,7 +17,7 @@ describe("max_wave_height conversions", () => {
   })
 
   it("display names", () => {
-    expect(max_wave_height.displayName(UnitSystem.english)).toBe("Feet")
+    expect(max_wave_height.displayName(UnitSystem.english)).toBe("ft")
     expect(max_wave_height.displayName(UnitSystem.metric)).toBe("Meters")
   })
 })
