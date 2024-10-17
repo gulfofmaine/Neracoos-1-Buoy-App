@@ -1,4 +1,4 @@
-import { PlatformTimeSeries } from "Features/ERDDAP/types"
+import { DatumOffsetOptions, PlatformTimeSeries } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
@@ -14,9 +14,15 @@ import {
   manuallySetFullEODIso,
   roundDate,
   shortIso,
+  threeDaysAgoRounded,
+  weeksInFuture,
 } from "Shared/time"
 import { round } from "@turf/helpers"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
+import { Revert } from "Shared/icons/Revert"
+import { buildSearchParamsQuery } from "Shared/urlParams"
+import Link from "next/link"
+import { Button } from "reactstrap"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -114,8 +120,31 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   return (
     <div>
-      <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
-      <p style={{ textAlign: "center" }}>{`${displayShortIso(startTime)} - ${displayShortIso(endTime)}`}</p>
+      <div style={{ display: "flex", width: "100%", flexDirection: "column", alignItems: "center" }}>
+        <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
+        <p style={{ textAlign: "center", marginBottom: 0 }}>{`${displayShortIso(startTime)} - ${displayShortIso(
+          endTime,
+        )}`}</p>
+        <Button
+          color="light"
+          outline
+          size="sm"
+          style={{ border: "grey", width: "150px", marginTop: "5px", marginBottom: "5px" }}
+        >
+          <Link
+            href={{
+              pathname: `/water-level/sensor/${params.sensorId}`,
+              query: buildSearchParamsQuery(
+                getIsoForPicker(threeDaysAgoRounded()),
+                getIsoForPicker(weeksInFuture(1)),
+                searchParams.get("datum") as DatumOffsetOptions,
+              ),
+            }}
+          >
+            Reset Timeframe
+          </Link>
+        </Button>
+      </div>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
         predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
