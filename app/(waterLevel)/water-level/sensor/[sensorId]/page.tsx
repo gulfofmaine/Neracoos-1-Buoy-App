@@ -8,11 +8,13 @@ import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
 
 import { fromLonLat } from "ol/proj"
 import { useEffect, useState } from "react"
-import { Col, Row } from "reactstrap"
+import { Alert, Col, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { createBreakpoint } from "react-use"
 import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
 import { useSearchParams } from "next/navigation"
+import React from "react"
+import { SecondaryBanner } from "components/SecondaryBanner"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
@@ -35,6 +37,14 @@ export default function SensorIdPage({ params }) {
 
   return (
     <div>
+      <SecondaryBanner>
+        <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
+          For official watch, warning, advisory, and forecast information please visit the{" "}
+          <a href="https://www.weather.gov/erh/coastalflood" target="_blank">
+            NWS Eastern Region Coastal Flood Page
+          </a>
+        </p>
+      </SecondaryBanner>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
           {waterLevelPlatforms && <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />}
