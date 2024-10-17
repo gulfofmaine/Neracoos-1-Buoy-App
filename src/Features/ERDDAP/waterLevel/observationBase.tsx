@@ -80,7 +80,6 @@ export const WaterLevelObservationBase = ({ platform }) => {
               const standardName = waterLevel.data_type.standard_name
 
               return (
-                // <p>hey</p>
                 <div style={{ marginTop: "10px" }}>
                   <WaterLevelChartDisplay
                     {...{ dataset: waterLevelData, standardName, unitSystem }}
