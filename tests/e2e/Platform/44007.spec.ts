@@ -67,7 +67,7 @@ test.describe("Platfrom 44007", () => {
         .getByText(/Significant Wave Height Forecast/)
         .first(),
     ).toBeVisible()
-    await expect(page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
+    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
     await page
       .getByText(/Metric/)
       .first()
@@ -82,7 +82,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/English/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Feet/).first()).toBeVisible()
+    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
     await page
       .getByText(/Wave Height - observations/)
       .first()

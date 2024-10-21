@@ -22,6 +22,29 @@ export default function SensorIdPage({ params }) {
   const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
   const id = useDecodedUrl(params.sensorId)
 
+  const [currentTime, setCurrentTime] = useState(Date.now())
+
+  useEffect(() => {
+    const updateGraph = () => {
+      setCurrentTime(Date.now())
+    }
+
+    const interval = setInterval(updateGraph, 60 * 1000 * 60) // Update every hour
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        updateGraph()
+      }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+
+    return () => {
+      clearInterval(interval)
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
+    }
+  }, [])
+
   useEffect(() => {
     if (data) {
       data.features.forEach((feature) => {

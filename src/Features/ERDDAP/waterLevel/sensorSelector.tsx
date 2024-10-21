@@ -5,13 +5,15 @@ import { useEffect, useState } from "react"
 import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 import { useDecodedUrl } from "util/hooks"
 import { buildSearchParamsQuery } from "Shared/urlParams"
+import { platformName } from "Features/ERDDAP/utils/platformName"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
   const searchParams = useSearchParams()
-  const sensorId = useDecodedUrl(params.sensorId as string)
+  const decodedId = useDecodedUrl(params.sensorId as string)
+  const sensor = sensors.find((s) => s.id === decodedId)
   const endTime = searchParams.get("end")
   const startTime = searchParams.get("start")
 
@@ -21,21 +23,27 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
 
   useEffect(() => {
     if (sensors) {
-      const options = sensors.map((p, index) => {
-        return (
-          <Link
-            key={`dropdown-${index}`}
-            onClick={() => close()}
-            href={{
-              pathname: `/water-level/sensor/${p.id as string}`,
-              query: buildSearchParamsQuery(startTime as string, endTime as string, "datum_mllw_meters"),
-            }}
-            className="list-group-item list-group-item-action"
-          >
-            {p.id}
-          </Link>
-        )
-      })
+      const options = sensors
+        .sort((a, b) => {
+          if (a.id < b.id) {
+            return -1
+          } else return 1
+        })
+        .map((p, index) => {
+          return (
+            <Link
+              key={`dropdown-${index}`}
+              onClick={() => close()}
+              href={{
+                pathname: `/water-level/sensor/${p.id as string}`,
+                query: buildSearchParamsQuery(startTime as string, endTime as string, "datum_mllw_meters"),
+              }}
+              className="list-group-item list-group-item-action"
+            >
+              {platformName(p)}
+            </Link>
+          )
+        })
       setSensorOptions(options)
     }
   }, [sensors])
@@ -52,7 +60,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
           <DropdownToggle color={"#FFFFFF"} caret={true}>
-            {sensorId}
+            {platformName(sensor)}
           </DropdownToggle>
           {sensorOptions && (
             <DropdownMenu end={true} style={{ padding: 0, border: "1px", maxHeight: "215px", overflow: "scroll" }}>
