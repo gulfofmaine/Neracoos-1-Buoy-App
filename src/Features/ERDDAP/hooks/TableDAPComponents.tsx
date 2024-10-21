@@ -5,8 +5,8 @@ import { useQueries, useQueryClient } from "@tanstack/react-query"
 import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
 import { aWeekAgoRounded } from "Shared/time"
 import * as React from "react"
-import { Alert } from "reactstrap"
 
+import { PlatformLoadingAlert, WarningAlert } from "components/Alerts"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { PlatformTimeSeries } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
@@ -113,16 +113,22 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
     }
   }
 
+  const loadingDatasetName = timeSeries.filter((ts) => !loadedDatasets.map((d) => d.name).includes(ts.variable))
+
   return (
     <React.Fragment>
-      {loadingGroups.length > 0 ? <Alert color="primary">Loading data</Alert> : null}
+      {loadingGroups.length > 0
+        ? loadingDatasetName.map((d, index) => <PlatformLoadingAlert time_series={d} key={`loading-alert-${index}`} />)
+        : null}
 
-      {errorGroups.length > 0 ? <Alert color="warning">Error loading datasets</Alert> : null}
+      {errorGroups.length > 0 ? <WarningAlert>Error loading datasets</WarningAlert> : null}
 
       {loadedDatasets.length > 0 ? children({ datasets: loadedDatasets }) : null}
     </React.Fragment>
   )
 }
+
+/* HTML: <div class="loader"></div> */
 
 interface UseDatasetProps {
   /** Override default loading alert */
@@ -161,7 +167,7 @@ export const UseDataset: React.FunctionComponent<UseDatasetProps> = ({
       return loading
     }
 
-    return <Alert color="primary">Loading {timeSeries.data_type.long_name} data</Alert>
+    return <PlatformLoadingAlert time_series={timeSeries} />
   }
 
   if (data) {
@@ -175,11 +181,11 @@ export const UseDataset: React.FunctionComponent<UseDatasetProps> = ({
   }
 
   return (
-    <Alert color="warning">
+    <WarningAlert>
       Error loading {timeSeries.data_type.long_name} data.{" "}
       <a href={tabledapHtmlUrl(timeSeries.server, timeSeries.dataset, [timeSeries.variable], timeSeries.constraints)}>
         Try accessing dataset directly.
       </a>
-    </Alert>
+    </WarningAlert>
   )
 }

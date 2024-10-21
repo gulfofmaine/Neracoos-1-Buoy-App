@@ -3,7 +3,8 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
@@ -101,7 +102,18 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
         }, [router, url])}
       >
         <RPopup trigger={"hover"}>
-          <Button color="dark" size="sm" href={url}>
+          <Button
+            color="dark"
+            size="sm"
+            href={url}
+            onClick={useCallback(
+              (event) => {
+                event.preventDefault()
+                router.push(url)
+              },
+              [router, url],
+            )}
+          >
             {platformName(platform)}
           </Button>
         </RPopup>

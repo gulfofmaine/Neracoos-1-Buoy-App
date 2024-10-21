@@ -8,7 +8,8 @@ import { DatumOffsetOptions, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 import { aDayAgoRounded, fullBeginningDateIso, getIsoForPicker, getToday, manuallySetFullEODIso } from "Shared/time"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
 import queryString from "query-string"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 
@@ -80,7 +81,6 @@ export const WaterLevelObservationBase = ({ platform }) => {
               const standardName = waterLevel.data_type.standard_name
 
               return (
-                // <p>hey</p>
                 <div style={{ marginTop: "10px" }}>
                   <WaterLevelChartDisplay
                     {...{ dataset: waterLevelData, standardName, unitSystem }}

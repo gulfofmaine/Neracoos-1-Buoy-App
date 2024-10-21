@@ -2,11 +2,13 @@ import { UseQueryResult, useQueries } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
-import { Alert, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
+import { Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
 
 import { IAsset, IItem } from "@gulfofmaine/tsstac"
+
+import { WarningAlert } from "components/Alerts"
 import { useCompare, useCurrentItem, useLayer, usePoint, useTable, useTime } from "./query-hooks"
 import { useLatestItemsByCollectionIdsQuery, useRootCatalogQuery } from "./stac-queries"
 import { EdrTable } from "./table"
@@ -111,22 +113,22 @@ export const TableChart = () => {
     return <div style={{ textAlign: "center" }}>Loading catalog...</div>
   } else if (point) {
     return (
-      <Alert color="warning" style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
+      <WarningAlert style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
         Layer needs to be selected to display info for point
-      </Alert>
+      </WarningAlert>
     )
   } else if (currentLayer.id) {
     return (
-      <Alert color="warning" style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
+      <WarningAlert style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
         Point needs to be selected to display info for current layer
-      </Alert>
+      </WarningAlert>
     )
   }
 
   return (
-    <Alert color="warning" style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
+    <WarningAlert style={{ marginLeft: "10px", marginRight: "10px", width: `calc(100% - 20px)` }}>
       Select a point on map and layers in the sidebar to see timeseries and comparisons.
-    </Alert>
+    </WarningAlert>
   )
 }
 
