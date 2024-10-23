@@ -107,7 +107,15 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
         </Link>
         {dropdownItems}
         {platform.properties.readings.filter((d) => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
-          <Link className="dropdown-item nav-item" href={windUrl} onClick={close} role="menuitem">
+          <Link
+            className="dropdown-item nav-item"
+            href={{
+              pathname: windUrl,
+              query: buildSearchParamsQuery(getIsoForPicker(aWeekAgoRounded()), getIsoForPicker(weeksInFuture(0))),
+            }}
+            onClick={close}
+            role="menuitem"
+          >
             Wind
           </Link>
         ) : null}
