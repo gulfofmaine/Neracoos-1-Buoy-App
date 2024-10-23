@@ -44,15 +44,15 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     <Card
       style={{
         width: "fit-content",
-        padding: "20px",
+        padding: "5px",
         marginTop: "20px",
         verticalAlign: "middle",
         marginBottom: "20px",
       }}
     >
-      <Col style={{ width: "100%", margin: 0 }}>
+      {/* <Col style={{ width: "100%", margin: 0 }}>
         <h6 style={{ width: "100%", fontWeight: "bold" }}>Timeframe: </h6>
-      </Col>
+      </Col> */}
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
         <Col
@@ -64,8 +64,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             alignItems: "end",
           }}
         >
-          <label style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "20px" }}>
-            Start date:
+          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }}>
+            <p style={{ marginBottom: 0, marginRight: "5px" }}>Start:</p>
             <input
               type="date"
               id="start"
@@ -76,8 +76,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               required
             />
           </label>
-          <label style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "20px" }}>
-            End date:
+          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }}>
+            <p style={{ marginBottom: 0, marginRight: "5px" }}>End:</p>
             <input
               type="date"
               id="end"

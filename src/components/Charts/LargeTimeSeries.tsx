@@ -14,6 +14,7 @@ import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
 import { pointFormatMaker } from "./formatter"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 
 addAccessibility(Highcharts)
 
@@ -64,7 +65,6 @@ export function LargeTimeSeriesChart({
     <HighchartsProvider Highcharts={Highcharts}>
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart />
-
         <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
         <YAxis softMin={softMin} softMax={softMax}>
