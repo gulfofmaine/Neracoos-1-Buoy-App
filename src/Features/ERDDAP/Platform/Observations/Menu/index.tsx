@@ -7,10 +7,11 @@ import Link from "next/link"
 import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
 
 import { paths } from "Shared/constants"
-import { urlPartReplacer } from "Shared/urlParams"
+import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
 
 import { DataType } from "../../../types"
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
+import { aWeekAgoRounded, getIsoForPicker, weeksInFuture } from "Shared/time"
 
 const initialState = {
   dropdownOpen: false,
@@ -69,7 +70,16 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
       )
 
       return (
-        <Link className="dropdown-item nav-item" key={index} href={url} onClick={close} role="menuitem">
+        <Link
+          className="dropdown-item nav-item"
+          key={index}
+          href={{
+            pathname: url,
+            query: buildSearchParamsQuery(getIsoForPicker(aWeekAgoRounded()), getIsoForPicker(weeksInFuture(0))),
+          }}
+          onClick={close}
+          role="menuitem"
+        >
           {d.long_name}
         </Link>
       )

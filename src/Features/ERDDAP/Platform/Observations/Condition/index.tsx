@@ -15,6 +15,8 @@ import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 import { Info } from "./Info"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { useSearchParams } from "next/navigation"
 
 interface Props {
   /** Platform to display */
@@ -30,7 +32,11 @@ interface Props {
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
-  const startDate = aWeekAgoRounded()
+  const searchParams = useSearchParams()
+  const startDate = new Date(searchParams.get("start") as string)
+  const endDate = new Date(searchParams.get("end") as string)
+  // const startDate = aWeekAgoRounded()
+  // console.log("oranges", startDate, startTime)
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,
@@ -46,8 +52,15 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
           <h4>
             {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
           </h4>
-          <UseDataset timeSeries={ts} startTime={startDate}>
-            {({ dataset }) => <ChartTimeSeriesDisplay {...{ dataset, standardName, unitSystem }} timeSeries={ts} />}
+          <UseDataset timeSeries={ts} startTime={startDate} endTime={endDate}>
+            {({ dataset }) => (
+              <ChartTimeSeriesDisplay
+                {...{ dataset, standardName, unitSystem }}
+                timeSeries={ts}
+                startTime={startDate}
+                endTime={endDate}
+              />
+            )}
           </UseDataset>
         </Col>
       </Row>
@@ -62,6 +75,8 @@ interface ChartTimeSeriesDisplayProps {
   unitSystem: UnitSystem
   timeSeries: PlatformTimeSeries
   standardName: string
+  startTime?: Date
+  endTime?: Date
 }
 
 /**
@@ -72,17 +87,24 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   dataset,
   standardName,
   unitSystem,
+  startTime,
+  endTime,
 }: ChartTimeSeriesDisplayProps) => {
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
 
   return (
-    <LargeTimeSeriesChart
-      timeSeries={dataset.timeSeries}
-      name={timeSeries.data_type.long_name}
-      softMin={bounds[0]}
-      softMax={bounds[1]}
-      unitSystem={unitSystem}
-      data_type={standardName}
-    />
+    <>
+      <LargeTimeSeriesChart
+        timeSeries={dataset.timeSeries}
+        name={timeSeries.data_type.long_name}
+        softMin={bounds[0]}
+        softMax={bounds[1]}
+        unitSystem={unitSystem}
+        data_type={standardName}
+        startTime={startTime}
+        endTime={endTime}
+      />
+      <TimeframeSelector graphFuture={false} />
+    </>
   )
 }

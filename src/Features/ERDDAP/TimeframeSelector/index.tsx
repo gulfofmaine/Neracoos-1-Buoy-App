@@ -35,7 +35,6 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     }
     return ""
   }
-  console.log("bananas", pathname)
 
   useEffect(() => {
     setValidDateMessage(validateTimeframe(startTime, endTime))

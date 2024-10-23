@@ -36,12 +36,23 @@ interface Props {
   unitSystem: UnitSystem
   /** Data type to display */
   data_type: string
+  startTime?: Date
+  endTime?: Date
 }
 
 /**
  * Single large time series chart component
  */
-export function LargeTimeSeriesChart({ name, softMax, softMin, timeSeries, data_type, unitSystem }: Props) {
+export function LargeTimeSeriesChart({
+  name,
+  softMax,
+  softMin,
+  timeSeries,
+  data_type,
+  unitSystem,
+  startTime,
+  endTime,
+}: Props) {
   const dataConverter = converter(data_type)
 
   const data = timeSeries.map((r) => [
@@ -54,7 +65,7 @@ export function LargeTimeSeriesChart({ name, softMax, softMin, timeSeries, data_
       <HighchartsChart time={plotOptions.time} colors={colorCycle}>
         <Chart />
 
-        <XAxis type="datetime" />
+        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
         <YAxis softMin={softMin} softMax={softMax}>
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>

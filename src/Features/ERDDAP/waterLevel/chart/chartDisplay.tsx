@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
-import { TimeframeSelector } from "../timeframeSelector"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import {
   displayShortIso,
   fullBeginningDateIso,

@@ -138,6 +138,7 @@ interface UseDatasetProps {
   children: (props: UseDatasetRenderProps) => JSX.Element
   timeSeries: PlatformTimeSeries
   startTime?: Date
+  endTime?: Date
 }
 
 export interface UseDatasetRenderProps {
@@ -157,10 +158,11 @@ export const UseDataset: React.FunctionComponent<UseDatasetProps> = ({
   children,
   timeSeries,
   startTime,
+  endTime,
   loading,
   error,
 }) => {
-  const { isLoading, data } = useDataset(timeSeries, startTime)
+  const { isLoading, data } = useDataset(timeSeries, startTime, endTime)
 
   if (isLoading) {
     if (loading) {
