@@ -392,7 +392,7 @@ jobs:
         working-directory: ./gitops/neracoos-aws-cd
         run: |
           sed -i 's/?ref=.\+/?ref=${{ github.sha }}/' overlays/mariners-dev/kustomization.yaml
-          sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' overlays/mariners-dev/kustomization.yaml
+          sed -i 's/newTag: .\+/newTag: "${{ steps.tagName.outputs.tag }}"/' overlays/mariners-dev/kustomization.yaml
           git config --global user.email 'neracoos-mariners-ci@gmri.org'
           git config --global user.name 'NERACOOS Mariners Dashboard CI'
           git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard dev deployment to ${{ steps.tagName.outputs.tag }}' && git push)
