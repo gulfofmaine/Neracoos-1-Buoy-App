@@ -35,6 +35,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     }
     return ""
   }
+  console.log("bananas", pathname)
 
   useEffect(() => {
     setValidDateMessage(validateTimeframe(startTime, endTime))
@@ -99,7 +100,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             >
               <Link
                 href={{
-                  pathname: `/water-level/sensor/${params.sensorId}`,
+                  pathname,
                   query: buildSearchParamsQuery(
                     getIsoForPicker(threeDaysAgoRounded()),
                     getIsoForPicker(weeksInFuture(1)),
@@ -122,7 +123,12 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               <Link
                 href={{
                   pathname,
-                  query: buildSearchParamsQuery(startTime, endTime, searchParams.get("datum") as DatumOffsetOptions),
+                  query: buildSearchParamsQuery(
+                    startTime,
+                    endTime,
+                    (searchParams.get("datum") as DatumOffsetOptions) &&
+                      (searchParams.get("datum") as DatumOffsetOptions),
+                  ),
                 }}
                 style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
               >
