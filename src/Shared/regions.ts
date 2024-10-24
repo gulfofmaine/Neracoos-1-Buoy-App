@@ -116,10 +116,10 @@ export const regions = {
 
 export const regionList: Region[] = [
   GulfOfMaine,
-  LongIslandSound,
   GreatBay,
   Boston,
   CapeCod,
   NarragansettBay,
+  LongIslandSound,
   Newfoundland,
 ]
