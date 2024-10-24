@@ -53,7 +53,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
             {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
           </h4>
           {index === 0 && (
-            <div style={{ position: "absolute", zIndex: "100", right: "50px", marginTop: "-63px" }}>
+            <div className="observation-timeframe-selection">
               <TimeframeSelector graphFuture={false} />
             </div>
           )}

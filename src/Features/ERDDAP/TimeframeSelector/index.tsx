@@ -1,7 +1,6 @@
 import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 
-import { useParams, usePathname, useSearchParams } from "next/navigation"
-import { useRouter } from "next-nprogress-bar"
+import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
@@ -12,8 +11,6 @@ import { buildSearchParamsQuery } from "Shared/urlParams"
 import { DatumOffsetOptions } from "../types"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
-  const router = useRouter()
-  const params = useParams()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
@@ -22,12 +19,19 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
-    if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
-      return "Please choose a timeframe that spans less than two weeks"
-    }
-    //check if timeframe is recent enough
-    if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
-      return "Please choose a more recent date"
+    if (pathname.includes("water-level")) {
+      if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
+        return "Please choose a timeframe that spans less than two weeks"
+      }
+      //check if timeframe is recent enough
+      if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
+        return "Please choose a more recent date"
+      }
+    } else {
+      //check if timeFrame spans less than one month
+      if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 31) {
+        return "Please choose a timeframe that spans less than two weeks"
+      }
     }
     //check if endDate is before startDate
     if (new Date(end).getTime() - new Date(start).getTime() < 0) {
@@ -44,15 +48,12 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     <Card
       style={{
         width: "fit-content",
-        padding: "5px",
-        marginTop: "20px",
+        padding: "8px",
+        marginTop: "5px",
         verticalAlign: "middle",
         marginBottom: "20px",
       }}
     >
-      {/* <Col style={{ width: "100%", margin: 0 }}>
-        <h6 style={{ width: "100%", fontWeight: "bold" }}>Timeframe: </h6>
-      </Col> */}
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
         <Col
