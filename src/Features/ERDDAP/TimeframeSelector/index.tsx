@@ -45,15 +45,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   }, [startTime, endTime])
 
   return (
-    <Card
-      style={{
-        width: "fit-content",
-        padding: "8px",
-        marginTop: "5px",
-        verticalAlign: "middle",
-        marginBottom: "20px",
-      }}
-    >
+    <Card className={`${pathname.includes("water-level") ? "timeframe-card" : "timeframe-card main"}`}>
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
         <Col
@@ -65,7 +57,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             alignItems: "end",
           }}
         >
-          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }}>
+          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
             <p style={{ marginBottom: 0, marginRight: "5px" }}>Start:</p>
             <input
               type="date"
@@ -77,7 +69,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               required
             />
           </label>
-          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }}>
+          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
             <p style={{ marginBottom: 0, marginRight: "5px" }}>End:</p>
             <input
               type="date"
@@ -90,57 +82,55 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               required
             />
           </label>
-          <div>
-            <Button
-              color="light"
-              outline
-              size="sm"
-              style={{ marginRight: "5px", border: "grey" }}
-              id="revert-default-date"
+          <Button
+            color="light"
+            outline
+            size="sm"
+            style={{ marginRight: "5px", border: "grey" }}
+            id="revert-default-date"
+          >
+            <Link
+              href={{
+                pathname,
+                query: buildSearchParamsQuery(
+                  getIsoForPicker(threeDaysAgoRounded()),
+                  getIsoForPicker(weeksInFuture(1)),
+                  searchParams.get("datum") as DatumOffsetOptions,
+                ),
+              }}
             >
-              <Link
-                href={{
-                  pathname,
-                  query: buildSearchParamsQuery(
-                    getIsoForPicker(threeDaysAgoRounded()),
-                    getIsoForPicker(weeksInFuture(1)),
-                    searchParams.get("datum") as DatumOffsetOptions,
-                  ),
-                }}
-              >
-                <Revert fill={"#000000"} />
-              </Link>
-            </Button>
-            <UncontrolledTooltip placement="top" target="revert-default-date">
-              Revert to default date
+              <Revert fill={"#000000"} />
+            </Link>
+          </Button>
+          <UncontrolledTooltip placement="top" target="revert-default-date">
+            Revert to default date
+          </UncontrolledTooltip>
+          <Button
+            color="primary"
+            size="sm"
+            id="plot-date-button"
+            disabled={!startTime || !endTime || validDateMessage !== ""}
+          >
+            <Link
+              href={{
+                pathname,
+                query: buildSearchParamsQuery(
+                  startTime,
+                  endTime,
+                  (searchParams.get("datum") as DatumOffsetOptions) &&
+                    (searchParams.get("datum") as DatumOffsetOptions),
+                ),
+              }}
+              style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
+            >
+              Plot Dates
+            </Link>
+          </Button>
+          {validDateMessage !== "" && (
+            <UncontrolledTooltip placement="top" target="plot-date-button">
+              {validDateMessage}
             </UncontrolledTooltip>
-            <Button
-              color="primary"
-              size="sm"
-              id="plot-date-button"
-              disabled={!startTime || !endTime || validDateMessage !== ""}
-            >
-              <Link
-                href={{
-                  pathname,
-                  query: buildSearchParamsQuery(
-                    startTime,
-                    endTime,
-                    (searchParams.get("datum") as DatumOffsetOptions) &&
-                      (searchParams.get("datum") as DatumOffsetOptions),
-                  ),
-                }}
-                style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
-              >
-                Plot Dates
-              </Link>
-            </Button>
-            {validDateMessage !== "" && (
-              <UncontrolledTooltip placement="top" target="plot-date-button">
-                {validDateMessage}
-              </UncontrolledTooltip>
-            )}
-          </div>
+          )}
         </Col>
       </div>
     </Card>

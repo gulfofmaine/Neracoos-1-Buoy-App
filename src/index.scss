@@ -126,15 +126,59 @@ nav.navbar {
   row-gap: 5px;
 }
 
+.observation-timeframe-selection {
+  position: absolute;
+  z-index: 100;
+  right: 50px;
+  margin-top: -48px;
+}
+
+.timeframe-label {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.timeframe-card {
+  width: fit-content;
+  padding: 8px;
+  margin-top: 5px;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 576px) {
   .chart-display {
     width: 100%;
   }
 }
 
-.observation-timeframe-selection {
-  position: absolute;
-  z-index: 100;
-  right: 50px;
-  margin-top: -48px;
+@media (max-width: 1150px) {
+  .timeframe-collapse {
+    display: block;
+  }
+  .timeframe-card .main {
+    width: 95%;
+  }
+  .observation-timeframe-selection {
+    z-index: 100;
+    right: 0;
+    margin-top: 20px;
+  }
+  .timeframe-label {
+    flex-direction: column;
+    margin: 0;
+  }
+  #revert-default-date {
+    margin-left: -20px;
+  }
+}
+
+@media (min-width: 1150px) {
+  .timeframe-collapse-button {
+    display: none;
+  }
+  .collapse:not(.show) {
+    display: block;
+  }
 }

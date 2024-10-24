@@ -2,7 +2,7 @@
  * Display all time series for a specific standard name
  */
 import React from "react"
-import { Col, Row } from "reactstrap"
+import { Button, Col, Collapse, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
 import { naturalBounds } from "Shared/dataTypes"
@@ -17,6 +17,9 @@ import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Clock } from "Shared/icons/Clock"
+import { Calendar } from "Shared/icons/Calendar"
 
 interface Props {
   /** Platform to display */
@@ -31,6 +34,10 @@ interface Props {
  * @param standardName
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
+  const [isOpen, setOpen] = React.useState<boolean>(false)
+
+  const toggle = () => setOpen((open) => !open)
+  const close = () => setOpen(false)
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
   const startDate = new Date(searchParams.get("start") as string)
@@ -53,8 +60,15 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
             {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
           </h4>
           {index === 0 && (
-            <div className="observation-timeframe-selection">
-              <TimeframeSelector graphFuture={false} />
+            <div>
+              <Button onClick={toggle} className="timeframe-collapse-button">
+                <Calendar width={"20px"} height={"20px"} />
+              </Button>
+              <Collapse isOpen={isOpen} className="timeframe-collapse">
+                <div className="observation-timeframe-selection">
+                  <TimeframeSelector graphFuture={false} />
+                </div>
+              </Collapse>
             </div>
           )}
           <UseDataset timeSeries={ts} startTime={startDate} endTime={endDate}>
