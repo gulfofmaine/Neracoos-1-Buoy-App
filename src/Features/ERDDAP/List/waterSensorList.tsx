@@ -41,8 +41,6 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
     }
   }, [platforms])
 
-  console.log(sensors)
-
   //Station defaults to 3 day in past, week in future, and mllw datum
   return (
     <ListGroup flush>
