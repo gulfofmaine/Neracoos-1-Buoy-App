@@ -26,9 +26,9 @@ export default function WaterLevelIndexPage() {
 
   const regionCards =
     waterLevelPlatforms &&
-    regionList.map((r) => {
+    regionList.map((r, index) => {
       return (
-        <Card style={{ marginBottom: "20px" }}>
+        <Card style={{ marginBottom: "20px" }} key={`sensor-region-list-#${index}`}>
           <CardHeader>{r.name}</CardHeader>
           <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />
         </Card>
