@@ -125,25 +125,6 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         <p style={{ textAlign: "center", marginBottom: 0 }}>{`${displayShortIso(startTime)} - ${displayShortIso(
           endTime,
         )}`}</p>
-        <Button
-          color="light"
-          outline
-          size="sm"
-          style={{ border: "grey", width: "150px", marginTop: "5px", marginBottom: "5px" }}
-        >
-          <Link
-            href={{
-              pathname: `/water-level/sensor/${params.sensorId}`,
-              query: buildSearchParamsQuery(
-                getIsoForPicker(threeDaysAgoRounded()),
-                getIsoForPicker(weeksInFuture(1)),
-                searchParams.get("datum") as DatumOffsetOptions,
-              ),
-            }}
-          >
-            Reset Timeframe
-          </Link>
-        </Button>
       </div>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
