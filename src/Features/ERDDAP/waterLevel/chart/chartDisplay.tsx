@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
-import { TimeframeSelector } from "../timeframeSelector"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import {
   displayShortIso,
   fullBeginningDateIso,
@@ -140,6 +140,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />
+      <h6 style={{ fontWeight: "bold", marginTop: "20px" }}>Timeframe Selection:</h6>
       <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
       {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
     </div>

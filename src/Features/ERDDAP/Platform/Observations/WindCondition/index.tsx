@@ -15,6 +15,8 @@ import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { useSearchParams } from "next/navigation"
 
 interface Props {
   platform: PlatformFeature
@@ -25,6 +27,7 @@ interface DisplayProps extends Props {
   datasets: DataTimeSeries[]
   timeSeries: PlatformTimeSeries[]
   startDate: Date
+  endDate: Date
 }
 
 /**
@@ -32,7 +35,10 @@ interface DisplayProps extends Props {
  */
 export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }: Props) => {
   const unitSystem = useUnitSystem()
-  const startDate = aWeekAgoRounded()
+  const searchParams = useSearchParams()
+  const startDate = new Date(searchParams.get("start") as string)
+  const endDate = new Date(searchParams.get("end") as string)
+  // const startDate = aWeekAgoRounded()
 
   const { timeSeries } = pickWindTimeSeries(platform)
 
@@ -41,9 +47,9 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   }
 
   return (
-    <UseDatasets timeSeries={timeSeries} startTime={startDate} platformId={platform.id}>
+    <UseDatasets timeSeries={timeSeries} startTime={startDate} endTime={endDate} platformId={platform.id}>
       {({ datasets }) => (
-        <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets, startDate }} />
+        <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets, startDate, endDate }} />
       )}
     </UseDatasets>
   )
@@ -58,6 +64,7 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   datasets,
   timeSeries,
   startDate,
+  endDate,
 }: DisplayProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
 
@@ -70,7 +77,14 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
           </h4>
         </div>
 
-        <WindTimeSeriesChart barbsPerDay={5} legend={true} {...{ speed, gust, direction, unitSystem }} />
+        <WindTimeSeriesChart
+          barbsPerDay={5}
+          legend={true}
+          {...{ speed, gust, direction, unitSystem }}
+          startTime={startDate}
+          endTime={endDate}
+        />
+        <TimeframeSelector graphFuture={false} />
       </Col>
     </Row>
   )
