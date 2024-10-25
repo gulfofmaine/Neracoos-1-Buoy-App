@@ -6,7 +6,6 @@ import { Button, Col, Collapse, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
 import { naturalBounds } from "Shared/dataTypes"
-import { aWeekAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
@@ -17,8 +16,6 @@ import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Clock } from "Shared/icons/Clock"
 import { Calendar } from "Shared/icons/Calendar"
 
 interface Props {
