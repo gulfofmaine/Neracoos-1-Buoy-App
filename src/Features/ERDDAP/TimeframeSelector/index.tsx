@@ -20,7 +20,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
-    if (pathname.includes("water-level")) {
+    if (isWaterLevel) {
       if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
         return "Please choose a timeframe that spans less than two weeks"
       }
@@ -54,7 +54,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   }, [searchParams.get("end")])
 
   return (
-    <Card className={`${pathname.includes("water-level") ? "timeframe-card" : "timeframe-card main"}`}>
+    <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
         <Col

@@ -155,7 +155,9 @@ nav.navbar {
 
 @media (max-width: 1450px) {
   .timeframe-collapse {
-    display: block;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
   }
   .timeframe-card .main {
     width: 95%;
