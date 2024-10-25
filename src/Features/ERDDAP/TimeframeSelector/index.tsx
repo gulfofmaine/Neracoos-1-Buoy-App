@@ -1,4 +1,4 @@
-import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture, YEAR } from "Shared/time"
 
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
@@ -29,8 +29,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
       }
     } else {
       //check if timeFrame spans less than one month
-      if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 31) {
-        return "Please choose a timeframe that spans less than two weeks"
+      if ((new Date(end).getTime() - new Date(start).getTime()) / YEAR > 1) {
+        return "Please choose a timeframe that spans less than one year"
       }
     }
     //check if endDate is before startDate

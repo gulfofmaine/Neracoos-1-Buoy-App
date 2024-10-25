@@ -2,12 +2,12 @@
  * Time related functions.
  */
 
-const HOUR = 1000 * 60 * 60
-const HALF_DAY = HOUR * 12
-const DAY = HOUR * 24
-const THREE_DAYS = DAY * 3
-const WEEK = DAY * 7
-const YEAR = DAY * 365
+export const HOUR = 1000 * 60 * 60
+export const HALF_DAY = HOUR * 12
+export const DAY = HOUR * 24
+export const THREE_DAYS = DAY * 3
+export const WEEK = DAY * 7
+export const YEAR = DAY * 365
 
 /**
  * Get the current date, but shifted to ISO to remove time zones, and without any hours, minutes, seconds, or miliseconds.
