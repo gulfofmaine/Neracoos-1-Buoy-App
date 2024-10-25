@@ -16,6 +16,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
   const [endTime, setEndTime] = useState<any>(searchParams.get("end"))
   const [validDateMessage, setValidDateMessage] = useState<string>("")
+  const isWaterLevel = pathname.includes("water-level")
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
@@ -43,6 +44,14 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   useEffect(() => {
     setValidDateMessage(validateTimeframe(startTime, endTime))
   }, [startTime, endTime])
+
+  useEffect(() => {
+    setStartTime(searchParams.get("start"))
+  }, [searchParams.get("start")])
+
+  useEffect(() => {
+    setEndTime(searchParams.get("end"))
+  }, [searchParams.get("end")])
 
   return (
     <Card className={`${pathname.includes("water-level") ? "timeframe-card" : "timeframe-card main"}`}>
@@ -94,8 +103,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                 pathname,
                 query: buildSearchParamsQuery(
                   getIsoForPicker(threeDaysAgoRounded()),
-                  getIsoForPicker(weeksInFuture(1)),
-                  searchParams.get("datum") as DatumOffsetOptions,
+                  isWaterLevel ? getIsoForPicker(weeksInFuture(1)) : endTime,
+                  (searchParams.get("datum") as DatumOffsetOptions) &&
+                    (searchParams.get("datum") as DatumOffsetOptions),
                 ),
               }}
             >
