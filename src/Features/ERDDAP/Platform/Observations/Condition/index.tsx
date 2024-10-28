@@ -1,7 +1,7 @@
 /**
  * Display all time series for a specific standard name
  */
-import React from "react"
+import React, { useEffect } from "react"
 import { Button, Col, Collapse, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
@@ -33,14 +33,15 @@ interface Props {
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false)
 
-  const toggle = () => setOpen((open) => !open)
-  const close = () => setOpen(false)
+  const toggle = () => setOpen(!isOpen)
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
   const startDate = new Date(searchParams.get("start") as string)
   const endDate = new Date(searchParams.get("end") as string)
-  // const startDate = aWeekAgoRounded()
-  // console.log("oranges", startDate, startTime)
+
+  useEffect(() => {
+    setOpen(false)
+  }, [searchParams])
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,
