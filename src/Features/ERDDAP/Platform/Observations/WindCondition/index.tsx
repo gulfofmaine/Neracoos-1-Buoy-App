@@ -104,7 +104,6 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
           startTime={startDate}
           endTime={endDate}
         />
-        <TimeframeSelector graphFuture={false} />
       </Col>
     </Row>
   )

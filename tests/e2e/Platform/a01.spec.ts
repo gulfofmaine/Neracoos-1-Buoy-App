@@ -64,7 +64,7 @@ test.describe("Platform A01", () => {
       .getByText(/Observations/)
       .first()
       .click()
-    await page.locator('[href="/platform/A01/observations/wind"]').first().click()
+    await page.getByRole("menuitem", { name: "Wind" }).first().click()
     await expect(page.getByRole("heading", { name: "Wind" }).first()).toBeVisible({ timeout: 10000 })
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     await page.locator("svg.highcharts-root").getByText(/Gust/).first().click()

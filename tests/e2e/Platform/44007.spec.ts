@@ -38,7 +38,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/Observations/)
       .first()
       .click()
-    await page.locator("[href='/platform/44007/observations/wind']").first().click()
+    await page.getByRole("menuitem", { name: "Wind" }).first().click()
     await expect(page.locator("h4").getByText(/Wind/).first()).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
