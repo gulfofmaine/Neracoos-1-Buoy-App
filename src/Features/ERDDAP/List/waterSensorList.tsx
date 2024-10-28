@@ -1,5 +1,5 @@
 import React from "react"
-import { getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { daysAgoRounded, daysInFuture, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
@@ -52,8 +52,8 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
             href={{
               pathname: `water-level/sensor/${s.id}`,
               query: buildSearchParamsQuery(
-                getIsoForPicker(threeDaysAgoRounded()),
-                getIsoForPicker(weeksInFuture(1)),
+                getIsoForPicker(daysAgoRounded(2)),
+                getIsoForPicker(daysInFuture(3)),
                 "datum_mllw_meters",
               ),
             }}
