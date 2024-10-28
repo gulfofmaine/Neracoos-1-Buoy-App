@@ -59,9 +59,10 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
           {index === 0 && (
             <div>
               <Button color="light" outline onClick={() => toggle()} className="timeframe-collapse-button">
+                <p style={{ marginBottom: 0, marginRight: "5px", color: "#083d52" }}>Change Timeframe</p>
                 <Calendar width={"20px"} height={"20px"} />
               </Button>
-              <Collapse isOpen={isOpen} className="timeframe-collapse ">
+              <Collapse isOpen={isOpen} className="timeframe-collapse">
                 <div className="observation-timeframe-selection">
                   <TimeframeSelector graphFuture={false} />
                 </div>

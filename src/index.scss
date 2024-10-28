@@ -156,14 +156,21 @@ nav.navbar {
 @media (max-width: 1450px) {
   .timeframe-collapse {
     display: flex;
-    justify-content: center;
+    justify-self: center;
     // align-items: center;
   }
   .timeframe-card .main {
     width: 95%;
   }
+  .timeframe-collapse-button {
+    display: flex;
+    justify-content: space-between;
+    justify-self: center;
+  }
   .observation-timeframe-selection {
     z-index: 100;
+    display: flex;
+    justify-self: center;
     right: 0;
     margin-top: 20px;
   }
