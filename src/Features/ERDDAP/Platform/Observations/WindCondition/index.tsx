@@ -1,8 +1,8 @@
 /**
  * Wind Observed conditions component
  */
-import React from "react"
-import { Col, Row } from "reactstrap"
+import React, { useEffect } from "react"
+import { Button, Col, Collapse, Row } from "reactstrap"
 
 import { WarningAlert } from "components/Alerts"
 import { WindTimeSeriesChart } from "components/Charts"
@@ -17,6 +17,7 @@ import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
+import { Calendar } from "Shared/icons/Calendar"
 
 interface Props {
   platform: PlatformFeature
@@ -67,6 +68,14 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   endDate,
 }: DisplayProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
+  const [isOpen, setOpen] = React.useState<boolean>(false)
+  const searchParams = useSearchParams()
+
+  const toggle = () => setOpen(!isOpen)
+
+  useEffect(() => {
+    setOpen(false)
+  }, [searchParams])
 
   return (
     <Row>
@@ -75,6 +84,17 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
           <h4>
             Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
           </h4>
+        </div>
+        <div>
+          <Button color="light" outline onClick={() => toggle()} className="timeframe-collapse-button">
+            <p style={{ marginBottom: 0, marginRight: "5px", color: "#083d52" }}>Change Timeframe</p>
+            <Calendar width={"20px"} height={"20px"} />
+          </Button>
+          <Collapse isOpen={isOpen} className="timeframe-collapse">
+            <div className="observation-timeframe-selection">
+              <TimeframeSelector graphFuture={false} />
+            </div>
+          </Collapse>
         </div>
 
         <WindTimeSeriesChart
