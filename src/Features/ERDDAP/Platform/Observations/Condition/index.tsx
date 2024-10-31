@@ -17,6 +17,7 @@ import { Info } from "./Info"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
 import { Calendar } from "Shared/icons/Calendar"
+import { manuallySetFullEODIso } from "Shared/time"
 
 interface Props {
   /** Platform to display */
@@ -37,7 +38,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
   const startDate = new Date(searchParams.get("start") as string)
-  const endDate = new Date(searchParams.get("end") as string)
+  const endDate = manuallySetFullEODIso(new Date(searchParams.get("end") as string))
 
   useEffect(() => {
     setOpen(false)

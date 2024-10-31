@@ -8,7 +8,7 @@ import { WarningAlert } from "components/Alerts"
 import { WindTimeSeriesChart } from "components/Charts"
 import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
-import { aWeekAgoRounded } from "Shared/time"
+import { aWeekAgoRounded, manuallySetFullEODIso } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -38,8 +38,9 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
   const startDate = new Date(searchParams.get("start") as string)
-  const endDate = new Date(searchParams.get("end") as string)
+  const endDate = manuallySetFullEODIso(new Date(searchParams.get("end") as string))
   // const startDate = aWeekAgoRounded()
+  console.log(endDate)
 
   const { timeSeries } = pickWindTimeSeries(platform)
 
