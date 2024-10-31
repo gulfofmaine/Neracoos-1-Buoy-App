@@ -80,23 +80,14 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   return (
     <Row>
       <Col>
-        <div style={{ textAlign: "center" }}>
-          <h4>
+        <div className="observation-title-container">
+          <h4 className="obervation-title">
             Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
           </h4>
+          <div className="observation-timeframe-selector">
+            <TimeframeSelector graphFuture={false} />
+          </div>
         </div>
-        <div>
-          <Button color="light" outline onClick={() => toggle()} className="timeframe-collapse-button">
-            <p style={{ marginBottom: 0, marginRight: "5px", color: "#083d52" }}>Change Timeframe</p>
-            <Calendar width={"20px"} height={"20px"} />
-          </Button>
-          <Collapse isOpen={isOpen} className="timeframe-collapse">
-            <div className="observation-timeframe-selection">
-              <TimeframeSelector graphFuture={false} />
-            </div>
-          </Collapse>
-        </div>
-
         <WindTimeSeriesChart
           barbsPerDay={5}
           legend={true}

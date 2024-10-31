@@ -54,22 +54,14 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
     return (
       <Row key={index}>
         <Col>
-          <h4>
-            {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
-          </h4>
-          {index === 0 && (
-            <div>
-              <Button color="light" outline onClick={() => toggle()} className="timeframe-collapse-button">
-                <p style={{ marginBottom: 0, marginRight: "5px", color: "#083d52" }}>Change Timeframe</p>
-                <Calendar width={"20px"} height={"20px"} />
-              </Button>
-              <Collapse isOpen={isOpen} className="timeframe-collapse">
-                <div className="observation-timeframe-selection">
-                  <TimeframeSelector graphFuture={false} />
-                </div>
-              </Collapse>
+          <div className="observation-title-container">
+            <h4 className="obervation-title">
+              {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+            </h4>
+            <div className="observation-timeframe-selector">
+              {index === 0 && <TimeframeSelector graphFuture={false} />}
             </div>
-          )}
+          </div>
           <UseDataset timeSeries={ts} startTime={startDate} endTime={endDate}>
             {({ dataset }) => (
               <ChartTimeSeriesDisplay

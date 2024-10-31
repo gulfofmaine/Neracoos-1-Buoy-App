@@ -126,13 +126,6 @@ nav.navbar {
   row-gap: 5px;
 }
 
-.observation-timeframe-selection {
-  position: absolute;
-  z-index: 100;
-  right: 50px;
-  margin-top: -48px;
-}
-
 .timeframe-label {
   margin-right: 20px;
   display: flex;
@@ -147,32 +140,45 @@ nav.navbar {
   margin-bottom: 20px;
 }
 
-@media (max-width: 576px) {
+.observation-title-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.obervation-title {
+  grid-column: 2;
+  justify-self: center;
+}
+
+.observation-timeframe-selector {
+  grid-column: 3;
+  justify-self: end;
+}
+
+@media (max-width: 1040px) {
   .chart-display {
     width: 100%;
   }
+  .observation-title-container {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+  .obervation-title {
+    grid-column: 1;
+  }
+  .observation-timeframe-selector {
+    justify-self: center;
+    grid-column: 1;
+  }
+  .timeframe-card {
+    margin: 0;
+  }
 }
 
-@media (max-width: 1450px) {
-  .timeframe-collapse {
-    display: flex;
-    justify-self: center;
-    // align-items: center;
-  }
+@media (max-width: 500px) {
   .timeframe-card .main {
     width: 95%;
-  }
-  .timeframe-collapse-button {
-    display: flex;
-    justify-content: space-between;
-    justify-self: center;
-  }
-  .observation-timeframe-selection {
-    z-index: 100;
-    display: flex;
-    justify-self: center;
-    right: 0;
-    margin-top: 20px;
   }
   .timeframe-label {
     flex-direction: column;
@@ -180,14 +186,5 @@ nav.navbar {
   }
   #revert-default-date {
     margin-left: -20px;
-  }
-}
-
-@media (min-width: 1450px) {
-  .timeframe-collapse-button {
-    display: none;
-  }
-  .collapse:not(.show) {
-    display: block;
   }
 }
