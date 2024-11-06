@@ -100,23 +100,31 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     }
   }, [platform.properties.readings, selected, old, platform])
 
-  const query = isSensorPage
-    ? buildSearchParamsQuery(
-        searchParams.get("start") as string,
-        searchParams.get("end") as string,
-        searchParams.get("datum") as DatumOffsetOptions,
-      )
-    : buildSearchParamsQuery(getIsoForPicker(daysAgoRounded(2)), getIsoForPicker(daysInFuture(3)), "datum_mllw_meters")
+  // const query = isSensorPage
+  //   ? buildSearchParamsQuery(
+  //       searchParams.get("start") as string,
+  //       searchParams.get("end") as string,
+  //       searchParams.get("datum") as DatumOffsetOptions
+  //     )
+  //   : ""
 
   return (
     <div style={{ zIndex: 10 }}>
       {platform && display && (
         <Layer
           platform={platform}
-          url={{
-            pathname: `/water-level/sensor/${platform.id}`,
-            query,
-          }}
+          url={
+            isSensorPage && searchParams.get("datum")
+              ? {
+                  pathname: `/water-level/sensor/${platform.id}`,
+                  query: buildSearchParamsQuery(
+                    searchParams.get("start") as string,
+                    searchParams.get("end") as string,
+                    searchParams.get("datum") as DatumOffsetOptions,
+                  ),
+                }
+              : `/water-level/sensor/${platform.id}`
+          }
           router={router}
           radius={radius}
           color={display}

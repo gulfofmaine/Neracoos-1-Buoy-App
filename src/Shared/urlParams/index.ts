@@ -34,9 +34,15 @@ export function urlPartReplacer(url: string, key: string, value: string): string
 }
 
 export const buildSearchParamsQuery = (start: string, end: string, datum: DatumOffsetOptions) => {
-  return {
-    start,
-    end,
-    datum,
+  if (datum && start && end) {
+    return {
+      start,
+      end,
+      datum,
+    }
+  } else if (datum && !start && !end) {
+    return { datum }
+  } else if (start && end && !datum) {
+    return { start, end }
   }
 }
