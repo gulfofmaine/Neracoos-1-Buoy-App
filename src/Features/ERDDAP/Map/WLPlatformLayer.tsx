@@ -94,7 +94,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "f2" : "bf"
+      const opacity = selected ? "bf" : "a0"
       const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
       setDisplay(display)
     }
@@ -141,13 +141,15 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
   useEffect(() => {
     setKey((prevKey) => prevKey + 1) // Increment key on state change
   }, [color])
+
+  console.log("bananas", color)
   return (
     <RLayerVector zIndex={10} key={key}>
       {color && (
         <RStyle.RStyle>
           <RStyle.RCircle radius={radius}>
             <RStyle.RFill color={color} />
-            <RStyle.RStroke color={"000000"} width={0.5} />
+            <RStyle.RStroke color={color} width={2} />
           </RStyle.RCircle>
         </RStyle.RStyle>
       )}

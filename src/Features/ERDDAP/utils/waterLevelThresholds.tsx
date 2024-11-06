@@ -43,9 +43,9 @@ export const floodLevelThresholdColors = (alert, old, opacity, platform) => {
     Minor: `${colors.minorThreshold}${opacity}`,
     Action: `${colors.actionThreshold}${opacity}`,
     null: `${colors.floodNone}${opacity}`,
-    NA: "grey",
+    NA: `${colors.floodNA}${opacity}`,
     None: `${colors.floodNone}${opacity}`,
   }
-  const color = old ? "gray" : colorMap[alert]
+  const color = old ? `${colors.floodNA}${opacity}` : colorMap[alert]
   return color
 }
