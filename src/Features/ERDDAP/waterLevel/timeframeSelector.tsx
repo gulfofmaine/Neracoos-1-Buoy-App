@@ -1,4 +1,11 @@
-import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import {
+  daysAgoRounded,
+  daysInFuture,
+  getIsoForPicker,
+  getToday,
+  threeDaysAgoRounded,
+  weeksInFuture,
+} from "Shared/time"
 
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
@@ -16,8 +23,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const params = useParams()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
-  const [endTime, setEndTime] = useState<any>(searchParams.get("end"))
+  const [startTime, setStartTime] = useState<any>(searchParams.get("start") || getIsoForPicker(daysAgoRounded(2)))
+  const [endTime, setEndTime] = useState<any>(searchParams.get("end") || getIsoForPicker(daysInFuture(3)))
   const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {

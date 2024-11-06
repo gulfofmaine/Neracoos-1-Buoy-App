@@ -13,7 +13,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
   const [datumOptions, setDatumOptions] = useState<any>()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [datumSelected, setDatumSelected] = useState(searchParams.get("datum"))
+  const [datumSelected, setDatumSelected] = useState(searchParams.get("datum") || "datum_mllw_meters")
   const endTime = searchParams.get("end")
   const startTime = searchParams.get("start")
 
@@ -64,7 +64,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
   }, [datumOffsets, datumSelected, startTime, endTime])
 
   useEffect(() => {
-    setDatumSelected(searchParams.get("datum"))
+    setDatumSelected(searchParams.get("datum") || "datum_mllw_meters")
   }, [searchParams])
 
   return (

@@ -7,7 +7,15 @@ import { UseDatasets } from "../hooks"
 import { DatumOffsetOptions, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
-import { aDayAgoRounded, fullBeginningDateIso, getIsoForPicker, getToday, manuallySetFullEODIso } from "Shared/time"
+import {
+  aDayAgoRounded,
+  daysAgoRounded,
+  daysInFuture,
+  fullBeginningDateIso,
+  getIsoForPicker,
+  getToday,
+  manuallySetFullEODIso,
+} from "Shared/time"
 import { usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 import queryString from "query-string"
@@ -17,8 +25,8 @@ export const WaterLevelObservationBase = ({ platform }) => {
   const unitSystem = useUnitSystem()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const startTime = new Date(searchParams.get("start") as string)
-  const endTime = new Date(searchParams.get("end") as string)
+  const startTime = new Date((searchParams.get("start") as string) || getIsoForPicker(daysAgoRounded(2)))
+  const endTime = new Date((searchParams.get("end") as string) || getIsoForPicker(daysInFuture(3)))
 
   const router = useRouter()
   const windowWidth = window.innerWidth
