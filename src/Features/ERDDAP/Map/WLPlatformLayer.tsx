@@ -134,8 +134,6 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
   useEffect(() => {
     setKey((prevKey) => prevKey + 1) // Increment key on state change
   }, [color])
-
-  console.log("bananas", color)
   return (
     <RLayerVector zIndex={10} key={key}>
       {color && (
