@@ -100,7 +100,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     }
   }, [platform.properties.readings, selected, old, platform])
 
-
   return (
     <div style={{ zIndex: 10 }}>
       {platform && display && (
