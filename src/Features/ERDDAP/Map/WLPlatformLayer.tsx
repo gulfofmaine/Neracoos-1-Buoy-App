@@ -100,13 +100,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     }
   }, [platform.properties.readings, selected, old, platform])
 
-  // const query = isSensorPage
-  //   ? buildSearchParamsQuery(
-  //       searchParams.get("start") as string,
-  //       searchParams.get("end") as string,
-  //       searchParams.get("datum") as DatumOffsetOptions
-  //     )
-  //   : ""
 
   return (
     <div style={{ zIndex: 10 }}>
