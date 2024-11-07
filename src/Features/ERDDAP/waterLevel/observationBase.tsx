@@ -51,7 +51,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
         getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
         searchParams.get("datum") as DatumOffsetOptions,
       )
-      router.push(`${pathname}?${queryString.stringify(newParams)}`)
+      router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
     }
     if (!predictedTidesTimeseries) {
       const newParams = buildSearchParamsQuery(
@@ -59,7 +59,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
         new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
         searchParams.get("datum") as DatumOffsetOptions,
       )
-      router.push(`${pathname}?${queryString.stringify(newParams)}`)
+      router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
     }
     setPredictedTides(predictedTidesTimeseries)
   }, [platform])

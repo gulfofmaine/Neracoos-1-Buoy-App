@@ -44,5 +44,5 @@ export const buildSearchParamsQuery = (start: string, end: string, datum: DatumO
     return { datum }
   } else if (start && end && !datum) {
     return { start, end }
-  }
+  } else return null
 }
