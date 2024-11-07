@@ -47,18 +47,7 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
     <ListGroup flush>
       {sensors &&
         sensors.map((s) => (
-          <Link
-            key={s.id}
-            href={{
-              pathname: `water-level/sensor/${s.id}`,
-              query: buildSearchParamsQuery(
-                getIsoForPicker(daysAgoRounded(2)),
-                getIsoForPicker(daysInFuture(3)),
-                "datum_mllw_meters",
-              ),
-            }}
-            className="list-group-item list-group-item-action"
-          >
+          <Link key={s.id} href={`water-level/sensor/${s.id}`} className="list-group-item list-group-item-action">
             {platformName(s)}
           </Link>
         ))}

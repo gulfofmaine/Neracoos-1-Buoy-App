@@ -94,29 +94,29 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "f2" : "bf"
+      const opacity = selected ? "bf" : "a0"
       const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
       setDisplay(display)
     }
   }, [platform.properties.readings, selected, old, platform])
-
-  const query = isSensorPage
-    ? buildSearchParamsQuery(
-        searchParams.get("start") as string,
-        searchParams.get("end") as string,
-        searchParams.get("datum") as DatumOffsetOptions,
-      )
-    : buildSearchParamsQuery(getIsoForPicker(daysAgoRounded(2)), getIsoForPicker(daysInFuture(3)), "datum_mllw_meters")
 
   return (
     <div style={{ zIndex: 10 }}>
       {platform && display && (
         <Layer
           platform={platform}
-          url={{
-            pathname: `/water-level/sensor/${platform.id}`,
-            query,
-          }}
+          url={
+            isSensorPage && searchParams.get("datum")
+              ? {
+                  pathname: `/water-level/sensor/${platform.id}`,
+                  query: buildSearchParamsQuery(
+                    searchParams.get("start") as string,
+                    searchParams.get("end") as string,
+                    searchParams.get("datum") as DatumOffsetOptions,
+                  ),
+                }
+              : `/water-level/sensor/${platform.id}`
+          }
           router={router}
           radius={radius}
           color={display}
@@ -139,7 +139,7 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
         <RStyle.RStyle>
           <RStyle.RCircle radius={radius}>
             <RStyle.RFill color={color} />
-            <RStyle.RStroke color={"000000"} width={0.5} />
+            <RStyle.RStroke color={color} width={2} />
           </RStyle.RCircle>
         </RStyle.RStyle>
       )}

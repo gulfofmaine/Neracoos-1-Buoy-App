@@ -6,6 +6,8 @@ import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "
 import { useDecodedUrl } from "util/hooks"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { platformName } from "Features/ERDDAP/utils/platformName"
+import { getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { DatumOffsetOptions } from "Features/ERDDAP/types"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -14,8 +16,9 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
   const searchParams = useSearchParams()
   const decodedId = useDecodedUrl(params.sensorId as string)
   const sensor = sensors.find((s) => s.id === decodedId)
-  const endTime = searchParams.get("end")
-  const startTime = searchParams.get("start")
+  const endTime = searchParams.get("end") || ""
+  const startTime = searchParams.get("start") || ""
+  const datum = searchParams.get("datum") || ""
 
   const close = () => {
     setIsOpen(false)
@@ -36,7 +39,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
               onClick={() => close()}
               href={{
                 pathname: `/water-level/sensor/${p.id as string}`,
-                query: buildSearchParamsQuery(startTime as string, endTime as string, "datum_mllw_meters"),
+                query: buildSearchParamsQuery(startTime as string, endTime as string, datum as DatumOffsetOptions),
               }}
               className="list-group-item list-group-item-action"
             >
@@ -46,7 +49,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
         })
       setSensorOptions(options)
     }
-  }, [sensors])
+  }, [sensors, startTime, endTime, datum])
 
   return (
     <Row style={{ width: "fit-content", verticalAlign: "middle" }}>

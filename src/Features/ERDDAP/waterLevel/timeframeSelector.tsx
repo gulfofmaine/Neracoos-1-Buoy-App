@@ -1,4 +1,11 @@
-import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import {
+  daysAgoRounded,
+  daysInFuture,
+  getIsoForPicker,
+  getToday,
+  threeDaysAgoRounded,
+  weeksInFuture,
+} from "Shared/time"
 
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
@@ -16,8 +23,8 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const params = useParams()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
-  const [endTime, setEndTime] = useState<any>(searchParams.get("end"))
+  const [startTime, setStartTime] = useState<any>(searchParams.get("start") || getIsoForPicker(daysAgoRounded(2)))
+  const [endTime, setEndTime] = useState<any>(searchParams.get("end") || getIsoForPicker(daysInFuture(3)))
   const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {
@@ -39,6 +46,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   useEffect(() => {
     setValidDateMessage(validateTimeframe(startTime, endTime))
   }, [startTime, endTime])
+
+  useEffect(() => {
+    setStartTime(searchParams.get("start") || getIsoForPicker(daysAgoRounded(2)))
+    setEndTime(searchParams.get("end") || getIsoForPicker(daysInFuture(3)))
+  }, [searchParams.get("start"), searchParams.get("end")])
 
   return (
     <Card
@@ -98,14 +110,14 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               id="revert-default-date"
             >
               <Link
-                href={{
-                  pathname: `/water-level/sensor/${params.sensorId}`,
-                  query: buildSearchParamsQuery(
-                    getIsoForPicker(threeDaysAgoRounded()),
-                    getIsoForPicker(weeksInFuture(1)),
-                    searchParams.get("datum") as DatumOffsetOptions,
-                  ),
-                }}
+                href={
+                  searchParams.get("datum")
+                    ? {
+                        pathname: `/water-level/sensor/${params.sensorId}`,
+                        query: buildSearchParamsQuery("", "", searchParams.get("datum") as DatumOffsetOptions),
+                      }
+                    : `/water-level/sensor/${params.sensorId}`
+                }
               >
                 <Revert fill={"#000000"} />
               </Link>
@@ -122,7 +134,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               <Link
                 href={{
                   pathname,
-                  query: buildSearchParamsQuery(startTime, endTime, searchParams.get("datum") as DatumOffsetOptions),
+                  query: buildSearchParamsQuery(
+                    startTime,
+                    endTime,
+                    (searchParams.get("datum") as DatumOffsetOptions) || null,
+                  ),
                 }}
                 style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
               >

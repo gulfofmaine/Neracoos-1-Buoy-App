@@ -111,8 +111,10 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   useEffect(() => {
     if (timeSeries) {
-      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(searchParams.get("datum") as string)
-        ? getDatumDisplayName(searchParams.get("datum") as string)
+      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(
+        (searchParams.get("datum") as string) || "datum_mllw_meters",
+      )
+        ? getDatumDisplayName((searchParams.get("datum") as string) || "datum_mllw_meters")
         : getDefaultTitle()
       setTitle(graphTitle)
     }

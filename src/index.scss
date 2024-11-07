@@ -5,8 +5,9 @@ $old-neracoos-blue: #114a6e;
 $neracoos-blue: #083d52;
 $metallic-seaweed: #178596;
 $coastal-meadow: #2ab78f;
-$buoy-yellow: #ffcd22;
+$buoy-yellow: #ffcb22;
 $what-orange: #ffae6d;
+$color: #72e400;
 
 $primary: $neracoos-blue;
 // $primary: $old-neracoos-blue;
@@ -90,6 +91,7 @@ nav.navbar {
 }
 
 .legend-color {
+  border-radius: 5px;
   width: 10px;
   height: 10px;
   margin-right: 5px;
@@ -100,7 +102,7 @@ nav.navbar {
   left: 10px;
   top: 10px;
   z-index: 1;
-  background-color: #ffffff;
+  background-color: #fffffffd;
   padding: 5px;
   margin-right: 10px;
 }
