@@ -10,7 +10,8 @@ export const colors = {
   minorThreshold: "#ff9000",
   moderateThreshold: "#ff2000",
   majorThreshold: "#aa00ff",
-  floodNone: "#80ff00",
+  floodNone: "#72e400",
+  floodNA: "#80807e",
 
   // lighter tints for dark backgrounds
   snowySea: "#396475",

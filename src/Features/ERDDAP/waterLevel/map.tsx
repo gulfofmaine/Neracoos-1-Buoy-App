@@ -61,7 +61,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
     <div style={{ position: "relative" }}>
       <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
         <div className="legend-container">
-          <LegendItem color={"#80ff00"} text={"No Flooding"} />
+          <LegendItem color={"#72e400"} text={"No Flooding"} />
           <LegendItem color={"#ffff00"} text={"Action"} />
           <LegendItem color={"#ff9000"} text={"Minor"} />
           <LegendItem color={"#ff2000"} text={"Moderate"} />

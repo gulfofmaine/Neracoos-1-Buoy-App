@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test"
 
-const platformUrl =
-  "http://localhost:3000/water-level/sensor/Gloucester%20Harbor?start=2024-07-20&end=2024-07-28&datum=datum_mllw_meters"
+const platformUrl = "http://localhost:3000/water-level/sensor/Gloucester%20Harbor"
 
 test.describe("Sensor station at Gloucester Harbor", () => {
   test("Can get to from Home Page", async ({ page }) => {

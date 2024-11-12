@@ -166,6 +166,14 @@ export function threeDaysAgoRounded(): Date {
   return threeDaysAgo
 }
 
+export function daysAgoRounded(numberOfDays): Date {
+  const daysAgo = new Date(Date.now() - DAY * numberOfDays)
+
+  roundDate(daysAgo)
+
+  return daysAgo
+}
+
 /**
  * Get a date that is a week previous
  */

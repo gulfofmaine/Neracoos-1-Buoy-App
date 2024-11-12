@@ -10,6 +10,73 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.2 - 11/8/2024
+
+Additions:
+
+- Add Global loading status [3139](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3139)
+- Add quotes to Kustomize newTag [3195](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3195)
+- Adds a banner for emergency nws link [3184](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3184)
+
+Changes:
+
+- Filter old and future forecasts [3155](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3155)
+- Update station name format [3174](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3174)
+- seperate sensors by region [3198](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3198)
+- Decrease x axis timeframe and make map icons circles [3201](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3201)
+- Adelle/default search params [3213](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3213)
+
+Fixes:
+
+- N/A
+
+Dependency updates:s
+
+- Github Actions:
+  - docker/build-push-action from 6.7.0 to 6.9.0
+  - docker/setup-buildx-action from 3.7.0 to 3.7.1
+  - docker/setup-buildx-action from 3.6.1 to 3.7.0
+- Javascript
+
+  - @reduxjs/toolkit from 2.2.7 to 2.2.8
+  - express from 4.21.0 to 4.21.1
+  - typescript from 5.6.2 to 5.6.3
+  - @sentry/nextjs from 8.32.0 to 8.37.1
+  - query-string from 9.1.0 to 9.1.1
+
+  - react-query group from 5.56.2 to 5.59.20
+    - @tanstack/react-query
+    - @tanstack/react-query-devtools
+  - Next group from 14.2.13 to 14.2.15
+    - next
+    - eslint-plugin-next
+    - @next/eslint-plugin-next
+  - Types
+    - @types/jest from 29.5.12 to 29.5.13
+    - @types/react from 18.3.9 to 18.3.11
+    - @types/node from 22.7.3 to 22.7.5
+    - @types/react-dom from 18.3.0 to 18.3.1
+  - Redux
+    - @redux/toolkit from 2.2.8 to 2.3.0
+    - redux-mock-store from 1.5.4 to 1.5.5
+  - Testing
+    - Storybook group with 9 updates from 8.3.3 t0 8.4.2
+      - Addon a11y
+      - Addon essentials
+      - Addon interactions
+      - Addon links
+      - Addon onboarding
+      - Blocks
+      - Next JS
+      - Test
+    - @playwright/test from 1.47.2 to 1.48.2
+    - @testing-library/jest-dom from 6.5.0 to 6.6.3
+
+- sass from 1.79.3 to 1.80.3
+- @spotlightjs/spotlight from 2.4.1 to 2.5.0
+- cookie from 0.6.0 to 0.7.1
+- elliptic from 6.5.7 to 6.6.0
+
 ## 1.0.1 - 9/27/2024
 
 Additions:

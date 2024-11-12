@@ -14,7 +14,14 @@ import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import {
+  aDayAgoRounded,
+  daysAgoRounded,
+  daysInFuture,
+  getIsoForPicker,
+  threeDaysAgoRounded,
+  weeksInFuture,
+} from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
@@ -70,9 +77,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const [display, setDisplay] = useState("grey")
   let radius: number
   if (selected) {
-    radius = window.innerWidth > adjustPxWidth ? 12 : 17
+    radius = window.innerWidth > adjustPxWidth ? 10 : 15
   } else {
-    radius = window.innerWidth > adjustPxWidth ? 7 : 12
+    radius = window.innerWidth > adjustPxWidth ? 5 : 10
   }
   const isSensorPage = path.includes("sensor")
 
@@ -87,33 +94,29 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
       const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
       setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "f2" : "bf"
+      const opacity = selected ? "bf" : "a0"
       const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
       setDisplay(display)
     }
   }, [platform.properties.readings, selected, old, platform])
-
-  const query = isSensorPage
-    ? buildSearchParamsQuery(
-        searchParams.get("start") as string,
-        searchParams.get("end") as string,
-        searchParams.get("datum") as DatumOffsetOptions,
-      )
-    : buildSearchParamsQuery(
-        getIsoForPicker(threeDaysAgoRounded()),
-        getIsoForPicker(weeksInFuture(1)),
-        "datum_mllw_meters",
-      )
 
   return (
     <div style={{ zIndex: 10 }}>
       {platform && display && (
         <Layer
           platform={platform}
-          url={{
-            pathname: `/water-level/sensor/${platform.id}`,
-            query,
-          }}
+          url={
+            isSensorPage && searchParams.get("datum")
+              ? {
+                  pathname: `/water-level/sensor/${platform.id}`,
+                  query: buildSearchParamsQuery(
+                    searchParams.get("start") as string,
+                    searchParams.get("end") as string,
+                    searchParams.get("datum") as DatumOffsetOptions,
+                  ),
+                }
+              : `/water-level/sensor/${platform.id}`
+          }
           router={router}
           radius={radius}
           color={display}
@@ -134,10 +137,10 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
     <RLayerVector zIndex={10} key={key}>
       {color && (
         <RStyle.RStyle>
-          <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
+          <RStyle.RCircle radius={radius}>
             <RStyle.RFill color={color} />
-            <RStyle.RStroke color={"000000"} width={0.5} />
-          </RStyle.RRegularShape>
+            <RStyle.RStroke color={color} width={2} />
+          </RStyle.RCircle>
         </RStyle.RStyle>
       )}
 
