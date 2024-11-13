@@ -42,7 +42,6 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
     ? manuallySetFullEODIso(new Date(searchParams.get("end") as string))
     : daysInFuture(0)
 
-  console.log("apples", startDate, endDate)
   useEffect(() => {
     setOpen(false)
   }, [searchParams])
@@ -105,7 +104,6 @@ export const ChartTimeSeriesDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   endTime,
 }: ChartTimeSeriesDisplayProps) => {
   const bounds = naturalBounds(timeSeries.data_type.standard_name)
-  console.log(startTime, endTime)
 
   return (
     <>

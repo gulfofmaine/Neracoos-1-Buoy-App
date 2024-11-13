@@ -42,9 +42,6 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
     ? manuallySetFullEODIso(new Date(searchParams.get("end") as string))
     : daysInFuture(0)
 
-  // const startDate = aWeekAgoRounded()
-  console.log(endDate)
-
   const { timeSeries } = pickWindTimeSeries(platform)
 
   if (timeSeries.length < 0) {
