@@ -114,7 +114,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                       pathname: `${pathname}${params.sensorId}`,
                       query: buildSearchParamsQuery("", "", searchParams.get("datum") as DatumOffsetOptions),
                     }
-                  : `${pathname}${params.sensorId || ""}`
+                  : pathname
               }
             >
               <Revert fill={"#000000"} />
