@@ -1,6 +1,14 @@
-import { getIsoForPicker, getToday, threeDaysAgoRounded, weeksInFuture, YEAR } from "Shared/time"
+import {
+  aWeekAgoRounded,
+  daysInFuture,
+  getIsoForPicker,
+  getToday,
+  threeDaysAgoRounded,
+  weeksInFuture,
+  YEAR,
+} from "Shared/time"
 
-import { usePathname, useSearchParams } from "next/navigation"
+import { useParams, usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
@@ -12,11 +20,14 @@ import { DatumOffsetOptions } from "../types"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
   const pathname = usePathname()
+  const params = useParams()
   const searchParams = useSearchParams()
-  const [startTime, setStartTime] = useState<any>(searchParams.get("start"))
-  const [endTime, setEndTime] = useState<any>(searchParams.get("end"))
+  const [startTime, setStartTime] = useState<any>(searchParams.get("start")) || getIsoForPicker(aWeekAgoRounded())
+  const [endTime, setEndTime] = useState<any>(searchParams.get("end")) || getIsoForPicker(daysInFuture(0))
   const [validDateMessage, setValidDateMessage] = useState<string>("")
   const isWaterLevel = pathname.includes("water-level")
+
+  console.log("bananas", startTime)
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
@@ -46,11 +57,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   }, [startTime, endTime])
 
   useEffect(() => {
-    setStartTime(searchParams.get("start"))
+    setStartTime(searchParams.get("start") || getIsoForPicker(aWeekAgoRounded()))
   }, [searchParams.get("start")])
 
   useEffect(() => {
-    setEndTime(searchParams.get("end"))
+    setEndTime(searchParams.get("end") || getIsoForPicker(daysInFuture(0)))
   }, [searchParams.get("end")])
 
   return (
@@ -99,15 +110,14 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             id="revert-default-date"
           >
             <Link
-              href={{
-                pathname,
-                query: buildSearchParamsQuery(
-                  getIsoForPicker(threeDaysAgoRounded()),
-                  isWaterLevel ? getIsoForPicker(weeksInFuture(1)) : endTime,
-                  (searchParams.get("datum") as DatumOffsetOptions) &&
-                    (searchParams.get("datum") as DatumOffsetOptions),
-                ),
-              }}
+              href={
+                searchParams.get("datum")
+                  ? {
+                      pathname: `${pathname}${params.sensorId}`,
+                      query: buildSearchParamsQuery("", "", searchParams.get("datum") as DatumOffsetOptions),
+                    }
+                  : `${pathname}${params.sensorId || ""}`
+              }
             >
               <Revert fill={"#000000"} />
             </Link>

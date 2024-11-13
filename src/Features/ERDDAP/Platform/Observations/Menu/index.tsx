@@ -70,16 +70,7 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
       )
 
       return (
-        <Link
-          className="dropdown-item nav-item"
-          key={index}
-          href={{
-            pathname: url,
-            query: buildSearchParamsQuery(getIsoForPicker(aWeekAgoRounded()), getIsoForPicker(weeksInFuture(0))),
-          }}
-          onClick={close}
-          role="menuitem"
-        >
+        <Link className="dropdown-item nav-item" key={index} href={url} onClick={close} role="menuitem">
           {d.long_name}
         </Link>
       )
@@ -107,15 +98,7 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
         </Link>
         {dropdownItems}
         {platform.properties.readings.filter((d) => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
-          <Link
-            className="dropdown-item nav-item"
-            href={{
-              pathname: windUrl,
-              query: buildSearchParamsQuery(getIsoForPicker(aWeekAgoRounded()), getIsoForPicker(weeksInFuture(0))),
-            }}
-            onClick={close}
-            role="menuitem"
-          >
+          <Link className="dropdown-item nav-item" href={windUrl} onClick={close} role="menuitem">
             Wind
           </Link>
         ) : null}
