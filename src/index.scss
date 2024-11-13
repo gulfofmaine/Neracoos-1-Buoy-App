@@ -158,6 +158,12 @@ nav.navbar {
   justify-self: end;
 }
 
+@media (max-width: 1300px) {
+  .timeframe-card {
+    margin-left: 20px;
+  }
+}
+
 @media (max-width: 1040px) {
   .chart-display {
     width: 100%;

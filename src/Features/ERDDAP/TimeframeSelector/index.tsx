@@ -72,7 +72,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
             padding: 0,
             width: "100%",
             display: "flex",
-            alignItems: "end",
+            alignItems: "center",
           }}
         >
           <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
