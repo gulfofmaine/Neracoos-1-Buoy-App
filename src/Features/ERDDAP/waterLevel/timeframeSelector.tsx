@@ -19,7 +19,6 @@ import { buildSearchParamsQuery } from "Shared/urlParams"
 import { DatumOffsetOptions } from "../types"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
-  const router = useRouter()
   const params = useParams()
   const pathname = usePathname()
   const searchParams = useSearchParams()

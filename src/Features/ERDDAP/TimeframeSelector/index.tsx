@@ -27,8 +27,6 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const [validDateMessage, setValidDateMessage] = useState<string>("")
   const isWaterLevel = pathname.includes("water-level")
 
-  console.log("bananas", startTime)
-
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
     if (isWaterLevel) {

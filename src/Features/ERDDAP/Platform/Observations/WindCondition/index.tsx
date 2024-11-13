@@ -39,8 +39,8 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   const searchParams = useSearchParams()
   const startDate = searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded()
   const endDate = searchParams.get("end")
-    ? new Date(searchParams.get("end") as string)
-    : manuallySetFullEODIso(daysInFuture(0))
+    ? manuallySetFullEODIso(new Date(searchParams.get("end") as string))
+    : daysInFuture(0)
 
   // const startDate = aWeekAgoRounded()
   console.log(endDate)

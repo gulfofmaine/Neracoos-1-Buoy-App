@@ -22,7 +22,7 @@ import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import Link from "next/link"
 import { Button } from "reactstrap"
-import { TimeframeSelector } from "Features/ERDDAP/waterLevel/timeframeSelector"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
