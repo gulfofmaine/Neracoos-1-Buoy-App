@@ -59,7 +59,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
   })
 
   if (results === undefined) {
-    return <h4>Results is not defined</h4>
+    return <h4>Results are not available</h4>
   }
 
   const loadingGroups = results.filter((group) => group.isLoading)

@@ -1,12 +1,4 @@
-import {
-  aWeekAgoRounded,
-  daysInFuture,
-  getIsoForPicker,
-  getToday,
-  threeDaysAgoRounded,
-  weeksInFuture,
-  YEAR,
-} from "Shared/time"
+import { aWeekAgoRounded, daysAgoRounded, daysInFuture, getIsoForPicker, getToday, YEAR } from "Shared/time"
 
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
@@ -22,10 +14,12 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   const pathname = usePathname()
   const params = useParams()
   const searchParams = useSearchParams()
-  const [startTime, setStartTime] = useState<any>(searchParams.get("start")) || getIsoForPicker(aWeekAgoRounded())
-  const [endTime, setEndTime] = useState<any>(searchParams.get("end")) || getIsoForPicker(daysInFuture(0))
-  const [validDateMessage, setValidDateMessage] = useState<string>("")
   const isWaterLevel = pathname.includes("water-level")
+  const [startTime, setStartTime] =
+    useState<any>(searchParams.get("start")) || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded())
+  const [endTime, setEndTime] =
+    useState<any>(searchParams.get("end")) || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0))
+  const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {
     //check if timeFrame spans more than two weeks
@@ -55,12 +49,13 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
   }, [startTime, endTime])
 
   useEffect(() => {
-    setStartTime(searchParams.get("start") || getIsoForPicker(aWeekAgoRounded()))
-  }, [searchParams.get("start")])
+    setStartTime(searchParams.get("start") || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()))
+    setEndTime(searchParams.get("end") || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0)))
+  }, [searchParams, isWaterLevel])
 
-  useEffect(() => {
-    setEndTime(searchParams.get("end") || getIsoForPicker(daysInFuture(0)))
-  }, [searchParams.get("end")])
+  // useEffect(() => {
+  //   setEndTime(searchParams.get("end") || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0)))
+  // }, [searchParams.get("end")])
 
   return (
     <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
@@ -82,7 +77,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               id="start"
               name="start"
               max={getToday()}
-              value={startTime}
+              value={startTime || ""}
               onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
               required
             />
@@ -95,7 +90,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               name="end"
               min={startTime}
               max={graphFuture ? undefined : getToday()}
-              value={endTime}
+              value={endTime || ""}
               onInput={(e) => setEndTime(getIsoForPicker(new Date((e.target as HTMLInputElement).value)))}
               required
             />
