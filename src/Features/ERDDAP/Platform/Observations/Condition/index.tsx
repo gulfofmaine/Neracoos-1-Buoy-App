@@ -1,7 +1,7 @@
 /**
  * Display all time series for a specific standard name
  */
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Col, Collapse, Row } from "reactstrap"
 
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
@@ -18,6 +18,7 @@ import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
 import { Calendar } from "Shared/icons/Calendar"
 import { aWeekAgoRounded, daysInFuture, getIsoForPicker, manuallySetFullEODIso } from "Shared/time"
+import { PlatformLoadingAlert } from "components/Alerts"
 
 interface Props {
   /** Platform to display */
@@ -37,10 +38,12 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const toggle = () => setOpen(!isOpen)
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
-  const startDate = searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded()
-  const endDate = searchParams.get("end")
-    ? manuallySetFullEODIso(new Date(searchParams.get("end") as string))
-    : daysInFuture(0)
+  const [startDate, setStartDate] = useState(
+    searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
+  )
+  const [endDate, setEndDate] = useState(
+    searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
+  )
 
   useEffect(() => {
     setOpen(false)
@@ -65,7 +68,12 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
               {index === 0 && <TimeframeSelector graphFuture={false} />}
             </div>
           </div>
-          <UseDataset timeSeries={ts} startTime={startDate} endTime={endDate}>
+          <UseDataset
+            timeSeries={ts}
+            startTime={startDate}
+            endTime={endDate}
+            loading={<PlatformLoadingAlert time_series={ts} />}
+          >
             {({ dataset }) => (
               <ChartTimeSeriesDisplay
                 {...{ dataset, standardName, unitSystem }}
