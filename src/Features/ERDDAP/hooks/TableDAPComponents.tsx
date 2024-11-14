@@ -59,7 +59,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
   })
 
   if (results === undefined) {
-    return <h4>Results is not defined</h4>
+    return <h4>Results are not available</h4>
   }
 
   const loadingGroups = results.filter((group) => group.isLoading)
@@ -138,6 +138,7 @@ interface UseDatasetProps {
   children: (props: UseDatasetRenderProps) => JSX.Element
   timeSeries: PlatformTimeSeries
   startTime?: Date
+  endTime?: Date
 }
 
 export interface UseDatasetRenderProps {
@@ -157,10 +158,11 @@ export const UseDataset: React.FunctionComponent<UseDatasetProps> = ({
   children,
   timeSeries,
   startTime,
+  endTime,
   loading,
   error,
 }) => {
-  const { isLoading, data } = useDataset(timeSeries, startTime)
+  const { isLoading, data } = useDataset(timeSeries, startTime, endTime)
 
   if (isLoading) {
     if (loading) {

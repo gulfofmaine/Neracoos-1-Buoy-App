@@ -128,8 +128,71 @@ nav.navbar {
   row-gap: 5px;
 }
 
-@media (max-width: 576px) {
+.timeframe-label {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.timeframe-card {
+  width: fit-content;
+  padding: 8px;
+  margin-top: 5px;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
+.observation-title-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.obervation-title {
+  grid-column: 2;
+  justify-self: center;
+}
+
+.observation-timeframe-selector {
+  grid-column: 3;
+  justify-self: end;
+}
+
+@media (max-width: 1300px) {
+  .timeframe-card {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 1040px) {
   .chart-display {
     width: 100%;
+  }
+  .observation-title-container {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+  .obervation-title {
+    grid-column: 1;
+  }
+  .observation-timeframe-selector {
+    justify-self: center;
+    grid-column: 1;
+  }
+  .timeframe-card {
+    margin: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .timeframe-card .main {
+    width: 95%;
+  }
+  .timeframe-label {
+    flex-direction: column;
+    margin: 0;
+  }
+  #revert-default-date {
+    margin-left: -20px;
   }
 }

@@ -52,6 +52,9 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
           <li>
             <a href={protocolUrl("html")}>ERDDAP dataset</a>
           </li>
+          <li>
+            <a href={protocolUrl("graph")}>ERDDAP graph</a>
+          </li>
         </ul>
       </Tooltip>
     </React.Fragment>

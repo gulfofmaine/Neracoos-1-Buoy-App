@@ -6,7 +6,6 @@ import { useParams, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
-import { TimeframeSelector } from "../timeframeSelector"
 import {
   displayShortIso,
   fullBeginningDateIso,
@@ -23,6 +22,7 @@ import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import Link from "next/link"
 import { Button } from "reactstrap"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -142,6 +142,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />
+      <h6 style={{ fontWeight: "bold", marginTop: "20px" }}>Timeframe Selection:</h6>
       <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
       {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
     </div>
