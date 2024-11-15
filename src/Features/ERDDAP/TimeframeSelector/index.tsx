@@ -53,10 +53,6 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
     setEndTime(searchParams.get("end") || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0)))
   }, [searchParams, isWaterLevel])
 
-  // useEffect(() => {
-  //   setEndTime(searchParams.get("end") || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0)))
-  // }, [searchParams.get("end")])
-
   return (
     <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
