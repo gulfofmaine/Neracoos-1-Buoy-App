@@ -1,27 +1,13 @@
-import { DatumOffsetOptions, PlatformTimeSeries } from "Features/ERDDAP/types"
+import { PlatformTimeSeries } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { useParams, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useState } from "react"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { getDatumDisplayName } from "Shared/dataTypes"
-import {
-  displayShortIso,
-  fullBeginningDateIso,
-  getIsoForPicker,
-  manuallySetFullEODIso,
-  roundDate,
-  shortIso,
-  threeDaysAgoRounded,
-  weeksInFuture,
-} from "Shared/time"
-import { round } from "@turf/helpers"
+import { displayShortIso } from "Shared/time"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
-import { Revert } from "Shared/icons/Revert"
-import { buildSearchParamsQuery } from "Shared/urlParams"
-import Link from "next/link"
-import { Button } from "reactstrap"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 
 interface ChartTimeSeriesDisplayProps {
@@ -43,8 +29,10 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   startTime,
   endTime,
 }: ChartTimeSeriesDisplayProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
   const [floodThresholds, setFloodThresholds] = useState<any>()
-  const [datumOffset, setDatumOffset] = useState<number | undefined>()
+  const [datumOffset, setDatumOffset] = useState<number | null>()
   const [title, setTitle] = useState<string>()
   const [yMax, setYMax] = useState<number>()
   const [yMin, setYMin] = useState<number>()
@@ -65,6 +53,16 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
     }, 0)
   }
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams],
+  )
 
   useEffect(() => {
     if (timeSeries.flood_levels.length) {
@@ -95,11 +93,13 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     if (searchParams.get("datum")) {
       const datum = searchParams.get("datum") as string
       const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
-      offsetName && setDatumOffset(timeSeries.datum_offsets[offsetName])
+      offsetName
+        ? setDatumOffset(timeSeries.datum_offsets[offsetName])
+        : router.push(pathname + "?" + createQueryString("datum", ""))
     } else {
       setDatumOffset(timeSeries.datum_offsets["datum_mllw_meters"])
     }
-  }, [searchParams, timeSeries])
+  }, [searchParams, timeSeries, pathname])
 
   useEffect(() => {
     const allReadings = dataset.timeSeries.map((t) => t.reading)
