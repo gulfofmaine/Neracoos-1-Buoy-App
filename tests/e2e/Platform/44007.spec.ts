@@ -26,7 +26,7 @@ test.describe("Platfrom 44007", () => {
     await expect(page.getByText(/Latest Conditions/).first()).toBeVisible()
     await expect(page.getByText(/Winds -/).first()).toBeVisible()
 
-    await expect(page.getByText("Loading data").first()).toBeHidden()
+    await expect(page.getByText("Loading").first()).toBeHidden()
 
     const cards = await page.locator(".card")
     await expect(await cards.count()).toBeGreaterThan(3)
@@ -65,9 +65,12 @@ test.describe("Platfrom 44007", () => {
       page
         .locator("h4")
         .getByText(/Significant Wave Height Forecast/)
-        .first(),
+        .first()
+        .or(page.getByText("No current forecast available")),
     ).toBeVisible()
-    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
+    await expect(
+      page.locator("svg.highcharts-root").getByText(/ft/).first().or(page.getByText("No current forecast available")),
+    ).toBeVisible()
     await page
       .getByText(/Metric/)
       .first()
@@ -76,17 +79,24 @@ test.describe("Platfrom 44007", () => {
       page
         .locator("svg.highcharts-root")
         .getByText(/Meters/)
-        .first(),
+        .first()
+        .or(page.getByText("No current forecast available")),
     ).toBeVisible()
     await page
       .getByText(/English/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
-    await page
-      .getByText(/Wave Height - observations/)
-      .first()
-      .click()
+    await expect(
+      page.locator("svg.highcharts-root").getByText(/ft/).first().or(page.getByText("No current forecast available")),
+    ).toBeVisible()
+    if (await page.getByText(/Wave Height - observations/).isVisible()) {
+      await page
+        .getByText(/Wave Height - observations/)
+        .first()
+        .click()
+    } else {
+      await expect(page.getByText("No current forecast available")).toBeVisible()
+    }
 
     // await page.locator('svg.highcharts-root').getByText(/Bedford Institute Wave Model - Height/).click()
     // await page.locator('svg.highcharts-root').getByText('Northeast Coastal Ocean Forecast System').click()

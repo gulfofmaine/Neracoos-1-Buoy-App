@@ -12,13 +12,13 @@ import { DatumOffsetOptions } from "../types"
 
 export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
   const pathname = usePathname()
-  const params = useParams()
   const searchParams = useSearchParams()
   const isWaterLevel = pathname.includes("water-level")
   const [startTime, setStartTime] =
     useState<any>(searchParams.get("start")) || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded())
   const [endTime, setEndTime] =
-    useState<any>(searchParams.get("end")) || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0))
+    useState<any>(searchParams.get("end")) ||
+    getIsoForPicker(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0))
   const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {
@@ -50,12 +50,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
 
   useEffect(() => {
     setStartTime(searchParams.get("start") || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()))
-    setEndTime(searchParams.get("end") || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0)))
-  }, [searchParams, isWaterLevel])
-
-  // useEffect(() => {
-  //   setEndTime(searchParams.get("end") || getIsoForPicker(isWaterLevel ? daysInFuture(3) : daysInFuture(0)))
-  // }, [searchParams.get("end")])
+    setEndTime(
+      searchParams.get("end") ||
+        getIsoForPicker(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0)),
+    )
+  }, [searchParams, isWaterLevel, graphFuture, pathname])
 
   return (
     <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
@@ -106,7 +105,7 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               href={
                 searchParams.get("datum")
                   ? {
-                      pathname: `${pathname}${params.sensorId}`,
+                      pathname: `${pathname}`,
                       query: buildSearchParamsQuery("", "", searchParams.get("datum") as DatumOffsetOptions),
                     }
                   : pathname

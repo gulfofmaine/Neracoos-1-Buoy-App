@@ -54,12 +54,12 @@ export const WaterLevelObservationBase = ({ platform }) => {
       router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
     }
     if (!predictedTidesTimeseries) {
-      const newParams = buildSearchParamsQuery(
-        getIsoForPicker(startTime),
-        new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
-        searchParams.get("datum") as DatumOffsetOptions,
-      )
-      router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
+      // const newParams = buildSearchParamsQuery(
+      //   getIsoForPicker(startTime),
+      //   new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),
+      //   searchParams.get("datum") as DatumOffsetOptions,
+      // )
+      // router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
     }
     setPredictedTides(predictedTidesTimeseries)
   }, [platform])

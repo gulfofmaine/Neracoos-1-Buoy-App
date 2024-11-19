@@ -106,7 +106,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     })
   }
 
-  forecastResults.forEach(({ data, meta }, index) => {
+  forecastResults?.forEach(({ data, meta }, index) => {
     chartData.push({
       timeSeries: data,
       name: meta.name + " - forecast",
@@ -118,19 +118,20 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   })
 
   const unitSystem = useUnitSystem()
-
-  const isPending = results.some((r) => r.isPending)
-  if (forecasts === undefined || forecasts.length < 1 || (isPending === false && forecastResults.length < 1)) {
+  const isPending = results.some((r) => r.isLoading)
+  if (forecasts === undefined || forecasts?.length < 1 || (isPending === false && forecastResults?.length < 1)) {
     return (
       <Row>
         <Col>
           <WarningAlert>
-            <h4>No forecast available for {forecast_type}</h4>
+            <h4>No current forecast available for {forecast_type}</h4>
           </WarningAlert>
         </Col>
       </Row>
     )
   }
+
+  // console.log("forecasts: ", forecasts, "Pending: ", isPending, "Forecast Results: ", forecastResults)
 
   return (
     <Row>
@@ -138,7 +139,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
         <div style={{ textAlign: "center" }}>
           <h4>
             {forecasts[0].forecast_type} Forecast{" "}
-            {forecastResults.length > 0 ? (
+            {forecastResults?.length > 0 ? (
               <ForecastInfo>
                 Data access:
                 <ul style={{ paddingLeft: "1rem" }}>
