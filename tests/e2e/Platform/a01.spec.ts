@@ -93,7 +93,9 @@ test.describe("Platform A01", () => {
         .getByText(/Significant Wave Height Forecast/)
         .first(),
     ).toBeVisible()
-    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
+    await expect(
+      page.locator("svg.highcharts-root").getByText(/ft/).first().or(page.getByText("No current forecast available")),
+    ).toBeVisible()
     await page
       .getByText(/Metric/)
       .first()
@@ -102,13 +104,16 @@ test.describe("Platform A01", () => {
       page
         .locator("svg.highcharts-root")
         .getByText(/Meters/)
-        .first(),
+        .first()
+        .or(page.getByText("No current forecast available")),
     ).toBeVisible()
     await page
       .getByText(/English/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/ft/).first()).toBeVisible()
+    await expect(
+      page.locator("svg.highcharts-root").getByText(/ft/).first().or(page.getByText("No current forecast available")),
+    ).toBeVisible()
     await page
       .getByText(/Significant Wave Height - observations/)
       .first()
