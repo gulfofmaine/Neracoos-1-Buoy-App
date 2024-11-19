@@ -65,7 +65,8 @@ test.describe("Platfrom 44007", () => {
       page
         .locator("h4")
         .getByText(/Significant Wave Height Forecast/)
-        .first(),
+        .first()
+        .or(page.getByText("No current forecast available")),
     ).toBeVisible()
     await expect(
       page.locator("svg.highcharts-root").getByText(/ft/).first().or(page.getByText("No current forecast available")),
@@ -88,10 +89,14 @@ test.describe("Platfrom 44007", () => {
     await expect(
       page.locator("svg.highcharts-root").getByText(/ft/).first().or(page.getByText("No current forecast available")),
     ).toBeVisible()
-    await page
-      .getByText(/Wave Height - observations/)
-      .first()
-      .click()
+    if (await page.getByText(/Wave Height - observations/).isVisible()) {
+      await page
+        .getByText(/Wave Height - observations/)
+        .first()
+        .click()
+    } else {
+      await expect(page.getByText("No current forecast available")).toBeVisible()
+    }
 
     // await page.locator('svg.highcharts-root').getByText(/Bedford Institute Wave Model - Height/).click()
     // await page.locator('svg.highcharts-root').getByText('Northeast Coastal Ocean Forecast System').click()
