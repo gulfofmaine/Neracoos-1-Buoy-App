@@ -74,6 +74,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const path = usePathname()
   const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
+  const [predictedFloodThreshold, setPredicatedFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState("grey")
   let radius: number
   if (selected) {
@@ -82,6 +83,26 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     radius = window.innerWidth > adjustPxWidth ? 5 : 10
   }
   const isSensorPage = path.includes("sensor")
+  console.log("bananas", platform)
+  console.log(
+    "apples",
+    platform.id === "CASM1" &&
+      platform.properties.readings.find((p) => p.data_type.standard_name === "predicted_sea_water_level"),
+  )
+
+  const getObservedWaterDisplay = (currentWaterLevel) => {
+    const value = currentWaterLevel?.value
+    const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
+    const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
+    setFloodThreshold(surpassedThreshold)
+    const opacity = selected ? "bf" : "a0"
+    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+    setDisplay(display)
+  }
+
+  const getPredictedWaterDisplay = () => {
+    const high = "high"
+  }
 
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find(
@@ -90,13 +111,8 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
-      const value = currentWaterLevel?.value
-      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
-      const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
-      setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "bf" : "a0"
-      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-      setDisplay(display)
+      getObservedWaterDisplay(currentWaterLevel)
+      getPredictedWaterDisplay()
     }
   }, [platform.properties.readings, selected, old, platform])
 
