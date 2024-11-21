@@ -10,6 +10,20 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.3 - 11/21/2024
+
+Additions:
+
+- Add timeframe selector to main platform observations [3194](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3194)
+
+Changes:
+
+Fixes:
+
+- Fix lost invisible flood thresholds [3229](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3229)
+
+Dependency updates:
+
 ## 1.0.2 - 11/8/2024
 
 Additions:
