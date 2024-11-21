@@ -98,10 +98,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   const getPredictedWaterDisplay = (predictedWaterLevel) => {
     const highValue = predictedWaterLevel.extrema_values.max?.value
-    if (platform.id === "CASM1") {
-      console.log(predictedWaterLevel)
-      console.log(highValue)
-    }
     const predWaterLevelThresholds = getWaterLevelThresholdsMapRawComp(predictedWaterLevel?.flood_levels)
     const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
     setPredictedFloodThreshold(surpassedThreshold)

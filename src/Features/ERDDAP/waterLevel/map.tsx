@@ -66,7 +66,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
           <LegendItem color={"#ff9000"} text={"Minor"} />
           <LegendItem color={"#ff2000"} text={"Moderate"} />
           <LegendItem color={"#aa00ff"} text={"Major"} />
-          <LegendItem color={"grey"} text={"No Flood Threshold Data"} />
+          <LegendItem color={"grey"} text={"No Data"} />
         </div>
         <EsriOceanBasemapLayer />
         <EsriOceanReferenceLayer />
