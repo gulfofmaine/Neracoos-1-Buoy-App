@@ -36,6 +36,7 @@ import { platformName } from "../utils/platformName"
 import Link from "next/link"
 import { Feature } from "ol"
 import { RStyleArray } from "rlayers/style"
+import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -106,9 +107,10 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     setPredictedDisplay(display)
   }
   useEffect(() => {
-    const currentWaterLevel = platform.properties.readings.find(
-      (r) => r.flood_levels.length && r.variable !== "predictedWL",
-    )
+    const currentWaterLevel = platform.properties.readings.find((r) => {
+      console.log(WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name))
+      return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
+    })
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
