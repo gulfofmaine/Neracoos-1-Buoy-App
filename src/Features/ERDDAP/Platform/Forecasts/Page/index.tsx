@@ -131,8 +131,6 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
     )
   }
 
-  // console.log("forecasts: ", forecasts, "Pending: ", isPending, "Forecast Results: ", forecastResults)
-
   return (
     <Row>
       <Col>

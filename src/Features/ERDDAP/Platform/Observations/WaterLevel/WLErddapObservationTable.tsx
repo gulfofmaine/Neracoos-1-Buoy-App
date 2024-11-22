@@ -33,10 +33,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
   children,
 }: Props) => {
   const [datumOptions, setDatumOptions] = useState<DatumOffsets | undefined>()
-  const [highTide, setHighTide] = useState<Date>()
-  const [lowTide, setLowTide] = useState<Date>()
 
-  console.log(platform)
   useEffect(() => {
     if (platform.properties.readings.length && children) {
       const wlReading = platform.properties.readings.find((r) => Object.keys(r.datum_offsets).length)
@@ -50,49 +47,11 @@ export const WLErddapObservationTable: React.FC<Props> = ({
     laterThan,
   )
 
-  useEffect(() => {
-    const futureTides = platform.properties.readings.find(
-      (ts) => ts.type === "Prediction" && ts.variable === "predictedWL",
-    )?.extrema_values.tides
-
-    const nextTides = futureTides?.filter((t) => new Date(t.time) >= new Date(Date.now()))
-    const nextHigh = nextTides?.find((t) => t.tide === "high")
-    const nextLow = nextTides?.find((t) => t.tide === "low")
-    setHighTide(new Date(nextHigh?.time as string))
-    setLowTide(new Date(nextLow?.time as string))
-  }, [platform])
-
   const time = waterLevelTimeseries?.time ? new Date(waterLevelTimeseries.time) : null
 
   const { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, laterThan)
   const times = allCurrentConditionsTimeseries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
-
-  const highTideListComponent = (
-    <ListGroupItem style={itemStyle}>
-      <b>Next High Tide: </b>
-      {highTide?.toLocaleString(undefined, {
-        hour: "2-digit",
-        hour12: true,
-        minute: "2-digit",
-        month: "short",
-        day: "numeric",
-      })}
-    </ListGroupItem>
-  )
-
-  const lowTideListComponent = (
-    <ListGroupItem style={itemStyle}>
-      <b>Next Low Tide: </b>
-      {lowTide?.toLocaleString(undefined, {
-        hour: "2-digit",
-        hour12: true,
-        minute: "2-digit",
-        month: "short",
-        day: "numeric",
-      })}
-    </ListGroupItem>
-  )
 
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
@@ -112,17 +71,6 @@ export const WLErddapObservationTable: React.FC<Props> = ({
       )}
       {waterLevelTimeseries && (
         <TableItem key="WL-ts" timeSeries={waterLevelTimeseries} platform={platform} unitSystem={unitSystem} />
-      )}
-      {highTide && lowTide && lowTide < highTide ? (
-        <>
-          {lowTideListComponent}
-          {highTideListComponent}
-        </>
-      ) : (
-        <>
-          {highTideListComponent}
-          {lowTideListComponent}
-        </>
       )}
       {unitSelector ? (
         <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>

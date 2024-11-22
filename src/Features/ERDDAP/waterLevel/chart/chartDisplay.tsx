@@ -1,4 +1,4 @@
-import { PlatformTimeSeries } from "Features/ERDDAP/types"
+import { PlatformFeature, PlatformTimeSeries } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { DataTimeSeries } from "Shared/timeSeries"
@@ -9,6 +9,7 @@ import { getDatumDisplayName } from "Shared/dataTypes"
 import { displayShortIso } from "Shared/time"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { TidesTable } from "Features/ERDDAP/waterLevel/TidesTable"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -18,6 +19,7 @@ interface ChartTimeSeriesDisplayProps {
   predictedTidesDataset: DataTimeSeries | null
   startTime: Date
   endTime: Date
+  platform?: PlatformFeature
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
@@ -28,6 +30,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   predictedTidesDataset,
   startTime,
   endTime,
+  platform,
 }: ChartTimeSeriesDisplayProps) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -146,6 +149,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       />
       <h6 style={{ fontWeight: "bold", marginTop: "20px" }}>Timeframe Selection:</h6>
       <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
+      {platform && <TidesTable platform={platform} standardName={standardName} datumOffset={datumOffset || 0} />}
       {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
     </div>
   )
