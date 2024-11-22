@@ -146,8 +146,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         floodThresholds={floodThresholds}
         startTime={startTime}
         endTime={endTime}
-      />
-      <h6 style={{ fontWeight: "bold", marginTop: "20px" }}>Timeframe Selection:</h6>
+      />{" "}
       <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
       {platform && <TidesTable platform={platform} standardName={standardName} datumOffset={datumOffset || 0} />}
       {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
