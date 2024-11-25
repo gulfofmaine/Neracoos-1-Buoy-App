@@ -9,8 +9,10 @@ import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import { WLPlatformLayer } from "../Map/WLPlatformLayer"
 import { LegendItem } from "components/Map/legendItem"
+import { Table } from "reactstrap"
+import { WLLegend } from "Features/ERDDAP/waterLevel/WLLegend"
 
-const initial = { center: fromLonLat([-69.7, 43]), zoom: 6.7 }
+const initial = { center: fromLonLat([-70.5, 43.5]), zoom: 6.7 }
 
 interface Props extends BaseProps {
   mapView?: View
@@ -60,14 +62,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   return (
     <div style={{ position: "relative" }}>
       <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
-        <div className="legend-container">
-          <LegendItem color={"#72e400"} text={"No Flooding"} />
-          <LegendItem color={"#ffff00"} text={"Action"} />
-          <LegendItem color={"#ff9000"} text={"Minor"} />
-          <LegendItem color={"#ff2000"} text={"Moderate"} />
-          <LegendItem color={"#aa00ff"} text={"Major"} />
-          <LegendItem color={"grey"} text={"No Data"} />
-        </div>
+        <WLLegend />
         <EsriOceanBasemapLayer />
         <EsriOceanReferenceLayer />
 

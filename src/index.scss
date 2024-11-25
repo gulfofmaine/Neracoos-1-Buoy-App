@@ -88,23 +88,70 @@ nav.navbar {
   display: flex;
   align-items: center;
   font-size: 12px;
+  position: relative;
 }
 
-.legend-color {
+.pred-legend-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  height: 15px;
+}
+
+.obs-legend-color {
   border-radius: 5px;
   width: 10px;
   height: 10px;
   margin-right: 5px;
 }
 
+.pred-legend-color {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
 .legend-container {
+  background-color: #fffffffd;
+  padding: 10px;
+  display: flex;
+  width: 130px;
+  margin-top: -10px;
+}
+
+.legend-dropdown {
   position: absolute;
   left: 10px;
   top: 10px;
   z-index: 1;
-  background-color: #fffffffd;
-  padding: 5px;
   margin-right: 10px;
+  display: flex;
+  max-width: 120px;
+  background-color: #ffffff00;
+}
+
+.legend-dropdown.show {
+  max-width: 100px;
+}
+
+.legend-dropdown > button {
+  border-radius: 2px;
+  background-color: white;
+  border: 1px solid #d3d3d3;
+}
+
+.legend-dropdown > button {
+  background-color: white;
+}
+
+.dropdown-menu.show {
+  background-color: #ffffff00;
+  border: none;
+}
+
+.dropdown-item {
+  padding: 0;
 }
 
 .map-popup-custom {

@@ -108,7 +108,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   }
   useEffect(() => {
     const currentWaterLevel = platform.properties.readings.find((r) => {
-      console.log(WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name))
       return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
     })
     if (!currentWaterLevel) {
