@@ -113,11 +113,11 @@ nav.navbar {
 }
 
 .legend-container {
-  background-color: #fffffffd;
+  background-color: #ffffff;
   padding: 10px;
   display: flex;
   width: 130px;
-  margin-top: -10px;
+  margin-top: -5px;
 }
 
 .legend-dropdown {
@@ -128,21 +128,10 @@ nav.navbar {
   margin-right: 10px;
   display: flex;
   max-width: 120px;
+}
+
+.legend-dropdown.active {
   background-color: #ffffff00;
-}
-
-.legend-dropdown.show {
-  max-width: 100px;
-}
-
-.legend-dropdown > button {
-  border-radius: 2px;
-  background-color: white;
-  border: 1px solid #d3d3d3;
-}
-
-.legend-dropdown > button {
-  background-color: white;
 }
 
 .dropdown-menu.show {
@@ -152,6 +141,8 @@ nav.navbar {
 
 .dropdown-item {
   padding: 0;
+  background-color: #ffffff00;
+  width: 120px;
 }
 
 .map-popup-custom {
