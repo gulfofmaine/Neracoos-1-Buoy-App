@@ -22,7 +22,7 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
   useEffect(() => {
     const futureTides = platform.properties.readings.find(
       (ts) => ts.type === "Prediction" && PREDICTED_WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name),
-    )?.extrema_values.tides
+    )?.extrema_values?.tides
     const nextTides = futureTides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4)
     setNextTides(nextTides)
   }, [platform])
@@ -52,8 +52,8 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         </thead>
         <tbody>
           {nextTides &&
-            nextTides.map((t) => (
-              <tr>
+            nextTides.map((t, i) => (
+              <tr key={`tides-row=${i}`}>
                 <td>{t.tide}</td>
                 <td>
                   {`${round(

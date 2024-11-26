@@ -2,78 +2,78 @@
   {
     "name": "Home-startup",
     "brName": "general",
-    "avgTime": 3005,
-    "sem": 1395,
-    "repeats": 27,
+    "avgTime": 2917,
+    "sem": 1347,
+    "repeats": 28,
     "minValue": 284,
     "maxValue": 26525,
     "earliestTime": "9/26/2024, 10:16:19 AM",
-    "latestTime": "11/21/2024, 10:23:22 AM"
+    "latestTime": "11/26/2024, 10:23:24 AM"
   },
   {
     "name": "Home-Content",
     "brName": "general",
-    "avgTime": 3231,
-    "sem": 1500,
-    "repeats": 25,
+    "avgTime": 3129,
+    "sem": 1445,
+    "repeats": 26,
     "minValue": 296,
     "maxValue": 26531,
     "earliestTime": "9/26/2024, 10:18:31 AM",
-    "latestTime": "11/21/2024, 10:23:22 AM"
+    "latestTime": "11/26/2024, 10:23:24 AM"
   },
   {
     "name": "Home-Platforms",
     "brName": "general",
-    "avgTime": 3251,
-    "sem": 1499,
-    "repeats": 25,
+    "avgTime": 3148,
+    "sem": 1444,
+    "repeats": 26,
     "minValue": 313,
     "maxValue": 26537,
     "earliestTime": "9/26/2024, 10:18:31 AM",
-    "latestTime": "11/21/2024, 10:23:22 AM"
+    "latestTime": "11/26/2024, 10:23:24 AM"
   },
   {
     "name": "Platform-startup",
     "brName": "general",
-    "avgTime": 836,
-    "sem": 123,
-    "repeats": 19,
+    "avgTime": 816,
+    "sem": 119,
+    "repeats": 20,
     "minValue": 338,
     "maxValue": 2169,
     "earliestTime": "9/26/2024, 10:52:15 AM",
-    "latestTime": "11/21/2024, 10:23:22 AM"
+    "latestTime": "11/26/2024, 10:23:25 AM"
   },
   {
     "name": "Navigate-Startup",
     "brName": "general",
-    "avgTime": 654,
-    "sem": 126,
-    "repeats": 14,
+    "avgTime": 637,
+    "sem": 119,
+    "repeats": 15,
     "minValue": 298,
     "maxValue": 2065,
     "earliestTime": "9/26/2024, 10:55:19 AM",
-    "latestTime": "11/21/2024, 10:25:24 AM"
+    "latestTime": "11/26/2024, 10:23:25 AM"
   },
   {
     "name": "Navigate-Regions",
     "brName": "general",
-    "avgTime": 523,
-    "sem": 134,
-    "repeats": 13,
+    "avgTime": 512,
+    "sem": 125,
+    "repeats": 14,
     "minValue": 215,
     "maxValue": 2054,
     "earliestTime": "9/26/2024, 10:55:20 AM",
-    "latestTime": "11/21/2024, 10:25:25 AM"
+    "latestTime": "11/26/2024, 10:23:25 AM"
   },
   {
     "name": "Navigate-Platform",
     "brName": "general",
-    "avgTime": 325,
-    "sem": 162,
-    "repeats": 11,
+    "avgTime": 311,
+    "sem": 149,
+    "repeats": 12,
     "minValue": 142,
     "maxValue": 1945,
     "earliestTime": "9/26/2024, 10:55:20 AM",
-    "latestTime": "11/21/2024, 10:25:27 AM"
+    "latestTime": "11/26/2024, 10:23:26 AM"
   }
 ]
