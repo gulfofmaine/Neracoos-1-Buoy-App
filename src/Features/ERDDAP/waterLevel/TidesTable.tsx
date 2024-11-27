@@ -4,7 +4,7 @@ import { converter } from "Features/Units/Converter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { useEffect, useState } from "react"
 import { Table } from "reactstrap"
-import { PREDICTED_WATER_LEVEL_STANDARDS, WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
+import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { round } from "Shared/math"
 
 interface TidesTableProps {
@@ -21,7 +21,7 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
 
   useEffect(() => {
     const futureTides = platform.properties.readings.find(
-      (ts) => ts.type === "Prediction" && PREDICTED_WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name),
+      (ts) => ts.type === "Prediction" && WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name),
     )?.extrema_values?.tides
     const nextTides = futureTides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4)
     setNextTides(nextTides)

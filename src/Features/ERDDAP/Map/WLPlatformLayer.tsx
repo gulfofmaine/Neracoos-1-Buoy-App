@@ -14,14 +14,7 @@ import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import {
-  aDayAgoRounded,
-  daysAgoRounded,
-  daysInFuture,
-  getIsoForPicker,
-  threeDaysAgoRounded,
-  weeksInFuture,
-} from "Shared/time"
+import { aDayAgoRounded } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
@@ -37,7 +30,6 @@ import Link from "next/link"
 import { Feature } from "ol"
 import { RStyleArray } from "rlayers/style"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
-import { current } from "@reduxjs/toolkit"
 
 export interface Props {
   // Bounding box for fitting to a region

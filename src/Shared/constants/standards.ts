@@ -1,3 +1,6 @@
-export const PREDICTED_WATER_LEVEL_STANDARDS = ["predicted_sea_water_level"]
-
-export const WATER_LEVEL_STANDARDS = ["tidal_sea_surface_height_above_mean_lower_low_water"]
+export const WATER_LEVEL_STANDARDS = [
+  "tidal_sea_surface_height_above_mean_higher_high_water",
+  "tidal_sea_surface_height_above_mean_lower_low_water",
+  "tidal_sea_surface_height_above_mean_sea_level",
+  "predicted_sea_water_level",
+]
