@@ -37,6 +37,7 @@ import Link from "next/link"
 import { Feature } from "ol"
 import { RStyleArray } from "rlayers/style"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
+import { current } from "@reduxjs/toolkit"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -88,9 +89,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const isSensorPage = path.includes("sensor")
 
   const getObservedWaterDisplay = (currentWaterLevel) => {
-    const value = currentWaterLevel?.value
+    const highestValue = currentWaterLevel?.extrema_values?.max.value
     const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
-    const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
+    const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
     setFloodThreshold(surpassedThreshold)
     const opacity = selected ? "e6" : "a0"
     const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
