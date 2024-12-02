@@ -72,7 +72,6 @@ export const WLErddapObservationTable: React.FC<Props> = ({
       {waterLevelTimeseries && (
         <TableItem key="WL-ts" timeSeries={waterLevelTimeseries} platform={platform} unitSystem={unitSystem} />
       )}
-
       {unitSelector ? (
         <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
           <b>Unit system:</b> {unitSelector}

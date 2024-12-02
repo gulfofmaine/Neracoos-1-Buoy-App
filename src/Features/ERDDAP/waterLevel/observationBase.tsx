@@ -92,6 +92,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
                 <div style={{ marginTop: "10px" }}>
                   <WaterLevelChartDisplay
                     {...{ dataset: waterLevelData, standardName, unitSystem }}
+                    platform={platform}
                     timeSeries={waterLevel}
                     predictedTidesDataset={predictedTidesDataset}
                     startTime={startTime}

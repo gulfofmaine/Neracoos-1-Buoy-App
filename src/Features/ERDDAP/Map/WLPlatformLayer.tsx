@@ -14,14 +14,7 @@ import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import {
-  aDayAgoRounded,
-  daysAgoRounded,
-  daysInFuture,
-  getIsoForPicker,
-  threeDaysAgoRounded,
-  weeksInFuture,
-} from "Shared/time"
+import { aDayAgoRounded } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
@@ -35,6 +28,8 @@ import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
 import Link from "next/link"
 import { Feature } from "ol"
+import { RStyleArray } from "rlayers/style"
+import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -74,29 +69,52 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const path = usePathname()
   const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
+  const [predictedFloodThreshold, setPredictedFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState("grey")
+  const [predictedDisplay, setPredictedDisplay] = useState("gray")
   let radius: number
   if (selected) {
-    radius = window.innerWidth > adjustPxWidth ? 10 : 15
+    radius = window.innerWidth > adjustPxWidth ? 16 : 21
   } else {
-    radius = window.innerWidth > adjustPxWidth ? 5 : 10
+    radius = window.innerWidth > adjustPxWidth ? 10 : 15
   }
   const isSensorPage = path.includes("sensor")
 
+  const getObservedWaterDisplay = (currentWaterLevel) => {
+    const highestValue = currentWaterLevel?.extrema_values?.max.value
+    const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
+    const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
+    setFloodThreshold(surpassedThreshold)
+    const opacity = selected ? "e6" : "a0"
+    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+    setDisplay(display)
+  }
+
+  const getPredictedWaterDisplay = (predictedWaterLevel) => {
+    const highValue = predictedWaterLevel.extrema_values.max?.value
+    const predWaterLevelThresholds = getWaterLevelThresholdsMapRawComp(predictedWaterLevel?.flood_levels)
+    const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
+    setPredictedFloodThreshold(surpassedThreshold)
+    const opacity = selected ? "e6" : "a0"
+    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+    setPredictedDisplay(display)
+  }
   useEffect(() => {
-    const currentWaterLevel = platform.properties.readings.find(
-      (r) => r.flood_levels.length && r.variable !== "predictedWL",
-    )
+    const currentWaterLevel = platform.properties.readings.find((r) => {
+      return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
+    })
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
-      const value = currentWaterLevel?.value
-      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
-      const surpassedThreshold = getSurpassedThreshold(value, waterLevelThresholds)
-      setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "bf" : "a0"
-      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-      setDisplay(display)
+      getObservedWaterDisplay(currentWaterLevel)
+    }
+    const predictedWaterLevel = platform.properties.readings.find(
+      (r) => r.type === "Prediction" || r.type === "Forecast",
+    )
+    if (!predictedWaterLevel) {
+      setPredictedFloodThreshold("NA")
+    } else {
+      getPredictedWaterDisplay(predictedWaterLevel)
     }
   }, [platform.properties.readings, selected, old, platform])
 
@@ -120,14 +138,16 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
           router={router}
           radius={radius}
           color={display}
+          predColor={predictedDisplay}
           floodThreshold={floodThreshold}
+          predFloodThreshold={predictedFloodThreshold}
         />
       )}
     </div>
   )
 }
 
-const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
+const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor, predFloodThreshold }) => {
   const [key, setKey] = useState(0)
 
   useEffect(() => {
@@ -136,12 +156,21 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
   return (
     <RLayerVector zIndex={10} key={key}>
       {color && (
-        <RStyle.RStyle>
-          <RStyle.RCircle radius={radius}>
-            <RStyle.RFill color={color} />
-            <RStyle.RStroke color={color} width={2} />
-          </RStyle.RCircle>
-        </RStyle.RStyle>
+        <RStyleArray>
+          <RStyle.RStyle zIndex={20}>
+            <RStyle.RRegularShape radius={radius} points={4} angle={2.35}>
+              <RStyle.RFill color={predColor ? predColor : "grey"} />
+              <RStyle.RStroke color={"000000"} width={0.5} />
+            </RStyle.RRegularShape>
+          </RStyle.RStyle>
+
+          <RStyle.RStyle zIndex={25}>
+            <RStyle.RRegularShape radius={radius / 2.5} points={40} angle={0}>
+              <RStyle.RFill color={color ? color : "grey"} />
+              <RStyle.RStroke color={"#000000"} width={0.5} />
+            </RStyle.RRegularShape>
+          </RStyle.RStyle>
+        </RStyleArray>
       )}
 
       <Link href={url}>
@@ -156,7 +185,8 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold }) => {
         >
           <RPopup trigger={"hover"} autoPosition={true}>
             <div className="map-popup-custom">
-              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"}
+              {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"} <br></br>{" "}
+              Predicted Flood Level: {predFloodThreshold ? predFloodThreshold : "None"}
             </div>
           </RPopup>
         </RFeature>

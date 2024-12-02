@@ -200,15 +200,15 @@ exports[`Storybook Tests ERDDAP/Superlatives Configurable 1`] = `
             Highest Winds
           </h6>
           <div>
-            22.8
+            11.9
              
             Knots
           </div>
           <a
-            href="/platform/WLIS"
+            href="/platform/E01 - 44032"
           >
             <div>
-              WLIS: Western Long Island Sound
+              E01 - 44032
             </div>
           </a>
         </div>
@@ -219,15 +219,15 @@ exports[`Storybook Tests ERDDAP/Superlatives Configurable 1`] = `
             Biggest Waves
           </h6>
           <div>
-            8.3
+            4.6
              
             ft
           </div>
           <a
-            href="/platform/44008"
+            href="/platform/44098"
           >
             <div>
-              44008: Southeast of Nantucket
+              44098
             </div>
           </a>
         </div>
