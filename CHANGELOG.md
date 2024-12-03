@@ -10,6 +10,45 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.4 - 12/3/2024
+
+Additions:
+
+- Add forecast and prediction indicators to map and tide table to sensor page [3235](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3235)
+
+Changes:
+
+Fixes:
+
+Dependency updates:
+
+- Javascript/Frontend:
+  - react-select from 5.8.1 to 5.8.3
+  - next-nprogress-bar from 2.3.14 to 2.3.15
+  - sass from 1.80.3 to 1.81.0
+  - typescript from 5.6.3 to 5.7.2
+  - font-awesome group
+    - @fortawesome/fontawesome-svg-core from 6.6.0 to 6.7.1
+    - @fortawesome/free-solid-svg-icons
+  - cross-spawn from 7.0.3 to 7.0.6
+  - storybook group from 8.4.2 to 8.4.6
+    - eslint-plugin-storybook from 0.11.0 0.11.1
+  - react-query group
+    - @tanstack/react-query from 5.59.20 to 5.62.2
+    - @tanstack/react-query-devtools from 5.59.20 to 5.62.2
+  - ol from 10.2.1 to 10.3.0
+  - @playwright/test from 1.48.2 to 1.49.0
+  - sass from 1.81.0 to 1.81.1
+  - @sentry/nextjs from 8.37.1 to 8.42.0
+  - @reduxjs/toolkit from 2.3.0 to 2.4.0
+  - @spotlightjs/spotlight from 2.5.0 to 2.6.3
+  - Types:
+    - @types/jest from 29.5.13 to 29.5.14
+    - @types/node from 22.7.5 to 22.10.1
+    - @types/react from 18.3.11 to 18.3.12
+- Actions:
+  - docker/build-push-action from 6.9.0 to 6.10.0
+
 ## 1.0.3 - 11/21/2024
 
 Additions:
