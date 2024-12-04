@@ -33,6 +33,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 12.8000001907349,
@@ -56,6 +57,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 2.59999990463257,
@@ -79,6 +81,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 270,
@@ -102,6 +105,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 23.8999996185303,
@@ -125,6 +129,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 2.59999990463257,
@@ -148,6 +153,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [
@@ -201,6 +207,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1007,
@@ -224,6 +231,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 12.3000001907349,
@@ -247,6 +255,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 2,
@@ -270,6 +279,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: -1.70000004768372,
@@ -293,6 +303,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 2.59999990463257,
@@ -316,6 +327,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 26.2999992370605,
@@ -339,6 +351,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: -4,
@@ -362,6 +375,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [
@@ -415,6 +429,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 14.1000003814697,
@@ -438,6 +453,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1.5,
@@ -461,6 +477,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 21,
@@ -484,6 +501,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: -4,
@@ -507,6 +525,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [
@@ -561,6 +580,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 95,
@@ -584,6 +604,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 15.3999996185303,
@@ -608,6 +629,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 13,
@@ -632,6 +654,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1.39999997615814,
@@ -655,6 +678,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [
@@ -708,6 +732,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 310,
@@ -731,6 +756,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 4,
@@ -754,6 +780,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 13.6000003814697,
@@ -777,6 +804,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 0.600000023841858,
@@ -801,6 +829,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 5,
@@ -824,6 +853,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 3.09999990463257,
@@ -847,6 +877,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 7.19999980926514,
@@ -871,6 +902,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: -2.59999990463257,
@@ -894,6 +926,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 13,
@@ -918,6 +951,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 103,
@@ -941,6 +975,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1004.5,
@@ -965,6 +1000,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 19.8999996185303,
@@ -989,6 +1025,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 16.3999996185303,
@@ -1013,6 +1050,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [
@@ -1066,6 +1104,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 2999.3720703125,
@@ -1089,6 +1128,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 7.09499979019165,
@@ -1110,6 +1150,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 6.11100006103516,
@@ -1131,6 +1172,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 32.4083671569824,
@@ -1155,6 +1197,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 32.5865707397461,
@@ -1179,6 +1222,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 32.4281005859375,
@@ -1203,6 +1247,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 0.990400016307831,
@@ -1226,6 +1271,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1.58270001411438,
@@ -1249,6 +1295,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 281.700012207031,
@@ -1270,6 +1317,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 19.9444007873535,
@@ -1293,6 +1341,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 38.6580009460449,
@@ -1317,6 +1366,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 266.383209228516,
@@ -1340,6 +1390,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 4,
@@ -1363,6 +1414,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1003.24731445312,
@@ -1386,6 +1438,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 24.9406394958496,
@@ -1410,6 +1463,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 36.4113998413086,
@@ -1434,6 +1488,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 24.3133850097656,
@@ -1458,6 +1513,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 38.0896987915039,
@@ -1481,6 +1537,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 13.4460000991821,
@@ -1505,6 +1562,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 12.8339996337891,
@@ -1529,6 +1587,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 24.4188423156738,
@@ -1553,6 +1612,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 10.7512998580933,
@@ -1577,6 +1637,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [
@@ -1668,6 +1729,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 5.09999990463257,
@@ -1692,6 +1754,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 120,
@@ -1716,6 +1779,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 13,
@@ -1740,6 +1804,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
         {
           value: 1.39999997615814,
@@ -1764,6 +1829,7 @@ export const platforms: PlatformFeature[] = [
           highlighted: "No",
           extrema: false,
           type: "Observation",
+          dataset_public_name: null,
         },
       ],
       attribution: [

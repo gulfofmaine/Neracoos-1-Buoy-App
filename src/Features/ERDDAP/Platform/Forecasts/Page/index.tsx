@@ -114,6 +114,8 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
       url: meta.source_url,
       dashStyle: "Solid",
       color: colorCycle[index + 1],
+      displayName: meta.name,
+      type: "Forecast",
     })
   })
 
