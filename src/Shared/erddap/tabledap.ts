@@ -5,6 +5,7 @@
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { Constraints, ErddapJson } from "./types"
+import { TimeSeriesType } from "Features/ERDDAP/types"
 
 /**
  * Transform ERDDAP constraints from a object into a URL valid string
@@ -108,6 +109,7 @@ export function resultToTimeseries(
   result: ErddapJson,
   variables: string[],
   displayName?: string | null,
+  type?: TimeSeriesType,
 ): DataTimeSeries[] {
   const output: DataTimeSeries[] = []
 
@@ -118,6 +120,7 @@ export function resultToTimeseries(
     output.push({
       name: variable,
       displayName: displayName || null,
+      type: type as TimeSeriesType,
       timeSeries: result.table.rows
         .filter((row) => row[varIndex] !== null)
         .map((row) => ({

@@ -200,6 +200,7 @@ export function LargeTimeSeriesWaterLevelChart({
           )}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries
+            key="observed"
             name={`Observed ${name}`}
             marker={{ enabled: false }}
             data={data}
@@ -207,15 +208,19 @@ export function LargeTimeSeriesWaterLevelChart({
             lineWidth={1.5}
           />
 
-          <SplineSeries
-            name={predictedDataset?.displayName as string}
-            marker={{ enabled: false }}
-            data={predictedTidesData}
-            color={colors.buoyYellow}
-          />
+          {predictedDataset && (
+            <SplineSeries
+              key="predicted"
+              name={`${predictedDataset?.displayName} Prediction`}
+              marker={{ enabled: false }}
+              data={predictedTidesData}
+              color={colors.buoyYellow}
+            />
+          )}
           {forecastedTidesDatasets &&
             forecastedTidesDatasets.map((f, index) => (
               <SplineSeries
+                key={`forecasted-${index}`}
                 name={`${f.displayName} Forecast`}
                 marker={{ enabled: false }}
                 data={forecastedTidesData?.[index]}

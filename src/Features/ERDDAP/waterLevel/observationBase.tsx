@@ -20,6 +20,7 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 import queryString from "query-string"
 import { buildSearchParamsQuery } from "Shared/urlParams"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 export const WaterLevelObservationBase = ({ platform }) => {
   const unitSystem = useUnitSystem()
@@ -98,10 +99,11 @@ export const WaterLevelObservationBase = ({ platform }) => {
 
               const startTime = new Date(times[0])
               const endTime = new Date(times[times.length - 1])
+              console.log("coffee", datasets)
 
               const waterLevelData = datasets[0]
-              const predictedTidesDataset = predictedTides ? datasets[1] : null
-              const forecastedTidesDatasets = forecastedTides ? datasets.slice(2) : null
+              const predictedTidesDataset = predictedTides ? datasets.find((d) => d.type === "Prediction") : null
+              const forecastedTidesDatasets = forecastedTides ? datasets.filter((d) => d.type === "Forecast") : null
               const standardName = waterLevel.data_type.standard_name
 
               return (
@@ -110,7 +112,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
                     {...{ dataset: waterLevelData, standardName, unitSystem }}
                     platform={platform}
                     timeSeries={waterLevel}
-                    predictedTidesDataset={predictedTidesDataset}
+                    predictedTidesDataset={predictedTidesDataset as DataTimeSeries | null}
                     forecastedTidesDatasets={forecastedTidesDatasets}
                     startTime={startTime}
                     endTime={endTime}

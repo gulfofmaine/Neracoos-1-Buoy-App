@@ -41,10 +41,18 @@ export interface PlatformAlert {
   level: string
 }
 
+export type TimeSeriesType = "Prediction" | "Observation" | "Forecast" | "Climatology"
+
 export interface Tides {
   tide: "high" | "low"
   time: string
   value: number
+}
+
+export interface NextTides {
+  tides: Tides[]
+  name: "string" | null
+  type: TimeSeriesType
 }
 
 export interface ExtremaValuesType {
@@ -75,7 +83,7 @@ export interface PlatformTimeSeries {
     [key: string]: string | number
   }
   highlighted: "No" | "Before" | "After"
-  type: "Prediction" | "Observation" | "Forecast" | "Climatology"
+  type: TimeSeriesType
   extrema: boolean
   extrema_values?: ExtremaValuesType
   dataset_public_name: string | null
