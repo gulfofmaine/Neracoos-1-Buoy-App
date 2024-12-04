@@ -211,7 +211,7 @@ export function LargeTimeSeriesWaterLevelChart({
           {predictedDataset && (
             <SplineSeries
               key="predicted"
-              name={`${predictedDataset?.displayName} Prediction`}
+              name={`${predictedDataset?.displayName} ${predictedDataset?.type}`}
               marker={{ enabled: false }}
               data={predictedTidesData}
               color={colors.buoyYellow}
@@ -221,7 +221,7 @@ export function LargeTimeSeriesWaterLevelChart({
             forecastedTidesDatasets.map((f, index) => (
               <SplineSeries
                 key={`forecasted-${index}`}
-                name={`${f.displayName} Forecast`}
+                name={`${f.displayName} ${f.type}`}
                 marker={{ enabled: false }}
                 data={forecastedTidesData?.[index]}
                 color={colors.brighterOrange}
