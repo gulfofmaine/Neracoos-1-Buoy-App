@@ -17,6 +17,7 @@ interface ChartTimeSeriesDisplayProps {
   timeSeries: PlatformTimeSeries
   standardName: string
   predictedTidesDataset: DataTimeSeries | null
+  forecastedTidesDatasets: DataTimeSeries[] | null
   startTime: Date
   endTime: Date
   platform?: PlatformFeature
@@ -28,6 +29,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   standardName,
   unitSystem,
   predictedTidesDataset,
+  forecastedTidesDatasets,
   startTime,
   endTime,
   platform,
@@ -135,8 +137,8 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
       </div>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
-        predictedTidesTimeSeries={predictedTidesDataset?.timeSeries}
-        predictedTidesName={predictedTidesDataset?.name}
+        predictedDataset={predictedTidesDataset}
+        forecastedTidesDatasets={forecastedTidesDatasets}
         name={title}
         softMin={yMin as number}
         softMax={yMax as number}

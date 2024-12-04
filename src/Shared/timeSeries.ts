@@ -19,6 +19,7 @@ export interface DataTimeSeries {
   timeSeries: ReadingTimeSeries[]
   name: string
   unit: string
+  displayName: string | null
 }
 
 /** A time series with optional styles to display */

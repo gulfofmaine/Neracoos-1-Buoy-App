@@ -78,6 +78,7 @@ export interface PlatformTimeSeries {
   type: "Prediction" | "Observation" | "Forecast" | "Climatology"
   extrema: boolean
   extrema_values?: ExtremaValuesType
+  dataset_public_name: string | null
 }
 
 export type PlatformDataset = PlatformTimeSeries & {

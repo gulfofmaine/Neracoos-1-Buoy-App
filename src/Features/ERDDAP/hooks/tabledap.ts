@@ -149,6 +149,7 @@ export const getDatasetGroup = async (fetchGroup: FetchGroup, startTime?: Date, 
   const resultTimeSeries = resultToTimeseries(
     json,
     fetchGroup.datasets.map((ts) => ts.variable),
+    ...fetchGroup.datasets.map((ts) => ts.dataset_public_name),
   )
 
   return resultTimeSeries
