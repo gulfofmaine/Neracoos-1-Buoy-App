@@ -16,11 +16,18 @@ import {
   TabContent,
   Table,
   TabPane,
+  Tab,
 } from "reactstrap"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { round } from "Shared/math"
-import Tab from "react-bootstrap/Tab"
-import Tabs from "react-bootstrap/Tabs"
+// import Tab from "react-bootstrap/Tab"
+// import Tabs from "react-bootstrap/Tabs"
+import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata"
+import { ErddapMoreInfoDropdown } from "Features/ERDDAP/Platform/MoreInfoMenu"
+import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu"
+import path from "path"
+import { paths } from "Shared/constants"
+import { ContentTab } from "components/TabPane"
 
 interface TidesTableProps {
   platform: PlatformFeature
@@ -33,7 +40,7 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
   const [nextTides, setNextTides] = useState<NextTides[]>()
   const unitSystem = useUnitSystem()
   const dataConverter = converter(standardName)
-  const [key, setKey] = useState<string>("0")
+  const [key, setKey] = useState<number>(0)
 
   useEffect(() => {
     const futureTides = platform.properties.readings.filter(
@@ -68,10 +75,16 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         <b>Upcoming Tides</b>
       </h6>
       <div style={{ width: "100%" }}>
-        <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => setKey(k as string)}>
+        <Nav tabs={true}>
           {nextTides &&
             nextTides.map((nt, index) => (
-              <Tab eventKey={`${index}`} title={`${nt.name} ${nt.type}`} key={`${index}`}>
+              <ContentTab name={nt.name} index={index} setOpen={setKey} active={key === index} />
+            ))}
+        </Nav>
+        <TabContent activeTab={key}>
+          {nextTides &&
+            nextTides.map((nt, index) => (
+              <TabPane tabId={index} key={`pane-${index}`}>
                 <Table striped style={{ borderTop: "1px solid #d3d3d3" }}>
                   <thead key={2}>
                     <tr>
@@ -98,9 +111,9 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
                     ))}
                   </tbody>
                 </Table>
-              </Tab>
+              </TabPane>
             ))}
-        </Tabs>
+        </TabContent>
       </div>
     </div>
   )
