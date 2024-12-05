@@ -10,8 +10,8 @@ assignees: ""
 - [ ] Work on `main`
 - [ ] Bump version in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/main/package.json
 - [ ] Build and test locally
-  - [ ] Jest `make test`
-  - [ ] Playwright `npm run test:e2e:ui`
+  - [ ] For Jest: run `make test`
+  - [ ] For Playwright: run `make serve` and keep running, in another tab/window run `yarn run test:e2e:ui`
 - [ ] Update Changelog https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/main/CHANGELOG.md ([compare to previous release (update this url once loaded)](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v0.1.1/...main)
 - [ ] Create commit with name in the format of `v{major}.{minor}.{patch}`. If commit checks prevent you from commiting to main append `SKIP=no-commit-to-branch` to the beginning of your commit command (e.g. `SKIP=no-commit-to-branch git commit -m "v1.0.0"`)
 - [ ] Push commit
