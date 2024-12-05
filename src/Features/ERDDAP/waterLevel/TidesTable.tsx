@@ -16,7 +16,6 @@ import {
   TabContent,
   Table,
   TabPane,
-  Tab,
 } from "reactstrap"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { round } from "Shared/math"
@@ -75,13 +74,13 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         <b>Upcoming Tides</b>
       </h6>
       <div style={{ width: "100%" }}>
-        <Nav tabs={true}>
+        <Nav tabs={true} key="nav-0">
           {nextTides &&
             nextTides.map((nt, index) => (
-              <ContentTab name={nt.name} index={index} setOpen={setKey} active={key === index} />
+              <ContentTab name={nt.name} key={index} setOpen={setKey} active={key === index} />
             ))}
         </Nav>
-        <TabContent activeTab={key}>
+        <TabContent activeTab={key} key="tab-content-1">
           {nextTides &&
             nextTides.map((nt, index) => (
               <TabPane tabId={index} key={`pane-${index}`}>

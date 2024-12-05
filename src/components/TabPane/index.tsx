@@ -6,10 +6,10 @@ import { NavItem, NavLink } from "reactstrap"
  *
  * @returns a controlled tab
  */
-export const ContentTab = ({ name, index, setOpen, active }) => {
+export const ContentTab = ({ name, key, setOpen, active }) => {
   return (
-    <NavItem key={index} style={{ cursor: "pointer" }}>
-      <NavLink key={index} onClick={() => setOpen(index)} active={active}>
+    <NavItem key={key} style={{ cursor: "pointer" }}>
+      <NavLink key={key} onClick={() => setOpen(key)} active={active}>
         {name}
       </NavLink>
     </NavItem>
