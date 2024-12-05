@@ -18,8 +18,8 @@ export const WLLegend = () => {
       <DropdownToggle caret color="primary">
         Legend
       </DropdownToggle>
-      <DropdownMenu>
-        <DropdownItem>
+      <DropdownMenu className="legend-dropdown-menu">
+        <DropdownItem className="legend-dropdown-item">
           <div className="legend-container">
             <div
               style={{
