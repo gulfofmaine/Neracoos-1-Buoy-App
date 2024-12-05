@@ -8,8 +8,11 @@
 ## Using with Docker
 
 If you have Docker installed and running, you can launch the app with `make up` and then access [localhost:8100](http://localhost:8100) to view.
-
 When you're done making it more awesome run `make down`.
+
+## Running locally without Docker
+
+Run `yarn dev` to run a lightweight version locally. See changes at [localhost:3000](http://localhost:3000). Changes will automatically update without the need to restart the server. 
 
 ## Deploying and Versioning
 
@@ -20,6 +23,8 @@ Github Actions will build and test the development image, then it will build the
 Then it will update the manifest and image spec used by [Argo CD](https://argo-cd.readthedocs.io/en/stable/) in the [`neracoos-do-cd`](https://github.com/gulfofmaine/neracoos-do-cd/) repo.
 
 Once the Github Actions workflow completes for the tag, Argo CD will pick up the changes and sync the deployment (usually within 3 minutes).
+
+See the [Release Template GitHub Issue](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/new/choose) for more information and instructions
 
 ## Exception Tracking
 
@@ -36,6 +41,9 @@ We're using Storybook for documentation.
 
 Run `make storybook` to launch it locally,
 or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page) after a version tag builds.
+
+## About the app
+In early 2024, the Mariner's Dashboard was migrated to Next.js. 
 
 ## Testing
 
