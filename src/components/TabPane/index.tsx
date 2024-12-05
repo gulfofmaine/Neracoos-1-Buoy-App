@@ -8,7 +8,7 @@ import { NavItem, NavLink } from "reactstrap"
  */
 export const ContentTab = ({ name, index, setOpen, active }) => {
   return (
-    <NavItem key={index}>
+    <NavItem key={index} style={{ cursor: "pointer" }}>
       <NavLink key={index} onClick={() => setOpen(index)} active={active}>
         {name}
       </NavLink>
