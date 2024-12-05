@@ -10,6 +10,18 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.5 - 12/5/2024
+
+Additions:
+
+Changes:
+
+Fixes:
+
+- Revert OpenLayers 10.3.0 [3265](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3265)
+
+Dependency updates:
+
 ## 1.0.4 - 12/3/2024
 
 Additions:
