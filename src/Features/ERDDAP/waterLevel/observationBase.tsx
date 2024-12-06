@@ -13,13 +13,13 @@ import {
   daysInFuture,
   fullBeginningDateIso,
   getIsoForPicker,
-  getToday,
   manuallySetFullEODIso,
 } from "Shared/time"
 import { usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 import queryString from "query-string"
 import { buildSearchParamsQuery } from "Shared/urlParams"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 export const WaterLevelObservationBase = ({ platform }) => {
   const unitSystem = useUnitSystem()
@@ -32,6 +32,7 @@ export const WaterLevelObservationBase = ({ platform }) => {
   const windowWidth = window.innerWidth
   const [waterLevel, setWaterLevel] = useState<PlatformTimeSeries | null>()
   const [predictedTides, setPredictedTides] = useState<PlatformTimeSeries | null>()
+  const [forecastedTides, setForecastedTides] = useState<PlatformTimeSeries[] | null>()
 
   useEffect(() => {
     const waterLevelTimeseries = filterWaterLevelTimeSeries(
@@ -44,8 +45,15 @@ export const WaterLevelObservationBase = ({ platform }) => {
       platform.properties.readings,
       conditions.waterLevelPredicted,
       startTime,
+      "Prediction",
     )
-    if (predictedTidesTimeseries && windowWidth < 576) {
+    const forecastedTidesTimeseries = filterTimeSeries(
+      platform.properties.readings,
+      conditions.waterLevel,
+      startTime,
+      "Forecast",
+    )
+    if ((predictedTidesTimeseries || forecastedTidesTimeseries) && windowWidth < 576) {
       const newParams = buildSearchParamsQuery(
         getIsoForPicker(aDayAgoRounded()),
         getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
@@ -61,7 +69,8 @@ export const WaterLevelObservationBase = ({ platform }) => {
       // )
       // router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
     }
-    setPredictedTides(predictedTidesTimeseries)
+    setPredictedTides(predictedTidesTimeseries as PlatformTimeSeries)
+    setForecastedTides(forecastedTidesTimeseries as PlatformTimeSeries[])
   }, [platform])
 
   return (
@@ -69,7 +78,13 @@ export const WaterLevelObservationBase = ({ platform }) => {
       {waterLevel ? (
         <>
           <UseDatasets
-            timeSeries={predictedTides ? [waterLevel, predictedTides] : [waterLevel]}
+            timeSeries={
+              predictedTides
+                ? forecastedTides
+                  ? [waterLevel, predictedTides, ...forecastedTides]
+                  : [waterLevel, predictedTides]
+                : [waterLevel]
+            }
             startTime={fullBeginningDateIso(startTime)}
             endTime={manuallySetFullEODIso(endTime)}
             platformId={platform.id}
@@ -83,9 +98,11 @@ export const WaterLevelObservationBase = ({ platform }) => {
 
               const startTime = new Date(times[0])
               const endTime = new Date(times[times.length - 1])
+              console.log("coffee", datasets)
 
               const waterLevelData = datasets[0]
-              const predictedTidesDataset = predictedTides ? datasets[1] : null
+              const predictedTidesDataset = predictedTides ? datasets.find((d) => d.type === "Prediction") : null
+              const forecastedTidesDatasets = forecastedTides ? datasets.filter((d) => d.type === "Forecast") : null
               const standardName = waterLevel.data_type.standard_name
 
               return (
@@ -94,7 +111,8 @@ export const WaterLevelObservationBase = ({ platform }) => {
                     {...{ dataset: waterLevelData, standardName, unitSystem }}
                     platform={platform}
                     timeSeries={waterLevel}
-                    predictedTidesDataset={predictedTidesDataset}
+                    predictedTidesDataset={predictedTidesDataset as DataTimeSeries | null}
+                    forecastedTidesDatasets={forecastedTidesDatasets}
                     startTime={startTime}
                     endTime={endTime}
                   />

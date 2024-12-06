@@ -4,6 +4,7 @@ export const colors = {
   coastalMeadow: "#2ab78f",
   buoyYellow: "#ffcd22",
   whatOrange: "#ffae6d",
+  brighterOrange: "#fc8042",
 
   //water level map alert colors
   actionThreshold: "#ffff00",

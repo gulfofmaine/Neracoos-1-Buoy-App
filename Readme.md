@@ -12,7 +12,7 @@ When you're done making it more awesome run `make down`.
 
 ## Running locally without Docker
 
-Run `yarn dev` to run a lightweight version locally. See changes at [localhost:3000](http://localhost:3000). Changes will automatically update without the need to restart the server. 
+Run `yarn dev` to run a lightweight version locally. See changes at [localhost:3000](http://localhost:3000). Changes will automatically update without the need to restart the server.
 
 ## Deploying and Versioning
 
@@ -43,7 +43,8 @@ Run `make storybook` to launch it locally,
 or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page) after a version tag builds.
 
 ## About the app
-In early 2024, the Mariner's Dashboard was migrated to Next.js. 
+
+In early 2024, the Mariner's Dashboard was migrated to Next.js.
 
 ## Testing
 

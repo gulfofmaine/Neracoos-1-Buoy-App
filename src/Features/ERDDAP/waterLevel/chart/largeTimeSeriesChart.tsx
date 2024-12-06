@@ -22,10 +22,10 @@ import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
 import { colorCycle, colors } from "Shared/colors"
 import { round } from "Shared/math"
-import { ReadingTimeSeries } from "Shared/timeSeries"
+import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
-import { displayShortIso, shortestDisplayIso } from "Shared/time"
+import { shortestDisplayIso } from "Shared/time"
 
 addAccessibility(Highcharts)
 const plotOptions = {
@@ -51,12 +51,12 @@ interface Props {
   floodThresholds: {
     [key: string]: FloodThreshold
   }
-  predictedTidesTimeSeries: ReadingTimeSeries[] | undefined
-  predictedTidesName: string | undefined
+  predictedDataset: DataTimeSeries | null
   /** Datum offset BEFORE unit conversion */
   datumOffset: number
   startTime: Date
   endTime: Date
+  forecastedTidesDatasets: DataTimeSeries[] | null
 }
 
 /**
@@ -71,8 +71,8 @@ export function LargeTimeSeriesWaterLevelChart({
   unitSystem,
   floodThresholds,
   datumOffset,
-  predictedTidesTimeSeries,
-  predictedTidesName,
+  predictedDataset,
+  forecastedTidesDatasets,
   startTime,
   endTime,
 }: Props) {
@@ -85,10 +85,20 @@ export function LargeTimeSeriesWaterLevelChart({
 
   const latestTime = data.map((d) => d[0]).sort((a, b) => a - b)[data.length - 1]
 
-  const predictedTidesData = predictedTidesTimeSeries?.map((r) => [
+  const predictedTidesData = predictedDataset?.timeSeries?.map((r) => [
     r.time.valueOf(),
     round(dataConverter.convertToNumber(getValueWithOffset(r.reading as number, datumOffset), unitSystem) as number, 2),
   ])
+
+  const forecastedTidesData = forecastedTidesDatasets?.map((d) =>
+    d.timeSeries.map((ts) => [
+      ts.time.valueOf(),
+      round(
+        dataConverter.convertToNumber(getValueWithOffset(ts.reading as number, datumOffset), unitSystem) as number,
+        2,
+      ),
+    ]),
+  )
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>
@@ -190,20 +200,32 @@ export function LargeTimeSeriesWaterLevelChart({
           )}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries
+            key="observed"
             name={`Observed ${name}`}
             marker={{ enabled: false }}
             data={data}
-            color={colors.coastalMeadow}
             lineWidth={1.5}
           />
-          {predictedTidesData && (
+
+          {predictedDataset && (
             <SplineSeries
-              name={predictedTidesName}
+              key="predicted"
+              name={`${predictedDataset?.displayName} ${predictedDataset?.type}`}
               marker={{ enabled: false }}
               data={predictedTidesData}
-              color={colors.buoyYellow}
+              dashStyle="Dash"
             />
           )}
+          {forecastedTidesDatasets &&
+            forecastedTidesDatasets.map((f, index) => (
+              <SplineSeries
+                key={`forecasted-${index}`}
+                name={`${f.displayName} ${f.type}`}
+                marker={{ enabled: false }}
+                data={forecastedTidesData?.[index]}
+                dashStyle="ShortDot"
+              />
+            ))}
         </YAxis>
         <Legend layout="horizontal" />
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />

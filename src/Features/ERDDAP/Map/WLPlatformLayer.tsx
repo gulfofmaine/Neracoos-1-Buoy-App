@@ -80,9 +80,9 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   }
   const isSensorPage = path.includes("sensor")
 
-  const getObservedWaterDisplay = (currentWaterLevel) => {
+  const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
     const highestValue = currentWaterLevel?.extrema_values?.max.value
-    const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(currentWaterLevel?.flood_levels)
+    const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
     const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
     setFloodThreshold(surpassedThreshold)
     const opacity = selected ? "e6" : "a0"
@@ -90,9 +90,10 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     setDisplay(display)
   }
 
-  const getPredictedWaterDisplay = (predictedWaterLevel) => {
-    const highValue = predictedWaterLevel.extrema_values.max?.value
-    const predWaterLevelThresholds = getWaterLevelThresholdsMapRawComp(predictedWaterLevel?.flood_levels)
+  const getPredictedWaterDisplay = (predictedWaterLevel, floodLevels) => {
+    //Get highest value of predicted and any forecasts
+    const highValue = Math.max(...predictedWaterLevel.map((p) => p.extrema_values.max?.value))
+    const predWaterLevelThresholds = floodLevels && getWaterLevelThresholdsMapRawComp(floodLevels)
     const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
     setPredictedFloodThreshold(surpassedThreshold)
     const opacity = selected ? "e6" : "a0"
@@ -103,18 +104,20 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     const currentWaterLevel = platform.properties.readings.find((r) => {
       return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
     })
+    const floodLevels = currentWaterLevel?.flood_levels
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
-      getObservedWaterDisplay(currentWaterLevel)
+      getObservedWaterDisplay(currentWaterLevel, floodLevels)
     }
-    const predictedWaterLevel = platform.properties.readings.find(
+    const futureWaterLevel = platform.properties.readings.filter(
       (r) => r.type === "Prediction" || r.type === "Forecast",
     )
-    if (!predictedWaterLevel) {
+    if (!futureWaterLevel) {
       setPredictedFloodThreshold("NA")
-    } else {
-      getPredictedWaterDisplay(predictedWaterLevel)
+    } else if (futureWaterLevel && floodLevels) {
+      platform.id === "CASM1" && floodLevels
+      getPredictedWaterDisplay(futureWaterLevel, floodLevels)
     }
   }, [platform.properties.readings, selected, old, platform])
 

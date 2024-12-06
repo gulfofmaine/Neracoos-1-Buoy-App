@@ -103,18 +103,26 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   )
 }
 
-export function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
+export function filterTimeSeries(
+  timeSeries: PlatformTimeSeries[],
+  dataTypes: string[],
+  laterThan: Date,
+  type?: "Forecast" | "Observation" | "Prediction",
+) {
   let filterTimeSeries: PlatformTimeSeries[] = []
 
   dataTypes.forEach((dataType) => {
     const matchStandard = timeSeries.filter((reading) => dataType === reading.data_type.standard_name) // match any that are the current data type
     const matchTime = matchStandard.filter((reading) => (reading.time ? laterThan < new Date(reading.time) : false)) // that have data in the last day
     const matchDepth = matchTime.filter((reading) => (reading.depth ? reading.depth < 2 : true)) // are near-surface
-    matchDepth.forEach((ts) => filterTimeSeries.push(ts))
+    const matchType = type ? matchDepth.filter((reading) => reading.type === type) : matchDepth
+    matchType.forEach((ts) => filterTimeSeries.push(ts))
   })
 
-  if (filterTimeSeries.length > 0) {
+  if (filterTimeSeries.length > 0 && type !== "Forecast") {
     return filterTimeSeries[0]
+  } else if (filterTimeSeries.length > 0 && type === "Forecast") {
+    return filterTimeSeries
   }
 
   return null

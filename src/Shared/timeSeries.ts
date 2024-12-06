@@ -2,6 +2,7 @@
  * Common time series types.
  */
 
+import { TimeSeriesType } from "Features/ERDDAP/types"
 import { DashStyleValue } from "highcharts"
 
 /**
@@ -19,6 +20,8 @@ export interface DataTimeSeries {
   timeSeries: ReadingTimeSeries[]
   name: string
   unit: string
+  displayName: string | null
+  type: TimeSeriesType
 }
 
 /** A time series with optional styles to display */

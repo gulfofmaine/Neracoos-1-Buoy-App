@@ -5,6 +5,7 @@
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { Constraints, ErddapJson } from "./types"
+import { TimeSeriesType } from "Features/ERDDAP/types"
 
 /**
  * Transform ERDDAP constraints from a object into a URL valid string
@@ -104,16 +105,22 @@ export function tabledapUrl(server: string, dataset: string, variables: string[]
  * @param result JSON from ERDDAP dataset
  * @param variables Array of variable strings requested from dataset
  */
-export function resultToTimeseries(result: ErddapJson, variables: string[]): DataTimeSeries[] {
+export function resultToTimeseries(
+  result: ErddapJson,
+  variables: string[],
+  displayName?: string | null,
+  type?: TimeSeriesType,
+): DataTimeSeries[] {
   const output: DataTimeSeries[] = []
 
   const timeIndex = result.table.columnNames.indexOf("time")
 
   for (const variable of variables) {
     const varIndex = result.table.columnNames.indexOf(variable)
-
     output.push({
       name: variable,
+      displayName: displayName || null,
+      type: type as TimeSeriesType,
       timeSeries: result.table.rows
         .filter((row) => row[varIndex] !== null)
         .map((row) => ({

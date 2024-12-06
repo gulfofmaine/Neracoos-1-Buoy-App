@@ -6,7 +6,7 @@ import { Region } from "Shared/regions"
 import { RegionList } from "./region"
 import { useDecodedUrl } from "util/hooks"
 
-export default async function RegionSidebar({ params }: { params: { regionId: string } }) {
+export default function RegionSidebar({ params }: { params: { regionId: string } }) {
   const regionId = useDecodedUrl(params.regionId)
 
   let region: Region | undefined = regionList.find((r) => r.slug === regionId)

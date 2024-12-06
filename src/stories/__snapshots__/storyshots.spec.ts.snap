@@ -35,7 +35,6 @@ exports[`Storybook Tests Components/Alerts/PlatformLoading PlatformLoading 1`] =
       style="margin-right: 10px;"
     >
       Loading 
-      test
        dataset
     </span>
     <div
