@@ -27,3 +27,10 @@ export const colorCycle = [
   colors.metallicSeaweed,
   colors.buoyYellow,
 ]
+
+export const waterLevelChartColorCycle = [
+  colors.neracoosBlue,
+  colors.coastalMeadow,
+  colors.metallicSeaweed,
+  colors.buoyYellow,
+]
