@@ -204,7 +204,6 @@ export function LargeTimeSeriesWaterLevelChart({
             name={`Observed ${name}`}
             marker={{ enabled: false }}
             data={data}
-            color={colors.coastalMeadow}
             lineWidth={1.5}
           />
 
@@ -214,7 +213,7 @@ export function LargeTimeSeriesWaterLevelChart({
               name={`${predictedDataset?.displayName} ${predictedDataset?.type}`}
               marker={{ enabled: false }}
               data={predictedTidesData}
-              color={colors.buoyYellow}
+              dashStyle="Dash"
             />
           )}
           {forecastedTidesDatasets &&
@@ -224,7 +223,7 @@ export function LargeTimeSeriesWaterLevelChart({
                 name={`${f.displayName} ${f.type}`}
                 marker={{ enabled: false }}
                 data={forecastedTidesData?.[index]}
-                color={colors.brighterOrange}
+                dashStyle="ShortDot"
               />
             ))}
         </YAxis>
