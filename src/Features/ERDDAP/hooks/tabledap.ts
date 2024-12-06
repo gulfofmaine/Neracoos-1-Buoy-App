@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query"
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
 import { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"
-import { aWeekAgoRounded, weeksInFuture } from "Shared/time"
+import { aWeekAgoRounded } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
 
 import { PlatformTimeSeries, FetchGroup } from "../types"

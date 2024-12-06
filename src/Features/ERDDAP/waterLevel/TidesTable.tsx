@@ -1,31 +1,13 @@
-import { NextTides, PlatformFeature, Tides } from "Features/ERDDAP/types"
+import { NextTides, PlatformFeature } from "Features/ERDDAP/types"
 import { useUnitSystem } from "Features/Units"
 import { converter } from "Features/Units/Converter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { useEffect, useState } from "react"
-import {
-  Button,
-  Card,
-  CardText,
-  CardTitle,
-  Col,
-  Nav,
-  NavItem,
-  NavLink,
-  Row,
-  TabContent,
-  Table,
-  TabPane,
-} from "reactstrap"
+import { Nav, TabContent, Table, TabPane } from "reactstrap"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { round } from "Shared/math"
 // import Tab from "react-bootstrap/Tab"
 // import Tabs from "react-bootstrap/Tabs"
-import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata"
-import { ErddapMoreInfoDropdown } from "Features/ERDDAP/Platform/MoreInfoMenu"
-import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu"
-import path from "path"
-import { paths } from "Shared/constants"
 import { ContentTab } from "components/TabPane"
 
 interface TidesTableProps {

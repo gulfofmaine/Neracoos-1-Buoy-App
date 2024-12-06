@@ -18,7 +18,7 @@ import { aDayAgoRounded } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
-import { DatumOffsetOptions, FloodLevels, PlatformFeature } from "../types"
+import { DatumOffsetOptions, PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,

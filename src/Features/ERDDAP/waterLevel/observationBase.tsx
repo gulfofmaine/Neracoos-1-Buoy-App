@@ -13,7 +13,6 @@ import {
   daysInFuture,
   fullBeginningDateIso,
   getIsoForPicker,
-  getToday,
   manuallySetFullEODIso,
 } from "Shared/time"
 import { usePathname, useSearchParams } from "next/navigation"

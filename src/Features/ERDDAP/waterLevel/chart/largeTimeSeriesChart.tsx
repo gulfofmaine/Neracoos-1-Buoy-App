@@ -25,7 +25,7 @@ import { round } from "Shared/math"
 import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
-import { displayShortIso, shortestDisplayIso } from "Shared/time"
+import { shortestDisplayIso } from "Shared/time"
 
 addAccessibility(Highcharts)
 const plotOptions = {
