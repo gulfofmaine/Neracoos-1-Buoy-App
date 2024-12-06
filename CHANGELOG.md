@@ -10,6 +10,18 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.6 - 12/6/2024
+
+Additions:
+
+- Add forecast on sensor page [3264](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3264)
+
+Changes:
+
+Fixes:
+
+Dependency updates:
+
 ## 1.0.5 - 12/5/2024
 
 Additions:
