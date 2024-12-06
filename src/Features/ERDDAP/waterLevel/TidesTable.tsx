@@ -58,14 +58,14 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
       <div style={{ width: "100%" }}>
         <Nav tabs={true} key="nav-0">
           {nextTides &&
-            nextTides.map((nt, index) => (
-              <ContentTab name={nt.name} key={index} setOpen={setKey} active={key === index} />
-            ))}
+            nextTides.map((nt, i) => {
+              return <ContentTab name={nt.name} index={i} setOpen={setKey} active={key === i} />
+            })}
         </Nav>
         <TabContent activeTab={key} key="tab-content-1">
           {nextTides &&
-            nextTides.map((nt, index) => (
-              <TabPane tabId={index} key={`pane-${index}`}>
+            nextTides.map((nt, i) => (
+              <TabPane tabId={i} key={`pane-${i}`}>
                 <Table striped style={{ borderTop: "1px solid #d3d3d3" }}>
                   <thead key={2}>
                     <tr>

@@ -98,7 +98,6 @@ export const WaterLevelObservationBase = ({ platform }) => {
 
               const startTime = new Date(times[0])
               const endTime = new Date(times[times.length - 1])
-              console.log("coffee", datasets)
 
               const waterLevelData = datasets[0]
               const predictedTidesDataset = predictedTides ? datasets.find((d) => d.type === "Prediction") : null
