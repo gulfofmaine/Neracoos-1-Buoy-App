@@ -59,7 +59,7 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         <Nav tabs={true} key="nav-0">
           {nextTides &&
             nextTides.map((nt, i) => {
-              return <ContentTab name={`${nt.name} ${nt.type}`} index={i} setOpen={setKey} active={key === i} />
+              return <ContentTab name={`${nt.name} ${nt.type}`} index={i} setOpen={setKey} active={key === i} key={i} />
             })}
         </Nav>
         <TabContent activeTab={key} key="tab-content-1">
