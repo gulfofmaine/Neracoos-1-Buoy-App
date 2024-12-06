@@ -20,7 +20,7 @@ import {
 import { FloodThreshold } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
-import { colorCycle, colors } from "Shared/colors"
+import { colorCycle, colors, waterLevelChartColorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"
@@ -102,7 +102,7 @@ export function LargeTimeSeriesWaterLevelChart({
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>
-      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
+      <HighchartsChart time={plotOptions.time} colors={waterLevelChartColorCycle}>
         <Chart height={"600px"} style={{ padding: "10px", border: "1px solid #d3d3d3" }} />
         <XAxis
           type="datetime"
@@ -213,6 +213,7 @@ export function LargeTimeSeriesWaterLevelChart({
               name={`${predictedDataset?.displayName} ${predictedDataset?.type}`}
               marker={{ enabled: false }}
               data={predictedTidesData}
+              color={colors.whatOrange}
               dashStyle="Dash"
             />
           )}
