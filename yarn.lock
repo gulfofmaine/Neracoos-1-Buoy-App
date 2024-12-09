@@ -2606,27 +2606,27 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@spotlightjs/overlay@2.7.1":
-  version "2.7.1"
-  resolved "https://registry.npmjs.org/@spotlightjs/overlay/-/overlay-2.7.1.tgz"
-  integrity sha512-YuQ8IFC44AA0cLFxANnpdKVCgAbHxcn7OwxmGuatMjNOa9sjvmg+2Ipo0/idHjeuYgvEypTxEqsT6lNvd9lG5g==
+"@spotlightjs/overlay@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.8.0.tgz#15437eceee3dcd2ae00213f40cc50c62ca357341"
+  integrity sha512-4FGJ8rhjXE/avG0PEPT/Na37Iq+ZucbSvANWNIsS5+fVSurvWH884OFaXNbtzzRfHMPk4333XQlYZaT8NXgidg==
 
-"@spotlightjs/sidecar@1.9.1":
-  version "1.9.1"
-  resolved "https://registry.npmjs.org/@spotlightjs/sidecar/-/sidecar-1.9.1.tgz"
-  integrity sha512-qISdnZc5gMvhr7kTjgp+E+bw8KBo+WC8nLeO0LFWa7h2DMEuWhdNWizQIBDUrgUaOmG9hTt1UF37EZdTfNtbDA==
+"@spotlightjs/sidecar@1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.9.2.tgz#60ea951d78c89f43ddd4277417bfeb49c2fb29e8"
+  integrity sha512-xGHyyXotXLwNjM9XbIY7tK1jX8t8b7gX3h7UNqB9Hcd8YJW2mRl/ZJUedXQh6oK/TY8+mLZo8xyE7uJ70iljOA==
   dependencies:
     kleur "^4.1.5"
     launch-editor "^2.9.1"
     source-map "^0.7.4"
 
-"@spotlightjs/spotlight@^2.6.3":
-  version "2.6.3"
-  resolved "https://registry.npmjs.org/@spotlightjs/spotlight/-/spotlight-2.6.3.tgz"
-  integrity sha512-TguYMj9f6VkubATShwqCvrCvQUKak9/n/giWfJgGnNAUnEVsiNj+PUdexGGMrTrr+FwqSNXvZPnztV/LE2E7Tw==
+"@spotlightjs/spotlight@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.7.0.tgz#6f8307d42106dd44f2fc15ca8b91cf287f3ec852"
+  integrity sha512-wQkn1z2aMisNfeEK5J675Unzee9WVtKn4PfW6aPpc/hVR497BiU3z+JzO22bkPwFdn8eG8u1u1+Se1c8/rrgmw==
   dependencies:
-    "@spotlightjs/overlay" "2.7.1"
-    "@spotlightjs/sidecar" "1.9.1"
+    "@spotlightjs/overlay" "2.8.0"
+    "@spotlightjs/sidecar" "1.9.2"
     import-meta-resolve "^4.1.0"
     macho-unsign "^2.0.6"
     portable-executable-signature "^2.0.6"
