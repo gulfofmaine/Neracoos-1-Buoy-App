@@ -12,7 +12,7 @@ import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
@@ -176,24 +176,27 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
         </RStyleArray>
       )}
 
-      <Link href={url}>
-        <RFeature
-          geometry={useMemo(() => {
-            const feature = new GeoJSON({
-              dataProjection: "EPSG:4326",
-              featureProjection: "EPSG:3857",
-            }).readFeature(platform)
-            return (feature as Feature).getGeometry()
-          }, [platform])}
-        >
-          <RPopup trigger={"hover"} autoPosition={true}>
+      <RFeature
+        geometry={useMemo(() => {
+          const feature = new GeoJSON({
+            dataProjection: "EPSG:4326",
+            featureProjection: "EPSG:3857",
+          }).readFeature(platform)
+          return (feature as Feature).getGeometry()
+        }, [platform])}
+        onClick={useCallback(() => {
+          router.push(url)
+        }, [router, url])}
+      >
+        <RPopup trigger={"hover"} autoPosition={true}>
+          <Link href={url}>
             <div className="map-popup-custom">
               {platformName(platform)} <br></br>Flood level: {floodThreshold ? floodThreshold : "None"} <br></br>{" "}
               Predicted Flood Level: {predFloodThreshold ? predFloodThreshold : "None"}
             </div>
-          </RPopup>
-        </RFeature>
-      </Link>
+          </Link>
+        </RPopup>
+      </RFeature>
     </RLayerVector>
   )
 }
