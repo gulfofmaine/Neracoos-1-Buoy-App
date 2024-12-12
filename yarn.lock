@@ -2475,6 +2475,11 @@
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-8.43.0.tgz#e96a489e87a9999199f5ac27d8860da37c1fa8b4"
   integrity sha512-ktyovtjkTMNud+kC/XfqHVCoQKreIKgx/hgeRvzPwuPyd1t1KzYmRL3DBkbcWVnyOPpVTHn+RsEI1eRcVYHtvw==
 
+"@sentry/core@8.44.0":
+  version "8.44.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-8.44.0.tgz#3b6da46df7dfb638dcb35b9823300273a1fd7477"
+  integrity sha512-C43eW9Mr1WGpxCeI6pXUl7TeTwR2TwWhuU8wHx2s5eoATDQwbjz9l+JXXjVJf5YXXEwNOZL2WAx/f0diLA5rTQ==
+
 "@sentry/nextjs@^8.43.0":
   version "8.43.0"
   resolved "https://registry.yarnpkg.com/@sentry/nextjs/-/nextjs-8.43.0.tgz#b6cf546ecb39bd953b24a879615854dde47381bf"
@@ -2536,12 +2541,60 @@
     "@sentry/opentelemetry" "8.43.0"
     import-in-the-middle "^1.11.2"
 
+"@sentry/node@^8.42.0":
+  version "8.44.0"
+  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-8.44.0.tgz#6323e9236b67c4781a1b9ed2893fbb985f73818c"
+  integrity sha512-mONfSnPwbkQEr0o5mhuJdLbxeEjyjt9VbYYXmXvHF/gQD7nzLYKkc6mA2rl74ITBZdyyKOTO7OmsSHMfD0f+ZA==
+  dependencies:
+    "@opentelemetry/api" "^1.9.0"
+    "@opentelemetry/context-async-hooks" "^1.29.0"
+    "@opentelemetry/core" "^1.29.0"
+    "@opentelemetry/instrumentation" "^0.56.0"
+    "@opentelemetry/instrumentation-amqplib" "^0.45.0"
+    "@opentelemetry/instrumentation-connect" "0.42.0"
+    "@opentelemetry/instrumentation-dataloader" "0.15.0"
+    "@opentelemetry/instrumentation-express" "0.46.0"
+    "@opentelemetry/instrumentation-fastify" "0.43.0"
+    "@opentelemetry/instrumentation-fs" "0.18.0"
+    "@opentelemetry/instrumentation-generic-pool" "0.42.0"
+    "@opentelemetry/instrumentation-graphql" "0.46.0"
+    "@opentelemetry/instrumentation-hapi" "0.44.0"
+    "@opentelemetry/instrumentation-http" "0.56.0"
+    "@opentelemetry/instrumentation-ioredis" "0.46.0"
+    "@opentelemetry/instrumentation-kafkajs" "0.6.0"
+    "@opentelemetry/instrumentation-knex" "0.43.0"
+    "@opentelemetry/instrumentation-koa" "0.46.0"
+    "@opentelemetry/instrumentation-lru-memoizer" "0.43.0"
+    "@opentelemetry/instrumentation-mongodb" "0.50.0"
+    "@opentelemetry/instrumentation-mongoose" "0.45.0"
+    "@opentelemetry/instrumentation-mysql" "0.44.0"
+    "@opentelemetry/instrumentation-mysql2" "0.44.0"
+    "@opentelemetry/instrumentation-nestjs-core" "0.43.0"
+    "@opentelemetry/instrumentation-pg" "0.49.0"
+    "@opentelemetry/instrumentation-redis-4" "0.45.0"
+    "@opentelemetry/instrumentation-tedious" "0.17.0"
+    "@opentelemetry/instrumentation-undici" "0.9.0"
+    "@opentelemetry/resources" "^1.29.0"
+    "@opentelemetry/sdk-trace-base" "^1.29.0"
+    "@opentelemetry/semantic-conventions" "^1.28.0"
+    "@prisma/instrumentation" "5.19.1"
+    "@sentry/core" "8.44.0"
+    "@sentry/opentelemetry" "8.44.0"
+    import-in-the-middle "^1.11.2"
+
 "@sentry/opentelemetry@8.43.0":
   version "8.43.0"
   resolved "https://registry.yarnpkg.com/@sentry/opentelemetry/-/opentelemetry-8.43.0.tgz#9823a3e4162bf464c12092149fe714ba5e5ba0b9"
   integrity sha512-Ey+z1+JuMsb+LNY5MddJhjJpCnmkVwGZwoc5T/wWfh+5WKnvZ5RSNwaUl71Ho0lpVhhejwuUtaNxc4Ilk1KjhA==
   dependencies:
     "@sentry/core" "8.43.0"
+
+"@sentry/opentelemetry@8.44.0":
+  version "8.44.0"
+  resolved "https://registry.yarnpkg.com/@sentry/opentelemetry/-/opentelemetry-8.44.0.tgz#560e2cdd404136f45b0e4d7094e5e6613c0d252b"
+  integrity sha512-zOqDrsLJr6femKKs7Sp00FvsiextrDWNzNfNab3RACCmK3Ezj37Eoag23FHbxjCDuPouqIxLy3cxOygwnb/IoQ==
+  dependencies:
+    "@sentry/core" "8.44.0"
 
 "@sentry/react@8.43.0":
   version "8.43.0"
@@ -2605,27 +2658,29 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@spotlightjs/overlay@2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.8.0.tgz#15437eceee3dcd2ae00213f40cc50c62ca357341"
-  integrity sha512-4FGJ8rhjXE/avG0PEPT/Na37Iq+ZucbSvANWNIsS5+fVSurvWH884OFaXNbtzzRfHMPk4333XQlYZaT8NXgidg==
+"@spotlightjs/overlay@2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.8.1.tgz#bc2772ace8df3d2d57366c49fdbc5ac619cafcdd"
+  integrity sha512-Sk8dRut57sUrry5ssmZEb3i6dGoYFnVRt+Ox20AXz+r9VA/Z63zvLJZlvjmEgRS+dMAG6B0iyOd6C307EDObow==
 
-"@spotlightjs/sidecar@1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.9.2.tgz#60ea951d78c89f43ddd4277417bfeb49c2fb29e8"
-  integrity sha512-xGHyyXotXLwNjM9XbIY7tK1jX8t8b7gX3h7UNqB9Hcd8YJW2mRl/ZJUedXQh6oK/TY8+mLZo8xyE7uJ70iljOA==
+"@spotlightjs/sidecar@1.9.3":
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.9.3.tgz#8fbf2ef02422e2739b082628c3dc8b32c86f810d"
+  integrity sha512-JmoI/3hJ5LD6tXxebX7wJXfgcDmSPbnOV8ZKlT4n+JIoorLm9DbIPAAIdnQk0qjDDClrvjpyqEWoFSOOPuBn6g==
   dependencies:
+    "@sentry/node" "^8.42.0"
     kleur "^4.1.5"
     launch-editor "^2.9.1"
     source-map "^0.7.4"
 
-"@spotlightjs/spotlight@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.7.0.tgz#6f8307d42106dd44f2fc15ca8b91cf287f3ec852"
-  integrity sha512-wQkn1z2aMisNfeEK5J675Unzee9WVtKn4PfW6aPpc/hVR497BiU3z+JzO22bkPwFdn8eG8u1u1+Se1c8/rrgmw==
+"@spotlightjs/spotlight@^2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.8.0.tgz#5d5f9ffbcd1ea05fe7b9514bad884c9e60188a7d"
+  integrity sha512-9jRTNwUsnz8TPDo4mpWRoP/LwH1jMMO6Fq0glyGuPkg4sfLZ5DuETSrUBoFa8vHjRGFKcl3ehVv5r8JT3d6WyA==
   dependencies:
-    "@spotlightjs/overlay" "2.8.0"
-    "@spotlightjs/sidecar" "1.9.2"
+    "@sentry/node" "^8.42.0"
+    "@spotlightjs/overlay" "2.8.1"
+    "@spotlightjs/sidecar" "1.9.3"
     import-meta-resolve "^4.1.0"
     macho-unsign "^2.0.6"
     portable-executable-signature "^2.0.6"
