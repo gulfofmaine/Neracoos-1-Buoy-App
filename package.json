@@ -32,7 +32,7 @@
     "react-ga4": "^2.1.0",
     "react-jsx-highcharts": "^5.0.3",
     "react-redux": "^9.2.0",
-    "react-select": "^5.8.3",
+    "react-select": "^5.9.0",
     "react-use": "^17.6.0",
     "reactstrap": "9.2.0",
     "rlayers": "^3.2.0",
