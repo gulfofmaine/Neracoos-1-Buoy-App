@@ -24,11 +24,18 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
   const [key, setKey] = useState<number>(0)
 
   useEffect(() => {
-    const futureTides = platform.properties.readings.filter(
-      (ts) =>
+    const futureTides = platform.properties.readings.filter((ts) => {
+      if (
         (ts.type === "Prediction" || ts.type === "Forecast") &&
-        WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name),
-    )
+        WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name)
+      ) {
+        if (ts.extrema_values && ts.extrema_values.tides && ts.extrema_values.tides.length > 0) {
+          return true
+        }
+      }
+      return false
+    })
+
     const nextTides = futureTides.map((ft) => {
       return {
         tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4),
@@ -39,6 +46,8 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
 
     setNextTides(nextTides as NextTides[])
   }, [platform])
+
+  if (!nextTides || nextTides.length < 1) return null
 
   return (
     <div
