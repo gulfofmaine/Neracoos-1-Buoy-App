@@ -6325,10 +6325,10 @@ he@^1.2.0:
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-highcharts@*, highcharts@^11.4.8:
-  version "11.4.8"
-  resolved "https://registry.npmjs.org/highcharts/-/highcharts-11.4.8.tgz"
-  integrity sha512-5Tke9LuzZszC4osaFisxLIcw7xgNGz4Sy3Jc9pRMV+ydm6sYqsPYdU8ELOgpzGNrbrRNDRBtveoR5xS3SzneEA==
+highcharts@*, highcharts@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-12.1.0.tgz#5839985e190b15f9475533f2e1a2d8bb3a0bcdb1"
+  integrity sha512-MIFBU5KMQhNPlceP/8j8YH2I9P3C9j19WDA0HafWWeCK1MJwIQPjcyOfF0byWpbp2i3OBQNKhajejg53NK5oqQ==
 
 history@*:
   version "5.3.0"
