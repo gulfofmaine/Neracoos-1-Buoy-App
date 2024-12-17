@@ -1,3 +1,7 @@
+import React from "react"
+import { useSearchParams, usePathname } from "next/navigation"
+import { useRouter } from "next-nprogress-bar"
+
 import { DatumOffsetOptions } from "Features/ERDDAP/types"
 
 /**
@@ -45,4 +49,36 @@ export const buildSearchParamsQuery = (start: string, end: string, datum?: Datum
   } else if (start && end && !datum) {
     return { start, end }
   } else return null
+}
+
+/**
+ * Get and set string query params
+ * @param key query param key
+ */
+export function useStringQueryParam(key: string): [string | null, (newQuery: string) => void] {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const setSearchParams = React.useCallback(
+    (newSearchParams: URLSearchParams) => {
+      router.push(pathname + "?" + newSearchParams.toString())
+    },
+    [router, pathname],
+  )
+
+  const paramValue = searchParams.get(key)
+
+  const value: string | null = React.useMemo(() => paramValue, [paramValue])
+
+  const setValue = React.useCallback(
+    (newValue: string) => {
+      let newSearchParams = new URLSearchParams(searchParams)
+      newSearchParams.set(key, newValue)
+      setSearchParams(newSearchParams)
+    },
+    [key, searchParams, setSearchParams],
+  )
+
+  return [value, setValue]
 }

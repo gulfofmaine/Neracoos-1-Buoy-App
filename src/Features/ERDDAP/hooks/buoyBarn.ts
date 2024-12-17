@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/react"
 import { useQuery, useQueries } from "@tanstack/react-query"
 
-import { ForecastJson, ForecastSource, PlatformFeatureCollection } from "../types"
+import { ForecastJson, ForecastSource, PlatformFeatureCollection, PlatformFeature } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
 import { erddapService, getPlatforms as getPlatformsBase, usePlatformsQueryKey } from "./buoyBarnQueries"
 
@@ -117,6 +117,10 @@ export function useForecasts(lat: number, lon: number, forecasts: ForecastSource
  * Get specific platform based on ID
  * */
 
-export const usePlatform = (platforms, platformId) => {
-  return platforms.find((p) => (p.id as string) === platformId)
+export const usePlatform = (platformId: string): PlatformFeature | undefined => {
+  const { data } = usePlatforms()
+  if (!data) {
+    return undefined
+  }
+  return data.features.find((p) => (p.id as string) === platformId)
 }
