@@ -59,7 +59,9 @@ export default function SensorIdPage({ params }) {
       </SecondaryBanner>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          {waterLevelPlatforms && <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />}
+          {platform && waterLevelPlatforms && (
+            <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
+          )}
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
@@ -69,11 +71,7 @@ export default function SensorIdPage({ params }) {
             />
           )}
         </Col>
-        <Col sm={{ size: "6" }}>
-          {waterLevelPlatforms && (
-            <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} />
-          )}
-        </Col>
+        <Col sm={{ size: "6" }}>{platform && <WaterLevelObservationContent platform={platform} />}</Col>
         {breakpoint === "S" && waterLevelPlatforms && (
           <Col sm={{ size: "6" }}>
             <ErddapWaterLevelMapBase

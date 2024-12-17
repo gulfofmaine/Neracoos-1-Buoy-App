@@ -21,6 +21,7 @@ interface ChartTimeSeriesDisplayProps {
   startTime: Date
   endTime: Date
   platform?: PlatformFeature
+  datumOffset: number | undefined
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
@@ -33,11 +34,12 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   startTime,
   endTime,
   platform,
+  datumOffset,
 }: ChartTimeSeriesDisplayProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const [floodThresholds, setFloodThresholds] = useState<any>()
-  const [datumOffset, setDatumOffset] = useState<number | null>()
+  // const [datumOffset, setDatumOffset] = useState<number | null>()
   const [title, setTitle] = useState<string>()
   const [yMax, setYMax] = useState<number>()
   const [yMin, setYMin] = useState<number>()
@@ -94,17 +96,17 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }, [timeSeries, datumOffset, unitSystem])
 
-  useEffect(() => {
-    if (searchParams.get("datum")) {
-      const datum = searchParams.get("datum") as string
-      const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
-      offsetName
-        ? setDatumOffset(timeSeries.datum_offsets[offsetName])
-        : router.push(pathname + "?" + createQueryString("datum", ""))
-    } else {
-      setDatumOffset(timeSeries.datum_offsets["datum_mllw_meters"])
-    }
-  }, [searchParams, timeSeries, pathname])
+  // useEffect(() => {
+  //   if (searchParams.get("datum")) {
+  //     const datum = searchParams.get("datum") as string
+  //     const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
+  //     offsetName
+  //       ? setDatumOffset(timeSeries.datum_offsets[offsetName])
+  //       : router.push(pathname + "?" + createQueryString("datum", ""))
+  //   } else {
+  //     setDatumOffset(timeSeries.datum_offsets["datum_mllw_meters"])
+  //   }
+  // }, [searchParams, timeSeries, pathname])
 
   useEffect(() => {
     const allReadings = dataset.timeSeries.map((t) => t.reading)
