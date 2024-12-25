@@ -2605,29 +2605,29 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@spotlightjs/overlay@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.8.1.tgz#bc2772ace8df3d2d57366c49fdbc5ac619cafcdd"
-  integrity sha512-Sk8dRut57sUrry5ssmZEb3i6dGoYFnVRt+Ox20AXz+r9VA/Z63zvLJZlvjmEgRS+dMAG6B0iyOd6C307EDObow==
+"@spotlightjs/overlay@2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.9.0.tgz#e600f216569bb393f3a27fe606a35e4d1d42ed86"
+  integrity sha512-toZW0hmFgx51yiEkz2+csXiwKWSBzFF1VD0JmEHdQrD76+n3YfEmkVxUqqmcB/s8vC32i/9ti0QQRbQzjACbow==
 
-"@spotlightjs/sidecar@1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.9.4.tgz#e223465dc8ee90edf1670bdf07bc0160cadc13e7"
-  integrity sha512-pdPAK+W2XQyTBUyro6n4M2lhmGkm70jBL3pIDVgRa0hQMOMZ3Jv7owSSL1RP4AI4h0rVc3W9r0hOuwS+iDw33w==
+"@spotlightjs/sidecar@1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.10.0.tgz#73db093471c327e677c437a2ab23fe7c83ba18fb"
+  integrity sha512-aGqj3kp09OmxVwr30J3vAVfN+aCAZQ1jF6YyyQJ4vWGzymxYJJCTO1U4Amh5NgPxLw02OCWPqQ5c7cKSHvn4WQ==
   dependencies:
     "@sentry/node" "^8.42.0"
     kleur "^4.1.5"
     launch-editor "^2.9.1"
     source-map "^0.7.4"
 
-"@spotlightjs/spotlight@^2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.8.1.tgz#9ea74181a1e477c96a76efbc426e14f9d6e6d0fb"
-  integrity sha512-ohkn0zTV7CEsnWgy7eF6/fnDCJMCqm97OGJJ8LHqWVEYTr8WbN2is0kPNJYtBnF+I7rGkdIR5zQ0DO0Rv9dr0A==
+"@spotlightjs/spotlight@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.9.0.tgz#2f9283216a5334fc16112055717b3087876cb246"
+  integrity sha512-SQeToiN6Fykl++VkQhbn8aomPtIBW9qQOKyeEHxoOQGzK5irsU0O0fCUOfZHh8loV34K3m5ua8Ic1sIPR2tGlg==
   dependencies:
     "@sentry/node" "^8.42.0"
-    "@spotlightjs/overlay" "2.8.1"
-    "@spotlightjs/sidecar" "1.9.4"
+    "@spotlightjs/overlay" "2.9.0"
+    "@spotlightjs/sidecar" "1.10.0"
     import-meta-resolve "^4.1.0"
     macho-unsign "^2.0.6"
     portable-executable-signature "^2.0.6"
