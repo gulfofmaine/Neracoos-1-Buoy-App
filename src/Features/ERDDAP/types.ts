@@ -165,6 +165,26 @@ export interface FloodThreshold {
   maxValue: number
 }
 
+export enum Datums {
+  NAVD88 = "navd88",
+  MHHW = "datum_mhhw_meters",
+  MHW = "datum_mhw_meters",
+  MLLW = "datum_mllw_meters",
+  MLW = "datum_mlw_meters",
+  MSL = "datum_msl_meters",
+  MTL = "datum_mtl_meters",
+}
+export const DATUM_MLLW_METERS = Datums.MLLW
+
+export type DatumOffsetOptions =
+  | "datum_mhhw_meters"
+  | "datum_mhw_meters"
+  | typeof DATUM_MLLW_METERS
+  | "datum_mlw_meters"
+  | "datum_msl_meters"
+  | "datum_mtl_meters"
+  | "navd88"
+
 export interface DatumOffsets {
   datum_mhhw_meters?: number
   datum_mhw_meters?: number
@@ -173,11 +193,3 @@ export interface DatumOffsets {
   datum_msl_meters?: number
   datum_mtl_meters?: number
 }
-
-export type DatumOffsetOptions =
-  | "datum_mhhw_meters"
-  | "datum_mhw_meters"
-  | "datum_mllw_meters"
-  | "datum_mlw_meters"
-  | "datum_msl_meters"
-  | "datum_mtl_meters"
