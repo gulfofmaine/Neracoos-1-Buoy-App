@@ -63,18 +63,18 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
   //   }
   // }, [platform])
 
+  const timeSeries: PlatformTimeSeries[] = []
+
+  if (waterLevel) { timeSeries.push(waterLevel)}
+  if (predictedTides) { timeSeries.push(predictedTides)}
+  if (forecastedTides) { timeSeries.push(...forecastedTides)}
+
   return (
     <div className="chart-display">
       {waterLevel ? (
         <>
           <UseDatasets
-            timeSeries={
-              predictedTides
-                ? forecastedTides
-                  ? [waterLevel, predictedTides, ...forecastedTides]
-                  : [waterLevel, predictedTides]
-                : [waterLevel]
-            }
+            timeSeries={timeSeries}
             startTime={fullBeginningDateIso(startTime)}
             endTime={manuallySetFullEODIso(endTime)}
             platformId={platform.id}
@@ -105,6 +105,7 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
                     startTime={startTime}
                     endTime={endTime}
                     datumOffset={datumOffset}
+                    datum={datum}
                   />
                 </div>
               )

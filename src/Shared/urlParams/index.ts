@@ -37,17 +37,22 @@ export function urlPartReplacer(url: string, key: string, value: string): string
     .join("/")
 }
 
-export const buildSearchParamsQuery = (start: string, end: string, datum?: DatumOffsetOptions) => {
+
+function formatDate(d: Date) {
+  return d.toISOString()
+}
+
+export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
   if (datum && start && end) {
     return {
-      start,
-      end,
+      start: formatDate(start),
+      end: formatDate(end),
       datum,
     }
   } else if (datum && !start && !end) {
     return { datum }
   } else if (start && end && !datum) {
-    return { start, end }
+    return { start: formatDate(start), end: formatDate(end) }
   } else return null
 }
 

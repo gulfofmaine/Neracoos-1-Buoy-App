@@ -22,6 +22,7 @@ interface ChartTimeSeriesDisplayProps {
   endTime: Date
   platform?: PlatformFeature
   datumOffset: number | undefined
+  datum?: Datums
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
@@ -35,19 +36,14 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   endTime,
   platform,
   datumOffset,
+  datum,
 }: ChartTimeSeriesDisplayProps) => {
-  const router = useRouter()
-  const pathname = usePathname()
   const [floodThresholds, setFloodThresholds] = useState<any>()
-  // const [datumOffset, setDatumOffset] = useState<number | null>()
-  const [title, setTitle] = useState<string>()
   const [yMax, setYMax] = useState<number>()
   const [yMin, setYMin] = useState<number>()
 
-  const params = useParams()
-  const searchParams = useSearchParams()
   const dataConverter = converter(standardName)
-  const sensorId = decodeURIComponent(params.sensorId as string)
+  const sensorId = platform?.id
 
   const getDefaultTitle = () => {
     if (!Object.keys(timeSeries.datum_offsets).length) {
@@ -96,18 +92,6 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }, [timeSeries, datumOffset, unitSystem])
 
-  // useEffect(() => {
-  //   if (searchParams.get("datum")) {
-  //     const datum = searchParams.get("datum") as string
-  //     const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
-  //     offsetName
-  //       ? setDatumOffset(timeSeries.datum_offsets[offsetName])
-  //       : router.push(pathname + "?" + createQueryString("datum", ""))
-  //   } else {
-  //     setDatumOffset(timeSeries.datum_offsets["datum_mllw_meters"])
-  //   }
-  // }, [searchParams, timeSeries, pathname])
-
   useEffect(() => {
     const allReadings = dataset.timeSeries.map((t) => t.reading)
     setYMax(
@@ -151,7 +135,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />{" "}
-      <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
+      {/* <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} /> */}
       {platform && <TidesTable platform={platform} standardName={standardName} datumOffset={datumOffset || 0} />}
       {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
     </div>

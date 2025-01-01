@@ -31,6 +31,8 @@ import { Feature } from "ol"
 import { RStyleArray } from "rlayers/style"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 
+import {useEndTime, useStartTime, useDatum} from "../waterLevel/hooks"
+
 export interface Props {
   // Bounding box for fitting to a region
   boundingBox?: BoundingBox | null
@@ -67,6 +69,10 @@ interface PlatformLayerProps {
 export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
   const path = usePathname()
+  const {endTime} = useEndTime()
+  const {startTime} = useStartTime()
+  const {datum} = useDatum()
+
   const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [predictedFloodThreshold, setPredictedFloodThreshold] = useState<string>("")
@@ -131,9 +137,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
               ? {
                   pathname: `/water-level/sensor/${platform.id}`,
                   query: buildSearchParamsQuery(
-                    searchParams.get("start") as string,
-                    searchParams.get("end") as string,
-                    searchParams.get("datum") as DatumOffsetOptions,
+                    startTime, endTime, datum
                   ),
                 }
               : `/water-level/sensor/${platform.id}`
