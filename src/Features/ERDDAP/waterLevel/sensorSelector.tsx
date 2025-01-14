@@ -18,27 +18,39 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
   const searchParams = useSearchParams()
   const decodedId = useDecodedUrl(params.sensorId as string)
   const sensor = sensors.find((s) => s.id === decodedId)
-  const {endTime} = useEndTime()
-  const {startTime} = useStartTime()
-  const {datum} = useDatum()
+  const { endTime } = useEndTime()
+  const { startTime } = useStartTime(true)
+  const { datum } = useDatum()
 
   const close = () => {
     setIsOpen(false)
   }
 
-  const sensorOptions = sensors ? sensors
-    .sort((a, b) => { if (a.id < b.id) { return -1} else { return 1}})
-    .map((p, index) => {
-      return (
-        <Link key={`dropdown-${p.id}`} onClick={close} 
-        href={{pathname: `/water-level/sensor/${p.id as string}`,
-        query: buildSearchParamsQuery(startTime, endTime, datum)
-        }}
-        className="list-group-item list-group-item-action"
-      >{platformName(p)}</Link>
-      )
-    })
-      : []
+  const sensorOptions = sensors
+    ? sensors
+        .sort((a, b) => {
+          if (a.id < b.id) {
+            return -1
+          } else {
+            return 1
+          }
+        })
+        .map((p, index) => {
+          return (
+            <Link
+              key={`dropdown-${p.id}`}
+              onClick={close}
+              href={{
+                pathname: `/water-level/sensor/${p.id as string}`,
+                query: buildSearchParamsQuery(startTime, endTime, datum),
+              }}
+              className="list-group-item list-group-item-action"
+            >
+              {platformName(p)}
+            </Link>
+          )
+        })
+    : []
 
   // useEffect(() => {
   //   if (sensors) {

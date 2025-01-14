@@ -143,7 +143,7 @@ export function LargeTimeSeriesWaterLevelChart({
           }
           endOnTick={false}
         >
-          {floodThresholds && (
+          {/* {floodThresholds && (
             <div>
               <PlotBand
                 from={floodThresholds.Minor?.minValue}
@@ -197,7 +197,7 @@ export function LargeTimeSeriesWaterLevelChart({
                 }}
               />
             </div>
-          )}
+          )} */}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
           <SplineSeries
             key="observed"

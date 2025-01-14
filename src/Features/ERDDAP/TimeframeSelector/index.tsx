@@ -8,17 +8,20 @@ import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
 import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
-import { DatumOffsetOptions } from "../types"
+import { DatumOffsetOptions, Datums } from "../types"
+import { useDatum, useEndTime, useStartTime } from "../waterLevel/hooks"
 
-export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
+export const TimeframeSelector = ({
+  graphFuture,
+  isWaterLevel = false,
+}: {
+  graphFuture: boolean
+  isWaterLevel?: boolean
+}) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const isWaterLevel = pathname.includes("water-level")
-  const [startTime, setStartTime] =
-    useState<any>(searchParams.get("start")) || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded())
-  const [endTime, setEndTime] =
-    useState<any>(searchParams.get("end")) ||
-    getIsoForPicker(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0))
+  const { startTime, setStartTime } = useStartTime(isWaterLevel)
+  const { endTime, setEndTime } = useEndTime(graphFuture)
   const [validDateMessage, setValidDateMessage] = useState<string>("")
 
   const validateTimeframe = (start, end) => {
@@ -106,7 +109,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                 searchParams.get("datum")
                   ? {
                       pathname: `${pathname}`,
-                      query: buildSearchParamsQuery("", "", searchParams.get("datum") as DatumOffsetOptions),
+                      query: buildSearchParamsQuery(
+                        startTime,
+                        endTime,
+                        searchParams.get("datum") as DatumOffsetOptions,
+                      ),
                     }
                   : pathname
               }

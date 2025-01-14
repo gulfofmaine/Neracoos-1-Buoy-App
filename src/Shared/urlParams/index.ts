@@ -37,9 +37,8 @@ export function urlPartReplacer(url: string, key: string, value: string): string
     .join("/")
 }
 
-
 function formatDate(d: Date) {
-  return d.toISOString()
+  return d.toISOString().split("T")[0]
 }
 
 export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
@@ -78,9 +77,13 @@ export function useStringQueryParam(key: string): [string | null, (newQuery: str
 
   const setValue = React.useCallback(
     (newValue: string) => {
-      let newSearchParams = new URLSearchParams(searchParams)
-      newSearchParams.set(key, newValue)
-      setSearchParams(newSearchParams)
+      const paramValue = searchParams.get(key)
+
+      if (newValue !== paramValue) {
+        let newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set(key, newValue)
+        setSearchParams(newSearchParams)
+      }
     },
     [key, searchParams, setSearchParams],
   )

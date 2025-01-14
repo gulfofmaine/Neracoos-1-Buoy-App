@@ -19,7 +19,7 @@ import { useEndTime, useStartTime, useDatum } from "./hooks"
 export const WaterLevelObservationContent = ({ platform }: { platform: PlatformFeature }) => {
   const unitSystem = useUnitSystem()
   const pathname = usePathname()
-  const { startTime } = useStartTime()
+  const { startTime } = useStartTime(true)
   const { endTime } = useEndTime()
   const { datum } = useDatum()
 
@@ -65,9 +65,15 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
 
   const timeSeries: PlatformTimeSeries[] = []
 
-  if (waterLevel) { timeSeries.push(waterLevel)}
-  if (predictedTides) { timeSeries.push(predictedTides)}
-  if (forecastedTides) { timeSeries.push(...forecastedTides)}
+  if (waterLevel) {
+    timeSeries.push(waterLevel)
+  }
+  if (predictedTides) {
+    timeSeries.push(predictedTides)
+  }
+  if (forecastedTides) {
+    timeSeries.push(...forecastedTides)
+  }
 
   return (
     <div className="chart-display">
