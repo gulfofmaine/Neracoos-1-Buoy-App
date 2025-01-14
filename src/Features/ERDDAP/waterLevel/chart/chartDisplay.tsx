@@ -95,12 +95,6 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   const title = timeSeries && datum ? getDatumDisplayName(datum) : getDefaultTitle()
 
-  let graphFuture = false
-
-  if (predictedTidesDataset || forecastedTidesDatasets) {
-    graphFuture = true
-  }
-
   return (
     <div>
       <div style={{ display: "flex", width: "100%", flexDirection: "column", alignItems: "center" }}>
