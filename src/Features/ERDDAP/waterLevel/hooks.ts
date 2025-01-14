@@ -1,4 +1,4 @@
-import { useStringQueryParam } from "Shared/urlParams"
+import { useDefaultStringQueryParam } from "Shared/urlParams"
 import {
   aDayAgoRounded,
   aWeekAgoRounded,
@@ -11,10 +11,13 @@ import {
 import { Datums } from "../types"
 
 export function useEndTime(graphFuture: boolean = false): { endTime: Date; setEndTime: (newQuery: string) => void } {
-  const [value, setValue] = useStringQueryParam("end")
+  const { value, setValue } = useDefaultStringQueryParam(
+    "end",
+    getIsoForPicker(graphFuture ? daysInFuture(3) : daysInFuture(0)),
+  )
 
   return {
-    endTime: new Date(value || getIsoForPicker(graphFuture ? daysInFuture(3) : daysInFuture(0))),
+    endTime: new Date(value),
     setEndTime: setValue,
   }
 }
@@ -23,16 +26,19 @@ export function useStartTime(isWaterLevel: boolean = false): {
   startTime: Date
   setStartTime: (newQuery: string) => void
 } {
-  const [value, setValue] = useStringQueryParam("start")
+  const { value, setValue } = useDefaultStringQueryParam(
+    "start",
+    getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()),
+  )
 
   return {
-    startTime: new Date(value || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded())),
+    startTime: new Date(value),
     setStartTime: setValue,
   }
 }
 
 export function useDatum(): { datum: Datums; setDatum: (newQuery: Datums) => void } {
-  const [value, setValue] = useStringQueryParam("datum")
+  const { value, setValue } = useDefaultStringQueryParam("datum", Datums.MLLW)
 
   return { datum: (value || Datums.MLLW) as Datums, setDatum: setValue }
 }

@@ -90,3 +90,46 @@ export function useStringQueryParam(key: string): [string | null, (newQuery: str
 
   return [value, setValue]
 }
+
+/**
+ * Get and set string query params with a default value to fall back to and hide from the url
+ * @param key Search query param key
+ * @param defaultValue Default value to fall back to and hide when chosen
+ * @returns
+ */
+export function useDefaultStringQueryParam(
+  key: string,
+  defaultValue: string,
+): { value: string; setValue: (newQuery: string) => void } {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const setSearchParams = React.useCallback(
+    (newSearchParams: URLSearchParams) => {
+      router.push(pathname + "?" + newSearchParams.toString())
+    },
+    [router, pathname],
+  )
+
+  const value = searchParams.get(key) || defaultValue
+
+  const setValue = React.useCallback(
+    (newValue: string) => {
+      if (newValue === defaultValue) {
+        if (searchParams.has(key)) {
+          let newSearchParams = new URLSearchParams(searchParams)
+          newSearchParams.delete(key)
+          setSearchParams(newSearchParams)
+        }
+      } else if (newValue !== searchParams.get(key)) {
+        let newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set(key, newValue)
+        setSearchParams(newSearchParams)
+      }
+    },
+    [key, searchParams, setSearchParams],
+  )
+
+  return { value, setValue }
+}

@@ -79,9 +79,9 @@ export const TimeframeSelector = ({
               id="start"
               name="start"
               max={getToday()}
-              value={startTime || ""}
+              value={startTime.toISOString().split("T")[0]}
               onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
-              required
+              required={true}
             />
           </label>
           <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
@@ -90,11 +90,11 @@ export const TimeframeSelector = ({
               type="date"
               id="end"
               name="end"
-              min={startTime}
+              min={startTime.toISOString().split("T")[0]}
               max={graphFuture ? undefined : getToday()}
-              value={endTime || ""}
+              value={endTime.toISOString().split("T")[0]}
               onInput={(e) => setEndTime(getIsoForPicker(new Date((e.target as HTMLInputElement).value)))}
-              required
+              required={true}
             />
           </label>
           <Button
