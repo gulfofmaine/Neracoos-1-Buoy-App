@@ -1,6 +1,6 @@
-import { aWeekAgoRounded, daysAgoRounded, daysInFuture, getIsoForPicker, getToday, YEAR } from "Shared/time"
+import { aWeekAgoRounded, daysAgoRounded, daysInFuture, formatDate, getToday, YEAR } from "Shared/time"
 
-import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
@@ -8,8 +8,8 @@ import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
 import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
 import { buildSearchParamsQuery } from "Shared/urlParams"
-import { DatumOffsetOptions, Datums } from "../types"
-import { useDatum, useEndTime, useStartTime } from "../waterLevel/hooks"
+import { DatumOffsetOptions } from "../types"
+import { useEndTime, useStartTime } from "../waterLevel/hooks"
 
 export const TimeframeSelector = ({
   graphFuture,
@@ -24,40 +24,40 @@ export const TimeframeSelector = ({
   const { endTime, setEndTime } = useEndTime(graphFuture)
   const [validDateMessage, setValidDateMessage] = useState<string>("")
 
-  const validateTimeframe = (start, end) => {
-    //check if timeFrame spans more than two weeks
-    if (isWaterLevel) {
-      if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
-        return "Please choose a timeframe that spans less than two weeks"
-      }
-      //check if timeframe is recent enough
-      if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
-        return "Please choose a more recent date"
-      }
-    } else {
-      //check if timeFrame spans less than one month
-      if ((new Date(end).getTime() - new Date(start).getTime()) / YEAR > 1) {
-        return "Please choose a timeframe that spans less than one year"
-      }
-    }
-    //check if endDate is before startDate
-    if (new Date(end).getTime() - new Date(start).getTime() < 0) {
-      return "Please choose a date where the start is before the end"
-    }
-    return ""
-  }
-
   useEffect(() => {
+    const validateTimeframe = (start, end) => {
+      //check if timeFrame spans more than two weeks
+      if (isWaterLevel) {
+        if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
+          return "Please choose a timeframe that spans less than two weeks"
+        }
+        //check if timeframe is recent enough
+        if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
+          return "Please choose a more recent date"
+        }
+      } else {
+        //check if timeFrame spans less than one month
+        if ((new Date(end).getTime() - new Date(start).getTime()) / YEAR > 1) {
+          return "Please choose a timeframe that spans less than one year"
+        }
+      }
+      //check if endDate is before startDate
+      if (new Date(end).getTime() - new Date(start).getTime() < 0) {
+        return "Please choose a date where the start is before the end"
+      }
+      return ""
+    }
+
     setValidDateMessage(validateTimeframe(startTime, endTime))
-  }, [startTime, endTime])
+  }, [startTime, endTime, isWaterLevel])
 
   useEffect(() => {
-    setStartTime(searchParams.get("start") || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()))
+    setStartTime(searchParams.get("start") || formatDate(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()))
     setEndTime(
       searchParams.get("end") ||
-        getIsoForPicker(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0)),
+        formatDate(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0)),
     )
-  }, [searchParams, isWaterLevel, graphFuture, pathname])
+  }, [searchParams, isWaterLevel, graphFuture, pathname, setEndTime, setStartTime])
 
   return (
     <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
@@ -79,7 +79,7 @@ export const TimeframeSelector = ({
               id="start"
               name="start"
               max={getToday()}
-              value={startTime.toISOString().split("T")[0]}
+              value={formatDate(startTime)}
               onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
               required={true}
             />
@@ -90,10 +90,10 @@ export const TimeframeSelector = ({
               type="date"
               id="end"
               name="end"
-              min={startTime.toISOString().split("T")[0]}
+              min={formatDate(startTime)}
               max={graphFuture ? undefined : getToday()}
-              value={endTime.toISOString().split("T")[0]}
-              onInput={(e) => setEndTime(getIsoForPicker(new Date((e.target as HTMLInputElement).value)))}
+              value={formatDate(endTime)}
+              onInput={(e) => setEndTime(formatDate(new Date((e.target as HTMLInputElement).value)))}
               required={true}
             />
           </label>

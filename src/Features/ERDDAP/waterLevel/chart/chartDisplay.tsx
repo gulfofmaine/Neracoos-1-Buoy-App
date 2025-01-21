@@ -1,15 +1,16 @@
-import { PlatformFeature, PlatformTimeSeries } from "Features/ERDDAP/types"
-import { converter } from "Features/Units/Converter"
-import { UnitSystem } from "Features/Units/types"
-import { DataTimeSeries } from "Shared/timeSeries"
 import { useEffect, useState } from "react"
-import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
-import { getDatumDisplayName } from "Shared/dataTypes"
-import { displayShortIso } from "Shared/time"
-import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
+
+import { PlatformFeature, PlatformTimeSeries } from "Features/ERDDAP/types"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { TidesTable } from "Features/ERDDAP/waterLevel/TidesTable"
+import { converter } from "Features/Units/Converter"
+import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
+import { UnitSystem } from "Features/Units/types"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { getDatumDisplayName } from "Shared/dataTypes"
+import { displayShortIso } from "Shared/time"
 
+import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
 import { Datums, FloodThreshold } from "../../types"
 
 interface ChartTimeSeriesDisplayProps {
@@ -52,46 +53,55 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }
 
-  const getMaxThreshold = () => {
-    return Object.keys(floodThresholds).reduce((max, f) => {
-      return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
-    }, 0)
-  }
-
   useEffect(() => {
-    if (timeSeries.flood_levels.length) {
-      const floodLevelsMap = timeSeries.flood_levels.reduce((acc, level, index) => {
-        if (!acc[level.name] && typeof datumOffset === "number") {
-          acc[level.name] =
-            level.name === "Major"
-              ? {
-                  minValue: dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem),
-                  maxValue:
-                    dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem) + 1,
-                }
-              : {
-                  minValue: dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem),
-                  maxValue: dataConverter.convertToNumber(
-                    getValueWithOffset(timeSeries.flood_levels[index - 1].min_value, datumOffset),
-                    unitSystem,
-                  ),
-                }
-        }
-        return acc
-      }, {})
+    if (timeSeries.flood_levels.length > 0) {
+      const floodLevelsMap = timeSeries.flood_levels
+        .sort((a, b) => b.min_value - a.min_value)
+        .reduce((acc, level, index) => {
+          if (!acc[level.name] && typeof datumOffset === "number") {
+            acc[level.name] =
+              level.name === "Major"
+                ? {
+                    minValue: dataConverter.convertToNumber(
+                      getValueWithOffset(level.min_value, datumOffset),
+                      unitSystem,
+                    ),
+                    maxValue:
+                      dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem) + 1,
+                  }
+                : {
+                    minValue: dataConverter.convertToNumber(
+                      getValueWithOffset(level.min_value, datumOffset),
+                      unitSystem,
+                    ),
+                    maxValue: dataConverter.convertToNumber(
+                      getValueWithOffset(timeSeries.flood_levels[index - 1].min_value, datumOffset),
+                      unitSystem,
+                    ),
+                  }
+          }
+          return acc
+        }, {})
       setFloodThresholds(floodLevelsMap)
     }
-  }, [timeSeries, datumOffset, unitSystem])
+  }, [timeSeries, datumOffset, unitSystem, dataConverter])
 
   useEffect(() => {
+    const getMaxThreshold = () => {
+      return Object.keys(floodThresholds).reduce((max, f) => {
+        return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
+      }, 0)
+    }
+
     const allReadings = dataset.timeSeries.map((t) => t.reading)
+
     setYMax(
       floodThresholds
         ? dataConverter.convertToNumber(getMaxThreshold(), unitSystem)
         : dataConverter.convertToNumber(Math.max(...allReadings), unitSystem),
     )
     setYMin(dataConverter.convertToNumber(Math.min(...allReadings), unitSystem))
-  }, [floodThresholds, dataset, unitSystem])
+  }, [floodThresholds, dataset, unitSystem, dataConverter])
 
   const title = timeSeries && datum ? getDatumDisplayName(datum) : getDefaultTitle()
 

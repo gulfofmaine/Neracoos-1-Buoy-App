@@ -60,3 +60,9 @@ spotlight-docker:
 
 spotlight:
 	npx @spotlightjs/spotlight
+
+lint:
+	docker compose exec client npm run lint
+
+types:
+	docker compose exec client npm run types

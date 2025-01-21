@@ -17,7 +17,7 @@ import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
-import { aDayAgoRounded, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { aDayAgoRounded, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
@@ -73,7 +73,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   const opacity = selected ? "cc" : "7a"
 
   const url = waterLevelSensorPage
-    ? `/water-level/sensor/${platform.id}/${getIsoForPicker(threeDaysAgoRounded())}/${getIsoForPicker(
+    ? `/water-level/sensor/${platform.id}/${formatDate(threeDaysAgoRounded())}/${formatDate(
         weeksInFuture(1),
       )}/${params.datum}`
     : urlPartReplacer(paths.platforms.platform, ":id", platform.id)

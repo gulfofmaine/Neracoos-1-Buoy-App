@@ -39,7 +39,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
       const wlReading = platform.properties.readings.find((r) => Object.keys(r.datum_offsets).length)
       setDatumOptions(wlReading?.datum_offsets)
     }
-  }, [platform])
+  }, [platform, children])
 
   const waterLevelTimeseries = filterTimeSeries(
     platform.properties.readings.filter((ts) => ts.highlighted === "No"),

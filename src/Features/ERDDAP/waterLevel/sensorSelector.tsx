@@ -6,7 +6,7 @@ import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "
 import { useDecodedUrl } from "util/hooks"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { platformName } from "Features/ERDDAP/utils/platformName"
-import { getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { DatumOffsetOptions } from "Features/ERDDAP/types"
 
 import { useEndTime, useStartTime, useDatum } from "./hooks"

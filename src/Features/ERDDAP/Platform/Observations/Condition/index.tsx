@@ -17,7 +17,7 @@ import { Info } from "./Info"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
 import { Calendar } from "Shared/icons/Calendar"
-import { aWeekAgoRounded, daysInFuture, getIsoForPicker, manuallySetFullEODIso } from "Shared/time"
+import { aWeekAgoRounded, daysInFuture, formatDate, manuallySetFullEODIso } from "Shared/time"
 import { PlatformLoadingAlert } from "components/Alerts"
 
 interface Props {

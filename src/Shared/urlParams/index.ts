@@ -4,6 +4,8 @@ import { useRouter } from "next-nprogress-bar"
 
 import { DatumOffsetOptions } from "Features/ERDDAP/types"
 
+import { formatDate } from "../time"
+
 /**
  * Return key, value pairs for a url parameter string
  *
@@ -35,10 +37,6 @@ export function urlPartReplacer(url: string, key: string, value: string): string
     .split("/")
     .map((part) => (part === key ? value : part))
     .join("/")
-}
-
-function formatDate(d: Date) {
-  return d.toISOString().split("T")[0]
 }
 
 export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
@@ -128,7 +126,7 @@ export function useDefaultStringQueryParam(
         setSearchParams(newSearchParams)
       }
     },
-    [key, searchParams, setSearchParams],
+    [key, searchParams, setSearchParams, defaultValue],
   )
 
   return { value, setValue }

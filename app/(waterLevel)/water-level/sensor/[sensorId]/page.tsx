@@ -1,20 +1,16 @@
 "use client"
-import { usePlatforms, usePlatform } from "Features/ERDDAP/hooks"
-import { PlatformFeature } from "Features/ERDDAP/types"
+import { fromLonLat } from "ol/proj"
+import React, { useEffect, useState } from "react"
+import { createBreakpoint } from "react-use"
+import { Col, Row } from "reactstrap"
+
+import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
+import { SecondaryBanner } from "components/SecondaryBanner"
+import { usePlatform } from "Features/ERDDAP/hooks"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
-
-import { filterForSensors, useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/sensor"
-
-import { fromLonLat } from "ol/proj"
-import { useEffect, useState } from "react"
-import { Alert, Col, Row } from "reactstrap"
+import { useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/sensor"
 import { useDecodedUrl } from "util/hooks"
-import { createBreakpoint } from "react-use"
-import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
-import { useSearchParams } from "next/navigation"
-import React from "react"
-import { SecondaryBanner } from "components/SecondaryBanner"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 

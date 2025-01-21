@@ -11,7 +11,7 @@ import { buildSearchParamsQuery, urlPartReplacer } from "Shared/urlParams"
 
 import { DataType } from "../../../types"
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
-import { aWeekAgoRounded, getIsoForPicker, weeksInFuture } from "Shared/time"
+import { aWeekAgoRounded, formatDate, weeksInFuture } from "Shared/time"
 
 const initialState = {
   dropdownOpen: false,

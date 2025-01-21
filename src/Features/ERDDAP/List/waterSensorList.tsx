@@ -1,5 +1,5 @@
 import React from "react"
-import { daysAgoRounded, daysInFuture, getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
+import { daysAgoRounded, daysInFuture, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
@@ -40,7 +40,7 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
 
       setSensors(sensorList)
     }
-  }, [platforms])
+  }, [platforms, boundingBox])
 
   //Station defaults to 3 day in past, week in future, and mllw datum
   return (

@@ -60,10 +60,11 @@ export function manuallySetFullEODIso(date: Date) {
  */
 
 export function getToday() {
-  return new Date().toISOString().split("T")[0]
+  return formatDate(new Date())
 }
 
-export function getIsoForPicker(date) {
+/** Returns the date in ISO format without the time */
+export function formatDate(date) {
   return date.toISOString().split("T")[0]
 }
 

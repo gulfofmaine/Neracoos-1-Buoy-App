@@ -3,34 +3,31 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { usePathname, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import { usePathname, useSearchParams, useParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
-
+import { Feature } from "ol"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
-
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
+import { RStyleArray } from "rlayers/style"
 
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
+import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { aDayAgoRounded } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
-import { useParams } from "next/navigation"
+
+import { PlatformLayer } from "."
 import { usePlatforms } from "../hooks"
-import { DatumOffsetOptions, PlatformFeature } from "../types"
+import { PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
   getWaterLevelThresholdsMapRawComp,
 } from "../utils/waterLevelThresholds"
-import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
-import Link from "next/link"
-import { Feature } from "ol"
-import { RStyleArray } from "rlayers/style"
-import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
-
 import { useEndTime, useStartTime, useDatum } from "../waterLevel/hooks"
 
 export interface Props {
@@ -78,35 +75,39 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   const [predictedFloodThreshold, setPredictedFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState("grey")
   const [predictedDisplay, setPredictedDisplay] = useState("gray")
+
   let radius: number
+
   if (selected) {
     radius = window.innerWidth > adjustPxWidth ? 16 : 21
   } else {
     radius = window.innerWidth > adjustPxWidth ? 10 : 15
   }
+
   const isSensorPage = path.includes("sensor")
 
-  const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
-    const highestValue = currentWaterLevel?.extrema_values?.max.value
-    const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
-    const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
-    setFloodThreshold(surpassedThreshold)
-    const opacity = selected ? "e6" : "a0"
-    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-    setDisplay(display)
-  }
-
-  const getPredictedWaterDisplay = (predictedWaterLevel, floodLevels) => {
-    //Get highest value of predicted and any forecasts
-    const highValue = Math.max(...predictedWaterLevel.map((p) => p.extrema_values.max?.value))
-    const predWaterLevelThresholds = floodLevels && getWaterLevelThresholdsMapRawComp(floodLevels)
-    const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
-    setPredictedFloodThreshold(surpassedThreshold)
-    const opacity = selected ? "e6" : "a0"
-    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-    setPredictedDisplay(display)
-  }
   useEffect(() => {
+    const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
+      const highestValue = currentWaterLevel?.extrema_values?.max.value
+      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
+      const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
+      setFloodThreshold(surpassedThreshold)
+      const opacity = selected ? "e6" : "a0"
+      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+      setDisplay(display)
+    }
+
+    const getPredictedWaterDisplay = (predictedWaterLevel, floodLevels) => {
+      //Get highest value of predicted and any forecasts
+      const highValue = Math.max(...predictedWaterLevel.map((p) => p.extrema_values.max?.value))
+      const predWaterLevelThresholds = floodLevels && getWaterLevelThresholdsMapRawComp(floodLevels)
+      const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
+      setPredictedFloodThreshold(surpassedThreshold)
+      const opacity = selected ? "e6" : "a0"
+      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+      setPredictedDisplay(display)
+    }
+
     const currentWaterLevel = platform.properties.readings.find((r) => {
       return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
     })

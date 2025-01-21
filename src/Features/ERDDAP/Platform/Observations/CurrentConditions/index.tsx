@@ -9,14 +9,11 @@ import { Row } from "reactstrap"
 import { useUnitSystem } from "Features/Units"
 import { halfADayAgoRounded } from "Shared/time"
 
-import { UseDatasets } from "../../../hooks"
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { conditions } from "../../../utils/conditions"
-import { pickWindTimeSeries } from "../../../utils/wind"
-import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
-
 import { DataCardDisplay } from "./data_card"
 import { DisplayWindCard } from "./wind"
+import { UseDatasets } from "../../../hooks"
+import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
 
 interface Props {
   platform: PlatformFeature

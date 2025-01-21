@@ -1,16 +1,16 @@
-import { InitialRegion, regionList } from "Shared/regions"
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useParams, usePathname } from "next/navigation"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
+
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+import { WLLegend } from "Features/ERDDAP/waterLevel/WLLegend"
+import { InitialRegion, regionList } from "Shared/regions"
+
 import { BaseProps, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import { WLPlatformLayer } from "../Map/WLPlatformLayer"
-import { LegendItem } from "components/Map/legendItem"
-import { Table } from "reactstrap"
-import { WLLegend } from "Features/ERDDAP/waterLevel/WLLegend"
 
 const initial = { center: fromLonLat([-70.5, 43.5]), zoom: 6.7 }
 
