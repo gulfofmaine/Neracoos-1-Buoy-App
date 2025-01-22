@@ -2605,29 +2605,29 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@spotlightjs/overlay@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.8.1.tgz#bc2772ace8df3d2d57366c49fdbc5ac619cafcdd"
-  integrity sha512-Sk8dRut57sUrry5ssmZEb3i6dGoYFnVRt+Ox20AXz+r9VA/Z63zvLJZlvjmEgRS+dMAG6B0iyOd6C307EDObow==
+"@spotlightjs/overlay@2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/overlay/-/overlay-2.10.0.tgz#497a1ac18e54ab4a5c6d7a0792cbefdbefb64075"
+  integrity sha512-NKWsV8OBqKpORum48zklbmKXvXUvCBXVME38d++jK8oUvPsGFnWzXK+wYJdhL8sDKAFVnEyt7LwAgNZ45sHBJA==
 
-"@spotlightjs/sidecar@1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.9.4.tgz#e223465dc8ee90edf1670bdf07bc0160cadc13e7"
-  integrity sha512-pdPAK+W2XQyTBUyro6n4M2lhmGkm70jBL3pIDVgRa0hQMOMZ3Jv7owSSL1RP4AI4h0rVc3W9r0hOuwS+iDw33w==
+"@spotlightjs/sidecar@1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/sidecar/-/sidecar-1.11.0.tgz#7c729b10b9c7295e17886312ab45fd469df688bb"
+  integrity sha512-5ArjqTybDaF8upcPVGtDZmFtmbMqNw0iM7K/iTenge524lYOeSBB19E1v4Jnjyzx3TKDZZcgFO0rx3zV54HClw==
   dependencies:
     "@sentry/node" "^8.42.0"
     kleur "^4.1.5"
     launch-editor "^2.9.1"
-    source-map "^0.7.4"
+    source-map ">=0.8.0-beta && <1.0.0"
 
-"@spotlightjs/spotlight@^2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.8.1.tgz#9ea74181a1e477c96a76efbc426e14f9d6e6d0fb"
-  integrity sha512-ohkn0zTV7CEsnWgy7eF6/fnDCJMCqm97OGJJ8LHqWVEYTr8WbN2is0kPNJYtBnF+I7rGkdIR5zQ0DO0Rv9dr0A==
+"@spotlightjs/spotlight@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@spotlightjs/spotlight/-/spotlight-2.10.0.tgz#152c502d9d8c22b2b93defa9e7d9069835f76403"
+  integrity sha512-+LndIbadjwvfuepKaGAf7vWaei5zrGaXUj+hehdptRpLDsB1ILhJpgV4J2CoLGdDvU0Oy+AOuCVQBigsQ0qZSw==
   dependencies:
     "@sentry/node" "^8.42.0"
-    "@spotlightjs/overlay" "2.8.1"
-    "@spotlightjs/sidecar" "1.9.4"
+    "@spotlightjs/overlay" "2.10.0"
+    "@spotlightjs/sidecar" "1.11.0"
     import-meta-resolve "^4.1.0"
     macho-unsign "^2.0.6"
     portable-executable-signature "^2.0.6"
@@ -7662,6 +7662,11 @@ lodash.noop@~2.3.0:
   resolved "https://registry.npmjs.org/lodash.noop/-/lodash.noop-2.3.0.tgz"
   integrity sha512-NpSm8HRm1WkBBWHUveDukLF4Kfb5P5E3fjHc9Qre9A11nNubozLWD2wH3UBTZbu+KSuX8aSUvy9b+PUyEceJ8g==
 
+lodash.sortby@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
+  integrity sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==
+
 lodash.support@~2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/lodash.support/-/lodash.support-2.3.0.tgz"
@@ -9573,12 +9578,19 @@ source-map@0.6.1, source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, sourc
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
+"source-map@>=0.8.0-beta && <1.0.0":
+  version "0.8.0-beta.0"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.8.0-beta.0.tgz#d4c1bb42c3f7ee925f005927ba10709e0d1d1f11"
+  integrity sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==
+  dependencies:
+    whatwg-url "^7.0.0"
+
 source-map@^0.5.7:
   version "0.5.7"
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.5.7.tgz"
   integrity sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==
 
-source-map@^0.7.3, source-map@^0.7.4:
+source-map@^0.7.3:
   version "0.7.4"
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.7.4.tgz"
   integrity sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==
@@ -9999,6 +10011,13 @@ tough-cookie@^4.1.2:
     universalify "^0.2.0"
     url-parse "^1.5.3"
 
+tr46@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tr46/-/tr46-1.0.1.tgz#a8b13fd6bfd2489519674ccde55ba3693b706d09"
+  integrity sha512-dTpowEjclQ7Kgx5SdBkqRzVhERQXov8/l9Ft9dVM9fmg0W0KQSVaXX9T4i6twCPNtYiZM53lpSSUAwJbFPOHxA==
+  dependencies:
+    punycode "^2.1.0"
+
 tr46@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/tr46/-/tr46-3.0.0.tgz"
@@ -10374,6 +10393,11 @@ webidl-conversions@^3.0.0:
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
 
+webidl-conversions@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
+  integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
+
 webidl-conversions@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz"
@@ -10475,6 +10499,15 @@ whatwg-url@^5.0.0:
   dependencies:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"
+
+whatwg-url@^7.0.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-7.1.0.tgz#c2c492f1eca612988efd3d2266be1b9fc6170d06"
+  integrity sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==
+  dependencies:
+    lodash.sortby "^4.7.0"
+    tr46 "^1.0.1"
+    webidl-conversions "^4.0.2"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
