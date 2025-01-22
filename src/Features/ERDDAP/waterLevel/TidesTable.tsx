@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Nav, TabContent, Table, TabPane } from "reactstrap"
 
 import { ContentTab } from "components/TabPane"
-import { NextTides, PlatformFeature } from "Features/ERDDAP/types"
+import { PlatformFeature } from "Features/ERDDAP/types"
 import { useUnitSystem } from "Features/Units"
 import { converter } from "Features/Units/Converter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
@@ -17,34 +17,27 @@ interface TidesTableProps {
 }
 
 export const TidesTable = ({ platform, standardName, datumOffset }: TidesTableProps) => {
-  const [nextTides, setNextTides] = useState<NextTides[]>()
   const unitSystem = useUnitSystem()
   const dataConverter = converter(standardName)
   const [key, setKey] = useState<number>(0)
 
-  useEffect(() => {
-    const futureTides = platform.properties.readings.filter((ts) => {
-      if (
-        (ts.type === "Prediction" || ts.type === "Forecast") &&
-        WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name)
-      ) {
-        if (ts.extrema_values && ts.extrema_values.tides && ts.extrema_values.tides.length > 0) {
-          return true
-        }
+  const nextTides = platform.properties.readings.filter((ts) => {
+    if (
+      (ts.type === "Prediction" || ts.type === "Forecast") &&
+      WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name)
+    ) {
+      if (ts.extrema_values && ts.extrema_values.tides && ts.extrema_values.tides.length > 0) {
+        return true
       }
-      return false
-    })
-
-    const nextTides = futureTides.map((ft) => {
-      return {
-        tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4),
-        name: ft.dataset_public_name,
-        type: ft.type,
-      }
-    })
-
-    setNextTides(nextTides as NextTides[])
-  }, [platform])
+    }
+    return false
+  }).map((ft) => {
+    return {
+      tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4),
+      name: ft.dataset_public_name,
+      type: ft.type,
+    }
+  })
 
   if (!nextTides || nextTides.length < 1) return null
 

@@ -43,7 +43,7 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
 
   const forecastedTides = filterTimeSeries(platform.properties.readings, conditions.waterLevel, startTime, "Forecast")
   // useEffect(() => {
-  //   if ((predictedTidesTimeseries || forecastedTidesTimeseries) && windowWidth < 576) {
+  //   if ((predictedTides || forecastedTides) && windowWidth < 576) {
   //     const newParams = buildSearchParamsQuery(
   //       getIsoForPicker(aDayAgoRounded()),
   //       getIsoForPicker(manuallySetFullEODIso(new Date(Date.now()))),
@@ -51,7 +51,7 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
   //     )
   //     router.push(`${pathname}?${queryString.stringify(newParams as any)}`)
   //   }
-  //   if (!predictedTidesTimeseries) {
+  //   if (!predictedTides) {
   //     // const newParams = buildSearchParamsQuery(
   //     //   getIsoForPicker(startTime),
   //     //   new Date(getToday()).getTime() > endTime.getTime() ? getIsoForPicker(endTime) : getToday(),

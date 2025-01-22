@@ -1,21 +1,17 @@
-import { useParams, usePathname, useSearchParams } from "next/navigation"
-import { useRouter } from "next-nprogress-bar"
+import { useParams, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
-import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
+import { useState } from "react"
+import { Col, Dropdown, DropdownMenu, DropdownToggle, Row } from "reactstrap"
+
 import { useDecodedUrl } from "util/hooks"
 import { buildSearchParamsQuery } from "Shared/urlParams"
 import { platformName } from "Features/ERDDAP/utils/platformName"
-import { formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import { DatumOffsetOptions } from "Features/ERDDAP/types"
 
 import { useEndTime, useStartTime, useDatum } from "./hooks"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
-  // const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
-  const searchParams = useSearchParams()
   const decodedId = useDecodedUrl(params.sensorId as string)
   const sensor = sensors.find((s) => s.id === decodedId)
   const { endTime } = useEndTime()
@@ -51,33 +47,6 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
           )
         })
     : []
-
-  // useEffect(() => {
-  //   if (sensors) {
-  //     const options = sensors
-  //       .sort((a, b) => {
-  //         if (a.id < b.id) {
-  //           return -1
-  //         } else return 1
-  //       })
-  //       .map((p, index) => {
-  //         return (
-  //           <Link
-  //             key={`dropdown-${index}`}
-  //             onClick={() => close()}
-  //             href={{
-  //               pathname: `/water-level/sensor/${p.id as string}`,
-  //               query: buildSearchParamsQuery(startTime as string, endTime as string, datum as DatumOffsetOptions),
-  //             }}
-  //             className="list-group-item list-group-item-action"
-  //           >
-  //             {platformName(p)}
-  //           </Link>
-  //         )
-  //       })
-  //     setSensorOptions(options)
-  //   }
-  // }, [sensors, startTime, endTime, datum])
 
   return (
     <Row style={{ width: "fit-content", verticalAlign: "middle" }}>
