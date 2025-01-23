@@ -33,7 +33,7 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
     return false
   }).map((ft) => {
     return {
-      tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4),
+      tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4) || [],
       name: ft.dataset_public_name,
       type: ft.type,
     }

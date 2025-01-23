@@ -15,10 +15,13 @@ import { useDecodedUrl } from "util/hooks"
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
 export default function SensorIdPage({ params }) {
+  console.log("sensor page - starting", params)
   const breakpoint = useBreakpoint()
   const waterLevelPlatforms = useWaterLevelPlatforms()
   const id = useDecodedUrl(params.sensorId)
   const platform = usePlatform(id)
+
+  console.log(`loading sensor ${id}`)
 
   const [currentTime, setCurrentTime] = useState(Date.now())
 

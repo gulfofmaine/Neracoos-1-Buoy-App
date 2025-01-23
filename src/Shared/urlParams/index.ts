@@ -40,17 +40,44 @@ export function urlPartReplacer(url: string, key: string, value: string): string
 }
 
 export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
-  if (datum && start && end) {
-    return {
-      start: formatDate(start),
-      end: formatDate(end),
-      datum,
-    }
-  } else if (datum && !start && !end) {
-    return { datum }
-  } else if (start && end && !datum) {
-    return { start: formatDate(start), end: formatDate(end) }
-  } else return null
+  // if (datum && start && end) {
+  //   return {
+  //     start: formatDate(start),
+  //     end: formatDate(end),
+  //     datum,
+  //   }
+  // } else if (datum && !start && !end) {
+  //   return { datum }
+  // } else if (start && end && !datum) {
+  //   return { start: formatDate(start), end: formatDate(end) }
+  // } else return null
+  const params = {}
+
+  if (datum) {
+    params["datum"] = datum.toString()
+  }
+  if (start) {
+    params["start"] = formatDate(start)
+  }
+  if (end) {
+    params["end"] = formatDate(end)
+  }
+
+  if (Object.keys(params).length > 0) {
+    return params
+  }
+  return null
+}
+
+export const waterLevelPath = (platformId: string, start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
+  const baseUrl = `/water-level/sensor/${platformId}`
+
+  const params = buildSearchParamsQuery(start, end, datum)
+
+  if (params) {
+    return baseUrl + "?" + new URLSearchParams(params).toString()
+  }
+  return baseUrl
 }
 
 /**
