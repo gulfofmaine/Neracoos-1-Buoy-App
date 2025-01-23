@@ -21,23 +21,25 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
   const dataConverter = converter(standardName)
   const [key, setKey] = useState<number>(0)
 
-  const nextTides = platform.properties.readings.filter((ts) => {
-    if (
-      (ts.type === "Prediction" || ts.type === "Forecast") &&
-      WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name)
-    ) {
-      if (ts.extrema_values && ts.extrema_values.tides && ts.extrema_values.tides.length > 0) {
-        return true
+  const nextTides = platform.properties.readings
+    .filter((ts) => {
+      if (
+        (ts.type === "Prediction" || ts.type === "Forecast") &&
+        WATER_LEVEL_STANDARDS.includes(ts.data_type.standard_name)
+      ) {
+        if (ts.extrema_values && ts.extrema_values.tides && ts.extrema_values.tides.length > 0) {
+          return true
+        }
       }
-    }
-    return false
-  }).map((ft) => {
-    return {
-      tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4) || [],
-      name: ft.dataset_public_name,
-      type: ft.type,
-    }
-  })
+      return false
+    })
+    .map((ft) => {
+      return {
+        tides: ft.extrema_values?.tides?.filter((t) => new Date(t.time) >= new Date(Date.now())).slice(0, 4) || [],
+        name: ft.dataset_public_name,
+        type: ft.type,
+      }
+    })
 
   if (!nextTides || nextTides.length < 1) return null
 

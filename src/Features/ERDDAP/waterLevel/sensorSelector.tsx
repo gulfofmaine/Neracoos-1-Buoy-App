@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Col, Dropdown, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 
 import { useDecodedUrl } from "util/hooks"
-import { buildSearchParamsQuery } from "Shared/urlParams"
+import { waterLevelPath } from "Shared/urlParams"
 import { platformName } from "Features/ERDDAP/utils/platformName"
 
 import { useEndTime, useStartTime, useDatum } from "./hooks"
@@ -36,10 +36,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             <Link
               key={`dropdown-${p.id}`}
               onClick={close}
-              href={{
-                pathname: `/water-level/sensor/${p.id as string}`,
-                query: buildSearchParamsQuery(startTime, endTime, datum),
-              }}
+              href={waterLevelPath(p.id as string, startTime, endTime, datum)}
               className="list-group-item list-group-item-action"
             >
               {platformName(p)}

@@ -133,11 +133,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       {platform && display && (
         <Layer
           platform={platform}
-          // url={
-          //   isSensorPage && searchParams.get("datum")
-          //     ? `/water-level/sensor/${platform.id}?${(new URLSearchParams(buildSearchParamsQuery(startTime, endTime, datum)).toString())}`
-          //     : `/water-level/sensor/${platform.id}`
-          // }
           url={waterLevelPath(platform.id, startTime, endTime, datum)}
           router={router}
           radius={radius}
@@ -186,7 +181,6 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
           return (feature as Feature).getGeometry()
         }, [platform])}
         onClick={useCallback(() => {
-          console.log("Pushing to", url)
           router.push(url)
         }, [router, url])}
       >

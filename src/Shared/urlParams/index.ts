@@ -2,7 +2,7 @@ import React from "react"
 import { useSearchParams, usePathname } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 
-import { DatumOffsetOptions } from "Features/ERDDAP/types"
+import { DatumOffsetOptions, DATUM_MLLW_METERS } from "Features/ERDDAP/types"
 
 import { formatDate } from "../time"
 
@@ -40,20 +40,9 @@ export function urlPartReplacer(url: string, key: string, value: string): string
 }
 
 export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
-  // if (datum && start && end) {
-  //   return {
-  //     start: formatDate(start),
-  //     end: formatDate(end),
-  //     datum,
-  //   }
-  // } else if (datum && !start && !end) {
-  //   return { datum }
-  // } else if (start && end && !datum) {
-  //   return { start: formatDate(start), end: formatDate(end) }
-  // } else return null
   const params = {}
 
-  if (datum) {
+  if (datum && datum !== DATUM_MLLW_METERS) {
     params["datum"] = datum.toString()
   }
   if (start) {
@@ -69,6 +58,7 @@ export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOf
   return null
 }
 
+// Construct a water level url with relevant search params
 export const waterLevelPath = (platformId: string, start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
   const baseUrl = `/water-level/sensor/${platformId}`
 
