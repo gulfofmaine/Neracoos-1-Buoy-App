@@ -54,6 +54,11 @@ export function manuallySetFullEODIso(date: Date) {
   return date
 }
 
+/** Returns the date in ISO format without the time */
+export function formatDate(date) {
+  return date.toISOString().split("T")[0]
+}
+
 /**
  * Get the current date in the formate that <input type="date"> accepts
  * @returns Current date in YYYY-MM-DD format
@@ -61,11 +66,6 @@ export function manuallySetFullEODIso(date: Date) {
 
 export function getToday() {
   return formatDate(new Date())
-}
-
-/** Returns the date in ISO format without the time */
-export function formatDate(date) {
-  return date.toISOString().split("T")[0]
 }
 
 /**

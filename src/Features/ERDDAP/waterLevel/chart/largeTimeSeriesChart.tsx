@@ -199,7 +199,7 @@ export function LargeTimeSeriesWaterLevelChart({
             </div>
           )}
           <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
-          <SplineSeries key="observed" name={`Observed`} marker={{ enabled: false }} data={data} lineWidth={1.5} />
+          <SplineSeries key="observed" name="Observed" marker={{ enabled: false }} data={data} lineWidth={1.5} />
 
           {predictedDataset && (
             <SplineSeries

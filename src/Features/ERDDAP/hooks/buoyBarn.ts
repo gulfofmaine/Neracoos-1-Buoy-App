@@ -120,7 +120,7 @@ export function useForecasts(lat: number, lon: number, forecasts: ForecastSource
 export const usePlatform = (platformId: string): PlatformFeature | undefined => {
   const { data } = usePlatforms()
   if (!data) {
-    return undefined
+    return
   }
   return data.features.find((p) => (p.id as string) === platformId)
 }

@@ -14,7 +14,7 @@ import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 import { useEndTime, useStartTime, useDatum } from "./hooks"
 
-export const WaterLevelObservationContent = ({ platform }: { platform: PlatformFeature }) => {
+export function WaterLevelObservationContent({ platform }: { platform: PlatformFeature }) {
   const unitSystem = useUnitSystem()
   const pathname = usePathname()
   const { startTime } = useStartTime(true)
@@ -27,7 +27,7 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
 
   let datumOffset: number | undefined
   if (waterLevel) {
-    if (datum == Datums.NAVD88) {
+    if (datum === Datums.NAVD88) {
       datumOffset = 0
     } else {
       datumOffset = waterLevel.datum_offsets[datum]
@@ -117,7 +117,7 @@ export const WaterLevelObservationContent = ({ platform }: { platform: PlatformF
           </UseDatasets>
         </>
       ) : (
-        <Alert color="info">Tidal data for this sensor is unavailable</Alert>
+        <Alert color="info">Tidal data for this sensor is currently unavailable</Alert>
       )}
     </div>
   )

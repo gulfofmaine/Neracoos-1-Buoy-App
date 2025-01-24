@@ -9,7 +9,6 @@ import { InitialRegion, regionList } from "Shared/regions"
 
 import { BaseProps, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
-import { PlatformFeature } from "../types"
 import { WLPlatformLayer } from "../Map/WLPlatformLayer"
 
 const initial = { center: fromLonLat([-70.5, 43.5]), zoom: 6.7 }

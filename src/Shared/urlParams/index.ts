@@ -39,7 +39,7 @@ export function urlPartReplacer(url: string, key: string, value: string): string
     .join("/")
 }
 
-export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
+export function buildSearchParamsQuery(start?: Date, end?: Date, datum?: DatumOffsetOptions) {
   const params = {}
 
   if (datum && datum !== DATUM_MLLW_METERS) {
@@ -59,7 +59,7 @@ export const buildSearchParamsQuery = (start?: Date, end?: Date, datum?: DatumOf
 }
 
 // Construct a water level url with relevant search params
-export const waterLevelPath = (platformId: string, start?: Date, end?: Date, datum?: DatumOffsetOptions) => {
+export function waterLevelPath(platformId: string, start?: Date, end?: Date, datum?: DatumOffsetOptions) {
   const baseUrl = `/water-level/sensor/${platformId}`
 
   const params = buildSearchParamsQuery(start, end, datum)

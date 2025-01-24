@@ -111,12 +111,15 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
     const currentWaterLevel = platform.properties.readings.find((r) => {
       return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
     })
+
     const floodLevels = currentWaterLevel?.flood_levels
+
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
       getObservedWaterDisplay(currentWaterLevel, floodLevels)
     }
+
     const futureWaterLevel = platform.properties.readings.filter(
       (r) => r.type === "Prediction" || r.type === "Forecast",
     )

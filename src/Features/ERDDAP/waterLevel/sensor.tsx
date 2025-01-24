@@ -14,7 +14,9 @@ export const filterForSensors = (platforms: PlatformFeatureCollection) => {
 
 export const useWaterLevelPlatforms = () => {
   const { data } = usePlatforms()
-  if (!data) return undefined
+  if (!data) {
+    return undefined
+  }
 
   return filterForSensors(data)
 }

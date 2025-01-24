@@ -70,12 +70,7 @@ export default function SensorIdPage({ params }) {
         <Col sm={{ size: "6" }}>{platform && <WaterLevelObservationContent platform={platform} />}</Col>
         {breakpoint === "S" && waterLevelPlatforms && (
           <Col sm={{ size: "6" }}>
-            <ErddapWaterLevelMapBase
-              platforms={waterLevelPlatforms}
-              platformId={id}
-              height={"30vh"}
-              mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
-            />
+            <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} platformId={id} height={"30vh"} />
           </Col>
         )}
       </Row>

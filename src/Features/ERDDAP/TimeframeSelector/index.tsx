@@ -11,13 +11,13 @@ import { buildSearchParamsQuery } from "Shared/urlParams"
 import { DatumOffsetOptions } from "../types"
 import { useEndTime, useStartTime } from "../waterLevel/hooks"
 
-export const TimeframeSelector = ({
+export function TimeframeSelector({
   graphFuture,
   isWaterLevel = false,
 }: {
   graphFuture: boolean
   isWaterLevel?: boolean
-}) => {
+}) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { startTime, setStartTime } = useStartTime(isWaterLevel)
