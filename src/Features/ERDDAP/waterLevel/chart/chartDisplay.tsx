@@ -1,15 +1,17 @@
+import { useEffect, useState } from "react"
+
 import { PlatformFeature, PlatformTimeSeries } from "Features/ERDDAP/types"
-import { converter } from "Features/Units/Converter"
-import { UnitSystem } from "Features/Units/types"
-import { DataTimeSeries } from "Shared/timeSeries"
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
-import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
-import { getDatumDisplayName } from "Shared/dataTypes"
-import { displayShortIso } from "Shared/time"
-import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { TidesTable } from "Features/ERDDAP/waterLevel/TidesTable"
+import { converter } from "Features/Units/Converter"
+import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
+import { UnitSystem } from "Features/Units/types"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { getDatumDisplayName } from "Shared/dataTypes"
+import { displayShortIso } from "Shared/time"
+
+import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
+import { Datums, FloodThreshold } from "../../types"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -21,6 +23,8 @@ interface ChartTimeSeriesDisplayProps {
   startTime: Date
   endTime: Date
   platform?: PlatformFeature
+  datumOffset: number | undefined
+  datum?: Datums
 }
 
 export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisplayProps> = ({
@@ -33,19 +37,15 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   startTime,
   endTime,
   platform,
+  datumOffset,
+  datum,
 }: ChartTimeSeriesDisplayProps) => {
-  const router = useRouter()
-  const pathname = usePathname()
-  const [floodThresholds, setFloodThresholds] = useState<any>()
-  const [datumOffset, setDatumOffset] = useState<number | null>()
-  const [title, setTitle] = useState<string>()
-  const [yMax, setYMax] = useState<number>()
-  const [yMin, setYMin] = useState<number>()
+  const [floodThresholds, setFloodThresholds] = useState<{ [key: string]: FloodThreshold }>({})
+  const [yMax, setYMax] = useState<number>(0)
+  const [yMin, setYMin] = useState<number>(0)
 
-  const params = useParams()
-  const searchParams = useSearchParams()
   const dataConverter = converter(standardName)
-  const sensorId = decodeURIComponent(params.sensorId as string)
+  const sensorId = platform?.id
 
   const getDefaultTitle = () => {
     if (!Object.keys(timeSeries.datum_offsets).length) {
@@ -53,79 +53,57 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
     }
   }
 
-  const getMaxThreshold = () => {
-    return Object.keys(floodThresholds).reduce((max, f) => {
-      return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
-    }, 0)
-  }
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(name, value)
-
-      return params.toString()
-    },
-    [searchParams],
-  )
-
   useEffect(() => {
-    if (timeSeries.flood_levels.length) {
-      const floodLevelsMap = timeSeries.flood_levels.reduce((acc, level, index) => {
-        if (!acc[level.name] && typeof datumOffset === "number") {
-          acc[level.name] =
-            level.name === "Major"
-              ? {
-                  minValue: dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem),
-                  maxValue:
-                    dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem) + 1,
-                }
-              : {
-                  minValue: dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem),
-                  maxValue: dataConverter.convertToNumber(
-                    getValueWithOffset(timeSeries.flood_levels[index - 1].min_value, datumOffset),
-                    unitSystem,
-                  ),
-                }
-        }
-        return acc
-      }, {})
+    if (timeSeries.flood_levels.length > 0) {
+      const floodLevelsMap = timeSeries.flood_levels
+        .sort((a, b) => b.min_value - a.min_value)
+        .reduce((acc, level, index) => {
+          if (!acc[level.name] && typeof datumOffset === "number") {
+            acc[level.name] =
+              level.name === "Major"
+                ? {
+                    minValue: dataConverter.convertToNumber(
+                      getValueWithOffset(level.min_value, datumOffset),
+                      unitSystem,
+                    ),
+                    maxValue:
+                      dataConverter.convertToNumber(getValueWithOffset(level.min_value, datumOffset), unitSystem) + 1,
+                  }
+                : {
+                    minValue: dataConverter.convertToNumber(
+                      getValueWithOffset(level.min_value, datumOffset),
+                      unitSystem,
+                    ),
+                    maxValue: dataConverter.convertToNumber(
+                      getValueWithOffset(timeSeries.flood_levels[index - 1].min_value, datumOffset),
+                      unitSystem,
+                    ),
+                  }
+          }
+          return acc
+        }, {})
       setFloodThresholds(floodLevelsMap)
     }
-  }, [timeSeries, datumOffset, unitSystem])
+  }, [timeSeries, datumOffset, unitSystem, dataConverter])
 
   useEffect(() => {
-    if (searchParams.get("datum")) {
-      const datum = searchParams.get("datum") as string
-      const offsetName = Object.keys(timeSeries.datum_offsets).find((d) => d.includes(datum.toLowerCase()))
-      offsetName
-        ? setDatumOffset(timeSeries.datum_offsets[offsetName])
-        : router.push(pathname + "?" + createQueryString("datum", ""))
-    } else {
-      setDatumOffset(timeSeries.datum_offsets["datum_mllw_meters"])
+    const getMaxThreshold = () => {
+      return Object.keys(floodThresholds).reduce((max, f) => {
+        return floodThresholds[f].maxValue > max ? floodThresholds[f].maxValue : max
+      }, 0)
     }
-  }, [searchParams, timeSeries, pathname])
 
-  useEffect(() => {
     const allReadings = dataset.timeSeries.map((t) => t.reading)
+
     setYMax(
       floodThresholds
         ? dataConverter.convertToNumber(getMaxThreshold(), unitSystem)
         : dataConverter.convertToNumber(Math.max(...allReadings), unitSystem),
     )
     setYMin(dataConverter.convertToNumber(Math.min(...allReadings), unitSystem))
-  }, [floodThresholds, dataset, unitSystem])
+  }, [floodThresholds, dataset, unitSystem, dataConverter])
 
-  useEffect(() => {
-    if (timeSeries) {
-      const graphTitle = Object.keys(timeSeries.datum_offsets).includes(
-        (searchParams.get("datum") as string) || "datum_mllw_meters",
-      )
-        ? getDatumDisplayName((searchParams.get("datum") as string) || "datum_mllw_meters")
-        : getDefaultTitle()
-      setTitle(graphTitle)
-    }
-  }, [timeSeries, searchParams])
+  const title = timeSeries && datum ? getDatumDisplayName(datum) : getDefaultTitle()
 
   return (
     <div>
@@ -149,7 +127,10 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />{" "}
-      <TimeframeSelector graphFuture={predictedTidesDataset ? true : false} />
+      <TimeframeSelector
+        graphFuture={predictedTidesDataset || forecastedTidesDatasets ? true : false}
+        isWaterLevel={true}
+      />
       {platform && <TidesTable platform={platform} standardName={standardName} datumOffset={datumOffset || 0} />}
       {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
     </div>

@@ -1,60 +1,63 @@
-import { aWeekAgoRounded, daysAgoRounded, daysInFuture, getIsoForPicker, getToday, YEAR } from "Shared/time"
-
-import { useParams, usePathname, useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
 
 import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
+import { aWeekAgoRounded, daysAgoRounded, daysInFuture, formatDate, getToday, YEAR } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
-import { DatumOffsetOptions } from "../types"
 
-export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => {
+import { DatumOffsetOptions } from "../types"
+import { useEndTime, useStartTime } from "../waterLevel/hooks"
+
+export function TimeframeSelector({
+  graphFuture,
+  isWaterLevel = false,
+}: {
+  graphFuture: boolean
+  isWaterLevel?: boolean
+}) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const isWaterLevel = pathname.includes("water-level")
-  const [startTime, setStartTime] =
-    useState<any>(searchParams.get("start")) || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded())
-  const [endTime, setEndTime] =
-    useState<any>(searchParams.get("end")) ||
-    getIsoForPicker(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0))
+  const { startTime, setStartTime } = useStartTime(isWaterLevel)
+  const { endTime, setEndTime } = useEndTime(graphFuture)
   const [validDateMessage, setValidDateMessage] = useState<string>("")
 
-  const validateTimeframe = (start, end) => {
-    //check if timeFrame spans more than two weeks
-    if (isWaterLevel) {
-      if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
-        return "Please choose a timeframe that spans less than two weeks"
-      }
-      //check if timeframe is recent enough
-      if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
-        return "Please choose a more recent date"
-      }
-    } else {
-      //check if timeFrame spans less than one month
-      if ((new Date(end).getTime() - new Date(start).getTime()) / YEAR > 1) {
-        return "Please choose a timeframe that spans less than one year"
-      }
-    }
-    //check if endDate is before startDate
-    if (new Date(end).getTime() - new Date(start).getTime() < 0) {
-      return "Please choose a date where the start is before the end"
-    }
-    return ""
-  }
-
   useEffect(() => {
+    const validateTimeframe = (start, end) => {
+      //check if timeFrame spans more than two weeks
+      if (isWaterLevel) {
+        if ((new Date(end).getTime() - new Date(start).getTime()) / 86400000 > 14) {
+          return "Please choose a timeframe that spans less than two weeks"
+        }
+        //check if timeframe is recent enough
+        if (new Date(start).getFullYear() < 2023 || new Date(end).getFullYear() < 2023) {
+          return "Please choose a more recent date"
+        }
+      } else {
+        //check if timeFrame spans less than one month
+        if ((new Date(end).getTime() - new Date(start).getTime()) / YEAR > 1) {
+          return "Please choose a timeframe that spans less than one year"
+        }
+      }
+      //check if endDate is before startDate
+      if (new Date(end).getTime() - new Date(start).getTime() < 0) {
+        return "Please choose a date where the start is before the end"
+      }
+      return ""
+    }
+
     setValidDateMessage(validateTimeframe(startTime, endTime))
-  }, [startTime, endTime])
+  }, [startTime, endTime, isWaterLevel])
 
   useEffect(() => {
-    setStartTime(searchParams.get("start") || getIsoForPicker(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()))
+    setStartTime(searchParams.get("start") || formatDate(isWaterLevel ? daysAgoRounded(2) : aWeekAgoRounded()))
     setEndTime(
       searchParams.get("end") ||
-        getIsoForPicker(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0)),
+        formatDate(!isWaterLevel ? daysInFuture(0) : graphFuture ? daysInFuture(3) : daysInFuture(0)),
     )
-  }, [searchParams, isWaterLevel, graphFuture, pathname])
+  }, [searchParams, isWaterLevel, graphFuture, pathname, setEndTime, setStartTime])
 
   return (
     <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
@@ -76,9 +79,9 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               id="start"
               name="start"
               max={getToday()}
-              value={startTime || ""}
+              value={formatDate(startTime)}
               onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
-              required
+              required={true}
             />
           </label>
           <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
@@ -87,11 +90,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
               type="date"
               id="end"
               name="end"
-              min={startTime}
+              min={formatDate(startTime)}
               max={graphFuture ? undefined : getToday()}
-              value={endTime || ""}
-              onInput={(e) => setEndTime(getIsoForPicker(new Date((e.target as HTMLInputElement).value)))}
-              required
+              value={formatDate(endTime)}
+              onInput={(e) => setEndTime(formatDate(new Date((e.target as HTMLInputElement).value)))}
+              required={true}
             />
           </label>
           <Button
@@ -106,7 +109,11 @@ export const TimeframeSelector = ({ graphFuture }: { graphFuture: boolean }) => 
                 searchParams.get("datum")
                   ? {
                       pathname: `${pathname}`,
-                      query: buildSearchParamsQuery("", "", searchParams.get("datum") as DatumOffsetOptions),
+                      query: buildSearchParamsQuery(
+                        startTime,
+                        endTime,
+                        searchParams.get("datum") as DatumOffsetOptions,
+                      ),
                     }
                   : pathname
               }

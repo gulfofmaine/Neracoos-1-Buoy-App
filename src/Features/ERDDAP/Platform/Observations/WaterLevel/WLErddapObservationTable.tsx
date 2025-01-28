@@ -4,15 +4,14 @@
 import React, { useEffect, useState } from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
 
+import { DatumOffsets } from "Features/ERDDAP/types"
+import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
+import { platformName } from "Features/ERDDAP/utils/platformName"
 import { UnitSystem } from "Features/Units/types"
 
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { currentConditionsTimeseries, filterTimeSeries } from "../../../utils/currentConditionsTimeseries"
-
 import { itemStyle, TableItem } from "../Table/item"
-import { DatumOffsets } from "Features/ERDDAP/types"
-import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
-import { platformName } from "Features/ERDDAP/utils/platformName"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
@@ -39,7 +38,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
       const wlReading = platform.properties.readings.find((r) => Object.keys(r.datum_offsets).length)
       setDatumOptions(wlReading?.datum_offsets)
     }
-  }, [platform])
+  }, [platform, children])
 
   const waterLevelTimeseries = filterTimeSeries(
     platform.properties.readings.filter((ts) => ts.highlighted === "No"),

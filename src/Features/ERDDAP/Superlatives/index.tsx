@@ -29,7 +29,7 @@ const windSpeed = new Set(conditions.windSpeed)
  */
 export const Superlatives: React.FunctionComponent = () => {
   const unitSystem = useUnitSystem()
-  const { isLoading, data } = usePlatforms()
+  const { data } = usePlatforms()
 
   const startTime = anHourAgoRounded()
 
@@ -87,7 +87,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  }, [platforms])
+  }, [platforms, searchStartTime])
 
   useEffect(() => {
     for (let hours = 0; hours < backOffHours; hours++) {
@@ -102,7 +102,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         return
       }
     }
-  }, [platforms])
+  }, [platforms, searchStartTime])
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
       <CardHeader>

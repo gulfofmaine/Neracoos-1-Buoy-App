@@ -9,12 +9,10 @@ import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 import { UnitSelector, useUnitSystem } from "Features/Units"
 import { aDayAgoRounded } from "Shared/time"
 
-import { PlatformMatchParams } from "./types"
-
 /**
  * Display our platform info panel for the select platform.
  */
-export const PlatformInfo: React.FC<PlatformMatchParams> = ({ id }: PlatformMatchParams) => {
+export const PlatformInfo = ({ id }: { id: string }) => {
   const unitSystem = useUnitSystem()
   const aDayAgo = aDayAgoRounded()
 

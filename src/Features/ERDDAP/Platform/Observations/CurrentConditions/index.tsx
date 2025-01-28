@@ -9,14 +9,11 @@ import { Row } from "reactstrap"
 import { useUnitSystem } from "Features/Units"
 import { halfADayAgoRounded } from "Shared/time"
 
-import { UseDatasets } from "../../../hooks"
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { conditions } from "../../../utils/conditions"
-import { pickWindTimeSeries } from "../../../utils/wind"
-import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
-
 import { DataCardDisplay } from "./data_card"
 import { DisplayWindCard } from "./wind"
+import { UseDatasets } from "../../../hooks"
+import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
 
 interface Props {
   platform: PlatformFeature
@@ -109,20 +106,33 @@ export function filterTimeSeries(
   laterThan: Date,
   type?: "Forecast" | "Observation" | "Prediction",
 ) {
-  let filterTimeSeries: PlatformTimeSeries[] = []
+  let filteredTimeSeries: PlatformTimeSeries[] = []
 
   dataTypes.forEach((dataType) => {
     const matchStandard = timeSeries.filter((reading) => dataType === reading.data_type.standard_name) // match any that are the current data type
     const matchTime = matchStandard.filter((reading) => (reading.time ? laterThan < new Date(reading.time) : false)) // that have data in the last day
     const matchDepth = matchTime.filter((reading) => (reading.depth ? reading.depth < 2 : true)) // are near-surface
     const matchType = type ? matchDepth.filter((reading) => reading.type === type) : matchDepth
-    matchType.forEach((ts) => filterTimeSeries.push(ts))
+    matchType.forEach((ts) => filteredTimeSeries.push(ts))
   })
 
-  if (filterTimeSeries.length > 0 && type !== "Forecast") {
-    return filterTimeSeries[0]
-  } else if (filterTimeSeries.length > 0 && type === "Forecast") {
-    return filterTimeSeries
+  if (filteredTimeSeries.length > 0) {
+    return filteredTimeSeries
+  }
+
+  return null
+}
+
+export function filterSingleTimeSeries(
+  timeSeries: PlatformTimeSeries[],
+  dataTypes: string[],
+  laterThan: Date,
+  type?: "Forecast" | "Observation" | "Prediction",
+) {
+  const filteredTimeSeries = filterTimeSeries(timeSeries, dataTypes, laterThan, type)
+
+  if (filteredTimeSeries && filteredTimeSeries.length > 0) {
+    return filteredTimeSeries[0]
   }
 
   return null

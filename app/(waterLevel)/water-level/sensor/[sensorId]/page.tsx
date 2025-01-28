@@ -1,28 +1,24 @@
 "use client"
-import { usePlatforms } from "Features/ERDDAP/hooks"
-import { PlatformFeature } from "Features/ERDDAP/types"
+import { fromLonLat } from "ol/proj"
+import React, { useEffect, useState } from "react"
+import { createBreakpoint } from "react-use"
+import { Col, Row } from "reactstrap"
+
+import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
+import { SecondaryBanner } from "components/SecondaryBanner"
+import { usePlatform } from "Features/ERDDAP/hooks"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
-
-import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
-
-import { fromLonLat } from "ol/proj"
-import { useEffect, useState } from "react"
-import { Alert, Col, Row } from "reactstrap"
+import { useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/hooks"
 import { useDecodedUrl } from "util/hooks"
-import { createBreakpoint } from "react-use"
-import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
-import { useSearchParams } from "next/navigation"
-import React from "react"
-import { SecondaryBanner } from "components/SecondaryBanner"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
 export default function SensorIdPage({ params }) {
   const breakpoint = useBreakpoint()
-  const { data } = usePlatforms()
-  const [waterLevelPlatforms, setWaterLevelPlatforms] = useState<PlatformFeature[] | undefined>()
+  const waterLevelPlatforms = useWaterLevelPlatforms()
   const id = useDecodedUrl(params.sensorId)
+  const platform = usePlatform(id)
 
   const [currentTime, setCurrentTime] = useState(Date.now())
 
@@ -47,17 +43,6 @@ export default function SensorIdPage({ params }) {
     }
   }, [])
 
-  useEffect(() => {
-    if (data) {
-      data.features.forEach((feature) => {
-        if (feature.properties.readings[0]) {
-        }
-      })
-      const platforms = filterForSensors(data)
-      setWaterLevelPlatforms(platforms)
-    }
-  }, [data])
-
   return (
     <div>
       <SecondaryBanner>
@@ -70,7 +55,9 @@ export default function SensorIdPage({ params }) {
       </SecondaryBanner>
       <Row>
         <Col sm={{ size: "6" }} md={{ size: "4" }}>
-          {waterLevelPlatforms && <WaterLevelSensorInfo id={id} sensors={waterLevelPlatforms} />}
+          {platform && waterLevelPlatforms && (
+            <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
+          )}
           {breakpoint !== "S" && waterLevelPlatforms && (
             <ErddapWaterLevelMapBase
               platforms={waterLevelPlatforms}
@@ -80,19 +67,10 @@ export default function SensorIdPage({ params }) {
             />
           )}
         </Col>
-        <Col sm={{ size: "6" }}>
-          {data && (
-            <WaterLevelObservationContent sensorId={id} platforms={waterLevelPlatforms} allPlatforms={data.features} />
-          )}
-        </Col>
+        <Col sm={{ size: "6" }}>{platform && <WaterLevelObservationContent platform={platform} />}</Col>
         {breakpoint === "S" && waterLevelPlatforms && (
           <Col sm={{ size: "6" }}>
-            <ErddapWaterLevelMapBase
-              platforms={waterLevelPlatforms}
-              platformId={id}
-              height={"30vh"}
-              mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
-            />
+            <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} platformId={id} height={"30vh"} />
           </Col>
         )}
       </Row>

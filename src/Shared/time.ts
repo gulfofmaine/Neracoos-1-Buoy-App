@@ -54,17 +54,17 @@ export function manuallySetFullEODIso(date: Date) {
   return date
 }
 
+/** Returns the date in ISO format without the time */
+export function formatDate(date) {
+  return date.toISOString().split("T")[0]
+}
+
 /**
  * Get the current date in the formate that <input type="date"> accepts
  * @returns Current date in YYYY-MM-DD format
  */
-
 export function getToday() {
-  return new Date().toISOString().split("T")[0]
-}
-
-export function getIsoForPicker(date) {
-  return date.toISOString().split("T")[0]
+  return formatDate(new Date())
 }
 
 /**
@@ -158,6 +158,9 @@ export function aDayAgoRounded(): Date {
   return dayAgo
 }
 
+/**
+ * Get a date that is a 3 days previous
+ */
 export function threeDaysAgoRounded(): Date {
   const threeDaysAgo = new Date(Date.now() - THREE_DAYS)
 
@@ -166,6 +169,9 @@ export function threeDaysAgoRounded(): Date {
   return threeDaysAgo
 }
 
+/**
+ * Get a date that is a number of days previous
+ */
 export function daysAgoRounded(numberOfDays): Date {
   const daysAgo = new Date(Date.now() - DAY * numberOfDays)
 

@@ -1,55 +1,49 @@
-import { useParams, usePathname, useSearchParams } from "next/navigation"
-import { useRouter } from "next-nprogress-bar"
+import { useParams } from "next/navigation"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-import { Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from "reactstrap"
-import { useDecodedUrl } from "util/hooks"
-import { buildSearchParamsQuery } from "Shared/urlParams"
+import { useState } from "react"
+import { Col, Dropdown, DropdownMenu, DropdownToggle, Row } from "reactstrap"
+
 import { platformName } from "Features/ERDDAP/utils/platformName"
-import { getIsoForPicker, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
-import { DatumOffsetOptions } from "Features/ERDDAP/types"
+import { waterLevelPath } from "Shared/urlParams"
+import { useDecodedUrl } from "util/hooks"
+
+import { useEndTime, useStartTime, useDatum } from "./hooks"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [sensorOptions, setSensorOptions] = useState()
   const params = useParams()
-  const searchParams = useSearchParams()
   const decodedId = useDecodedUrl(params.sensorId as string)
   const sensor = sensors.find((s) => s.id === decodedId)
-  const endTime = searchParams.get("end") || ""
-  const startTime = searchParams.get("start") || ""
-  const datum = searchParams.get("datum") || ""
+  const { endTime } = useEndTime()
+  const { startTime } = useStartTime(true)
+  const { datum } = useDatum()
 
   const close = () => {
     setIsOpen(false)
   }
 
-  useEffect(() => {
-    if (sensors) {
-      const options = sensors
+  const sensorOptions = sensors
+    ? sensors
         .sort((a, b) => {
           if (a.id < b.id) {
             return -1
-          } else return 1
+          } else {
+            return 1
+          }
         })
-        .map((p, index) => {
+        .map((p) => {
           return (
             <Link
-              key={`dropdown-${index}`}
-              onClick={() => close()}
-              href={{
-                pathname: `/water-level/sensor/${p.id as string}`,
-                query: buildSearchParamsQuery(startTime as string, endTime as string, datum as DatumOffsetOptions),
-              }}
+              key={`dropdown-${p.id}`}
+              onClick={close}
+              href={waterLevelPath(p.id as string, startTime, endTime, datum)}
               className="list-group-item list-group-item-action"
             >
               {platformName(p)}
             </Link>
           )
         })
-      setSensorOptions(options)
-    }
-  }, [sensors, startTime, endTime, datum])
+    : []
 
   return (
     <Row style={{ width: "fit-content", verticalAlign: "middle" }}>

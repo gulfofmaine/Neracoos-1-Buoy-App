@@ -3,33 +3,32 @@ import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { usePathname, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import { usePathname, useParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
-
+import { Feature } from "ol"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
-
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
+import { RStyleArray } from "rlayers/style"
 
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
+import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { aDayAgoRounded } from "Shared/time"
-import { buildSearchParamsQuery } from "Shared/urlParams"
-import { useParams } from "next/navigation"
+import { waterLevelPath } from "Shared/urlParams"
+
+import { PlatformLayer } from "."
 import { usePlatforms } from "../hooks"
-import { DatumOffsetOptions, PlatformFeature } from "../types"
+import { PlatformFeature } from "../types"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
   getWaterLevelThresholdsMapRawComp,
 } from "../utils/waterLevelThresholds"
-import { PlatformLayer } from "."
 import { platformName } from "../utils/platformName"
-import Link from "next/link"
-import { Feature } from "ol"
-import { RStyleArray } from "rlayers/style"
-import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
+import { useEndTime, useStartTime, useDatum } from "../waterLevel/hooks"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -66,50 +65,57 @@ interface PlatformLayerProps {
 // Build a RLayers feature for each platform
 export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
-  const path = usePathname()
-  const searchParams = useSearchParams()
+  const { endTime } = useEndTime()
+  const { startTime } = useStartTime(true)
+  const { datum } = useDatum()
+
   const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [predictedFloodThreshold, setPredictedFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState("grey")
   const [predictedDisplay, setPredictedDisplay] = useState("gray")
+
   let radius: number
+
   if (selected) {
     radius = window.innerWidth > adjustPxWidth ? 16 : 21
   } else {
     radius = window.innerWidth > adjustPxWidth ? 10 : 15
   }
-  const isSensorPage = path.includes("sensor")
 
-  const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
-    const highestValue = currentWaterLevel?.extrema_values?.max.value
-    const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
-    const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
-    setFloodThreshold(surpassedThreshold)
-    const opacity = selected ? "e6" : "a0"
-    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-    setDisplay(display)
-  }
-
-  const getPredictedWaterDisplay = (predictedWaterLevel, floodLevels) => {
-    //Get highest value of predicted and any forecasts
-    const highValue = Math.max(...predictedWaterLevel.map((p) => p.extrema_values.max?.value))
-    const predWaterLevelThresholds = floodLevels && getWaterLevelThresholdsMapRawComp(floodLevels)
-    const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
-    setPredictedFloodThreshold(surpassedThreshold)
-    const opacity = selected ? "e6" : "a0"
-    const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-    setPredictedDisplay(display)
-  }
   useEffect(() => {
+    const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
+      const highestValue = currentWaterLevel?.extrema_values?.max.value
+      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
+      const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
+      setFloodThreshold(surpassedThreshold)
+      const opacity = selected ? "e6" : "a0"
+      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+      setDisplay(display)
+    }
+
+    const getPredictedWaterDisplay = (predictedWaterLevel, floodLevels) => {
+      //Get highest value of predicted and any forecasts
+      const highValue = Math.max(...predictedWaterLevel.map((p) => p.extrema_values.max?.value))
+      const predWaterLevelThresholds = floodLevels && getWaterLevelThresholdsMapRawComp(floodLevels)
+      const surpassedThreshold = getSurpassedThreshold(highValue, predWaterLevelThresholds)
+      setPredictedFloodThreshold(surpassedThreshold)
+      const opacity = selected ? "e6" : "a0"
+      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+      setPredictedDisplay(display)
+    }
+
     const currentWaterLevel = platform.properties.readings.find((r) => {
       return WATER_LEVEL_STANDARDS.includes(r.data_type.standard_name) && r.type === "Observation"
     })
+
     const floodLevels = currentWaterLevel?.flood_levels
+
     if (!currentWaterLevel) {
       setFloodThreshold("NA")
     } else {
       getObservedWaterDisplay(currentWaterLevel, floodLevels)
     }
+
     const futureWaterLevel = platform.properties.readings.filter(
       (r) => r.type === "Prediction" || r.type === "Forecast",
     )
@@ -126,18 +132,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
       {platform && display && (
         <Layer
           platform={platform}
-          url={
-            isSensorPage && searchParams.get("datum")
-              ? {
-                  pathname: `/water-level/sensor/${platform.id}`,
-                  query: buildSearchParamsQuery(
-                    searchParams.get("start") as string,
-                    searchParams.get("end") as string,
-                    searchParams.get("datum") as DatumOffsetOptions,
-                  ),
-                }
-              : `/water-level/sensor/${platform.id}`
-          }
+          url={waterLevelPath(platform.id, startTime, endTime, datum)}
           router={router}
           radius={radius}
           color={display}
@@ -270,7 +265,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
-  const { isLoading, data } = usePlatforms()
+  const { data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {

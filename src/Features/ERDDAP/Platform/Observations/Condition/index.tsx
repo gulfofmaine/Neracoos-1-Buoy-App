@@ -1,24 +1,22 @@
 /**
  * Display all time series for a specific standard name
  */
+import { useSearchParams } from "next/navigation"
 import React, { useEffect, useState } from "react"
-import { Button, Col, Collapse, Row } from "reactstrap"
+import { Col, Row } from "reactstrap"
 
+import { PlatformLoadingAlert } from "components/Alerts"
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
-import { naturalBounds } from "Shared/dataTypes"
-import { DataTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { naturalBounds } from "Shared/dataTypes"
+import { DataTimeSeries } from "Shared/timeSeries"
+import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-
 import { Info } from "./Info"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
-import { useSearchParams } from "next/navigation"
-import { Calendar } from "Shared/icons/Calendar"
-import { aWeekAgoRounded, daysInFuture, getIsoForPicker, manuallySetFullEODIso } from "Shared/time"
-import { PlatformLoadingAlert } from "components/Alerts"
 
 interface Props {
   /** Platform to display */

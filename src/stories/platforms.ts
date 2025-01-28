@@ -173,6 +173,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [9],
+      platform_type: "Buoy",
     },
   },
   {
@@ -395,6 +396,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [9],
+      platform_type: "Buoy",
     },
   },
   {
@@ -545,6 +547,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [9],
+      platform_type: "Buoy",
     },
   },
   {
@@ -698,6 +701,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [5],
+      platform_type: "Buoy",
     },
   },
   {
@@ -1070,6 +1074,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [3],
+      platform_type: "Buoy",
     },
   },
   {
@@ -1657,6 +1662,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: "30 (4935)",
       watch_circle_radius: undefined,
       programs: [1],
+      platform_type: "Buoy",
     },
   },
   {
@@ -1694,6 +1700,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [3],
+      platform_type: "Buoy",
     },
   },
   {
@@ -1849,6 +1856,7 @@ export const platforms: PlatformFeature[] = [
       uscg_light_num: undefined,
       watch_circle_radius: undefined,
       programs: [10],
+      platform_type: "Buoy",
     },
   },
 ]

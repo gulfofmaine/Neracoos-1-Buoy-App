@@ -206,6 +206,7 @@ const datumDisplayNames = {
   datum_mhw_meters: "Mean High Water",
   datum_mtl_meters: "Mean Tide Level",
   datum_msl_meters: "Mean Sea Level",
+  navd88: "NAVD88",
 }
 
 /** Return the display name for datum types
