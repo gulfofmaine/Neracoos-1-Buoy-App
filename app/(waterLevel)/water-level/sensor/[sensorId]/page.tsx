@@ -9,7 +9,7 @@ import { SecondaryBanner } from "components/SecondaryBanner"
 import { usePlatform } from "Features/ERDDAP/hooks"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
-import { useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/sensor"
+import { useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/hooks"
 import { useDecodedUrl } from "util/hooks"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })

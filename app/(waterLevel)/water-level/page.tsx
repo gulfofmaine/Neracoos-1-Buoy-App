@@ -4,15 +4,12 @@ import { Card, CardHeader, Col, Row } from "reactstrap"
 
 import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensorList"
 import { usePlatforms } from "Features/ERDDAP/hooks"
-import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
-import { filterForSensors } from "Features/ERDDAP/waterLevel/sensor"
-import { ErddapPlatformList } from "Features/ERDDAP"
-import { regionList, regions } from "Shared/regions"
-import { ErddapPlatformListBase } from "Features/ERDDAP/List"
+import { filterForSensors } from "Features/ERDDAP/waterLevel/hooks"
+import { regionList } from "Shared/regions"
 
 export default function WaterLevelIndexPage() {
-  const { data, isLoading } = usePlatforms()
+  const { data } = usePlatforms()
 
   const waterLevelPlatforms = data && filterForSensors(data)
 
@@ -34,10 +31,7 @@ export default function WaterLevelIndexPage() {
           {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
         </Col>
         <Col sm={{ order: "1" }} md={{ order: "2", size: "6" }}>
-          {/* {waterLevelPlatforms && <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} />} */}
           {regionCards}
-          {/* {waterLevelPlatforms &&
-            regionList.map((r) => <ErddapPlatformListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />)} */}
         </Col>
       </Row>
     </>

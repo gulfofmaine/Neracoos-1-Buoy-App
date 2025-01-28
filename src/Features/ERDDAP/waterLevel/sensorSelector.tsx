@@ -1,11 +1,11 @@
-import { useParams, useSearchParams } from "next/navigation"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import { useState } from "react"
 import { Col, Dropdown, DropdownMenu, DropdownToggle, Row } from "reactstrap"
 
-import { useDecodedUrl } from "util/hooks"
-import { waterLevelPath } from "Shared/urlParams"
 import { platformName } from "Features/ERDDAP/utils/platformName"
+import { waterLevelPath } from "Shared/urlParams"
+import { useDecodedUrl } from "util/hooks"
 
 import { useEndTime, useStartTime, useDatum } from "./hooks"
 
@@ -31,7 +31,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             return 1
           }
         })
-        .map((p, index) => {
+        .map((p) => {
           return (
             <Link
               key={`dropdown-${p.id}`}

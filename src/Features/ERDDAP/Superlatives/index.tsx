@@ -29,7 +29,7 @@ const windSpeed = new Set(conditions.windSpeed)
  */
 export const Superlatives: React.FunctionComponent = () => {
   const unitSystem = useUnitSystem()
-  const { isLoading, data } = usePlatforms()
+  const { data } = usePlatforms()
 
   const startTime = anHourAgoRounded()
 

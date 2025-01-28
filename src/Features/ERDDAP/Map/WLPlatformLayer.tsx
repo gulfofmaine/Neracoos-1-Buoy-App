@@ -4,7 +4,7 @@ import "ol/ol.css"
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
 import Link from "next/link"
-import { usePathname, useSearchParams, useParams } from "next/navigation"
+import { usePathname, useParams } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 import { Feature } from "ol"
 import GeoJSON from "ol/format/GeoJSON"
@@ -17,7 +17,7 @@ import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { aDayAgoRounded } from "Shared/time"
-import { buildSearchParamsQuery, waterLevelPath } from "Shared/urlParams"
+import { waterLevelPath } from "Shared/urlParams"
 
 import { PlatformLayer } from "."
 import { usePlatforms } from "../hooks"
@@ -65,12 +65,10 @@ interface PlatformLayerProps {
 // Build a RLayers feature for each platform
 export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
   const router = useRouter()
-  const path = usePathname()
   const { endTime } = useEndTime()
   const { startTime } = useStartTime(true)
   const { datum } = useDatum()
 
-  const searchParams = useSearchParams()
   const [floodThreshold, setFloodThreshold] = useState<string>("")
   const [predictedFloodThreshold, setPredictedFloodThreshold] = useState<string>("")
   const [display, setDisplay] = useState("grey")
@@ -83,8 +81,6 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
   } else {
     radius = window.innerWidth > adjustPxWidth ? 10 : 15
   }
-
-  const isSensorPage = path.includes("sensor")
 
   useEffect(() => {
     const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
@@ -269,7 +265,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
-  const { isLoading, data } = usePlatforms()
+  const { data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {

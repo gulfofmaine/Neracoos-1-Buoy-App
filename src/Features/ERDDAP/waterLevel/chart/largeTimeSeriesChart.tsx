@@ -20,7 +20,7 @@ import {
 import { FloodThreshold } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
-import { colorCycle, colors, waterLevelChartColorCycle } from "Shared/colors"
+import { colors, waterLevelChartColorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
 import { pointFormatMaker } from "components/Charts/formatter"

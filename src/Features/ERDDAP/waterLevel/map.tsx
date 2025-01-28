@@ -80,7 +80,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
 }
 
 export const ErddapWaterLevelMap = () => {
-  const { data, isLoading } = usePlatforms()
+  const { data } = usePlatforms()
 
   if (data?.features) {
     return <ErddapWaterLevelMapBase platforms={data.features} height={"60vh"} />

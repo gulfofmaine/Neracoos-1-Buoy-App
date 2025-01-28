@@ -1,15 +1,15 @@
+import booleanContains from "@turf/boolean-contains"
+import bboxPolygon from "@turf/bbox-polygon"
 import React from "react"
-import { daysAgoRounded, daysInFuture, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListGroup, ListGroupItem } from "reactstrap"
 
+import { waterLevelPath } from "Shared/urlParams"
+import { BoundingBox } from "Shared/regions"
+
 import { platformName } from "../utils/platformName"
 import { PlatformFeature } from "../types"
-import { buildSearchParamsQuery } from "Shared/urlParams"
-import booleanContains from "@turf/boolean-contains"
-import bboxPolygon from "@turf/bbox-polygon"
-import { BoundingBox } from "Shared/regions"
 
 interface Props {
   platforms: PlatformFeature[]
@@ -47,7 +47,7 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
     <ListGroup flush>
       {sensors &&
         sensors.map((s) => (
-          <Link key={s.id} href={`water-level/sensor/${s.id}`} className="list-group-item list-group-item-action">
+          <Link key={s.id} href={waterLevelPath(s.id)} className="list-group-item list-group-item-action">
             {platformName(s)}
           </Link>
         ))}

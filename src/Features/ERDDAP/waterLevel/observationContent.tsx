@@ -1,5 +1,5 @@
-import { usePathname } from "next/navigation"
-import { useRouter } from "next-nprogress-bar"
+// import { usePathname } from "next/navigation"
+// import { useRouter } from "next-nprogress-bar"
 import { Alert } from "reactstrap"
 
 import { WaterLevelChartDisplay } from "Features/ERDDAP/waterLevel/chart/chartDisplay"
@@ -16,13 +16,13 @@ import { useEndTime, useStartTime, useDatum } from "./hooks"
 
 export function WaterLevelObservationContent({ platform }: { platform: PlatformFeature }) {
   const unitSystem = useUnitSystem()
-  const pathname = usePathname()
+  // const pathname = usePathname()
   const { startTime } = useStartTime(true)
   const { endTime } = useEndTime()
   const { datum } = useDatum()
 
-  const router = useRouter()
-  const windowWidth = window.innerWidth
+  // const router = useRouter()
+  // const windowWidth = window.innerWidth
   const waterLevel = filterWaterLevelTimeSeries(platform.properties.readings, conditions.waterLevel, startTime)
 
   let datumOffset: number | undefined
