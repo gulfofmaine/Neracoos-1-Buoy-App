@@ -1,6 +1,6 @@
 "use client"
 import { fromLonLat } from "ol/proj"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, use } from "react"
 import { createBreakpoint } from "react-use"
 import { Col, Row } from "reactstrap"
 
@@ -14,7 +14,8 @@ import { useDecodedUrl } from "util/hooks"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
 
-export default function SensorIdPage({ params }) {
+export default function SensorIdPage(props: { params: Promise<{ sensorId: string }> }) {
+  const params = use(props.params)
   const breakpoint = useBreakpoint()
   const waterLevelPlatforms = useWaterLevelPlatforms()
   const id = useDecodedUrl(params.sensorId)

@@ -3,6 +3,13 @@ const nextConfig = {
   env: {
     PUBLIC_URL: "",
   },
+  sassOptions: {
+    quietDeps: true,
+    // Ignore several SASS warnings
+    // https://sass-lang.com/documentation/breaking-changes/legacy-js-api/ https://github.com/vercel/next.js/issues/71638
+    // https://sass-lang.com/documentation/breaking-changes/import/ https://github.com/twbs/bootstrap/issues/29853
+    silenceDeprecations: ["import", "legacy-js-api"],
+  },
   experimental: {
     craCompat: false,
     instrumentationHook: true,

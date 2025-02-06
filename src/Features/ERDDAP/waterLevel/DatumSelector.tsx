@@ -9,7 +9,7 @@ import { useDatum } from "./hooks"
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
   const { datum, setDatum } = useDatum()
 
-  let options: JSX.Element[] = []
+  let options: React.ReactNode[] = []
 
   if (datumOffsets) {
     options = Object.keys(datumOffsets).map((d, index) => {
