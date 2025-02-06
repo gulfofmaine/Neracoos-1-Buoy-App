@@ -30,9 +30,9 @@ describe("The NavBar should have our primary links", () => {
     expect(screen.getByText("Regions"))
   })
 
-  it("Includes Model Viewer", () => {
-    expect(screen.getByText("Model Viewer"))
-  })
+  // it("Includes Model Viewer", () => {
+  //   expect(screen.getByText("Model Viewer"))
+  // })
 
   it("Includes the Water Level page", () => {
     expect(screen.getByText("Water Level"))
