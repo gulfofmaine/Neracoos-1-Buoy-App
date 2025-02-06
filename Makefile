@@ -45,7 +45,7 @@ cov-html:
 
 
 storybook:
-	docker compose run -p 6006:6006 client npm run storybook
+	npm run storybook
 
 build-storybook:
 	docker compose run client npm run build-storybook
