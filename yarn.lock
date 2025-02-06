@@ -7955,10 +7955,10 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-next-nprogress-bar@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/next-nprogress-bar/-/next-nprogress-bar-2.4.2.tgz#808c30f1b8f6d62d99548fd45fd9bb293b700b76"
-  integrity sha512-esXEm+t0JnhfXEVmwN9JJ8/awLMbLJ0dPMiOOPLMPwpyhd+wikkNLaXGOt/vuBaeGKHC/gGYFKMv+R6zkd6RCw==
+next-nprogress-bar@^2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/next-nprogress-bar/-/next-nprogress-bar-2.4.4.tgz#f7a0d919e988e32a56263412090f8fabe2751575"
+  integrity sha512-SeOtJCh9T0+RCGH+fl1SxHUt5uU3wH3emhVBZiKCbTHbGYYBho3o2DkuwCjoI7IxV5uGjHBuSVJI2+v3pMC64A==
   dependencies:
     nprogress-v2 "^1.0.4"
 
