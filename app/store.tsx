@@ -47,7 +47,7 @@ function loadFromLocalStorage() {
 }
 
 export default function ReduxStore({ children }: PropsWithChildren) {
-  const storeRef = useRef<MakeStore>()
+  const storeRef = useRef<MakeStore>(undefined)
 
   if (!storeRef.current) {
     storeRef.current = makeStore()
