@@ -44,4 +44,4 @@ export const viewport: Viewport = {
 /**
  * Revalidate any server side fetches by default every 5 minutes
  */
-export const revalidate = 5 * 50
+export const revalidate = 300 // 5 * 60

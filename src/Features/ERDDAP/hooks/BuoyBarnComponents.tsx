@@ -11,14 +11,14 @@ import { usePlatforms } from "./buoyBarn"
 
 interface BaseProps {
   /** Override default loading alert */
-  loading?: JSX.Element
+  loading?: React.ReactNode
   /** Override default error alert */
-  error?: JSX.Element
+  error?: React.ReactNode
 }
 
 interface UsePlatformsProps extends BaseProps {
   /** Pass platforms to child elements */
-  children: (props: UsePlatformsRenderProps) => JSX.Element
+  children: (props: UsePlatformsRenderProps) => React.ReactNode
 }
 
 export interface UsePlatformsRenderProps {
@@ -59,7 +59,7 @@ export const UsePlatforms: React.FunctionComponent<UsePlatformsProps> = ({ child
 
 interface UsePlatformProps extends BaseProps {
   /** Children elements to render selected platform information */
-  children: (props: UsePlatformRenderProps) => JSX.Element
+  children: (props: UsePlatformRenderProps) => React.ReactNode
   /** Platform to try to render */
   platformId: string
 }
