@@ -9,7 +9,7 @@ concurrency:
 jobs:
   build:
     name: Build and cache Docker image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
@@ -47,7 +47,7 @@ jobs:
 
   build-prod:
     name: Build production Docker image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build
     timeout-minutes: 10
 
@@ -92,7 +92,7 @@ jobs:
 
   unit_tests:
     name: Unit tests, typecheck and coverage
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build
     timeout-minutes: 10
 
@@ -151,7 +151,7 @@ jobs:
 
   playwright:
     name: Playwright integration tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: build-prod
     timeout-minutes: 30
 
@@ -222,7 +222,7 @@ jobs:
 
   # pages:
   #   name: Deploy Storybook to Github Pages on version tag
-  #   runs-on: ubuntu-20.04
+  #   runs-on: ubuntu-24.04
   #   needs: [unit_tests, playwright]
   #   timeout-minutes: 10
   #   if: |
@@ -247,7 +247,7 @@ jobs:
 
   push_image:
     name: Build and push tagged image to Docker Hub
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: [unit_tests, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
@@ -330,7 +330,7 @@ jobs:
 
   push_dev_image:
     name: Build and push dev image to Docker Hub
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: [unit_tests, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
