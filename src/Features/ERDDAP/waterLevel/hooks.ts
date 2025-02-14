@@ -2,8 +2,9 @@ import { usePlatforms } from "Features/ERDDAP/hooks"
 import { useDefaultStringQueryParam } from "Shared/urlParams"
 import { aWeekAgoRounded, daysAgoRounded, daysInFuture, formatDate } from "Shared/time"
 
-import { Datums, PlatformFeatureCollection } from "../types"
+import { Datums, PlatformFeatureCollection, PlatformFeature, StandardNameDatums } from "../types"
 import { conditions } from "../utils/conditions"
+import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
 
 // Access and set the end time value for water level pages with a reasonable default if platform should show future data
 export function useEndTime(graphFuture: boolean = false): { endTime: Date; setEndTime: (newQuery: string) => void } {
@@ -39,6 +40,31 @@ export function useDatum(): { datum: Datums; setDatum: (newQuery: Datums) => voi
   const { value, setValue } = useDefaultStringQueryParam("datum", Datums.MLLW)
 
   return { datum: (value || Datums.MLLW) as Datums, setDatum: setValue }
+}
+
+// Use the water level and the datum that is best available for a specific platform
+export function useWaterLevelDatum(platform: PlatformFeature, startTime: Date) {
+  let { datum, setDatum } = useDatum()
+
+  const waterLevel = filterWaterLevelTimeSeries(platform.properties.readings, conditions.waterLevel, startTime)
+
+  let datumOffset: number | undefined
+  if (waterLevel) {
+    // If datum is not in the datum offsets, then we can't use it,
+    // so figure out what the base datum is based on standard name
+    if (!(datum in waterLevel.datum_offsets) && datum !== Datums.NAVD88) {
+      datum = StandardNameDatums[waterLevel.data_type.standard_name]
+      setDatum(datum)
+    }
+
+    if (datum === Datums.NAVD88) {
+      datumOffset = 0
+    } else {
+      datumOffset = waterLevel.datum_offsets[datum]
+    }
+  }
+
+  return { datum, setDatum, datumOffset, waterLevel }
 }
 
 export const filterForSensors = (platforms: PlatformFeatureCollection) => {

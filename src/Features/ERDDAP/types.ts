@@ -177,6 +177,23 @@ export enum Datums {
 }
 export const DATUM_MLLW_METERS = Datums.MLLW
 
+export const StandardNameDatums = {
+  // "sea_water_level",
+  sea_surface_height_above_geopotential_datum: Datums.NAVD88,
+  sea_surface_height_above_mean_sea_level: Datums.MSL,
+  sea_surface_height_above_sea_level: Datums.MSL,
+  // "sea_surface_height",
+  sea_surface_height_above_geoid: Datums.NAVD88,
+  sea_surface_height_above_reference_ellipsoid: Datums.NAVD88,
+  tidal_sea_surface_height_above_lowest_astronomical_tide: Datums.MLLW,
+  tidal_sea_surface_height_above_mean_higher_high_water: Datums.MHHW,
+  tidal_sea_surface_height_above_mean_lower_low_water: Datums.MLLW,
+  // "tidal_sea_surface_height_above_mean_low_water_springs",
+  tidal_sea_surface_height_above_mean_sea_level: Datums.MSL,
+  // "sea_surface_elevation_anomaly",
+  // "sea_surface_elevation",
+}
+
 export type DatumOffsetOptions =
   | "datum_mhhw_meters"
   | "datum_mhw_meters"
