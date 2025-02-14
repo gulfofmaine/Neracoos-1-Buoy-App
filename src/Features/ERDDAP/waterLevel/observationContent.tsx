@@ -9,30 +9,16 @@ import { DataTimeSeries } from "Shared/timeSeries"
 
 import { filterTimeSeries, filterSingleTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets } from "../hooks"
-import { PlatformFeature, PlatformTimeSeries, Datums } from "../types"
+import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
-import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
-import { useEndTime, useStartTime, useDatum } from "./hooks"
+import { useEndTime, useStartTime, useWaterLevelDatum } from "./hooks"
 
 export function WaterLevelObservationContent({ platform }: { platform: PlatformFeature }) {
   const unitSystem = useUnitSystem()
   // const pathname = usePathname()
   const { startTime } = useStartTime(true)
   const { endTime } = useEndTime()
-  const { datum } = useDatum()
-
-  // const router = useRouter()
-  // const windowWidth = window.innerWidth
-  const waterLevel = filterWaterLevelTimeSeries(platform.properties.readings, conditions.waterLevel, startTime)
-
-  let datumOffset: number | undefined
-  if (waterLevel) {
-    if (datum === Datums.NAVD88) {
-      datumOffset = 0
-    } else {
-      datumOffset = waterLevel.datum_offsets[datum]
-    }
-  }
+  const { datum, datumOffset, waterLevel } = useWaterLevelDatum(platform, startTime)
 
   const predictedTides = filterSingleTimeSeries(
     platform.properties.readings,
