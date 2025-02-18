@@ -1,8 +1,8 @@
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { useState } from "react"
-import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
 import Col from "react-bootstrap/Col"
+import Dropdown from "react-bootstrap/Dropdown"
 import Row from "react-bootstrap/Row"
 
 import { platformName } from "Features/ERDDAP/utils/platformName"
@@ -58,13 +58,13 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
           toggle={() => setIsOpen(!isOpen)}
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
-          <DropdownToggle color={"#FFFFFF"} caret={true}>
+          <Dropdown.Toggle color={"#FFFFFF"} caret={true}>
             {platformName(sensor)}
-          </DropdownToggle>
+          </Dropdown.Toggle>
           {sensorOptions && (
-            <DropdownMenu end={true} style={{ padding: 0, border: "1px", maxHeight: "215px", overflow: "scroll" }}>
+            <Dropdown.Menu end={true} style={{ padding: 0, border: "1px", maxHeight: "215px", overflow: "scroll" }}>
               {sensorOptions}
-            </DropdownMenu>
+            </Dropdown.Menu>
           )}
         </Dropdown>
       </Col>

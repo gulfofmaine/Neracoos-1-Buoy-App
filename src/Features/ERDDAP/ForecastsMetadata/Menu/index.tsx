@@ -4,7 +4,9 @@
  */
 import * as React from "react"
 import Link from "next/link"
-import { Dropdown, DropdownMenu, DropdownToggle, NavItem } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import Nav from "react-bootstrap/Nav"
+import NavDropdown from "react-bootstrap/NavDropdown"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -24,9 +26,9 @@ export const ForecastDropdown: React.FunctionComponent<Props> = ({ platformId })
 
   if (isLoading) {
     return (
-      <NavItem>
+      <Nav.Item>
         <div className="nav-link">Forecasts loading</div>
-      </NavItem>
+      </Nav.Item>
     )
   }
 
@@ -35,9 +37,9 @@ export const ForecastDropdown: React.FunctionComponent<Props> = ({ platformId })
   }
 
   return (
-    <NavItem>
+    <Nav.Item>
       <div className="nav-link">Unable to load forecasts</div>
-    </NavItem>
+    </Nav.Item>
   )
 }
 
@@ -88,12 +90,12 @@ export function ForecastDropdownBase({ forecasts, platformId }: BaseProps) {
   ))
 
   return (
-    <Dropdown nav={true} isOpen={state.dropdownOpen} toggle={toggle}>
-      <DropdownToggle nav={true} caret={true} id="forecast">
+    <Dropdown as={Nav.Item} isOpen={state.dropdownOpen} toggle={toggle}>
+      <Dropdown.Toggle as={Nav.Link} id="forecast">
         Forecasts
-      </DropdownToggle>
+      </Dropdown.Toggle>
 
-      <DropdownMenu>{forecastItems}</DropdownMenu>
+      <Dropdown.Menu>{forecastItems}</Dropdown.Menu>
     </Dropdown>
   )
 }

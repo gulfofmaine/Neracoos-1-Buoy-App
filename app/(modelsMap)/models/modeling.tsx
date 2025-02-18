@@ -2,8 +2,10 @@ import { UseQueryResult, useQueries } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
-import { Nav, NavItem, NavLink, Row, TabContent, TabPane } from "reactstrap"
+import { TabContent, TabPane } from "reactstrap"
+import Nav from "react-bootstrap/Nav"
 import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
 
@@ -231,27 +233,27 @@ const ItemLayersTabs = ({
 
   return (
     <div style={{ marginTop: "10px" }}>
-      <Nav tabs={true}>
-        <NavItem>
-          <NavLink
+      <Nav variant="tabs">
+        <Nav.Item>
+          <Nav.Link
             className={!table ? "active" : undefined}
             onClick={() => {
               setTable(false)
             }}
           >
             Chart
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
             className={table ? "active" : undefined}
             onClick={() => {
               setTable(true)
             }}
           >
             Table
-          </NavLink>
-        </NavItem>
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
       <TabContent activeTab={table ? "table" : "chart"} style={{ minHeight: "100px", marginTop: "10px" }}>
         <TabPane tabId="chart">

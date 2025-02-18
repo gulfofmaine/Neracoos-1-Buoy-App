@@ -6,7 +6,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from "reactstrap"
+import Nav from "react-bootstrap/Nav"
+import Navbar from "react-bootstrap/Navbar"
 
 import { paths } from "Shared/constants"
 
@@ -49,14 +50,14 @@ const NeracoosNavBar = () => {
 
   return (
     <div>
-      <Navbar dark={true} expand="md">
-        <NavbarBrand href={paths.neracoos}>
+      <Navbar bg="primary" data-bs-theme="primary" expand="md">
+        <Navbar.Brand href={paths.neracoos}>
           <Image src={neracoosLogo} alt="NERACOOS" height={30} />
-        </NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+        </Navbar.Brand>
+        <Navbar.Toggle onClick={toggle} />
 
-        <Collapse isOpen={isOpen} navbar={true} className="justify-content-end">
-          <Nav className="ml-auto" navbar={true}>
+        <Navbar.Collapse className="justify-content-end">
+          <Nav className="ml-auto">
             <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
@@ -65,14 +66,14 @@ const NeracoosNavBar = () => {
                 <NavLink href={paths.models}>Model Viewer</NavLink>
               </NavItem>
             )} */}
-            <NavItem>
+            <Nav.Item>
               <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
-            </NavItem>
-            <NavItem>
+            </Nav.Item>
+            <Nav.Item>
               <NavLink href={paths.about}>About</NavLink>
-            </NavItem>
+            </Nav.Item>
           </Nav>
-        </Collapse>
+        </Navbar.Collapse>
       </Navbar>
     </div>
   )

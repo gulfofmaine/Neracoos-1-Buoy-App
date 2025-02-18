@@ -4,7 +4,8 @@
  */
 import * as React from "react"
 import Link from "next/link"
-import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import Nav from "react-bootstrap/Nav"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -46,9 +47,9 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
 
   if (platform.properties.readings.length === 0) {
     return (
-      <NavItem>
-        <NavLink disabled={true}>No Observations available</NavLink>
-      </NavItem>
+      <Nav.Item>
+        <Nav.Link disabled={true}>No Observations available</Nav.Link>
+      </Nav.Item>
     )
   }
 
@@ -82,12 +83,12 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
   )
 
   return (
-    <Dropdown nav={true} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
-      <DropdownToggle nav={true} caret={true}>
+    <Dropdown as={Nav.Item} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
+      <Dropdown.Toggle as={Nav.Link} caret={true}>
         Observations
-      </DropdownToggle>
+      </Dropdown.Toggle>
 
-      <DropdownMenu>
+      <Dropdown.Menu>
         <Link
           className="dropdown-item nav-item"
           href={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}
@@ -101,7 +102,7 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
             Wind
           </Link>
         ) : null}
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   )
 }

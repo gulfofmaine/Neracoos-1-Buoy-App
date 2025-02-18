@@ -5,7 +5,8 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
-import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import Nav from "react-bootstrap/Nav"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 
@@ -52,12 +53,12 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
   const forecastUrl = `https://marine.weather.gov/MapClick.php?lon=${coordinates[0]}&lat=${coordinates[1]}`
 
   return (
-    <Dropdown nav={true} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
-      <DropdownToggle nav={true} caret={true}>
+    <Dropdown as={Nav.Item} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
+      <Dropdown.Toggle as={Nav.Link}>
         More info
-      </DropdownToggle>
+      </Dropdown.Toggle>
 
-      <DropdownMenu>
+      <Dropdown.Menu>
         {dynamicLinks}
         <a
           className="dropdown-item nav-item"
@@ -81,7 +82,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           Tides
           <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   )
 }

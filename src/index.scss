@@ -51,10 +51,14 @@ nav.navbar {
   .navbar-brand > img {
     height: 30px;
   }
-}
 
-.navbar-dark .navbar-nav .show > .dropdown-menu > a.nav-link {
-  color: $primary;
+  a.nav-link {
+    color: white;
+
+    &.dropdown-item {
+      color: $primary;
+    }
+  }
 }
 
 .navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {

@@ -1,6 +1,6 @@
 import { LegendItem } from "components/Map/legendItem"
 import { useState } from "react"
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
 
 export const WLLegend = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -13,13 +13,13 @@ export const WLLegend = () => {
       toggle={toggle}
       direction={"down"}
       className="legend-dropdown"
-      menuRole="listbox"
+      // menuRole="listbox"
     >
-      <DropdownToggle caret color="primary">
+      <Dropdown.Toggle color="primary">
         Legend
-      </DropdownToggle>
-      <DropdownMenu className="legend-dropdown-menu">
-        <DropdownItem className="legend-dropdown-item">
+      </Dropdown.Toggle>
+      <Dropdown.Menu className="legend-dropdown-menu">
+        <Dropdown.Item className="legend-dropdown-item">
           <div className="legend-container">
             <div
               style={{
@@ -49,8 +49,8 @@ export const WLLegend = () => {
               <LegendItem color={"grey"} text={"No Data"} observed={true} />
             </div>
           </div>
-        </DropdownItem>
-      </DropdownMenu>
+        </Dropdown.Item>
+      </Dropdown.Menu>
     </Dropdown>
   )
 }

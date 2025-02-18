@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Nav, TabContent, Table, TabPane } from "reactstrap"
+import { TabContent, Table, TabPane } from "reactstrap"
+import Nav from "react-bootstrap/Nav"
 
 import { ContentTab } from "components/TabPane"
 import { PlatformFeature } from "Features/ERDDAP/types"
@@ -59,7 +60,7 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         <b>Upcoming Tides</b>
       </h6>
       <div style={{ width: "100%" }}>
-        <Nav tabs={true} key="nav-0">
+        <Nav variant="tabs" key="nav-0">
           {nextTides &&
             nextTides.map((nt, i) => {
               return <ContentTab name={nt.name} index={i} setOpen={setKey} active={key === i} key={i} />
