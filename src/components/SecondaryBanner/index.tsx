@@ -1,4 +1,4 @@
-import { Alert } from "reactstrap"
+import Alert from "react-bootstrap/Alert"
 
 export const SecondaryBanner = ({ children }) => {
   return (

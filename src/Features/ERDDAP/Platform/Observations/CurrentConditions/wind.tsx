@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
-import { Card, CardBody, CardHeader } from "reactstrap"
+import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import * as Sentry from "@sentry/react"
 
@@ -91,12 +91,12 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
     <Col {...cardProps}>
       <Link href={observationLink(platform, "wind")}>
         <Card>
-          <CardHeader>
+          <Card.Header>
             Winds{speedTitle}
             {gustTitle}
             {directionTitle}
-          </CardHeader>
-          <CardBody style={{ padding: ".2rem" }}>
+          </Card.Header>
+          <Card.Body style={{ padding: ".2rem" }}>
             <WindTimeSeriesChart
               days={1}
               barbsPerDay={24}
@@ -105,7 +105,7 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
               {...{ speed, gust, direction, unitSystem, startTime, endTime }}
             />
             <FontAwesomeIcon icon={faExpand} pull="right" />
-          </CardBody>
+          </Card.Body>
         </Card>
       </Link>
     </Col>

@@ -1,4 +1,5 @@
-import { Alert, AlertProps, Spinner } from "reactstrap"
+import { Spinner } from "reactstrap"
+import Alert, { AlertProps } from "react-bootstrap/Alert"
 
 export type LoadingAlertProps = Omit<AlertProps, "color">
 

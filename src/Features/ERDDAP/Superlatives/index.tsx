@@ -5,7 +5,9 @@
 import Link from "next/link"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { Card, CardBody, CardHeader, Col, Row } from "reactstrap"
+import Card from "react-bootstrap/Card"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { WarningAlert } from "components/Alerts"
 import { useUnitSystem } from "Features/Units"
@@ -105,11 +107,11 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
   }, [platforms, searchStartTime])
   return (
     <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-      <CardHeader>
+      <Card.Header>
         <h5>Latest Conditions</h5>
-      </CardHeader>
+      </Card.Header>
 
-      <CardBody>
+      <Card.Body>
         <Row>
           <Col>
             <h6>Highest Winds</h6>
@@ -137,7 +139,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
             )}
           </Col>
         </Row>
-      </CardBody>
+      </Card.Body>
     </Card>
   )
 }

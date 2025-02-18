@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
-import { Card, CardBody, CardHeader } from "reactstrap"
+import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 
 import { SmallTimeSeriesChart } from "components/Charts/SmallTimeSeries"
@@ -56,12 +56,12 @@ export function DataCardDisplay({
     <Col {...cardProps}>
       <Link href={url}>
         <Card>
-          <CardHeader>
+          <Card.Header>
             {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
             {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
-          </CardHeader>
+          </Card.Header>
 
-          <CardBody style={{ padding: ".2rem" }}>
+          <Card.Body style={{ padding: ".2rem" }}>
             <SmallTimeSeriesChart
               name={timeSeries.data_type.standard_name}
               timeSeries={data}
@@ -72,7 +72,7 @@ export function DataCardDisplay({
               {...{ unitSystem, startTime, endTime }}
             />
             <FontAwesomeIcon icon={faExpand} pull="right" />
-          </CardBody>
+          </Card.Body>
         </Card>
       </Link>
     </Col>

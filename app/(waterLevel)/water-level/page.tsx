@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { Card, CardHeader} from "reactstrap"
+import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
@@ -20,7 +20,7 @@ export default function WaterLevelIndexPage() {
     regionList.map((r, index) => {
       return (
         <Card style={{ marginBottom: "20px" }} key={`sensor-region-list-#${index}`}>
-          <CardHeader>{r.name}</CardHeader>
+          <Card.Header>{r.name}</Card.Header>
           <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />
         </Card>
       )
