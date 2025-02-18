@@ -74,7 +74,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/geojson": "^7946.0.15",
+    "@types/geojson": "^7946.0.16",
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
     "@types/jest": "29.5.14",
