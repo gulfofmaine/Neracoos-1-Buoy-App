@@ -2,7 +2,7 @@
  * All current conditions table component
  */
 import * as React from "react"
-import { ListGroup, ListGroupItem } from "reactstrap"
+import ListGroup from "react-bootstrap/ListGroup"
 
 import { UnitSystem } from "Features/Units/types"
 
@@ -28,9 +28,9 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
   return (
     <ListGroup style={{ paddingTop: "1rem" }} className="all-observations">
       {times.length > 0 ? (
-        <ListGroupItem style={itemStyle}>
+        <ListGroup.Item style={itemStyle}>
           <b>Last updated at: </b> {times[times.length - 1].toLocaleString()}
-        </ListGroupItem>
+        </ListGroup.Item>
       ) : null}
 
       {datasets.map((dataset, index) => {

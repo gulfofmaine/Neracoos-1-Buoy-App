@@ -3,7 +3,7 @@ import bboxPolygon from "@turf/bbox-polygon"
 import React from "react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { ListGroup, ListGroupItem } from "reactstrap"
+import ListGroup from "react-bootstrap/ListGroup"
 
 import { waterLevelPath } from "Shared/urlParams"
 import { BoundingBox } from "Shared/regions"
@@ -44,7 +44,7 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
 
   //Station defaults to 3 day in past, week in future, and mllw datum
   return (
-    <ListGroup flush>
+    <ListGroup variant="flush">
       {sensors &&
         sensors.map((s) => (
           <Link key={s.id} href={waterLevelPath(s.id)} className="list-group-item list-group-item-action">
@@ -52,8 +52,8 @@ export const ErddapWaterLevelSensorListBase: React.FC<Props> = ({ platforms, bou
           </Link>
         ))}
       {sensors && !sensors?.length && (
-        <ListGroup flush>
-          <ListGroupItem>No sensors available in this region</ListGroupItem>
+        <ListGroup variant="flush">
+          <ListGroup.Item>No sensors available in this region</ListGroup.Item>
         </ListGroup>
       )}
     </ListGroup>
