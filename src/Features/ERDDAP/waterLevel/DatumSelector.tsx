@@ -1,4 +1,7 @@
-import { Col, InputGroup, ListGroup, ListGroupItem, Row } from "reactstrap"
+import { InputGroup } from "reactstrap"
+import ListGroup from "react-bootstrap/ListGroup"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { WarningAlert } from "components/Alerts"
 import { getDatumDisplayName } from "Shared/dataTypes"
@@ -46,7 +49,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
 
   return (
     <ListGroup style={{ marginBottom: "20px", marginTop: "20px" }}>
-      <ListGroupItem>
+      <ListGroup.Item>
         <Row style={{ width: "fit-content", verticalAlign: "middle" }}>
           {options.length > 0 ? (
             <div>
@@ -61,7 +64,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
             <WarningAlert>Datum selection is not available for this site</WarningAlert>
           )}
         </Row>
-      </ListGroupItem>
+      </ListGroup.Item>
     </ListGroup>
   )
 }

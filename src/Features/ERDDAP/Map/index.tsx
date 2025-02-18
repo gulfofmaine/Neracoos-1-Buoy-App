@@ -8,7 +8,7 @@ import { useRouter } from "next-nprogress-bar"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
-import { Button } from "reactstrap"
+import Button from "react-bootstrap/Button"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
 import { colors } from "Shared/colors"
@@ -103,7 +103,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       >
         <RPopup trigger={"hover"}>
           <Button
-            color="dark"
+            variant="dark"
             size="sm"
             href={url}
             onClick={useCallback(

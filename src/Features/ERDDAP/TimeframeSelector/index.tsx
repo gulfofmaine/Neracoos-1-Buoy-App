@@ -1,7 +1,10 @@
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Button, Card, Col, UncontrolledTooltip } from "reactstrap"
+import { UncontrolledTooltip } from "reactstrap"
+import Button from "react-bootstrap/Button"
+import Card from "react-bootstrap/Card"
+import Col from "react-bootstrap/Col"
 
 import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
@@ -98,8 +101,7 @@ export function TimeframeSelector({
             />
           </label>
           <Button
-            color="light"
-            outline
+            variant="outline-light"
             size="sm"
             style={{ marginRight: "5px", border: "grey" }}
             id="revert-default-date"
@@ -125,7 +127,7 @@ export function TimeframeSelector({
             Revert to default date
           </UncontrolledTooltip>
           <Button
-            color="primary"
+            variant="primary"
             size="sm"
             id="plot-date-button"
             disabled={!startTime || !endTime || validDateMessage !== ""}

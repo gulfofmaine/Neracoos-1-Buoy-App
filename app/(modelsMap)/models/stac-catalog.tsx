@@ -4,13 +4,11 @@ import {
   AccordionBody,
   AccordionHeader,
   AccordionItem,
-  Button,
-  ButtonGroup,
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
   UncontrolledAccordion,
 } from "reactstrap"
+import ButtonGroup from "react-bootstrap/ButtonGroup"
+import ListGroup from "react-bootstrap/ListGroup"
+import ToggleButton from "react-bootstrap/ToggleButton"
 
 import { ICatalog, ICollection, IItem } from "@gulfofmaine/tsstac"
 
@@ -228,15 +226,15 @@ const CategoryAccordion = ({
   const standards = Object.keys(categoryStandards).sort(sortAlphabetically)
 
   return (
-    <ListGroupItem>
-      <ListGroupItemHeading>{category}</ListGroupItemHeading>
+    <ListGroup.Item>
+      <ListGroup.ItemHeading>{category}</ListGroup.ItemHeading>
       <UncontrolledAccordion defaultOpen={[]} stayOpen={true} flush={true}>
         {standards.map((standard) => {
           const standardItems = categoryStandards[standard]
           return <StandardName key={standard} standard_name={standard} items={standardItems} />
         })}
       </UncontrolledAccordion>
-    </ListGroupItem>
+    </ListGroup.Item>
   )
 }
 
@@ -272,7 +270,7 @@ const StandardName = ({ standard_name, items }: { standard_name: string; items: 
 
 const buttonStyle = {
   size: "sm",
-  color: "primary",
+  variant: "primary",
   outline: true,
 }
 
@@ -287,29 +285,29 @@ const StandardItem = ({ standard_name, item }: { standard_name: string; item: II
   const [key, value] = cube_variable as [string, object]
 
   return (
-    <ListGroupItem>
+    <ListGroup.Item>
       {item.parent?.title ?? item.title ?? item.id}
       <br />
       <ButtonGroup>
-        <Button
+        <ToggleButton
           {...buttonStyle}
-          active={currentLayer.id === item.collection && (currentLayer.vars?.includes(key) ?? false)}
+          checked={currentLayer.id === item.collection && (currentLayer.vars?.includes(key) ?? false)}
           onClick={() => {
             setLayer({ id: item.collection, vars: [key] })
           }}
         >
           Map
-        </Button>
-        <Button
+        </ToggleButton>
+        <ToggleButton
           {...buttonStyle}
-          active={compareLayers.find((l) => l.id === item.collection && l.vars.includes(key)) ? true : false}
+          checked={compareLayers.find((l) => l.id === item.collection && l.vars.includes(key)) ? true : false}
           onClick={() => {
             toggleCompareLayer({ id: item.collection, vars: [key] })
           }}
         >
           Compare
-        </Button>
+        </ToggleButton>
       </ButtonGroup>
-    </ListGroupItem>
+    </ListGroup.Item>
   )
 }
