@@ -4,7 +4,7 @@
  * current conditions that a platform is experiencing.
  */
 import React from "react"
-import { Row } from "reactstrap"
+import Row from  "react-bootstrap/Row"
 
 import { useUnitSystem } from "Features/Units"
 import { halfADayAgoRounded } from "Shared/time"

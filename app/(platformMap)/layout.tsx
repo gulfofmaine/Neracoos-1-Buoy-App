@@ -3,7 +3,9 @@ import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { useMeasure } from "react-use"
-import { Col, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
+
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 
 export default function Layout({

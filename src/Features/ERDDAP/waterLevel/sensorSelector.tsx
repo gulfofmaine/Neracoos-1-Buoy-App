@@ -1,7 +1,9 @@
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { useState } from "react"
-import { Col, Dropdown, DropdownMenu, DropdownToggle, Row } from "reactstrap"
+import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { platformName } from "Features/ERDDAP/utils/platformName"
 import { waterLevelPath } from "Shared/urlParams"

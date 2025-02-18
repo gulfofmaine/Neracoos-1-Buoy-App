@@ -2,7 +2,8 @@
 import { fromLonLat } from "ol/proj"
 import React, { useEffect, useState, use } from "react"
 import { createBreakpoint } from "react-use"
-import { Col, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
 import { SecondaryBanner } from "components/SecondaryBanner"
@@ -55,7 +56,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
         </p>
       </SecondaryBanner>
       <Row>
-        <Col sm={{ size: "6" }} md={{ size: "4" }}>
+        <Col sm={6} md={4}>
           {platform && waterLevelPlatforms && (
             <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
           )}
@@ -68,9 +69,9 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
             />
           )}
         </Col>
-        <Col sm={{ size: "6" }}>{platform && <WaterLevelObservationContent platform={platform} />}</Col>
+        <Col sm={6}>{platform && <WaterLevelObservationContent platform={platform} />}</Col>
         {breakpoint === "S" && waterLevelPlatforms && (
-          <Col sm={{ size: "6" }}>
+          <Col sm={6}>
             <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} platformId={id} height={"30vh"} />
           </Col>
         )}

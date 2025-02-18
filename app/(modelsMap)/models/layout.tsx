@@ -1,6 +1,8 @@
 "use client"
 import React from "react"
-import { Col, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
+
 import { STACProvider } from "./stac-queries"
 
 export default function ModelingLayout({ children }: { children: React.ReactNode }) {

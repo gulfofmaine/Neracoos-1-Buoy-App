@@ -2,7 +2,9 @@
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
-import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
+import { Nav, NavItem, NavLink } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"

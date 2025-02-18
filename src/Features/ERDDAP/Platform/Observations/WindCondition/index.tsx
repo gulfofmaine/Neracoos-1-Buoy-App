@@ -2,7 +2,8 @@
  * Wind Observed conditions component
  */
 import React, { useEffect } from "react"
-import { Button, Col, Collapse, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { WarningAlert } from "components/Alerts"
 import { WindTimeSeriesChart } from "components/Charts"
@@ -17,7 +18,6 @@ import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
-import { Calendar } from "Shared/icons/Calendar"
 
 interface Props {
   platform: PlatformFeature

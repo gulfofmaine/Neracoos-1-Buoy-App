@@ -3,7 +3,8 @@
  */
 import { useSearchParams } from "next/navigation"
 import React, { useEffect, useState } from "react"
-import { Col, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { PlatformLoadingAlert } from "components/Alerts"
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
