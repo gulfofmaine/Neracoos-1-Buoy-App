@@ -1,16 +1,10 @@
 import { LegendItem } from "components/Map/legendItem"
-import { useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 
 export const WLLegend = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-
-  const toggle = () => setDropdownOpen((prevState) => !prevState)
   return (
     <Dropdown
-      isOpen={dropdownOpen}
       size="sm"
-      toggle={toggle}
       direction={"down"}
       className="legend-dropdown"
       // menuRole="listbox"

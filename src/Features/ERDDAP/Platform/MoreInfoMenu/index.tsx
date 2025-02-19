@@ -20,14 +20,7 @@ type State = Readonly<typeof initialState>
  * Dropdown menu to more info about a platform
  */
 export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
-  const [state, setState] = useState<State>(initialState)
   const [dynamicLinks, setDynamicLinks] = useState()
-
-  const toggle = () => {
-    setState((currentState) => ({
-      dropdownOpen: !currentState.dropdownOpen,
-    }))
-  }
 
   useEffect(() => {
     if (platform) {
@@ -53,7 +46,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
   const forecastUrl = `https://marine.weather.gov/MapClick.php?lon=${coordinates[0]}&lat=${coordinates[1]}`
 
   return (
-    <Dropdown as={Nav.Item} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
+    <Dropdown as={Nav.Item} role="menu">
       <Dropdown.Toggle as={Nav.Link}>
         More info
       </Dropdown.Toggle>

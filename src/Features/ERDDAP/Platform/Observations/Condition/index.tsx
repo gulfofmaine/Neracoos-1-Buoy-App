@@ -2,7 +2,7 @@
  * Display all time series for a specific standard name
  */
 import { useSearchParams } from "next/navigation"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
@@ -32,9 +32,6 @@ interface Props {
  * @param standardName
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
-  const [isOpen, setOpen] = React.useState<boolean>(false)
-
-  const toggle = () => setOpen(!isOpen)
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
   const [startDate, setStartDate] = useState(
@@ -43,10 +40,6 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const [endDate, setEndDate] = useState(
     searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
   )
-
-  useEffect(() => {
-    setOpen(false)
-  }, [searchParams])
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,

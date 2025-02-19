@@ -1,4 +1,4 @@
-import { InputGroup } from "reactstrap"
+import InputGroup from "react-bootstrap/InputGroup"
 import ListGroup from "react-bootstrap/ListGroup"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"

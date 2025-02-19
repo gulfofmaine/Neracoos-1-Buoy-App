@@ -12,17 +12,12 @@ import { useDecodedUrl } from "util/hooks"
 import { useEndTime, useStartTime, useDatum } from "./hooks"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
-  const [isOpen, setIsOpen] = useState(false)
   const params = useParams()
   const decodedId = useDecodedUrl(params.sensorId as string)
   const sensor = sensors.find((s) => s.id === decodedId)
   const { endTime } = useEndTime()
   const { startTime } = useStartTime(true)
   const { datum } = useDatum()
-
-  const close = () => {
-    setIsOpen(false)
-  }
 
   const sensorOptions = sensors
     ? sensors
@@ -37,7 +32,6 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
           return (
             <Link
               key={`dropdown-${p.id}`}
-              onClick={close}
               href={waterLevelPath(p.id as string, startTime, endTime, datum)}
               className="list-group-item list-group-item-action"
             >
@@ -54,11 +48,9 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
       </Col>
       <Col style={{ margin: 0, padding: 0 }}>
         <Dropdown
-          isOpen={isOpen}
-          toggle={() => setIsOpen(!isOpen)}
           style={{ border: "1px solid black", borderRadius: "7px" }}
         >
-          <Dropdown.Toggle color={"#FFFFFF"} caret={true}>
+          <Dropdown.Toggle variant="outline-primary" color={"#FFFFFF"}>
             {platformName(sensor)}
           </Dropdown.Toggle>
           {sensorOptions && (

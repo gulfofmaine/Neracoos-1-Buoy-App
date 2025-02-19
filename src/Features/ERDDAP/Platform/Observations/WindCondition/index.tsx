@@ -1,7 +1,7 @@
 /**
  * Wind Observed conditions component
  */
-import React, { useEffect } from "react"
+import React from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
@@ -69,14 +69,6 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   endDate,
 }: DisplayProps) => {
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
-  const [isOpen, setOpen] = React.useState<boolean>(false)
-  const searchParams = useSearchParams()
-
-  const toggle = () => setOpen(!isOpen)
-
-  useEffect(() => {
-    setOpen(false)
-  }, [searchParams])
 
   return (
     <Row>

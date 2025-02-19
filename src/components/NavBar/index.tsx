@@ -37,11 +37,6 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
  * Navbar component
  */
 const NeracoosNavBar = () => {
-  const [isOpen, setOpen] = React.useState<boolean>(false)
-
-  const toggle = () => setOpen((open) => !open)
-  const close = () => setOpen(false)
-
   // let isProd = false
 
   // if (typeof window !== "undefined") {
@@ -54,7 +49,7 @@ const NeracoosNavBar = () => {
         <Navbar.Brand href={paths.neracoos}>
           <Image src={neracoosLogo} alt="NERACOOS" height={30} />
         </Navbar.Brand>
-        <Navbar.Toggle onClick={toggle} />
+        <Navbar.Toggle />
 
         <Navbar.Collapse className="justify-content-end">
           <Nav className="ml-auto">
