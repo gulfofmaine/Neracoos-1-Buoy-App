@@ -1,11 +1,7 @@
 import { useQueries } from "@tanstack/react-query"
 import React from "react"
-import {
-  AccordionBody,
-  AccordionHeader,
-  AccordionItem,
-  UncontrolledAccordion,
-} from "reactstrap"
+
+import Accordion from 'react-bootstrap/Accordion'
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import ListGroup from "react-bootstrap/ListGroup"
 import ToggleButton from "react-bootstrap/ToggleButton"
@@ -228,12 +224,12 @@ const CategoryAccordion = ({
   return (
     <ListGroup.Item>
       <ListGroup.ItemHeading>{category}</ListGroup.ItemHeading>
-      <UncontrolledAccordion defaultOpen={[]} stayOpen={true} flush={true}>
+      <Accordion flush={true}>
         {standards.map((standard) => {
           const standardItems = categoryStandards[standard]
           return <StandardName key={standard} standard_name={standard} items={standardItems} />
         })}
-      </UncontrolledAccordion>
+      </Accordion>
     </ListGroup.Item>
   )
 }
@@ -255,16 +251,16 @@ const StandardName = ({ standard_name, items }: { standard_name: string; items: 
   const displayName = long_name.charAt(0).toUpperCase() + long_name.slice(1)
 
   return (
-    <AccordionItem>
-      <AccordionHeader targetId={standard_name}>{displayName}</AccordionHeader>
-      <AccordionBody accordionId={standard_name}>
+    <Accordion.Item eventKey={standard_name}>
+      <Accordion.Header>{displayName}</Accordion.Header>
+      <Accordion.Body>
         <ListGroup flush={true}>
           {items.map((item) => {
             return <StandardItem key={item.id} standard_name={standard_name} item={item} />
           })}
         </ListGroup>
-      </AccordionBody>
-    </AccordionItem>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }
 
