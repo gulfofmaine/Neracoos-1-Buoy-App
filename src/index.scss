@@ -51,10 +51,22 @@ nav.navbar {
   .navbar-brand > img {
     height: 30px;
   }
-}
 
-.navbar-dark .navbar-nav .show > .dropdown-menu > a.nav-link {
-  color: $primary;
+  a.nav-link {
+    color: rgba(255, 255, 255, 0.55);
+
+    &.active {
+      color: white;
+    }
+
+    &.dropdown-item {
+      color: $primary;
+    }
+
+    &.dropdown-toggle.show {
+      color: rgba(255, 255, 255, 0.739);
+    }
+  }
 }
 
 .navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {

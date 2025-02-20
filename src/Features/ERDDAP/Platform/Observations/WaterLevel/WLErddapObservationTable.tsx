@@ -2,7 +2,7 @@
  * Current observations table component
  */
 import React, { useEffect, useState } from "react"
-import { ListGroup, ListGroupItem } from "reactstrap"
+import ListGroup from "react-bootstrap/ListGroup"
 
 import { DatumOffsets } from "Features/ERDDAP/types"
 import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
@@ -55,7 +55,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
       {times.length > 0 && time ? (
-        <ListGroupItem style={itemStyle}>
+        <ListGroup.Item style={itemStyle}>
           <b>Last updated at:</b>{" "}
           {time.toLocaleString(undefined, {
             hour: "2-digit",
@@ -64,19 +64,19 @@ export const WLErddapObservationTable: React.FC<Props> = ({
             month: "short",
             day: "numeric",
           })}
-        </ListGroupItem>
+        </ListGroup.Item>
       ) : (
-        <ListGroupItem style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroupItem>
+        <ListGroup.Item style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroup.Item>
       )}
       {waterLevelTimeseries && (
         <TableItem key="WL-ts" timeSeries={waterLevelTimeseries} platform={platform} unitSystem={unitSystem} />
       )}
       {unitSelector ? (
-        <ListGroupItem style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
+        <ListGroup.Item style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
           <b>Unit system:</b> {unitSelector}
-        </ListGroupItem>
+        </ListGroup.Item>
       ) : null}
-      {children && <ListGroupItem>{children}</ListGroupItem>}
+      {children && <ListGroup.Item>{children}</ListGroup.Item>}
       {children && <DatumSelector datumOffsets={datumOptions as DatumOffsets} />}
     </ListGroup>
   )

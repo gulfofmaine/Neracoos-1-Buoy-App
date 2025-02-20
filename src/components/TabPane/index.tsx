@@ -1,4 +1,4 @@
-import { NavItem, NavLink } from "reactstrap"
+import Nav from "react-bootstrap/Nav"
 
 /** A tab component that does not change url but controls content within the tab pane
  *
@@ -8,10 +8,10 @@ import { NavItem, NavLink } from "reactstrap"
  */
 export const ContentTab = ({ name, index, setOpen, active }) => {
   return (
-    <NavItem key={index} style={{ cursor: "pointer" }}>
-      <NavLink key={index} onClick={() => setOpen(index)} active={active}>
+    <Nav.Item key={index} style={{ cursor: "pointer" }}>
+      <Nav.Link key={index} onClick={() => setOpen(index)} active={active}>
         {name}
-      </NavLink>
-    </NavItem>
+      </Nav.Link>
+    </Nav.Item>
   )
 }

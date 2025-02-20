@@ -1,6 +1,6 @@
 // import { usePathname } from "next/navigation"
 // import { useRouter } from "next-nprogress-bar"
-import { Alert } from "reactstrap"
+import Alert from "react-bootstrap/Alert"
 
 import { WaterLevelChartDisplay } from "Features/ERDDAP/waterLevel/chart/chartDisplay"
 import { useUnitSystem } from "Features/Units"

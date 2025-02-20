@@ -1,6 +1,7 @@
 "use client"
 import * as React from "react"
-import { Col, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 const textStyle = { fontSize: ".8rem", padding: ".25rem" }
 

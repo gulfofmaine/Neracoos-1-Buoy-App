@@ -8,8 +8,8 @@ import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 /** Common props for formatting current conditions cards */
 export const cardProps = {
-  md: "4",
-  sm: "6",
+  md: 4,
+  sm: 6,
   style: {
     paddingTop: "1rem",
   },

@@ -8,7 +8,7 @@ import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "./hooks"
 
 interface Props {
-  children(props: RenderProps): JSX.Element
+  children(props: RenderProps): React.ReactNode
 }
 
 interface RenderProps {

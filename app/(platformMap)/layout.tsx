@@ -3,7 +3,9 @@ import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { useMeasure } from "react-use"
-import { Col, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
+
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 
 export default function Layout({
@@ -42,13 +44,13 @@ export default function Layout({
   return (
     <React.Fragment>
       <Row>
-        <Col xs={{ size: "12", order: "2" }} md={{ size: "6", order: "2" }}>
+        <Col xs={{ span: "12", order: "2" }} md={{ span: "6", order: "2" }}>
           <div ref={ref} style={{ marginBottom: ".5rem" }}>
             {sidebar}
           </div>
         </Col>
 
-        <Col xs={{ size: "12", order: `${isPlatformView ? "2" : "1"}` }} md={{ size: "6", order: "1" }}>
+        <Col xs={{ span: "12", order: `${isPlatformView ? "2" : "1"}` }} md={{ span: "6", order: "1" }}>
           <ErddapMap height={params.regionId ? "80vh" : height} {...(isPlatformView && { platformId })} />
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>

@@ -14,7 +14,7 @@ import { defaultQueryConfig } from "./hookConfig"
 import { getDatasetGroup, groupByServerDatasetConstraint, useDataset } from "./tabledap"
 
 interface UseDatasetsProps {
-  children: (props: UseDatasetsRenderProps) => JSX.Element
+  children: (props: UseDatasetsRenderProps) => React.ReactNode
   timeSeries: PlatformTimeSeries[]
   startTime?: Date
   endTime?: Date
@@ -132,10 +132,10 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
 
 interface UseDatasetProps {
   /** Override default loading alert */
-  loading?: JSX.Element
+  loading?: React.ReactNode
   /** Override default error alert */
-  error?: JSX.Element
-  children: (props: UseDatasetRenderProps) => JSX.Element
+  error?: React.ReactNode
+  children: (props: UseDatasetRenderProps) => React.ReactNode
   timeSeries: PlatformTimeSeries
   startTime?: Date
   endTime?: Date

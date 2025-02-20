@@ -4,7 +4,8 @@
  */
 import * as React from "react"
 import Link from "next/link"
-import { Dropdown, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import Nav from "react-bootstrap/Nav"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -30,25 +31,11 @@ const windStandardNames = new Set([
  * Dropdown menu for various types of observations
  */
 export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
-  const [state, setState] = React.useState<State>(initialState)
-
-  const toggle = () => {
-    setState((currentState) => ({
-      dropdownOpen: !currentState.dropdownOpen,
-    }))
-  }
-
-  const close = () => {
-    setState({
-      dropdownOpen: false,
-    })
-  }
-
   if (platform.properties.readings.length === 0) {
     return (
-      <NavItem>
-        <NavLink disabled={true}>No Observations available</NavLink>
-      </NavItem>
+      <Nav.Item>
+        <Nav.Link disabled={true}>No Observations available</Nav.Link>
+      </Nav.Item>
     )
   }
 
@@ -69,7 +56,7 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
       )
 
       return (
-        <Link className="dropdown-item nav-item" key={index} href={url} onClick={close} role="menuitem">
+        <Link className="dropdown-item nav-item" key={index} href={url} role="menuitem">
           {d.long_name}
         </Link>
       )
@@ -82,12 +69,10 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
   )
 
   return (
-    <Dropdown nav={true} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
-      <DropdownToggle nav={true} caret={true}>
-        Observations
-      </DropdownToggle>
+    <Dropdown as={Nav.Item} role="menu">
+      <Dropdown.Toggle as={Nav.Link}>Observations</Dropdown.Toggle>
 
-      <DropdownMenu>
+      <Dropdown.Menu>
         <Link
           className="dropdown-item nav-item"
           href={urlPartReplacer(paths.platforms.all, ":id", platform.id as string)}
@@ -97,11 +82,11 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
         </Link>
         {dropdownItems}
         {platform.properties.readings.filter((d) => windStandardNames.has(d.data_type.standard_name)).length > 0 ? (
-          <Link className="dropdown-item nav-item" href={windUrl} onClick={close} role="menuitem">
+          <Link className="dropdown-item nav-item" href={windUrl} role="menuitem">
             Wind
           </Link>
         ) : null}
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   )
 }

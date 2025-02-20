@@ -3,7 +3,7 @@
  */
 import type { Point } from "geojson"
 import * as React from "react"
-import { Card, CardBody, CardText, CardTitle } from "reactstrap"
+import Card from "react-bootstrap/Card"
 
 import { round } from "Shared/math"
 
@@ -18,9 +18,9 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
   const nbdc_site_id = platform.properties.ndbc_site_id ? platform.properties.ndbc_site_id : ""
   return (
     <Card role="complementary">
-      <CardBody>
-        <CardTitle role="header">Station {platformName(platform)}</CardTitle>
-        <CardText>
+      <Card.Body>
+        <Card.Title role="header">Station {platformName(platform)}</Card.Title>
+        <Card.Text>
           {platform.properties.mooring_site_desc}
           <br />
           {nbdc_site_id ? (
@@ -38,8 +38,8 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
               <br />
             </React.Fragment>
           ))}
-        </CardText>
-      </CardBody>
+        </Card.Text>
+      </Card.Body>
     </Card>
   )
 }

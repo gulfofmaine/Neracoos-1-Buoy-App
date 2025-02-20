@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
-import { Tooltip } from "reactstrap"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Popover from "react-bootstrap/Popover"
+import ListGroup from "react-bootstrap/ListGroup"
 
 import { tabledapProtocolUrl } from "Shared/erddap/tabledap"
 
@@ -20,10 +22,6 @@ interface InfoProps {
  * @param id Unique key to identify tooltip, usually index from map
  */
 export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoProps) => {
-  const [tooltipOpen, setTooltipOpen] = React.useState(false)
-
-  const toggle = () => setTooltipOpen(!tooltipOpen)
-
   const protocolUrl = (protocol: string) =>
     tabledapProtocolUrl(
       timeSeries[0].server,
@@ -36,27 +34,38 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
       },
     )
 
-  const target = `Tooltip-${id}`
+  const renderToolTip = (props) => {
+    return (
+      <Popover id={`tooltip-${id}`} {...props}>
+        <Popover.Header as="h5">Data access</Popover.Header>
+        <Popover.Body style={{ padding: 0 }}>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <a href={protocolUrl("htmlTable")}>Data table</a>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <a href={protocolUrl("csv")}>Download CSV</a>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <a href={protocolUrl("html")}>ERDDAP dataset</a>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <a href={protocolUrl("kml")}>KML</a>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <a href={protocolUrl("geojson")}>GeoJSON</a>
+            </ListGroup.Item>
+          </ListGroup>
+        </Popover.Body>
+      </Popover>
+    )
+  }
+
   return (
     <React.Fragment>
-      <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "1rem", verticalAlign: "middle" }} id={target} />
-      <Tooltip isOpen={tooltipOpen} toggle={toggle} target={target} autohide={false} style={{ textAlign: "left" }}>
-        Data access:
-        <ul style={{ paddingLeft: "1rem" }}>
-          <li>
-            <a href={protocolUrl("htmlTable")}>Data table</a>
-          </li>
-          <li>
-            <a href={protocolUrl("csv")}>Download CSV</a>
-          </li>
-          <li>
-            <a href={protocolUrl("html")}>ERDDAP dataset</a>
-          </li>
-          <li>
-            <a href={protocolUrl("graph")}>ERDDAP graph</a>
-          </li>
-        </ul>
-      </Tooltip>
+      <OverlayTrigger delay={{ show: 250, hide: 4000 }} overlay={renderToolTip} trigger={["click"]}>
+        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "1rem", verticalAlign: "middle" }} />
+      </OverlayTrigger>
     </React.Fragment>
   )
 }
