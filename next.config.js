@@ -10,10 +10,9 @@ const nextConfig = {
     // https://sass-lang.com/documentation/breaking-changes/import/ https://github.com/twbs/bootstrap/issues/29853
     silenceDeprecations: ["import", "legacy-js-api"],
   },
+  serverExternalPackages: ["web-worker"],
   experimental: {
     craCompat: false,
-    instrumentationHook: true,
-    serverComponentsExternalPackages: ["web-worker"],
   },
   // Remove this to leverage Next.js' static image handling
   // read more here: https://nextjs.org/docs/api-reference/next/image

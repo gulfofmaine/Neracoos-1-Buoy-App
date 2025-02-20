@@ -22,7 +22,6 @@ interface TidesTableProps {
 export const TidesTable = ({ platform, standardName, datumOffset }: TidesTableProps) => {
   const unitSystem = useUnitSystem()
   const dataConverter = converter(standardName)
-  const [key, setKey] = useState<number>(0)
 
   const nextTides = platform.properties.readings
     .filter((ts) => {
@@ -62,16 +61,10 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         <b>Upcoming Tides</b>
       </h6>
       <div style={{ width: "100%" }}>
-        <Nav variant="tabs" key="nav-0">
-          {nextTides &&
-            nextTides.map((nt, i) => {
-              return <ContentTab name={nt.name} index={i} setOpen={setKey} active={key === i} key={i} />
-            })}
-        </Nav>
-        <Tabs activeKey={key} key="tab-content-1">
+        <Tabs defaultActiveKey={0} key="tab-content-1">
           {nextTides &&
             nextTides.map((nt, i) => (
-              <Tab eventKey={i} key={`pane-${i}`}>
+              <Tab eventKey={i} key={`pane-${i}`} title={nt.name}>
                 <Table striped={true} style={{ borderTop: "1px solid #d3d3d3" }}>
                   <thead key={2}>
                     <tr>

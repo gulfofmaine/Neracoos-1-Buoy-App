@@ -6,9 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import type { Point } from "geojson"
 import React from "react"
-import { Tooltip } from "reactstrap"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Tooltip from "react-bootstrap/Tooltip"
 
 import { LoadingAlert, WarningAlert } from "components/Alerts"
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
@@ -35,17 +36,11 @@ interface UrlStyledTimeSeries extends StyledTimeSeries {
 }
 
 const ForecastInfo = ({ children }) => {
-  const [tooltipOpen, setTooltipOpen] = React.useState(false)
-
-  const toggle = () => setTooltipOpen((open) => !open)
-
-  const target = "Forecast-Tooltip"
   return (
     <React.Fragment>
-      <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "1rem", verticalAlign: "middle" }} id={target} />
-      <Tooltip isOpen={tooltipOpen} toggle={toggle} target={target} autohide={false} style={{ textAlign: "left" }}>
-        {children}
-      </Tooltip>
+      <OverlayTrigger overlay={<Tooltip style={{ textAlign: "left" }}>{children}</Tooltip>}>
+        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "1rem", verticalAlign: "middle" }} />
+      </OverlayTrigger>
     </React.Fragment>
   )
 }

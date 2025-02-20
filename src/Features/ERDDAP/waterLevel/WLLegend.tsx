@@ -4,8 +4,7 @@ import Dropdown from "react-bootstrap/Dropdown"
 export const WLLegend = () => {
   return (
     <Dropdown
-      size="sm"
-      direction={"down"}
+      drop={"down"}
       className="legend-dropdown"
       // menuRole="listbox"
     >

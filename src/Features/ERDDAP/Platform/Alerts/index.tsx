@@ -16,7 +16,7 @@ interface Props {
 export const PlatformAlerts: React.FunctionComponent<Props> = ({ platform }) => (
   <React.Fragment>
     {platform.properties.alerts.map((alert, index) => (
-      <Alert dismissable={true} key={index} color={alert.level.toLowerCase()}>
+      <Alert dismissible={true} key={index} color={alert.level.toLowerCase()}>
         <span dangerouslySetInnerHTML={{ __html: alert.message }} />
       </Alert>
     ))}

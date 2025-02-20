@@ -37,12 +37,6 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
  * Navbar component
  */
 const NeracoosNavBar = () => {
-  // let isProd = false
-
-  // if (typeof window !== "undefined") {
-  //   isProd = window.location.href.includes("://mariners.neracoos.org")
-  // }
-
   return (
     <div>
       <Navbar bg="primary" data-bs-theme="primary" expand="md">
@@ -56,11 +50,6 @@ const NeracoosNavBar = () => {
             <NavLink href={paths.home}>Home</NavLink>
 
             <RegionDropdown closeParent={close} />
-            {/* {!isProd && (
-              <NavItem>
-                <NavLink href={paths.models}>Model Viewer</NavLink>
-              </NavItem>
-            )} */}
             <Nav.Item>
               <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
             </Nav.Item>

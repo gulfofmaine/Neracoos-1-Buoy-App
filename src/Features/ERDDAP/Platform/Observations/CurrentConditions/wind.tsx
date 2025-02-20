@@ -124,7 +124,7 @@ const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, 
   <Col {...cardProps}>
     <Link href={observationLink(platform, "wind")}>
       <Card>
-        <CardHeader>{children}</CardHeader>
+        <Card.Header>{children}</Card.Header>
       </Card>
     </Link>
   </Col>

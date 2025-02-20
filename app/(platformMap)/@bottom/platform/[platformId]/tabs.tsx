@@ -61,7 +61,7 @@ function Tab(props: TabProps) {
   return (
     <Nav.Item>
       <Nav.Link
-        tag={Link}
+        as={Link}
         href={urlPartReplacer(to, ":id", id)}
         className={to === path ? "nav-link active" : "nav-link"}
         active={to === path}
