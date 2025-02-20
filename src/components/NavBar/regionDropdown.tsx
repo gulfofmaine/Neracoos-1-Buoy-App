@@ -62,11 +62,7 @@ export class RegionDropdown extends React.Component<Props, State> {
       )
     })
 
-    return (
-      <NavDropdown title="Regions">
-          {regions}
-      </NavDropdown>
-    )
+    return <NavDropdown title="Regions">{regions}</NavDropdown>
   }
 
   private toggle() {

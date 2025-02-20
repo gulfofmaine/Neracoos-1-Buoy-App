@@ -2,10 +2,11 @@ import { UseQueryResult, useQueries } from "@tanstack/react-query"
 import dynamic from "next/dynamic"
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
-import { TabContent, TabPane } from "reactstrap"
 import Nav from "react-bootstrap/Nav"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import Tab from "react-bootstrap/Tab"
+import Tabs from "react-bootstrap/Tabs"
 import { StacCatalogRoot } from "./stac-catalog"
 import { StacMap } from "./stac-map"
 
@@ -255,20 +256,20 @@ const ItemLayersTabs = ({
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent activeTab={table ? "table" : "chart"} style={{ minHeight: "100px", marginTop: "10px" }}>
-        <TabPane tabId="chart">
+      <Tabs activeKey={table ? "table" : "chart"} style={{ minHeight: "100px", marginTop: "10px" }}>
+        <Tab eventKey="chart">
           {loading || edrLoading ? <div style={{ textAlign: "center" }}>Loading data...</div> : null}
           {error || edrError ? <div style={{ textAlign: "center" }}>Error loading data</div> : null}
           {loaded.length > 0 && <ModelChart loaded={loaded} />}
-        </TabPane>
+        </Tab>
 
-        <TabPane tabId="table">
+        <Tab eventKey="table">
           {loading || edrLoading ? <div style={{ textAlign: "center" }}>Loading data...</div> : null}
           {error || edrError ? <div style={{ textAlign: "center" }}>Error loading data</div> : null}
           <EdrTable loaded={loaded} after={hourAgo} />
           {/* Table */}
-        </TabPane>
-      </TabContent>
+        </Tab>
+      </Tabs>
     </div>
   )
 }

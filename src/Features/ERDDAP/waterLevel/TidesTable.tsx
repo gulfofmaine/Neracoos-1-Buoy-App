@@ -1,8 +1,8 @@
 import { useState } from "react"
 import Nav from "react-bootstrap/Nav"
-import Table from 'react-bootstrap/Table'
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
+import Table from "react-bootstrap/Table"
+import Tab from "react-bootstrap/Tab"
+import Tabs from "react-bootstrap/Tabs"
 
 import { ContentTab } from "components/TabPane"
 import { PlatformFeature } from "Features/ERDDAP/types"

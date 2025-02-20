@@ -2,7 +2,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
-import { Table, Tooltip, Popover, PopoverBody } from "reactstrap"
+import Table from "react-bootstrap/Table"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Popover from "react-bootstrap/Popover"
 import { IItem } from "@gulfofmaine/tsstac"
 
 import { round } from "Shared/math"
@@ -105,27 +107,27 @@ const ItemVarRow = ({
  * @returns
  */
 const ItemInfo = ({ item }: { item: IItem }) => {
-  const [popoverOpen, setPopoverOpen] = React.useState(false)
-
-  const toggle = () => setPopoverOpen(!popoverOpen)
-
-  const target = `Tooltip-table-${item.id}`
   const htmlLinks = item.links.filter((l) => l.extra_fields?.type === "text/html" && l.extra_fields?.title)
   return (
     <React.Fragment>
       {item.parent?.description ?? item.parent?.id ?? item.description ?? item.id}{" "}
-      <FontAwesomeIcon icon={faInfoCircle} id={target} />
-      <Popover target={target} toggle={toggle} isOpen={popoverOpen}>
-        <PopoverBody>
-          <ul style={{ paddingLeft: "1rem", textAlign: "left" }}>
-            {htmlLinks.map((l) => (
-              <li key={l.href}>
-                <a href={l.href}>{l.extra_fields?.title}</a>
-              </li>
-            ))}
-          </ul>
-        </PopoverBody>
-      </Popover>
+      <OverlayTrigger
+        overlay={
+          <Popover>
+            <Popover.Body>
+              <ul style={{ paddingLeft: "1rem", textAlign: "left" }}>
+                {htmlLinks.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href}>{l.extra_fields?.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </Popover.Body>
+          </Popover>
+        }
+      >
+        <FontAwesomeIcon icon={faInfoCircle} />
+      </OverlayTrigger>
     </React.Fragment>
   )
 }

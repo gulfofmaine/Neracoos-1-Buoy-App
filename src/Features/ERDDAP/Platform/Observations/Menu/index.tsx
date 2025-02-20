@@ -70,9 +70,7 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
 
   return (
     <Dropdown as={Nav.Item} role="menu">
-      <Dropdown.Toggle as={Nav.Link}>
-        Observations
-      </Dropdown.Toggle>
+      <Dropdown.Toggle as={Nav.Link}>Observations</Dropdown.Toggle>
 
       <Dropdown.Menu>
         <Link

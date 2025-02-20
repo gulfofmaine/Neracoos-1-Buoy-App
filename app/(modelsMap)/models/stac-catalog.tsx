@@ -1,7 +1,7 @@
 import { useQueries } from "@tanstack/react-query"
 import React from "react"
 
-import Accordion from 'react-bootstrap/Accordion'
+import Accordion from "react-bootstrap/Accordion"
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import ListGroup from "react-bootstrap/ListGroup"
 import ToggleButton from "react-bootstrap/ToggleButton"

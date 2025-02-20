@@ -47,9 +47,7 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
         <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Station: </h6>
       </Col>
       <Col style={{ margin: 0, padding: 0 }}>
-        <Dropdown
-          style={{ border: "1px solid black", borderRadius: "7px" }}
-        >
+        <Dropdown style={{ border: "1px solid black", borderRadius: "7px" }}>
           <Dropdown.Toggle variant="outline-primary" color={"#FFFFFF"}>
             {platformName(sensor)}
           </Dropdown.Toggle>

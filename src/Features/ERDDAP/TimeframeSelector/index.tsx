@@ -1,10 +1,11 @@
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { UncontrolledTooltip } from "reactstrap"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Tooltip from "react-bootstrap/Tooltip"
 
 import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
@@ -100,58 +101,48 @@ export function TimeframeSelector({
               required={true}
             />
           </label>
-          <Button
-            variant="outline-light"
-            size="sm"
-            style={{ marginRight: "5px", border: "grey" }}
-            id="revert-default-date"
+          <OverlayTrigger overlay={<Tooltip>Revert to default date</Tooltip>}>
+            <Button variant="outline-light" size="sm" style={{ marginRight: "5px", border: "grey" }}>
+              <Link
+                href={
+                  searchParams.get("datum")
+                    ? {
+                        pathname: `${pathname}`,
+                        query: buildSearchParamsQuery(
+                          startTime,
+                          endTime,
+                          searchParams.get("datum") as DatumOffsetOptions,
+                        ),
+                      }
+                    : pathname
+                }
+              >
+                <Revert fill={"#000000"} />
+              </Link>
+            </Button>
+          </OverlayTrigger>
+          <OverlayTrigger
+            overlay={(props) => {
+              return validDateMessage !== "" ? <Tooltip {...props}>{validDateMessage}</Tooltip> : <span />
+            }}
           >
-            <Link
-              href={
-                searchParams.get("datum")
-                  ? {
-                      pathname: `${pathname}`,
-                      query: buildSearchParamsQuery(
-                        startTime,
-                        endTime,
-                        searchParams.get("datum") as DatumOffsetOptions,
-                      ),
-                    }
-                  : pathname
-              }
-            >
-              <Revert fill={"#000000"} />
-            </Link>
-          </Button>
-          <UncontrolledTooltip placement="top" target="revert-default-date">
-            Revert to default date
-          </UncontrolledTooltip>
-          <Button
-            variant="primary"
-            size="sm"
-            id="plot-date-button"
-            disabled={!startTime || !endTime || validDateMessage !== ""}
-          >
-            <Link
-              href={{
-                pathname,
-                query: buildSearchParamsQuery(
-                  startTime,
-                  endTime,
-                  (searchParams.get("datum") as DatumOffsetOptions) &&
-                    (searchParams.get("datum") as DatumOffsetOptions),
-                ),
-              }}
-              style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
-            >
-              Plot Dates
-            </Link>
-          </Button>
-          {validDateMessage !== "" && (
-            <UncontrolledTooltip placement="top" target="plot-date-button">
-              {validDateMessage}
-            </UncontrolledTooltip>
-          )}
+            <Button variant="primary" size="sm" disabled={!startTime || !endTime || validDateMessage !== ""}>
+              <Link
+                href={{
+                  pathname,
+                  query: buildSearchParamsQuery(
+                    startTime,
+                    endTime,
+                    (searchParams.get("datum") as DatumOffsetOptions) &&
+                      (searchParams.get("datum") as DatumOffsetOptions),
+                  ),
+                }}
+                style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
+              >
+                Plot Dates
+              </Link>
+            </Button>
+          </OverlayTrigger>
         </Col>
       </div>
     </Card>

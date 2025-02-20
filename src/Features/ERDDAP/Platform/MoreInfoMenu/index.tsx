@@ -47,9 +47,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
 
   return (
     <Dropdown as={Nav.Item} role="menu">
-      <Dropdown.Toggle as={Nav.Link}>
-        More info
-      </Dropdown.Toggle>
+      <Dropdown.Toggle as={Nav.Link}>More info</Dropdown.Toggle>
 
       <Dropdown.Menu>
         {dynamicLinks}

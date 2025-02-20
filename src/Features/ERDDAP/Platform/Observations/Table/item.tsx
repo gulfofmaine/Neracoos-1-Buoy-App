@@ -4,7 +4,8 @@
  */
 import * as React from "react"
 import Link from "next/link"
-import { Tooltip } from "reactstrap"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Tooltip from "react-bootstrap/Tooltip"
 import * as Sentry from "@sentry/react"
 
 import { paths } from "Shared/constants"
@@ -23,26 +24,30 @@ interface TableItemProps {
   unitSystem: UnitSystem
 }
 
-type TableItemDisplayProps = Pick<TableItemProps, "timeSeries" | "unitSystem"> & {
-  name: string
-}
+type TableItemDisplayProps = Pick<TableItemProps, "timeSeries" | "unitSystem"> &
+  React.HTMLProps<HTMLSpanElement> & {
+    name: string
+  }
 
-const TableItemDisplay: React.FC<TableItemDisplayProps> = ({ name, unitSystem, timeSeries }: TableItemDisplayProps) => {
+const TableItemDisplay: React.FC<TableItemDisplayProps> = ({
+  ref,
+  name,
+  unitSystem,
+  timeSeries,
+}: TableItemDisplayProps) => {
   const unit_converter = converter(timeSeries.data_type.standard_name)
 
   const value = unit_converter.convertTo(timeSeries.value as number, unitSystem)
 
   return (
-    <React.Fragment>
+    <span ref={ref}>
       <b>{name}:</b> {typeof value === "number" ? round(value as number, 1) : value}{" "}
       {unit_converter.displayName(unitSystem)}
-    </React.Fragment>
+    </span>
   )
 }
 
 export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) => {
-  const [tooltipOpen, setTooltipOpen] = React.useState<boolean>(false)
-  const toggleTooltip = () => setTooltipOpen(!tooltipOpen)
   const tooltipId = `${timeSeries.data_type.standard_name}-tooltip`
 
   let name = timeSeries.data_type.long_name
@@ -50,37 +55,34 @@ export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) 
     name = `${name} @ ${timeSeries.depth}m`
   }
 
+  const renderToolTip = (props) => {
+    if (timeSeries.time) {
+      return (
+        <Tooltip {...props} id={tooltipId}>
+          {new Date(timeSeries.time).toLocaleString()}
+        </Tooltip>
+      )
+    }
+    return null
+  }
+
   return (
-    <React.Fragment>
-      <Link
-        href={urlPartReplacer(
-          urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-          ":type",
-          timeSeries.data_type.standard_name,
-        )}
-        style={itemStyle}
-        className="list-group-item"
-      >
-        <span
-          // href="#"
-          id={tooltipId}
-        >
+    <Link
+      href={urlPartReplacer(
+        urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
+        ":type",
+        timeSeries.data_type.standard_name,
+      )}
+      style={itemStyle}
+      className="list-group-item"
+    >
+      <OverlayTrigger overlay={renderToolTip} delay={{ show: 250, hide: 400 }}>
+        <span>
           <Sentry.ErrorBoundary fallback={<b>Error displaying {timeSeries.data_type.long_name}</b>} showDialog={false}>
             <TableItemDisplay name={name} unitSystem={unitSystem} timeSeries={timeSeries} />
           </Sentry.ErrorBoundary>
         </span>
-      </Link>
-      {timeSeries.time ? (
-        <Tooltip
-          className="condition-tooltip"
-          isOpen={tooltipOpen}
-          autohide={false}
-          target={tooltipId}
-          toggle={toggleTooltip}
-        >
-          {new Date(timeSeries.time).toLocaleString()}
-        </Tooltip>
-      ) : null}
-    </React.Fragment>
+      </OverlayTrigger>
+    </Link>
   )
 }

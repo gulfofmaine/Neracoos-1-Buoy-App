@@ -9,9 +9,7 @@ export const WLLegend = () => {
       className="legend-dropdown"
       // menuRole="listbox"
     >
-      <Dropdown.Toggle color="primary">
-        Legend
-      </Dropdown.Toggle>
+      <Dropdown.Toggle color="primary">Legend</Dropdown.Toggle>
       <Dropdown.Menu className="legend-dropdown-menu">
         <Dropdown.Item className="legend-dropdown-item">
           <div className="legend-container">
