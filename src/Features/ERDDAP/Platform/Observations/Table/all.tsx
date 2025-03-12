@@ -26,9 +26,9 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
   datasets.sort((a, b) => (a.data_type.long_name < b.data_type.long_name ? -1 : 1))
 
   return (
-    <ListGroup style={{ paddingTop: "1rem" }} className="all-observations">
+    <ListGroup style={{ paddingTop: "1rem" }} className="all-observations" as="ul">
       {times.length > 0 ? (
-        <ListGroup.Item style={itemStyle}>
+        <ListGroup.Item style={itemStyle} as="li">
           <b>Last updated at: </b> {times[times.length - 1].toLocaleString()}
         </ListGroup.Item>
       ) : null}

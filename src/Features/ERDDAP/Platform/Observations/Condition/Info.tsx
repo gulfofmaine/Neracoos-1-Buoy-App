@@ -64,7 +64,11 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
   return (
     <React.Fragment>
       <OverlayTrigger delay={{ show: 250, hide: 4000 }} overlay={renderToolTip} trigger={["click"]}>
-        <FontAwesomeIcon icon={faInfoCircle} style={{ fontSize: "1rem", verticalAlign: "middle" }} />
+        <FontAwesomeIcon
+          id={`tooltip-${id}-trigger`}
+          icon={faInfoCircle}
+          style={{ fontSize: "1rem", verticalAlign: "middle" }}
+        />
       </OverlayTrigger>
     </React.Fragment>
   )

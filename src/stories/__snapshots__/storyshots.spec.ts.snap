@@ -3,7 +3,7 @@
 exports[`Storybook Tests Components/Alerts/Loading Loading 1`] = `
 <div>
   <div
-    class="alert alert-light fade"
+    class="fade alert alert-light show"
     role="alert"
   >
     <span
@@ -12,15 +12,8 @@ exports[`Storybook Tests Components/Alerts/Loading Loading 1`] = `
       Loading platform data files
     </span>
     <div
-      class="spinner-border-sm spinner-border text-warning"
-      role="status"
-    >
-      <span
-        class="visually-hidden"
-      >
-        Loading...
-      </span>
-    </div>
+      class="spinner-border spinner-border-sm text-warning"
+    />
   </div>
 </div>
 `;
@@ -28,7 +21,7 @@ exports[`Storybook Tests Components/Alerts/Loading Loading 1`] = `
 exports[`Storybook Tests Components/Alerts/PlatformLoading PlatformLoading 1`] = `
 <div>
   <div
-    class="alert alert-light fade"
+    class="fade alert alert-light show"
     role="alert"
   >
     <span
@@ -38,15 +31,8 @@ exports[`Storybook Tests Components/Alerts/PlatformLoading PlatformLoading 1`] =
        dataset
     </span>
     <div
-      class="spinner-border-sm spinner-border text-warning"
-      role="status"
-    >
-      <span
-        class="visually-hidden"
-      >
-        Loading...
-      </span>
-    </div>
+      class="spinner-border spinner-border-sm text-warning"
+    />
   </div>
 </div>
 `;
@@ -54,7 +40,7 @@ exports[`Storybook Tests Components/Alerts/PlatformLoading PlatformLoading 1`] =
 exports[`Storybook Tests Components/Alerts/Warning Warning 1`] = `
 <div>
   <div
-    class="alert alert-warning fade"
+    class="fade alert alert-warning show"
     role="alert"
   >
     This is a warning
@@ -132,7 +118,7 @@ exports[`Storybook Tests ERDDAP/Info/Panel platformInfo 1`] = `
       class="card-body"
     >
       <div
-        class="card-title"
+        class="card-title h5"
         role="header"
       >
         Station 
@@ -295,7 +281,7 @@ exports[`Storybook Tests Units/UnitSelector/configurable english 1`] = `
       Metric
     </button>
     <button
-      class="btn btn-primary btn-sm active"
+      class="btn active btn-primary btn-sm"
       id="English"
       type="button"
     >
@@ -312,7 +298,7 @@ exports[`Storybook Tests Units/UnitSelector/configurable metric 1`] = `
     role="group"
   >
     <button
-      class="btn btn-primary btn-sm active"
+      class="btn active btn-primary btn-sm"
       id="Metric"
       type="button"
     >

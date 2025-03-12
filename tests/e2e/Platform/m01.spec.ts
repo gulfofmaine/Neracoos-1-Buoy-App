@@ -5,7 +5,7 @@ const platformUrl = "/platform/M01"
 test.describe.skip("Platfrom M01", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
-    await page.getByRole("link", { name: "Regions" }).click()
+    await page.getByRole("button", { name: "Regions" }).click()
     await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
     await page.getByRole("link", { name: "M01" }).click()
@@ -168,7 +168,7 @@ test.describe.skip("Platfrom M01", () => {
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
@@ -181,7 +181,7 @@ test.describe.skip("Platfrom M01", () => {
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()

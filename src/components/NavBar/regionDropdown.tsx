@@ -56,13 +56,17 @@ export class RegionDropdown extends React.Component<Props, State> {
     const regions = regionList.map((region, key) => {
       const to = urlPartReplacer(paths.regions.region, ":id", region.slug)
       return (
-        <NavLink key={key} href={to} onClick={this.close}>
+        <NavDropdown.Item key={key} as={NavLink} href={to}>
           {region.name}
-        </NavLink>
+        </NavDropdown.Item>
       )
     })
 
-    return <NavDropdown title="Regions">{regions}</NavDropdown>
+    return (
+      <NavDropdown title="Regions" id="region-dropdown">
+        {regions}
+      </NavDropdown>
+    )
   }
 
   private toggle() {

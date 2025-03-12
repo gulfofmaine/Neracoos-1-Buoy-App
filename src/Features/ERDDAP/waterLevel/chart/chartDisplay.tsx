@@ -131,8 +131,16 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         graphFuture={predictedTidesDataset || forecastedTidesDatasets ? true : false}
         isWaterLevel={true}
       />
-      {platform && <TidesTable platform={platform} standardName={standardName} datumOffset={datumOffset || 0} />}
-      {/* <DatumSelector datumOffsets={timeSeries.datum_offsets} /> */}
+      {platform && (
+        <TidesTable
+          platform={platform}
+          standardName={standardName}
+          datumOffset={datumOffset || 0}
+          // dataset={dataset}
+          predictedTidesDataset={predictedTidesDataset}
+          forecastedTidesDatasets={forecastedTidesDatasets}
+        />
+      )}
     </div>
   )
 }

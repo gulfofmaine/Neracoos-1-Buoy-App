@@ -45,7 +45,7 @@
     "start-production": "next start",
     "build": "next build",
     "build-start": "next build && next start",
-    "test": "jest --verbose --watch",
+    "test": "jest --verbose --watchAll",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:codegen": "playwright codegen 127.0.0.1:3000",

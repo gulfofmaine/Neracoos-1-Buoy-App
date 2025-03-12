@@ -7,7 +7,7 @@ const platformUrl = "/platform/A01"
 test.describe("Platform A01", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
-    await page.getByRole("link", { name: "Regions" }).click()
+    await page.getByRole("button", { name: "Regions" }).click()
     await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
     await page.getByRole("link", { name: "A01", exact: true }).click()
@@ -49,9 +49,8 @@ test.describe("Platform A01", () => {
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseout")
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible({ timeout: 20000 })
     await expect(page.getByText(/Data table/).first()).toBeVisible({ timeout: 20000 })
     await expect(page.getByText(/Download CSV/).first()).toBeVisible({ timeout: 20000 })
@@ -76,7 +75,7 @@ test.describe("Platform A01", () => {
       .click()
     await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
@@ -193,7 +192,7 @@ test.describe("Platform A01", () => {
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
@@ -206,7 +205,7 @@ test.describe("Platform A01", () => {
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()

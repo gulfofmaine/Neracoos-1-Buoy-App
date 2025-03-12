@@ -11,15 +11,25 @@ import { converter } from "Features/Units/Converter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { round } from "Shared/math"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 interface TidesTableProps {
   platform: PlatformFeature
   standardName: string
   /** Datum offset BEFORE unit conversion */
   datumOffset: number
+  // dataset: DataTimeSeries
+  predictedTidesDataset: DataTimeSeries | null
+  forecastedTidesDatasets: DataTimeSeries[] | null
 }
 
-export const TidesTable = ({ platform, standardName, datumOffset }: TidesTableProps) => {
+export const TidesTable = ({
+  platform,
+  standardName,
+  datumOffset,
+  predictedTidesDataset,
+  forecastedTidesDatasets,
+}: TidesTableProps) => {
   const unitSystem = useUnitSystem()
   const dataConverter = converter(standardName)
 
@@ -42,6 +52,8 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         type: ft.type,
       }
     })
+
+  debugger
 
   if (!nextTides || nextTides.length < 1) return null
 

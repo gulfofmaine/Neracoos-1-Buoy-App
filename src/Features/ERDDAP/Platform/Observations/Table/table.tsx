@@ -35,9 +35,9 @@ export const ErddapObservationTable: React.FC<Props> = ({
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   return (
-    <ListGroup style={{ paddingTop: "1rem" }}>
+    <ListGroup style={{ paddingTop: "1rem" }} as="ul">
       {times.length > 0 ? (
-        <ListGroup.Item style={itemStyle}>
+        <ListGroup.Item style={itemStyle} as="li">
           <b>Last updated at:</b>{" "}
           {times[times.length - 1].toLocaleString(undefined, {
             hour: "2-digit",
@@ -55,7 +55,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
       })}
 
       {unitSelector ? (
-        <ListGroup.Item style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
+        <ListGroup.Item style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }} as="li">
           <b>Unit system:</b> {unitSelector}
         </ListGroup.Item>
       ) : null}
