@@ -2,7 +2,9 @@
 import * as Sentry from "@sentry/nextjs"
 import Image from "next/image"
 import { useEffect, useRef } from "react"
-import { Button, Col, Row } from "reactstrap"
+import Button from "react-bootstrap/Button"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import n_walkabout from "./n_walkabout.png"
 
@@ -15,7 +17,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   return (
     <Row>
-      <Col md={{ offset: 2, size: 8 }}>
+      <Col md={{ offset: 2, span: 8 }}>
         <h1>The data has escaped</h1>
         <Image src={n_walkabout} style={{ maxWidth: "100%", height: "auto" }} alt="Track of a lost buoy" />
         <p>Despite our best intentions, something has gone wrong while trying to display the data.</p>

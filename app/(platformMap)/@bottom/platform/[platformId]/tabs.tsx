@@ -2,7 +2,9 @@
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
-import { Col, Nav, NavItem, NavLink, Row } from "reactstrap"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
+import Nav from "react-bootstrap/Nav"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -28,7 +30,7 @@ export function PlatformTabs() {
         <React.Fragment>
           <Row style={{ paddingBottom: "1rem" }}>
             <Col>
-              <Nav tabs={true}>
+              <Nav variant="tabs">
                 <ErddapObservedDropdown {...platform_props} />
                 <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={platformId} />
                 <ForecastDropdown platformId={platformId} />
@@ -57,14 +59,15 @@ function Tab(props: TabProps) {
   const { to, name, path, id } = props
 
   return (
-    <NavItem>
-      <NavLink
-        tag={Link}
+    <Nav.Item>
+      <Nav.Link
+        as={Link}
         href={urlPartReplacer(to, ":id", id)}
         className={to === path ? "nav-link active" : "nav-link"}
+        active={to === path}
       >
         {name}
-      </NavLink>
-    </NavItem>
+      </Nav.Link>
+    </Nav.Item>
   )
 }

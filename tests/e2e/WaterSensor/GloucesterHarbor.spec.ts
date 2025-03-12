@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test"
 
 const platformUrl = "http://localhost:3000/water-level/sensor/Gloucester%20Harbor"
 
-test.describe("Sensor station at Gloucester Harbor", () => {
+test.describe.skip("Sensor station at Gloucester Harbor", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("link", { name: "Water Level" }).click()

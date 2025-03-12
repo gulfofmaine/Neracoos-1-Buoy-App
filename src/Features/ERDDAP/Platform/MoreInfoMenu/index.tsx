@@ -5,7 +5,8 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
-import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import Nav from "react-bootstrap/Nav"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 
@@ -19,14 +20,7 @@ type State = Readonly<typeof initialState>
  * Dropdown menu to more info about a platform
  */
 export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
-  const [state, setState] = useState<State>(initialState)
   const [dynamicLinks, setDynamicLinks] = useState()
-
-  const toggle = () => {
-    setState((currentState) => ({
-      dropdownOpen: !currentState.dropdownOpen,
-    }))
-  }
 
   useEffect(() => {
     if (platform) {
@@ -52,12 +46,10 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
   const forecastUrl = `https://marine.weather.gov/MapClick.php?lon=${coordinates[0]}&lat=${coordinates[1]}`
 
   return (
-    <Dropdown nav={true} isOpen={state.dropdownOpen} toggle={toggle} role="menu">
-      <DropdownToggle nav={true} caret={true}>
-        More info
-      </DropdownToggle>
+    <Dropdown as={Nav.Item} role="menu">
+      <Dropdown.Toggle as={Nav.Link}>More info</Dropdown.Toggle>
 
-      <DropdownMenu>
+      <Dropdown.Menu>
         {dynamicLinks}
         <a
           className="dropdown-item nav-item"
@@ -81,7 +73,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           Tides
           <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   )
 }

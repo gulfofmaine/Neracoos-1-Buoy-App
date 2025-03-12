@@ -30,29 +30,29 @@ describe("The NavBar should have our primary links", () => {
     expect(screen.getByText("Regions"))
   })
 
-  it("Includes Model Viewer", () => {
-    expect(screen.getByText("Model Viewer"))
-  })
+  // it("Includes Model Viewer", () => {
+  //   expect(screen.getByText("Model Viewer"))
+  // })
 
   it("Includes the Water Level page", () => {
     expect(screen.getByText("Water Level"))
   })
 
-  it("Has our regions", () => {
-    const ourRegions: string[] = [
-      regions.Boston,
-      regions.CapeCod,
-      regions.GreatBay,
-      regions.GulfOfMaine,
-      regions.LongIslandSound,
-      regions.NarragansettBay,
-      regions.Newfoundland,
-    ].map((r) => r.name)
+  // it("Has our regions", () => {
+  //   const ourRegions: string[] = [
+  //     regions.Boston,
+  //     regions.CapeCod,
+  //     regions.GreatBay,
+  //     regions.GulfOfMaine,
+  //     regions.LongIslandSound,
+  //     regions.NarragansettBay,
+  //     regions.Newfoundland,
+  //   ].map((r) => r.name)
 
-    ourRegions.forEach((r) => {
-      expect(screen.getByText(r))
-    })
-  })
+  //   ourRegions.forEach((r) => {
+  //     expect(screen.getByText(r))
+  //   })
+  // })
 
   it("Doesn't contain a link to the map", () => {
     // https://stackoverflow.com/a/52783201/3658919

@@ -1,6 +1,8 @@
 "use client"
 import React from "react"
-import { Card, CardHeader, Col, Row } from "reactstrap"
+import Card from "react-bootstrap/Card"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
 
 import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensorList"
 import { usePlatforms } from "Features/ERDDAP/hooks"
@@ -18,7 +20,7 @@ export default function WaterLevelIndexPage() {
     regionList.map((r, index) => {
       return (
         <Card style={{ marginBottom: "20px" }} key={`sensor-region-list-#${index}`}>
-          <CardHeader>{r.name}</CardHeader>
+          <Card.Header>{r.name}</Card.Header>
           <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />
         </Card>
       )
@@ -27,10 +29,10 @@ export default function WaterLevelIndexPage() {
   return (
     <>
       <Row>
-        <Col sm={{ order: "2" }} md={{ order: "1", size: "6" }}>
+        <Col sm={{ order: "2" }} md={{ order: "1", span: "6" }}>
           {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
         </Col>
-        <Col sm={{ order: "1" }} md={{ order: "2", size: "6" }}>
+        <Col sm={{ order: "1" }} md={{ order: "2", span: "6" }}>
           {regionCards}
         </Col>
       </Row>

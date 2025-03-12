@@ -7,7 +7,7 @@ const platformUrl = "/platform/44007"
 test.describe("Platfrom 44007", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
-    await page.getByRole("link", { name: "Regions" }).click()
+    await page.getByRole("button", { name: "Regions" }).click()
     await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
     await page.getByRole("link", { name: "44007", exact: true }).click()
@@ -50,7 +50,7 @@ test.describe("Platfrom 44007", () => {
       .click()
     await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
@@ -167,7 +167,7 @@ test.describe("Platfrom 44007", () => {
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()
@@ -180,7 +180,7 @@ test.describe("Platfrom 44007", () => {
         .first(),
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
-    await page.locator("#Tooltip-0").dispatchEvent("mouseover")
+    await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
     await expect(page.getByText(/Data table/).first()).toBeVisible()
     await expect(page.getByText(/Download CSV/).first()).toBeVisible()

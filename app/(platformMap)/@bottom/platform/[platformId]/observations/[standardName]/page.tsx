@@ -1,11 +1,11 @@
 "use client"
-import React from "react"
+import React, { use } from "react"
 import { ObservationChart } from "./chart"
 
-export default function ObservedPlot({
-  params: { platformId, standardName },
-}: {
-  params: { platformId: string; standardName: string }
-}) {
+export default function ObservedPlot(props: { params: Promise<{ platformId: string; standardName: string }> }) {
+  const params = use(props.params)
+
+  const { platformId, standardName } = params
+
   return <ObservationChart platformId={platformId} standardName={standardName} />
 }

@@ -2,7 +2,8 @@
  * Component to select and display currently selected unit type
  */
 import * as React from "react"
-import { Button, ButtonGroup } from "reactstrap"
+import Button from "react-bootstrap/Button"
+import ButtonGroup from "react-bootstrap/ButtonGroup"
 import { connect } from "react-redux"
 import { bindActionCreators, Dispatch } from "redux"
 
@@ -45,7 +46,7 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
 
     return (
       <Button
-        color={system === buttonSystem ? "primary" : "light"}
+        variant={system === buttonSystem ? "primary" : "light"}
         size="sm"
         id={buttonSystem}
         active={system === buttonSystem}

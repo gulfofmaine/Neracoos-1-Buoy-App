@@ -1,5 +1,8 @@
 import { useState } from "react"
-import { Nav, TabContent, Table, TabPane } from "reactstrap"
+import Nav from "react-bootstrap/Nav"
+import Table from "react-bootstrap/Table"
+import Tab from "react-bootstrap/Tab"
+import Tabs from "react-bootstrap/Tabs"
 
 import { ContentTab } from "components/TabPane"
 import { PlatformFeature } from "Features/ERDDAP/types"
@@ -8,18 +11,27 @@ import { converter } from "Features/Units/Converter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { round } from "Shared/math"
+import { DataTimeSeries } from "Shared/timeSeries"
 
 interface TidesTableProps {
   platform: PlatformFeature
   standardName: string
   /** Datum offset BEFORE unit conversion */
   datumOffset: number
+  // dataset: DataTimeSeries
+  predictedTidesDataset: DataTimeSeries | null
+  forecastedTidesDatasets: DataTimeSeries[] | null
 }
 
-export const TidesTable = ({ platform, standardName, datumOffset }: TidesTableProps) => {
+export const TidesTable = ({
+  platform,
+  standardName,
+  datumOffset,
+  predictedTidesDataset,
+  forecastedTidesDatasets,
+}: TidesTableProps) => {
   const unitSystem = useUnitSystem()
   const dataConverter = converter(standardName)
-  const [key, setKey] = useState<number>(0)
 
   const nextTides = platform.properties.readings
     .filter((ts) => {
@@ -41,6 +53,8 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
       }
     })
 
+  debugger
+
   if (!nextTides || nextTides.length < 1) return null
 
   return (
@@ -59,17 +73,11 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
         <b>Upcoming Tides</b>
       </h6>
       <div style={{ width: "100%" }}>
-        <Nav tabs={true} key="nav-0">
-          {nextTides &&
-            nextTides.map((nt, i) => {
-              return <ContentTab name={nt.name} index={i} setOpen={setKey} active={key === i} key={i} />
-            })}
-        </Nav>
-        <TabContent activeTab={key} key="tab-content-1">
+        <Tabs defaultActiveKey={0} key="tab-content-1">
           {nextTides &&
             nextTides.map((nt, i) => (
-              <TabPane tabId={i} key={`pane-${i}`}>
-                <Table striped style={{ borderTop: "1px solid #d3d3d3" }}>
+              <Tab eventKey={i} key={`pane-${i}`} title={nt.name}>
+                <Table striped={true} style={{ borderTop: "1px solid #d3d3d3" }}>
                   <thead key={2}>
                     <tr>
                       <th>Tide</th>
@@ -95,9 +103,9 @@ export const TidesTable = ({ platform, standardName, datumOffset }: TidesTablePr
                     ))}
                   </tbody>
                 </Table>
-              </TabPane>
+              </Tab>
             ))}
-        </TabContent>
+        </Tabs>
       </div>
     </div>
   )

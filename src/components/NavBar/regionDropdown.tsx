@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
-import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import NavDropdown from "react-bootstrap/NavDropdown"
 
 import { paths } from "Shared/constants"
 import { regionList } from "Shared/regions"
@@ -56,20 +56,16 @@ export class RegionDropdown extends React.Component<Props, State> {
     const regions = regionList.map((region, key) => {
       const to = urlPartReplacer(paths.regions.region, ":id", region.slug)
       return (
-        <NavLink key={key} href={to} onClick={this.close}>
+        <NavDropdown.Item key={key} as={NavLink} href={to}>
           {region.name}
-        </NavLink>
+        </NavDropdown.Item>
       )
     })
 
     return (
-      <Dropdown nav={true} inNavbar={true} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle nav={true} caret={true}>
-          Regions
-        </DropdownToggle>
-
-        <DropdownMenu end={true}>{regions}</DropdownMenu>
-      </Dropdown>
+      <NavDropdown title="Regions" id="region-dropdown">
+        {regions}
+      </NavDropdown>
     )
   }
 

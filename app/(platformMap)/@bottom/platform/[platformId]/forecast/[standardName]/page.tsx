@@ -2,7 +2,8 @@ import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 
 import { ForecastChart } from "./forecast"
 
-export default function ForecastPage({ params }: { params: { platformId: string; standardName: string } }) {
+export default async function ForecastPage(props: { params: Promise<{ platformId: string; standardName: string }> }) {
+  const params = await props.params
   return (
     <DehydratedPlatforms>
       <ForecastChart {...params} />

@@ -5,7 +5,7 @@ import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import Link from "next/link"
 import * as React from "react"
-import { ListGroup } from "reactstrap"
+import ListGroup from "react-bootstrap/ListGroup"
 
 import { paths } from "Shared/constants"
 import { BoundingBox } from "Shared/regions"
@@ -62,7 +62,7 @@ export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platf
           )
         })
 
-      return <ListGroup>{listItems}</ListGroup>
+      return <ListGroup as="ul">{listItems}</ListGroup>
     }
   }
 
