@@ -325,8 +325,9 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          version: ${{ steps.tagName.outputs.tag }}
+          release: ${{ steps.tagName.outputs.tag }}
           sourcemaps: ./next-build
+          inject: false
 
   push_dev_image:
     name: Build and push dev image to Docker Hub
@@ -408,5 +409,6 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: dev
-          version: ${{ steps.tagName.outputs.tag }}
+          release: ${{ steps.tagName.outputs.tag }}
           sourcemaps: ./next-build
+          inject: false
