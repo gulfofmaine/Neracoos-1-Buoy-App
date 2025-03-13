@@ -318,15 +318,16 @@ jobs:
         run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
 
       - name: Create Sentry Release
-        uses: getsentry/action-release@v2.0.0
+        uses: getsentry/action-release@v3.1.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          version: ${{ steps.tagName.outputs.tag }}
+          release: ${{ steps.tagName.outputs.tag }}
           sourcemaps: ./next-build
+          inject: false
 
   push_dev_image:
     name: Build and push dev image to Docker Hub
@@ -401,12 +402,13 @@ jobs:
         run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
 
       - name: Create Sentry Release
-        uses: getsentry/action-release@v2.0.0
+        uses: getsentry/action-release@v3.1.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: dev
-          version: ${{ steps.tagName.outputs.tag }}
+          release: ${{ steps.tagName.outputs.tag }}
           sourcemaps: ./next-build
+          inject: false
