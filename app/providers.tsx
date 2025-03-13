@@ -1,6 +1,6 @@
 "use client"
 import dynamic from "next/dynamic"
-import { ProgressProvider } from "@bprogress/next/app"
+import { AppProgressProvider as ProgressProvider } from "@bprogress/next"
 import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
