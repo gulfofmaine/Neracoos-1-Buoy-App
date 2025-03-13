@@ -53,8 +53,6 @@ export const TidesTable = ({
       }
     })
 
-  debugger
-
   if (!nextTides || nextTides.length < 1) return null
 
   return (
