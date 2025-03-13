@@ -1,12 +1,11 @@
 import { test as base, expect } from "@playwright/test"
-import type { PerformanceOptions, PlaywrightPerformance, PerformanceWorker } from "playwright-performance"
-import { playwrightPerformance } from "playwright-performance"
+import extendPlaywrightPerformance, {
+  PerformanceOptions,
+  PerformanceWorker,
+  PlaywrightPerformance,
+} from "playwright-performance"
 
-const test = base.extend<PlaywrightPerformance, PerformanceOptions & PerformanceWorker>({
-  performance: playwrightPerformance.performance,
-  performanceOptions: [{}, { scope: "worker" }],
-  worker: [playwrightPerformance.worker, { scope: "worker", auto: true }],
-})
+const test = base.extend<PlaywrightPerformance, PerformanceOptions & PerformanceWorker>(extendPlaywrightPerformance())
 
 // test("Startup perfomrance", async ({page, performance}) => {
 //     performance.sampleStart("GH-startup")
