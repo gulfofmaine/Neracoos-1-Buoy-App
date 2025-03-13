@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://mariners.neracoos.org/",
   "dependencies": {
+    "@bprogress/next": "^3.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -22,7 +23,6 @@
     "highcharts": "^11.4.8",
     "jsurl2": "^2.2.0",
     "next": "15.2.2",
-    "next-nprogress-bar": "^2.4.5",
     "ol": "^10.4.0",
     "prop-types": "^15.8.1",
     "query-string": "^9.1.1",

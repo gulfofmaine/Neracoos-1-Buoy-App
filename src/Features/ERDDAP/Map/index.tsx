@@ -4,7 +4,7 @@ import "ol/ol.css"
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
 import { usePathname } from "next/navigation"
-import { useRouter } from "next-nprogress-bar"
+import { useRouter } from "@bprogress/next"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"

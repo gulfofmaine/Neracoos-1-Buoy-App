@@ -1,6 +1,6 @@
 import React from "react"
 import { useSearchParams, usePathname } from "next/navigation"
-import { useRouter } from "next-nprogress-bar"
+import { useRouter } from "@bprogress/next"
 
 import { DatumOffsetOptions, DATUM_MLLW_METERS } from "Features/ERDDAP/types"
 
