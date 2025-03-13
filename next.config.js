@@ -3,7 +3,6 @@ const nextConfig = {
   env: {
     PUBLIC_URL: "",
   },
-  transpilePackages: ["@bprogress/*"],
   sassOptions: {
     quietDeps: true,
     // Ignore several SASS warnings
