@@ -10,7 +10,7 @@ import * as Spotlight from "@spotlightjs/spotlight"
  * and allow Sentry to track errors in relation to the version used
  */
 // tslint:disable-next-line:no-var-requires
-const packageJson = require("./package.json")
+const packageJson = require("../package.json")
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
@@ -43,3 +43,5 @@ Sentry.init({
 if (process.env.NODE_ENV === "development") {
   Spotlight.init({ anchor: "bottomLeft" })
 }
+
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart
