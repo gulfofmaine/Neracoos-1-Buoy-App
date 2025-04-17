@@ -1,6 +1,6 @@
 {
   "name": "src",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "homepage": "http://mariners.neracoos.org/",
   "dependencies": {
