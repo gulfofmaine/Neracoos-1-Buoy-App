@@ -8,6 +8,7 @@ import { DatumOffsets } from "Features/ERDDAP/types"
 import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
 import { platformName } from "Features/ERDDAP/utils/platformName"
 import { UnitSystem } from "Features/Units/types"
+import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { currentConditionsTimeseries, filterTimeSeries } from "../../../utils/currentConditionsTimeseries"
@@ -42,7 +43,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
 
   const waterLevelTimeseries = filterTimeSeries(
     platform.properties.readings.filter((ts) => ts.highlighted === "No"),
-    ["tidal_sea_surface_height_above_mean_lower_low_water"],
+    WATER_LEVEL_STANDARDS,
     laterThan,
   )
 
