@@ -5,7 +5,7 @@ import * as Sentry from "@sentry/nextjs"
  * and allow Sentry to track errors in relation to the version used
  */
 // tslint:disable-next-line:no-var-requires
-const packageJson = require("./package.json")
+const packageJson = require("../package.json")
 
 export function register() {
   if (process.env.NEXT_RUNTIME === "nodejs" || process.env.NEXT_RUNTIME === "edge") {
