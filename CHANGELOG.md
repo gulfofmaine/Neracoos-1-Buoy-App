@@ -10,7 +10,21 @@ Fixes:
 
 Dependency updates:
 
-## 1.0.8 - 04/17/2024
+## 1.0.9 - 04/18/2025
+
+Fixes:
+
+- Bringing back the nav icon by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3541
+
+Dependency updates:
+
+- Bump @playwright/test from 1.51.1 to 1.52.0 by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3540
+- Bump @reduxjs/toolkit from 2.6.1 to 2.7.0 in the redux group by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3538
+- Bump the react-query group with 2 updates by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3537
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.8...v1.0.9
+
+## 1.0.8 - 04/17/2025
 
 Fixes:
 
