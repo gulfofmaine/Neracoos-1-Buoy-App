@@ -39,7 +39,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 const NeracoosNavBar = () => {
   return (
     <div>
-      <Navbar bg="primary" data-bs-theme="primary" expand="md">
+      <Navbar bg="primary" data-bs-theme="dark" expand="md">
         <Navbar.Brand href={paths.neracoos}>
           <Image src={neracoosLogo} alt="NERACOOS" height={30} />
         </Navbar.Brand>

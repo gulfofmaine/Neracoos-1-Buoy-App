@@ -48,6 +48,9 @@ nav.navbar {
   background-color: $primary;
   margin-bottom: 1rem;
 
+  .dropdown-menu {
+    background-color: white;
+  }
   .navbar-brand > img {
     height: 30px;
   }
