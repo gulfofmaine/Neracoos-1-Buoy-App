@@ -78,7 +78,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
     "@types/jest": "29.5.14",
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.14",
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "@types/react-responsive": "^9.0.0",
