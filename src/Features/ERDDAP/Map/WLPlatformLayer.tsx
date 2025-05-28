@@ -84,13 +84,18 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   useEffect(() => {
     const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
-      const highestValue = currentWaterLevel?.extrema_values?.max.value
-      const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
-      const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
-      setFloodThreshold(surpassedThreshold)
-      const opacity = selected ? "e6" : "a0"
-      const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
-      setDisplay(display)
+      if (currentWaterLevel && currentWaterLevel.extrema_values && currentWaterLevel.extrema_values.max) {
+        const highestValue = currentWaterLevel?.extrema_values?.max.value
+        const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
+        const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)
+        setFloodThreshold(surpassedThreshold)
+        const opacity = selected ? "e6" : "a0"
+        const display = floodLevelThresholdColors(surpassedThreshold, old, opacity, platform)
+        setDisplay(display)
+      } else {
+        setFloodThreshold("")
+        setDisplay("grey")
+      }
     }
 
     const getPredictedWaterDisplay = (predictedWaterLevel, floodLevels) => {
