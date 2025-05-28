@@ -10,6 +10,24 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.10 - 05/28/2025
+
+Fixes:
+
+- WL e.max error by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3581
+
+Dependency updates:
+
+- Bump the react-query group across 1 directory with 2 updates by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3551
+- Bump @types/node from 22.14.1 to 22.15.23 by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3579
+- Bump docker/build-push-action from 6.15.0 to 6.18.0 by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3578
+- Bump @spotlightjs/spotlight from 2.12.0 to 2.13.3 by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3554
+- Bump undici from 5.28.5 to 5.29.0 by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3568
+- Bump node from 23.11.0-alpine to 24.1.0-alpine by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3577
+- Bump @sentry/nextjs from 9.13.0 to 9.22.0 by @dependabot in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3576
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.9...v1.0.10
+
 ## 1.0.9 - 04/18/2025
 
 Fixes:
