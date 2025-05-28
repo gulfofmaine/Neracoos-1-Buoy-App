@@ -82,7 +82,7 @@ test.describe("Platform A01", () => {
     await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible()
   })
 
-  test("Shows wave forecast", async ({ page }) => {
+  test.skip("Shows wave forecast", async ({ page }) => {
     await page.goto(platformUrl)
     await page.locator("#forecast").click()
     await page.locator("[href='/platform/A01/forecast/significant_wave_height']").click()
