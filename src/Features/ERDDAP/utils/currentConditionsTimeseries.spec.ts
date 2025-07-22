@@ -39,4 +39,11 @@ describe("currentConditionsTimeseries", () => {
 
     expect(timeSeriesVariables).toStrictEqual(["barometric_pressure", "visibility"])
   })
+
+  it("Should not show a forecasted time series", () => {
+    const { timeSeries } = currentConditionsTimeseries(platform, laterThan)
+    const timeSeriesVariables = timeSeries.map((ts) => ts.variable)
+
+    expect(timeSeriesVariables).toStrictEqual(["barometric_pressure", "visibility"])
+  })
 })
