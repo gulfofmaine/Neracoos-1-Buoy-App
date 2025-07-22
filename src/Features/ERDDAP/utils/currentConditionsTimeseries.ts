@@ -2,12 +2,14 @@ import { conditions } from "./conditions"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { pickWindTimeSeries } from "./wind"
 
+/// Filter to current observation time series for specified data types
 export function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
   let filterTimeSeries: PlatformTimeSeries[] = []
 
   dataTypes.forEach((dataType) => {
     const matchStandard = timeSeries.filter((reading) => dataType === reading.data_type.standard_name) // match any that are the current data type
-    const matchTime = matchStandard.filter((reading) => (reading.time ? laterThan < new Date(reading.time) : false)) // that have data in the last day
+    const matchObservation = matchStandard.filter((reading) => reading.type === "Observation") // that are observations
+    const matchTime = matchObservation.filter((reading) => (reading.time ? laterThan < new Date(reading.time) : false)) // that have data in the last day
     const matchDepth = matchTime.filter((reading) => (reading.depth ? reading.depth < 2 : true)) // are near-surface
     matchDepth.forEach((ts) => filterTimeSeries.push(ts))
   })

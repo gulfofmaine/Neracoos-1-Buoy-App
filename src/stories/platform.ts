@@ -33,6 +33,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: [],
         loading: false,
         highlighted: "No",
+        type: "Observation",
         readings: [
           {
             reading: 4.55,
@@ -151,6 +152,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 33.9589462280273,
@@ -175,6 +177,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 9.89000034332275,
@@ -199,6 +202,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 25.5368404388428,
@@ -223,6 +227,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 32.5026893615723,
@@ -247,6 +252,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 6.34700012207031,
@@ -271,6 +277,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 25.2565860748291,
@@ -295,6 +302,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 31.966287612915,
@@ -319,6 +327,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 30.9360008239746,
@@ -343,6 +352,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 32.4659996032715,
@@ -367,6 +377,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 37.0120010375977,
@@ -391,6 +402,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 290.853210449219,
@@ -414,6 +426,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 1.39300000667572,
@@ -436,6 +449,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: [],
         loading: false,
         highlighted: "Before",
+        type: "Observation",
         readings: [
           {
             reading: 2.85,
@@ -553,6 +567,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 5.13100004196167,
@@ -576,6 +591,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: [new Date("2020-01-28T14:18:01.570Z")],
         loading: false,
         highlighted: "After",
+        type: "Observation",
         readings: [
           {
             reading: 5.92,
@@ -1936,6 +1952,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         highlighted: "After",
+        type: "Observation",
         readings: [
           {
             reading: 5,
@@ -2620,6 +2637,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         highlighted: "Before",
+        type: "Observation",
         readings: [
           {
             reading: 0.696,
@@ -6648,6 +6666,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         highlighted: "No",
+        type: "Observation",
         readings: [
           {
             reading: 2977.7466,
@@ -10674,6 +10693,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         highlighted: "No",
+        type: "Observation",
         readings: [
           {
             reading: 355.92,
@@ -14700,6 +14720,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         highlighted: "No",
+        type: "Observation",
         readings: [
           {
             reading: 8.46,
@@ -18728,6 +18749,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:18:01.570Z"],
         loading: false,
         highlighted: "No",
+        type: "Observation",
         readings: [
           {
             reading: 1004.6906,
@@ -22754,6 +22776,7 @@ const platform_base: PlatformFeature = {
         loading: false,
         readings: [],
         highlighted: "No",
+        type: "Observation",
       },
       {
         value: 3.33200001716614,
@@ -22774,6 +22797,7 @@ const platform_base: PlatformFeature = {
         loadStartTimes: ["2020-01-28T14:20:13.209Z"],
         loading: false,
         highlighted: "No",
+        type: "Observation",
         readings: [
           {
             reading: 10.31,
@@ -26776,6 +26800,89 @@ const platform_base: PlatformFeature = {
             time: "2020-02-04T13:00:00.000Z",
           },
         ],
+      },
+      {
+        value: -0.97644,
+        time: "2025-07-22T21:00:00Z",
+        depth: null,
+        data_type: {
+          standard_name: "sea_surface_height_above_geopotential_datum",
+          short_name: "Sea Surface Height",
+          long_name: "Sea surface height above geopotential datum (NAVD 88)",
+          units: "Meters",
+        },
+        server: "https://data.neracoos.org/erddap/",
+        variable: "navd_88_meters",
+        constraints: {
+          "site_id=": "SCTM3",
+        },
+        dataset: "NWS_Hydromet_BOX",
+        dataset_public_name: "NWS HydroMet Forecast",
+        start_time: "2025-04-16T16:36:14.973619Z",
+        cors_proxy_url: "/api/servers/9/proxy/",
+        datum_offsets: {},
+        flood_levels: [],
+        highlighted: "No",
+        type: "Forecast",
+        readings: [],
+        extrema: false,
+        extrema_values: {
+          max: {
+            time: "2025-07-23T02:00:00+00:00",
+            value: 1.6448400000000003,
+          },
+          min: {
+            time: "2025-07-24T09:00:00+00:00",
+            value: -1.76892,
+          },
+          tides: [
+            {
+              tide: "high",
+              time: "2025-07-23T02:00:00+00:00",
+              value: 1.6448400000000003,
+            },
+            {
+              tide: "low",
+              time: "2025-07-23T08:00:00+00:00",
+              value: -1.647,
+            },
+            {
+              tide: "high",
+              time: "2025-07-23T15:00:00+00:00",
+              value: 1.0352400000000002,
+            },
+            {
+              tide: "low",
+              time: "2025-07-23T21:00:00+00:00",
+              value: -1.3422,
+            },
+            {
+              tide: "high",
+              time: "2025-07-24T03:00:00+00:00",
+              value: 1.58388,
+            },
+            {
+              tide: "low",
+              time: "2025-07-24T09:00:00+00:00",
+              value: -1.76892,
+            },
+            {
+              tide: "high",
+              time: "2025-07-24T16:00:00+00:00",
+              value: 1.0352400000000002,
+            },
+            {
+              tide: "low",
+              time: "2025-07-24T21:00:00+00:00",
+              value: -1.40316,
+            },
+            {
+              tide: "high",
+              time: "2025-07-25T04:00:00+00:00",
+              value: 1.5534,
+            },
+          ],
+        },
       },
     ],
     attribution: [
