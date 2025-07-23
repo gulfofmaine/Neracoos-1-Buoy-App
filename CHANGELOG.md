@@ -10,6 +10,29 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.11 - 07/23/2025
+
+Fixes:
+
+- Only show observations by default on current conditions by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3598
+
+Dependency updates:
+
+- Bump node from `dfea073` to `91aa1bb` by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3583
+- Bump brace-expansion by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3585
+- Bump docker/setup-buildx-action from 3.10.0 to 3.11.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3587
+- Bump getsentry/action-release from 3.1.1 to 3.1.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3588
+- Bump getsentry/action-release from 3.1.2 to 3.2.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3590
+- Bump pbkdf2 from 3.1.2 to 3.1.3 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3589
+- Bump node from 24.1.0-alpine to 24.3.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3591
+- Bump next from 15.3.1 to 15.3.4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3592
+- Bump node from `49e45bf` to `b8ea75e` by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3593
+- Bump node from 24.3.0-alpine to 24.4.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3594
+- Bump node from 24.4.0-alpine to 24.4.1-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3596
+- Bump form-data from 4.0.0 to 4.0.4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3597
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.10...v1.0.11
+
 ## 1.0.10 - 05/28/2025
 
 Fixes:
