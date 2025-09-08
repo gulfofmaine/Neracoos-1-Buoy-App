@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 import { GAListener } from "Shared/google-analytics"
 
-const ReduxStore = dynamic(() => import("./store.tsx"), { ssr: false })
+const ReduxStore = dynamic(() => import("./store"), { ssr: false })
 
 function makeQueryClient() {
   return new QueryClient({
