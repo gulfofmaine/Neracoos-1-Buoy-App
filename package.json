@@ -84,7 +84,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "3.0.3",
-    "playwright-performance": "^2.0.4",
+    "playwright-performance": "^2.0.5",
     "redux-mock-store": "1.5.5",
     "storybook": "^9.1.5",
     "typescript": "^5.9.2",
