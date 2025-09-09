@@ -28,7 +28,7 @@
     "query-string": "^9.2.2",
     "react": "19.1.0",
     "react-app-polyfill": "^3.0.0",
-    "react-bootstrap": "^2.10.9",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "19.1.0",
     "react-ga4": "^2.1.0",
     "react-jsx-highcharts": "^5.0.3",
