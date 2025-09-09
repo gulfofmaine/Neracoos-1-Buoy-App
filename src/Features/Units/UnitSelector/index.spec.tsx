@@ -12,7 +12,7 @@ describe("UnitSelector", () => {
 
     render(<UnitSelectorBase system={system} switchUnits={switchUnit} />)
 
-    expect(switchUnit).not.toBeCalled()
+    expect(switchUnit).not.toHaveBeenCalled()
     expect(screen.getAllByRole("button")[0]).toHaveTextContent("Metric")
     expect(screen.getAllByRole("button")[1]).toHaveTextContent("English")
 
