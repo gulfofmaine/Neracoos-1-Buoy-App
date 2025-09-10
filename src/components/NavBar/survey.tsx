@@ -7,7 +7,7 @@ export const SurveyBanner = () => (
   <>
     <SecondaryBanner>
       <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
-        Click <Link href="https://www.surveymonkey.com/r/V5F5Z7P">here</Link> to take our Mariner&apos;s Dashboard
+        Click <Link href="https://www.surveymonkey.com/r/V5F5Z7P">here</Link> to take our Mariners&apos; Dashboard
         Survey
       </p>
     </SecondaryBanner>
