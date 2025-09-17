@@ -88,7 +88,7 @@
     "redux-mock-store": "1.5.5",
     "storybook": "^9.1.5",
     "typescript": "^5.9.2",
-    "wait-on": "8.0.5"
+    "wait-on": "9.0.0"
   },
   "prettier": {
     "semi": false,
