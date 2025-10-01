@@ -75,7 +75,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
     "@types/jest": "30.0.0",
-    "@types/node": "24.6.0",
+    "@types/node": "24.6.1",
     "@types/react": "19.1.16",
     "@types/react-dom": "19.1.9",
     "eslint": "^9.36.0",
