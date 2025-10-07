@@ -61,7 +61,7 @@
   "devDependencies": {
     "@estruyf/github-actions-reporter": "^1.10.0",
     "@next/eslint-plugin-next": "15.5.4",
-    "@playwright/test": "^1.55.1",
+    "@playwright/test": "^1.56.0",
     "@storybook/addon-a11y": "^9.1.8",
     "@storybook/addon-docs": "^9.1.8",
     "@storybook/addon-links": "^9.1.8",
