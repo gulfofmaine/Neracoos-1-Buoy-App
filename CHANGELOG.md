@@ -10,6 +10,115 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.13 - 10/10/2025
+
+Changes:
+
+- Remove the survey by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3696
+
+Dependency updates:
+
+- Bump the next group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3638
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3637
+- Bump node from 24.7.0-alpine to 24.8.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3636
+- Bump @types/react from 19.1.12 to 19.1.13 in the react group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3642
+- Bump wait-on from 8.0.4 to 8.0.5 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3640
+- Bump the storybook group with 7 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3639
+- Bump @types/node from 24.3.1 to 24.4.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3641
+- Bump @types/node from 24.4.0 to 24.5.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3644
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3643
+- Bump @sentry/nextjs from 10.11.0 to 10.12.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3647
+- Bump wait-on from 8.0.5 to 9.0.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3646
+- Bump @types/node from 24.5.0 to 24.5.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3645
+- Bump @types/node from 24.5.1 to 24.5.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3649
+- Bump sharp from 0.34.3 to 0.34.4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3648
+- Bump query-string from 9.3.0 to 9.3.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3651
+- Bump the storybook group with 7 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3650
+- Bump eslint from 9.35.0 to 9.36.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3656
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3654
+- Bump wait-on from 9.0.0 to 9.0.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3653
+- Bump @sentry/nextjs from 10.12.0 to 10.14.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3661
+- Bump @playwright/test from 1.55.0 to 1.55.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3659
+- Bump getsentry/action-release from 3.2.0 to 3.3.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3657
+- Bump sass from 1.92.1 to 1.93.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3660
+- Bump sass from 1.93.1 to 1.93.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3664
+- Bump the storybook group with 7 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3662
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3658
+- Bump the next group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3663
+- Bump @sentry/nextjs from 10.14.0 to 10.15.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3665
+- Bump @sentry/nextjs from 10.15.0 to 10.16.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3672
+- Bump @types/node from 24.5.2 to 24.6.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3673
+- Bump @types/react from 19.1.13 to 19.1.15 in the react group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3671
+- Bump node from 24.8.0-alpine to 24.9.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3669
+- Bump jest from 30.1.3 to 30.2.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3668
+- Bump jest-environment-jsdom from 30.1.2 to 30.2.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3670
+- Bump docker/login-action from 3.5.0 to 3.6.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3667
+- Bump the react group with 4 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3681
+- Bump @types/node from 24.6.0 to 24.6.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3682
+- Bump typescript from 5.9.2 to 5.9.3 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3679
+- Bump @testing-library/jest-dom from 6.8.0 to 6.9.0 in the testing-library group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3675
+- Bump @testing-library/jest-dom from 6.9.0 to 6.9.1 in the testing-library group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3684
+- Bump eslint from 9.36.0 to 9.37.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3687
+- Bump @types/node from 24.6.2 to 24.7.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3686
+- Bump @playwright/test from 1.55.1 to 1.56.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3689
+- Bump the react group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3688
+- Bump github/codeql-action from 3 to 4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3690
+- Bump @sentry/nextjs from 10.16.0 to 10.19.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3695
+- Bump @types/node from 24.7.0 to 24.7.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3694
+- Bump node from 24.9.0-alpine to 24.10.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3693
+- Bump the storybook group with 7 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3674
+- Bump the font-awesome group across 1 directory with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3683
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.12...v1.0.13
+
+## 1.0.12 - 09/10/2025
+
+Changes:
+
+- NERACOOS Survey by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3610
+
+Fixes:
+
+- Survey apostrophe positioning by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3634
+- Change RTX to Mise by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3620
+- Remove NPM Overrides by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3630
+
+Dependency updates:
+
+- Bump docker/login-action from 3.4.0 to 3.5.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3602
+- Bump sha.js from 2.4.11 to 2.4.12 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3605
+- Bump node from 24.4.1-alpine to 24.7.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3606
+- Bump actions/setup-python from 5 to 6 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3609
+- Bump actions/setup-node from 3 to 5 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3608
+- Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3603
+- Bump next from 15.3.4 to 15.5.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3607
+- Bump sass from 1.86.3 to 1.89.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3571
+- Bump typescript from 5.7.3 to 5.8.3 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3518
+- Update Storybook to 9.1.5 by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3611
+- Bump eslint from 9.24.0 to 9.27.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3572
+- Bump @reduxjs/toolkit from 2.7.0 to 2.9.0 in the redux group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3616
+- Bump the font-awesome group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3612
+- Bump the next group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3614
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3613
+- Bump wait-on from 8.0.2 to 8.0.4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3618
+- Bump @playwright/test from 1.52.0 to 1.55.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3617
+- Bump react-select from 5.10.1 to 5.10.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3621
+- Bump @spotlightjs/spotlight from 2.13.3 to 3.0.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3622
+- Bump query-string from 9.1.1 to 9.2.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3624
+- Bump the testing-library group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3615
+- Bump playwright-performance from 2.0.4 to 2.0.5 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3626
+- Bump jest and @types/jest by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3623
+- Bump the openlayers group across 1 directory with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3508
+- Bump bootstrap from 5.3.3 to 5.3.5 in the bootstrap group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3517
+- Bump @sentry/nextjs from 9.23.0 to 10.10.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3627
+- Bump react-bootstrap from 2.10.9 to 2.10.10 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3628
+- Bump @types/node from 22.15.24 to 24.3.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3629
+- Bump query-string from 9.2.2 to 9.3.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3632
+- Bump the react group with 4 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3631
+- Bump @sentry/nextjs from 10.10.0 to 10.11.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3633
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.11...v1.0.12
+
 ## 1.0.11 - 07/23/2025
 
 Fixes:
