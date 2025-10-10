@@ -12,7 +12,6 @@ import Navbar from "react-bootstrap/Navbar"
 import { paths } from "Shared/constants"
 
 import { RegionDropdown } from "./regionDropdown"
-import { SurveyBanner } from "./survey"
 
 import neracoosLogo from "./neracoos_logo.png"
 
@@ -60,7 +59,6 @@ const NeracoosNavBar = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <SurveyBanner />
     </div>
   )
 }
