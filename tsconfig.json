@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
       "Shared/*": ["Shared/*"],
@@ -33,6 +33,6 @@
       }
     ]
   },
-  "include": ["src", ".next/types/**/*.ts"],
+  "include": ["src", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
   "exclude": ["src/setupTests.ts", "**/*.spec.*", "**/*.stories.*", "node_modules"]
 }

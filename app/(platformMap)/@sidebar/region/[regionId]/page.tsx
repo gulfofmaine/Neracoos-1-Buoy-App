@@ -27,8 +27,8 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
   )
 }
 
-export async function generateStaticParams() {
-  return regionList.map((region) => ({
-    regionId: region.slug,
-  }))
-}
+// export async function generateStaticParams() {
+//   return regionList.map((region) => ({
+//     regionId: region.slug,
+//   }))
+// }
