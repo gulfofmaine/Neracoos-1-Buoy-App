@@ -7,7 +7,7 @@ test.describe("Mooring location regressions", () => {
     await page.goto("/platform/B01")
     await expect(
       page
-        .locator(".card-text")
+        .locator(".card-title")
         .getByText(/Western Maine Shelf/)
         .first(),
     ).toBeVisible()
@@ -17,7 +17,7 @@ test.describe("Mooring location regressions", () => {
     await page.goto("/platform/I01")
     await expect(
       page
-        .locator(".card-text")
+        .locator(".card-title")
         .getByText(/Eastern Maine Shelf/)
         .first(),
     ).toBeVisible()

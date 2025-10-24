@@ -10,7 +10,7 @@ test.describe("Platform A01", () => {
     await page.getByRole("button", { name: "Regions" }).click()
     await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
-    await page.getByRole("link", { name: "A01", exact: true }).click()
+    await page.getByRole("link", { name: "A01: Massachusetts Bay" }).click()
     await expect(await page.getByText("Station A01")).toBeVisible()
   })
 
