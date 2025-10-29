@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from "vitest"
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -8,7 +9,7 @@ import { UnitSelectorBase } from "./index"
 describe("UnitSelector", () => {
   it("Will display the currently selected unit system", async () => {
     const system = UnitSystem.metric
-    const switchUnit = jest.fn()
+    const switchUnit = vi.fn()
 
     render(<UnitSelectorBase system={system} switchUnits={switchUnit} />)
 
