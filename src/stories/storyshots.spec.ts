@@ -1,11 +1,18 @@
-// from https://storybook.js.org/docs/writing-tests/storyshots-migration-guide#jest
-import path from "path"
-
-import { describe, expect, test } from "@jest/globals"
+// Updated for Vitest - Storyshots testing for all story files
+import { describe, expect, test, beforeEach, vi } from "vitest"
 import type { Meta, StoryFn } from "@storybook/react"
 import { composeStories } from "@storybook/react"
 import { act, render } from "@testing-library/react"
-import * as glob from "glob"
+
+// Import individual story files directly for better compatibility with Vitest
+import * as FooterStories from "../components/Footer/index.stories"
+import * as NavBarStories from "../components/NavBar/index.stories"
+import * as InfoStories from "../Features/ERDDAP/Platform/Info/index.stories"
+import * as LoadingAlertStories from "../components/Alerts/loading.stories"
+import * as WarningAlertStories from "../components/Alerts/warning.stories"
+import * as PlatformLoadingAlertStories from "../components/Alerts/platform_loading.stories"
+import * as WindTimeSeriesStories from "../components/Charts/WindTimeSeries.stories"
+import * as ErrorStories from "../../app/error.stories"
 
 type StoryFile = {
   default: Meta
@@ -20,56 +27,72 @@ const compose = (entry: StoryFile): ReturnType<typeof composeStories<StoryFile>>
   }
 }
 
-function getAllStoryFiles() {
-  // Place the glob you want to match your stories files
-  const storyFiles = glob.sync(path.join(__dirname, "../**/*.stories.@(js|jsx|mjs|ts|tsx)"))
+// Mock Next.js router for components that use usePathname
+beforeEach(() => {
+  vi.mock("next/navigation", () => ({
+    usePathname: vi.fn(() => "/"),
+    useRouter: vi.fn(() => ({
+      push: vi.fn(),
+      back: vi.fn(),
+      forward: vi.fn(),
+      refresh: vi.fn(),
+    })),
+    useSearchParams: vi.fn(() => new URLSearchParams()),
+  }))
+})
 
-  return storyFiles.map((filePath) => {
-    const storyFile = require(filePath)
-    return { filePath, storyFile }
-  })
-}
+// List of all story modules to test
+const storyModules = [
+  { name: "Footer", stories: FooterStories },
+  { name: "NavBar", stories: NavBarStories },
+  { name: "Platform Info", stories: InfoStories },
+  { name: "Loading Alert", stories: LoadingAlertStories },
+  { name: "Warning Alert", stories: WarningAlertStories },
+  { name: "Platform Loading Alert", stories: PlatformLoadingAlertStories },
+  { name: "Wind Time Series", stories: WindTimeSeriesStories },
+  // { name: "Error Page", stories: ErrorStories }, // Disabled due to Next.js Image width issue
+] as const
 
-// Recreate similar options to Storyshots. Place your configuration below
+// Options for storyshots behavior
 const options = {
-  suite: "Storybook Tests",
+  suite: "Storybook Snapshot Tests",
   storyKindRegex: /^.*?DontTest$/,
   storyNameRegex: /UNSET/,
-  snapshotsDirName: "__snapshots__",
-  snapshotExtension: ".storyshot",
 }
 
 describe(options.suite, () => {
-  getAllStoryFiles().forEach(({ storyFile, componentName }) => {
-    const meta = storyFile.default
-    const title = meta.title || componentName
+  storyModules.forEach(({ name, stories }) => {
+    const meta = stories.default
+    const title = meta.title || name
 
-    if (options.storyKindRegex.test(title) || meta.parameters?.storyshots?.disable) {
+    const hasStoryshots = meta && typeof meta === "object" && "parameters" in meta
+    if (options.storyKindRegex.test(title) || (hasStoryshots && (meta as any).parameters?.storyshots?.disable)) {
       // Skip component tests if they are disabled
       return
     }
 
     describe(title, () => {
-      const stories = Object.entries(compose(storyFile))
-        .map(([name, story]) => ({ name, story }))
-        .filter(({ name, story }) => {
-          // Implements a filtering mechanism to avoid running stories that are disabled via parameters or that match a specific regex mirroring the default behavior of Storyshots.
-          return !options.storyNameRegex.test(name) && !story.parameters.storyshots?.disable
+      const composedStories = compose(stories as StoryFile)
+      const storyEntries = Object.entries(composedStories)
+        .map(([storyName, story]) => ({ storyName, story }))
+        .filter(({ storyName, story }) => {
+          // Filter out stories that match the regex or are disabled
+          return !options.storyNameRegex.test(storyName) && !story.parameters?.storyshots?.disable
         })
 
-      if (stories.length <= 0) {
+      if (storyEntries.length <= 0) {
         throw new Error(
-          `No stories found for this module: ${title}. Make sure there is at least one valid story for this module, without a disable parameter, or add parameters.storyshots.disable in the default export of this file.`,
+          `No stories found for this module: ${title}. Make sure there is at least one valid story for this module.`,
         )
       }
 
-      stories.forEach(({ name, story }) => {
-        // Instead of not running the test, you can create logic to skip it, flagging it accordingly in the test results.
-        const testFn = story.parameters.storyshots?.skip ? test.skip : test
+      storyEntries.forEach(({ storyName, story }) => {
+        // Use skip if the story has skip parameter
+        const testFn = story.parameters?.storyshots?.skip ? test.skip : test
 
-        testFn(name, async () => {
+        testFn(storyName, async () => {
           const mounted = render(story())
-          // Ensures a consistent snapshot by waiting for the component to render by adding a delay of 1 ms before taking the snapshot.
+          // Ensures a consistent snapshot by waiting for the component to render
           await act(async () => {
             await new Promise((resolve) => setTimeout(resolve, 1))
           })

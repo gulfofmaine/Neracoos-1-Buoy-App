@@ -41,7 +41,7 @@ const NeracoosNavBar = () => {
     <div>
       <Navbar bg="primary" data-bs-theme="dark" expand="md">
         <Navbar.Brand href={paths.neracoos}>
-          <Image src={neracoosLogo} alt="NERACOOS" height={30} />
+          <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
         </Navbar.Brand>
         <Navbar.Toggle />
 

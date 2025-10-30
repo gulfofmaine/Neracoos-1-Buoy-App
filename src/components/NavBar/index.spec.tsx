@@ -1,13 +1,14 @@
+import { describe, it, expect, vi, beforeEach } from "vitest"
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
 
-jest.mock("next/navigation", () => {
-  const origionalModule = jest.requireActual("next/navigation")
+vi.mock("next/navigation", () => {
+  const origionalModule = vi.importActual("next/navigation")
 
   return {
     __esModule: true,
     ...origionalModule,
-    usePathname: jest.fn(() => "/"),
+    usePathname: vi.fn(() => "/"),
   }
 })
 

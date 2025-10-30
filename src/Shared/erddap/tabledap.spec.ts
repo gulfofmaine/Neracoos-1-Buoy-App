@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest"
 import { constraintsToString, resultToTimeseries, tabledapUrl, variableString } from "./tabledap"
 
 describe("constraintsToString()", () => {

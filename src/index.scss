@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/functions";
 
 $old-neracoos-blue: #114a6e;
 
@@ -18,7 +18,7 @@ $warning: $buoy-yellow;
 $danger: $what-orange;
 $info: $metallic-seaweed;
 
-@import "~bootstrap/scss/bootstrap.scss";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/variables";
 // @import "~bootstrap/scss/mixins";
 
