@@ -25,19 +25,20 @@ export default defineConfig({
     },
   },
   test: {
+    alias: {
+      Features: path.resolve(dirname, "src/Features"),
+      stories: path.resolve(dirname, "src/stories"),
+      Shared: path.resolve(dirname, "src/Shared"),
+      components: path.resolve(dirname, "src/components"),
+    },
     projects: [
       {
+        extends: true,
         plugins: [tsconfigPaths(), react()],
         test: {
           name: "unit",
           environment: "jsdom",
           include: ["src/**/*.spec.ts", "src/**/*.spec.tsx", "app/**/*.spec.ts", "app/**/*.spec.tsx"],
-          alias: {
-            Features: path.resolve(dirname, "src/Features"),
-            stories: path.resolve(dirname, "src/stories"),
-            Shared: path.resolve(dirname, "src/Shared"),
-            components: path.resolve(dirname, "src/components"),
-          },
           setupFiles: ["./src/setupTests.js"],
         },
       },
@@ -57,12 +58,6 @@ export default defineConfig({
             headless: true,
             provider: playwright({}),
             instances: [{ browser: "chromium" }],
-          },
-          alias: {
-            Features: path.resolve(dirname, "src/Features"),
-            stories: path.resolve(dirname, "src/stories"),
-            Shared: path.resolve(dirname, "src/Shared"),
-            components: path.resolve(dirname, "src/components"),
           },
           setupFiles: [".storybook/vitest.setup.ts"],
         },
