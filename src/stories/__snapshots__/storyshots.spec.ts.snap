@@ -1,0 +1,160 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Storybook Snapshot Tests > Components/Alerts/Loading > Loading 1`] = `
+<div>
+  <div
+    class="fade alert alert-light show"
+    role="alert"
+  >
+    <span
+      style="margin-right: 10px;"
+    >
+      Loading platform data files
+    </span>
+    <div
+      class="spinner-border spinner-border-sm text-warning"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storybook Snapshot Tests > Components/Alerts/PlatformLoading > PlatformLoading 1`] = `
+<div>
+  <div
+    class="fade alert alert-light show"
+    role="alert"
+  >
+    <span
+      style="margin-right: 10px;"
+    >
+      Loading 
+       dataset
+    </span>
+    <div
+      class="spinner-border spinner-border-sm text-warning"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storybook Snapshot Tests > Components/Alerts/Warning > Warning 1`] = `
+<div>
+  <div
+    class="fade alert alert-warning show"
+    role="alert"
+  >
+    This is a warning
+  </div>
+</div>
+`;
+
+exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
+<div>
+  <div
+    class="footer"
+    style="position: absolute; bottom: 0px; width: 100%; padding-bottom: 10px; height: 110px;"
+  >
+    <div
+      class="row"
+      style="font-size: 0.8rem; padding: 1rem 0.25rem 0.25rem;"
+    >
+      <div
+        class="mx-auto text-center col-md-10"
+      >
+        Copyright © 2021 ~ NERACOOS
+      </div>
+    </div>
+    <div
+      class="row"
+      style="font-size: 0.8rem; padding: 0.25rem;"
+    >
+      <div
+        class="mx-auto text-center col-md-10"
+      >
+        Use
+         
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
+        >
+          this form
+        </a>
+         
+        to send us feedback or bug reports
+      </div>
+    </div>
+    <div
+      class="row"
+      style="font-size: 0.8rem; padding: 0.25rem;"
+    >
+      <div
+        class="mx-auto text-center col-md-10"
+      >
+        Product of 
+        <a
+          href="http://www.neracoos.org/"
+        >
+          NERACOOS.org
+        </a>
+         - Developed and maintained by the
+         
+        <a
+          href="https://gmri.org/commitments/science/ocean-data-products/"
+        >
+          Gulf of Maine Research Institute
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
+<div>
+  <div
+    class="card"
+    role="complementary"
+  >
+    <div
+      class="card-body"
+    >
+      <div
+        class="card-title h5"
+        role="header"
+      >
+        Station 
+        M01
+      </div>
+      <p
+        class="card-text"
+      >
+        Jordan Basin
+        <br />
+        <b>
+          NDBC ID:
+        </b>
+         
+        44037
+        <br />
+        <b>
+          Lat:
+        </b>
+         
+        43.5
+         
+        <b>
+          Lon:
+        </b>
+         
+        -67.87
+        <br />
+        <a
+          href="http://gyre.umeoce.maine.edu/gomoos.php"
+        >
+          University of Maine
+        </a>
+        <br />
+      </p>
+    </div>
+  </div>
+</div>
+`;

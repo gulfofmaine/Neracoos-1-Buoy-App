@@ -14,6 +14,16 @@ const dirname = typeof __dirname !== "undefined" ? __dirname : path.dirname(file
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  define: {
+    global: {},
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true,
+      },
+    },
+  },
   test: {
     projects: [
       {
@@ -24,6 +34,9 @@ export default defineConfig({
           include: ["src/**/*.spec.ts", "src/**/*.spec.tsx", "app/**/*.spec.ts", "app/**/*.spec.tsx"],
           alias: {
             Features: path.resolve(dirname, "src/Features"),
+            stories: path.resolve(dirname, "src/stories"),
+            Shared: path.resolve(dirname, "src/Shared"),
+            components: path.resolve(dirname, "src/components"),
           },
           setupFiles: ["./src/setupTests.js"],
         },
@@ -31,6 +44,8 @@ export default defineConfig({
       {
         extends: true,
         plugins: [
+          tsconfigPaths(),
+          react(),
           // The plugin will run tests for the stories defined in your Storybook config
           // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
           storybookTest({ configDir: path.join(dirname, ".storybook") }),
@@ -42,6 +57,12 @@ export default defineConfig({
             headless: true,
             provider: playwright({}),
             instances: [{ browser: "chromium" }],
+          },
+          alias: {
+            Features: path.resolve(dirname, "src/Features"),
+            stories: path.resolve(dirname, "src/stories"),
+            Shared: path.resolve(dirname, "src/Shared"),
+            components: path.resolve(dirname, "src/components"),
           },
           setupFiles: [".storybook/vitest.setup.ts"],
         },
