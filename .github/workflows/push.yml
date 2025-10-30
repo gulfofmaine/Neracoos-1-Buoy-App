@@ -113,6 +113,9 @@ jobs:
           docker load --input /tmp/myimage.tar
           docker image ls -a
 
+      - name: Install Playwright
+        run: npx playwright install
+
       - name: Run unit tests and coverage
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
