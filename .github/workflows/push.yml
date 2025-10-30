@@ -93,25 +93,31 @@ jobs:
   unit_tests:
     name: Unit tests, typecheck and coverage
     runs-on: ubuntu-24.04
-    needs: build
     timeout-minutes: 10
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v5
 
-      - name: Cache Docker image
-        uses: actions/cache@v4
-        with:
-          path: /tmp/myimage.tar
-          key: mariners-dashboard-image-${{ github.sha }}
-          restore-keys: |
-            mariners-dashboard-image-
+      - name: mise action
+        uses: jdx/mise-action@v3.3.1
 
-      - name: Load Docker image
-        run: |
-          docker load --input /tmp/myimage.tar
-          docker image ls -a
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
 
       - name: Install Playwright
         run: npx playwright install
@@ -120,7 +126,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: docker compose -f docker-compose.dev.yaml run -e CI=true client npm run test-with-coverage
+        run: npm run test-with-coverage
 
       - name: Codacy Coverage Reporter
         if: env.CODACY_PROJECT_TOKEN != null
@@ -133,13 +139,13 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
-        run: docker compose -f docker-compose.dev.yaml run -e CI=true client npm run test-ci
+        run: npm run test-ci
 
       - name: npm run Build
-        run: docker compose -f docker-compose.dev.yaml run client npm run build
+        run: npm run build
 
       - name: Build Storybook Pages
-        run: docker compose -f docker-compose.dev.yaml run client npm run build-storybook
+        run: npm run build-storybook
 
       # - name: Cache Storybook Build
       #   uses: actions/cache@v4
