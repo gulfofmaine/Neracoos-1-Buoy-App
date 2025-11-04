@@ -36,7 +36,7 @@
     "react-select": "^5.10.2",
     "react-use": "^17.6.0",
     "rlayers": "^3.7.1",
-    "sass": "^1.93.2",
+    "sass": "^1.93.3",
     "sharp": "^0.34.4"
   },
   "scripts": {
