@@ -51,6 +51,10 @@ updates:
       turf:
         patterns:
           - "@turf/*"
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
 
   - package-ecosystem: docker
     directory: "/"
