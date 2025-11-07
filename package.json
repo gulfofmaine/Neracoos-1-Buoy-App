@@ -37,7 +37,7 @@
     "react-use": "^17.6.0",
     "rlayers": "^3.8.0",
     "sass": "^1.93.3",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.5"
   },
   "scripts": {
     "dev": "next dev --turbo",
