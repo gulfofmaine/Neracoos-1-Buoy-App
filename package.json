@@ -77,7 +77,7 @@
     "@types/glob": "^9.0.0",
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
-    "@types/node": "24.10.0",
+    "@types/node": "24.10.1",
     "@types/react": "19.2.3",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
