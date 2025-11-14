@@ -78,7 +78,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
     "@types/node": "24.10.1",
-    "@types/react": "19.2.3",
+    "@types/react": "19.2.4",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/browser-playwright": "^4.0.8",
