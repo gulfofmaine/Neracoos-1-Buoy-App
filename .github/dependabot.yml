@@ -55,6 +55,10 @@ updates:
         patterns:
           - "vitest"
           - "@vitest/*"
+      playwright:
+        patterns:
+          - "playwright"
+          - "@playwright/*"
 
   - package-ecosystem: docker
     directory: "/"
