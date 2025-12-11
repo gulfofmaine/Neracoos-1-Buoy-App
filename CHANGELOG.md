@@ -10,6 +10,25 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.15 - 12/11/2025
+
+Dependency udpates:
+
+- Bump @sentry/nextjs from 10.28.0 to 10.29.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3822
+- Bump @tanstack/react-query from 5.90.11 to 5.90.12 in the react-query group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3820
+- Bump node from `26ded7f` to `fd16460` by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3819
+- Bump @vitejs/plugin-react from 5.1.1 to 5.1.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3824
+- Bump @reduxjs/toolkit from 2.11.0 to 2.11.1 in the redux group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3823
+- Bump @types/node from 24.10.1 to 24.10.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3828
+- Bump jsdom from 27.2.0 to 27.3.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3826
+- Bump the next group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3825
+- Bump the storybook group with 8 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3829
+- Bump @types/node from 24.10.2 to 25.0.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3833
+- Bump @sentry/nextjs from 10.29.0 to 10.30.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3832
+- Next and React security by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3834
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.14...v1.0.15
+
 ## 1.0.14 - 12/03/2025
 
 Dependency updates:
