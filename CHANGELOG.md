@@ -10,6 +10,17 @@ Fixes:
 
 Dependency updates:
 
+## 1.0.16 - 12/12/2025
+
+Dependency updates:
+
+- Bump the next group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3839
+- Bump the react group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3838
+- Bump actions/cache from 4 to 5 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3836
+- Bump @types/node from 25.0.0 to 25.0.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3840
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.15...v1.0.16
+
 ## 1.0.15 - 12/11/2025
 
 Dependency udpates:
