@@ -124,5 +124,9 @@
     "rules": {
       "@next/next/no-img-element": "off"
     }
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }
