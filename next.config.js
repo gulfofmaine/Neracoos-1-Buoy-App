@@ -8,7 +8,7 @@ const nextConfig = {
     // Ignore several SASS warnings
     // https://sass-lang.com/documentation/breaking-changes/legacy-js-api/ https://github.com/vercel/next.js/issues/71638
     // https://sass-lang.com/documentation/breaking-changes/import/ https://github.com/twbs/bootstrap/issues/29853
-    silenceDeprecations: ["import", "legacy-js-api"],
+    silenceDeprecations: ["color-functions", "global-builtin", "import", "if-function"],
   },
   serverExternalPackages: ["web-worker"],
   experimental: {
@@ -73,7 +73,4 @@ module.exports = withSentryConfig(nextConfig, {
 
   // Hides source maps from generated client bundles
   hideSourceMaps: true,
-
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
 })
