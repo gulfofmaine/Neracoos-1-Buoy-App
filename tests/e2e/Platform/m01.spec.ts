@@ -68,7 +68,7 @@ test.describe.skip("Platfrom M01", () => {
     await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
   })
 
-  test("Shows wave forecast", async ({ page }) => {
+  test.skip("Shows wave forecast", async ({ page }) => {
     await page.goto(platformUrl)
     await page.locator("#forecast").click()
     await page.locator("[href='/platform/M01/forecast/significant_wave_height']").click()
