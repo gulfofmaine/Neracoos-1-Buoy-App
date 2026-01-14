@@ -10,6 +10,22 @@ Fixes:
 
 Dependency updates:
 
+# 1.0.18 - 01/14/2026
+
+Dependency updates:
+
+- Bump vite-tsconfig-paths from 6.0.3 to 6.0.4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3883
+- Bump @types/node from 25.0.3 to 25.0.6 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3881
+- Bump hono from 4.11.3 to 4.11.4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3889
+- Bump @types/node from 25.0.6 to 25.0.7 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3886
+- Bump the vitest group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3885
+- Bump @types/node from 25.0.7 to 25.0.8 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3892
+- Bump @tanstack/react-query from 5.90.16 to 5.90.17 in the react-query group by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3890
+- Bump @sentry/nextjs from 10.32.1 to 10.33.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3887
+- Bump node from 25.2.1-alpine to 25.3.0-alpine by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/3893
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.0.17...v1.0.18
+
 # 1.0.17 - 01/08/2026
 
 Fixes:
