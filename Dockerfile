@@ -1,5 +1,5 @@
 #syntax=docker/dockerfile:1.2
-FROM node:25.3.0-alpine@sha256:5164e58cdc2fd36ca87d6e1f94998021c4e5fae3e6a9c464b66160bcee2f07ab AS base
+FROM node:25.3.0-alpine@sha256:e80397b81fa93888b5f855e8bef37d9b18d3c5eb38b8731fc23d6d878647340f AS base
 
 # Install dependencies only when needed
 FROM base AS deps
