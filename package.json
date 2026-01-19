@@ -71,7 +71,7 @@
     "@storybook/addon-vitest": "^10.1.11",
     "@storybook/nextjs-vite": "^10.1.11",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.1",
+    "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/geojson": "^7946.0.16",
     "@types/glob": "^9.0.0",
