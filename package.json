@@ -12,7 +12,7 @@
     "@reduxjs/toolkit": "^2.11.2",
     "@sentry/nextjs": "^10.34.0",
     "@spotlightjs/spotlight": "^3.0.2",
-    "@tanstack/react-query": "^5.90.17",
+    "@tanstack/react-query": "^5.90.19",
     "@tanstack/react-query-devtools": "^5.91.2",
     "@turf/bbox-polygon": "^7.3.1",
     "@turf/boolean-contains": "^7.3.1",
