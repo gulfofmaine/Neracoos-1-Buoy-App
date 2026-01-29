@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test"
 
 /*global cy*/
 
-const platformUrl = "/platform/44007"
+const platformUrl = "/platform/A01"
 
 test.describe("Units", () => {
   test("Switching units updates units displayed", async ({ page }) => {
