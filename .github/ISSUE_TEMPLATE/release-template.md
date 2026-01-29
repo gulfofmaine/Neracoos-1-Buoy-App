@@ -7,14 +7,15 @@ assignees: ""
 ---
 
 - [ ] Decide on version (major, minor, patch)
-- [ ] Work on `main`
+- [ ] Work on a new branch `release-<version>`
 - [ ] Bump version in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/main/package.json
 - [ ] Build and test locally
-  - [ ] For Jest: run `make test`
+  - [ ] For Vitest: run `make test`
   - [ ] For Playwright: run `make serve` and keep running, in another tab/window run `yarn run test:e2e:ui`
 - [ ] Update Changelog https://github.com/gulfofmaine/Neracoos-1-Buoy-App/blob/main/CHANGELOG.md ([compare to previous release (update this url once loaded)](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v0.1.1/...main)
-- [ ] Create commit with name in the format of `v{major}.{minor}.{patch}`. If commit checks prevent you from commiting to main append `SKIP=no-commit-to-branch` to the beginning of your commit command (e.g. `SKIP=no-commit-to-branch git commit -m "v1.0.0"`)
-- [ ] Push commit
+- [ ] Create PR
+- [ ] Make sure that PR workflows complete successfully
+- [ ] Merge PR
 - [ ] Observe [Actions Workflow](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/actions) (_Deploy with Argo CD to Staging_ should run)
 - [ ] Check [staging site](https://mariners-dev.aws.neracoos.org/) to make sure update progressed as planned
 - [ ] Draft [new release](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/releases). Create a new tag with your version `v{major}.{minor}.{patch}`. Update release notes with what was added to the Changelog. Make sure target is set to `main`.

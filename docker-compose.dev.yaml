@@ -13,3 +13,15 @@ services:
       - /app/node_modules/
       - /app/.next/
       - /app/build/
+
+    environment:
+      NEXT_PUBLIC_ERDDAP_SERVICE: https://buoybarn.neracoos.org
+      SENTRY_SPOTLIGHT: http://spotlight:8969/stream
+      NEXT_PUBLIC_SENTRY_SPOTLIGHT: http://spotlight:8969/stream
+      NEXT_PUBLIC_SENTRY_DSN: http://spotlight@spotlight:8969/0
+      SENTRY_DSN: http://spotlight@spotlight:8969/0
+
+  spotlight:
+    image: ghcr.io/getsentry/spotlight:latest
+    ports:
+      - "8969:8969"

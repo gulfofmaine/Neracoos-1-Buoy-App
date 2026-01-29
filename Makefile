@@ -31,35 +31,20 @@ docs: rm-docs
 	docker-compose exec client npm run docs
 	python3 -m http.server -d docs/
 
-cov:
-	docker compose exec client npm run test --coverage
-
 test:
 	docker compose run -e CI=true client npm run test-ci
 
 test-watch:
-	docker compose exec client npm run test
+	npm run test
 
-cov-html:
-	open coverage/lcov-report/index.html
-
+cov:
+	npm run test:coverage
 
 storybook:
 	npm run storybook
 
 build-storybook:
 	docker compose run client npm run build-storybook
-
-spotlight-docker:
-	docker run --rm \
-    --pull always \
-    --name spotlight \
-    --detach \
-    -p 8969:8969/tcp \
-    ghcr.io/getsentry/spotlight:latest
-
-spotlight:
-	npx @spotlightjs/spotlight
 
 lint:
 	docker compose exec client npm run lint
