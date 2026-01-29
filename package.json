@@ -52,7 +52,7 @@
     "test:e2e:codegen": "playwright codegen 127.0.0.1:3000",
     "test:speed": "playwright test speed",
     "docs": "typedoc",
-    "test-with-coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage",
     "test-ci": "vitest run",
     "types": "tsc",
     "storybook": "storybook dev -p 6006",
