@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react"
+import * as React from "react"
 
 import "../src/index.scss"
 
@@ -28,6 +29,8 @@ const preview: Preview = {
   },
 
   tags: ["autodocs"],
+
+  decorators: [(Story) => <Story />],
 }
 
 export default preview
