@@ -26,10 +26,10 @@
     "ol": "^10.7.0",
     "prop-types": "^15.8.1",
     "query-string": "^9.3.1",
-    "react": "19.2.3",
+    "react": "19.2.4",
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "19.2.3",
+    "react-dom": "19.2.4",
     "react-ga4": "^2.1.0",
     "react-jsx-highcharts": "^5.0.3",
     "react-redux": "^9.2.0",
@@ -78,7 +78,7 @@
     "@types/highcharts": "^7.0.0",
     "@types/history": "^5.0.0",
     "@types/node": "25.0.10",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/browser-playwright": "^4.0.18",
@@ -124,9 +124,5 @@
     "rules": {
       "@next/next/no-img-element": "off"
     }
-  },
-  "overrides": {
-    "@types/react": "19.2.7",
-    "@types/react-dom": "19.2.3"
   }
 }
