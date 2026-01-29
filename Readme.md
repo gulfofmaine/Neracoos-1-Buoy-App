@@ -24,20 +24,21 @@ Then it will update the manifest and image spec used by [Argo CD](https://argo-c
 
 Once the Github Actions workflow completes for the tag, Argo CD will pick up the changes and sync the deployment (usually within 3 minutes).
 
-See the [Release Template GitHub Issue](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/new/choose) for more information and instructions
+Similarly for each commit that lands on main, Github Actions will run and publish to the development server.
+
+See the [Release Template GitHub Issue](https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/new/choose) for more information and instructions.
 
 ## Exception Tracking
 
 We're tracking exceptions with [Sentry.io](https://sentry.io/) and have [Spotlight](https://spotlightjs.com/) configured for development.
 
-Spotlight requires a sidecar to run to capture and redirect exceptions to the front end.
-It can be run with `make spotlight`.
+Spotlight will run when `make up` is called, and is accessible from [http://localhost:8969](http://localhost:8969).
 
 Sentry get's it's connection information from the `NEXT_PUBLIC_SENTRY_DSN` environment variable, which is included on build and in production.
 
 ## Documentation
 
-We're using Storybook for documentation.
+We're using Storybook for (some) documentation, and isolated component design.
 
 Run `make storybook` to launch it locally,
 or view [on Github Pages](https://gulfofmaine.github.io/Neracoos-1-Buoy-App/?path=/docs/mariner-s-dashboard--page) after a version tag builds.

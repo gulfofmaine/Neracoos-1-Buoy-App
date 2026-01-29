@@ -3,7 +3,6 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs"
-import * as Spotlight from "@spotlightjs/spotlight"
 
 /**
  * Load our package.json so that we can access the version
@@ -14,12 +13,11 @@ const packageJson = require("../package.json")
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
-  spotlight: process.env.NODE_ENV === "development",
 
   release: `v${packageJson.version}`,
 
   // Adjust this value in production, or use tracesSampler for greater control
-  tracesSampleRate: 0.05,
+  tracesSampleRate: process.env.NODE_ENV === "development" ? 1 : 0.05,
 
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
@@ -28,7 +26,7 @@ Sentry.init({
 
   // This sets the sample rate to be 10%. You may want this to be 100% while
   // in development and sample at a lower rate in production
-  replaysSessionSampleRate: 0.05,
+  replaysSessionSampleRate: process.env.NODE_ENV === "development" ? 1 : 0.05,
 
   // You can remove this option if you're not planning to use the Sentry Session Replay feature:
   integrations: [
@@ -39,9 +37,5 @@ Sentry.init({
     }),
   ],
 })
-
-if (process.env.NODE_ENV === "development") {
-  Spotlight.init({ anchor: "bottomLeft" })
-}
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart
