@@ -122,11 +122,11 @@ jobs:
       - name: Install Playwright
         run: npx playwright install chromium
 
-      - name: Run unit tests and coverage
+      - name: Run unit and Storybook tests and coverage
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN != null
-        run: npm run test-with-coverage
+        run: npm run test:coverage
 
       - name: Codacy Coverage Reporter
         if: env.CODACY_PROJECT_TOKEN != null
@@ -135,7 +135,7 @@ jobs:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: ./coverage/lcov.info
 
-      - name: Run unit test (and skip coverage if no project token secret)
+      - name: Run unit and Storybook test (and skip coverage if no project token secret)
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
