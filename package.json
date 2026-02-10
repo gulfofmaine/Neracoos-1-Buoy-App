@@ -19,7 +19,7 @@
     "bootstrap": "^5.3.8",
     "convert-units": "2.3.4",
     "error": "10.4.0",
-    "highcharts": "^11.4.8",
+    "highcharts": "^12.5.0",
     "jsurl2": "^2.2.0",
     "next": "16.1.6",
     "ol": "^10.7.0",
