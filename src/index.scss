@@ -1,22 +1,23 @@
 @import "../node_modules/bootstrap/scss/functions";
 
-$old-neracoos-blue: #114a6e;
+// DIG PRESCRIBED COLORS
+$blue: rgba(8, 61, 82, 1);                      // #083d52
+$black: rgba(33, 37, 41, 1);                    // #212529
+$black-65: rgba(33, 37, 41, 0.65);
+$black-20: rgba(33, 37, 41, 0.20);
+$black-5: rgba(33, 37, 41, 0.05);
+$white: rgba(255, 255, 255, 1);                 // #FFFFFF
+$white-55: rgba(255, 255, 255, 0.55);
+$orange: rgba(255, 174, 109, 1);                // #FFAE6D
+$orange-15: rgba(255, 174, 109, 0.15);
+$green: rgba(42, 183, 143, 1);                  // #2AB78F
+$seaweed: rgba(23, 133, 150, 1);                // #178596
+$seaweed-10: rgba(23, 133, 150, 0.10);
+$yellow: rgba(255, 205, 34, 1);                 // #FFCD22
+$yellow-10: rgba(255, 205, 34, 0.10);
+$bootstrap-red: rgba(220, 53, 69, 1);           // #DC3545
+$bootstrap-red-10: rgba(220, 53, 69, 0.10);
 
-$neracoos-blue: #083d52;
-$metallic-seaweed: #178596;
-$coastal-meadow: #2ab78f;
-$buoy-yellow: #ffcb22;
-$what-orange: #ffae6d;
-$color: #72e400;
-
-$primary: $neracoos-blue;
-// $primary: $old-neracoos-blue;
-
-$secondary: $metallic-seaweed;
-$success: $coastal-meadow;
-$warning: $buoy-yellow;
-$danger: $what-orange;
-$info: $metallic-seaweed;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/variables";
@@ -35,17 +36,17 @@ body {
   font-family: sans-serif;
 }
 
-.App .alert-primary {
-  color: $primary;
+.App .alert-blue {
+  color: $blue;
 }
 
 .App .navbar-brand .nav-link,
 .App .nav-tabs .nav-item {
-  color: $primary;
+  color: $blue;
 }
 
 nav.navbar {
-  background-color: $primary;
+  background-color: $blue;
   margin-bottom: 1rem;
 
   .dropdown-menu {
@@ -63,7 +64,7 @@ nav.navbar {
     }
 
     &.dropdown-item {
-      color: $primary;
+      color: $blue;
     }
 
     &.dropdown-toggle.show {
@@ -77,20 +78,20 @@ nav.navbar {
 }
 
 .condition-tooltip > div > div {
-  background-color: $primary;
+  background-color: $blue;
 }
 
 .condition-tooltip > div.tooltip > span.arrow::before {
-  border-top-color: $primary;
-  border-bottom-color: $primary;
+  border-top-color: $blue;
+  border-bottom-color: $blue;
 }
 
-.btn-primary {
-  @include button-variant($primary, $primary, $active-background: $primary);
+.btn-blue {
+  @include button-variant($blue, $blue, $active-background: $blue);
 }
 
 .tooltip-inner a {
-  color: $coastal-meadow;
+  color: $green;
 }
 
 .map .ol-zoom {
