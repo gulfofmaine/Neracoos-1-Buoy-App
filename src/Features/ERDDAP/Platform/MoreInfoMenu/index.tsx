@@ -2,12 +2,14 @@
  * Show more info about a platform
  */
 import Icon from "Shared/icons/iconComponent"
+import { Icons } from "Shared/icons/iconsMap"
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
+// import { faIcons } from "@fortawesome/free-solid-svg-icons"
 
 const initialState = {
   dropdownOpen: false,
@@ -34,7 +36,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           key={`dynamic-link-#${index}`}
         >
           {link.title}
-          <Icon iconName="externalLinkAltIcon" className="fa-xs ms-2" />
+          <Icon iconName={Icons.externalLinkAlt} className="fa-xs ms-2" />
         </a>
       ))
       setDynamicLinks(links)
@@ -59,7 +61,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Marine Forecast
-          <Icon iconName="externalLinkAltIcon" className="fa-xs ms-2" />
+          <Icon iconName={Icons.externalLinkAlt} className="fa-xs ms-2" />
         </a>
         <a
           className="dropdown-item nav-item"
@@ -70,7 +72,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Tides
-          <Icon iconName="externalLinkAltIcon" className="fa-xs ms-2" />
+          <Icon iconName={Icons.externalLinkAlt} className="fa-xs ms-2" />
         </a>
       </Dropdown.Menu>
     </Dropdown>

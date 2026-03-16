@@ -5,7 +5,6 @@
  */
 
 import {
-  IconDefinition,
   faInfoCircle,
   faExternalLinkAlt,
   faExpand,
@@ -23,21 +22,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 // Map the available icons here
-export const faIcons = {
-  infoCircleIcon: faInfoCircle,
-  externalLinkAltIcon: faExternalLinkAlt,
-  expandIcon: faExpand,
-  infoIcon: faCircleInfo,
-  LocationArrowIcon: faLocationArrow,
-  ExpandIcon: faUpRightAndDownLeftFromCenter,
-  CollapseIcon: faDownLeftAndUpRightToCenter,
-  exportIcon: faArrowUpFromBracket,
-  alertIcon: faTriangleExclamation,
-  arrowLeftIcon: faArrowLeft,
-  arrowRightIcon: faArrowRight,
-  arrowUpIcon: faArrowUp,
-  arrowDownIcon: faArrowDown,
-  lineChartIcon: faChartLine,
+export const Icons = {
+  infoCircle: faInfoCircle,
+  externalLinkAlt: faExternalLinkAlt,
+  expand: faExpand,
+  info: faCircleInfo,
+  LocationArrow: faLocationArrow,
+  Expand: faUpRightAndDownLeftFromCenter,
+  Collapse: faDownLeftAndUpRightToCenter,
+  export: faArrowUpFromBracket,
+  alert: faTriangleExclamation,
+  arrowLeft: faArrowLeft,
+  arrowRight: faArrowRight,
+  arrowUp: faArrowUp,
+  arrowDown: faArrowDown,
+  lineChart: faChartLine,
 } as const // read only
-
-export type iconName = keyof typeof faIcons
