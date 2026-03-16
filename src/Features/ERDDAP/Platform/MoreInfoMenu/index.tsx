@@ -1,8 +1,7 @@
 /**
  * Show more info about a platform
  */
-import Icon from "Shared/icons/iconComponent"
-import { Icons } from "Shared/icons/iconsMap"
+import { ExternalLinkAltIcon } from "Shared/icons/iconsMap"
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
@@ -36,7 +35,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           key={`dynamic-link-#${index}`}
         >
           {link.title}
-          <Icon iconName={Icons.externalLinkAlt} className="fa-xs ms-2" />
+          <ExternalLinkAltIcon />
         </a>
       ))
       setDynamicLinks(links)
@@ -61,7 +60,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Marine Forecast
-          <Icon iconName={Icons.externalLinkAlt} className="fa-xs ms-2" />
+          <ExternalLinkAltIcon className="fa-xs ms-2"/>
         </a>
         <a
           className="dropdown-item nav-item"
@@ -72,7 +71,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Tides
-          <Icon iconName={Icons.externalLinkAlt} className="fa-xs ms-2" />
+          <ExternalLinkAltIcon className="fa-xs ms-2"/>
         </a>
       </Dropdown.Menu>
     </Dropdown>

@@ -5,13 +5,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core"
 
-type Props = {
-  iconName: IconDefinition
+type IconProps = {
   className?: string
 }
 
-function Icon({ iconName, className, ...props }: Props) {
-  return <FontAwesomeIcon icon={iconName} className={className} {...props} />
+function mkIcon(faIcon: IconDefinition) {
+  function Icon({ className, ...props }: IconProps) {
+    return <FontAwesomeIcon icon={faIcon} className={className} {...props} />
+  }
+  return Icon
 }
 
-export default Icon
+export default mkIcon
