@@ -11,8 +11,7 @@ type Props = {
 }
 
 function Icon({ iconName, className, ...props }: Props) {
-  const icon: faIcon[string] = faIcons[iconName]
-  return <FontAwesomeIcon icon={icon} className={className} {...props} />
+  return <FontAwesomeIcon icon={faIcons[iconName]} className={className} {...props} />
 }
 
 export default Icon
