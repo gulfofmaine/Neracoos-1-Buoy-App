@@ -1,5 +1,4 @@
 "use client"
-import React from "react"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
@@ -28,11 +27,11 @@ export default function WaterLevelIndexPage() {
 
   return (
     <>
-      <Row>
-        <Col sm={{ order: "2" }} md={{ order: "1", span: "6" }}>
+      <Row className="mx-5 mx-md-10 mt-2 mt-md-5">
+        <Col xs={12} md={6} className="ps-0 pe-0 pe-md-5">
           {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
         </Col>
-        <Col sm={{ order: "1" }} md={{ order: "2", span: "6" }}>
+        <Col xs={12} md={6} className="ps-0 pe-0 ps-md-5 mt-5 mt-md-0">
           {regionCards}
         </Col>
       </Row>

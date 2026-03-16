@@ -7,20 +7,22 @@ import { Footer } from "../src/components/Footer"
 import Providers from "./providers"
 
 import "../src/index.scss"
+import { Container } from "react-bootstrap"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ margin: 0, overflow: "none" }}>
+    <html lang="en">
       <body>
-        <div className="App" style={{ position: "relative", minHeight: "100vh" }}>
-          <Providers>
+        <Providers>
+          {/* Flex & fluid for responsiveness */}
+          <div className="d-flex flex-column min-vh-100">
             <NavBar />
-            <div className="container-fluid" style={{ paddingBottom: "110px" }}>
+            <Container fluid className="flex-fill p-0">
               {children}
-            </div>
-            <Footer />
-          </Providers>
-        </div>
+            </Container>
+          </div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

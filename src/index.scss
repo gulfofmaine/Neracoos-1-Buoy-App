@@ -36,6 +36,21 @@ $theme-colors: (
   "danger": $danger,
 );
 
+$grid-gutter-width: 1.25rem;
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.50rem,
+  3: 0.75rem,
+  4: 1.00rem,
+  5: 1.25rem,     // 20px
+  6: 1.50rem,
+  7: 1.75rem,
+  8: 2.00rem,
+  9: 2.25rem,
+  10: 2.50rem     // 40px
+);
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/variables";
 // @import "~bootstrap/scss/mixins";
@@ -57,11 +72,10 @@ $theme-colors: (
 }
 // ======= PLATFORM MAP END ======= 
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.superlative-header, footer {
+  background-color: rgba($secondary, 0.05);
 }
+
 
 .App .alert-primary {
   color: $primary;
@@ -74,7 +88,6 @@ body {
 
 nav.navbar {
   background-color: $primary;
-  margin-bottom: 1rem;
 
   .dropdown-menu {
     background-color: white;
