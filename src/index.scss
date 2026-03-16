@@ -52,7 +52,7 @@ $theme-colors: map-merge($theme-colors, $dig-colors);
 @import "~bootstrap/scss/containers";
 @import "~bootstrap/scss/grid";
 
-// ========== TYPOGRAPHY START ========== 
+// ========== TYPOGRAPHY START ==========
 
 h1 {
   font-weight: 700;
@@ -64,7 +64,8 @@ h1 {
   }
 }
 
-h2, h3 {
+h2,
+h3 {
   line-height: 1.875rem;
 }
 
@@ -93,6 +94,7 @@ strong {
 }
 
 a {
+  color: $primary;
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -105,14 +107,6 @@ a {
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-a {
-  color: $primary;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  text-decoration: underline;
 }
 // ========== TYPOGRAPHY END ==========
 
