@@ -209,9 +209,7 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({ pl
       <p className="m-0">
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
       </p>
-      <Link href={url}>
-        {platformName(platform)}
-      </Link>
+      <Link href={url}>{platformName(platform)}</Link>
     </React.Fragment>
   )
 }
