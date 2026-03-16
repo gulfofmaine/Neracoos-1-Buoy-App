@@ -60,7 +60,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Marine Forecast
-          <ExternalLinkAltIcon className="fa-xs ms-2"/>
+          <ExternalLinkAltIcon className="fa-xs ms-2" />
         </a>
         <a
           className="dropdown-item nav-item"
@@ -71,7 +71,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Tides
-          <ExternalLinkAltIcon className="fa-xs ms-2"/>
+          <ExternalLinkAltIcon className="fa-xs ms-2" />
         </a>
       </Dropdown.Menu>
     </Dropdown>
