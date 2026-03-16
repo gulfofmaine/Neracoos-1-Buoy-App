@@ -1,8 +1,6 @@
 /**
  * Show more info about a platform
  */
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Icon from "Shared/icons/iconComponent"
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
