@@ -40,15 +40,16 @@ $grid-gutter-width: 1.25rem;
 $spacers: (
   0: 0,
   1: 0.25rem,
-  2: 0.50rem,
+  2: 0.5rem,
   3: 0.75rem,
-  4: 1.00rem,
-  5: 1.25rem,     // 20px
-  6: 1.50rem,
+  4: 1rem,
+  5: 1.25rem,
+  // 20px
+  6: 1.5rem,
   7: 1.75rem,
-  8: 2.00rem,
+  8: 2rem,
   9: 2.25rem,
-  10: 2.50rem     // 40px
+  10: 2.5rem // 40px,
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
@@ -62,20 +63,20 @@ $spacers: (
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
-// ======= PLATFORM MAP START ======= 
+// ======= PLATFORM MAP START =======
 .platform-map {
-    min-height: 40vh;
+  min-height: 40vh;
 
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(md) {
     min-height: 590px;
-  }  
+  }
 }
-// ======= PLATFORM MAP END ======= 
+// ======= PLATFORM MAP END =======
 
-.superlative-header, footer {
+.superlative-header,
+footer {
   background-color: rgba($secondary, 0.05);
 }
-
 
 .App .alert-primary {
   color: $primary;

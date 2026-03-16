@@ -16,7 +16,10 @@ export const Footer: React.FunctionComponent = () => (
     <Row>
       <Col md={colSize} className="mx-auto text-center">
         Use{" "}
-        <a className="caption" href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link">
+        <a
+          className="caption"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
+        >
           this form
         </a>{" "}
         to send us feedback or bug reports
@@ -25,8 +28,14 @@ export const Footer: React.FunctionComponent = () => (
 
     <Row>
       <Col md={colSize} className="mx-auto text-center">
-        Product of <a  className="caption" href="http://www.neracoos.org/">NERACOOS.org</a> - Developed and maintained by the{" "}
-        <a className="caption"  href="https://gmri.org/commitments/science/ocean-data-products/">Gulf of Maine Research Institute</a>
+        Product of{" "}
+        <a className="caption" href="http://www.neracoos.org/">
+          NERACOOS.org
+        </a>{" "}
+        - Developed and maintained by the{" "}
+        <a className="caption" href="https://gmri.org/commitments/science/ocean-data-products/">
+          Gulf of Maine Research Institute
+        </a>
       </Col>
     </Row>
   </footer>
