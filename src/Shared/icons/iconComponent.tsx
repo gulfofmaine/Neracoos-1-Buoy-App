@@ -3,7 +3,7 @@
  */
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faIcons, faIcon, iconName } from "./iconsMap"
+import { faIcons, iconName } from "./iconsMap"
 
 type Props = {
   iconName: iconName
@@ -11,6 +11,8 @@ type Props = {
 }
 
 function Icon({ iconName, className, ...props }: Props) {
+  if (!faIcons[iconName]) throw new Error(`Invalid icon name: ${iconName}`)
+
   return <FontAwesomeIcon icon={faIcons[iconName]} className={className} {...props} />
 }
 

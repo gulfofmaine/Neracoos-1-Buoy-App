@@ -40,8 +40,4 @@ export const faIcons = {
   lineChartIcon: faChartLine,
 } as const // read only
 
-// Types for the abstracted component wrapper
-export type faIcon = {
-  [key: string]: IconDefinition
-}
 export type iconName = keyof typeof faIcons
