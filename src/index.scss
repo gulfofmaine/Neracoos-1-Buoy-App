@@ -47,6 +47,16 @@ $theme-colors: (
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
+// ======= PLATFORM MAP START ======= 
+.platform-map {
+    min-height: 40vh;
+
+  @include media-breakpoint-up(md){
+    min-height: 590px;
+  }  
+}
+// ======= PLATFORM MAP END ======= 
+
 body {
   margin: 0;
   padding: 0;
