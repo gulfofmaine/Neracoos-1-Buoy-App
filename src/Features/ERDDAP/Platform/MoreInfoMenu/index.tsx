@@ -1,14 +1,16 @@
 /**
  * Show more info about a platform
  */
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
 
-import { ExternalLinkAltIcon } from "Shared/icons/iconsMap"
-
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
+
 const initialState = {
   dropdownOpen: false,
 }
@@ -34,7 +36,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           key={`dynamic-link-#${index}`}
         >
           {link.title}
-          <ExternalLinkAltIcon />
+          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
       ))
       setDynamicLinks(links)
@@ -59,7 +61,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Marine Forecast
-          <ExternalLinkAltIcon className="fa-xs ms-2" />
+          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
         <a
           className="dropdown-item nav-item"
@@ -70,7 +72,7 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
           role="menuitem"
         >
           Tides
-          <ExternalLinkAltIcon className="fa-xs ms-2" />
+          <FontAwesomeIcon icon={faExternalLinkAlt} style={{ width: "12px", marginLeft: ".5rem" }} />
         </a>
       </Dropdown.Menu>
     </Dropdown>
