@@ -23,15 +23,13 @@ test.describe("Home page", function () {
     await page.goto("/")
     await expect(
       page
-        .locator(".footer")
-        .getByText(/Copyright/)
+        .getByText("Copyright © 2026 - NERACOOS")
         .first()
         .getByText(/NERACOOS/)
         .first(),
     ).toBeVisible()
     await expect(
       page
-        .locator(".footer")
         .getByText(/Product of NERACOOS\.org - Developed and maintained by the Gulf of Maine Research Institute/)
         .first(),
     ).toBeVisible()
