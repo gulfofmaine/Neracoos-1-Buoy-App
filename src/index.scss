@@ -68,6 +68,7 @@ $spacers: (
 
   @include media-breakpoint-up(md) {
     min-height: 590px;
+    max-height: 80vh;
   }
 }
 // ======= PLATFORM MAP END =======
