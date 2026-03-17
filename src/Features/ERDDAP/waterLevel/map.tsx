@@ -53,7 +53,6 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    // <div style={{ position: "relative" }}>
     <RMap
       ref={mapRef}
       className="water-level-map w-100 h-100"
@@ -75,7 +74,6 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
         <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
       )}
     </RMap>
-    // </div>
   )
 }
 

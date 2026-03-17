@@ -62,13 +62,11 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
             <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
           )}
           {breakpoint !== "S" && waterLevelPlatforms && (
-            <div className="w-100 h-100">
-              <ErddapWaterLevelMapBase
-                platforms={waterLevelPlatforms}
-                platformId={id}
-                mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
-              />
-            </div>
+            <ErddapWaterLevelMapBase
+              platforms={waterLevelPlatforms}
+              platformId={id}
+              mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
+            />
           )}
         </Col>
 
