@@ -23,7 +23,7 @@ test("Home speed", async ({ page, performance }) => {
   performance.sampleEnd("Home-startup")
   await expect(await page.getByText("Welcome to the NERACOOS Mariners").first()).toBeVisible()
   performance.sampleEnd("Home-Content")
-  await expect(await page.getByRole('heading', { name: 'Top Wind & Waves - All Regions' }).first()).toBeVisible()
+  await expect(await page.getByRole("heading", { name: "Top Wind & Waves - All Regions" }).first()).toBeVisible()
   performance.sampleEnd("Home-Platforms")
 })
 
