@@ -17,7 +17,7 @@ interface Props extends BaseProps {
   mapView?: View
 }
 
-export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId, height, mapView }: Props) => {
+export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId, mapView }: Props) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(mapView ?? initial)
@@ -50,17 +50,11 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
     }
   }
 
-  // Make sure the height of the map gets updated when jumping
-  // from home to platform view
-  useLayoutEffect(() => {
-    mapRef?.current?.ol.updateSize()
-  }, [height])
-
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <div style={{ position: "relative" }}>
-      <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
+    // <div style={{ position: "relative" }}>
+      <RMap ref={mapRef} className="water-level-map w-100 h-100" initial={initial} view={[view || initial, setView]} height="100%">
         <WLLegend />
         <EsriOceanBasemapLayer />
         <EsriOceanReferenceLayer />
@@ -75,7 +69,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
           <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
         )}
       </RMap>
-    </div>
+    // </div>
   )
 }
 
@@ -83,7 +77,7 @@ export const ErddapWaterLevelMap = () => {
   const { data } = usePlatforms()
 
   if (data?.features) {
-    return <ErddapWaterLevelMapBase platforms={data.features} height={"60vh"} />
+    return <ErddapWaterLevelMapBase platforms={data.features} />
   }
   return null
 }

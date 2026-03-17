@@ -57,17 +57,18 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
       </SecondaryBanner>
 
       <Row className="mx-5 mx-md-10">
-        <Col xs={12} md={4} className="ps-0 pe-0 pe-md-5">
+        <Col xs={12} md={4} className="d-flex flex-column ps-0 pe-0 pe-md-5">
           {platform && waterLevelPlatforms && (
             <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
           )}
           {breakpoint !== "S" && waterLevelPlatforms && (
-            <ErddapWaterLevelMapBase
-              platforms={waterLevelPlatforms}
-              platformId={id}
-              height={"40vh"}
-              mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
-            />
+            <div className="w-100 h-100">
+              <ErddapWaterLevelMapBase
+                platforms={waterLevelPlatforms}
+                platformId={id}
+                mapView={{ center: fromLonLat([-69.7, 43]), zoom: 6 }}
+              />
+            </div>
           )}
         </Col>
 
@@ -77,7 +78,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
 
         {breakpoint === "S" && waterLevelPlatforms && (
           <Col xs={12} md={6} className="px-0 py-5">
-            <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} platformId={id} height={"30vh"} />
+            <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} platformId={id} />
           </Col>
         )}
       </Row>

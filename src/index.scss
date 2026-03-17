@@ -62,7 +62,7 @@ $spacers: (
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
-// ======= PLATFORM MAP START =======
+// ======= PLATFORM/WATER LEVEL MAP START =======
 .platform-map {
   min-height: 40vh;
 
@@ -71,7 +71,16 @@ $spacers: (
     max-height: 80vh;
   }
 }
-// ======= PLATFORM MAP END =======
+
+.water-level-map {
+  min-height:40vh;
+
+  @include media-breakpoint-up(md) {
+    max-height: 80vh;
+  }
+}
+
+// ======= PLATFORM/WATER LEVEL MAP END =======
 
 .superlative-header,
 footer {

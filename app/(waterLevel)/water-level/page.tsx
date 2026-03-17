@@ -29,7 +29,7 @@ export default function WaterLevelIndexPage() {
     <>
       <Row className="mx-5 mx-md-10 mt-2 mt-md-5">
         <Col xs={12} md={6} className="ps-0 pe-0 pe-md-5">
-          {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
+          {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} />}
         </Col>
         <Col xs={12} md={6} className="ps-0 pe-0 ps-md-5 mt-5 mt-md-0">
           {regionCards}
