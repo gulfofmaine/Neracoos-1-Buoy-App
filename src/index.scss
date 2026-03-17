@@ -73,7 +73,7 @@ $spacers: (
 }
 
 .water-level-map {
-  min-height:40vh;
+  min-height: 40vh;
 
   @include media-breakpoint-up(md) {
     max-height: 80vh;
