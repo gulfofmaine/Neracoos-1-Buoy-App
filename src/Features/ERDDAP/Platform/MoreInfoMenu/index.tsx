@@ -3,6 +3,7 @@
  */
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
