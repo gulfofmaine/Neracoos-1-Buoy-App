@@ -1,15 +1,14 @@
 /**
  * Show more info about a platform
  */
-import { ExternalLinkAltIcon } from "Shared/icons/iconsMap"
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
 
-import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
-// import { faIcons } from "@fortawesome/free-solid-svg-icons"
+import { ExternalLinkAltIcon } from "Shared/icons/iconsMap"
 
+import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 const initialState = {
   dropdownOpen: false,
 }
