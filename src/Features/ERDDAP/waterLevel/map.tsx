@@ -53,27 +53,29 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap
-      ref={mapRef}
-      className="water-level-map w-100 h-100"
-      initial={initial}
-      view={[view || initial, setView]}
-      height="100%"
-    >
-      <WLLegend />
-      <EsriOceanBasemapLayer />
-      <EsriOceanReferenceLayer />
+    <div className="h-100 water-level-map">
+      <RMap
+        ref={mapRef}
+        className="water-level-map p-0 m-0"
+        initial={initial}
+        view={[view || initial, setView]}
+        height="100%"
+      >
+        <WLLegend />
+        <EsriOceanBasemapLayer />
+        <EsriOceanReferenceLayer />
 
-      {oldPlatforms.map((p) => {
-        return <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
-      })}
-      {filteredPlatforms.map((p) => (
-        <WLPlatformLayer key={p.id} platform={p} selected={false} old={false} />
-      ))}
-      {!!selectedPlatforms.length && (
-        <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
-      )}
-    </RMap>
+        {oldPlatforms.map((p) => {
+          return <WLPlatformLayer key={p.id} platform={p} selected={false} old={true} />
+        })}
+        {filteredPlatforms.map((p) => (
+          <WLPlatformLayer key={p.id} platform={p} selected={false} old={false} />
+        ))}
+        {!!selectedPlatforms.length && (
+          <WLPlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+        )}
+      </RMap>
+    </div>
   )
 }
 
