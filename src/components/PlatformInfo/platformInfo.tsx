@@ -2,7 +2,7 @@
 import React from "react"
 
 import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"
-import { ErddapPlatformInfoPanel } from "Features/ERDDAP/Platform/Info"
+import { ErddapPlatformInfoPanel, ErddapPlatformInfoLite } from "Features/ERDDAP/Platform/Info"
 import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table"
 import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 
@@ -28,6 +28,28 @@ export const PlatformInfo = ({ id }: { id: string }) => {
             unitSystem={unitSystem}
             laterThan={aDayAgo}
           />
+        </React.Fragment>
+      )}
+    </UsePlatform>
+  )
+}
+
+/**
+ * A lightweight version of the platform info panel and w/ only a max # of obs.
+ */
+export const PlatformInfoLite = ({ id }: { id: string }) => {
+  const unitSystem = useUnitSystem()
+  const aDayAgo = aDayAgoRounded()
+
+  return (
+    <UsePlatform platformId={id}>
+      {({ platform }) => (
+        <React.Fragment>
+          <div>
+            <PlatformAlerts platform={platform} />
+            <ErddapPlatformInfoLite platform={platform} />
+            <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} />
+          </div>
         </React.Fragment>
       )}
     </UsePlatform>
