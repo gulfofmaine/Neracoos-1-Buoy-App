@@ -1,4 +1,6 @@
 @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
 
 // NERACOOS COLORS
 $neracoos-blue: #083d52;
@@ -26,15 +28,16 @@ $warning: $yellow;
 $danger: $bootstrap-red;
 
 // THEME
-$theme-colors: (
-  "orange": $orange,
+$dig-colors: (
   "primary": $primary,
   "secondary": $secondary,
   "info": $info,
   "success": $success,
   "warning": $warning,
   "danger": $danger,
+  "orange": $orange,
 );
+$theme-colors: map-merge($theme-colors, $dig-colors);
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/variables";
@@ -47,6 +50,10 @@ $theme-colors: (
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
+a {
+  color: $primary;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -58,7 +65,8 @@ body {
 }
 
 .App .navbar-brand .nav-link,
-.App .nav-tabs .nav-item {
+.App .nav-tabs .nav-item,
+.nav-tabs .nav-link {
   color: $primary;
 }
 
@@ -75,7 +83,7 @@ nav.navbar {
 
   a.nav-link {
     color: rgba(255, 255, 255, 0.55);
-
+    
     &.active {
       color: white;
     }
