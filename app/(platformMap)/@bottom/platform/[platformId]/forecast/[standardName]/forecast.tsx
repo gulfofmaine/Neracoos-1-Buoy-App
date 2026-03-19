@@ -16,15 +16,14 @@ import { WarningAlert } from "components/Alerts"
 // )
 // }
 
-export function ForecastChart(
-  //   {
+// biome-ignore lint/correctness/noEmptyPattern: forecast currently disabled
+export function ForecastChart({
   //   // platformId,
   //   // standardName,
-  // }: {
-  //   platformId: string
-  //   standardName: string
-  // }
-) {
+}: {
+  platformId: string
+  standardName: string
+}) {
   return (
     <WarningAlert>
       Forecasts are temporarily unavailable. A new and improved version of this feature is in development for early
