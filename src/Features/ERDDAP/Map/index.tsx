@@ -214,6 +214,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
           </RControl.RCustom>
         </div>
       )}
+      <RControl.RFullScreen />
     </RMap>
   )
 }
