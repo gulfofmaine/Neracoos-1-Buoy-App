@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-import { initialState, UnitSystem } from "./types"
+import { initialState, type UnitSystem } from "./types"
 
 const unitSlice = createSlice({
   name: "unit",

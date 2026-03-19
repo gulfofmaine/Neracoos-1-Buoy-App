@@ -1,18 +1,19 @@
 // Updated for Vitest - Storyshots testing for all story files
-import { describe, expect, test, beforeEach, vi } from "vitest"
+
 import type { Meta, StoryFn } from "@storybook/react"
 import { composeStories } from "@storybook/react"
 import { act, render } from "@testing-library/react"
+import { beforeEach, describe, expect, test, vi } from "vitest"
 
+import * as ErrorStories from "../../app/error.stories"
+import * as LoadingAlertStories from "../components/Alerts/loading.stories"
+import * as PlatformLoadingAlertStories from "../components/Alerts/platform_loading.stories"
+import * as WarningAlertStories from "../components/Alerts/warning.stories"
+import * as WindTimeSeriesStories from "../components/Charts/WindTimeSeries.stories"
 // Import individual story files directly for better compatibility with Vitest
 import * as FooterStories from "../components/Footer/index.stories"
 import * as NavBarStories from "../components/NavBar/index.stories"
 import * as InfoStories from "../Features/ERDDAP/Platform/Info/index.stories"
-import * as LoadingAlertStories from "../components/Alerts/loading.stories"
-import * as WarningAlertStories from "../components/Alerts/warning.stories"
-import * as PlatformLoadingAlertStories from "../components/Alerts/platform_loading.stories"
-import * as WindTimeSeriesStories from "../components/Charts/WindTimeSeries.stories"
-import * as ErrorStories from "../../app/error.stories"
 
 type StoryFile = {
   default: Meta

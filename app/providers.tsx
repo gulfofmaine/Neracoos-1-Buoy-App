@@ -1,8 +1,8 @@
 "use client"
-import dynamic from "next/dynamic"
 import { AppProgressProvider as ProgressProvider } from "@bprogress/next"
 import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import dynamic from "next/dynamic"
 
 import { GAListener } from "Shared/google-analytics"
 
@@ -19,7 +19,7 @@ function makeQueryClient() {
   })
 }
 
-let browserQueryClient: QueryClient | undefined = undefined
+let browserQueryClient: QueryClient | undefined
 
 function getQueryClient() {
   if (isServer) {

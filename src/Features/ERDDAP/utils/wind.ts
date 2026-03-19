@@ -1,10 +1,9 @@
 /**
  * Functions to help manage wind time series and datasets
  */
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
-import { PlatformFeature, PlatformTimeSeries } from "../types"
-
+import type { PlatformFeature, PlatformTimeSeries } from "../types"
 import { conditions } from "./conditions"
 
 const windConditions = new Set([...conditions.windDirection, ...conditions.windGust, ...conditions.windSpeed])
@@ -17,7 +16,7 @@ const windConditions = new Set([...conditions.windDirection, ...conditions.windG
  * @param afterDate Optional date to only select time series that are more recent than
  */
 export function pickWindTimeSeries(platform: PlatformFeature, afterDate?: Date) {
-  let windTimeSeries = platform.properties.readings.filter((timeSeries) =>
+  const windTimeSeries = platform.properties.readings.filter((timeSeries) =>
     windConditions.has(timeSeries.data_type.standard_name),
   )
 

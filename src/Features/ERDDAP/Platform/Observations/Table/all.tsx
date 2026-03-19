@@ -1,12 +1,12 @@
 /**
  * All current conditions table component
  */
-import * as React from "react"
+import type * as React from "react"
 import ListGroup from "react-bootstrap/ListGroup"
 
-import { UnitSystem } from "Features/Units/types"
+import type { UnitSystem } from "Features/Units/types"
 
-import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
+import type { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { itemStyle, TableItem } from "./item"
 
 interface Props extends UsePlatformRenderProps {
@@ -36,7 +36,7 @@ export const ErddapAllObservationsTable: React.FunctionComponent<Props> = ({ pla
       {datasets.map((dataset, index) => {
         let name = dataset.data_type.long_name
         if (dataset.depth) {
-          name = name + " @ " + dataset.depth + "m"
+          name = `${name} @ ${dataset.depth}m`
         }
         return <TableItem key={index} platform={platform} timeSeries={dataset} unitSystem={unitSystem} />
       })}

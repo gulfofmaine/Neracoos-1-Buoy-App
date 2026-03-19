@@ -1,9 +1,9 @@
 import * as Sentry from "@sentry/react"
-import { useQuery, useQueries } from "@tanstack/react-query"
+import { useQueries, useQuery } from "@tanstack/react-query"
 
-import { ForecastJson, ForecastSource, PlatformFeatureCollection, PlatformFeature } from "../types"
-import { defaultQueryConfig } from "./hookConfig"
+import type { ForecastJson, ForecastSource, PlatformFeature, PlatformFeatureCollection } from "../types"
 import { erddapService, getPlatforms as getPlatformsBase, usePlatformsQueryKey } from "./buoyBarnQueries"
+import { defaultQueryConfig } from "./hookConfig"
 
 /**
  * Load platforms from Buoy Barn
@@ -34,7 +34,7 @@ export function usePlatforms() {
  * Load available forecasts from Buoy Barn
  */
 const getForecasts = async () => {
-  const url = erddapService + "/api/forecasts/"
+  const url = `${erddapService}/api/forecasts/`
 
   Sentry.addBreadcrumb({
     category: "Buoy Barn",
@@ -54,14 +54,18 @@ const getForecasts = async () => {
  * Load forecasts
  */
 export function useForecastMeta() {
-  return useQuery({ queryKey: ["buoybarn-forecasts"], queryFn: getForecasts, ...defaultQueryConfig })
+  return useQuery({
+    queryKey: ["buoybarn-forecasts"],
+    queryFn: getForecasts,
+    ...defaultQueryConfig,
+  })
 }
 
 /**
  * Load forecast for a given lat, lon
  */
 const getForecast = async (forecast: ForecastSource, lat: number, lon: number) => {
-  const url = erddapService + forecast.point_forecast + `?lat=${lat}&lon=${lon}`
+  const url = `${erddapService + forecast.point_forecast}?lat=${lat}&lon=${lon}`
 
   Sentry.addBreadcrumb({
     category: "Buoy Barn",
@@ -91,7 +95,7 @@ export function useForecast(lat: number, lon: number, forecast?: ForecastSource)
   return useQuery({
     queryKey: ["buoybarn-forecast", { forecast, lat, lon }],
     queryFn: () => getForecast(forecast!, lat, lon),
-    enabled: forecast?.source_url ? true : false,
+    enabled: !!forecast?.source_url,
     ...defaultQueryConfig,
   })
 }

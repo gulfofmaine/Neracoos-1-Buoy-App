@@ -1,7 +1,7 @@
-import { test, expect } from "@playwright/test"
+import { expect, test } from "@playwright/test"
 
-test.describe("Home page", function () {
-  test("Loads Drupal content", async function ({ page }) {
+test.describe("Home page", () => {
+  test("Loads Drupal content", async ({ page }) => {
     await page.goto("/")
     await expect(
       page

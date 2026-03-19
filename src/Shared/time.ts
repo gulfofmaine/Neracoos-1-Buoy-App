@@ -74,7 +74,7 @@ export function getToday() {
  * @returns ISO date string without trailing milliseconds.
  */
 export function shortIso(date: Date): string {
-  return date.toISOString().split(".")[0] + "Z"
+  return `${date.toISOString().split(".")[0]}Z`
 }
 
 /**
@@ -84,8 +84,8 @@ export function shortIso(date: Date): string {
  * @returns ISO date in format: Weekday Month DD YYYY hh:mm:ss GMT
  */
 export function displayShortIso(date: Date): string {
-  const newDate = date.toISOString().split(".")[0].split("T").join(" ") + " GMT"
-  return new Date(newDate).toString().split("GMT")[0] + " EST"
+  const newDate = `${date.toISOString().split(".")[0].split("T").join(" ")} GMT`
+  return `${new Date(newDate).toString().split("GMT")[0]} EST`
 }
 
 /**

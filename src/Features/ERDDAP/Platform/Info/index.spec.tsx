@@ -1,8 +1,7 @@
-import { describe, it, expect } from "vitest"
-import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
-import { PlatformFeatureWithDatasets } from "../../types"
+import type { PlatformFeatureWithDatasets } from "../../types"
 import { ErddapPlatformInfoPanel } from "./index"
 
 describe("ErddapPlatformInfoPanel", () => {
@@ -31,7 +30,7 @@ describe("ErddapPlatformInfoPanel", () => {
 
     render(<ErddapPlatformInfoPanel platform={platform} />)
 
-    expect(screen.getByRole("header")).toHaveTextContent(platform.id)
+    expect(screen.getByRole("heading")).toHaveTextContent(platform.id)
     expect(screen.getByRole("complementary")).toHaveTextContent(platform.properties.mooring_site_desc)
     expect(screen.getByRole("complementary")).toHaveTextContent(platform.geometry.coordinates[0].toString())
     expect(screen.getByRole("complementary")).toHaveTextContent(platform.geometry.coordinates[1].toString())

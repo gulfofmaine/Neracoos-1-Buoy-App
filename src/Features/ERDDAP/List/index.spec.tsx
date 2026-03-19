@@ -1,11 +1,10 @@
-import { describe, it, expect } from "vitest"
-import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
-import { BoundingBox } from "Shared/regions"
+import type { BoundingBox } from "Shared/regions"
 
-import { PlatformFeatureWithDatasets } from "../types"
-import { ErddapPlatformListBase, Props, ReduxProps } from "./index"
+import type { PlatformFeatureWithDatasets } from "../types"
+import { ErddapPlatformListBase, type Props, type ReduxProps } from "./index"
 
 function setup(platforms: PlatformFeatureWithDatasets[], boundingBox?: BoundingBox) {
   const props: Props & ReduxProps = {

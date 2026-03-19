@@ -4,7 +4,7 @@
 
 import type { Feature } from "geojson"
 
-import { ReadingTimeSeries } from "Shared/timeSeries"
+import type { ReadingTimeSeries } from "Shared/timeSeries"
 
 export interface PlatformFeatureCollection {
   features: PlatformFeature[]

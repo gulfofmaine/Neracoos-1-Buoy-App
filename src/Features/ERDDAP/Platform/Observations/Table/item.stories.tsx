@@ -1,9 +1,8 @@
-import * as React from "react"
+import { platform } from "stories/platform"
 
-import { TableItem } from "./item"
 import { UnitSystem } from "Features/Units/types"
 
-import { platform } from "stories/platform"
+import { TableItem } from "./item"
 
 export default {
   component: TableItem,

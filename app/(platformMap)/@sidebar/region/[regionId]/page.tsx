@@ -1,17 +1,17 @@
 import { use } from "react"
-import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 
+import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 import { regionList } from "Shared/constants"
-import { Region } from "Shared/regions"
+import type { Region } from "Shared/regions"
+import { useDecodedUrl } from "util/hooks"
 
 import { RegionList } from "./region"
-import { useDecodedUrl } from "util/hooks"
 
 export default function RegionSidebar(props: { params: Promise<{ regionId: string }> }) {
   const params = use(props.params)
   const regionId = useDecodedUrl(params.regionId)
 
-  let region: Region | undefined = regionList.find((r) => r.slug === regionId)
+  const region: Region | undefined = regionList.find((r) => r.slug === regionId)
 
   if (typeof region === "undefined") {
     return null

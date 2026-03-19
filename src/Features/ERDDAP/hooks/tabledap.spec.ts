@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest"
-import { PlatformTimeSeries } from "../types"
+import { describe, expect, it } from "vitest"
+
+import type { PlatformTimeSeries } from "../types"
 import { urlBuilder } from "./tabledap"
 
 const timeseries: PlatformTimeSeries = {

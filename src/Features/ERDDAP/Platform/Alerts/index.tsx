@@ -4,7 +4,7 @@
 import * as React from "react"
 import Alert from "react-bootstrap/Alert"
 
-import { PlatformFeature } from "../../types"
+import type { PlatformFeature } from "../../types"
 
 interface Props {
   platform: PlatformFeature

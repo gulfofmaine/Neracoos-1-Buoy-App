@@ -10,8 +10,8 @@ export const wave_datasets = platform.properties.readings.filter((reading) =>
   standard_name.has(reading.data_type.standard_name),
 )
 
-export let data = wave_datasets.map((dataset) => ({
-  name: dataset.data_type.long_name + " observed",
+export const data = wave_datasets.map((dataset) => ({
+  name: `${dataset.data_type.long_name} observed`,
   timeSeries: dataset.readings,
   unit: dataset.data_type.units,
 }))

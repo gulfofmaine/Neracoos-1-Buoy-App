@@ -1,5 +1,6 @@
+import type { UnitSystem } from "Features/Units/types"
+
 import { DataTypeConversion } from "../conversions"
-import { UnitSystem } from "Features/Units/types"
 
 /**
  * Class designed to pass through any values without converting
@@ -22,7 +23,7 @@ export class Passthrough extends DataTypeConversion {
     super(data_type, display_name, unit, unit, unit, unit_display_name, unit_display_name)
   }
 
-  public convertTo(value: number | string, unitSystem: UnitSystem): number | string {
+  public convertTo(value: number | string, _unitSystem: UnitSystem): number | string {
     return value
   }
 }

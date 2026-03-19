@@ -2,7 +2,7 @@
  * Types that the Platform pages use to match URL parameters.
  */
 
-import { PlatformFeature } from "Features/ERDDAP/types"
+import type { PlatformFeature } from "Features/ERDDAP/types"
 
 export interface PlatformMatchParams {
   /**

@@ -1,13 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react"
+import ListGroup from "react-bootstrap/ListGroup"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Popover from "react-bootstrap/Popover"
-import ListGroup from "react-bootstrap/ListGroup"
 
 import { tabledapProtocolUrl } from "Shared/erddap/tabledap"
 
-import { PlatformTimeSeries } from "../../../types"
+import type { PlatformTimeSeries } from "../../../types"
 
 interface InfoProps {
   timeSeries: PlatformTimeSeries[]

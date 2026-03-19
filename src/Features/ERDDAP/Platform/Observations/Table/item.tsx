@@ -2,21 +2,26 @@
 /**
  * A single row in the current or all conditions tables
  */
-import * as React from "react"
+
+import * as Sentry from "@sentry/react"
 import Link from "next/link"
+import type * as React from "react"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Tooltip from "react-bootstrap/Tooltip"
-import * as Sentry from "@sentry/react"
 
+import { converter } from "Features/Units/Converter"
+import type { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { urlPartReplacer } from "Shared/urlParams"
-import { UnitSystem } from "Features/Units/types"
-import { converter } from "Features/Units/Converter"
 
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import type { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
-export const itemStyle = { padding: ".5rem", paddingLeft: "1rem", color: "black" }
+export const itemStyle = {
+  padding: ".5rem",
+  paddingLeft: "1rem",
+  color: "black",
+}
 
 interface TableItemProps {
   platform: PlatformFeature

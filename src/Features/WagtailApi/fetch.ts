@@ -1,4 +1,4 @@
-import { WagtailContent } from "./constants"
+import type { WagtailContent } from "./constants"
 
 /**
  * Format the URL to load from the content server
@@ -6,7 +6,7 @@ import { WagtailContent } from "./constants"
  * @param pageId Unique ID of page
  */
 export function pageUrl(pageId: string): string {
-  return "https://content.gmri.io/api/pages/" + pageId + "/?format=json"
+  return `https://content.gmri.io/api/pages/${pageId}/?format=json`
 }
 
 /**

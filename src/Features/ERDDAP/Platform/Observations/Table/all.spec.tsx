@@ -1,10 +1,9 @@
-import { describe, it, expect } from "vitest"
-import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
 import { UnitSystem } from "Features/Units/types"
-import { PlatformFeatureWithDatasets } from "../../types"
 
+import type { PlatformFeatureWithDatasets } from "../../types"
 import { ErddapAllObservationsTable } from "./all"
 
 describe("<ErddapAllObservationsTable>", () => {

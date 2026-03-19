@@ -1,10 +1,8 @@
-import * as React from "react"
+import { platform } from "stories/platform"
 
 import { UnitSystem } from "Features/Units/types"
 
 import { ErddapAllObservationsTable } from "./all"
-
-import { platform } from "stories/platform"
 
 export default {
   component: ErddapAllObservationsTable,

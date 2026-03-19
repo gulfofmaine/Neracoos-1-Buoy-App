@@ -1,4 +1,4 @@
-import { PlatformFeature } from "Features/ERDDAP/types"
+import type { PlatformFeature } from "Features/ERDDAP/types"
 
 export const platforms: PlatformFeature[] = [
   {

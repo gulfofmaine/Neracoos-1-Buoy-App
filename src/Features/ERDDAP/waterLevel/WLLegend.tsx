@@ -1,5 +1,6 @@
-import { LegendItem } from "components/Map/legendItem"
 import Dropdown from "react-bootstrap/Dropdown"
+
+import { LegendItem } from "components/Map/legendItem"
 
 export const WLLegend = () => {
   return (
@@ -29,7 +30,12 @@ export const WLLegend = () => {
               <LegendItem color={"grey"} text={"No Data"} observed={false} />
             </div>
             <div
-              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", marginLeft: "5px" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                marginLeft: "5px",
+              }}
             >
               <p style={{ marginBottom: "0", fontSize: "8px" }}>Obs</p>
               <LegendItem color={"#72e400"} text={"No Flooding"} observed={true} />

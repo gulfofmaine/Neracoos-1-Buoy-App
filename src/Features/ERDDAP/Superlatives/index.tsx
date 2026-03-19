@@ -9,17 +9,17 @@ import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
-import { WarningAlert } from "components/Alerts"
 import { useUnitSystem } from "Features/Units"
 import { converter } from "Features/Units/Converter"
-import { UnitSystem } from "Features/Units/types"
+import type { UnitSystem } from "Features/Units/types"
 import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { anHourAgoRounded, hoursBefore } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
+import { WarningAlert } from "components/Alerts"
 
 import { usePlatforms } from "../hooks/buoyBarn"
-import { PlatformFeature, PlatformTimeSeries } from "../types"
+import type { PlatformFeature, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { platformName } from "../utils/platformName"
 
@@ -85,7 +85,10 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         windSpeed,
       )
       if (windPlatform || windTimeSeries) {
-        setWindSuperlative({ platform: windPlatform, timeSeries: windTimeSeries })
+        setWindSuperlative({
+          platform: windPlatform,
+          timeSeries: windTimeSeries,
+        })
         return
       }
     }
@@ -100,7 +103,10 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
         waveHeight,
       )
       if (wavePlatform || waveTimeSeries) {
-        setWaveSuperlative({ platform: wavePlatform, timeSeries: waveTimeSeries })
+        setWaveSuperlative({
+          platform: wavePlatform,
+          timeSeries: waveTimeSeries,
+        })
         return
       }
     }
@@ -156,8 +162,8 @@ function findHighestCondition(
   laterThan: Date | number,
   compareSet: Set<string>,
 ): HighestCondition {
-  let highestPlatform: PlatformFeature | undefined = undefined
-  let highestTimeSeries: PlatformTimeSeries | undefined = undefined
+  let highestPlatform: PlatformFeature | undefined
+  let highestTimeSeries: PlatformTimeSeries | undefined
 
   platforms.forEach((platform) => {
     platform.properties.readings.forEach((reading) => {

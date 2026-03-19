@@ -74,7 +74,7 @@ export function getProgram(slug: string): Program {
     return program
   }
 
-  Sentry.captureMessage("Unknown program: " + slug)
+  Sentry.captureMessage(`Unknown program: ${slug}`)
 
   return {
     full_name: slug,

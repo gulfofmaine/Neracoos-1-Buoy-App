@@ -1,23 +1,24 @@
 /**
  * Wind Observed conditions component
  */
-import React from "react"
+
+import { useSearchParams } from "next/navigation"
+import type React from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
-import { WarningAlert } from "components/Alerts"
-import { WindTimeSeriesChart } from "components/Charts"
-import { useUnitSystem } from "Features/Units"
-import { UnitSystem } from "Features/Units/types"
-import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
-import { DataTimeSeries } from "Shared/timeSeries"
-
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
-import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
-import { useSearchParams } from "next/navigation"
+import { useUnitSystem } from "Features/Units"
+import type { UnitSystem } from "Features/Units/types"
+import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
+import type { DataTimeSeries } from "Shared/timeSeries"
+import { WarningAlert } from "components/Alerts"
+import { WindTimeSeriesChart } from "components/Charts"
+
+import type { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
+import { Info } from "../Condition/Info"
 
 interface Props {
   platform: PlatformFeature
@@ -51,7 +52,16 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
   return (
     <UseDatasets timeSeries={timeSeries} startTime={startDate} endTime={endDate} platformId={platform.id}>
       {({ datasets }) => (
-        <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets, startDate, endDate }} />
+        <ErddapWindObservedConditionDisplay
+          {...{
+            platform,
+            unitSystem,
+            timeSeries,
+            datasets,
+            startDate,
+            endDate,
+          }}
+        />
       )}
     </UseDatasets>
   )

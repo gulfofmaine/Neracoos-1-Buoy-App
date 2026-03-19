@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 
-import { PlatformFeature, PlatformTimeSeries } from "Features/ERDDAP/types"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import type { PlatformFeature, PlatformTimeSeries } from "Features/ERDDAP/types"
 import { TidesTable } from "Features/ERDDAP/waterLevel/TidesTable"
 import { converter } from "Features/Units/Converter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
-import { UnitSystem } from "Features/Units/types"
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { UnitSystem } from "Features/Units/types"
 import { getDatumDisplayName } from "Shared/dataTypes"
 import { displayShortIso } from "Shared/time"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
+import type { Datums, FloodThreshold } from "../../types"
 import { LargeTimeSeriesWaterLevelChart } from "./largeTimeSeriesChart"
-import { Datums, FloodThreshold } from "../../types"
 
 interface ChartTimeSeriesDisplayProps {
   dataset: DataTimeSeries
@@ -40,7 +40,9 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
   datumOffset,
   datum,
 }: ChartTimeSeriesDisplayProps) => {
-  const [floodThresholds, setFloodThresholds] = useState<{ [key: string]: FloodThreshold }>({})
+  const [floodThresholds, setFloodThresholds] = useState<{
+    [key: string]: FloodThreshold
+  }>({})
   const [yMax, setYMax] = useState<number>(0)
   const [yMin, setYMin] = useState<number>(0)
 
@@ -107,11 +109,18 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
 
   return (
     <div>
-      <div style={{ display: "flex", width: "100%", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <h4 style={{ width: "100%", textAlign: "center" }}>{`${title} for Station: ${sensorId}`}</h4>
-        <p style={{ textAlign: "center", marginBottom: 0 }}>{`${displayShortIso(startTime)} - ${displayShortIso(
-          endTime,
-        )}`}</p>
+        <p
+          style={{ textAlign: "center", marginBottom: 0 }}
+        >{`${displayShortIso(startTime)} - ${displayShortIso(endTime)}`}</p>
       </div>
       <LargeTimeSeriesWaterLevelChart
         timeSeries={dataset.timeSeries}
@@ -127,10 +136,7 @@ export const WaterLevelChartDisplay: React.FunctionComponent<ChartTimeSeriesDisp
         startTime={startTime}
         endTime={endTime}
       />{" "}
-      <TimeframeSelector
-        graphFuture={predictedTidesDataset || forecastedTidesDatasets ? true : false}
-        isWaterLevel={true}
-      />
+      <TimeframeSelector graphFuture={!!(predictedTidesDataset || forecastedTidesDatasets)} isWaterLevel={true} />
       {platform && (
         <TidesTable
           platform={platform}

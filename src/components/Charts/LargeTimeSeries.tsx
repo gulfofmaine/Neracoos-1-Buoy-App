@@ -4,17 +4,15 @@
  */
 import Highcharts from "highcharts"
 import addAccessibility from "highcharts/modules/accessibility"
-import * as React from "react"
-import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
+import { Chart, HighchartsChart, HighchartsProvider, SplineSeries, Tooltip, XAxis, YAxis } from "react-jsx-highcharts"
 
-import { colors, colorCycle } from "Shared/colors"
-import { round } from "Shared/math"
-import { ReadingTimeSeries } from "Shared/timeSeries"
-import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
+import type { UnitSystem } from "Features/Units/types"
+import { colorCycle, colors } from "Shared/colors"
+import { round } from "Shared/math"
+import type { ReadingTimeSeries } from "Shared/timeSeries"
 
 import { pointFormatMaker } from "./formatter"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 
 addAccessibility(Highcharts)
 

@@ -1,8 +1,8 @@
 import { test as base, expect } from "@playwright/test"
 import extendPlaywrightPerformance, {
-  PerformanceOptions,
-  PerformanceWorker,
-  PlaywrightPerformance,
+  type PerformanceOptions,
+  type PerformanceWorker,
+  type PlaywrightPerformance,
 } from "playwright-performance"
 
 const test = base.extend<PlaywrightPerformance, PerformanceOptions & PerformanceWorker>(extendPlaywrightPerformance())

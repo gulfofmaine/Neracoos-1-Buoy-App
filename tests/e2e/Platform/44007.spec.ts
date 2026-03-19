@@ -130,7 +130,7 @@ test.describe("Platfrom 44007", () => {
 
     const year = new Date().getFullYear()
 
-    let dateText = text!.split("Last updated at: ")[1] + ` ${year}`
+    const dateText = `${text!.split("Last updated at: ")[1]} ${year}`
     const date = new Date(dateText)
 
     const threeDaysAgo = new Date()

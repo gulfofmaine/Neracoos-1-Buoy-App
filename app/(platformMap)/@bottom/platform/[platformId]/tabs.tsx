@@ -3,16 +3,15 @@ import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import Col from "react-bootstrap/Col"
-import Row from "react-bootstrap/Row"
 import Nav from "react-bootstrap/Nav"
-
-import { paths } from "Shared/constants"
-import { urlPartReplacer } from "Shared/urlParams"
+import Row from "react-bootstrap/Row"
 
 import { ForecastDropdown } from "Features/ERDDAP/ForecastsMetadata/Menu"
+import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
 import { ErddapMoreInfoDropdown } from "Features/ERDDAP/Platform/MoreInfoMenu/index"
 import { ErddapObservedDropdown } from "Features/ERDDAP/Platform/Observations/Menu"
-import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
+import { paths } from "Shared/constants"
+import { urlPartReplacer } from "Shared/urlParams"
 import { useDecodedUrl } from "util/hooks"
 
 export function PlatformTabs() {

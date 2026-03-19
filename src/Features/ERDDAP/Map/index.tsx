@@ -1,29 +1,28 @@
 "use client"
-import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
-import { usePathname } from "next/navigation"
-import { useRouter } from "@bprogress/next"
 
+import "ol/ol.css"
+import { useRouter } from "@bprogress/next"
+import { useParams, usePathname } from "next/navigation"
+import type { Feature } from "ol"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import Button from "react-bootstrap/Button"
-import { RFeature, RLayerVector, RMap, RPopup, RStyle, RControl } from "rlayers"
+import { RControl, RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-
+import { type BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { aDayAgoRounded, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
-import { useParams } from "next/navigation"
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+
 import { usePlatforms } from "../hooks"
-import { PlatformFeature } from "../types"
+import type { PlatformFeature } from "../types"
 import { platformName } from "../utils/platformName"
-import { Feature } from "ol"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -193,7 +192,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
 export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
-  const { isLoading, data } = usePlatforms()
+  const { data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {

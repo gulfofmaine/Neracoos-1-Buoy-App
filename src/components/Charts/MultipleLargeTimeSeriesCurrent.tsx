@@ -4,23 +4,23 @@
  */
 import Highcharts from "highcharts"
 import addAccessibility from "highcharts/modules/accessibility"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import {
   Chart,
   HighchartsChart,
+  HighchartsProvider,
   Legend,
   PlotLine,
   ScatterSeries,
   SplineSeries,
   Tooltip,
-  HighchartsProvider,
   XAxis,
   YAxis,
 } from "react-jsx-highcharts"
 
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
-import { StyledTimeSeries } from "Shared/timeSeries"
+import type { StyledTimeSeries } from "Shared/timeSeries"
 
 addAccessibility(Highcharts)
 function formatterWrapper(unit) {

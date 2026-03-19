@@ -1,10 +1,8 @@
-import * as React from "react"
+import { platform } from "stories/platform"
 
 import { UnitSystem } from "Features/Units/types"
 
-import { ErddapObservedCondition, ChartTimeSeriesDisplay } from "./index"
-
-import { platform } from "stories/platform"
+import { ChartTimeSeriesDisplay, ErddapObservedCondition } from "./index"
 
 export default {
   component: ErddapObservedCondition,

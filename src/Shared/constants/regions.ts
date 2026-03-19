@@ -1,4 +1,4 @@
-import { Region, regions } from "Shared/regions"
+import { type Region, regions } from "Shared/regions"
 
 /**
  * Regions that we are displaying in the menu and possibly elsewhere

@@ -1,16 +1,17 @@
 /**
  * Current observations table component
  */
-import React, { useEffect, useState } from "react"
+import type React from "react"
+import { useEffect, useState } from "react"
 import ListGroup from "react-bootstrap/ListGroup"
 
-import { DatumOffsets } from "Features/ERDDAP/types"
-import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
+import type { DatumOffsets } from "Features/ERDDAP/types"
 import { platformName } from "Features/ERDDAP/utils/platformName"
-import { UnitSystem } from "Features/Units/types"
+import { DatumSelector } from "Features/ERDDAP/waterLevel/DatumSelector"
+import type { UnitSystem } from "Features/Units/types"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 
-import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
+import type { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { currentConditionsTimeseries, filterTimeSeries } from "../../../utils/currentConditionsTimeseries"
 import { itemStyle, TableItem } from "../Table/item"
 

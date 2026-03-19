@@ -1,23 +1,23 @@
 /**
  * Wind specific current conditions card
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import { faExpand } from "@fortawesome/free-solid-svg-icons"
-import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import * as Sentry from "@sentry/react"
 import Link from "next/link"
+import type React from "react"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
-import * as Sentry from "@sentry/react"
 
-import { round } from "Shared/math"
-import { DataTimeSeries } from "Shared/timeSeries"
-import { compassDirection } from "Shared/unitConversion/compassDirection"
-import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
-
+import type { UnitSystem } from "Features/Units/types"
+import { round } from "Shared/math"
+import type { DataTimeSeries } from "Shared/timeSeries"
+import { compassDirection } from "Shared/unitConversion/compassDirection"
 import { WindTimeSeriesChart } from "components/Charts/WindTimeSeries"
 
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import type { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { cardProps, observationLink } from "./common_card"
 
@@ -84,7 +84,7 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
   if (direction) {
     const reading = direction.timeSeries[direction.timeSeries.length - 1].reading
     const compass = compassDirection(reading)
-    directionTitle = " from " + compass[1]
+    directionTitle = ` from ${compass[1]}`
   }
 
   return (

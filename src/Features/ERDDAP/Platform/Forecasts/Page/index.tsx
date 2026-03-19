@@ -2,28 +2,29 @@
 /**
  * Load and display forecasts
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import type { Point } from "geojson"
 import React from "react"
 import Col from "react-bootstrap/Col"
-import Row from "react-bootstrap/Row"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Row from "react-bootstrap/Row"
 import Tooltip from "react-bootstrap/Tooltip"
 
+import { useUnitSystem } from "Features/Units"
+import { converter } from "Features/Units/Converter"
+import type { UnitSystem } from "Features/Units/types"
+import { colorCycle } from "Shared/colors"
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
+import { round } from "Shared/math"
+import { aDayAgoRounded, weeksInFuture } from "Shared/time"
+import type { StyledTimeSeries } from "Shared/timeSeries"
 import { LoadingAlert, WarningAlert } from "components/Alerts"
 import { MultipleLargeTimeSeriesChartCurrent } from "components/Charts/MultipleLargeTimeSeriesCurrent"
-import { colorCycle } from "Shared/colors"
-import { round } from "Shared/math"
-import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
-import { aDayAgoRounded, weeksInFuture } from "Shared/time"
-import { StyledTimeSeries } from "Shared/timeSeries"
-import { UnitSystem } from "Features/Units/types"
-import { converter } from "Features/Units/Converter"
 
 import { useDataset, useForecastMeta, useForecasts } from "../../../hooks"
-import { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { useUnitSystem } from "Features/Units"
+import type { ForecastSource, PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 interface Props {
   platform: PlatformFeature
@@ -48,7 +49,7 @@ const ForecastInfo = ({ children }) => {
 /**
  * Match relevant forecast to platform datasets
  */
-export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
+export const Forecast = ({ platform, forecast_type }: Props) => {
   const standardNames = forecastToStandardNames[forecast_type]
   const timeSeries: PlatformTimeSeries | undefined = platform.properties.readings.find(
     (r) => standardNames?.has(r.data_type.standard_name) ?? false,
@@ -106,7 +107,7 @@ export const Forecast = ({ platform, forecast_type, ...props }: Props) => {
   forecastResults?.forEach(({ data, meta }, index) => {
     chartData.push({
       timeSeries: data,
-      name: meta.name + " - forecast",
+      name: `${meta.name} - forecast`,
       unit: meta.units,
       url: meta.source_url,
       dashStyle: "Solid",

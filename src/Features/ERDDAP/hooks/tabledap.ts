@@ -2,21 +2,21 @@
  * Hooks to acquire data from ERDDAP TableDAP datasets
  */
 import * as Sentry from "@sentry/react"
-import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 
 import { resultToTimeseries, tabledapUrl } from "Shared/erddap"
-import { ErddapJson } from "Shared/erddap/types"
+import type { ErddapJson } from "Shared/erddap/types"
 import { groupBy } from "Shared/groupBy"
 import { aWeekAgoRounded } from "Shared/time"
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
-import { PlatformTimeSeries, FetchGroup } from "../types"
+import type { FetchGroup, PlatformTimeSeries } from "../types"
 import { defaultQueryConfig } from "./hookConfig"
 
 const FORBIDDEN = "Forbidden"
 
-export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date, endTime?: Date) => {
+export const getDataset = (timeSeries: PlatformTimeSeries, startTime?: Date, _endTime?: Date) => {
   return async () => {
     const url = urlBuilder([timeSeries], startTime)
 
@@ -70,7 +70,7 @@ export function urlBuilder(timeSeries: PlatformTimeSeries[], startTime?: Date, e
 }
 
 /** Fetch a single dataset given a time series */
-export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date, endTime?: Date) {
+export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date, _endTime?: Date) {
   const [enabled, setEnabled] = useState<boolean>(true)
 
   startTime = startTime ?? aWeekAgoRounded()
@@ -79,7 +79,7 @@ export function useDataset(timeSeries?: PlatformTimeSeries, startTime?: Date, en
     queryKey: ["erddap-dataset", timeSeries, startTime],
     queryFn: getDataset(timeSeries!, startTime),
     enabled,
-    retry: (failureCount: number, error: Error) => {
+    retry: (_failureCount: number, error: Error) => {
       if (error.message === FORBIDDEN) {
         setEnabled(false)
         return false
@@ -95,13 +95,13 @@ export function groupByServerDatasetConstraint(readings: PlatformTimeSeries[]): 
 
   const servers = groupBy(readings, "server")
   for (const server in servers) {
-    if (Object.prototype.hasOwnProperty.call(servers, server)) {
+    if (Object.hasOwn(servers, server)) {
       const datasets = groupBy(servers[server], "dataset")
       for (const dataset in datasets) {
-        if (Object.prototype.hasOwnProperty.call(datasets, dataset)) {
+        if (Object.hasOwn(datasets, dataset)) {
           const constraints = groupBy(datasets[dataset], "constraints")
           for (const constraint in constraints) {
-            if (Object.prototype.hasOwnProperty.call(constraints, constraint)) {
+            if (Object.hasOwn(constraints, constraint)) {
               results.push({
                 constraints: constraints[constraint][0].constraints,
                 dataset,
@@ -164,10 +164,10 @@ const getDatasets = (timeSeries: PlatformTimeSeries[], startTime?: Date) => {
   return async () => {
     const results: DataTimeSeries[] = []
 
-    for (let group of fetchGroups) {
+    for (const group of fetchGroups) {
       const datasets = await getDatasetGroup(group, startTime)
 
-      for (let dataset of datasets) {
+      for (const dataset of datasets) {
         results.push(dataset)
       }
     }
@@ -186,7 +186,7 @@ export function useDatasets(timeSeries: PlatformTimeSeries[], startTime?: Date) 
     queryKey: ["erddap-datasets", { timeSeries, startTime }],
     queryFn: getDatasets(timeSeries, startTime),
     enabled,
-    retry: (failureCount: number, error: Error) => {
+    retry: (_failureCount: number, error: Error) => {
       if (error.message === FORBIDDEN) {
         setEnabled(false)
         return false

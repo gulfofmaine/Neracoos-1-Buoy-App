@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import { platforms } from "stories/platforms"
 
 import { UnitSystem } from "Features/Units/types"
 
 import { ShowSuperlatives, Superlatives } from "./index"
-
-import { platforms } from "stories/platforms"
 
 const meta: Meta<typeof Superlatives> = {
   component: Superlatives,

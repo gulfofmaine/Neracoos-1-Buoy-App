@@ -3,7 +3,7 @@
  */
 import { useSelector } from "react-redux"
 
-import { RootState } from "../../../app/store"
+import type { RootState } from "../../../app/store"
 
 const currentUnitSystem = (state: RootState) => state.unit.system
 

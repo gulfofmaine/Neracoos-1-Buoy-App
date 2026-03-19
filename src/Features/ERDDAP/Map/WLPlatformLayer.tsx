@@ -1,34 +1,34 @@
 "use client"
 import "ol/ol.css"
+import { useRouter } from "@bprogress/next"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
  */
 import Link from "next/link"
-import { usePathname, useParams } from "next/navigation"
-import { useRouter } from "@bprogress/next"
-import { Feature } from "ol"
+import { useParams, usePathname } from "next/navigation"
+import type { Feature } from "ol"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 import { RStyleArray } from "rlayers/style"
 
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
+import { type BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { aDayAgoRounded } from "Shared/time"
 import { waterLevelPath } from "Shared/urlParams"
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 
-import { PlatformLayer } from "."
 import { usePlatforms } from "../hooks"
-import { PlatformFeature } from "../types"
+import type { PlatformFeature } from "../types"
+import { platformName } from "../utils/platformName"
 import {
   floodLevelThresholdColors,
   getSurpassedThreshold,
   getWaterLevelThresholdsMapRawComp,
 } from "../utils/waterLevelThresholds"
-import { platformName } from "../utils/platformName"
-import { useEndTime, useStartTime, useDatum } from "../waterLevel/hooks"
+import { useDatum, useEndTime, useStartTime } from "../waterLevel/hooks"
+import { PlatformLayer } from "."
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -84,7 +84,7 @@ export const WLPlatformLayer = ({ platform, selected, old = false }: PlatformLay
 
   useEffect(() => {
     const getObservedWaterDisplay = (currentWaterLevel, floodLevels) => {
-      if (currentWaterLevel && currentWaterLevel.extrema_values && currentWaterLevel.extrema_values.max) {
+      if (currentWaterLevel?.extrema_values?.max) {
         const highestValue = currentWaterLevel?.extrema_values?.max.value
         const waterLevelThresholds = getWaterLevelThresholdsMapRawComp(floodLevels)
         const surpassedThreshold = getSurpassedThreshold(highestValue, waterLevelThresholds)

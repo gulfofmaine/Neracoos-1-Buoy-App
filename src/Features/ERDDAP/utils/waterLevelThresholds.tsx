@@ -4,7 +4,7 @@ export const getWaterLevelThresholdsMapRawComp = (floodThresholds) => {
   if (floodThresholds) {
     return floodThresholds.map((threshold) => {
       const max_value =
-        threshold.name == "Major" ? null : floodThresholds.find((f) => f.name === compChart[threshold.name])?.min_value
+        threshold.name === "Major" ? null : floodThresholds.find((f) => f.name === compChart[threshold.name])?.min_value
       return {
         name: threshold.name,
         min_value: threshold.min_value,
@@ -36,7 +36,7 @@ export const getSurpassedThreshold = (value, thresholds) => {
   }
 }
 
-export const floodLevelThresholdColors = (alert, old, opacity, platform) => {
+export const floodLevelThresholdColors = (alert, old, opacity, _platform) => {
   const colorMap = {
     Major: `${colors.majorThreshold}${opacity}`,
     Moderate: `${colors.moderateThreshold}${opacity}`,

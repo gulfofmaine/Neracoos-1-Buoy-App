@@ -1,13 +1,13 @@
-import React from "react"
+import type React from "react"
+import Col from "react-bootstrap/Col"
 import InputGroup from "react-bootstrap/InputGroup"
 import ListGroup from "react-bootstrap/ListGroup"
-import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
-import { WarningAlert } from "components/Alerts"
 import { getDatumDisplayName } from "Shared/dataTypes"
+import { WarningAlert } from "components/Alerts"
 
-import { DatumOffsets, Datums } from "../types"
+import { type DatumOffsets, Datums } from "../types"
 import { useDatum } from "./hooks"
 
 export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) => {
@@ -25,7 +25,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
             value={d}
             key={`offset-${d}`}
             checked={datum === d}
-            onChange={(e) => setDatum(d as Datums)}
+            onChange={(_e) => setDatum(d as Datums)}
             style={{ marginRight: "5px" }}
           ></input>
           {getDatumDisplayName(d)}
@@ -40,7 +40,7 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
           value={Datums.NAVD88}
           key={`offset-navd88`}
           checked={datum === Datums.NAVD88}
-          onChange={(e) => setDatum(Datums.NAVD88)}
+          onChange={(_e) => setDatum(Datums.NAVD88)}
           style={{ marginRight: "5px" }}
         ></input>
         NAVD88
@@ -55,7 +55,15 @@ export const DatumSelector = ({ datumOffsets }: { datumOffsets: DatumOffsets }) 
           {options.length > 0 ? (
             <div>
               <Col style={{ width: "85px", margin: 0 }}>
-                <h6 style={{ width: "100%", paddingTop: "10px", fontWeight: "bold" }}>Datum: </h6>
+                <h6
+                  style={{
+                    width: "100%",
+                    paddingTop: "10px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Datum:{" "}
+                </h6>
               </Col>
               <Col style={{ margin: 0, padding: 0 }}>
                 <InputGroup className="datum-radio-group">{options}</InputGroup>

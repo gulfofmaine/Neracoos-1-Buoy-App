@@ -5,15 +5,14 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import * as React from "react"
+import type * as React from "react"
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 
 import { paths } from "Shared/constants"
 
-import { RegionDropdown } from "./regionDropdown"
-
 import neracoosLogo from "./neracoos_logo.png"
+import { RegionDropdown } from "./regionDropdown"
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname()

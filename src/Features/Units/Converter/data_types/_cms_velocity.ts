@@ -1,6 +1,6 @@
 import convert from "convert-units"
 
-import { DataTypeConversion, ConvertFrom } from "../conversions"
+import { type ConvertFrom, DataTypeConversion } from "../conversions"
 
 /**
  * Display cm/s velocities as knots or m/s

@@ -8,8 +8,8 @@ import Row from "react-bootstrap/Row"
 
 import n_walkabout from "./n_walkabout.png"
 
-export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-  let eventId = useRef("")
+export default function ErrorPage({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  const eventId = useRef("")
 
   useEffect(() => {
     eventId.current = Sentry.captureException(error)

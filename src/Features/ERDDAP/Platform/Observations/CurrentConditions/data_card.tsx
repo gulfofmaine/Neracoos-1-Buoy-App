@@ -2,23 +2,21 @@
 /**
  * Generalized single time series data card
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExpand } from "@fortawesome/free-solid-svg-icons"
-import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 
-import { SmallTimeSeriesChart } from "components/Charts/SmallTimeSeries"
+import { converter } from "Features/Units/Converter"
+import type { UnitSystem } from "Features/Units/types"
 import { naturalBounds } from "Shared/dataTypes"
 import { round } from "Shared/math"
-import { ReadingTimeSeries } from "Shared/timeSeries"
+import type { ReadingTimeSeries } from "Shared/timeSeries"
 import { convertUnit } from "Shared/unitConversion"
-import { UnitSystem } from "Features/Units/types"
-import { converter } from "Features/Units/Converter"
+import { SmallTimeSeriesChart } from "components/Charts/SmallTimeSeries"
 
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-
+import type { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { cardProps, cardUrl } from "./common_card"
 
 interface DataCardDisplayProps {

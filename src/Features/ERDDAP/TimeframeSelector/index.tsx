@@ -1,5 +1,5 @@
-import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
+import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
@@ -7,12 +7,12 @@ import Col from "react-bootstrap/Col"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Tooltip from "react-bootstrap/Tooltip"
 
-import { WarningAlert } from "components/Alerts"
 import { Revert } from "Shared/icons/Revert"
 import { aWeekAgoRounded, daysAgoRounded, daysInFuture, formatDate, getToday, YEAR } from "Shared/time"
 import { buildSearchParamsQuery } from "Shared/urlParams"
+import { WarningAlert } from "components/Alerts"
 
-import { DatumOffsetOptions } from "../types"
+import type { DatumOffsetOptions } from "../types"
 import { useEndTime, useStartTime } from "../waterLevel/hooks"
 
 export function TimeframeSelector({
@@ -76,7 +76,14 @@ export function TimeframeSelector({
             alignItems: "center",
           }}
         >
-          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
+          <label
+            style={{
+              marginRight: "20px",
+              display: "flex",
+              alignItems: "center",
+            }}
+            className="timeframe-label"
+          >
             <p style={{ marginBottom: 0, marginRight: "5px" }}>Start:</p>
             <input
               type="date"
@@ -88,7 +95,14 @@ export function TimeframeSelector({
               required={true}
             />
           </label>
-          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
+          <label
+            style={{
+              marginRight: "20px",
+              display: "flex",
+              alignItems: "center",
+            }}
+            className="timeframe-label"
+          >
             <p style={{ marginBottom: 0, marginRight: "5px" }}>End:</p>
             <input
               type="date"
@@ -137,7 +151,12 @@ export function TimeframeSelector({
                       (searchParams.get("datum") as DatumOffsetOptions),
                   ),
                 }}
-                style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                  width: "100%",
+                  height: "100%",
+                }}
               >
                 Plot Dates
               </Link>

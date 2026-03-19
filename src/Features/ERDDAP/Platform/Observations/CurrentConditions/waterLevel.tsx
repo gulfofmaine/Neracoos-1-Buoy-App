@@ -1,4 +1,4 @@
-import { PlatformTimeSeries } from "Features/ERDDAP/types"
+import type { PlatformTimeSeries } from "Features/ERDDAP/types"
 
 /**
  * Filters timeseries so it returns the desired time series
@@ -8,13 +8,15 @@ import { PlatformTimeSeries } from "Features/ERDDAP/types"
  * @returns the timeseries that matches the dataTypes parameter. If there are two matches (i.e. the sensor has multiple timeseries for waterlevel (filterTimeSeries.length !==0)) then it returns the timeseries that contains datums
  */
 export function filterWaterLevelTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
-  let filterTimeSeries: PlatformTimeSeries[] = []
+  const filterTimeSeries: PlatformTimeSeries[] = []
 
   dataTypes.forEach((dataType) => {
     const matchStandard = timeSeries.filter((reading) => dataType === reading.data_type.standard_name) // match any that are the current data type
     const matchTime = matchStandard.filter((reading) => (reading.time ? laterThan < new Date(reading.time) : false)) // that have data in the last day
     const matchDepth = matchTime.filter((reading) => (reading.depth ? reading.depth < 2 : true)) // are near-surface
-    matchDepth.forEach((ts) => filterTimeSeries.push(ts))
+    matchDepth.forEach((ts) => {
+      filterTimeSeries.push(ts)
+    })
   })
 
   if (filterTimeSeries.length === 1) {

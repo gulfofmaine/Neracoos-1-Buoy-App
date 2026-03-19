@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest"
-import * as React from "react"
 import { createRoot } from "react-dom/client"
+import { it } from "vitest"
 
 import ContentBlock from "."
 
