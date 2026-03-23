@@ -19,7 +19,7 @@ export default function WaterLevelIndexPage() {
     waterLevelPlatforms &&
     regionList.map((r, index) => {
       return (
-        <Card className="mb-4" key={`sensor-region-list-#${index}`}>
+        <Card className="mb-5" key={`sensor-region-list-#${index}`}>
           <Card.Header>{r.name}</Card.Header>
           <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />
         </Card>

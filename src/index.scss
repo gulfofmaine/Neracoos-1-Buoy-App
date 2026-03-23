@@ -41,6 +41,21 @@ $dig-colors: (
 $font-family-base: "Montserrat", Arial, sans-serif;
 $theme-colors: map-merge($theme-colors, $dig-colors);
 
+$grid-gutter-width: 1.25rem;
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  7: 1.75rem,
+  8: 2rem,
+  9: 2.25rem,
+  10: 2.5rem,
+);
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/variables";
 // @import "~bootstrap/scss/mixins";
@@ -121,8 +136,9 @@ a {
   font-size: 0.8rem;
 }
 
-.App .alert-primary {
-  color: $primary;
+.alert-primary {
+  background-color: #ced8dc;
+  border-color: #ced8dc;
 }
 
 .App .navbar-brand .nav-link,
