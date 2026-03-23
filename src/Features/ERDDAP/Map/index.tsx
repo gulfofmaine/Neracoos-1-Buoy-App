@@ -9,7 +9,7 @@ import { useRouter } from "@bprogress/next"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import Button from "react-bootstrap/Button"
-import { RFeature, RLayerVector, RMap, RPopup, RStyle, RControl } from "rlayers"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle, RControl, RGeolocation } from "rlayers"
 
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
@@ -130,6 +130,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
+  const [geoLoc, setGeoLoc] = useState(null)
 
   // Check if the route was navigated to using the back button
   // const isBackButtonUsed = router.asPath !== router.pathname;
@@ -184,6 +185,35 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
         <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
       )}
 
+      {typeof params.regionId === "undefined" && typeof platformId === "undefined" && (
+        <div>
+          <RGeolocation
+            tracking={true}
+            trackingOptions={{ enableHighAccuracy: true }}
+            onChange={(e) => {
+              setGeoLoc(e.target.getAccuracyGeometry())
+            }}
+          />
+
+          <RControl.RCustom className="ol-geolocate">
+            <button
+              title="Geolocate"
+              onClick={() => {
+                if (geoLoc) {
+                  mapRef?.current?.ol.getView().fit(geoLoc, {
+                    duration: 250,
+                    maxZoom: 10,
+                  })
+                } else {
+                  alert("Please check that your brower can access your location and try again.")
+                }
+              }}
+            >
+              G
+            </button>
+          </RControl.RCustom>
+        </div>
+      )}
       <RControl.RFullScreen />
     </RMap>
   )
