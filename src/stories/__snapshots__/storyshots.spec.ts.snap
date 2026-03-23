@@ -50,13 +50,11 @@ exports[`Storybook Snapshot Tests > Components/Alerts/Warning > Warning 1`] = `
 
 exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
 <div>
-  <div
-    class="footer"
-    style="position: absolute; bottom: 0px; width: 100%; padding-bottom: 10px; height: 110px;"
+  <footer
+    class="footer mt-4 pb-2 footer-font"
   >
     <div
-      class="row"
-      style="font-size: 0.8rem; padding: 1rem 0.25rem 0.25rem;"
+      class="p-1 pt-2 row"
     >
       <div
         class="mx-auto text-center col-md-10"
@@ -65,8 +63,7 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
       </div>
     </div>
     <div
-      class="row"
-      style="font-size: 0.8rem; padding: 0.25rem;"
+      class="p-1 row"
     >
       <div
         class="mx-auto text-center col-md-10"
@@ -83,8 +80,7 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
       </div>
     </div>
     <div
-      class="row"
-      style="font-size: 0.8rem; padding: 0.25rem;"
+      class="p-1 row"
     >
       <div
         class="mx-auto text-center col-md-10"
@@ -104,7 +100,7 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
         </a>
       </div>
     </div>
-  </div>
+  </footer>
 </div>
 `;
 
