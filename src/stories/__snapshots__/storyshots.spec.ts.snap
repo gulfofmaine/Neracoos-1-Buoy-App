@@ -51,7 +51,7 @@ exports[`Storybook Snapshot Tests > Components/Alerts/Warning > Warning 1`] = `
 exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
 <div>
   <footer
-    class="footer mt-auto pb-2 footer-font"
+    class="footer mt-auto pb-2 caption"
   >
     <div
       class="p-1 pt-2 row"
