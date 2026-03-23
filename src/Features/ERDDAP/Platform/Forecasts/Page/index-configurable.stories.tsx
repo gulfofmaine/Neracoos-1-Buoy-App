@@ -1,6 +1,5 @@
-import * as React from "react"
-
 import { UnitSystem } from "Features/Units/types"
+
 import { ForecastChart } from "./index"
 import { data, forecast_type } from "./story-data"
 

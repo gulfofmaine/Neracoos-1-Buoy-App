@@ -3,19 +3,12 @@
  */
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
 
-import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
-
-const initialState = {
-  dropdownOpen: false,
-}
-
-type State = Readonly<typeof initialState>
+import type { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 
 /**
  * Dropdown menu to more info about a platform

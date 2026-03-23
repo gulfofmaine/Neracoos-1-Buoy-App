@@ -51,10 +51,18 @@ test.describe("Platform A01", () => {
     ).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#tooltip-0-trigger").click()
-    await expect(page.getByText(/Data access/).first()).toBeVisible({ timeout: 20000 })
-    await expect(page.getByText(/Data table/).first()).toBeVisible({ timeout: 20000 })
-    await expect(page.getByText(/Download CSV/).first()).toBeVisible({ timeout: 20000 })
-    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible({ timeout: 20000 })
+    await expect(page.getByText(/Data access/).first()).toBeVisible({
+      timeout: 20000,
+    })
+    await expect(page.getByText(/Data table/).first()).toBeVisible({
+      timeout: 20000,
+    })
+    await expect(page.getByText(/Download CSV/).first()).toBeVisible({
+      timeout: 20000,
+    })
+    await expect(page.getByText(/ERDDAP dataset/).first()).toBeVisible({
+      timeout: 20000,
+    })
   })
 
   test("Shows wind plot", async ({ page }) => {
@@ -154,7 +162,7 @@ test.describe("Platform A01", () => {
 
     const year = new Date().getFullYear()
 
-    let dateText = text!.split("Last updated at: ")[1] + ` ${year}`
+    const dateText = `${text!.split("Last updated at: ")[1]} ${year}`
     const date = new Date(dateText)
 
     const threeDaysAgo = new Date()

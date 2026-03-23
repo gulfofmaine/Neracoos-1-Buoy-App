@@ -1,13 +1,16 @@
 import { usePlatforms } from "Features/ERDDAP/hooks"
-import { useDefaultStringQueryParam } from "Shared/urlParams"
 import { aWeekAgoRounded, daysAgoRounded, daysInFuture, formatDate } from "Shared/time"
+import { useDefaultStringQueryParam } from "Shared/urlParams"
 
-import { Datums, PlatformFeatureCollection, PlatformFeature, StandardNameDatums } from "../types"
-import { conditions } from "../utils/conditions"
 import { filterWaterLevelTimeSeries } from "../Platform/Observations/CurrentConditions/waterLevel"
+import { Datums, type PlatformFeature, type PlatformFeatureCollection, StandardNameDatums } from "../types"
+import { conditions } from "../utils/conditions"
 
 // Access and set the end time value for water level pages with a reasonable default if platform should show future data
-export function useEndTime(graphFuture: boolean = false): { endTime: Date; setEndTime: (newQuery: string) => void } {
+export function useEndTime(graphFuture: boolean = false): {
+  endTime: Date
+  setEndTime: (newQuery: string) => void
+} {
   const { value, setValue } = useDefaultStringQueryParam(
     "end",
     formatDate(graphFuture ? daysInFuture(3) : daysInFuture(0)),
@@ -36,7 +39,10 @@ export function useStartTime(isWaterLevel: boolean = false): {
 }
 
 // Access and set the datum value for water level pages with a reasonable default
-export function useDatum(): { datum: Datums; setDatum: (newQuery: Datums) => void } {
+export function useDatum(): {
+  datum: Datums
+  setDatum: (newQuery: Datums) => void
+} {
   const { value, setValue } = useDefaultStringQueryParam("datum", Datums.MLLW)
 
   return { datum: (value || Datums.MLLW) as Datums, setDatum: setValue }

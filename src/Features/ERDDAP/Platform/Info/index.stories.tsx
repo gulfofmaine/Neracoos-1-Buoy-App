@@ -1,8 +1,6 @@
-import * as React from "react"
+import { platform } from "stories/platform"
 
 import { ErddapPlatformInfoPanel } from "./index"
-
-import { platform } from "stories/platform"
 
 export default {
   component: ErddapPlatformInfoPanel,

@@ -5,10 +5,9 @@ import * as React from "react"
 import Button from "react-bootstrap/Button"
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import { connect } from "react-redux"
-import { bindActionCreators, Dispatch } from "redux"
+import { bindActionCreators, type Dispatch } from "redux"
 
-import { RootState } from "../../../../app/store"
-
+import type { RootState } from "../../../../app/store"
 import { unitSwitch } from "../slice"
 import { UnitSystem } from "../types"
 

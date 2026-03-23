@@ -1,8 +1,8 @@
-import React from "react"
-import { useSearchParams, usePathname } from "next/navigation"
 import { useRouter } from "@bprogress/next"
+import { usePathname, useSearchParams } from "next/navigation"
+import React from "react"
 
-import { DatumOffsetOptions, DATUM_MLLW_METERS } from "Features/ERDDAP/types"
+import { DATUM_MLLW_METERS, type DatumOffsetOptions } from "Features/ERDDAP/types"
 
 import { formatDate } from "../time"
 
@@ -65,7 +65,7 @@ export function waterLevelPath(platformId: string, start?: Date, end?: Date, dat
   const params = buildSearchParamsQuery(start, end, datum)
 
   if (params) {
-    return baseUrl + "?" + new URLSearchParams(params).toString()
+    return `${baseUrl}?${new URLSearchParams(params).toString()}`
   }
   return baseUrl
 }
@@ -95,7 +95,7 @@ export function useStringQueryParam(key: string): [string | null, (newQuery: str
       const paramValue = searchParams.get(key)
 
       if (newValue !== paramValue) {
-        let newSearchParams = new URLSearchParams(searchParams)
+        const newSearchParams = new URLSearchParams(searchParams)
         newSearchParams.set(key, newValue)
         setSearchParams(newSearchParams)
       }
@@ -133,12 +133,12 @@ export function useDefaultStringQueryParam(
     (newValue: string) => {
       if (newValue === defaultValue) {
         if (searchParams.has(key)) {
-          let newSearchParams = new URLSearchParams(searchParams)
+          const newSearchParams = new URLSearchParams(searchParams)
           newSearchParams.delete(key)
           setSearchParams(newSearchParams)
         }
       } else if (newValue !== searchParams.get(key)) {
-        let newSearchParams = new URLSearchParams(searchParams)
+        const newSearchParams = new URLSearchParams(searchParams)
         newSearchParams.set(key, newValue)
         setSearchParams(newSearchParams)
       }

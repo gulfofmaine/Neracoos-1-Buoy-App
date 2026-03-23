@@ -4,9 +4,9 @@
 
 import { round } from "Shared/math"
 import { shortIso } from "Shared/time"
-import { ReadingTimeSeries } from "Shared/timeSeries"
+import type { ReadingTimeSeries } from "Shared/timeSeries"
 
-import { ErddapDataset, GriddapTable } from "./types"
+import type { ErddapDataset, GriddapTable } from "./types"
 
 /**
  * Griddap returns multiple columns for every query, yet often you only are looking for a single one.

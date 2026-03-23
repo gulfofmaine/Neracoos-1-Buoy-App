@@ -2,10 +2,10 @@
  * Funtions for interacting with ERDDAP TableDAP datasets
  */
 
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { TimeSeriesType } from "Features/ERDDAP/types"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
-import { Constraints, ErddapJson } from "./types"
-import { TimeSeriesType } from "Features/ERDDAP/types"
+import type { Constraints, ErddapJson } from "./types"
 
 /**
  * Transform ERDDAP constraints from a object into a URL valid string
@@ -16,12 +16,12 @@ export function constraintsToString(constraints: Constraints): string {
   let constraintStr: string = ""
 
   for (const key in constraints) {
-    if (constraints.hasOwnProperty(key)) {
+    if (Object.hasOwn(constraints, key)) {
       const constraint = constraints[key]
       if (typeof constraint === "number") {
-        constraintStr += "&" + encodeURIComponent(key + constraints[key])
+        constraintStr += `&${encodeURIComponent(key + constraints[key])}`
       } else {
-        constraintStr += "&" + encodeURIComponent(key + '"' + constraints[key] + '"')
+        constraintStr += `&${encodeURIComponent(key + '"' + constraints[key] + '"')}`
       }
     }
   }

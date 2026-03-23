@@ -1,16 +1,16 @@
 "use client"
 import { fromLonLat } from "ol/proj"
-import React, { useEffect, useState, use } from "react"
-import { createBreakpoint } from "react-use"
+import { use, useEffect, useState } from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import { createBreakpoint } from "react-use"
 
-import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
-import { SecondaryBanner } from "components/SecondaryBanner"
 import { usePlatform } from "Features/ERDDAP/hooks"
+import { useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/hooks"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { WaterLevelObservationContent } from "Features/ERDDAP/waterLevel/observationContent"
-import { useWaterLevelPlatforms } from "Features/ERDDAP/waterLevel/hooks"
+import { WaterLevelSensorInfo } from "components/PlatformInfo/WaterLevelSensorInfo"
+import { SecondaryBanner } from "components/SecondaryBanner"
 import { useDecodedUrl } from "util/hooks"
 
 const useBreakpoint = createBreakpoint({ S: 576, M: 768, L: 992 })
@@ -22,7 +22,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
   const id = useDecodedUrl(params.sensorId)
   const platform = usePlatform(id)
 
-  const [currentTime, setCurrentTime] = useState(Date.now())
+  const [_currentTime, setCurrentTime] = useState(Date.now())
 
   useEffect(() => {
     const updateGraph = () => {
@@ -48,9 +48,16 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
   return (
     <div>
       <SecondaryBanner>
-        <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
+        <p
+          style={{
+            fontStyle: "italic",
+            fontSize: "14px",
+            marginBottom: "0px",
+            textAlign: "center",
+          }}
+        >
           For official watch, warning, advisory, and forecast information please visit the{" "}
-          <a href="https://www.weather.gov/erh/coastalflood" target="_blank">
+          <a href="https://www.weather.gov/erh/coastalflood" target="_blank" rel="noopener">
             NWS Eastern Region Coastal Flood Page
           </a>
         </p>

@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest"
 
 import { UnitSystem } from "../../types"
-import { data_types } from "./index"
 import { getValueWithOffset } from "./_tidal_level"
+import { data_types } from "./index"
 import { waterLevelTimeseriesValues } from "./waterLevelTimeSeriesMock"
 
 const source_value = 1.5

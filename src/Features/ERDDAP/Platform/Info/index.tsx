@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card"
 
 import { round } from "Shared/math"
 
-import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
+import type { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 import { platformName } from "../../utils/platformName"
 
 /**
@@ -19,7 +19,7 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
   return (
     <Card role="complementary">
       <Card.Body>
-        <Card.Title role="header">Station {platformName(platform)}</Card.Title>
+        <Card.Title role="heading">Station {platformName(platform)}</Card.Title>
         <Card.Text>
           {platform.properties.mooring_site_desc}
           <br />

@@ -1,9 +1,8 @@
-import * as React from "react"
+import { platform } from "stories/platform"
 
-import { DataCardDisplay } from "./data_card"
 import { UnitSystem } from "Features/Units/types"
 
-import { platform } from "stories/platform"
+import { DataCardDisplay } from "./data_card"
 
 export default {
   component: DataCardDisplay,

@@ -1,6 +1,7 @@
-import { describe, it, expect } from "vitest"
-import { converter } from "./index"
+import { describe, expect, it } from "vitest"
+
 import { UnitSystem } from "../types"
+import { converter } from "./index"
 
 describe("Unit converter", () => {
   it("Can retrieve data_type and convert values", () => {

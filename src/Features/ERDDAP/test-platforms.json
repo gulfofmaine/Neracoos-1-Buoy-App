@@ -2330,7 +2330,10 @@
     {
       "id": "44005",
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-69.664306640625, 43.187255859375] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-69.664306640625, 43.187255859375]
+      },
       "properties": {
         "id": 12,
         "readings": [
@@ -2603,7 +2606,10 @@
     {
       "id": "MDRM1",
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-68.994140625, 43.9453125] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-68.994140625, 43.9453125]
+      },
       "properties": {
         "id": 13,
         "readings": [
@@ -2876,7 +2882,10 @@
     {
       "id": "BGXN3",
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-70.86181640625, 43.096618652344] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.86181640625, 43.096618652344]
+      },
       "properties": {
         "id": 14,
         "readings": [
@@ -3149,7 +3158,10 @@
     {
       "id": "CDIP221",
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-70.381164550782, 41.863403320313] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.381164550782, 41.863403320313]
+      },
       "properties": {
         "id": 15,
         "readings": [
@@ -3422,7 +3434,10 @@
     {
       "id": "LDLC3",
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-72.083187103273, 41.31202697754] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-72.083187103273, 41.31202697754]
+      },
       "properties": {
         "id": 16,
         "readings": [
@@ -3695,7 +3710,10 @@
     {
       "id": "EXRX",
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-73.736801147461, 40.868797302246] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.736801147461, 40.868797302246]
+      },
       "properties": {
         "id": 17,
         "readings": [

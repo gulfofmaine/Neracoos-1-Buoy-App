@@ -2,8 +2,9 @@
  * Common time series types.
  */
 
-import { TimeSeriesType } from "Features/ERDDAP/types"
-import { DashStyleValue } from "highcharts"
+import type { DashStyleValue } from "highcharts"
+
+import type { TimeSeriesType } from "Features/ERDDAP/types"
 
 /**
  * A single time series reading.

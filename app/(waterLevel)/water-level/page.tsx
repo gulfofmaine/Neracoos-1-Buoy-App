@@ -1,13 +1,12 @@
 "use client"
-import React from "react"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
-import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensorList"
 import { usePlatforms } from "Features/ERDDAP/hooks"
-import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
+import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensorList"
 import { filterForSensors } from "Features/ERDDAP/waterLevel/hooks"
+import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { regionList } from "Shared/regions"
 
 export default function WaterLevelIndexPage() {

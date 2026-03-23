@@ -4,7 +4,7 @@
 import * as Sentry from "@sentry/react"
 import { useQuery } from "@tanstack/react-query"
 
-import { WagtailContent } from "./constants"
+import type { WagtailContent } from "./constants"
 import { pageUrl } from "./fetch"
 
 /**
@@ -13,7 +13,7 @@ import { pageUrl } from "./fetch"
  * @param key unused identifier oof hook
  * @param param1 object with pageId to load from Wagtail content service
  */
-async function getPageById(key, { pageId }: { pageId: string }): Promise<WagtailContent> {
+async function getPageById(_key, { pageId }: { pageId: string }): Promise<WagtailContent> {
   Sentry.addBreadcrumb({
     category: "Wagtail API",
     data: {

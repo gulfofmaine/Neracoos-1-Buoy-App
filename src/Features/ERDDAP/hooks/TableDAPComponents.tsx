@@ -2,15 +2,15 @@
  * Render prop components to standardize the loading of datasets
  */
 import { useQueries, useQueryClient } from "@tanstack/react-query"
-import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
-import { aWeekAgoRounded } from "Shared/time"
 import * as React from "react"
 
+import { tabledapHtmlUrl } from "Shared/erddap/tabledap"
+import { aWeekAgoRounded } from "Shared/time"
+import type { DataTimeSeries } from "Shared/timeSeries"
 import { PlatformLoadingAlert, WarningAlert } from "components/Alerts"
-import { DataTimeSeries } from "Shared/timeSeries"
-import { PlatformTimeSeries } from "../types"
-import { defaultQueryConfig } from "./hookConfig"
 
+import type { PlatformTimeSeries } from "../types"
+import { defaultQueryConfig } from "./hookConfig"
 import { getDatasetGroup, groupByServerDatasetConstraint, useDataset } from "./tabledap"
 
 interface UseDatasetsProps {
@@ -68,9 +68,9 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
 
   const loadedDatasets: DataTimeSeries[] = []
 
-  for (let group of loadedGroups) {
+  for (const group of loadedGroups) {
     if (group.data) {
-      for (let dataset of group.data as DataTimeSeries[]) {
+      for (const dataset of group.data as DataTimeSeries[]) {
         loadedDatasets.push(dataset)
       }
     }
@@ -108,7 +108,7 @@ export const UseDatasets: React.FunctionComponent<UseDatasetsProps> = ({
       const originalValues = platform.properties.readings.map((r) => r.value).toString()
       // If original values are different than the new values (i.e. a new reading was taken),then set usePlatform data to the updated values.
       if (originalValues !== updatedValues) {
-        queryClient.setQueryData(["buoybarn-platforms"], (originalValues) => updatedPlatforms)
+        queryClient.setQueryData(["buoybarn-platforms"], (_originalValues) => updatedPlatforms)
       }
     }
   }

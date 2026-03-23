@@ -1,5 +1,4 @@
 import { DataTypeConversion } from "../conversions"
-
 import { AirPressureHpa } from "./_air_pressure_hpa"
 import { CardinalDirection } from "./_cardinal_direction"
 import { CmsVelocity } from "./_cms_velocity"
@@ -9,7 +8,6 @@ import { TidalLevel } from "./_tidal_level"
 import { Visibility } from "./_visibility"
 import { WaveHeight } from "./_wave_height"
 import { WindSpeed, WindSpeedKnots } from "./_wind_speed"
-
 import { air_pressure } from "./air_pressure"
 
 export { Passthrough }

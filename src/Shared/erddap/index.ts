@@ -1,4 +1,4 @@
-export { extractColumn, erddapUrl, metadataValue } from "./griddap"
 export { datasets } from "./datasets"
+export { erddapUrl, extractColumn, metadataValue } from "./griddap"
 export { datasetInfoJson } from "./metadata"
-export { tabledapUrl, resultToTimeseries } from "./tabledap"
+export { resultToTimeseries, tabledapUrl } from "./tabledap"

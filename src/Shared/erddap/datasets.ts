@@ -2,7 +2,7 @@
  * The ERDDAP datasets taht we use.
  */
 
-import { DatasetTypes, ErddapDataset } from "./types"
+import { DatasetTypes, type ErddapDataset } from "./types"
 
 const erddapServers = {
   coastWatch: "https://coastwatch.pfeg.noaa.gov/erddap",

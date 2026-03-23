@@ -1,7 +1,6 @@
-import * as React from "react"
+import { UnitSystem } from "Features/Units/types"
 
 import { UnitSelectorBase } from "./index"
-import { UnitSystem } from "Features/Units/types"
 
 export default {
   component: UnitSelectorBase,

@@ -119,7 +119,7 @@ exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
     >
       <div
         class="card-title h5"
-        role="header"
+        role="heading"
       >
         Station 
         M01

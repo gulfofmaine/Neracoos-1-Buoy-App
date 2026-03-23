@@ -1,12 +1,12 @@
 /**
  * Components to use React-Query in a common way
  */
-import * as React from "react"
+
+import type * as React from "react"
 
 import { LoadingAlert, WarningAlert } from "components/Alerts"
 
-import { PlatformFeature, PlatformFeatureCollection } from "../types"
-
+import type { PlatformFeature, PlatformFeatureCollection } from "../types"
 import { usePlatforms } from "./buoyBarn"
 
 interface BaseProps {

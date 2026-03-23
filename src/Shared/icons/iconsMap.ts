@@ -5,19 +5,20 @@
  */
 
 import {
-  faExternalLinkAlt,
-  faLocationArrow,
-  faUpRightAndDownLeftFromCenter,
-  faDownLeftAndUpRightToCenter,
-  faArrowUpFromBracket,
-  faTriangleExclamation,
+  faArrowDown,
   faArrowLeft,
   faArrowRight,
   faArrowUp,
-  faArrowDown,
+  faArrowUpFromBracket,
   faChartLine,
   faCircleInfo,
+  faDownLeftAndUpRightToCenter,
+  faExternalLinkAlt,
+  faLocationArrow,
+  faTriangleExclamation,
+  faUpRightAndDownLeftFromCenter,
 } from "@fortawesome/free-solid-svg-icons"
+
 import mkIcon from "./iconComponent"
 
 export const InfoCircleIcon = mkIcon(faCircleInfo)

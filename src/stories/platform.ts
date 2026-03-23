@@ -1,6 +1,7 @@
 // @ts-nocheck
-import { PlatformFeatureWithDatasets, PlatformFeature } from "Features/ERDDAP/types"
+
 import { forecastToStandardNames } from "Features/ERDDAP/Platform/Forecasts/Page"
+import type { PlatformFeature, PlatformFeatureWithDatasets } from "Features/ERDDAP/types"
 
 const platform_base: PlatformFeature = {
   id: "M01",
@@ -27244,7 +27245,7 @@ const wave_datasets = platform.properties.readings.filter((reading) =>
   standard_name.has(reading.data_type.standard_name),
 )
 
-let data: DataTimeSeries[] = wave_datasets.map((dataset) => ({
+const data: DataTimeSeries[] = wave_datasets.map((dataset) => ({
   name: dataset.data_type.long_name + " observed",
   timeSeries: dataset.readings,
   unit: dataset.data_type.units,

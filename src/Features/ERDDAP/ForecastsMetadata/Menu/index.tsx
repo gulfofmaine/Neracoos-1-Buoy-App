@@ -2,8 +2,9 @@
 /**
  * Dropdown menu for accessing forecasts via buoy barn
  */
-import * as React from "react"
+
 import Link from "next/link"
+import type * as React from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
 
@@ -11,7 +12,7 @@ import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { useForecastMeta } from "../../hooks"
-import { ForecastSource } from "../../types"
+import type { ForecastSource } from "../../types"
 
 export interface Props {
   platformId: string
@@ -41,12 +42,6 @@ export const ForecastDropdown: React.FunctionComponent<Props> = ({ platformId })
     </Nav.Item>
   )
 }
-
-const initialState = {
-  dropdownOpen: false,
-}
-
-type State = Readonly<typeof initialState>
 
 interface BaseProps extends Props {
   forecasts: ForecastSource[]

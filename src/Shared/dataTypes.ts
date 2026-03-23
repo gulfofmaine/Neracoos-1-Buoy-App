@@ -64,10 +64,10 @@ export const humanDataNameDict = {
  * @returns String with a much friendlier name for people.
  */
 export function humanDataName(dataType: string): string {
-  if (humanDataNameDict.hasOwnProperty(dataType)) {
+  if (Object.hasOwn(humanDataNameDict, dataType)) {
     return humanDataNameDict[dataType]
   }
-  const message = "Unknown data type: " + dataType
+  const message = `Unknown data type: ${dataType}`
   Sentry.captureMessage(message)
 
   // tslint:disable-next-line:no-console
@@ -132,11 +132,11 @@ export const humanUnitNamesDict = {
  * @returns friendlier unit name
  */
 export function humanUnitName(unit: string): string {
-  if (humanUnitNamesDict.hasOwnProperty(unit.toLowerCase())) {
+  if (Object.hasOwn(humanUnitNamesDict, unit.toLowerCase())) {
     return humanUnitNamesDict[unit.toLowerCase()]
   }
 
-  Sentry.captureMessage("Unknown unit name: " + unit)
+  Sentry.captureMessage(`Unknown unit name: ${unit}`)
   return unit
 }
 
@@ -192,7 +192,7 @@ export const dataBounds = {
  * @returns [min, max]
  */
 export function naturalBounds(dataType: string): Array<number | undefined> {
-  if (dataBounds.hasOwnProperty(dataType)) {
+  if (Object.hasOwn(dataBounds, dataType)) {
     return dataBounds[dataType]
   }
 

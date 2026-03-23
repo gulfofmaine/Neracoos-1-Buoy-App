@@ -1,9 +1,9 @@
-import { Metadata, Viewport } from "next"
-import React from "react"
+import type { Metadata, Viewport } from "next"
+import type React from "react"
 
 import NavBar from "components/NavBar"
-import { Footer } from "../src/components/Footer"
 
+import { Footer } from "../src/components/Footer"
 import Providers from "./providers"
 
 import "../src/index.scss"

@@ -1,9 +1,7 @@
-import { describe, it, expect } from "vitest"
-import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
-import { PlatformAlert } from "../../types"
-
+import type { PlatformAlert } from "../../types"
 import { PlatformAlerts } from "./index"
 
 describe("PlatformAlerts", () => {

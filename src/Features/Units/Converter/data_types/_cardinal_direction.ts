@@ -1,6 +1,7 @@
-import { DataTypeConversion } from "../conversions"
 import { UnitSystem } from "Features/Units/types"
 import { compassDirection } from "Shared/unitConversion/compassDirection"
+
+import { DataTypeConversion } from "../conversions"
 
 /**
  * Convert degrees to cardinal (compass) direction
@@ -25,7 +26,7 @@ export class CardinalDirection extends DataTypeConversion {
     }
   }
 
-  public convertToNumber(value: number, unitSystem: UnitSystem): number {
+  public convertToNumber(value: number, _unitSystem: UnitSystem): number {
     return value
   }
 

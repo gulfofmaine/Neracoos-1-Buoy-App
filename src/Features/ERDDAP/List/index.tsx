@@ -4,16 +4,16 @@
 import bboxPolygon from "@turf/bbox-polygon"
 import booleanContains from "@turf/boolean-contains"
 import Link from "next/link"
-import * as React from "react"
+import type * as React from "react"
 import ListGroup from "react-bootstrap/ListGroup"
 
 import { paths } from "Shared/constants"
-import { BoundingBox } from "Shared/regions"
+import type { BoundingBox } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
 import { UsePlatforms } from "../hooks"
+import type { PlatformFeature } from "../types"
 import { platformName } from "../utils/platformName"
-import { PlatformFeature } from "../types"
 
 interface Props {
   /** Bounding box to filter platforms by */

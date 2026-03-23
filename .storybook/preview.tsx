@@ -1,5 +1,4 @@
 import type { Preview } from "@storybook/react"
-import * as React from "react"
 
 import "../src/index.scss"
 

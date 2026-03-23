@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/react"
+
+import type { DataTypeConversion } from "./conversions"
 import { data_types, Passthrough } from "./data_types"
-import { DataTypeConversion } from "./conversions"
 
 const possibleConverter = (data_type: string): DataTypeConversion | undefined => {
   return data_types[data_type]

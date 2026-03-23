@@ -17,7 +17,8 @@ repos:
         exclude: package-lock.json
       - id: no-commit-to-branch
 
-  - repo: https://github.com/rbubley/mirrors-prettier
-    rev: "v3.3.3"
+  - repo: https://github.com/biomejs/pre-commit
+    rev: "v2.4.8"  # Use the sha / tag you want to point at
     hooks:
-      - id: prettier
+    -   id: biome-check
+        additional_dependencies: ["@biomejs/biome@2.4.8"]

@@ -1,5 +1,3 @@
-import * as React from "react"
-
 import ContentBlock from "components/ContentBlock"
 
 import { fetchPageById } from "./fetch"

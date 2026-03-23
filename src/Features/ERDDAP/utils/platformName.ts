@@ -1,5 +1,6 @@
 import type { Feature } from "geojson"
-import { PlatformProperties } from "../types"
+
+import type { PlatformProperties } from "../types"
 
 interface PlatformNameProp extends Pick<PlatformProperties, "station_name"> {}
 
@@ -16,7 +17,7 @@ export function platformName(platform: PlatformName) {
   let name = platform.id
 
   if (platform.properties.station_name && platform.properties.station_name !== "") {
-    name += ": " + platform.properties.station_name
+    name += `: ${platform.properties.station_name}`
   }
 
   return name

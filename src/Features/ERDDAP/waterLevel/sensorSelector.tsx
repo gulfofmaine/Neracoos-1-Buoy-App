@@ -1,6 +1,5 @@
-import { useParams } from "next/navigation"
 import Link from "next/link"
-import { useState } from "react"
+import { useParams } from "next/navigation"
 import Col from "react-bootstrap/Col"
 import Dropdown from "react-bootstrap/Dropdown"
 import Row from "react-bootstrap/Row"
@@ -9,7 +8,7 @@ import { platformName } from "Features/ERDDAP/utils/platformName"
 import { waterLevelPath } from "Shared/urlParams"
 import { useDecodedUrl } from "util/hooks"
 
-import { useEndTime, useStartTime, useDatum } from "./hooks"
+import { useDatum, useEndTime, useStartTime } from "./hooks"
 
 export const WaterLevelSensorSelector = ({ sensors }) => {
   const params = useParams()
@@ -52,7 +51,15 @@ export const WaterLevelSensorSelector = ({ sensors }) => {
             {platformName(sensor)}
           </Dropdown.Toggle>
           {sensorOptions && (
-            <Dropdown.Menu align="end" style={{ padding: 0, border: "1px", maxHeight: "215px", overflow: "scroll" }}>
+            <Dropdown.Menu
+              align="end"
+              style={{
+                padding: 0,
+                border: "1px",
+                maxHeight: "215px",
+                overflow: "scroll",
+              }}
+            >
               {sensorOptions}
             </Dropdown.Menu>
           )}

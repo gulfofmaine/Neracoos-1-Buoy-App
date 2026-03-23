@@ -1,12 +1,19 @@
-import Script from "next/script"
 import Link from "next/link"
+import Script from "next/script"
 
 import { SecondaryBanner } from "components/SecondaryBanner"
 
 export const SurveyBanner = () => (
   <>
     <SecondaryBanner>
-      <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
+      <p
+        style={{
+          fontStyle: "italic",
+          fontSize: "14px",
+          marginBottom: "0px",
+          textAlign: "center",
+        }}
+      >
         Click <Link href="https://www.surveymonkey.com/r/V5F5Z7P">here</Link> to take our Mariners&apos; Dashboard
         Survey
       </p>

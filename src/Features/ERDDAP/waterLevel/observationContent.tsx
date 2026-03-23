@@ -5,11 +5,11 @@ import Alert from "react-bootstrap/Alert"
 import { WaterLevelChartDisplay } from "Features/ERDDAP/waterLevel/chart/chartDisplay"
 import { useUnitSystem } from "Features/Units"
 import { fullBeginningDateIso, manuallySetFullEODIso } from "Shared/time"
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
-import { filterTimeSeries, filterSingleTimeSeries } from "../Platform/Observations/CurrentConditions"
 import { UseDatasets } from "../hooks"
-import { PlatformFeature, PlatformTimeSeries } from "../types"
+import { filterSingleTimeSeries, filterTimeSeries } from "../Platform/Observations/CurrentConditions"
+import type { PlatformFeature, PlatformTimeSeries } from "../types"
 import { conditions } from "../utils/conditions"
 import { useEndTime, useStartTime, useWaterLevelDatum } from "./hooks"
 
@@ -70,10 +70,7 @@ export function WaterLevelObservationContent({ platform }: { platform: PlatformF
             platformId={platform.id}
           >
             {({ datasets }) => {
-              const times = datasets
-                .map((ds) => ds.timeSeries)
-                .flat()
-                .map((r) => r.time.valueOf())
+              const times = datasets.flatMap((ds) => ds.timeSeries).map((r) => r.time.valueOf())
               times.sort()
 
               const startTime = new Date(times[0])

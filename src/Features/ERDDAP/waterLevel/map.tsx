@@ -3,12 +3,12 @@ import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
 
-import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { WLLegend } from "Features/ERDDAP/waterLevel/WLLegend"
 import { InitialRegion, regionList } from "Shared/regions"
+import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 
-import { BaseProps, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
+import { type BaseProps, filterPlatforms, type View } from "../Map"
 import { WLPlatformLayer } from "../Map/WLPlatformLayer"
 
 const initial = { center: fromLonLat([-70.5, 43.5]), zoom: 6.7 }

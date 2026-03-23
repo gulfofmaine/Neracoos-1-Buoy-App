@@ -6,7 +6,7 @@ import { defineConfig, devices } from "@playwright/test"
  */
 // require('dotenv').config();
 
-let reporters: [string][] = [["html"]]
+const reporters: [string][] = [["html"]]
 
 if (process.env.CI) {
   reporters.push(["github"])

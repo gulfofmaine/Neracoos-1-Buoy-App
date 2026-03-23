@@ -1,4 +1,4 @@
-import { ErddapDataset } from "./types"
+import type { ErddapDataset } from "./types"
 
 /**
  * Return the metadata URL for a given dataset.
@@ -7,5 +7,5 @@ import { ErddapDataset } from "./types"
  * @returns String with URL to ERDDAP server dataset metadata.
  */
 export function datasetInfoJson(dataset: ErddapDataset): string {
-  return dataset.server + "/info/" + dataset.datasetId + "/index.json"
+  return `${dataset.server}/info/${dataset.datasetId}/index.json`
 }

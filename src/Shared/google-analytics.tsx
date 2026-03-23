@@ -1,13 +1,15 @@
 "use client"
+
 /**
  * Send Google analytics tracking info
  *
  * From https://github.com/react-ga/react-ga/issues/122#issuecomment-521781395
  */
 
-import React, { useEffect } from "react"
-import ReactGA from "react-ga4"
 import { usePathname } from "next/navigation"
+import type React from "react"
+import { useEffect } from "react"
+import ReactGA from "react-ga4"
 
 interface Props {
   trackingId?: string

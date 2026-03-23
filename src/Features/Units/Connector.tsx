@@ -1,9 +1,9 @@
 /**
  * Connect to the current unit system from Redux store
  */
-import * as React from "react"
+import type * as React from "react"
 
-import { UnitSystem } from "Features/Units/types"
+import type { UnitSystem } from "Features/Units/types"
 
 import { useUnitSystem } from "./hooks"
 

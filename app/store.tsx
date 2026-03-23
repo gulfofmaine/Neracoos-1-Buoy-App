@@ -1,5 +1,5 @@
-import { useRef, PropsWithChildren } from "react"
 import { configureStore } from "@reduxjs/toolkit"
+import { type PropsWithChildren, useRef } from "react"
 import { Provider } from "react-redux"
 
 import { unitReducer as unit } from "Features/Units"

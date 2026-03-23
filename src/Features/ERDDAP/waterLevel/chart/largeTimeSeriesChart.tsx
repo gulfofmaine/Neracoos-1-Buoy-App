@@ -6,26 +6,26 @@ import Highcharts from "highcharts"
 import addAccessibility from "highcharts/modules/accessibility"
 import {
   Chart,
-  Legend,
   HighchartsChart,
   HighchartsProvider,
+  Legend,
   PlotBand,
+  PlotLine,
   SplineSeries,
   Tooltip,
   XAxis,
   YAxis,
-  PlotLine,
 } from "react-jsx-highcharts"
 
-import { FloodThreshold } from "Features/ERDDAP/types"
+import type { FloodThreshold } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
-import { UnitSystem } from "Features/Units/types"
+import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
+import type { UnitSystem } from "Features/Units/types"
 import { colors, waterLevelChartColorCycle } from "Shared/colors"
 import { round } from "Shared/math"
-import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
-import { pointFormatMaker } from "components/Charts/formatter"
-import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { shortestDisplayIso } from "Shared/time"
+import type { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { pointFormatMaker } from "components/Charts/formatter"
 
 addAccessibility(Highcharts)
 const plotOptions = {
@@ -63,7 +63,6 @@ interface Props {
  * Single large time series chart component
  */
 export function LargeTimeSeriesWaterLevelChart({
-  name,
   softMax,
   softMin,
   timeSeries,
@@ -211,16 +210,15 @@ export function LargeTimeSeriesWaterLevelChart({
               dashStyle="Dash"
             />
           )}
-          {forecastedTidesDatasets &&
-            forecastedTidesDatasets.map((f, index) => (
-              <SplineSeries
-                key={`forecasted-${index}`}
-                name={f.displayName ?? "Forecast"}
-                marker={{ enabled: false }}
-                data={forecastedTidesData?.[index]}
-                dashStyle="ShortDot"
-              />
-            ))}
+          {forecastedTidesDatasets?.map((f, index) => (
+            <SplineSeries
+              key={`forecasted-${index}`}
+              name={f.displayName ?? "Forecast"}
+              marker={{ enabled: false }}
+              data={forecastedTidesData?.[index]}
+              dashStyle="ShortDot"
+            />
+          ))}
         </YAxis>
         <Legend layout="horizontal" />
         <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />

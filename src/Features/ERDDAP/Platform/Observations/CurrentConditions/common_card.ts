@@ -4,7 +4,7 @@
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import type { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
 /** Common props for formatting current conditions cards */
 export const cardProps = {

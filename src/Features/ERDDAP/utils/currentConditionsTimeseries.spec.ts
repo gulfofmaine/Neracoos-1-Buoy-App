@@ -1,6 +1,7 @@
-import { describe, it, expect } from "vitest"
-import { currentConditionsTimeseries } from "./currentConditionsTimeseries"
+import { describe, expect, it } from "vitest"
+
 import { platform } from "../../../stories/platform"
+import { currentConditionsTimeseries } from "./currentConditionsTimeseries"
 
 describe("currentConditionsTimeseries", () => {
   const laterThan = new Date("2020-02-03")

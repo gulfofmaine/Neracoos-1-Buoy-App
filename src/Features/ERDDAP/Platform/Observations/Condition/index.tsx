@@ -1,22 +1,24 @@
 /**
  * Display all time series for a specific standard name
  */
+
 import { useSearchParams } from "next/navigation"
-import React, { useState } from "react"
+import type React from "react"
+import { useState } from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
+import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { useUnitSystem } from "Features/Units"
+import type { UnitSystem } from "Features/Units/types"
+import { naturalBounds } from "Shared/dataTypes"
+import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
+import type { DataTimeSeries } from "Shared/timeSeries"
 import { PlatformLoadingAlert } from "components/Alerts"
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
-import { UnitSystem } from "Features/Units/types"
-import { useUnitSystem } from "Features/Units"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
-import { naturalBounds } from "Shared/dataTypes"
-import { DataTimeSeries } from "Shared/timeSeries"
-import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import type { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
 
 interface Props {
@@ -34,10 +36,10 @@ interface Props {
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
-  const [startDate, setStartDate] = useState(
+  const [startDate, _setStartDate] = useState(
     searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
   )
-  const [endDate, setEndDate] = useState(
+  const [endDate, _setEndDate] = useState(
     searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
   )
 
@@ -47,7 +49,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
   const charts = timeSeries.map((ts: PlatformTimeSeries, index) => {
-    const depth = ts.depth && ts.depth > 0 ? " at " + ts.depth + "m below" : ""
+    const depth = ts.depth && ts.depth > 0 ? ` at ${ts.depth}m below` : ""
 
     return (
       <Row key={index}>

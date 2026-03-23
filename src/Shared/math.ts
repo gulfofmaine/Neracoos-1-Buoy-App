@@ -9,5 +9,5 @@
  * @param significantDigits  Number of significant digits to keep.
  */
 export function round(num: number, significantDigits: number = 2): number {
-  return Math.ceil(num * Math.pow(10, significantDigits)) / Math.pow(10, significantDigits)
+  return Math.ceil(num * 10 ** significantDigits) / 10 ** significantDigits
 }

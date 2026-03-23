@@ -18,7 +18,7 @@ import {
 
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
 addAccessibility(Highcharts)
 function formatterWrapper(unit) {

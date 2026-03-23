@@ -2,7 +2,7 @@
 /**
  * Dropdown menu for various types of observations
  */
-import * as React from "react"
+
 import Link from "next/link"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
@@ -10,14 +10,8 @@ import Nav from "react-bootstrap/Nav"
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
 
-import { DataType } from "../../../types"
-import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
-
-const initialState = {
-  dropdownOpen: false,
-}
-
-type State = Readonly<typeof initialState>
+import type { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
+import type { DataType } from "../../../types"
 
 const windStandardNames = new Set([
   "northward_wind",

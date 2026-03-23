@@ -15,7 +15,7 @@ const unitNames = {
 }
 
 function compatible_name(unit): string {
-  if (unitNames.hasOwnProperty(unit)) {
+  if (Object.hasOwn(unitNames, unit)) {
     return unitNames[unit]
   }
   return unit
@@ -47,31 +47,32 @@ export function convertUnit(unit: string, value: number): string {
   unit = unit.toLowerCase()
   switch (unit) {
     case "deg c":
-      return " (" + conversion(value, "C", "F") + "° F)"
+      return ` (${conversion(value, "C", "F")}° F)`
     case "f":
-      return " (" + conversion(value, "F", "C") + "° C)"
+      return ` (${conversion(value, "F", "C")}° C)`
 
     case "meters":
       if (value < 100) {
-        return " (" + conversion(value, "m", "ft") + " feet)"
+        return ` (${conversion(value, "m", "ft")} feet)`
       } else {
         // nautical miles are not currently avaliable
         // they should be avaliable in the next release
         //  + conversion(value, 'm', 'nMi') + 'nm, '
-        return " (" + conversion(value, "m", "mi") + " miles)"
+        return ` (${conversion(value, "m", "mi")} miles)`
       }
 
     case "m/s":
-      return " (" + conversion(value, "m/s", "knot") + " knots, " + conversion(value, "m/s", "m/h") + " mph)"
+      return ` (${conversion(value, "m/s", "knot")} knots, ${conversion(value, "m/s", "m/h")} mph)`
     case "knot":
       return " (" + conversion(value, "knot", "m/s") + " m/s, " + conversion(value, "knot", "m/h") + " mph)"
 
-    case "degrees":
+    case "degrees": {
       const direction = compassDirection(value)
       if (direction) {
-        return " (" + direction[1] + ")"
+        return ` (${direction[1]})`
       }
       return ""
+    }
 
     default:
       return ""

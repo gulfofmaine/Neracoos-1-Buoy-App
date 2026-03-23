@@ -1,4 +1,4 @@
-import { PlatformTimeSeries } from "Features/ERDDAP/types"
+import type { PlatformTimeSeries } from "Features/ERDDAP/types"
 
 import { LoadingAlert } from "./loading"
 

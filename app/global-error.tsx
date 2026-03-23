@@ -9,14 +9,14 @@ import Row from "react-bootstrap/Row"
 import n_walkabout from "./n_walkabout.png"
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-  let eventId = useRef("")
+  const eventId = useRef("")
 
   useEffect(() => {
     eventId.current = Sentry.captureException(error)
   }, [error])
 
   return (
-    <html>
+    <html lang="en">
       <body>
         <Row>
           <Col md={{ offset: 2, span: 8 }}>

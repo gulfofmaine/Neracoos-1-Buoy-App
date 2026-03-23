@@ -1,4 +1,4 @@
-import React, { use } from "react"
+import { use } from "react"
 
 import { PlatformInfo } from "components/PlatformInfo/platformInfo"
 import { useDecodedUrl } from "util/hooks"

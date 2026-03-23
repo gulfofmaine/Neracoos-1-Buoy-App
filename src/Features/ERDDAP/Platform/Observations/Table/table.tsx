@@ -1,16 +1,15 @@
 /**
  * Current observations table component
  */
-import React from "react"
+import type React from "react"
 import ListGroup from "react-bootstrap/ListGroup"
 
-import { UnitSystem } from "Features/Units/types"
-
-import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
-import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
-
-import { itemStyle, TableItem } from "./item"
 import { platformName } from "Features/ERDDAP/utils/platformName"
+import type { UnitSystem } from "Features/Units/types"
+
+import type { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
+import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
+import { itemStyle, TableItem } from "./item"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode

@@ -6,24 +6,24 @@
 import Highcharts from "highcharts"
 import addAccessibility from "highcharts/modules/accessibility"
 import addWindBarbModule from "highcharts/modules/windbarb"
-import * as React from "react"
+import type * as React from "react"
 import {
   Chart,
   HighchartsChart,
+  HighchartsProvider,
   Legend,
   SplineSeries,
   Tooltip,
   WindBarbSeries,
-  HighchartsProvider,
   XAxis,
   YAxis,
 } from "react-jsx-highcharts"
 
 import { converter } from "Features/Units/Converter"
-import { UnitSystem } from "Features/Units/types"
-import { colors, colorCycle } from "Shared/colors"
+import type { UnitSystem } from "Features/Units/types"
+import { colorCycle, colors } from "Shared/colors"
 import { round } from "Shared/math"
-import { DataTimeSeries } from "Shared/timeSeries"
+import type { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion/compassDirection"
 
 addAccessibility(Highcharts)
@@ -42,7 +42,7 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
    * @param this Highcharts position value
    */
   // eslint-disable-next-line
-  function pointFormatter(this: Highcharts.TooltipFormatterContextObject, tooltip: Highcharts.Tooltip): string {
+  function pointFormatter(this: Highcharts.TooltipFormatterContextObject, _tooltip: Highcharts.Tooltip): string {
     return (
       `${this.x ? new Date(this.x).toLocaleString() : null}<br />` +
       this.points!.map((p) => {

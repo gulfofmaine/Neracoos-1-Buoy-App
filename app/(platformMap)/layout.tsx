@@ -2,19 +2,17 @@
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useMeasure } from "react-use"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import { useMeasure } from "react-use"
 
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 
 export default function Layout({
-  children,
   sidebar,
   belowMap,
   bottom,
 }: {
-  children: React.ReactNode
   sidebar: React.ReactNode
   bottom: React.ReactNode
   belowMap: React.ReactNode

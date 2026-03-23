@@ -1,5 +1,5 @@
-import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
+import type { UnitSystem } from "Features/Units/types"
 
 /**
  * Wrap up our tooltip formatting function so we can specifiy the unit it should use

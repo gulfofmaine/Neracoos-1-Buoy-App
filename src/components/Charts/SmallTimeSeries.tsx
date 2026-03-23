@@ -3,15 +3,14 @@
  */
 import Highcharts from "highcharts"
 import addAccessibility from "highcharts/modules/accessibility"
-import * as React from "react"
-import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
+import { Chart, HighchartsChart, HighchartsProvider, SplineSeries, Tooltip, XAxis, YAxis } from "react-jsx-highcharts"
 
-import { colors, colorCycle } from "Shared/colors"
+import type { UnitSystem } from "Features/Units/types"
+import { colorCycle, colors } from "Shared/colors"
 import { round } from "Shared/math"
-import { ReadingTimeSeries } from "Shared/timeSeries"
+import type { ReadingTimeSeries } from "Shared/timeSeries"
 
 import { pointFormatMaker } from "./formatter"
-import { UnitSystem } from "Features/Units/types"
 
 addAccessibility(Highcharts)
 const plotOptions = {
@@ -55,7 +54,7 @@ export function SmallTimeSeriesChart({
   endTime,
   unit,
 }: Props) {
-  let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
+  const data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
   return (
     <HighchartsProvider Highcharts={Highcharts}>

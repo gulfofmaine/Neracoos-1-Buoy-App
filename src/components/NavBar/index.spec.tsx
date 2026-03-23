@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from "vitest"
-import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import * as React from "react"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 vi.mock("next/navigation", () => {
   const origionalModule = vi.importActual("next/navigation")
@@ -12,9 +12,9 @@ vi.mock("next/navigation", () => {
   }
 })
 
-import NavBar from "."
-
 import { regions } from "Shared/regions"
+
+import NavBar from "."
 
 describe("The NavBar should have our primary links", () => {
   let nav: any

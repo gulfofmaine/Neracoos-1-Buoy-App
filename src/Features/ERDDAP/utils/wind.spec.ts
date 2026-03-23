@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest"
-import { DataTimeSeries } from "Shared/timeSeries"
+import { describe, expect, it } from "vitest"
 
-import { PlatformFeature } from "../types"
+import type { DataTimeSeries } from "Shared/timeSeries"
 
+import type { PlatformFeature } from "../types"
 import { pickWindDatasets } from "./wind"
 
 const variable = "wind_speed"
