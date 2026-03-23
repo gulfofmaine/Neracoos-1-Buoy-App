@@ -37,9 +37,12 @@ $dig-colors: (
   "danger": $danger,
   "orange": $orange,
 );
+
+$font-family-base: "Montserrat", Arial, sans-serif;
 $theme-colors: map-merge($theme-colors, $dig-colors);
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+// @import "~bootstrap/scss/variables";
 // @import "~bootstrap/scss/mixins";
 
 // @import "~bootstrap/scss/reboot";
@@ -49,15 +52,62 @@ $theme-colors: map-merge($theme-colors, $dig-colors);
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
-a {
-  color: $primary;
+// ========== TYPOGRAPHY START ==========
+
+h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+h2,
+h3 {
+  line-height: 1.875rem;
 }
+
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.25rem;
+  }
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+p {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+// Call this paragraph bold and caption bold
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: $primary;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-decoration: underline;
+}
+
+// Custom class for the caption font
+.caption {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+// ========== TYPOGRAPHY END ==========
 
 .App .alert-primary {
   color: $primary;
