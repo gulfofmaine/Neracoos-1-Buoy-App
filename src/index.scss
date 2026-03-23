@@ -109,6 +109,12 @@ a {
 }
 // ========== TYPOGRAPHY END ==========
 
+.secondary-alert {
+  top: -16px;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
 .App .alert-primary {
   color: $primary;
 }
