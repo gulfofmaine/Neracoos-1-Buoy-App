@@ -1,5 +1,6 @@
 "use client"
 import React from "react"
+import Card from "react-bootstrap/Card"
 
 import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"
 import { ErddapPlatformInfoPanel, ErddapPlatformInfoLite } from "Features/ERDDAP/Platform/Info"
@@ -44,13 +45,16 @@ export const PlatformInfoLite = ({ id }: { id: string }) => {
   return (
     <UsePlatform platformId={id}>
       {({ platform }) => (
-        <React.Fragment>
-          <div>
-            <PlatformAlerts platform={platform} />
-            <ErddapPlatformInfoLite platform={platform} />
-            <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} />
-          </div>
-        </React.Fragment>
+        <Card role="complementary">
+          <Card.Body>
+            <Card.Title role="header">
+              <ErddapPlatformInfoLite platform={platform} />
+            </Card.Title>
+            <Card.Text>
+              <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} />
+            </Card.Text>
+          </Card.Body>
+        </Card>
       )}
     </UsePlatform>
   )
