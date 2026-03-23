@@ -48,7 +48,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
   return (
     <div>
       <SecondaryBanner>
-        <p className="text-center p-0 m-0">
+        <p className="text-center fst-italic p-0 m-0">
           For official watch, warning, advisory, and forecast information please visit the{" "}
           <a href="https://www.weather.gov/erh/coastalflood" target="_blank">
             NWS Eastern Region Coastal Flood Page
