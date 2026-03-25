@@ -51,7 +51,7 @@ export const PlatformInfoLite = ({ id }: { id: string }) => {
               <ErddapPlatformInfoLite platform={platform} />
             </Card.Title>
             <Card.Text>
-              <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} />
+              <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} useShortNameThreshold={50}/>
             </Card.Text>
           </Card.Body>
         </Card>
