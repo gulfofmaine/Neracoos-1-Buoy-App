@@ -18,6 +18,7 @@ interface Props extends UsePlatformRenderProps {
   laterThan: Date
   limit?: number
   children?: any
+  useShortNameThreshold?: number
 }
 
 /**
@@ -31,6 +32,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
   laterThan,
   limit,
   children,
+  useShortNameThreshold,
 }: Props) => {
   let { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, laterThan)
   if (typeof limit !== "undefined") {
@@ -56,7 +58,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
         <ListGroup.Item style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroup.Item>
       )}
       {allCurrentConditionsTimeseries.map((timeSeries, index) => {
-        return <TableItem key={index} timeSeries={timeSeries} platform={platform} unitSystem={unitSystem} />
+        return <TableItem key={index} timeSeries={timeSeries} platform={platform} unitSystem={unitSystem} useShortNameThreshold={useShortNameThreshold}/>
       })}
 
       {unitSelector ? (
