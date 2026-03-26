@@ -2,7 +2,9 @@ import { useParams, usePathname } from "next/navigation"
 import { fromLonLat, transformExtent } from "ol/proj"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { RMap } from "rlayers"
+import * as Sentry from "@sentry/nextjs"
 
+import { WarningAlert } from "components/Alerts"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { WLLegend } from "Features/ERDDAP/waterLevel/WLLegend"
 import { InitialRegion, regionList } from "Shared/regions"
@@ -83,7 +85,11 @@ export const ErddapWaterLevelMap = () => {
   const { data } = usePlatforms()
 
   if (data?.features) {
-    return <ErddapWaterLevelMapBase platforms={data.features} height={"60vh"} />
+    return (
+      <Sentry.ErrorBoundary fallback={<WarningAlert>An error occurred loading the map</WarningAlert>}>
+        <ErddapWaterLevelMapBase platforms={data.features} height={"60vh"} />
+      </Sentry.ErrorBoundary>
+    )
   }
   return null
 }
