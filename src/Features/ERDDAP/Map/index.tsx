@@ -92,7 +92,6 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 
   if (!geometry) {
     Sentry.captureMessage(`Platform ${platform.id} has no geometry. Make sure the point is added in Buoy Barn`)
-    // debugger
     return null
   }
 
