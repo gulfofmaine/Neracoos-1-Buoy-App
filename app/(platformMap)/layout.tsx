@@ -45,7 +45,7 @@ export default function Layout({
     <React.Fragment>
       <Row>
         <Col xs={{ span: "12", order: "2" }} md={{ span: "6", order: "2" }}>
-          <div ref={ref} style={{ marginBottom: ".5rem" }}>
+          <div ref={ref} className="my-2 my-md-0">
             {sidebar}
           </div>
         </Col>
