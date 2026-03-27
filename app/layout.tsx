@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="App d-flex flex-column min-vh-100">
           <Providers>
             <NavBar />
-            <div className="container-fluid">
+            <div className="container-fluid pb-10">
               {children}
             </div>
             <Footer />

@@ -9,7 +9,7 @@ export const Footer: React.FunctionComponent = () => (
   <div
     className="mt-auto"
   >
-    <Row>
+    <Row className="pt-1">
       <Col md={colSize} className="mx-auto text-center">
         Copyright © 2021 ~ NERACOOS
       </Col>
