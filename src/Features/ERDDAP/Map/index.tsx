@@ -17,6 +17,7 @@ import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { PlatformInfoLite } from "components/PlatformInfo/platformInfo"
 
 import { aDayAgoRounded, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -122,7 +123,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
               [router, url],
             )}
           >
-            {platformName(platform)}
+            <PlatformInfoLite id={platform.id} />
           </Button>
         </RPopup>
       </RFeature>
