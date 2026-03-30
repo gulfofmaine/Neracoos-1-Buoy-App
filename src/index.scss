@@ -54,6 +54,7 @@ $spacers: (
   8: 2rem,
   9: 2.25rem,
   10: 2.5rem,
+  20: 5rem,
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
@@ -123,6 +124,21 @@ a {
   line-height: 1.25rem;
 }
 // ========== TYPOGRAPHY END ==========
+
+// ========== OPACITIES START ==========
+$dig-opacities: (
+  5: 0.05,
+  10: 0.1,
+  15: 0.15,
+  55: 0.55,
+  65: 0.65,
+);
+@each $k, $v in $dig-opacities {
+  .bg-opacity-#{$k} {
+    --bs-bg-opacity: #{$v};
+  }
+}
+// ========== OPACITIES START ==========
 
 .App .alert-primary {
   color: $primary;
