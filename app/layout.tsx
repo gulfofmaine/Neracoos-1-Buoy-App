@@ -12,10 +12,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <div className="App d-flex flex-column min-vh-100">
+        <div className="App d-flex flex-column">
           <Providers>
             <NavBar />
-            <div className="container-fluid pb-10">{children}</div>
+            <div className="max-wh-100 min-vh-100 p-0 mx-5 mx-md-10">{children}</div>
             <Footer />
           </Providers>
         </div>
