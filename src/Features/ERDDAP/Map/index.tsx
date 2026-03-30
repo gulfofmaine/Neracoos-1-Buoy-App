@@ -9,7 +9,8 @@ import { useRouter } from "@bprogress/next"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import Button from "react-bootstrap/Button"
-import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle, RControl } from "rlayers"
+import * as Sentry from "@sentry/nextjs"
 
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
@@ -81,6 +82,19 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   const fillColor = old ? "grey" : `#cf5c00${opacity}`
   const strokeColor = old ? "grey" : colors.whatOrange
 
+  const geometry = useMemo(() => {
+    const feature = new GeoJSON({
+      dataProjection: "EPSG:4326",
+      featureProjection: "EPSG:3857",
+    }).readFeature(platform)
+    return (feature as Feature).getGeometry()
+  }, [platform])
+
+  if (!geometry) {
+    Sentry.captureMessage(`Platform ${platform.id} has no geometry. Make sure the point is added in Buoy Barn`)
+    return null
+  }
+
   return (
     <RLayerVector>
       <RStyle.RStyle>
@@ -90,13 +104,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
         </RStyle.RCircle>
       </RStyle.RStyle>
       <RFeature
-        geometry={useMemo(() => {
-          const feature = new GeoJSON({
-            dataProjection: "EPSG:4326",
-            featureProjection: "EPSG:3857",
-          }).readFeature(platform)
-          return (feature as Feature).getGeometry()
-        }, [platform])}
+        geometry={geometry}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}

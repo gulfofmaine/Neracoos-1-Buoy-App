@@ -48,7 +48,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
   return (
     <div>
       <SecondaryBanner>
-        <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
+        <p className="text-center fst-italic p-0 m-0">
           For official watch, warning, advisory, and forecast information please visit the{" "}
           <a href="https://www.weather.gov/erh/coastalflood" target="_blank">
             NWS Eastern Region Coastal Flood Page
@@ -56,7 +56,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
         </p>
       </SecondaryBanner>
       <Row>
-        <Col sm={6} md={4}>
+        <Col xs={12} md={4}>
           {platform && waterLevelPlatforms && (
             <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
           )}
@@ -69,9 +69,11 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
             />
           )}
         </Col>
-        <Col sm={6}>{platform && <WaterLevelObservationContent platform={platform} />}</Col>
+        <Col xs={12} md={8}>
+          {platform && <WaterLevelObservationContent platform={platform} />}
+        </Col>
         {breakpoint === "S" && waterLevelPlatforms && (
-          <Col sm={6}>
+          <Col xs={12}>
             <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} platformId={id} height={"30vh"} />
           </Col>
         )}

@@ -28,7 +28,7 @@ export function PlatformTabs() {
     <UsePlatform platformId={id}>
       {(platform_props) => (
         <React.Fragment>
-          <Row style={{ paddingBottom: "1rem" }}>
+          <Row className="pb-4">
             <Col>
               <Nav variant="tabs">
                 <ErddapObservedDropdown {...platform_props} />

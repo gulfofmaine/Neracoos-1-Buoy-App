@@ -1,4 +1,6 @@
 @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
 
 // NERACOOS COLORS
 $neracoos-blue: #083d52;
@@ -26,14 +28,32 @@ $warning: $yellow;
 $danger: $bootstrap-red;
 
 // THEME
-$theme-colors: (
-  "orange": $orange,
+$dig-colors: (
   "primary": $primary,
   "secondary": $secondary,
   "info": $info,
   "success": $success,
   "warning": $warning,
   "danger": $danger,
+  "orange": $orange,
+);
+
+$font-family-base: "Montserrat", Arial, sans-serif;
+$theme-colors: map-merge($theme-colors, $dig-colors);
+
+$grid-gutter-width: 1.25rem;
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  7: 1.75rem,
+  8: 2rem,
+  9: 2.25rem,
+  10: 2.5rem,
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
@@ -47,18 +67,79 @@ $theme-colors: (
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+// ========== TYPOGRAPHY START ==========
+
+h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
 }
+
+h2,
+h3 {
+  line-height: 1.875rem;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.25rem;
+  }
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+p {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+// Call this paragraph bold and caption bold
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: $primary;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-decoration: underline;
+}
+
+// Custom class for the caption font
+.caption {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+// ========== TYPOGRAPHY END ==========
 
 .App .alert-primary {
   color: $primary;
 }
 
+.secondary-alert {
+  margin-top: -16px;
+  margin-left: -12px;
+  margin-right: -12px;
+  font-size: 0.875rem;
+  background-color: #d1e7ea;
+  border-color: #a2ced5;
+}
+
 .App .navbar-brand .nav-link,
-.App .nav-tabs .nav-item {
+.App .nav-tabs .nav-item,
+.nav-tabs .nav-link {
   color: $primary;
 }
 
@@ -118,10 +199,11 @@ nav.navbar {
 }
 
 .legend-item {
+  position: relative;
   display: flex;
   align-items: center;
   font-size: 12px;
-  position: relative;
+  height: 15px;
 }
 
 .pred-legend-item {
