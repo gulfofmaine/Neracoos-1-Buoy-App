@@ -128,6 +128,15 @@ a {
   color: $primary;
 }
 
+.secondary-alert {
+  top: -16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  font-size: 0.875rem;
+  background-color: #d1e7ea;
+  border-color: #a2ced5;
+}
+
 .App .navbar-brand .nav-link,
 .App .nav-tabs .nav-item,
 .nav-tabs .nav-link {
