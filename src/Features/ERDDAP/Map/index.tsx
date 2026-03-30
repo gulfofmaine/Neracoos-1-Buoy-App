@@ -16,6 +16,7 @@ import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
+import { WarningAlert } from "components/Alerts"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
@@ -209,7 +210,11 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Pr
   }, [])
 
   if (data?.features && isClient) {
-    return <ErddapMapBase platforms={platforms ?? data?.features} platformId={platformId} height={height} />
+    return (
+      <Sentry.ErrorBoundary fallback={<WarningAlert>An error occurred loading the map</WarningAlert>}>
+        <ErddapMapBase platforms={platforms ?? data?.features} platformId={platformId} height={height} />
+      </Sentry.ErrorBoundary>
+    )
   }
   return null
 }
