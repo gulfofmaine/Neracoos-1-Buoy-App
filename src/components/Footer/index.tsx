@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row"
 
 export const Footer: React.FunctionComponent = () => (
   <footer className="mt-auto caption py-6 px-auto bg-secondary bg-opacity-5">
-    <Row className="text-center">
+    <Row className="text-center g-1">
       <Col xs={12} md={12}>{`Copyright © ${new Date().getFullYear()} - NERACOOS`}</Col>
       <Col xs={12} md={12}>
         Use{" "}
