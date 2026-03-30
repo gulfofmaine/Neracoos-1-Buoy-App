@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <div className="App d-flex flex-column">
+        <div className="App d-flex flex-column overflow-x-hidden">
           <Providers>
             <NavBar />
             <div className="max-wh-100 min-vh-100 p-0 mx-5 mx-md-10">{children}</div>
