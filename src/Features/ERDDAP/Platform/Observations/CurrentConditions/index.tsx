@@ -46,7 +46,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
         const endTime = new Date(times[times.length - 1])
 
         return (
-          <Row>
+          <Row className="g-5">
             {datasets.map((dataset, index) => {
               const datasetTimeSeries = before.find((ts) => ts.variable === dataset.name)
               if (!datasetTimeSeries) {
