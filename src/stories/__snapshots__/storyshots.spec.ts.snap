@@ -50,23 +50,19 @@ exports[`Storybook Snapshot Tests > Components/Alerts/Warning > Warning 1`] = `
 
 exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
 <div>
-  <div
-    class="mt-auto"
+  <footer
+    class="mt-auto caption py-6 px-auto bg-secondary bg-opacity-5"
   >
     <div
-      class="pt-1 row"
+      class="text-center row"
     >
       <div
-        class="mx-auto text-center col-md-10"
+        class="col-md-12 col-12"
       >
-        Copyright © 2021 ~ NERACOOS
+        Copyright © 2026 - NERACOOS
       </div>
-    </div>
-    <div
-      class="row"
-    >
       <div
-        class="mx-auto text-center col-md-10"
+        class="col-md-12 col-12"
       >
         Use
          
@@ -78,12 +74,8 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
          
         to send us feedback or bug reports
       </div>
-    </div>
-    <div
-      class="row"
-    >
       <div
-        class="mx-auto text-center col-md-10"
+        class="col-md-12 col-12"
       >
         Product of 
         <a
@@ -100,7 +92,7 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
         </a>
       </div>
     </div>
-  </div>
+  </footer>
 </div>
 `;
 
