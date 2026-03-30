@@ -19,7 +19,7 @@ export default function WaterLevelIndexPage() {
     waterLevelPlatforms &&
     regionList.map((r, index) => {
       return (
-        <Card style={{ marginBottom: "20px" }} key={`sensor-region-list-#${index}`}>
+        <Card className="mb-5" key={`sensor-region-list-#${index}`}>
           <Card.Header>{r.name}</Card.Header>
           <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />
         </Card>
@@ -29,10 +29,10 @@ export default function WaterLevelIndexPage() {
   return (
     <>
       <Row>
-        <Col sm={{ order: "2" }} md={{ order: "1", span: "6" }}>
+        <Col xs={12} md={6}>
           {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
         </Col>
-        <Col sm={{ order: "1" }} md={{ order: "2", span: "6" }}>
+        <Col xs={12} md={6}>
           {regionCards}
         </Col>
       </Row>
