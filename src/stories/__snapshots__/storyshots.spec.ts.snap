@@ -54,7 +54,7 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
     class="mt-auto caption py-6 px-auto bg-secondary bg-opacity-5"
   >
     <div
-      class="text-center row"
+      class="text-center g-1 row"
     >
       <div
         class="col-md-12 col-12"
