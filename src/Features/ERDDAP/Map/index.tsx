@@ -9,7 +9,7 @@ import { useRouter } from "@bprogress/next"
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import Button from "react-bootstrap/Button"
-import { RFeature, RLayerVector, RMap, RPopup, RStyle, RControl } from "rlayers"
+import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 import * as Sentry from "@sentry/nextjs"
 
 import { colors } from "Shared/colors"
