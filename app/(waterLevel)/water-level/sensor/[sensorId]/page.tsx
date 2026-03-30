@@ -55,7 +55,7 @@ export default function SensorIdPage(props: { params: Promise<{ sensorId: string
           </a>
         </p>
       </SecondaryBanner>
-      <Row>
+      <Row className="g-5">
         <Col xs={12} md={4}>
           {platform && waterLevelPlatforms && (
             <WaterLevelSensorInfo platform={platform} sensors={waterLevelPlatforms} />
