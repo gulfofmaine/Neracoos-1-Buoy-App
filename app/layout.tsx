@@ -10,14 +10,12 @@ import "../src/index.scss"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ margin: 0, overflow: "none" }}>
+    <html lang="en">
       <body>
-        <div className="App" style={{ position: "relative", minHeight: "100vh" }}>
+        <div className="App d-flex flex-column min-vh-100">
           <Providers>
             <NavBar />
-            <div className="container-fluid" style={{ paddingBottom: "110px" }}>
-              {children}
-            </div>
+            <div className="container-fluid pb-10">{children}</div>
             <Footer />
           </Providers>
         </div>
