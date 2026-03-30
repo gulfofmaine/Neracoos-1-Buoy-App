@@ -43,11 +43,9 @@ export default function Layout({
 
   return (
     <React.Fragment>
-      <Row>
+      <Row className="g-5">
         <Col xs={12} md={6} className="order-2">
-          <div ref={ref} className="my-2 my-md-0">
-            {sidebar}
-          </div>
+          <div ref={ref}>{sidebar}</div>
         </Col>
 
         <Col xs={12} md={6}>

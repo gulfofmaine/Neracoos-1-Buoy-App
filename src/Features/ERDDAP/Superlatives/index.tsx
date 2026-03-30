@@ -106,7 +106,7 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
     }
   }, [platforms, searchStartTime])
   return (
-    <Card className="mt-2">
+    <Card className="my-5">
       <Card.Header className="d-flex flex-row align-items-center superlative-header">
         <h3 className="d-flex m-0">Top Wind & Waves - All Regions</h3>
       </Card.Header>
