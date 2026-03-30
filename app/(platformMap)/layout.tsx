@@ -50,12 +50,8 @@ export default function Layout({
 
         <Col xs={12} md={6} className="order-1">
           <ErddapMap height={params.regionId ? "80vh" : height} {...(isPlatformView && { platformId })} />
+          {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
-        {belowMap ?? (
-          <Col xs={12} md={12} className="order-3">
-            {belowMap}
-          </Col>
-        )}
       </Row>
 
       {(isPlatformView && isClient && bottom) ?? <Row>{bottom}</Row>}
