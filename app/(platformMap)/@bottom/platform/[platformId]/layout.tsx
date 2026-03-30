@@ -5,7 +5,7 @@ import { PlatformTabs } from "./tabs"
 export default async function PlatformTabsLayout({ children }: { children: React.ReactNode }) {
   return (
     <DehydratedPlatforms>
-      <div style={{ marginTop: "1rem" }}>
+      <div className="mt-4">
         <PlatformTabs />
         {children}
       </div>
