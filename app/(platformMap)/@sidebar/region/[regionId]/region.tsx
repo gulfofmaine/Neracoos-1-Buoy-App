@@ -3,6 +3,7 @@ import { ErddapPlatformList } from "Features/ERDDAP"
 import { Region, regionList } from "Shared/regions"
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
+import { ArrowLeftIcon, ArrowRightIcon } from "Shared/icons/iconsMap"
 
 import Link from "next/link"
 
@@ -24,13 +25,16 @@ export function NextRegion({ region, offset }: { region: Region; offset: number 
   }
 
   return (
-    <div>
+    <>
       <Link
         href={urlPartReplacer(paths.regions.region, ":id", regionList[nextRegionIdx].slug as string)}
         key={regionList[nextRegionIdx].name}
+        className="d-flex flex-row align-items-center gap-1"
       >
-        {regionList[nextRegionIdx].name}
+        {offset < 0 && <ArrowLeftIcon height={14} className="" />}
+        <span className="text-center">{regionList[nextRegionIdx].name}</span>
+        {offset > 0 && <ArrowRightIcon height={14} className="" />}
       </Link>
-    </div>
+    </>
   )
 }
