@@ -138,8 +138,8 @@ $dig-opacities: (
     --bs-bg-opacity: #{$v};
   }
 }
-// ========== OPACITIES START ==========
-
+// ========== OPACITIES END ==========
+// ========== ALERTS START ==========
 .App .alert-primary {
   color: $primary;
 }
@@ -152,16 +152,21 @@ $dig-opacities: (
   background-color: #d1e7ea;
   border-color: #a2ced5;
 }
+// ========== ALERTS END ==========
 
+// ========== NAV START ==========
 .nav-tabs .nav-link {
-    color: $primary;
+  color: $primary;
 }
 
-nav.navbar {
-  .dropdown-menu {
-    background-color: white;
-  }
+.navbar-nav .nav-item .nav-link {
+  color: rgba(255, 255, 255, 0.55);
 }
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: white;
+}
+// ========== NAV END ==========
 
 .condition-tooltip > div > div {
   background-color: $primary;
