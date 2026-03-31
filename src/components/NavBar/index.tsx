@@ -40,7 +40,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 const NeracoosNavBar = () => {
   return (
     <div>
-      <Navbar className="bg-primary mb-4" expand="md">
+      <Navbar data-bs-theme="dark" className="bg-primary mb-4 dark-nav-custom" expand="md">
         <Container fluid className="mx-5 mx-md-10 px-0">
           <Navbar.Brand href={paths.home}>
             <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-4">

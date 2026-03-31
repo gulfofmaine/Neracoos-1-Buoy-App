@@ -155,16 +155,19 @@ $dig-opacities: (
 // ========== ALERTS END ==========
 
 // ========== NAV START ==========
-.nav-tabs .nav-link {
+.nav-tabs.nav-link {
   color: $primary;
 }
 
-.navbar-nav .nav-item .nav-link {
-  color: rgba(255, 255, 255, 0.55);
+.navbar.dark-nav-custom {
+  --bs-navbar-color: rgba(255, 255, 255, 0.55);
+  --bs-navbar-hover-color: white;
+  --bs-navbar-active-color: rgba(255, 255, 255, 0.55);
 }
 
-.navbar-nav .nav-item .nav-link:hover {
-  color: white;
+.navbar.dark-nav-custom .dropdown-menu {
+  --bs-dropdown-bg: white;
+  --bs-dropdown-link-hover-bg: rgba(23, 133, 150, 0.1); // seaweed-10
 }
 // ========== NAV END ==========
 

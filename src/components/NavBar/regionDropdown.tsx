@@ -17,16 +17,8 @@ export const NavLink = ({
   children: React.ReactNode
   onClick: () => void
 }) => {
-  const pathname = usePathname()
-
-  const isActive = pathname.startsWith(href)
-
   return (
-    <Link
-      href={href}
-      className="nav-link dropdown-item btn text-primary"
-      onClick={onClick}
-    >
+    <Link href={href} className="nav-link dropdown-item btn text-primary ps-1" onClick={onClick}>
       {children}
     </Link>
   )
