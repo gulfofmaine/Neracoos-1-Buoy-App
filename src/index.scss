@@ -153,42 +153,14 @@ $dig-opacities: (
   border-color: #a2ced5;
 }
 
-.App .navbar-brand .nav-link,
-.App .nav-tabs .nav-item,
 .nav-tabs .nav-link {
-  color: $primary;
+    color: $primary;
 }
 
 nav.navbar {
-  background-color: $primary;
-  margin-bottom: 1rem;
-
   .dropdown-menu {
     background-color: white;
   }
-  .navbar-brand > img {
-    height: 30px;
-  }
-
-  a.nav-link {
-    color: rgba(255, 255, 255, 0.55);
-
-    &.active {
-      color: white;
-    }
-
-    &.dropdown-item {
-      color: $primary;
-    }
-
-    &.dropdown-toggle.show {
-      color: rgba(255, 255, 255, 0.739);
-    }
-  }
-}
-
-.navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {
-  color: black;
 }
 
 .condition-tooltip > div > div {

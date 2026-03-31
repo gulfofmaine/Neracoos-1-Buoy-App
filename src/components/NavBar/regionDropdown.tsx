@@ -24,7 +24,7 @@ export const NavLink = ({
   return (
     <Link
       href={href}
-      className={isActive ? "nav-link dropdown-item btn" : "nav-link dropdown-item btn"}
+      className="nav-link dropdown-item btn text-primary"
       onClick={onClick}
     >
       {children}
