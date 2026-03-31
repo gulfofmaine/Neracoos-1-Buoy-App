@@ -14,6 +14,7 @@ import { paths } from "Shared/constants"
 import { RegionDropdown } from "./regionDropdown"
 
 import neracoosLogo from "./neracoos_logo.png"
+import { Container } from "react-bootstrap"
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname()
@@ -39,25 +40,27 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 const NeracoosNavBar = () => {
   return (
     <div>
-      <Navbar bg="primary" data-bs-theme="dark" expand="md">
-        <Navbar.Brand href={paths.neracoos}>
-          <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
-        </Navbar.Brand>
-        <Navbar.Toggle />
+      <Navbar data-bs-theme="dark" className="bg-primary" expand="md">
+        <Container fluid className="mx-5 mx-md-10 px-0">
+          <Navbar.Brand href={paths.neracoos}>
+            <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
+          </Navbar.Brand>
+          <Navbar.Toggle />
 
-        <Navbar.Collapse className="justify-content-end">
-          <Nav className="ml-auto">
-            <NavLink href={paths.home}>Home</NavLink>
+          <Navbar.Collapse className="justify-content-end">
+            <Nav>
+              <NavLink href={paths.home}>Home</NavLink>
 
-            <RegionDropdown closeParent={close} />
-            <Nav.Item>
-              <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink href={paths.about}>About</NavLink>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
+              <RegionDropdown closeParent={close} />
+              <Nav.Item>
+                <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
+              </Nav.Item>
+              <Nav.Item>
+                <NavLink href={paths.about}>About</NavLink>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       </Navbar>
     </div>
   )
