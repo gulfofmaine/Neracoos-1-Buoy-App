@@ -7,7 +7,7 @@ const platformUrl = "/platform/44007"
 test.describe("Platfrom 44007", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
-    await page.getByRole("button", { name: "Regions" }).click()
+    await page.getByRole("button", { name: "Station List" }).click()
     await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
     await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
     await page.getByRole("link", { name: "Casco Bay" }).click()
