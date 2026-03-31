@@ -42,15 +42,16 @@ const NeracoosNavBar = () => {
     <div>
       <Navbar data-bs-theme="dark" className="bg-primary" expand="md">
         <Container fluid className="mx-5 mx-md-10 px-0">
-          <Navbar.Brand href={paths.neracoos}>
-            <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
+          <Navbar.Brand href={paths.home}>
+            <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-4">
+              <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
+              <p className="m-0 text-white">Mariners' Dashboard</p>
+            </div>
           </Navbar.Brand>
           <Navbar.Toggle />
 
           <Navbar.Collapse className="justify-content-end">
             <Nav>
-              <NavLink href={paths.home}>Home</NavLink>
-
               <RegionDropdown closeParent={close} />
               <Nav.Item>
                 <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
