@@ -31,9 +31,9 @@ export function NextRegion({ region, offset }: { region: Region; offset: number 
         key={regionList[nextRegionIdx].name}
         className="d-flex flex-row align-items-center gap-1"
       >
-        {offset < 0 && <ArrowLeftIcon height={14} className="" />}
+        {offset < 0 && <ArrowLeftIcon height={14} className="text-primary" />}
         <span className="text-center">{regionList[nextRegionIdx].name}</span>
-        {offset > 0 && <ArrowRightIcon height={14} className="" />}
+        {offset > 0 && <ArrowRightIcon height={14} className="text-primary" />}
       </Link>
     </>
   )
