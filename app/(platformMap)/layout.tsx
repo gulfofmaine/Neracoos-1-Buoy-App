@@ -43,12 +43,12 @@ export default function Layout({
 
   return (
     <React.Fragment>
-      <Row className="gy-5 gx-0">
-        <Col xs={12} md={6} className="order-2 ps-md-5 pe-md-0">
+      <Row className="g-5">
+        <Col xs={12} md={6} className="px-0 ps-md-5 order-2">
           <div ref={ref}>{sidebar}</div>
         </Col>
 
-        <Col xs={12} md={6} className="order-1 px-md-0">
+        <Col xs={12} md={6} className="px-0 order-1">
           <ErddapMap height={params.regionId ? "80vh" : height} {...(isPlatformView && { platformId })} />
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
