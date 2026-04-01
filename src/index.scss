@@ -138,8 +138,8 @@ $dig-opacities: (
     --bs-bg-opacity: #{$v};
   }
 }
-// ========== OPACITIES START ==========
-
+// ========== OPACITIES END ==========
+// ========== ALERTS START ==========
 .App .alert-primary {
   color: $primary;
 }
@@ -152,44 +152,24 @@ $dig-opacities: (
   background-color: #d1e7ea;
   border-color: #a2ced5;
 }
+// ========== ALERTS END ==========
 
-.App .navbar-brand .nav-link,
-.App .nav-tabs .nav-item,
+// ========== NAV START ==========
 .nav-tabs .nav-link {
   color: $primary;
 }
 
-nav.navbar {
-  background-color: $primary;
-  margin-bottom: 1rem;
-
-  .dropdown-menu {
-    background-color: white;
-  }
-  .navbar-brand > img {
-    height: 30px;
-  }
-
-  a.nav-link {
-    color: rgba(255, 255, 255, 0.55);
-
-    &.active {
-      color: white;
-    }
-
-    &.dropdown-item {
-      color: $primary;
-    }
-
-    &.dropdown-toggle.show {
-      color: rgba(255, 255, 255, 0.739);
-    }
-  }
+.navbar.dark-nav-custom {
+  --bs-navbar-color: rgba(255, 255, 255, 0.55);
+  --bs-navbar-hover-color: white;
+  --bs-navbar-active-color: rgba(255, 255, 255, 0.55);
 }
 
-.navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {
-  color: black;
+.navbar.dark-nav-custom .dropdown-menu {
+  --bs-dropdown-bg: white;
+  --bs-dropdown-link-hover-bg: rgba(23, 133, 150, 0.1); // seaweed-10
 }
+// ========== NAV END ==========
 
 .condition-tooltip > div > div {
   background-color: $primary;

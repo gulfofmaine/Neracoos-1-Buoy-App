@@ -27,8 +27,8 @@ describe("The NavBar should have our primary links", () => {
     expect(screen.getByText("About"))
   })
 
-  it("Has a region dropdown", () => {
-    expect(screen.getByText("Regions"))
+  it("Has a station dropdown", () => {
+    expect(screen.getByText("Station List"))
   })
 
   // it("Includes Model Viewer", () => {

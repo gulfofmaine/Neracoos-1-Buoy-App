@@ -14,6 +14,7 @@ import { paths } from "Shared/constants"
 import { RegionDropdown } from "./regionDropdown"
 
 import neracoosLogo from "./neracoos_logo.png"
+import { Container } from "react-bootstrap"
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname()
@@ -39,25 +40,28 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 const NeracoosNavBar = () => {
   return (
     <div>
-      <Navbar bg="primary" data-bs-theme="dark" expand="md">
-        <Navbar.Brand href={paths.neracoos}>
-          <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
-        </Navbar.Brand>
-        <Navbar.Toggle />
+      <Navbar data-bs-theme="dark" className="bg-primary mb-4 dark-nav-custom" expand="md">
+        <Container fluid className="mx-5 mx-md-10 px-0">
+          <Navbar.Brand href={paths.home}>
+            <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-4">
+              <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
+              <p className="m-0 text-white">Mariners' Dashboard</p>
+            </div>
+          </Navbar.Brand>
+          <Navbar.Toggle />
 
-        <Navbar.Collapse className="justify-content-end">
-          <Nav className="ml-auto">
-            <NavLink href={paths.home}>Home</NavLink>
-
-            <RegionDropdown closeParent={close} />
-            <Nav.Item>
-              <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink href={paths.about}>About</NavLink>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
+          <Navbar.Collapse className="justify-content-end">
+            <Nav>
+              <RegionDropdown closeParent={close} />
+              <Nav.Item>
+                <NavLink href={paths.waterLevel.root}>Water Level</NavLink>
+              </Nav.Item>
+              <Nav.Item>
+                <NavLink href={paths.about}>About</NavLink>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       </Navbar>
     </div>
   )
