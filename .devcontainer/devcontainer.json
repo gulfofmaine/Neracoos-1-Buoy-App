@@ -1,0 +1,33 @@
+{
+  "name": "Mariner's Dashboard",
+  "dockerComposeFile": ["../docker-compose.yaml", "../docker-compose.dev.yaml"],
+  "service": "client",
+  "runServices": ["client", "spotlight"],
+  "workspaceFolder": "/app",
+  "overrideCommand": false,
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [3000, 8969],
+  "portsAttributes": {
+    "3000": {
+      "label": "Next.js app",
+      "onAutoForward": "openBrowser"
+    },
+    "8969": {
+      "label": "Sentry Spotlight",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "git.enabled": true,
+        "scm.diffDecorations": "all"
+      },
+      "extensions": ["vitest.explorer"]
+    }
+  },
+  "postCreateCommand": "git config --global --add safe.directory /app"
+}
