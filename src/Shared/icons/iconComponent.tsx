@@ -11,8 +11,8 @@ type IconProps = {
 }
 
 function mkIcon(faIcon: IconDefinition) {
-  function Icon({ className, height, ...rest }: IconProps) {
-    return <FontAwesomeIcon icon={faIcon} className={className} height={height} {...rest} />
+  function Icon({ className, ...rest }: IconProps) {
+    return <FontAwesomeIcon icon={faIcon} className={className} {...rest} />
   }
   return Icon
 }
