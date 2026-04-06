@@ -1,5 +1,6 @@
 import { Metadata, Viewport } from "next"
 import React from "react"
+import { Container } from "react-bootstrap"
 
 import NavBar from "components/NavBar"
 import { Footer } from "../src/components/Footer"
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="App d-flex flex-column min-vh-100 overflow-x-hidden">
           <Providers>
             <NavBar />
-            <div className="max-wh-100 p-0 pb-20 mx-5 mx-md-10">{children}</div>
+            <Container fluid className="p-0 pb-20 px-5 px-lg-10">
+              {children}
+            </Container>
             <Footer />
           </Providers>
         </div>
