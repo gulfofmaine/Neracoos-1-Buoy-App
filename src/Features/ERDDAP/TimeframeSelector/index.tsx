@@ -76,7 +76,7 @@ export function TimeframeSelector({
             alignItems: "center",
             justifyContent: "start",
             flexWrap: "wrap",
-            gap: "8px"
+            gap: "8px",
           }}
         >
           <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
