@@ -13,6 +13,18 @@ import { itemStyle, TableItem, MapItemPopup } from "./item"
 import { platformName } from "Features/ERDDAP/utils/platformName"
 import { PlatformTimeSeries } from "Features/ERDDAP/types"
 
+interface LastUpdatedProps {
+  label: string
+  times: Date[]
+  className?: string
+  boldKey?: boolean
+}
+
+interface LimitedObsProps extends Omit<Props, "laterThan"> {
+  allCurrentConditions: PlatformTimeSeries[]
+  times: Date[]
+}
+
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
   unitSystem: UnitSystem
@@ -21,16 +33,49 @@ interface Props extends UsePlatformRenderProps {
   children?: any
 }
 
-interface LimitedObsProps extends Omit<Props, "laterThan"> {
-  allCurrentConditions: PlatformTimeSeries[]
-  times: Date[]
+/**
+ * Render a key followed by the last time in a series of dates.
+ */
+const LastUpdated = ({ label, times, className, boldKey }: LastUpdatedProps) => {
+  if (times.length <= 0) {
+    return null
+  }
+
+  const timeVal = times[times.length - 1].toLocaleString(undefined, {
+    hour: "2-digit",
+    hour12: true,
+    minute: "2-digit",
+    month: "short",
+    day: "numeric",
+  })
+
+  return (
+    <span className={className}>
+      {boldKey ? <strong>{label}</strong> : label}
+      {timeVal}
+    </span>
+  )
 }
 
-interface LastUpdatedProps {
-  label: string
-  times: Date[]
-  className?: string
-  boldKey?: boolean
+/**
+ * Render a lightweight limited number of observations.
+ */
+export const LimitedItems: React.FC<LimitedObsProps> = ({
+  allCurrentConditions,
+  limit,
+  unitSystem,
+  platform,
+  times,
+}: LimitedObsProps) => {
+  allCurrentConditions = allCurrentConditions.slice(0, limit)
+  return (
+    <div>
+      <LastUpdated label="Updated: " times={times} className="caption d-flex justify-content-start" />
+      {allCurrentConditions.map((timeSeries, index) => (
+        <MapItemPopup key={index} timeSeries={timeSeries} unitSystem={unitSystem} platform={platform} />
+      ))}
+    </div>
+  )
 }
 
 /**
@@ -78,48 +123,5 @@ export const ErddapObservationTable: React.FC<Props> = ({
       ) : null}
       {children && <ListGroup.Item>{children}</ListGroup.Item>}
     </ListGroup>
-  )
-}
-
-/**
- * Render a lightweight limited number of observations.
- */
-export const LimitedItems: React.FC<LimitedObsProps> = ({
-  allCurrentConditions,
-  limit,
-  unitSystem,
-  platform,
-  times,
-}: LimitedObsProps) => {
-  allCurrentConditions = allCurrentConditions.slice(0, limit)
-  return (
-    <div>
-      <LastUpdated label="Updated: " times={times} className="caption d-flex justify-content-start" />
-      {allCurrentConditions.map((timeSeries, index) => (
-        <MapItemPopup key={index} timeSeries={timeSeries} unitSystem={unitSystem} platform={platform} />
-      ))}
-    </div>
-  )
-}
-
-/**
- * Render a key followed by the last time in a series of dates.
- */
-const LastUpdated = ({ label, times, className, boldKey }: LastUpdatedProps) => {
-  if (times.length <= 0) return null
-
-  const timeVal = times[times.length - 1].toLocaleString(undefined, {
-    hour: "2-digit",
-    hour12: true,
-    minute: "2-digit",
-    month: "short",
-    day: "numeric",
-  })
-
-  return (
-    <span className={className}>
-      {boldKey ? <strong>{label}</strong> : label}
-      {timeVal}
-    </span>
   )
 }
