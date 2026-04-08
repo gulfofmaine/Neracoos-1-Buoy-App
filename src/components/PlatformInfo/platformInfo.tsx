@@ -45,16 +45,10 @@ export const PlatformInfoLite = ({ id }: { id: string }) => {
   return (
     <UsePlatform platformId={id}>
       {({ platform }) => (
-        <Card role="complementary">
-          <Card.Body>
-            <Card.Title role="header">
-              <ErddapPlatformInfoLite platform={platform} />
-            </Card.Title>
-            <Card.Text>
-              <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} useShortNameThreshold={50}/>
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        <div className="d-flex flex-column justify-content-start">
+          <ErddapPlatformInfoLite platform={platform} />
+          <ErddapObservationTable platform={platform} unitSystem={unitSystem} laterThan={aDayAgo} limit={2} />
+        </div>
       )}
     </UsePlatform>
   )

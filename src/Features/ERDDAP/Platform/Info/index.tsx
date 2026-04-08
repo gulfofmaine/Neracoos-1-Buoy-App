@@ -46,8 +46,8 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
 
 export const ErddapPlatformInfoLite: React.FunctionComponent<UsePlatformRenderProps> = ({ platform }) => {
   return (
-    <React.Fragment>
-      Station {platformName(platform)}
-    </React.Fragment>
+    <p className="m-0">
+      <strong>Station {platformName(platform)}</strong>
+    </p>
   )
 }

@@ -22,7 +22,6 @@ interface TableItemProps {
   platform: PlatformFeature
   timeSeries: PlatformTimeSeries
   unitSystem: UnitSystem
-  useShortNameThreshold?: number
 }
 
 type TableItemDisplayProps = Pick<TableItemProps, "timeSeries" | "unitSystem"> &
@@ -48,14 +47,10 @@ const TableItemDisplay: React.FC<TableItemDisplayProps> = ({
   )
 }
 
-export const TableItem = ({ timeSeries, unitSystem, platform, useShortNameThreshold }: TableItemProps) => {
+export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) => {
   const tooltipId = `${timeSeries.data_type.standard_name}-tooltip`
 
   let name = timeSeries.data_type.long_name
-  if (typeof useShortNameThreshold !== 'undefined') {
-    name = (name.length > useShortNameThreshold ? timeSeries.data_type.short_name : name) || name;
-  }
-
   if (timeSeries.depth && timeSeries.depth > 0) {
     name = `${name} @ ${timeSeries.depth}m`
   }
@@ -89,5 +84,31 @@ export const TableItem = ({ timeSeries, unitSystem, platform, useShortNameThresh
         </span>
       </OverlayTrigger>
     </Link>
+  )
+}
+
+/**
+ *  Render observation items in a format acceptable for the map hover.
+ */
+export const MapItemPopup = ({ timeSeries, unitSystem }: TableItemProps) => {
+  const shortNameThreshold: number = 50
+  let name =
+    timeSeries.data_type.long_name.length > shortNameThreshold
+      ? timeSeries.data_type.short_name
+      : timeSeries.data_type.long_name
+
+  if (timeSeries.depth && timeSeries.depth > 0) {
+    name = `${name} @ ${timeSeries.depth}m`
+  }
+
+  const unit_converter = converter(timeSeries.data_type.standard_name)
+  const value = unit_converter.convertTo(timeSeries.value as number, unitSystem)
+
+  return (
+    <div className="caption d-flex flex-row gap-1">
+      <strong>{name}:</strong>
+      <span>{typeof value === "number" ? round(value as number, 1) : value}</span>
+      <span>{unit_converter.displayName(unitSystem)}</span>
+    </div>
   )
 }

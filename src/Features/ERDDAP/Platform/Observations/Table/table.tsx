@@ -9,8 +9,9 @@ import { UnitSystem } from "Features/Units/types"
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
 
-import { itemStyle, TableItem } from "./item"
+import { itemStyle, TableItem, MapItemPopup } from "./item"
 import { platformName } from "Features/ERDDAP/utils/platformName"
+import { PlatformTimeSeries } from "Features/ERDDAP/types"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
@@ -18,7 +19,18 @@ interface Props extends UsePlatformRenderProps {
   laterThan: Date
   limit?: number
   children?: any
-  useShortNameThreshold?: number
+}
+
+interface LimitedObsProps extends Omit<Props, "laterThan"> {
+  allCurrentConditions: PlatformTimeSeries[]
+  times: Date[]
+}
+
+interface LastUpdatedProps {
+  label: string
+  times: Date[]
+  className?: string
+  boldKey?: boolean
 }
 
 /**
@@ -32,33 +44,31 @@ export const ErddapObservationTable: React.FC<Props> = ({
   laterThan,
   limit,
   children,
-  useShortNameThreshold,
 }: Props) => {
   let { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, laterThan)
-  if (typeof limit !== "undefined") {
-    allCurrentConditionsTimeseries = allCurrentConditionsTimeseries.slice(0, limit)
-  }
+
   const times = allCurrentConditionsTimeseries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
+  if (typeof limit !== "undefined") {
+    return (
+      <LimitedItems
+        allCurrentConditions={allCurrentConditionsTimeseries}
+        limit={limit}
+        unitSystem={unitSystem}
+        platform={platform}
+        times={times}
+      />
+    )
+  }
+
   return (
-    <ListGroup style={{ paddingTop: "1rem" }} as="ul">
-      {times.length > 0 ? (
-        <ListGroup.Item style={itemStyle} as="li">
-          <b>Last updated at:</b>{" "}
-          {times[times.length - 1].toLocaleString(undefined, {
-            hour: "2-digit",
-            hour12: true,
-            minute: "2-digit",
-            month: "short",
-            day: "numeric",
-          })}
-        </ListGroup.Item>
-      ) : (
-        <ListGroup.Item style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroup.Item>
-      )}
+    <ListGroup className="pt-4" as="ul">
+      <ListGroup.Item as="li">
+        <LastUpdated label="Last updated at: " times={times} boldKey />
+      </ListGroup.Item>
       {allCurrentConditionsTimeseries.map((timeSeries, index) => {
-        return <TableItem key={index} timeSeries={timeSeries} platform={platform} unitSystem={unitSystem} useShortNameThreshold={useShortNameThreshold}/>
+        return <TableItem key={index} timeSeries={timeSeries} platform={platform} unitSystem={unitSystem} />
       })}
 
       {unitSelector ? (
@@ -68,5 +78,48 @@ export const ErddapObservationTable: React.FC<Props> = ({
       ) : null}
       {children && <ListGroup.Item>{children}</ListGroup.Item>}
     </ListGroup>
+  )
+}
+
+/**
+ * Render a lightweight limited number of observations.
+ */
+export const LimitedItems: React.FC<LimitedObsProps> = ({
+  allCurrentConditions,
+  limit,
+  unitSystem,
+  platform,
+  times,
+}: LimitedObsProps) => {
+  allCurrentConditions = allCurrentConditions.slice(0, limit)
+  return (
+    <div>
+      <LastUpdated label="Updated: " times={times} className="caption d-flex justify-content-start" />
+      {allCurrentConditions.map((timeSeries, index) => (
+        <MapItemPopup key={index} timeSeries={timeSeries} unitSystem={unitSystem} platform={platform} />
+      ))}
+    </div>
+  )
+}
+
+/**
+ * Render a key followed by the last time in a series of dates.
+ */
+const LastUpdated = ({ label, times, className, boldKey }: LastUpdatedProps) => {
+  if (times.length <= 0) return null
+
+  const timeVal = times[times.length - 1].toLocaleString(undefined, {
+    hour: "2-digit",
+    hour12: true,
+    minute: "2-digit",
+    month: "short",
+    day: "numeric",
+  })
+
+  return (
+    <span className={className}>
+      {boldKey ? <strong>{label}</strong> : label}
+      {timeVal}
+    </span>
   )
 }
