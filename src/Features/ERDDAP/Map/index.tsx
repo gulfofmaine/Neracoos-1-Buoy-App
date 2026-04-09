@@ -5,6 +5,7 @@ import "ol/ol.css"
  */
 import { usePathname } from "next/navigation"
 import { useRouter } from "@bprogress/next"
+import React from "react"
 
 import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
