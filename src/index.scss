@@ -170,6 +170,31 @@ $dig-opacities: (
   --bs-dropdown-link-hover-bg: rgba(23, 133, 150, 0.1); // seaweed-10
 }
 // ========== NAV END ==========
+// ========== MAP START ==========
+
+.platform-map-layout {
+  min-height: 590px;
+  height: 60vh;
+}
+
+// Tricky making map square on mobile: undo all the work getting heights to match
+// on tablet & up so that height can be constrained by width with aspect ratio
+@include media-breakpoint-down(sm) {
+  .platform-map-layout {
+    height: auto;
+    min-height: unset;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+}
+
+.map .ol-zoom {
+  top: 10px;
+  left: auto;
+  right: 10px;
+}
+
+// ========== MAP END ============
 
 .condition-tooltip > div > div {
   background-color: $primary;
@@ -186,12 +211,6 @@ $dig-opacities: (
 
 .tooltip-inner a {
   color: $coastal-meadow;
-}
-
-.map .ol-zoom {
-  top: 10px;
-  left: auto;
-  right: 10px;
 }
 
 .legend-item {
