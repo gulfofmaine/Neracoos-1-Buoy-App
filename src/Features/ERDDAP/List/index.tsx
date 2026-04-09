@@ -62,7 +62,11 @@ export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platf
           )
         })
 
-      return <ListGroup as="ul">{listItems}</ListGroup>
+      return (
+        <ListGroup variant="flush" as="ul">
+          {listItems}
+        </ListGroup>
+      )
     }
   }
 
