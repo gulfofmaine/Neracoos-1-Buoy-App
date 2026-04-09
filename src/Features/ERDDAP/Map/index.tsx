@@ -33,6 +33,8 @@ export interface Props {
   platformId?: string
   // Already filtered platforms
   platforms?: PlatformFeature[]
+  // Height to adjust map to match sidebar
+  height?: number | string
   className?: string
 }
 
