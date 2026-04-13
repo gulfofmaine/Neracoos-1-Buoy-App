@@ -39,9 +39,7 @@ export default function Layout({
     <React.Fragment>
       <Row className="g-5">
         <Col xs={12} md={6} className="order-2">
-          <div className="platform-map-layout">
-            {sidebar}
-          </div>
+          <div className="platform-map-layout">{sidebar}</div>
         </Col>
 
         <Col xs={12} md={6} className="order-1">
