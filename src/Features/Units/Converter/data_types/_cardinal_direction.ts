@@ -13,7 +13,7 @@ export class CardinalDirection extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
   ) {
-    super(data_type, display_name, "degrees", "Degrees", "Cardinal Direction")
+    super(data_type, display_name, "degrees", "Degrees", "Cardinal Direction", "\u00B0")
   }
 
   public convertTo(value: number, unitSystem: UnitSystem): number | string {

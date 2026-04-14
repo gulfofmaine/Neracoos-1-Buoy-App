@@ -25,6 +25,6 @@ describe("wind_from_direction conversions", () => {
 
   it("display names", () => {
     expect(wind_from_direction.displayName(UnitSystem.english)).toBe("")
-    expect(wind_from_direction.displayName(UnitSystem.metric)).toBe("Degrees")
+    expect(wind_from_direction.displayName(UnitSystem.metric)).toBe("\u00B0")
   })
 })
