@@ -14,7 +14,7 @@ export class WindSpeed extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
   ) {
-    super(data_type, display_name, "m/s", "m/s", "knot", "Meters/Second", "Knots")
+    super(data_type, display_name, "m/s", "m/s", "knot", "Meters/Second", "Knots", "m/s", "kts")
   }
 }
 
@@ -26,6 +26,6 @@ export class WindSpeedKnots extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
   ) {
-    super(data_type, display_name, "knot", "m/s", "knot", "Meters/Second", "Knots")
+    super(data_type, display_name, "knot", "m/s", "knot", "Meters/Second", "Knots", "m/s", "kts")
   }
 }

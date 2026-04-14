@@ -73,7 +73,7 @@ test.describe("Platform A01", () => {
       .getByText(/Direction/)
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
+    await expect(page.locator("svg.highcharts-root").getByText(/kts/).first()).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()

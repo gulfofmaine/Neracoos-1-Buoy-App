@@ -97,6 +97,6 @@ describe("TableItem", () => {
   it("Rounds the wind speed", () => {
     render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.metric} />)
 
-    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
+    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 m/s")
   })
 })
