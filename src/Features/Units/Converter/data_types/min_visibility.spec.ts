@@ -19,7 +19,7 @@ describe("min_visiblity conversions", () => {
   })
 
   it("display names", () => {
-    expect(min_visibility.displayName(UnitSystem.english)).toBe("Nautical Miles")
-    expect(min_visibility.displayName(UnitSystem.metric)).toBe("Kilometers")
+    expect(min_visibility.displayName(UnitSystem.english)).toBe("nMi")
+    expect(min_visibility.displayName(UnitSystem.metric)).toBe("km")
   })
 })
