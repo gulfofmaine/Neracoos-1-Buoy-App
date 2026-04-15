@@ -25,6 +25,6 @@ describe("sea_surface_wave_to_direction conversions", () => {
 
   it("display names", () => {
     expect(sea_surface_wave_to_direction.displayName(UnitSystem.english)).toBe("")
-    expect(sea_surface_wave_to_direction.displayName(UnitSystem.metric)).toBe("Degrees")
+    expect(sea_surface_wave_to_direction.displayName(UnitSystem.metric)).toBe("\u00B0")
   })
 })
