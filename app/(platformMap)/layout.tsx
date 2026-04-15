@@ -46,11 +46,16 @@ export default function Layout({
           <div className="platform-map-layout">
             <ErddapMap className="map" {...(isPlatformView && { platformId })} />
           </div>
+
+          {/* Below Map = Superlatives */}
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
       </Row>
 
-      {(isPlatformView && isClient && bottom) ?? <Row>{bottom}</Row>}
+      {/* Bottom = Platform obs data */}
+      <Row className="mt-4 d-flex justify-content-center">
+        {(isPlatformView && isClient && bottom) ?? <React.Fragment>{bottom}</React.Fragment>}
+      </Row>
     </React.Fragment>
   )
 }
