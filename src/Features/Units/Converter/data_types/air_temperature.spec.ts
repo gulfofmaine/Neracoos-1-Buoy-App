@@ -19,7 +19,7 @@ describe("air_temperature conversions", () => {
   })
 
   it("display names", () => {
-    expect(air_temperature.displayName(UnitSystem.english)).toBe("Fahrenheit")
-    expect(air_temperature.displayName(UnitSystem.metric)).toBe("Celsius")
+    expect(air_temperature.displayName(UnitSystem.english)).toBe("\u00B0F")
+    expect(air_temperature.displayName(UnitSystem.metric)).toBe("\u00B0C")
   })
 })
