@@ -20,6 +20,6 @@ describe("significant_wave_height conversions", () => {
 
   it("display names", () => {
     expect(significant_wave_height.displayName(UnitSystem.english)).toBe("ft")
-    expect(significant_wave_height.displayName(UnitSystem.metric)).toBe("Meters")
+    expect(significant_wave_height.displayName(UnitSystem.metric)).toBe("m")
   })
 })
