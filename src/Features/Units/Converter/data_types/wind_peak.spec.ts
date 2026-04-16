@@ -24,7 +24,7 @@ describe("wind_peak conversions", () => {
   })
 
   it("display names", () => {
-    expect(wind_peak.displayName(UnitSystem.english)).toBe("Knots")
-    expect(wind_peak.displayName(UnitSystem.metric)).toBe("Meters/Second")
+    expect(wind_peak.displayName(UnitSystem.english)).toBe("kts")
+    expect(wind_peak.displayName(UnitSystem.metric)).toBe("m/s")
   })
 })
