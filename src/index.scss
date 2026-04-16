@@ -171,27 +171,40 @@ $dig-opacities: (
 }
 // ========== NAV END ==========
 // ========== MAP START ==========
-
-.platform-map-layout {
-  min-height: 590px;
+.h-60 {
   height: 60vh;
 }
 
-// Tricky making map square on mobile: undo all the work getting heights to match
-// on tablet & up so that height can be constrained by width with aspect ratio
-@include media-breakpoint-down(sm) {
-  .platform-map-layout {
-    height: auto;
-    min-height: unset;
-    aspect-ratio: 1 / 1;
-    width: 100%;
-  }
+.min-590px {
+  min-height: 590px;
+}
+
+.platform-map-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
 }
 
 .map .ol-zoom {
   top: 10px;
   left: auto;
   right: 10px;
+}
+
+// Control aspect ratio with height
+@include media-breakpoint-down(sm) {
+  .map {
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+  .min-590px {
+    min-height: 0;
+  }
 }
 
 // ========== MAP END ============

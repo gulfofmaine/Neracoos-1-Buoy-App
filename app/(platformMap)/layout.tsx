@@ -20,6 +20,7 @@ export default function Layout({
 }) {
   const path = usePathname()
   const isPlatformView = path.startsWith("/platform")
+  const isRegionView = path.startsWith("/region")
   const params: { regionId?: string; platformId?: string } = useParams()
   const platformId = params.platformId
   const [isClient, setIsClient] = useState(false)
@@ -37,14 +38,19 @@ export default function Layout({
 
   return (
     <React.Fragment>
-      <Row className="g-5">
-        <Col xs={12} md={6} className="order-2">
-          <div className="platform-map-layout">{sidebar}</div>
+      <Row className="g-5 align-items-stretch">
+        <Col xs={12} md={6} className="order-2 d-flex">
+          <div className="platform-map-layout flex-fill">
+            <div className={isRegionView ? "h-60" : ""}>{sidebar}</div>
+          </div>
         </Col>
 
-        <Col xs={12} md={6} className="order-1">
-          <div className="platform-map-layout">
-            <ErddapMap className="map" {...(isPlatformView && { platformId })} />
+        <Col xs={12} md={6} className="order-1 d-flex flex-column">
+          <div className="platform-map-layout flex-fill">
+            <ErddapMap
+              className={`${!(isPlatformView || isRegionView) ? "min-590px" : ""} map`}
+              {...(isPlatformView && { platformId })}
+            />
           </div>
 
           {/* Below Map = Superlatives */}
