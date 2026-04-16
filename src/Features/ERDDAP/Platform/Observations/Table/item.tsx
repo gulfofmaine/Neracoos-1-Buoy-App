@@ -22,6 +22,7 @@ interface TableItemProps {
   platform: PlatformFeature
   timeSeries: PlatformTimeSeries
   unitSystem: UnitSystem
+  useShortNameThreshold?: number
 }
 
 type TableItemDisplayProps = Pick<TableItemProps, "timeSeries" | "unitSystem"> &
@@ -47,10 +48,14 @@ const TableItemDisplay: React.FC<TableItemDisplayProps> = ({
   )
 }
 
-export const TableItem = ({ timeSeries, unitSystem, platform }: TableItemProps) => {
+export const TableItem = ({ timeSeries, unitSystem, platform, useShortNameThreshold }: TableItemProps) => {
   const tooltipId = `${timeSeries.data_type.standard_name}-tooltip`
 
   let name = timeSeries.data_type.long_name
+  if (typeof useShortNameThreshold !== 'undefined') {
+    name = (name.length > useShortNameThreshold ? timeSeries.data_type.short_name : name) || name;
+  }
+
   if (timeSeries.depth && timeSeries.depth > 0) {
     name = `${name} @ ${timeSeries.depth}m`
   }
