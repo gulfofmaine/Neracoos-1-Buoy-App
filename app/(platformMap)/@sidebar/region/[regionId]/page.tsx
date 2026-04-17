@@ -18,9 +18,10 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
   }
 
   return (
-    <div>
+    <div className="d-flex flex-column h-100">
       <h2>Platforms in {region.name}</h2>
-      <div className="row mb-2 align-items-center">
+
+      <div className="d-flex flex-row mb-2 align-items-center">
         <div className="d-flex col-6">
           <NextRegion region={region} offset={-1} />
         </div>
@@ -28,9 +29,12 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
           <NextRegion region={region} offset={1} />
         </div>
       </div>
-      <DehydratedPlatforms>
-        <RegionList region={region} />
-      </DehydratedPlatforms>
+
+      <div className="overflow-y-auto border border-1 rounded">
+        <DehydratedPlatforms>
+          <RegionList region={region} />
+        </DehydratedPlatforms>
+      </div>
     </div>
   )
 }
