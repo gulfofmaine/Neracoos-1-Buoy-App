@@ -41,6 +41,7 @@ export default function Layout({
       <Row className="g-5 align-items-stretch">
         <Col xs={12} md={6} className="order-2 d-flex">
           <div className="platform-map-layout flex-fill">
+            {/* Second div layer decouples sidebar from map to allow for scrolling */}
             <div className={isRegionView ? "h-60" : ""}>{sidebar}</div>
           </div>
         </Col>
@@ -48,6 +49,7 @@ export default function Layout({
         <Col xs={12} md={6} className="order-1 d-flex flex-column">
           <div className="platform-map-layout flex-fill">
             <ErddapMap
+              // Pass minimum height requirement only on landing page
               className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map`}
               {...(isPlatformView && { platformId })}
             />
