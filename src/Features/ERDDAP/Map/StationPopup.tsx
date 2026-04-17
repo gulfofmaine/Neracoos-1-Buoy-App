@@ -81,7 +81,8 @@ const LastUpdated = ({ allData }: { allData: PlatformTimeSeries[] }) => {
 const DataRenderer = ({ platform }: DataRendererProps) => {
   const limit = 2
   let { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, aDayAgoRounded())
-  allCurrentConditionsTimeseries = allCurrentConditionsTimeseries.slice(0, limit)
+  //   Uncomment below to work on "top 2 conditions"
+  //   allCurrentConditionsTimeseries = allCurrentConditionsTimeseries.slice(0, limit)
   return (
     <React.Fragment>
       <LastUpdated allData={allCurrentConditionsTimeseries} />
