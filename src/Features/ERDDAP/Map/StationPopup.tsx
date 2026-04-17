@@ -43,14 +43,6 @@ const getTimes = (data: PlatformTimeSeries[]): Date[] => {
   return times.sort((a, b) => a.valueOf() - b.valueOf())
 }
 
-const StationName = ({ platform }: DataRendererProps) => {
-  return (
-    <p className="m-0 d-flex justify-content-start">
-      <strong>Station: {platform.id}</strong>
-    </p>
-  )
-}
-
 const PopupMetric = ({ data }: { data: PlatformTimeSeries }) => {
   const unitSystem = useUnitSystem()
   const popupData: popupData = getPopupData(data, unitSystem)
@@ -97,6 +89,14 @@ const DataRenderer = ({ platform }: DataRendererProps) => {
         <PopupMetric key={index} data={timeSeries} />
       ))}
     </React.Fragment>
+  )
+}
+
+const StationName = ({ platform }: DataRendererProps) => {
+  return (
+    <p className="m-0 d-flex justify-content-start">
+      <strong>Station: {platform.id}</strong>
+    </p>
   )
 }
 
