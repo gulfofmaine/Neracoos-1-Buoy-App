@@ -179,6 +179,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 
   return (
     <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
+      <div className="map-key bg-white"><h1>key</h1></div>
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
 

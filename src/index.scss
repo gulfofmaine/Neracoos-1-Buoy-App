@@ -194,6 +194,14 @@ $dig-opacities: (
   right: 10px;
 }
 
+.map-key {
+  position: absolute;
+  z-index: 10;
+  top: 1rem;
+  left: 1rem;
+
+}
+
 .legend-item {
   position: relative;
   display: flex;
