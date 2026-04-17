@@ -25,6 +25,7 @@ import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import { platformName } from "../utils/platformName"
 import { Feature } from "ol"
+import { StationPopup } from "./StationPopup"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -122,7 +123,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
               [router, url],
             )}
           >
-            {platformName(platform)}
+            <StationPopup platformId={platform.id} />
           </Button>
         </RPopup>
       </RFeature>
