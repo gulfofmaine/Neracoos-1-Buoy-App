@@ -20,7 +20,7 @@ describe("<ErddapObservationTable>", () => {
 
     expect(screen.getAllByRole("link").length).toBe(3)
     expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
-    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 Knots")
+    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 kts")
   })
 
   it("Should show selected observations in metric", () => {
@@ -34,7 +34,7 @@ describe("<ErddapObservationTable>", () => {
 
     expect(screen.getAllByRole("link").length).toBe(3)
     expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
-    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 2 Meters/Second")
+    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 2 m/s")
   })
 })
 
