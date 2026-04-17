@@ -85,7 +85,7 @@
     "eslint": "^10.0.2",
     "eslint-config-next": "16.1.6",
     "eslint-plugin-storybook": "^10.2.15",
-    "jsdom": "^28.1.0",
+    "jsdom": "^29.0.1",
     "playwright": "^1.57.0",
     "playwright-performance": "^2.0.6",
     "redux-mock-store": "1.5.5",
