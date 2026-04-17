@@ -50,7 +50,7 @@ const PopupMetric = ({ data }: { data: PlatformTimeSeries }) => {
 
   return (
     <div className="caption d-flex flex-row gap-1">
-      <strong>{popupData.name}</strong>
+      <strong>{`${popupData.name}:`}</strong>
       <span>{typeof value === "number" ? round(value as number, 1) : value}</span>
       <span>{popupData.unit_converter.displayName(unitSystem)}</span>
     </div>
