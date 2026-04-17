@@ -48,7 +48,7 @@ export default function Layout({
         <Col xs={12} md={6} className="order-1 d-flex flex-column">
           <div className="platform-map-layout flex-fill">
             <ErddapMap
-              className={`${!(isPlatformView || isRegionView) ? "min-590px" : ""} map`}
+              className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map`}
               {...(isPlatformView && { platformId })}
             />
           </div>
