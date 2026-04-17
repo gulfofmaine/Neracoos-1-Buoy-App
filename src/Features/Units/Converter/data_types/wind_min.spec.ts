@@ -24,7 +24,7 @@ describe("wind_min conversions", () => {
   })
 
   it("display names", () => {
-    expect(wind_min.displayName(UnitSystem.english)).toBe("Knots")
-    expect(wind_min.displayName(UnitSystem.metric)).toBe("Meters/Second")
+    expect(wind_min.displayName(UnitSystem.english)).toBe("kts")
+    expect(wind_min.displayName(UnitSystem.metric)).toBe("m/s")
   })
 })
