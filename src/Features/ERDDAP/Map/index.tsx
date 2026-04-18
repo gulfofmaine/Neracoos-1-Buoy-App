@@ -130,6 +130,27 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   )
 }
 
+// Legend items
+const LegendItem = ({ active }: { active: boolean }) => {
+  return (
+    <span className="caption d-flex flex-row align-items-center">
+      <div className={`erddap-key-dot ${active ? "erddap-dot-active" : "erddap-dot-inactive"}`}></div>
+      {active ? "Active" : "Inactive"}
+    </span>
+  )
+}
+
+// ERDDAP map legend
+const MapLegend = () => {
+  return (
+    <div className="map-key d-flex flex-column gap-1 bg-white border rounded-1 py-2 px-3">
+      <p className="caption m-0">Station Key</p>
+      <LegendItem active={true} />
+      <LegendItem active={false} />
+    </div>
+  )
+}
+
 // Initial view to display if one is not otherwise set
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
@@ -181,7 +202,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
     <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
-
+      <MapLegend />
       {oldPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
       ))}
