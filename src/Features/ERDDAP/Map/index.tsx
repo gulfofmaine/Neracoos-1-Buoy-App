@@ -96,7 +96,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   }
 
   return (
-    <RLayerVector>
+    <RLayerVector zIndex={100}>
       <RStyle.RStyle>
         <RStyle.RCircle radius={radius}>
           <RStyle.RFill color={fillColor} />
@@ -105,27 +105,11 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       </RStyle.RStyle>
       <RFeature
         geometry={geometry}
+        properties={{ platform: platform, url: url }}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
-      >
-        <RPopup trigger={"hover"}>
-          <Button
-            variant="dark"
-            size="sm"
-            href={url}
-            onClick={useCallback(
-              (event) => {
-                event.preventDefault()
-                router.push(url)
-              },
-              [router, url],
-            )}
-          >
-            {platformName(platform)}
-          </Button>
-        </RPopup>
-      </RFeature>
+      ></RFeature>
     </RLayerVector>
   )
 }
@@ -134,10 +118,40 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
+  const router = useRouter()
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
+
+  const [highlightedFeatures, setHighlightedFeatures] = useState<any[]>([])
+  const popup = useRef<RPopup>(null)
+
+  const onPointerMove = useCallback((e) => {
+    const features: any[] = []
+
+    // Use a single popup element based on the topmost moused-over platform.
+    // Instead of having one popup per platform which was a clobbering mess.
+
+    // Access the underlying OpenLayers map object from the event
+    const map = e.map
+
+    // Iterate through all features at the current pixel
+    map.forEachFeatureAtPixel(e.pixel, (feature) => {
+      features.push(feature)
+      // stop at the first (topmost) feature
+      return true
+    })
+
+    // Save off the feature(s) and take some popup action.
+    if (features.length > 0) {
+      setHighlightedFeatures(features)
+      popup.current?.show()
+    } else {
+      setHighlightedFeatures([])
+      popup.current?.hide()
+    }
+  }, [])
 
   // Check if the route was navigated to using the back button
   // const isBackButtonUsed = router.asPath !== router.pathname;
@@ -178,9 +192,29 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
+    <RMap
+      ref={mapRef}
+      className="map"
+      initial={initial}
+      view={[view || initial, setView]}
+      height={height}
+      onPointerMove={onPointerMove}
+    >
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
+
+      {highlightedFeatures.length > 0 && (
+        <RLayerVector zIndex={10}>
+          <RStyle.RStyle />
+          <RFeature feature={highlightedFeatures[0]}>
+            <RPopup ref={popup}>
+              <Button variant="dark" size="sm" href={highlightedFeatures[0].get("url")}>
+                {platformName(highlightedFeatures[0].get("platform"))}
+              </Button>
+            </RPopup>
+          </RFeature>
+        </RLayerVector>
+      )}
 
       {oldPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
