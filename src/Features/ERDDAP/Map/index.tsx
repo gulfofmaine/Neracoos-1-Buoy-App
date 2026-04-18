@@ -118,7 +118,6 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
-  const router = useRouter()
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
