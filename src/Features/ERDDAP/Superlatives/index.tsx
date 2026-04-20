@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 import { WarningAlert } from "components/Alerts"
 import { useUnitSystem } from "Features/Units"
@@ -17,6 +18,7 @@ import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { anHourAgoRounded, hoursBefore } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
+import { InfoCircleIcon } from "Shared/icons/iconsMap"
 
 import { usePlatforms } from "../hooks/buoyBarn"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
@@ -105,10 +107,30 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
       }
     }
   }, [platforms, searchStartTime])
+
+  const renderToolTip = (props) => {
+    if (windSuperlative?.timeSeries?.time && waveSuperlative?.timeSeries?.time) {
+      return (
+        <Tooltip {...props} id="superlatives-tooltip" className="superlatives-tooltip">
+          <div>{`Wave observation from: ${new Date(waveSuperlative.timeSeries.time).toLocaleString()}`}</div>
+          <div>{`Wind observation from: ${new Date(windSuperlative.timeSeries.time).toLocaleString()}`}</div>
+        </Tooltip>
+      )
+    } else {
+      return (
+        <Tooltip {...props} id="superlatives-tooltip">
+          Data not available.
+        </Tooltip>
+      )
+    }
+  }
   return (
     <Card className="mt-5">
-      <Card.Header className="d-flex flex-row align-items-center bg-black bg-opacity-5">
+      <Card.Header className="d-flex flex-row gap-2 align-items-center bg-black bg-opacity-5">
         <h3 className="d-flex m-0">Top Wind & Waves - All Regions</h3>
+        <OverlayTrigger placement="right" delay={{ show: 250, hide: 250 }} overlay={renderToolTip}>
+          <InfoCircleIcon className="fa-md" />
+        </OverlayTrigger>
       </Card.Header>
 
       <Card.Body>
