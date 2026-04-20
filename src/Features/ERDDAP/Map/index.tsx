@@ -67,9 +67,9 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 
   let radius: number
   if (selected) {
-    radius = window.innerWidth > adjustPxWidth ? 10 : 15
+    radius = window.innerWidth > adjustPxWidth ? 10 : 30
   } else {
-    radius = window.innerWidth > adjustPxWidth ? 5 : 10
+    radius = window.innerWidth > adjustPxWidth ? 5 : 20
   }
   const opacity = selected ? "cc" : "7a"
 
