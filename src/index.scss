@@ -265,7 +265,7 @@ $dig-opacities: (
   right: 10px;
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(md) {
   .ol-touch .ol-control button {
     font-size: 1.25rem;
     height: 44px;
