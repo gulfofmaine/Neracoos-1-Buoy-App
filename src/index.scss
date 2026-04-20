@@ -171,8 +171,8 @@ $dig-opacities: (
 }
 // ========== NAV END ==========
 // ========== MAP START ==========
-.h-60 {
-  height: 60vh;
+.sidebar-height {
+  height: 80vh;
 }
 
 .landing-min-height {
@@ -205,6 +205,9 @@ $dig-opacities: (
   }
   .landing-min-height {
     min-height: 0;
+  }
+  .sidebar-height {
+    height: unset;
   }
 }
 

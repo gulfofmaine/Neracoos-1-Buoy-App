@@ -42,7 +42,7 @@ export default function Layout({
         <Col xs={12} md={6} className="order-2 d-flex">
           <div className="platform-map-layout flex-fill">
             {/* Second div layer decouples sidebar from map to allow for scrolling */}
-            <div className={isRegionView ? "h-60" : ""}>{sidebar}</div>
+            <div className={isRegionView ? "sidebar-height" : ""}>{sidebar}</div>
           </div>
         </Col>
 
