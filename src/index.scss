@@ -201,6 +201,7 @@ $dig-opacities: (
   .map {
     aspect-ratio: 1 / 1;
     height: auto;
+    max-height: 50vh;
   }
   .landing-min-height {
     min-height: 0;
