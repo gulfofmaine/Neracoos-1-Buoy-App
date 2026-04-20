@@ -197,7 +197,7 @@ $dig-opacities: (
 }
 
 // Control aspect ratio with height
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .map {
     aspect-ratio: 1 / 1;
     height: auto;
