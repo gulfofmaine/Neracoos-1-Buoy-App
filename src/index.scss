@@ -172,7 +172,15 @@ $dig-opacities: (
 // ========== NAV END ==========
 // ========== MAP START ==========
 .sidebar-height {
-  height: 75vh;
+  max-height: 85vh;
+  min-height: 0;
+}
+
+// Mobile landscape view
+@media(max-height: 500px){
+  .sidebar-height {
+    max-height: 75vh;
+  }
 }
 
 .landing-min-height {
