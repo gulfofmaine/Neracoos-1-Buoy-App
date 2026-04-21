@@ -112,8 +112,8 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
     if (windSuperlative?.timeSeries?.time && waveSuperlative?.timeSeries?.time) {
       return (
         <Tooltip {...props} id="superlatives-tooltip" className="superlatives-tooltip">
-          <div>{`Wave observation from: ${new Date(waveSuperlative.timeSeries.time).toLocaleString()}`}</div>
           <div>{`Wind observation from: ${new Date(windSuperlative.timeSeries.time).toLocaleString()}`}</div>
+          <div>{`Wave observation from: ${new Date(waveSuperlative.timeSeries.time).toLocaleString()}`}</div>
         </Tooltip>
       )
     } else {
