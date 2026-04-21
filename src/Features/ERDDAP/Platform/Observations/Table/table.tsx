@@ -35,7 +35,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
   times.sort((a, b) => a.valueOf() - b.valueOf())
 
   return (
-    <ListGroup style={{ paddingTop: "1rem" }} as="ul">
+    <ListGroup className="pt-4" as="ul">
       {times.length > 0 ? (
         <ListGroup.Item style={itemStyle} as="li">
           <b>Last updated at:</b>{" "}

@@ -170,6 +170,73 @@ $dig-opacities: (
   --bs-dropdown-link-hover-bg: rgba(23, 133, 150, 0.1); // seaweed-10
 }
 // ========== NAV END ==========
+// ========== MAP START ==========
+.sidebar-height {
+  min-height: 0;
+  @include media-breakpoint-up(md) {
+    max-height: 85vh;
+  }
+}
+
+.region-list {
+  @include media-breakpoint-up(md) {
+    overflow-y: auto;
+  }
+}
+
+.region-list-container {
+  height: auto;
+  @include media-breakpoint-up(md) {
+    height: 100%;
+  }
+}
+
+// Mobile landscape view
+@media (max-height: 500px) {
+  @include media-breakpoint-up(md) {
+    .sidebar-height {
+      max-height: 75vh;
+    }
+  }
+}
+
+.landing-min-height {
+  min-height: 590px;
+}
+
+.platform-map-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.map .ol-zoom {
+  top: 10px;
+  left: auto;
+  right: 10px;
+}
+
+// Control aspect ratio with height
+@include media-breakpoint-down(md) {
+  .map {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 50vh;
+  }
+  .landing-min-height {
+    min-height: 0;
+  }
+  .sidebar-height {
+    height: unset;
+  }
+}
+
+// ========== MAP END ============
 
 .condition-tooltip > div > div {
   background-color: $primary;
@@ -186,12 +253,6 @@ $dig-opacities: (
 
 .tooltip-inner a {
   color: $coastal-meadow;
-}
-
-.map .ol-zoom {
-  top: 10px;
-  left: auto;
-  right: 10px;
 }
 
 .legend-item {
