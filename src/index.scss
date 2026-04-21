@@ -177,7 +177,7 @@ $dig-opacities: (
 }
 
 // Mobile landscape view
-@media(max-height: 500px){
+@media (max-height: 500px) {
   .sidebar-height {
     max-height: 75vh;
   }
