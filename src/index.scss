@@ -173,13 +173,13 @@ $dig-opacities: (
 // ========== MAP START ==========
 .sidebar-height {
   min-height: 0;
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(md) {
     max-height: 85vh;
   }
 }
 
 .region-list {
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(md) {
     overflow-y: auto;
   }
 }
@@ -193,7 +193,7 @@ $dig-opacities: (
 
 // Mobile landscape view
 @media (max-height: 500px) {
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(md) {
     .sidebar-height {
       max-height: 75vh;
     }
