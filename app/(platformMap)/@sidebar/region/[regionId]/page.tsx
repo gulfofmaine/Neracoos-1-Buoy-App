@@ -18,7 +18,7 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
   }
 
   return (
-    <div className="d-flex flex-column h-100">
+    <div className="d-flex flex-column region-list-container">
       <h2>Platforms in {region.name}</h2>
 
       <div className="d-flex flex-row mb-2 align-items-center">
@@ -30,7 +30,7 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
         </div>
       </div>
 
-      <div className="overflow-y-auto border border-1 rounded">
+      <div className="region-list border border-1 rounded">
         <DehydratedPlatforms>
           <RegionList region={region} />
         </DehydratedPlatforms>

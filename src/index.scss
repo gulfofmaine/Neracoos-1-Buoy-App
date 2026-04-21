@@ -172,14 +172,31 @@ $dig-opacities: (
 // ========== NAV END ==========
 // ========== MAP START ==========
 .sidebar-height {
-  max-height: 85vh;
   min-height: 0;
+  @include media-breakpoint-up(md){
+    max-height: 85vh;
+  }
+}
+
+.region-list {
+  @include media-breakpoint-up(md){
+    overflow-y: auto;
+  }
+}
+
+.region-list-container {
+  height: auto;
+  @include media-breakpoint-up(md) {
+    height: 100%;
+  }
 }
 
 // Mobile landscape view
 @media (max-height: 500px) {
-  .sidebar-height {
-    max-height: 75vh;
+  @include media-breakpoint-up(md){
+    .sidebar-height {
+      max-height: 75vh;
+    }
   }
 }
 
