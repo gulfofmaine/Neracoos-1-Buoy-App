@@ -38,8 +38,8 @@ test.describe("Home page", function () {
   test("Has superlatives", async ({ page }) => {
     await page.goto("/")
     await expect(page.getByText(/Highest Winds/).first()).toBeVisible()
-    await expect(page.getByText(/kts/).first()).toBeVisible()
+    await expect(page.getByText(/\d+\s+kts/)).toBeVisible()
     await expect(page.getByText(/Biggest Waves/).first()).toBeVisible()
-    await expect(page.getByText(/ft/).first()).toBeVisible()
+    await expect(page.getByText(/\d+\s+ft/).first()).toBeVisible()
   })
 })

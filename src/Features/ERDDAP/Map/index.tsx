@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
@@ -25,16 +26,18 @@ import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
 import { platformName } from "../utils/platformName"
 import { Feature } from "ol"
+import { StationPopup } from "./StationPopup"
 
 export interface Props {
   // Bounding box for fitting to a region
   boundingBox?: BoundingBox | null
   //  Platform to highlight
   platformId?: string
-  // Height to adjust map to match sidebar
-  height?: number | string
   // Already filtered platforms
   platforms?: PlatformFeature[]
+  // Height to adjust map to match sidebar
+  height?: number | string
+  className?: string
 }
 
 export interface BaseProps extends Props {
@@ -105,7 +108,7 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       </RStyle.RStyle>
       <RFeature
         geometry={geometry}
-        properties={{ platform: platform, url: url }}
+        properties={{ platform_id: platform.id, url: url }}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
@@ -114,10 +117,31 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   )
 }
 
+// Legend items
+const LegendItem = ({ active }: { active: boolean }) => {
+  return (
+    <span className="caption d-flex flex-row align-items-center">
+      <div className={`erddap-key-dot ${active ? "erddap-dot-active" : "erddap-dot-inactive"}`}></div>
+      {active ? "Active" : "Inactive"}
+    </span>
+  )
+}
+
+// ERDDAP map legend
+const MapLegend = () => {
+  return (
+    <div className="map-key d-flex flex-column gap-1 bg-white border rounded-1 py-2 px-3">
+      <p className="caption m-0">Station Key</p>
+      <LegendItem active={true} />
+      <LegendItem active={false} />
+    </div>
+  )
+}
+
 // Initial view to display if one is not otherwise set
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
-export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
+export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, className }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
@@ -182,25 +206,20 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
     }
   }
 
-  // Make sure the height of the map gets updated when jumping
-  // from home to platform view
-  useLayoutEffect(() => {
-    mapRef?.current?.ol.updateSize()
-  }, [height])
-
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
     <RMap
       ref={mapRef}
-      className="map"
+      className={className}
       initial={initial}
       view={[view || initial, setView]}
-      height={height}
+      height="100%"
       onPointerMove={onPointerMove}
     >
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
+      <MapLegend />
 
       {highlightedFeatures.length > 0 && (
         <RLayerVector>
@@ -208,7 +227,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
           <RFeature feature={highlightedFeatures[0]}>
             <RPopup ref={popup}>
               <Button variant="dark" size="sm" href={highlightedFeatures[0].get("url")}>
-                {platformName(highlightedFeatures[0].get("platform"))}
+                <StationPopup platformId={highlightedFeatures[0].get("platform_id")} />
               </Button>
             </RPopup>
           </RFeature>
@@ -231,7 +250,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
+export const ErddapMap: React.FC<Props> = ({ platformId, platforms, className }: Props) => {
   const { isLoading, data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
@@ -240,7 +259,7 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Pr
   }, [])
 
   if (data?.features && isClient) {
-    return <ErddapMapBase platforms={platforms ?? data?.features} platformId={platformId} height={height} />
+    return <ErddapMapBase className={className} platforms={platforms ?? data?.features} platformId={platformId} />
   }
   return null
 }
