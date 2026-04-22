@@ -236,7 +236,16 @@ $dig-opacities: (
   }
 }
 
+.ol-touch .ol-control button {
+  font-size: 1.25rem;
+  height: 44px;
+  width: 44px;
+}
 // ========== MAP END ============
+
+.superlatives-tooltip .tooltip-inner {
+  max-width: none;
+}
 
 .condition-tooltip > div > div {
   background-color: $primary;
