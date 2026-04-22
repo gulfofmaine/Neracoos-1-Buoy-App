@@ -47,7 +47,7 @@ export default function Layout({
         </Col>
 
         <Col xs={12} md={6} className="order-1 d-flex flex-column">
-          <div className="platform-map-layout flex-fill">
+          <div className="platform-map-layout flex-fill position-relative">
             <ErddapMap
               // Pass minimum height requirement only on landing page
               className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map`}
