@@ -5,6 +5,12 @@ import { expect, test } from "@playwright/test"
 const platformUrl = "/platform/A01"
 
 test.describe("Platform A01", () => {
+  test.beforeEach(() => {
+    test.skip(
+      "UMaine is currently having issues with this platform, so skipping these tests until we can resolve those issues",
+    )
+  })
+
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("button", { name: "Station List" }).click()
