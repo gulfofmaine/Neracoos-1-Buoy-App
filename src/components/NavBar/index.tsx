@@ -41,7 +41,7 @@ const NeracoosNavBar = () => {
   return (
     <div>
       <Navbar data-bs-theme="dark" className="bg-primary mb-4 dark-nav-custom" expand="md">
-        <Container fluid className="mx-5 mx-lg-10 px-0">
+        <Container fluid className="mx-5 px-0">
           <Navbar.Brand href={paths.home}>
             <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-4">
               <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
