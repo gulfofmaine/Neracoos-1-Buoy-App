@@ -180,7 +180,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
     })
 
     // Save off the feature(s)
-    if (highlightedFeatureRef.current !== upperFeature){
+    if (highlightedFeatureRef.current !== upperFeature) {
       highlightedFeatureRef.current = upperFeature
       setHighlightedFeature(upperFeature)
     }
