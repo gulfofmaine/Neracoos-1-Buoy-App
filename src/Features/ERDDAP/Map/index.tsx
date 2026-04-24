@@ -108,27 +108,11 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
       </RStyle.RStyle>
       <RFeature
         geometry={geometry}
+        properties={{ platform_id: platform.id, url: url }}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
-      >
-        <RPopup trigger={"hover"}>
-          <Button
-            variant="dark"
-            size="sm"
-            href={url}
-            onClick={useCallback(
-              (event) => {
-                event.preventDefault()
-                router.push(url)
-              },
-              [router, url],
-            )}
-          >
-            <StationPopup platformId={platform.id} />
-          </Button>
-        </RPopup>
-      </RFeature>
+      ></RFeature>
     </RLayerVector>
   )
 }
@@ -163,6 +147,35 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
 
+  const [highlightedFeatures, setHighlightedFeatures] = useState<any[]>([])
+  const popup = useRef<RPopup>(null)
+
+  const onPointerMove = useCallback((e) => {
+    const features: any[] = []
+
+    // Use a single popup element based on the topmost moused-over platform.
+    // Instead of having one popup per platform which was a clobbering mess.
+
+    // Access the underlying OpenLayers map object from the event
+    const map = e.map
+
+    // Iterate through all features at the current pixel
+    map.forEachFeatureAtPixel(e.pixel, (feature) => {
+      features.push(feature)
+      // stop at the first (topmost) feature
+      return true
+    })
+
+    // Save off the feature(s) and take some popup action.
+    if (features.length > 0) {
+      setHighlightedFeatures(features)
+      popup.current?.show()
+    } else {
+      setHighlightedFeatures([])
+      popup.current?.hide()
+    }
+  }, [])
+
   // Check if the route was navigated to using the back button
   // const isBackButtonUsed = router.asPath !== router.pathname;
 
@@ -196,10 +209,31 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap ref={mapRef} className={className} initial={initial} view={[view || initial, setView]} height="100%">
+    <RMap
+      ref={mapRef}
+      className={className}
+      initial={initial}
+      view={[view || initial, setView]}
+      height="100%"
+      onPointerMove={onPointerMove}
+    >
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
       <MapLegend />
+
+      {highlightedFeatures.length > 0 && (
+        <RLayerVector>
+          <RStyle.RStyle />
+          <RFeature feature={highlightedFeatures[0]}>
+            <RPopup ref={popup}>
+              <Button variant="dark" size="sm" href={highlightedFeatures[0].get("url")}>
+                <StationPopup platformId={highlightedFeatures[0].get("platform_id")} />
+              </Button>
+            </RPopup>
+          </RFeature>
+        </RLayerVector>
+      )}
+
       {oldPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
       ))}
