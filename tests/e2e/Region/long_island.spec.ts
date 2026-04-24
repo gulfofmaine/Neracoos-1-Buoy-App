@@ -4,7 +4,7 @@ test.describe("Region: Long Island", () => {
   test("Can show Long Island", async ({ page }) => {
     await page.goto("/")
     await page
-      .getByText(/Station List/)
+      .getByText(/Stations/)
       .first()
       .click()
     await page
