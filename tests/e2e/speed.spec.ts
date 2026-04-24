@@ -41,7 +41,7 @@ test("Navigate speed", async ({ page, performance }) => {
   performance.sampleEnd("Navigate-Startup")
 
   performance.sampleStart("Navigate-Regions")
-  await page.getByRole("button", { name: "Station List" }).click()
+  await page.getByRole("button", { name: "Stations" }).click()
   await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
   await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
   performance.sampleEnd("Navigate-Regions")
