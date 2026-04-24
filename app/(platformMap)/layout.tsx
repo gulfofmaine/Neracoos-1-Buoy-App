@@ -48,11 +48,13 @@ export default function Layout({
 
         <Col xs={12} md={6} className="order-1 d-flex flex-column">
           <div className="platform-map-layout flex-fill position-relative">
-            <ErddapMap
-              // Pass minimum height requirement only on landing page
-              className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map`}
-              {...(isPlatformView && { platformId })}
-            />
+            <div className={isRegionView ? "region-map-container" : "d-flex h-100"}>
+              <ErddapMap
+                // Pass minimum height requirement only on landing page
+                className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map`}
+                {...(isPlatformView && { platformId })}
+              />
+            </div>
           </div>
 
           {/* Below Map = Superlatives */}

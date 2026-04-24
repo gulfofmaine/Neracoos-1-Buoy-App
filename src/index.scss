@@ -191,11 +191,20 @@ $dig-opacities: (
   }
 }
 
+.region-map-container {
+  height: 100%;
+  display: flex;
+  min-height: 85vh;
+}
+
 // Mobile landscape view
 @media (max-height: 500px) {
   @include media-breakpoint-up(md) {
     .sidebar-height {
       max-height: 75vh;
+    }
+    .region-map-container {
+      min-height: 75vh;
     }
   }
 }
@@ -233,6 +242,10 @@ $dig-opacities: (
   }
   .sidebar-height {
     height: unset;
+  }
+  .region-map-container {
+    height: unset;
+    min-height: unset;
   }
 }
 
