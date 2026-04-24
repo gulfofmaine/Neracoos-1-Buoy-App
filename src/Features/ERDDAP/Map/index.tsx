@@ -148,6 +148,8 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
 
+  const isMapMovingRef = useRef<any | null>(null)
+
   const [highlightedFeature, setHighlightedFeature] = useState<any | null>(null)
   const highlightedFeatureRef = useRef<any | null>(null)
   const popup = useRef<RPopup>(null)
@@ -161,11 +163,18 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
     }
   }, [highlightedFeature])
 
-  const onPointerMove = useCallback((e) => {
-    // If you're just dragging around, short circuit the callback
-    if (e.dragging) return
-    let upperFeature = null
+  const onMoveStart = useCallback((e) => {
+    isMapMovingRef.current = true
+  }, [])
 
+  const onMoveEnd = useCallback((e) => {
+    isMapMovingRef.current = false
+  }, [])
+
+  const onPointerMove = useCallback((e) => {
+    // If the map is moving, short circuit the callback
+    if (isMapMovingRef.current) return
+    let upperFeature = null
     // Use a single popup element based on the topmost moused-over platform.
     // Instead of having one popup per platform which was a clobbering mess.
 
@@ -226,6 +235,8 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
       view={[view || initial, setView]}
       height="100%"
       onPointerMove={onPointerMove}
+      onMoveStart={onMoveStart}
+      onMoveEnd={onMoveEnd}
     >
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
@@ -235,7 +246,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
         <RLayerVector>
           <RStyle.RStyle />
           <RFeature feature={highlightedFeature}>
-            <RPopup ref={popup}>
+            <RPopup ref={popup} delay={{ show: 0, hide: 0 }}>
               <Button variant="dark" size="sm" href={highlightedFeature.get("url")}>
                 <StationPopup platformId={highlightedFeature.get("platform_id")} />
               </Button>
