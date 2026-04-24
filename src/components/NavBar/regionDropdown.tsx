@@ -55,7 +55,7 @@ export class RegionDropdown extends React.Component<Props, State> {
     })
 
     return (
-      <NavDropdown title="Station List" id="region-dropdown">
+      <NavDropdown title="Stations" id="region-dropdown">
         {regions}
       </NavDropdown>
     )
