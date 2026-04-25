@@ -27,6 +27,7 @@ import { PlatformFeature } from "../types"
 import { platformName } from "../utils/platformName"
 import { Feature } from "ol"
 import { StationPopup } from "./StationPopup"
+import { feature } from "@turf/helpers"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -147,12 +148,33 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
 
-  const [highlightedFeatures, setHighlightedFeatures] = useState<any[]>([])
+  const isMapMovingRef = useRef<any | null>(null)
+
+  const [highlightedFeature, setHighlightedFeature] = useState<any | null>(null)
+  const highlightedFeatureRef = useRef<any | null>(null)
   const popup = useRef<RPopup>(null)
 
-  const onPointerMove = useCallback((e) => {
-    const features: any[] = []
+  // Re-render the map to show the popup, but only if the highlighted feature changes
+  useEffect(() => {
+    if (highlightedFeature) {
+      popup.current?.show()
+    } else {
+      popup.current?.hide()
+    }
+  }, [highlightedFeature])
 
+  const onMoveStart = useCallback((e) => {
+    isMapMovingRef.current = true
+  }, [])
+
+  const onMoveEnd = useCallback((e) => {
+    isMapMovingRef.current = false
+  }, [])
+
+  const onPointerMove = useCallback((e) => {
+    // If the map is moving, short circuit the callback
+    if (isMapMovingRef.current) return
+    let upperFeature = null
     // Use a single popup element based on the topmost moused-over platform.
     // Instead of having one popup per platform which was a clobbering mess.
 
@@ -161,18 +183,15 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
 
     // Iterate through all features at the current pixel
     map.forEachFeatureAtPixel(e.pixel, (feature) => {
-      features.push(feature)
+      upperFeature = feature
       // stop at the first (topmost) feature
       return true
     })
 
-    // Save off the feature(s) and take some popup action.
-    if (features.length > 0) {
-      setHighlightedFeatures(features)
-      popup.current?.show()
-    } else {
-      setHighlightedFeatures([])
-      popup.current?.hide()
+    // Save off the feature(s)
+    if (highlightedFeatureRef.current !== upperFeature) {
+      highlightedFeatureRef.current = upperFeature
+      setHighlightedFeature(upperFeature)
     }
   }, [])
 
@@ -216,18 +235,20 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
       view={[view || initial, setView]}
       height="100%"
       onPointerMove={onPointerMove}
+      onMoveStart={onMoveStart}
+      onMoveEnd={onMoveEnd}
     >
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
       <MapLegend />
 
-      {highlightedFeatures.length > 0 && (
+      {highlightedFeature && (
         <RLayerVector>
           <RStyle.RStyle />
-          <RFeature feature={highlightedFeatures[0]}>
-            <RPopup ref={popup}>
-              <Button variant="dark" size="sm" href={highlightedFeatures[0].get("url")}>
-                <StationPopup platformId={highlightedFeatures[0].get("platform_id")} />
+          <RFeature feature={highlightedFeature}>
+            <RPopup ref={popup} delay={{ show: 0, hide: 0 }}>
+              <Button variant="dark" size="sm" href={highlightedFeature.get("url")}>
+                <StationPopup platformId={highlightedFeature.get("platform_id")} />
               </Button>
             </RPopup>
           </RFeature>
