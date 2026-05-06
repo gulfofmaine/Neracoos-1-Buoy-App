@@ -2,15 +2,15 @@
  * Current observations table component
  */
 import React from "react"
-import { Row, Col } from "react-bootstrap"
+import ListGroup from "react-bootstrap/ListGroup"
+
 import { UnitSystem } from "Features/Units/types"
 
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
 
-import { TableItemDisplay } from "./item"
+import { itemStyle, TableItem } from "./item"
 import { platformName } from "Features/ERDDAP/utils/platformName"
-import { getLatestObsGroups } from "Features/ERDDAP/hooks/latestObs"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
@@ -33,46 +33,33 @@ export const ErddapObservationTable: React.FC<Props> = ({
   const { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, laterThan)
   const times = allCurrentConditionsTimeseries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
-  const { waveTs, windTs, otherTs } = getLatestObsGroups(allCurrentConditionsTimeseries)
-  // console.log(otherTs)
+
   return (
-    <>
-      <h3>Latest Conditions</h3>
+    <ListGroup className="pt-4" as="ul">
       {times.length > 0 ? (
-        <span className="d-flex flex-row">
-          <p className="text-black-65 pe-1">Last updated</p>
-          <b>
-            {times[times.length - 1].toLocaleString(undefined, {
-              hour: "2-digit",
-              hour12: true,
-              minute: "2-digit",
-              month: "short",
-              day: "numeric",
-            })}
-          </b>
-        </span>
+        <ListGroup.Item style={itemStyle} as="li">
+          <b>Last updated at:</b>{" "}
+          {times[times.length - 1].toLocaleString(undefined, {
+            hour: "2-digit",
+            hour12: true,
+            minute: "2-digit",
+            month: "short",
+            day: "numeric",
+          })}
+        </ListGroup.Item>
       ) : (
-        <div>There is no recent data from {platformName(platform)}</div>
+        <ListGroup.Item style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroup.Item>
       )}
-      <Row xs={1} lg={2} className="align-items-stretch">
-        {waveTs.length > 0 && <TableItemDisplay timeSeries={waveTs} platform={platform} unitSystem={unitSystem} />}
-        {windTs.length > 0 && <TableItemDisplay timeSeries={windTs} platform={platform} unitSystem={unitSystem} />}
-        {otherTs.map((ts, index) => {
-          return <TableItemDisplay key={index} timeSeries={ts} platform={platform} unitSystem={unitSystem} />
-        })}
-      </Row>
+      {allCurrentConditionsTimeseries.map((timeSeries, index) => {
+        return <TableItem key={index} timeSeries={timeSeries} platform={platform} unitSystem={unitSystem} />
+      })}
 
       {unitSelector ? (
-        <Row className="mt-4 w-100 align-items-center justify-content-center">
-          <Col className="order-1" xs={12} lg={4}>
-            <span className="d-flex justify-content-center text-black-65">Unit system</span>
-          </Col>
-          <Col className="order-2" xs={12} lg={8}>
-            {unitSelector}
-          </Col>
-        </Row>
+        <ListGroup.Item style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }} as="li">
+          <b>Unit system:</b> {unitSelector}
+        </ListGroup.Item>
       ) : null}
-      {children && <>{children}</>}
-    </>
+      {children && <ListGroup.Item>{children}</ListGroup.Item>}
+    </ListGroup>
   )
 }

@@ -12,7 +12,7 @@ import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 
 import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
 import { currentConditionsTimeseries, filterTimeSeries } from "../../../utils/currentConditionsTimeseries"
-import { TableItemDisplay } from "../Table/item"
+import { itemStyle, TableItem } from "../Table/item"
 
 interface Props extends UsePlatformRenderProps {
   unitSelector?: React.ReactNode
@@ -56,7 +56,7 @@ export const WLErddapObservationTable: React.FC<Props> = ({
   return (
     <ListGroup style={{ paddingTop: "1rem" }}>
       {times.length > 0 && time ? (
-        <ListGroup.Item>
+        <ListGroup.Item style={itemStyle}>
           <b>Last updated at:</b>{" "}
           {time.toLocaleString(undefined, {
             hour: "2-digit",
@@ -67,10 +67,10 @@ export const WLErddapObservationTable: React.FC<Props> = ({
           })}
         </ListGroup.Item>
       ) : (
-        <ListGroup.Item>There is no recent data from {platformName(platform)}</ListGroup.Item>
+        <ListGroup.Item style={itemStyle}>There is no recent data from {platformName(platform)}</ListGroup.Item>
       )}
       {waterLevelTimeseries && (
-        <TableItemDisplay key="WL-ts" timeSeries={waterLevelTimeseries} platform={platform} unitSystem={unitSystem} />
+        <TableItem key="WL-ts" timeSeries={waterLevelTimeseries} platform={platform} unitSystem={unitSystem} />
       )}
       {unitSelector ? (
         <ListGroup.Item style={{ padding: ".5rem", paddingLeft: "1rem", color: "black" }}>
