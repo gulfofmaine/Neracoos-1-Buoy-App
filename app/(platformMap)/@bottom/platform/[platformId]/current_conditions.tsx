@@ -4,7 +4,8 @@ import { Row, Col } from "react-bootstrap"
 import { UsePlatform } from "Features/ERDDAP/hooks"
 import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapCurrentPlatformConditions } from "Features/ERDDAP/Platform/Observations/CurrentConditions"
-import {ErddapObservationCards} from "Features/ERDDAP/Platform/Observations/LatestObsCards/LatestObsCards"
+import { ErddapObservationCards } from "Features/ERDDAP/Platform/Observations/LatestObsCards/LatestObsCards"
+import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table"
 import { UnitSelector, useUnitSystem } from "Features/Units"
 import { aDayAgoRounded } from "Shared/time"
 
@@ -20,12 +21,16 @@ export function CurrentConditions({ platformId }: { platformId: string }) {
             <Col xs={12} md={9} className="mb-4 order-2 order-md-1">
               <ErddapCurrentPlatformConditions platform={platform} />
             </Col>
-            <Col
-              xs={12}
-              md={3}
-              className="d-flex flex-column order-1 order-md-2 mb-4 p-4 bg-black bg-opacity-5 rounded-3"
-            >
+            <Col xs={12} md={3} className="card-obs order-1 order-md-2 mb-4 p-4 bg-black bg-opacity-5 rounded-3">
               <ErddapObservationCards
+                platform={platform}
+                unitSelector={<UnitSelector />}
+                unitSystem={unitSystem}
+                laterThan={aDayAgo}
+              />
+            </Col>
+            <Col xs={12} md={3} className="table-obs order-1 order-md-2 mb-4 p-4 bg-black bg-opacity-5 rounded-3">
+              <ErddapObservationTable
                 platform={platform}
                 unitSelector={<UnitSelector />}
                 unitSystem={unitSystem}

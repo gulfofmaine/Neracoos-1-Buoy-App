@@ -73,15 +73,15 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
 
               {/* Direction */}
               {cardData.direction && (
-                <span className="d-flex flex-row align-items-center">
-                  <p className="pt-1 mb-0">
+                <span className="d-flex flex-row align-items-center gap-2">
+                  <p className="mb-0">
                     <strong>
                       {cardData.direction}
                       {cardData.directionUnit}
                     </strong>
                   </p>
                   <LocationArrowIcon
-                    className="fa-sm ms-1 text-info"
+                    className="fa-sm text-info"
                     rotateBy
                     style={{ "--fa-rotate-angle": `${rotationDeg}deg` }}
                   />
@@ -97,7 +97,7 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
                 )}
                 className="d-flex text-decoration-none mt-auto ms-auto text-info"
               >
-                <LineChartIcon className="fa-sm" />
+                <LineChartIcon className="fa-md" />
               </Link>
             </Card.Body>
           </Card>
