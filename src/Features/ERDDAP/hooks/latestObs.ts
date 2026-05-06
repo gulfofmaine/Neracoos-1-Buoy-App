@@ -9,6 +9,7 @@ type CardDispData = {
   primaryUnit: string | null
   secondaryUnit: string | null
   direction: string | number | null
+  directionDeg: number | null
   directionUnit: string | null
 }
 
@@ -52,11 +53,17 @@ const commonHelpers = (unitSystem?: UnitSystem) => {
 
   const upperCaseVariable = (value: string) => value.toUpperCase()
 
-  return { getValue, getUnit, getVariableName, upperCaseVariable }
+  const toDegrees = (ts: PlatformTimeSeries) => {
+    const unit_converter = converter(ts.data_type.standard_name)
+    const degrees: number = unit_converter.convertTo(ts.value as number, UnitSystem.metric) as number
+    return round(degrees, 0)
+  }
+
+  return { getValue, getUnit, getVariableName, upperCaseVariable, toDegrees }
 }
 
 export const getGroupData = (unitSystem: UnitSystem, groupName: string, groupTs: PlatformTimeSeries[]) => {
-  const { getValue, getUnit, getVariableName, upperCaseVariable } = commonHelpers(unitSystem)
+  const { getValue, getUnit, getVariableName, upperCaseVariable, toDegrees } = commonHelpers(unitSystem)
 
   // Get a set of metric names
   const metricNameSet = (names: string[]) => new Set(names.map(upperCaseVariable))
@@ -77,6 +84,7 @@ export const getGroupData = (unitSystem: UnitSystem, groupName: string, groupTs:
         primaryUnit: height ? getUnit(height) : null,
         secondaryUnit: period ? getUnit(period) : null,
         direction: direction ? getValue(direction) : null,
+        directionDeg: direction ? toDegrees(direction) : null,
         directionUnit: direction ? getUnit(direction) : null,
       }
     }
@@ -90,6 +98,7 @@ export const getGroupData = (unitSystem: UnitSystem, groupName: string, groupTs:
         primaryUnit: speed ? getUnit(speed) : null,
         secondaryUnit: gust ? getUnit(gust) : null,
         direction: direction ? getValue(direction) : null,
+        directionDeg: direction ? toDegrees(direction) : null,
         directionUnit: direction ? getUnit(direction) : null,
       }
     }
@@ -110,6 +119,7 @@ export const getNonGroupData = (unitSystem: UnitSystem, ts: PlatformTimeSeries) 
       primaryUnit: getUnit(ts),
       secondaryUnit: null,
       direction: null,
+      directionDeg: null,
       directionUnit: null,
     }
   }
