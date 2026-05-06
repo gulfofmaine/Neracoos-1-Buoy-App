@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export class UnitSelectorBase extends React.Component<ReduxProps, object> {
   public render(): React.ReactNode {
     return (
-      <ButtonGroup className="d-flex flex-row">
+      <ButtonGroup className="d-flex w-100">
         {this.unitButton(UnitSystem.metric, true)}
         {this.unitButton(UnitSystem.english, false)}
       </ButtonGroup>

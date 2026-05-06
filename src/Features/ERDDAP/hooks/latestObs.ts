@@ -15,7 +15,7 @@ type CardDispData = {
 
 // A collection of possible metric names for each variable
 const metric_names = {
-  waveHeight: ["WVHT", "sea_surface_wave_significant_height", "wave_ht_sig"],
+  waveHeight: ["WVHT", "sea_surface_wave_significant_height", "wave_ht_sig", "SWH"],
   wavePeriod: ["DPD", "AWP", "DWP", "sea_surface_wave_mean_period", "average_wave_period", "wave_period_max"],
   waveDirection: ["MWD"],
   windSpeed: ["WSPD"],

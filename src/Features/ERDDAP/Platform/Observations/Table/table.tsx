@@ -34,7 +34,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
   const times = allCurrentConditionsTimeseries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
   const { waveTs, windTs, otherTs } = getLatestObsGroups(allCurrentConditionsTimeseries)
-
+  // console.log(otherTs)
   return (
     <>
       <h3>Latest Conditions</h3>
@@ -63,7 +63,7 @@ export const ErddapObservationTable: React.FC<Props> = ({
       </Row>
 
       {unitSelector ? (
-        <Row className="d-flex flex-row mt-4 w-100 align-items-center">
+        <Row className="mt-4 w-100 align-items-center justify-content-center">
           <Col className="order-1" xs={12} lg={4}>
             <span className="d-flex justify-content-center text-black-65">Unit system</span>
           </Col>
