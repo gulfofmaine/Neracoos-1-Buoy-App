@@ -3,8 +3,6 @@
  */
 import { useSearchParams } from "next/navigation"
 import React, { useState } from "react"
-import Col from "react-bootstrap/Col"
-import Row from "react-bootstrap/Row"
 
 import { PlatformLoadingAlert } from "components/Alerts"
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
@@ -50,37 +48,35 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
     const depth = ts.depth && ts.depth > 0 ? " at " + ts.depth + "m below" : ""
 
     return (
-      <Row key={index}>
-        <Col>
-          <div className="observation-title-container">
-            <h4 className="obervation-title">
-              {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
-            </h4>
-            <div className="observation-timeframe-selector">
-              {index === 0 && <TimeframeSelector graphFuture={false} />}
-            </div>
+      <div>
+        <h2 className="d-flex gap-2 justify-content-center align-items-center">
+          {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+        </h2>
+        <div>
+          <div className="observation-timeframe-selector">
+            {index === 0 && <TimeframeSelector graphFuture={false} />}
           </div>
-          <UseDataset
-            timeSeries={ts}
-            startTime={startDate}
-            endTime={endDate}
-            loading={<PlatformLoadingAlert time_series={ts} />}
-          >
-            {({ dataset }) => (
-              <ChartTimeSeriesDisplay
-                {...{ dataset, standardName, unitSystem }}
-                timeSeries={ts}
-                startTime={startDate}
-                endTime={endDate}
-              />
-            )}
-          </UseDataset>
-        </Col>
-      </Row>
+        </div>
+        <UseDataset
+          timeSeries={ts}
+          startTime={startDate}
+          endTime={endDate}
+          loading={<PlatformLoadingAlert time_series={ts} />}
+        >
+          {({ dataset }) => (
+            <ChartTimeSeriesDisplay
+              {...{ dataset, standardName, unitSystem }}
+              timeSeries={ts}
+              startTime={startDate}
+              endTime={endDate}
+            />
+          )}
+        </UseDataset>
+      </div>
     )
   })
 
-  return <div style={{ textAlign: "center" }}>{charts}</div>
+  return charts
 }
 
 interface ChartTimeSeriesDisplayProps {
