@@ -63,14 +63,10 @@ export const ErddapObservationCards: React.FC<Props> = ({
       </Row>
 
       {unitSelector ? (
-        <Row className="mt-4 w-100 align-items-center justify-content-center">
-          <Col className="order-1" xs={12} lg={4}>
-            <span className="d-flex justify-content-center text-black-65">Unit system</span>
-          </Col>
-          <Col className="order-2" xs={12} lg={8}>
-            {unitSelector}
-          </Col>
-        </Row>
+        <div className="d-flex mt-4 gap-3 align-items-center justify-content-center">
+          <span className="d-flex text-nowrap justify-content-center text-black-65">Unit system</span>
+          {unitSelector}
+        </div>
       ) : null}
       {children && <>{children}</>}
     </>
