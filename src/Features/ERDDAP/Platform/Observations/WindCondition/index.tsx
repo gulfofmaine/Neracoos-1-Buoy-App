@@ -71,25 +71,21 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
 
   return (
-    <Row>
-      <Col>
-        <div className="observation-title-container">
-          <h4 className="obervation-title">
-            Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
-          </h4>
-          <div className="observation-timeframe-selector">
-            <TimeframeSelector graphFuture={false} />
-          </div>
-        </div>
-        <WindTimeSeriesChart
-          barbsPerDay={5}
-          legend={true}
-          {...{ speed, gust, direction, unitSystem }}
-          startTime={startDate}
-          endTime={endDate}
-        />
-      </Col>
-    </Row>
+    <div>
+      <h2 className="d-flex gap-2 justify-content-center align-items-center">
+        Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
+      </h2>
+      <div className="observation-timeframe-selector">
+        <TimeframeSelector graphFuture={false} />
+      </div>
+      <WindTimeSeriesChart
+        barbsPerDay={5}
+        legend={true}
+        {...{ speed, gust, direction, unitSystem }}
+        startTime={startDate}
+        endTime={endDate}
+      />
+    </div>
   )
 }
 

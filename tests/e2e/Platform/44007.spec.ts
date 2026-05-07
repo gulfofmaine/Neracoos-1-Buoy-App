@@ -39,7 +39,7 @@ test.describe("Platfrom 44007", () => {
       .first()
       .click()
     await page.getByRole("menuitem", { name: "Wind" }).first().click()
-    await expect(page.locator("h4").getByText(/Wind/).first()).toBeVisible()
+    await expect(page.locator("h2").getByText(/Wind/).first()).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
     await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
@@ -162,7 +162,7 @@ test.describe("Platfrom 44007", () => {
       .click()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
@@ -175,7 +175,7 @@ test.describe("Platfrom 44007", () => {
     await page.reload()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()

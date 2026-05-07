@@ -45,7 +45,7 @@ test.describe("Platform A01", () => {
       .click()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
@@ -187,7 +187,7 @@ test.describe("Platform A01", () => {
       .click()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
@@ -200,7 +200,7 @@ test.describe("Platform A01", () => {
     await page.reload()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
