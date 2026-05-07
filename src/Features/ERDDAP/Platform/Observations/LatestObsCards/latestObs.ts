@@ -1,6 +1,6 @@
 import { round } from "Shared/math"
 import { converter } from "Features/Units/Converter"
-import { PlatformTimeSeries } from "../types"
+import { PlatformTimeSeries } from "Features/ERDDAP/types"
 import { UnitSystem } from "Features/Units/types"
 
 type CardDispData = {

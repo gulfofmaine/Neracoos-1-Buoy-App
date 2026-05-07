@@ -15,10 +15,10 @@ describe("UnitSelector", () => {
 
     expect(switchUnit).not.toHaveBeenCalled()
     expect(screen.getAllByRole("button")[0]).toHaveTextContent("Metric")
-    expect(screen.getAllByRole("button")[1]).toHaveTextContent("US / Imperial")
+    expect(screen.getAllByRole("button")[1]).toHaveTextContent("Imperial")
 
     const user = userEvent.setup()
-    await user.click(screen.getByText("US / Imperial"))
-    expect(switchUnit).toHaveBeenCalledWith("US / Imperial")
+    await user.click(screen.getByText("Imperial"))
+    expect(switchUnit).toHaveBeenCalledWith("Imperial")
   })
 })

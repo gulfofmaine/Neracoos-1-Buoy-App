@@ -150,8 +150,12 @@ test.describe("Platform A01", () => {
       .first()
       .click()
 
-    const dateElem = page.getByTestId("all-last-updated-timestamp")
-    const dateText = await dateElem.innerText()
+    const element = page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
+    const text = await element.textContent()
+
+    const year = new Date().getFullYear()
+
+    let dateText = text!.split("Last updated at: ")[1] + ` ${year}`
     const date = new Date(dateText)
 
     const threeDaysAgo = new Date()

@@ -11,12 +11,9 @@ describe("<ErddapAllObservationsTable>", () => {
   it("Should show all observations for appropriate platform", () => {
     render(<ErddapAllObservationsTable platform={platform} unitSystem={UnitSystem.english} />)
 
-    expect(screen.getAllByRole("link").length).toBe(12)
-    expect(screen.getByText("Last updated"))
-    const windTestId = screen.getByTestId("wind-test-id")
-    expect(windTestId).toHaveTextContent("Gust:")
-    expect(windTestId).toHaveTextContent("5.9")
-    expect(windTestId).toHaveTextContent("kts")
+    expect(screen.getAllByRole("link").length).toBe(16)
+    expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
+    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 kts")
   })
 })
 

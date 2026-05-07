@@ -1,12 +1,12 @@
 import * as React from "react"
 
-import { TableItemDisplay } from "./item"
+import { TableItem } from "./item"
 import { UnitSystem } from "Features/Units/types"
 
 import { platform } from "stories/platform"
 
 export default {
-  component: TableItemDisplay,
+  component: TableItem,
   title: "ERDDAP/ObservationTable/Item",
   parameters: {
     storyshots: {
@@ -24,14 +24,14 @@ export default {
 
 const windSpeed = platform.properties.readings.find((ts) => ts.data_type.standard_name === "wind_speed")
 
-export const english = (args) => <TableItemDisplay {...args} />
+export const english = (args) => <TableItem {...args} />
 english.args = {
   unitSystem: UnitSystem.english,
   platform,
   timeSeries: windSpeed,
 }
 
-export const metric = (args) => <TableItemDisplay {...args} />
+export const metric = (args) => <TableItem {...args} />
 metric.args = {
   unitSystem: UnitSystem.metric,
   platform,
