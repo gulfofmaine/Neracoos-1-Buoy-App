@@ -1,3 +1,4 @@
+@use "sass:color";
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
@@ -38,9 +39,9 @@ $dig-colors: (
   "orange": $orange,
 );
 
-$black-20: rgba(0, 0, 0, 0.2);
-$black-65: rgba(0, 0, 0, 0.65);
-$seaweed-10: rgba(23, 133, 150, 0.1);
+$black-20: transparentize($black, 0.2);
+$black-65: transparentize($black, 0.65);
+$seaweed-10: transparentize($seaweed, 0.1);
 
 $font-family-base: "Montserrat", Arial, sans-serif;
 $theme-colors: map-merge($theme-colors, $dig-colors);
