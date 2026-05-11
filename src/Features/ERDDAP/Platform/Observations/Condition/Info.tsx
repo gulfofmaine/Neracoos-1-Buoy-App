@@ -6,6 +6,7 @@ import Popover from "react-bootstrap/Popover"
 import ListGroup from "react-bootstrap/ListGroup"
 
 import { tabledapProtocolUrl } from "Shared/erddap/tabledap"
+import { ExportIcon } from "Shared/icons/iconsMap"
 
 import { PlatformTimeSeries } from "../../../types"
 
@@ -64,11 +65,7 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
   return (
     <React.Fragment>
       <OverlayTrigger delay={{ show: 250, hide: 4000 }} overlay={renderToolTip} trigger={["click"]}>
-        <FontAwesomeIcon
-          id={`tooltip-${id}-trigger`}
-          icon={faInfoCircle}
-          style={{ fontSize: "1rem", verticalAlign: "middle" }}
-        />
+        <ExportIcon id={`tooltip-${id}-trigger`} className="export-icon-border bg-white p-1" />
       </OverlayTrigger>
     </React.Fragment>
   )
