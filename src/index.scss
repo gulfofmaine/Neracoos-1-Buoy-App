@@ -258,9 +258,14 @@ $dig-opacities: (
 
 // ==== LATEST CONDITIONS START ====
 .latest-obs-card {
-  @include media-breakpoint-up(sm){
   aspect-ratio: 1 / 1;
   height: 100%;
+}
+
+@media (max-width: 400px) {
+  .latest-obs-card {
+    aspect-ratio: unset;
+    height: unset;
   }
 }
 
