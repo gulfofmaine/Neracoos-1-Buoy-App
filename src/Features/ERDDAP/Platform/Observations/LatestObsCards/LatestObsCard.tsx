@@ -48,10 +48,10 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
   }
 
   return (
-    <Col className="d-flex">
+    <Col className="d-flex latest-obs-card">
       <Sentry.ErrorBoundary fallback={<b>Error displaying {firstTs.data_type.long_name}</b>} showDialog={false}>
         <Card className="flex-fill card-drop-shadow">
-          <Card.Body className="d-flex flex-column">
+          <Card.Body className="d-flex flex-column p-4 p-xl-2">
             {/* Bucket name */}
             <p className="text-black-65 mb-0">{groupName}</p>
 

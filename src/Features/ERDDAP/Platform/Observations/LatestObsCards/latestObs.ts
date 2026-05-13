@@ -105,17 +105,8 @@ export const getGroupData = (unitSystem: UnitSystem, groupName: string, groupTs:
 // Return simple data which does not require grouping, such as Air Temperature.
 export const getNonGroupData = (unitSystem: UnitSystem, ts: PlatformTimeSeries) => {
   const { getValue, getUnit } = commonHelpers(unitSystem)
-  const name = ts.data_type.standard_name
 
   const getOtherData = (): CardDispData | null => {
-    // Desired data aside from wind and waves
-    if (
-      !non_grouped_metric_names.airTemp.has(name) &&
-      !non_grouped_metric_names.waterTemp.has(name) &&
-      !non_grouped_metric_names.airPressure.has(name)
-    )
-      return null
-
     return {
       primary: getValue(ts),
       secondary: null,

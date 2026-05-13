@@ -53,10 +53,6 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
   const allWithNull = [...before, ...windTimeSeries, ...waveTimeSeries, ...timeSeries, ...after]
   const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
-  // All timeseries except for those related to wind and waves, needed for latest obs cards
-  const allNonGroupedWithNull = [...before, ...timeSeries, ...after]
-  const allNonGroupedTimeseries = allNonGroupedWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
-
   return {
     before,
     after,
@@ -64,6 +60,5 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
     waveTimeSeries,
     timeSeries,
     allCurrentConditionsTimeseries,
-    allNonGroupedTimeseries,
   }
 }
