@@ -123,7 +123,7 @@ const LegendItem = ({ active }: { active: boolean }) => {
   return (
     <span className="caption d-flex flex-row align-items-center">
       <div className={`erddap-key-dot ${active ? "erddap-dot-active" : "erddap-dot-inactive"}`}></div>
-      {active ? "< 24 hours" : "> 24 hours"}
+      {active ? "Recent Data" : "Out of Date"}
     </span>
   )
 }
@@ -132,7 +132,6 @@ const LegendItem = ({ active }: { active: boolean }) => {
 const MapLegend = () => {
   return (
     <div className="map-key d-flex flex-column gap-1 bg-white border rounded-1 py-2 px-3">
-      <p className="caption m-0">Recent Data</p>
       <LegendItem active={true} />
       <LegendItem active={false} />
     </div>
