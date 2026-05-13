@@ -46,7 +46,7 @@ export class UnitSelectorBase extends React.Component<ReduxProps, object> {
 
     return (
       <Button
-        className={`border-0 text-black px-8
+        className={`border-0 text-black
           ${firstButton ? "rounded-start-pill" : "rounded-end-pill"}
           ${system === buttonSystem ? "bg-info text-white" : "bg-black bg-opacity-5"}`}
         id={buttonSystem}

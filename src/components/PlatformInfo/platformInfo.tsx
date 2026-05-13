@@ -17,7 +17,7 @@ export const PlatformInfo = ({ id }: { id: string }) => {
   return (
     <UsePlatform platformId={id}>
       {({ platform }) => (
-        <>
+        <div className="d-flex flex-column gap-2">
           <PlatformAlerts platform={platform} />
           <ErddapPlatformInfoPanel platform={platform} />
           <ErddapObservationCards
@@ -26,7 +26,7 @@ export const PlatformInfo = ({ id }: { id: string }) => {
             unitSystem={unitSystem}
             laterThan={aDayAgo}
           />
-        </>
+        </div>
       )}
     </UsePlatform>
   )
