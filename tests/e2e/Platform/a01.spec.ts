@@ -34,7 +34,7 @@ test.describe("Platform A01", () => {
     await expect(page.getByText("Loading").first()).toBeHidden()
 
     const cards = await page.locator(".card")
-    await expect(await cards.count()).toBeGreaterThan(2)
+    await expect(await cards.count()).toBeGreaterThan(4)
   })
 
   test("Shows air temp plot", async ({ page }) => {
