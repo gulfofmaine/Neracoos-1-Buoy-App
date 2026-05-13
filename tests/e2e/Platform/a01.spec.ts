@@ -152,12 +152,8 @@ test.describe("Platform A01", () => {
 
     const element = page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
     const text = await element.textContent()
-
-    const year = new Date().getFullYear()
-
-    let dateText = text!.split("Last updated at: ")[1] + ` ${year}`
+    let dateText = text!.split("Last updated at: ")[1]
     const date = new Date(dateText)
-
     const threeDaysAgo = new Date()
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3)
     expect(date.valueOf()).toBeGreaterThan(threeDaysAgo.valueOf())
@@ -183,6 +179,7 @@ test.describe("Platform A01", () => {
       .first()
       .click()
     await page
+      .getByRole("menuitem")
       .getByText(/Air Temperature/)
       .first()
       .click()

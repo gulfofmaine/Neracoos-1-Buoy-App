@@ -161,6 +161,7 @@ test.describe("Platfrom 44007", () => {
       .first()
       .click()
     await page
+      .getByRole("menuitem")
       .getByText(/Air Temperature/)
       .first()
       .click()
