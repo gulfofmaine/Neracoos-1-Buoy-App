@@ -52,7 +52,7 @@ export const ErddapObservationCards: React.FC<Props> = ({
       ) : (
         <div>There is no recent data from {platformName(platform)}</div>
       )}
-      <Row xs={2} sm={3} md={2} lg={3} xl={4} xxl={5} className="w-100 g-1">
+      <Row xs={1} sm={3} md={2} lg={3} xl={3} xxl={4} className="w-100 g-1">
         {timeSeries.map((ts, index) => {
           return <LatestObsCard key={index} timeSeries={ts} platform={platform} unitSystem={unitSystem} />
         })}
