@@ -65,7 +65,7 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
   return (
     <React.Fragment>
       <OverlayTrigger delay={{ show: 250, hide: 4000 }} overlay={renderToolTip} trigger={["click"]}>
-        <ExportIcon id={`tooltip-${id}-trigger`} className="export-icon-border bg-white p-1" />
+        <ExportIcon id={`tooltip-${id}-trigger`} className="export-icon-border bg-white p-1" role="button" />
       </OverlayTrigger>
     </React.Fragment>
   )

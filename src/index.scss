@@ -460,7 +460,7 @@ $dig-opacities: (
   align-items: center;
 }
 
-.timeframe-card {
+.timeframe-card-wl {
   width: fit-content;
   padding: 8px;
   margin-top: 5px;
@@ -471,12 +471,6 @@ $dig-opacities: (
 .observation-timeframe-selector {
   grid-column: 3;
   justify-self: end;
-}
-
-@media (max-width: 1300px) {
-  .timeframe-card {
-    margin-left: 20px;
-  }
 }
 
 @media (max-width: 1040px) {
@@ -494,15 +488,9 @@ $dig-opacities: (
     justify-self: center;
     grid-column: 1;
   }
-  .timeframe-card {
-    margin: 0;
-  }
 }
 
 @media (max-width: 500px) {
-  .timeframe-card .main {
-    width: 95%;
-  }
   .timeframe-label {
     flex-direction: column;
     margin: 0;

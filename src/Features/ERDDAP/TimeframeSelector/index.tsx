@@ -64,7 +64,7 @@ export function TimeframeSelector({
   }, [searchParams, isWaterLevel, graphFuture, pathname, setEndTime, setStartTime])
 
   return (
-    <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
+    <Card className={`${isWaterLevel ? "timeframe-card-wl" : "p-2"}`}>
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
         <Col

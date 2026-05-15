@@ -9,12 +9,13 @@ import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { TimeframeButtonGroup } from "Features/ERDDAP/TimeframeButtonGroup"
 import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
-import { PlatformFeature, PlatformTimeSeries } from "../../../types"
+import { PlatformFeature, PlatformTimeSeries, TimeFrameRange } from "../../../types"
 import { Info } from "./Info"
 
 interface Props {
@@ -38,6 +39,10 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const [endDate, setEndDate] = useState(
     searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
   )
+  const handleTimeframeChange = ({ start, end }: TimeFrameRange) => {
+    setStartDate(start)
+    setEndDate(end)
+  }
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,
@@ -52,8 +57,9 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
         <h2 className="d-flex gap-2 justify-content-center align-items-center">
           {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
         </h2>
-        <div>
-          <div className="observation-timeframe-selector">
+        <div className="d-flex flex-column flex-md-row gap-2 align-items-center">
+          <TimeframeButtonGroup className="order-2 order-md-1" onTimeframeChange={handleTimeframeChange} />
+          <div className="d-flex flex-row ms-auto order-1 order-md-2">
             {index === 0 && <TimeframeSelector graphFuture={false} />}
           </div>
         </div>
