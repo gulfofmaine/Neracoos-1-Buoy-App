@@ -29,9 +29,9 @@ export const ErddapObservationCards: React.FC<Props> = ({
   laterThan,
   children,
 }: Props) => {
-  const { windTimeSeries, waveTimeSeries, timeSeries } = currentConditionsTimeseries(platform, laterThan)
+  const { windTimeSeries, waveTimeSeries, nonGroupTimeSeries } = currentConditionsTimeseries(platform, laterThan)
 
-  const times = timeSeries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
+  const times = nonGroupTimeSeries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
   return (
     <div className="d-flex flex-column bg-black bg-opacity-5 rounded-3 p-2">
@@ -53,15 +53,15 @@ export const ErddapObservationCards: React.FC<Props> = ({
         <div>There is no recent data from {platformName(platform)}</div>
       )}
       <Row xs={2} sm={3} md={2} lg={3} xl={3} xxl={4} className="w-100 g-1">
-        {timeSeries.map((ts, index) => {
-          return <LatestObsCard key={index} timeSeries={ts} platform={platform} unitSystem={unitSystem} />
-        })}
         {waveTimeSeries.length > 0 && (
           <LatestObsCard timeSeries={waveTimeSeries} platform={platform} unitSystem={unitSystem} />
         )}
         {windTimeSeries.length > 0 && (
           <LatestObsCard timeSeries={windTimeSeries} platform={platform} unitSystem={unitSystem} />
         )}
+        {nonGroupTimeSeries.map((ts, index) => {
+          return <LatestObsCard key={index} timeSeries={ts} platform={platform} unitSystem={unitSystem} />
+        })}
       </Row>
 
       {unitSelector ? (

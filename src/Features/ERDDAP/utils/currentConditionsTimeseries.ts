@@ -50,6 +50,9 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
   const timeSeriesWithNull = [waterTemp, airTemp, airPressure, waterLevel, visibility]
   const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
+  const nonGroupTimeSeriesWithNull = [...before, waterTemp, airTemp, airPressure, waterLevel, visibility, ...after]
+  const nonGroupTimeSeries = nonGroupTimeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
+
   const allWithNull = [...before, ...windTimeSeries, ...waveTimeSeries, ...timeSeries, ...after]
   const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
@@ -58,6 +61,7 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
     after,
     windTimeSeries,
     waveTimeSeries,
+    nonGroupTimeSeries,
     timeSeries,
     allCurrentConditionsTimeseries,
   }
