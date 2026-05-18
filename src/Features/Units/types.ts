@@ -4,7 +4,7 @@
 
 export enum UnitSystem {
   metric = "Metric",
-  english = "English",
+  english = "Imperial",
 }
 
 export interface UnitStoreState {

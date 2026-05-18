@@ -10,9 +10,6 @@ import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 export const cardProps = {
   md: 4,
   sm: 6,
-  style: {
-    paddingTop: "1rem",
-  },
 }
 
 /**

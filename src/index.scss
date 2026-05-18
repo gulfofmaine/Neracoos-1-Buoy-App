@@ -265,6 +265,33 @@ $dig-opacities: (
   border-radius: 6px;
 }
 
+// ==== LATEST CONDITIONS START ====
+.latest-obs-card {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+}
+
+@media (max-width: 400px) {
+  .latest-obs-card {
+    aspect-ratio: unset;
+    height: unset;
+  }
+}
+
+.text-black-65 {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.black-65 {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.card-drop-shadow {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+}
+
+// ==== LATEST CONDITIONS END ====
+
 .superlatives-tooltip .tooltip-inner {
   max-width: none;
 }

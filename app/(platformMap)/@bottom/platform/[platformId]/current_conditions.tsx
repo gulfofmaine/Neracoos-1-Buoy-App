@@ -1,11 +1,22 @@
 "use client"
+import { Row, Col } from "react-bootstrap"
+
 import { UsePlatform } from "Features/ERDDAP/hooks"
+import { PlatformFeature } from "Features/ERDDAP/types"
 import { ErddapCurrentPlatformConditions } from "Features/ERDDAP/Platform/Observations/CurrentConditions"
 
 export function CurrentConditions({ platformId }: { platformId: string }) {
   return (
     <UsePlatform platformId={platformId}>
-      {({ platform }) => <ErddapCurrentPlatformConditions platform={platform} />}
+      {({ platform }: { platform: PlatformFeature }) => {
+        return (
+          <Row className="align-items-start">
+            <Col xs={12} md={12} className="mb-4">
+              <ErddapCurrentPlatformConditions platform={platform} />
+            </Col>
+          </Row>
+        )
+      }}
     </UsePlatform>
   )
 }

@@ -7,7 +7,7 @@ test.describe("Platform redirects", () => {
     await expect(await page.getByText("Port Clyde Tide Gauge").first()).toBeVisible()
     await expect(
       await page
-        .getByText("Last updated at:")
+        .getByText("Last updated")
         .first()
         .or(page.getByText("There is no recent data from Port Clyde Tide Gauge")),
     ).toBeVisible()

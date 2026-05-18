@@ -23,7 +23,7 @@ test.describe("Platform A01", () => {
     await page.goto(platformUrl)
     await expect(page.getByText(/Lat:/).first()).toBeVisible()
     await expect(page.getByText(/Lon:/).first()).toBeVisible()
-    await expect(page.getByText(/Last updated at:/).first()).toBeVisible()
+    await expect(page.getByText(/Last updated/).first()).toBeVisible()
   })
 
   test("Shows current conditions", async ({ page }) => {
@@ -40,7 +40,7 @@ test.describe("Platform A01", () => {
   test("Shows air temp plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Air Temperature:/)
+      .getByText(/Air Temperature -/)
       .first()
       .click()
     await expect(
@@ -149,14 +149,11 @@ test.describe("Platform A01", () => {
       .getByText(/All Observations/)
       .first()
       .click()
+
     const element = page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
     const text = await element.textContent()
-
-    const year = new Date().getFullYear()
-
-    let dateText = text!.split("Last updated at: ")[1] + ` ${year}`
+    let dateText = text!.split("Last updated at: ")[1]
     const date = new Date(dateText)
-
     const threeDaysAgo = new Date()
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3)
     expect(date.valueOf()).toBeGreaterThan(threeDaysAgo.valueOf())
@@ -182,6 +179,7 @@ test.describe("Platform A01", () => {
       .first()
       .click()
     await page
+      .getByRole("menuitem")
       .getByText(/Air Temperature/)
       .first()
       .click()

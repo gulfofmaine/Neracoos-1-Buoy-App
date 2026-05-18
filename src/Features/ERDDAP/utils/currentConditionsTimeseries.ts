@@ -1,6 +1,7 @@
 import { conditions } from "./conditions"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { pickWindTimeSeries } from "./wind"
+import { pickWaveTimeSeries } from "./waves"
 
 /// Filter to current observation time series for specified data types
 export function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
@@ -39,34 +40,28 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
 
   const airTemp = filterTimeSeries(notHighlighted, conditions.airTemp, laterThan)
   const airPressure = filterTimeSeries(notHighlighted, conditions.airPressure, laterThan)
-  const waveHeight = filterTimeSeries(notHighlighted, conditions.waveHeight, laterThan)
-  const wavePeriod = filterTimeSeries(notHighlighted, conditions.wavePeriod, laterThan)
-  const waveDirection = filterTimeSeries(notHighlighted, conditions.waveDirection, laterThan)
   const waterTemp = filterTimeSeries(notHighlighted, conditions.waterTemp, laterThan)
   const waterLevel = filterTimeSeries(notHighlighted, conditions.waterLevel, laterThan)
   const visibility = filterTimeSeries(notHighlighted, conditions.visibility, laterThan)
 
   const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, laterThan)
+  const { timeSeries: waveTimeSeries } = pickWaveTimeSeries(platform, laterThan)
 
-  const timeSeriesWithNull = [
-    waveHeight,
-    wavePeriod,
-    waveDirection,
-    airPressure,
-    airTemp,
-    waterTemp,
-    waterLevel,
-    visibility,
-  ]
+  const timeSeriesWithNull = [waterTemp, airTemp, airPressure, waterLevel, visibility]
   const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
-  const allWithNull = [...before, ...windTimeSeries, ...timeSeries, ...after]
+  const nonGroupTimeSeriesWithNull = [...before, waterTemp, airTemp, airPressure, waterLevel, visibility, ...after]
+  const nonGroupTimeSeries = nonGroupTimeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
+
+  const allWithNull = [...before, ...windTimeSeries, ...waveTimeSeries, ...timeSeries, ...after]
   const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
   return {
     before,
     after,
     windTimeSeries,
+    waveTimeSeries,
+    nonGroupTimeSeries,
     timeSeries,
     allCurrentConditionsTimeseries,
   }

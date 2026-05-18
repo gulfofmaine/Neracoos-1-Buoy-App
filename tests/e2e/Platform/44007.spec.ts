@@ -42,7 +42,11 @@ test.describe("Platfrom 44007", () => {
     await expect(page.locator("h2").getByText(/Wind/).first()).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
-    await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
+    await page
+      .locator("svg.highcharts-root")
+      .getByText(/Wind Speed/)
+      .first()
+      .click()
     await page
       .locator("svg.highcharts-root")
       .getByText(/Direction/)
@@ -148,7 +152,7 @@ test.describe("Platfrom 44007", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    await expect(page.getByText(/Wind Speed:/).first()).toBeVisible()
+    await expect(page.getByText(/Wind/).first()).toBeVisible()
   })
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
@@ -157,6 +161,7 @@ test.describe("Platfrom 44007", () => {
       .first()
       .click()
     await page
+      .getByRole("menuitem")
       .getByText(/Air Temperature/)
       .first()
       .click()

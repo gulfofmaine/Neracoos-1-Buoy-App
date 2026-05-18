@@ -24,7 +24,7 @@ test.describe("Units", () => {
     await expect(page.getByText(/\u00B0C/).first()).toBeVisible()
     // await expect(page.getByText(/Kilometers/).first()).toBeVisible()
     await page
-      .getByText(/English/)
+      .getByText(/Imperial/)
       .first()
       .click()
     await expect(page.getByText(/kts/).first()).toBeVisible()
