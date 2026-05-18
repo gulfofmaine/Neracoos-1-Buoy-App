@@ -141,6 +141,7 @@ export function TimeframeSelector({
                   ),
                 }}
                 style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
+                onClick={window.location.reload}
               >
                 Plot Dates
               </Link>

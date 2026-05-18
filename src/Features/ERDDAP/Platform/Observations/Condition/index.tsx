@@ -15,8 +15,9 @@ import { DataTimeSeries } from "Shared/timeSeries"
 import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
-import { PlatformFeature, PlatformTimeSeries, TimeFrameRange } from "../../../types"
+import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
+import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
 
 interface Props {
   /** Platform to display */
@@ -39,9 +40,15 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const [endDate, setEndDate] = useState(
     searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
   )
-  const handleTimeframeChange = ({ start, end }: TimeFrameRange) => {
+
+  // Keep a timeframe to allow "unsetting" of the toggle
+  const [timeFrame, setTimeFrame] = useState<Timeframes>()
+  const handleTimeframeChange = (val: Timeframes) => {
+    if (val === null) return // No val no set
+    setTimeFrame(val)
+    const start = getStartFunction(val)
     setStartDate(start)
-    setEndDate(end)
+    setEndDate(daysInFuture(0))
   }
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
@@ -59,11 +66,11 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
         </h2>
         <div className="d-flex flex-column flex-md-row gap-2 align-items-center">
           <TimeframeButtonGroup
-            defaultValue="7d"
             name="time-frame-group"
             type="radio"
+            value={timeFrame ?? undefined}
+            onChange={handleTimeframeChange}
             className="order-2 order-md-1"
-            onTimeframeChange={handleTimeframeChange}
           />
           <div className="d-flex flex-row ms-auto order-1 order-md-2">
             {index === 0 && <TimeframeSelector graphFuture={false} />}

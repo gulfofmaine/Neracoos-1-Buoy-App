@@ -211,8 +211,3 @@ export interface DatumOffsets {
   datum_msl_meters?: number
   datum_mtl_meters?: number
 }
-
-export type TimeFrameRange = {
-  start: Date
-  end: Date
-}
