@@ -58,7 +58,13 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
           {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
         </h2>
         <div className="d-flex flex-column flex-md-row gap-2 align-items-center">
-          <TimeframeButtonGroup className="order-2 order-md-1" onTimeframeChange={handleTimeframeChange} />
+          <TimeframeButtonGroup
+            defaultValue="7d"
+            name="time-frame-group"
+            type="radio"
+            className="order-2 order-md-1"
+            onTimeframeChange={handleTimeframeChange}
+          />
           <div className="d-flex flex-row ms-auto order-1 order-md-2">
             {index === 0 && <TimeframeSelector graphFuture={false} />}
           </div>
