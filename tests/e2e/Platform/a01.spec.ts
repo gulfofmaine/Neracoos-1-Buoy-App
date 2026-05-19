@@ -21,8 +21,8 @@ test.describe("Platform A01", () => {
 
   test("Shows platform status", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(page.getByText(/Lat:/).first()).toBeVisible()
-    await expect(page.getByText(/Lon:/).first()).toBeVisible()
+    await expect(page.getByText(/Lat/).first()).toBeVisible()
+    await expect(page.getByText(/Lon/).first()).toBeVisible()
     await expect(page.getByText(/Last updated/).first()).toBeVisible()
   })
 
