@@ -99,48 +99,93 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
 exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
 <div>
   <div
-    class="card"
+    class="p-2 card"
     role="complementary"
   >
     <div
-      class="card-body"
+      class="p-0 card-body"
     >
-      <div
-        class="card-title h5"
-        role="header"
+      <p
+        class="m-0 text-black-65"
       >
         Station 
-        M01
-      </div>
-      <p
-        class="card-text"
-      >
-        Jordan Basin
-        <br />
-        <b>
-          NDBC ID:
-        </b>
-         
         44037
-        <br />
-        <b>
-          Lat:
-        </b>
-         
-        43.5
-         
-        <b>
-          Lon:
-        </b>
-         
-        -67.87
-        <br />
-        <a
-          href="http://gyre.umeoce.maine.edu/gomoos.php"
+      </p>
+      <h2
+        class="text-primary pb-3"
+        role="header"
+      >
+        M01
+      </h2>
+      <p
+        class="d-flex flex-column gap-1 card-text"
+      >
+        <span
+          class="d-flex flex-row gap-2 align-items-baseline"
         >
-          University of Maine
-        </a>
-        <br />
+          <h3
+            class="text-primary m-0"
+          >
+            NDBC ID
+          </h3>
+           
+          <p
+            class="text-black-65 m-0"
+          >
+            44037
+          </p>
+        </span>
+        <span
+          class="text-primary h3-mimic"
+        >
+          Jordan Basin
+        </span>
+        <span
+          class="d-flex flex-row gap-2 pb-5 align-items-baseline"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-location-pin text-primary"
+            data-icon="location-pin"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 384 512"
+          >
+            <path
+              d="M192 0C86 0 0 84.4 0 188.6 0 307.9 120.2 450.9 170.4 505.4 182.2 518.2 201.8 518.2 213.6 505.4 263.8 450.9 384 307.9 384 188.6 384 84.4 298 0 192 0z"
+              fill="currentColor"
+            />
+          </svg>
+          <span
+            class="text-primary h3-mimic"
+          >
+            43.5
+          </span>
+          <span
+            class="text-black-65"
+          >
+            Lat
+          </span>
+          <span
+            class="text-primary h3-mimic"
+          >
+            -67.87
+          </span>
+          <span
+            class="text-black-65 m-0"
+          >
+            Lon
+          </span>
+        </span>
+        <span
+          class="mt-auto"
+        >
+          <a
+            href="http://gyre.umeoce.maine.edu/gomoos.php"
+          >
+            University of Maine
+          </a>
+        </span>
       </p>
     </div>
   </div>

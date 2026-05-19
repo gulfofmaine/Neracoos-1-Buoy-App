@@ -8,7 +8,7 @@ import Card from "react-bootstrap/Card"
 import { round } from "Shared/math"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
-import { platformId } from "../../utils/platformName"
+import { platformNameAndId } from "../../utils/platformName"
 import { LocationPinIcon } from "Shared/icons/iconsMap"
 
 /**
@@ -17,14 +17,15 @@ import { LocationPinIcon } from "Shared/icons/iconsMap"
  */
 export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderProps> = ({ platform }) => {
   const nbdc_site_id = platform.properties.ndbc_site_id ? platform.properties.ndbc_site_id : ""
+  const { platformName, platformId } = platformNameAndId(platform)
   return (
     <Card className="p-2" role="complementary">
       <Card.Body className="p-0">
-        {nbdc_site_id && <p className="m-0 text-black-65">Station {nbdc_site_id}</p>}
+        {platformId && <p className="m-0 text-black-65">Station {platformId}</p>}
         <h2 role="header" className="text-primary pb-3">
-          {platformId(platform)}
+          {platformName}
         </h2>
-        <Card.Text className="d-flex flex-column gap-1">
+        <div className="d-flex flex-column gap-1">
           {nbdc_site_id && (
             <span className="d-flex flex-row gap-2 align-items-baseline">
               <h3 className="text-primary m-0">NDBC ID</h3> <p className="text-black-65 m-0">{nbdc_site_id}</p>
@@ -50,7 +51,7 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
               <a href={attr.program.website}>{attr.attribution}</a>
             </span>
           ))}
-        </Card.Text>
+        </div>
       </Card.Body>
     </Card>
   )
