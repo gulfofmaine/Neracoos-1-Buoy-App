@@ -107,6 +107,7 @@ exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
     >
       <p
         class="m-0 text-black-65"
+        role="header-id"
       >
         Station 
         M01
