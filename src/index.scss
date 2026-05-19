@@ -39,6 +39,7 @@ $dig-colors: (
   "orange": $orange,
 );
 
+$black-5: transparentize($black, 0.05);
 $black-20: transparentize($black, 0.2);
 $black-65: transparentize($black, 0.65);
 $seaweed-10: transparentize($seaweed, 0.1);
@@ -127,6 +128,19 @@ a {
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.h3-mimic {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.text-black-20 {
+  color: $black-20;
+}
+
+.text-black-65 {
+  color: $black-65;
 }
 // ========== TYPOGRAPHY END ==========
 
@@ -278,10 +292,6 @@ $dig-opacities: (
   }
 }
 
-.text-black-65 {
-  color: rgba(0, 0, 0, 0.65);
-}
-
 .black-65 {
   color: rgba(0, 0, 0, 0.65);
 }
@@ -291,7 +301,14 @@ $dig-opacities: (
 }
 
 // ==== LATEST CONDITIONS END ====
+// ==== GENERAL STATION DETAILS STARTT ====
+.seaweed-background {
+  background-color: $info;
+  margin: -20px -20px -0px -20px;
+  padding: 0px 10px 20px;
+}
 
+// ==== GENERAL STATION DETAILS END ====
 .superlatives-tooltip .tooltip-inner {
   max-width: none;
 }

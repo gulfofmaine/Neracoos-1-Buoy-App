@@ -34,7 +34,7 @@ export const ErddapObservationCards: React.FC<Props> = ({
   const times = nonGroupTimeSeries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
   times.sort((a, b) => a.valueOf() - b.valueOf())
   return (
-    <div className="d-flex flex-column bg-black bg-opacity-5 rounded-3 p-2">
+    <div className="d-flex flex-column rounded-3 p-2 bg-white">
       <h3>Latest Conditions</h3>
       {times.length > 0 ? (
         <span className="d-flex flex-row">

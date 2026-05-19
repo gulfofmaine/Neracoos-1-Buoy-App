@@ -17,6 +17,7 @@ import {
   faArrowDown,
   faChartLine,
   faCircleInfo,
+  faLocationPin,
 } from "@fortawesome/free-solid-svg-icons"
 import mkIcon from "./iconComponent"
 
@@ -32,3 +33,4 @@ export const ArrowRightIcon = mkIcon(faArrowRight)
 export const ArrowUpIcon = mkIcon(faArrowUp)
 export const ArrowDownIcon = mkIcon(faArrowDown)
 export const LineChartIcon = mkIcon(faChartLine)
+export const LocationPinIcon = mkIcon(faLocationPin)

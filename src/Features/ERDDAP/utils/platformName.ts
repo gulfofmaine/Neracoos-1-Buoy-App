@@ -21,3 +21,13 @@ export function platformName(platform: PlatformName) {
 
   return name
 }
+
+export function platformId(platform: PlatformName) {
+  let name = platform.id
+
+  if (platform.properties.station_name && platform.properties.station_name !== "") {
+    name = platform.properties.station_name
+  }
+
+  return name
+}
