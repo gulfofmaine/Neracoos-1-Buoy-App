@@ -21,7 +21,11 @@ export const ErddapPlatformInfoPanel: React.FunctionComponent<UsePlatformRenderP
   return (
     <Card className="p-2" role="complementary">
       <Card.Body className="p-0">
-        {platformId && <p className="m-0 text-black-65">Station {platformId}</p>}
+        {platformId && (
+          <p role="header-id" className="m-0 text-black-65">
+            Station {platformId}
+          </p>
+        )}
         <h2 role="header" className="text-primary pb-3">
           {platformName}
         </h2>

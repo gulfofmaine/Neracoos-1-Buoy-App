@@ -109,16 +109,14 @@ exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
         class="m-0 text-black-65"
       >
         Station 
-        44037
+        M01
       </p>
       <h2
         class="text-primary pb-3"
         role="header"
-      >
-        M01
-      </h2>
-      <p
-        class="d-flex flex-column gap-1 card-text"
+      />
+      <div
+        class="d-flex flex-column gap-1"
       >
         <span
           class="d-flex flex-row gap-2 align-items-baseline"
@@ -186,7 +184,7 @@ exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
             University of Maine
           </a>
         </span>
-      </p>
+      </div>
     </div>
   </div>
 </div>
