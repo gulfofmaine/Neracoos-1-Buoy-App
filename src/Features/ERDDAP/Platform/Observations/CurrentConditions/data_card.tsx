@@ -55,10 +55,14 @@ export function DataCardDisplay({
 
   return (
     <Col>
-      <Card className="h-100">
-        <Card.Header className="h-100">
-          {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
-          {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+      <Card className="chart-card">
+        <Card.Header className="h-100 border-0">
+          <p className="chart-title">
+            <strong>
+              {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
+              {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+            </strong>
+          </p>
         </Card.Header>
 
         <div className="p-1 pt-3">

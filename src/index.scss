@@ -290,6 +290,16 @@ $dig-opacities: (
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
 }
 
+.chart-card {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
+  border: none;
+}
+
+.chart-title {
+  color: $primary;
+  margin-bottom: 0px;
+}
 // ==== LATEST CONDITIONS END ====
 
 .superlatives-tooltip .tooltip-inner {

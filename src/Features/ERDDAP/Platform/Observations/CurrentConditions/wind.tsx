@@ -90,11 +90,15 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
 
   return (
     <Col>
-      <Card className="h-100">
-        <Card.Header className="h-100">
-          Winds{speedTitle}
-          {gustTitle}
-          {directionTitle}
+      <Card className="chart-card">
+        <Card.Header className="h-100 border-0">
+          <p className="chart-title">
+            <strong>
+              Winds{speedTitle}
+              {gustTitle}
+              {directionTitle}
+            </strong>
+          </p>
         </Card.Header>
         <div className="p-1 pt-3">
           <WindTimeSeriesChart
