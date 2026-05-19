@@ -2,8 +2,6 @@
 /**
  * Generalized single time series data card
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
@@ -20,7 +18,7 @@ import { ExpandIcon } from "Shared/icons/iconsMap"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
-import { cardProps, cardUrl } from "./common_card"
+import { cardUrl } from "./common_card"
 
 interface DataCardDisplayProps {
   readings: ReadingTimeSeries[]

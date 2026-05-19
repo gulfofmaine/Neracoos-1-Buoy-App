@@ -1,8 +1,6 @@
 /**
  * Wind specific current conditions card
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
@@ -20,7 +18,7 @@ import { WindTimeSeriesChart } from "components/Charts/WindTimeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
-import { cardProps, observationLink } from "./common_card"
+import { observationLink } from "./common_card"
 
 interface DisplayWindCardProps {
   platform: PlatformFeature
@@ -126,7 +124,7 @@ interface OtherWindCardProps {
  * Card to display various information when the wind data is not avaliable or loaded
  */
 const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, children }) => (
-  <Col {...cardProps}>
+  <Col>
     <Link href={observationLink(platform, "wind")}>
       <Card>
         <Card.Header>{children}</Card.Header>
