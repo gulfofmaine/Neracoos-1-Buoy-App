@@ -14,6 +14,7 @@ import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion/compassDirection"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
+import { ExpandIcon } from "Shared/icons/iconsMap"
 
 import { WindTimeSeriesChart } from "components/Charts/WindTimeSeries"
 
@@ -88,26 +89,26 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
   }
 
   return (
-    <Col {...cardProps}>
-      <Link href={observationLink(platform, "wind")}>
-        <Card>
-          <Card.Header>
-            Winds{speedTitle}
-            {gustTitle}
-            {directionTitle}
-          </Card.Header>
-          <Card.Body style={{ padding: ".2rem" }}>
-            <WindTimeSeriesChart
-              days={1}
-              barbsPerDay={24}
-              legend={false}
-              height={150}
-              {...{ speed, gust, direction, unitSystem, startTime, endTime }}
-            />
-            <FontAwesomeIcon icon={faExpand} pull="right" />
-          </Card.Body>
-        </Card>
-      </Link>
+    <Col>
+      <Card className="h-100">
+        <Card.Header className="h-100">
+          Winds{speedTitle}
+          {gustTitle}
+          {directionTitle}
+        </Card.Header>
+        <div className="p-1 pt-3">
+          <WindTimeSeriesChart
+            days={1}
+            barbsPerDay={24}
+            legend={false}
+            height={150}
+            {...{ speed, gust, direction, unitSystem, startTime, endTime }}
+          />
+        </div>
+        <Link href={observationLink(platform, "wind")} className="ms-auto mt-auto p-2">
+          <ExpandIcon />
+        </Link>
+      </Card>
     </Col>
   )
 }
