@@ -10,7 +10,7 @@ export function CurrentConditions({ platformId }: { platformId: string }) {
     <UsePlatform platformId={platformId}>
       {({ platform }: { platform: PlatformFeature }) => {
         return (
-          <Row className="align-items-start">
+          <Row className="align-items-start px-0">
             <Col xs={12} md={12} className="mb-4">
               <ErddapCurrentPlatformConditions platform={platform} />
             </Col>
