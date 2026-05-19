@@ -51,7 +51,7 @@ export default function Layout({
             <div className={isRegionView ? "region-map-container" : "d-flex h-100"}>
               <ErddapMap
                 // Pass minimum height requirement only on landing page
-                className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map`}
+                className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map border-0 rounded-2 overflow-hidden`}
                 {...(isPlatformView && { platformId })}
               />
             </div>
