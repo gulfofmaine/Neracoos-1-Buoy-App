@@ -33,6 +33,13 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
     groupName = groupName + " @ " + firstTs.depth + "m"
   }
 
+  // Allow wind group to be directed to combo wind plot
+  const linkTarget = urlPartReplacer(
+    urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
+    ":type",
+    groupName === "Wind" ? groupName.toLowerCase() : firstTs.data_type.standard_name,
+  )
+
   const cardData = Array.isArray(timeSeries)
     ? getGroupData(unitSystem, groupName, timeSeries).getWindOrWaveData()
     : getNonGroupData(unitSystem, timeSeries).getOtherData()
@@ -88,14 +95,7 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
             )}
 
             {/* Line chart icon with link */}
-            <Link
-              href={urlPartReplacer(
-                urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-                ":type",
-                firstTs.data_type.standard_name,
-              )}
-              className="d-flex text-decoration-none mt-auto ms-auto text-info"
-            >
+            <Link href={linkTarget} className="d-flex text-decoration-none mt-auto ms-auto text-info">
               <LineChartIcon className="fa-md" />
             </Link>
           </Card.Body>
