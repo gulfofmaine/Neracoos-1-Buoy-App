@@ -50,15 +50,37 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
   const timeSeriesWithNull = [waterTemp, airTemp, airPressure, waterLevel, visibility]
   const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
-  const nonGroupTimeSeriesWithNull = [...before, waterTemp, airTemp, airPressure, waterLevel, visibility, ...after]
+  const beforeWithoutGroups = before.filter((ts) => !waveTimeSeries.includes(ts) && !windTimeSeries.includes(ts))
+  const afterWithoutGroups = after.filter((ts) => !waveTimeSeries.includes(ts) && !windTimeSeries.includes(ts))
+  const nonGroupTimeSeriesWithNull = [
+    ...beforeWithoutGroups,
+    waterTemp,
+    airTemp,
+    airPressure,
+    waterLevel,
+    visibility,
+    ...afterWithoutGroups,
+  ]
   const nonGroupTimeSeries = nonGroupTimeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
-  const allWithNull = [...before, ...windTimeSeries, ...waveTimeSeries, ...timeSeries, ...after]
-  const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
+  const allWithNull = [
+    ...beforeWithoutGroups,
+    ...windTimeSeries,
+    ...waveTimeSeries,
+    ...timeSeries,
+    ...afterWithoutGroups,
+  ]
+  const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null)
+
+  console.log(nonGroupTimeSeries)
+  console.log(waveTimeSeries)
+  console.log(allCurrentConditionsTimeseries)
 
   return {
     before,
     after,
+    beforeWithoutGroups,
+    afterWithoutGroups,
     windTimeSeries,
     waveTimeSeries,
     nonGroupTimeSeries,
