@@ -31,7 +31,7 @@ describe("ErddapPlatformInfoPanel", () => {
 
     render(<ErddapPlatformInfoPanel platform={platform} />)
 
-    expect(screen.getByRole("header")).toHaveTextContent(platform.id)
+    expect(screen.getByRole("header-id")).toHaveTextContent(platform.id)
     expect(screen.getByRole("complementary")).toHaveTextContent(platform.properties.mooring_site_desc)
     expect(screen.getByRole("complementary")).toHaveTextContent(platform.geometry.coordinates[0].toString())
     expect(screen.getByRole("complementary")).toHaveTextContent(platform.geometry.coordinates[1].toString())
