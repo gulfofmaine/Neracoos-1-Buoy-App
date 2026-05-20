@@ -101,19 +101,36 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
 
   return (
     <RLayerVector>
-      <RStyle.RStyle>
-        <RStyle.RCircle radius={radius}>
-          <RStyle.RFill color={fillColor} />
-          <RStyle.RStroke color={strokeColor} width={1.5} />
-        </RStyle.RCircle>
-      </RStyle.RStyle>
       <RFeature
         geometry={geometry}
         properties={{ platform_id: platform.id, url: url }}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
-      ></RFeature>
+      >
+        <RStyle.RStyle>
+          <RStyle.RCircle radius={radius}>
+            <RStyle.RFill color={fillColor} />
+            <RStyle.RStroke color={strokeColor} width={1.5} />
+          </RStyle.RCircle>
+        </RStyle.RStyle>
+        <RPopup trigger={"hover"} delay={{ show: 0, hide: 0 }}>
+          <Button 
+            variant="dark" 
+            size="sm" 
+            href={url}
+            onClick={useCallback(
+              (event) => {
+                event.preventDefault()
+                router.push(url)
+              },
+              [router, url],
+            )}
+          >
+            <StationPopup platformId={platform.id} />
+          </Button>
+        </RPopup>
+      </RFeature>
     </RLayerVector>
   )
 }
@@ -146,53 +163,6 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
   const params: { regionId?: string; platformId?: string } = useParams()
   const [view, setView] = useState<View>(initial)
   const path = usePathname()
-
-  const isMapMovingRef = useRef<any | null>(null)
-
-  const [highlightedFeature, setHighlightedFeature] = useState<any | null>(null)
-  const highlightedFeatureRef = useRef<any | null>(null)
-  const popup = useRef<RPopup>(null)
-
-  // Re-render the map to show the popup, but only if the highlighted feature changes
-  useEffect(() => {
-    if (highlightedFeature) {
-      popup.current?.show()
-    } else {
-      popup.current?.hide()
-    }
-  }, [highlightedFeature])
-
-  const onMoveStart = useCallback((e) => {
-    isMapMovingRef.current = true
-  }, [])
-
-  const onMoveEnd = useCallback((e) => {
-    isMapMovingRef.current = false
-  }, [])
-
-  const onPointerMove = useCallback((e) => {
-    // If the map is moving, short circuit the callback
-    if (isMapMovingRef.current) return
-    let upperFeature = null
-    // Use a single popup element based on the topmost moused-over platform.
-    // Instead of having one popup per platform which was a clobbering mess.
-
-    // Access the underlying OpenLayers map object from the event
-    const map = e.map
-
-    // Iterate through all features at the current pixel
-    map.forEachFeatureAtPixel(e.pixel, (feature) => {
-      upperFeature = feature
-      // stop at the first (topmost) feature
-      return true
-    })
-
-    // Save off the feature(s)
-    if (highlightedFeatureRef.current !== upperFeature) {
-      highlightedFeatureRef.current = upperFeature
-      setHighlightedFeature(upperFeature)
-    }
-  }, [])
 
   // Check if the route was navigated to using the back button
   // const isBackButtonUsed = router.asPath !== router.pathname;
@@ -233,26 +203,10 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
       initial={initial}
       view={[view || initial, setView]}
       height="100%"
-      onPointerMove={onPointerMove}
-      onMoveStart={onMoveStart}
-      onMoveEnd={onMoveEnd}
     >
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
       <MapLegend />
-
-      {highlightedFeature && (
-        <RLayerVector>
-          <RStyle.RStyle />
-          <RFeature feature={highlightedFeature}>
-            <RPopup ref={popup} delay={{ show: 0, hide: 0 }}>
-              <Button variant="dark" size="sm" href={highlightedFeature.get("url")}>
-                <StationPopup platformId={highlightedFeature.get("platform_id")} />
-              </Button>
-            </RPopup>
-          </RFeature>
-        </RLayerVector>
-      )}
 
       {oldPlatforms.map((p) => (
         <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
