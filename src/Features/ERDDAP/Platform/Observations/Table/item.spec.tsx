@@ -91,7 +91,7 @@ describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.english} />)
 
-    expect(screen.findByText("Wind"))
+    expect(screen.findByText("Wind Speed"))
   })
 
   it("Rounds the wind speed", () => {
