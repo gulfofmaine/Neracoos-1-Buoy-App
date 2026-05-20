@@ -20,7 +20,7 @@ import { UseDatasets } from "Features/ERDDAP/hooks"
 import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { useSearchParams } from "next/navigation"
 import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
-import { TimeframeButtonGroup } from "Features/ERDDAP/TimeframeButtonGroup"
+import { TimeframeButtonGroup, TimeframeDropdown } from "Features/ERDDAP/TimeframeButtonGroup"
 
 interface Props {
   platform: PlatformFeature
@@ -47,7 +47,9 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
     searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
   )
 
-  const [timeFrame, setTimeFrame] = useState<Timeframes>()
+  const [timeFrame, setTimeFrame] = useState<Timeframes>(() =>
+    searchParams.get("start") || searchParams.get("end") ? "custom" : "7d",
+  )
   const handleTimeframeChange = (val: Timeframes) => {
     if (val === null) return // No val no set
     setTimeFrame(val)
@@ -67,18 +69,28 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
       <h2 className="d-flex gap-2 justify-content-center align-items-center">
         Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
       </h2>
-      <div className="d-flex flex-column flex-md-row gap-2 align-items-center">
+      <div className="d-none d-lg-flex flex-column flex-md-row gap-2 align-items-center">
         <TimeframeButtonGroup
           name="time-frame-group"
           type="radio"
-          value={timeFrame ?? undefined}
+          value={timeFrame ?? "7d"}
           onChange={handleTimeframeChange}
           className="order-2 order-md-1"
         />
-        <div className="d-flex flex-row ms-auto order-1 order-md-2">
-          <TimeframeSelector graphFuture={false} />
+        <div className="flex-row ms-auto order-1 order-md-2">
+          {timeFrame === "custom" && <TimeframeSelector graphFuture={false} />}
         </div>
       </div>
+
+      <div className="d-flex d-lg-none justify-content-center">
+        <TimeframeDropdown
+          id="dropdown-timeframe"
+          value={timeFrame}
+          handleChange={handleTimeframeChange}
+          className="align-items-center"
+        />
+      </div>
+
       <UseDatasets timeSeries={timeSeries} startTime={startDate} endTime={endDate} platformId={platform.id}>
         {({ datasets }) => (
           <ErddapWindObservedConditionDisplay {...{ platform, unitSystem, timeSeries, datasets, startDate, endDate }} />

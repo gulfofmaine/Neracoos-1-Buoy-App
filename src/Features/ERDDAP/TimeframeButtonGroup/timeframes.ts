@@ -1,6 +1,6 @@
 import { calcAnyHourAgoRounded, daysAgoRounded } from "Shared/time"
 
-export type Timeframes = "24h" | "7d" | "30d"
+export type Timeframes = "24h" | "7d" | "30d" | "custom"
 // An array of preset values
 type TimeFrame = { label: string; value: Timeframes; start: () => Date }[]
 
@@ -12,4 +12,9 @@ export const possibleTimeframes = [
 
 export const getStartFunction = (val: string) => {
   return val === "24h" ? calcAnyHourAgoRounded(24) : val === "7d" ? daysAgoRounded(7) : daysAgoRounded(30)
+}
+
+export const getPresetLabel = (value: Timeframes) => {
+  let label = possibleTimeframes.find((timeframe) => timeframe.value === value)?.label
+  return label ? label : "Timeframes"
 }
