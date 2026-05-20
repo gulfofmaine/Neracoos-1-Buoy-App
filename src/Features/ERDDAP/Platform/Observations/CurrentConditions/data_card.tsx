@@ -53,31 +53,31 @@ export function DataCardDisplay({
 
   return (
     <Col>
-      <Card className="chart-card">
-        <Card.Header className="h-100 border-0">
-          <p className="chart-title">
-            <strong>
-              {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
-              {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
-            </strong>
-          </p>
-        </Card.Header>
+      <Link href={url}>
+        <Card className="chart-card">
+          <Card.Header className="h-100 border-0">
+            <p className="chart-title">
+              <strong>
+                {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
+                {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+              </strong>
+            </p>
+          </Card.Header>
 
-        <div className="p-1 pt-3">
-          <SmallTimeSeriesChart
-            name={timeSeries.data_type.standard_name}
-            timeSeries={data}
-            unit={dataConverter.displayName(unitSystem)}
-            softMin={bounds[0]}
-            softMax={bounds[1]}
-            data_type={timeSeries.data_type.standard_name}
-            {...{ unitSystem, startTime, endTime }}
-          />
-        </div>
-        <Link href={url} className="ms-auto mt-auto p-2">
-          <ExpandIcon />
-        </Link>
-      </Card>
+          <div className="p-1 pt-3">
+            <SmallTimeSeriesChart
+              name={timeSeries.data_type.standard_name}
+              timeSeries={data}
+              unit={dataConverter.displayName(unitSystem)}
+              softMin={bounds[0]}
+              softMax={bounds[1]}
+              data_type={timeSeries.data_type.standard_name}
+              {...{ unitSystem, startTime, endTime }}
+            />
+          </div>
+          <ExpandIcon className="ms-auto mt-auto p-2" />
+        </Card>
+      </Link>
     </Col>
   )
 }

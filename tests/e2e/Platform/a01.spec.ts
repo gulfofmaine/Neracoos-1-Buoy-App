@@ -39,7 +39,10 @@ test.describe("Platform A01", () => {
 
   test("Shows air temp plot", async ({ page }) => {
     await page.goto(platformUrl)
-    await page.locator("div:nth-child(5) > .chart-card > .ms-auto").first().click()
+    await page
+      .getByText(/Air Temperature -/)
+      .first()
+      .click()
     await expect(
       page
         .locator("h2")

@@ -88,29 +88,29 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
 
   return (
     <Col>
-      <Card className="chart-card">
-        <Card.Header className="h-100 border-0">
-          <p className="chart-title">
-            <strong>
-              Winds{speedTitle}
-              {gustTitle}
-              {directionTitle}
-            </strong>
-          </p>
-        </Card.Header>
-        <div className="p-1 pt-3">
-          <WindTimeSeriesChart
-            days={1}
-            barbsPerDay={24}
-            legend={false}
-            height={150}
-            {...{ speed, gust, direction, unitSystem, startTime, endTime }}
-          />
-        </div>
-        <Link href={observationLink(platform, "wind")} className="ms-auto mt-auto p-2">
-          <ExpandIcon />
-        </Link>
-      </Card>
+      <Link href={observationLink(platform, "wind")}>
+        <Card className="chart-card">
+          <Card.Header className="h-100 border-0">
+            <p className="chart-title">
+              <strong>
+                Winds{speedTitle}
+                {gustTitle}
+                {directionTitle}
+              </strong>
+            </p>
+          </Card.Header>
+          <div className="p-1 pt-3">
+            <WindTimeSeriesChart
+              days={1}
+              barbsPerDay={24}
+              legend={false}
+              height={150}
+              {...{ speed, gust, direction, unitSystem, startTime, endTime }}
+            />
+          </div>
+          <ExpandIcon className="ms-auto mt-auto p-2" />
+        </Card>
+      </Link>
     </Col>
   )
 }
