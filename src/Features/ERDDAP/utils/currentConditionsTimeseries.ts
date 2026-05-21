@@ -72,10 +72,6 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
   ]
   const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null)
 
-  console.log(nonGroupTimeSeries)
-  console.log(waveTimeSeries)
-  console.log(allCurrentConditionsTimeseries)
-
   return {
     before,
     after,
