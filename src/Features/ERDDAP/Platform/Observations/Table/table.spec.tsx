@@ -7,34 +7,37 @@ import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
 
 import { ErddapObservationTable } from "./table"
+import {ErddapObservationCards} from "../LatestObsCards/LatestObsCards"
 
 describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
     render(
-      <ErddapObservationTable
+      <ErddapObservationCards
         platform={platform}
         unitSystem={UnitSystem.english}
         unitSelector={<b>Fake unit selector</b>}
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(6)
+    expect(screen.getAllByRole("link").length).toBe(2)
     expect(screen.findByText("Last updated"))
-    expect(screen.findByText("Wind Speed: 3.9 kts"))
+    expect(screen.findByText("Wind"))
+    expect(screen.findByText("3.9 kts"))
   })
-
+  
   it("Should show selected observations in metric", () => {
     render(
-      <ErddapObservationTable
-        platform={platform}
-        unitSystem={UnitSystem.metric}
-        unitSelector={<b>Fake unit selector</b>}
+      <ErddapObservationCards
+      platform={platform}
+      unitSystem={UnitSystem.metric}
+      unitSelector={<b>Fake unit selector</b>}
       />,
     )
-
-    expect(screen.getAllByRole("link").length).toBe(6)
+    
+    expect(screen.getAllByRole("link").length).toBe(2)
     expect(screen.findByText("Last updated"))
-    expect(screen.findByText("Wind Speed: 2 m/s"))
+    expect(screen.findByText("Wind"))
+    expect(screen.findByText("2 m/s"))
   })
 })
 
