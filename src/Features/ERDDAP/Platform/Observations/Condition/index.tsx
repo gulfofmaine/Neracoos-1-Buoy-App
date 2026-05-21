@@ -8,11 +8,11 @@ import { PlatformLoadingAlert } from "components/Alerts"
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { TimeframePicker } from "Features/ERDDAP/TimeframeSelector/TimeframePicker"
 import { TimeframeButtonGroup, TimeframeDropdown } from "Features/ERDDAP/TimeframeButtonGroup"
 import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
+import { aWeekAgoRounded, daysInFuture } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -33,18 +33,11 @@ interface Props {
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
-  const searchParams = useSearchParams()
-  const [startDate, setStartDate] = useState(
-    searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
-  )
-  const [endDate, setEndDate] = useState(
-    searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
-  )
+  const [startDate, setStartDate] = useState(aWeekAgoRounded())
+  const [endDate, setEndDate] = useState(daysInFuture(0))
 
   // Keep a timeframe to allow "unsetting" of the toggle
-  const [timeFrame, setTimeFrame] = useState<Timeframes>(() =>
-    searchParams.get("start") || searchParams.get("end") ? "custom" : "7d",
-  )
+  const [timeFrame, setTimeFrame] = useState<Timeframes>("7d")
   const handleTimeframeChange = (val: Timeframes) => {
     if (val === null) return // No val no set
     setTimeFrame(val)
@@ -52,6 +45,9 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
     setStartDate(start)
     setEndDate(daysInFuture(0))
   }
+
+  const handleStartChoice = (start: Date) => setStartDate(start)
+  const handleEndChoice = (end: Date) => setEndDate(end)
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,
@@ -75,7 +71,15 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
             className="order-2 order-md-1"
           />
           <div className="flex-row ms-auto order-1 order-md-2">
-            {index === 0 && timeFrame === "custom" && <TimeframeSelector graphFuture={false} />}
+            {index === 0 && timeFrame === "custom" && (
+              <TimeframePicker
+                start={startDate}
+                end={endDate}
+                handleStart={handleStartChoice}
+                handleEnd={handleEndChoice}
+                graphFuture={false}
+              />
+            )}
           </div>
         </div>
 

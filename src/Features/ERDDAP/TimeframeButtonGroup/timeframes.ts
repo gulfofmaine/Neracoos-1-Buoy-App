@@ -11,7 +11,7 @@ export const possibleTimeframes = [
 ] satisfies TimeFrame // Satisfies helps ensure that values are limited to the contract
 
 export const getStartFunction = (val: string) => {
-  return val === "24h" ? calcAnyHourAgoRounded(24) : val === "7d" ? daysAgoRounded(7) : daysAgoRounded(30)
+  return val === "24h" ? calcAnyHourAgoRounded(24) : val === "30d" ? daysAgoRounded(30) : daysAgoRounded(7)
 }
 
 export const getPresetLabel = (value: Timeframes) => {

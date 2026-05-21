@@ -17,7 +17,7 @@ import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { TimeframePicker } from "Features/ERDDAP/TimeframeSelector/TimeframePicker"
 import { useSearchParams } from "next/navigation"
 import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
 import { TimeframeButtonGroup, TimeframeDropdown } from "Features/ERDDAP/TimeframeButtonGroup"
@@ -39,17 +39,11 @@ interface DisplayProps extends Props {
  */
 export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ platform }: Props) => {
   const unitSystem = useUnitSystem()
-  const searchParams = useSearchParams()
-  const [startDate, setStartDate] = useState(
-    searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
-  )
-  const [endDate, setEndDate] = useState(
-    searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
-  )
+  const [startDate, setStartDate] = useState(aWeekAgoRounded())
+  const [endDate, setEndDate] = useState(daysInFuture(0))
 
-  const [timeFrame, setTimeFrame] = useState<Timeframes>(() =>
-    searchParams.get("start") || searchParams.get("end") ? "custom" : "7d",
-  )
+  const [timeFrame, setTimeFrame] = useState<Timeframes>("7d")
+  // State handlers for the presets and the time picker
   const handleTimeframeChange = (val: Timeframes) => {
     if (val === null) return // No val no set
     setTimeFrame(val)
@@ -57,6 +51,8 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
     setStartDate(start)
     setEndDate(daysInFuture(0))
   }
+  const handleStartChoice = (start: Date) => setStartDate(start)
+  const handleEndChoice = (end: Date) => setEndDate(end)
 
   const { timeSeries } = pickWindTimeSeries(platform)
 
@@ -78,7 +74,15 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
           className="order-2 order-md-1"
         />
         <div className="flex-row ms-auto order-1 order-md-2">
-          {timeFrame === "custom" && <TimeframeSelector graphFuture={false} />}
+          {timeFrame === "custom" && (
+            <TimeframePicker
+              start={startDate}
+              end={endDate}
+              handleStart={handleStartChoice}
+              handleEnd={handleEndChoice}
+              graphFuture={false}
+            />
+          )}
         </div>
       </div>
 
