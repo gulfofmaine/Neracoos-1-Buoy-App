@@ -17,17 +17,15 @@ import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
 import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
-import { platformName } from "../utils/platformName"
 import { Feature } from "ol"
 import { StationPopup } from "./StationPopup"
-import { feature } from "@turf/helpers"
 
 export interface Props {
   // Bounding box for fitting to a region
@@ -60,7 +58,7 @@ interface PlatformLayerProps {
   selected: boolean
   // Is the platforms data outdated
   old: boolean
-  activePopupId: string | null
+  activePopupId?: string | null
 }
 
 // Build a RLayers feature for each platform
