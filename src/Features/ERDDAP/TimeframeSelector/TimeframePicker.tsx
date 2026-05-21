@@ -1,8 +1,9 @@
-import { Card, Col } from "react-bootstrap"
+import { Button, Card, Col, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { useState, useEffect } from "react"
 
 import { WarningAlert } from "components/Alerts"
-import { formatDate, getToday, YEAR } from "Shared/time"
+import { daysAgoRounded, daysInFuture, formatDate, getToday, YEAR } from "Shared/time"
+import { Revert } from "Shared/icons/Revert"
 
 type TimeframePickerProps = {
   start: Date
@@ -60,6 +61,17 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
               />
             </label>
           </div>
+          <OverlayTrigger overlay={<Tooltip>Revert to default date</Tooltip>}>
+            <Button
+              onClick={() => {
+                handleStart(daysAgoRounded(7))
+                handleEnd(daysInFuture(0))
+              }}
+              className="bg-info"
+            >
+              <Revert fill="#FFFFFF" />
+            </Button>
+          </OverlayTrigger>
         </Col>
       </div>
     </Card>
