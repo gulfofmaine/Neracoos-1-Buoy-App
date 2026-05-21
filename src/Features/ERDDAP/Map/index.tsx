@@ -60,10 +60,11 @@ interface PlatformLayerProps {
   selected: boolean
   // Is the platforms data outdated
   old: boolean
+  activePopupId: string | null
 }
 
 // Build a RLayers feature for each platform
-export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
+export const PlatformLayer = ({ platform, selected, activePopupId, old = false }: PlatformLayerProps) => {
   const router = useRouter()
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
@@ -113,7 +114,23 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
-      ></RFeature>
+      >
+        <RPopup trigger={"hover"}>
+          {activePopupId === platform.id ? (
+            <Button
+              variant="dark"
+              size="sm"
+              href={url}
+              onClick={(event) => {
+                event.preventDefault()
+                router.push(url)
+              }}
+            >
+              <StationPopup platformId={platform.id} />
+            </Button>
+          ) : null}
+        </RPopup>
+      </RFeature>
     </RLayerVector>
   )
 }
@@ -144,54 +161,14 @@ const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, className }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
-  const [view, setView] = useState<View>(initial)
   const path = usePathname()
 
-  const isMapMovingRef = useRef<any | null>(null)
-
-  const [highlightedFeature, setHighlightedFeature] = useState<any | null>(null)
-  const highlightedFeatureRef = useRef<any | null>(null)
-  const popup = useRef<RPopup>(null)
-
-  // Re-render the map to show the popup, but only if the highlighted feature changes
-  useEffect(() => {
-    if (highlightedFeature) {
-      popup.current?.show()
-    } else {
-      popup.current?.hide()
-    }
-  }, [highlightedFeature])
-
-  const onMoveStart = useCallback((e) => {
-    isMapMovingRef.current = true
-  }, [])
-
-  const onMoveEnd = useCallback((e) => {
-    isMapMovingRef.current = false
-  }, [])
-
-  const onPointerMove = useCallback((e) => {
-    // If the map is moving, short circuit the callback
-    if (isMapMovingRef.current) return
-    let upperFeature = null
-    // Use a single popup element based on the topmost moused-over platform.
-    // Instead of having one popup per platform which was a clobbering mess.
-
-    // Access the underlying OpenLayers map object from the event
-    const map = e.map
-
-    // Iterate through all features at the current pixel
-    map.forEachFeatureAtPixel(e.pixel, (feature) => {
-      upperFeature = feature
-      // stop at the first (topmost) feature
-      return true
-    })
-
-    // Save off the feature(s)
-    if (highlightedFeatureRef.current !== upperFeature) {
-      highlightedFeatureRef.current = upperFeature
-      setHighlightedFeature(upperFeature)
-    }
+  // Make sure only one popup at a time is rendered
+  const [activePopupId, setActivePopupId] = useState<string | null>(null)
+  const onPointerMove = useCallback((event) => {
+    const feature = event.map.forEachFeatureAtPixel(event.pixel, (f) => f)
+    const id = feature?.get("platform_id") ?? null
+    setActivePopupId((prev) => (prev === id ? prev : id))
   }, [])
 
   // Check if the route was navigated to using the back button
@@ -210,7 +187,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
       getView(region)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path, platforms])
+  }, [path, params.regionId])
 
   const getView = (region) => {
     const boundingBox = region?.bbox
@@ -218,50 +195,31 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
       mapRef?.current?.ol.getView().fit(extent)
-      const center = mapRef?.current?.ol.getView().getState().center
-      const zoom = mapRef?.current?.ol.getView().getState().zoom
-      center && zoom ? setView({ center, zoom }) : setView(initial)
     }
   }
 
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap
-      ref={mapRef}
-      className={className}
-      initial={initial}
-      view={[view || initial, setView]}
-      height="100%"
-      onPointerMove={onPointerMove}
-      onMoveStart={onMoveStart}
-      onMoveEnd={onMoveEnd}
-    >
+    <RMap ref={mapRef} className={className} initial={initial} height="100%" onPointerMove={onPointerMove}>
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
       <MapLegend />
 
-      {highlightedFeature && (
-        <RLayerVector>
-          <RStyle.RStyle />
-          <RFeature feature={highlightedFeature}>
-            <RPopup ref={popup} delay={{ show: 0, hide: 0 }}>
-              <Button variant="dark" size="sm" href={highlightedFeature.get("url")}>
-                <StationPopup platformId={highlightedFeature.get("platform_id")} />
-              </Button>
-            </RPopup>
-          </RFeature>
-        </RLayerVector>
-      )}
-
       {oldPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
+        <PlatformLayer key={p.id} platform={p} selected={false} old={true} activePopupId={activePopupId} />
       ))}
       {filteredPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
+        <PlatformLayer key={p.id} platform={p} selected={false} old={false} activePopupId={activePopupId} />
       ))}
       {!!selectedPlatforms.length && (
-        <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+        <PlatformLayer
+          key={selectedPlatforms[0].id}
+          platform={selectedPlatforms[0]}
+          selected={true}
+          old={false}
+          activePopupId={activePopupId}
+        />
       )}
     </RMap>
   )
