@@ -61,7 +61,7 @@ const MidcoastMaine: Region = {
 
 const SouthernMaine: Region = {
   bbox: {
-    east: -69.4900,
+    east: -69.49,
     north: 44.2859,
     south: 43.0702,
     west: -70.7603,
@@ -83,7 +83,7 @@ const SeacoastNH: Region = {
 
 const MassBay: Region = {
   bbox: {
-    east: -70.0190,
+    east: -70.019,
     north: 42.6618,
     south: 41.6029,
     west: -71.1897,
@@ -94,9 +94,9 @@ const MassBay: Region = {
 
 const OffshoreGOM: Region = {
   bbox: {
-    east: -64.1990,
+    east: -64.199,
     north: 44.4165,
-    south: 39.1620,
+    south: 39.162,
     west: -70.4649,
   },
   name: "Offshore Gulf of Maine",
@@ -108,7 +108,7 @@ const SoutheastMA: Region = {
     east: -69.3886,
     north: 42.3492,
     south: 40.8326,
-    west: -71.1430,
+    west: -71.143,
   },
   name: "Southeast Massachusetts",
   slug: "SOUTHEASTMA",
@@ -128,7 +128,7 @@ const NarraBay: Region = {
 const RISound: Region = {
   bbox: {
     east: -70.5495,
-    north: 41.5160,
+    north: 41.516,
     south: 40.5382,
     west: -71.6805,
   },
