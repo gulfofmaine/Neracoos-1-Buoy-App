@@ -104,7 +104,9 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
 
               {/* Line chart icon with link */}
 
-              <LineChartIcon className="fa-md mt-auto ms-auto" />
+              <Link href={linkTarget} className="d-flex text-decoration-none mt-auto ms-auto text-info">
+                <LineChartIcon className="fa-md mt-auto ms-auto" />
+              </Link>
             </Card.Body>
           </Card>
         </Sentry.ErrorBoundary>
