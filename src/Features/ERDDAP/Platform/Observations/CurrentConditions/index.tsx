@@ -28,8 +28,14 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   const unitSystem = useUnitSystem()
 
   const halfDayAgo = halfADayAgoRounded()
-  const { before, windTimeSeries, waveTimeSeries, timeSeries, after, allCurrentConditionsTimeseries } =
-    currentConditionsTimeseries(platform, halfDayAgo)
+  const {
+    beforeWithoutGroups,
+    windTimeSeries,
+    waveTimeSeries,
+    timeSeries,
+    afterWithoutGroups,
+    allCurrentConditionsTimeseries,
+  } = currentConditionsTimeseries(platform, halfDayAgo)
 
   return (
     <UseDatasets timeSeries={allCurrentConditionsTimeseries} startTime={halfDayAgo} platformId={platform.id}>
@@ -46,7 +52,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
         return (
           <Row xs={1} md={3} className="g-5 align-items-stretch g-2">
             {datasets.map((dataset, index) => {
-              const datasetTimeSeries = before.find((ts) => ts.variable === dataset.name)
+              const datasetTimeSeries = beforeWithoutGroups.find((ts) => ts.variable === dataset.name)
               if (!datasetTimeSeries) {
                 return null
               }
@@ -93,7 +99,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
             })}
 
             {datasets.map((dataset, index) => {
-              const datasetTimeSeries = after.find((ts) => ts.variable === dataset.name)
+              const datasetTimeSeries = afterWithoutGroups.find((ts) => ts.variable === dataset.name)
               if (!datasetTimeSeries) {
                 return null
               }
