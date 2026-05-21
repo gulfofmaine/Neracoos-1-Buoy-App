@@ -7,7 +7,7 @@ import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
 
 import { ErddapObservationTable } from "./table"
-import {ErddapObservationCards} from "../LatestObsCards/LatestObsCards"
+import { ErddapObservationCards } from "../LatestObsCards/LatestObsCards"
 
 describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
@@ -24,16 +24,16 @@ describe("<ErddapObservationTable>", () => {
     expect(screen.findByText("Wind"))
     expect(screen.findByText("3.9 kts"))
   })
-  
+
   it("Should show selected observations in metric", () => {
     render(
       <ErddapObservationCards
-      platform={platform}
-      unitSystem={UnitSystem.metric}
-      unitSelector={<b>Fake unit selector</b>}
+        platform={platform}
+        unitSystem={UnitSystem.metric}
+        unitSelector={<b>Fake unit selector</b>}
       />,
     )
-    
+
     expect(screen.getAllByRole("link").length).toBe(2)
     expect(screen.findByText("Last updated"))
     expect(screen.findByText("Wind"))
