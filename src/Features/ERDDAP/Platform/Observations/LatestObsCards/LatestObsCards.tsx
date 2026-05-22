@@ -54,10 +54,10 @@ export const ErddapObservationCards: React.FC<Props> = ({
       )}
       <Row xs={2} sm={3} md={2} lg={3} xl={3} xxl={4} className="w-100 g-1">
         {waveTimeSeries.length > 0 && (
-          <LatestObsCard timeSeries={waveTimeSeries} platform={platform} unitSystem={unitSystem} />
+          <LatestObsCard key="wave" timeSeries={waveTimeSeries} platform={platform} unitSystem={unitSystem} />
         )}
         {windTimeSeries.length > 0 && (
-          <LatestObsCard timeSeries={windTimeSeries} platform={platform} unitSystem={unitSystem} />
+          <LatestObsCard key="wind" timeSeries={windTimeSeries} platform={platform} unitSystem={unitSystem} />
         )}
         {nonGroupTimeSeries.map((ts, index) => {
           return <LatestObsCard key={index} timeSeries={ts} platform={platform} unitSystem={unitSystem} />

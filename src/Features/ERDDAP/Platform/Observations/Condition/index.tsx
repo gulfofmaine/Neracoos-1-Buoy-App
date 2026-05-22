@@ -48,7 +48,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
     const depth = ts.depth && ts.depth > 0 ? " at " + ts.depth + "m below" : ""
 
     return (
-      <div>
+      <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
         <h2 className="d-flex gap-2 justify-content-center align-items-center">
           {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
         </h2>
