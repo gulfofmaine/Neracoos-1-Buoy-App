@@ -15,7 +15,7 @@ import * as Sentry from "@sentry/nextjs"
 
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
+import { BoundingBox, InitialRegion, regionMenuList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
@@ -113,7 +113,7 @@ export const PlatformLayer = ({ platform, selected, activePopupId, old = false }
           router.push(url)
         }, [router, url])}
       >
-        <RPopup trigger={"hover"}>
+        <RPopup trigger={"hover"} offset={[7, 7]}>
           {activePopupId === platform.id ? (
             <Button
               variant="dark"
@@ -177,7 +177,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, clas
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
-      const region = regionList.find((r) => r.slug === regionId)
+      const region = regionMenuList.find((r) => r.slug === regionId)
       getView(region)
     }
     if (path === "/") {

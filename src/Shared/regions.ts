@@ -173,7 +173,8 @@ export const regions = {
   NYBight,
 }
 
-export const regionList: Region[] = [
+/** Ordered for display in the dropdown menu */
+export const regionMenuList: Region[] = [
   DowneastMaine,
   PenobscotBay,
   MidcoastMaine,
@@ -186,4 +187,20 @@ export const regionList: Region[] = [
   RISound,
   LISound,
   NYBight,
+]
+
+/** Ordered for left/right display on region pages */
+export const regionPageList: Region[] = [
+  OffshoreGOM,
+  NYBight,
+  LISound,
+  RISound,
+  NarraBay,
+  SoutheastMA,
+  MassBay,
+  SeacoastNH,
+  SouthernMaine,
+  MidcoastMaine,
+  PenobscotBay,
+  DowneastMaine,
 ]
