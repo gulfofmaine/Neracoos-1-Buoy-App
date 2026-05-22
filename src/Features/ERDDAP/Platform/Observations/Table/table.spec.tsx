@@ -28,7 +28,7 @@ describe("<ErddapObservationTable>", () => {
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(2)
+    expect(screen.getAllByRole("link").length).toBe(4)
     expect(screen.findByText("Last updated"))
     expect(screen.findByText("Wind"))
     expect(screen.findByText("3.9 kts"))
@@ -43,7 +43,7 @@ describe("<ErddapObservationTable>", () => {
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(2)
+    expect(screen.getAllByRole("link").length).toBe(4)
     expect(screen.findByText("Last updated"))
     expect(screen.findByText("Wind"))
     expect(screen.findByText("2 m/s"))
