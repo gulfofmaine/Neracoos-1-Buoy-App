@@ -2,6 +2,7 @@
  * Display all time series for a specific standard name
  */
 import { useSearchParams } from "next/navigation"
+import { useRouter } from "@bprogress/next"
 import React, { useState } from "react"
 
 import { PlatformLoadingAlert } from "components/Alerts"
@@ -12,10 +13,12 @@ import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
+import { ArrowLeftIcon } from "Shared/icons/iconsMap"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
+import { Button } from "react-bootstrap"
 
 interface Props {
   /** Platform to display */
@@ -32,6 +35,12 @@ interface Props {
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
+  const router = useRouter()
+
+  const handleBackClick = () => {
+    router.back()
+  }
+
   const [startDate, setStartDate] = useState(
     searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
   )
@@ -49,9 +58,14 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
 
     return (
       <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
-        <h2 className="d-flex gap-2 justify-content-center align-items-center">
-          {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
-        </h2>
+        {/* <div className="d-flex flex-row"> */}
+          <h2 className="d-flex gap-2 justify-content-center align-items-center order-2">
+            {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+          </h2>
+          <Button className="me-auto bg-white border-0" onClick={handleBackClick}>
+            <ArrowLeftIcon className="text-info fa-2xl" />
+          </Button>
+        {/* </div> */}
         <div>
           <div className="observation-timeframe-selector">
             {index === 0 && <TimeframeSelector graphFuture={false} />}
