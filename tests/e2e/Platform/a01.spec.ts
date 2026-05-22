@@ -8,8 +8,8 @@ test.describe("Platform A01", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
     await page.getByRole("button", { name: "Stations" }).click()
-    await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
-    await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
+    await page.getByRole("link", { name: "Massachusetts Bay", exact: true }).click()
+    await expect(await page.getByRole("heading", { name: "Platforms in Massachusetts Bay" })).toBeVisible()
     await page.getByRole("link", { name: "A01: Massachusetts Bay" }).click()
     await expect(await page.getByText("Station A01")).toBeVisible()
   })

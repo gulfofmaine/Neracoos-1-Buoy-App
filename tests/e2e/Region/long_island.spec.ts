@@ -15,7 +15,7 @@ test.describe("Region: Long Island", () => {
   })
 
   test("Shows only a subset of platforms", async ({ page }) => {
-    await page.goto("/region/LONG")
+    await page.goto("/region/LISOUND")
     await expect(
       page
         .locator("h2")

@@ -4,11 +4,16 @@ import { Region, regions } from "Shared/regions"
  * Regions that we are displaying in the menu and possibly elsewhere
  */
 export const regionList: Region[] = [
-  regions.GulfOfMaine,
-  regions.LongIslandSound,
-  regions.GreatBay,
-  regions.Boston,
-  regions.CapeCod,
-  regions.NarragansettBay,
-  regions.Newfoundland,
+  regions.DowneastMaine,
+  regions.PenobscotBay,
+  regions.MidcoastMaine,
+  regions.SouthernMaine,
+  regions.SeacoastNH,
+  regions.MassBay,
+  regions.OffshoreGOM,
+  regions.SoutheastMA,
+  regions.NarraBay,
+  regions.RISound,
+  regions.LISound,
+  regions.NYBight,
 ]

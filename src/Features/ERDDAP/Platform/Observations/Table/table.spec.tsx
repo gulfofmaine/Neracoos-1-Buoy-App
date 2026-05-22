@@ -6,7 +6,6 @@ import { render, screen } from "@testing-library/react"
 import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
 
-import { ErddapObservationTable } from "./table"
 import { ErddapObservationCards } from "../LatestObsCards/LatestObsCards"
 
 describe("<ErddapObservationTable>", () => {
