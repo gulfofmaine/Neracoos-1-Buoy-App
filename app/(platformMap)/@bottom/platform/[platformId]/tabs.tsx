@@ -27,18 +27,14 @@ export function PlatformTabs() {
   return (
     <UsePlatform platformId={id}>
       {(platform_props) => (
-        <React.Fragment>
-          <Row className="pb-4 px-0">
-            <Col>
-              <Nav variant="tabs">
+        <div className="d-flex flex-row mb-4 rounded-pill bg-black bg-opacity-5 ">
+              <Nav variant="toggle" className="w-100">
                 <ErddapObservedDropdown {...platform_props} />
                 <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={platformId} />
                 <ForecastDropdown platformId={platformId} />
                 <ErddapMoreInfoDropdown {...platform_props} />
               </Nav>
-            </Col>
-          </Row>
-        </React.Fragment>
+        </div>
       )}
     </UsePlatform>
   )
