@@ -1,8 +1,7 @@
 /**
  * Display all time series for a specific standard name
  */
-import { usePathname, useSearchParams } from "next/navigation"
-import { useRouter } from "@bprogress/next"
+import {  useSearchParams } from "next/navigation"
 import React, { useState } from "react"
 
 import { PlatformLoadingAlert } from "components/Alerts"
@@ -13,12 +12,11 @@ import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
-import { ArrowLeftIcon } from "Shared/icons/iconsMap"
+import { BackToPlatformButton } from "../BackToPlatformButton"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
-import { Button } from "react-bootstrap"
 
 interface Props {
   /** Platform to display */
@@ -35,16 +33,7 @@ interface Props {
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
-  const router = useRouter()
-  const path = usePathname()
 
-  const handleBackClick = () => {
-    // segs: ['', 'platform', '[platformID]', 'observations', '[standardName]']
-    const urlSegs = path.split('/')
-    if (urlSegs[1] === "platform"){
-      router.push("/" + urlSegs[1] + "/" + urlSegs[2])
-    }
-  }
 
   const [startDate, setStartDate] = useState(
     searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
@@ -64,9 +53,7 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
     return (
       <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
         <div className="d-flex flex-column flex-md-row">
-          <Button className="me-auto bg-white border-0" onClick={handleBackClick}>
-            <ArrowLeftIcon className="text-info fa-2xl" />
-          </Button>
+          <BackToPlatformButton className="me-auto bg-white border-0"/>
           <h2 className="d-flex gap-2 text-center p-2 me-md-auto justify-content-center align-items-center">
             {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
           </h2>
