@@ -1,8 +1,7 @@
 import { use } from "react"
 import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 
-import { regionList } from "Shared/constants"
-import { Region } from "Shared/regions"
+import { Region, regionPageList } from "Shared/regions"
 
 import { RegionList, NextRegion } from "./region"
 import { useDecodedUrl } from "util/hooks"
@@ -11,7 +10,7 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
   const params = use(props.params)
   const regionId = useDecodedUrl(params.regionId)
 
-  let region: Region | undefined = regionList.find((r) => r.slug === regionId)
+  let region: Region | undefined = regionPageList.find((r) => r.slug === regionId)
 
   if (typeof region === "undefined") {
     return null
@@ -40,7 +39,7 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
 }
 
 // export async function generateStaticParams() {
-//   return regionList.map((region) => ({
+//   return regionPageList.map((region) => ({
 //     regionId: region.slug,
 //   }))
 // }

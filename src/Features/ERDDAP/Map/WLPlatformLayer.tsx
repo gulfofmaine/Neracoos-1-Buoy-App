@@ -15,7 +15,7 @@ import { RStyleArray } from "rlayers/style"
 import * as Sentry from "@sentry/nextjs"
 
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
+import { BoundingBox, InitialRegion, regionMenuList } from "Shared/regions"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { aDayAgoRounded } from "Shared/time"
 import { waterLevelPath } from "Shared/urlParams"
@@ -227,7 +227,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
-      const region = regionList.find((r) => r.slug === regionId)
+      const region = regionMenuList.find((r) => r.slug === regionId)
       getView(region)
     }
     if (path === "/") {
