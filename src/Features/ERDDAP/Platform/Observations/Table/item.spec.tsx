@@ -91,12 +91,13 @@ describe("TableItem", () => {
   it("Selectes and renders correct data", () => {
     render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.english} />)
 
-    expect(screen.findByText("Wind Speed"))
+    expect(screen.getByText("Wind Speed:", { selector: "b" }))
   })
 
   it("Rounds the wind speed", () => {
     render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.metric} />)
 
-    expect(screen.findByText("Wind Speed: 4.3 m/s"))
+    const label = screen.getByText("Wind Speed:", { selector: "b" })
+    expect(label.parentElement?.textContent).toContain("4.3 m/s")
   })
 })
