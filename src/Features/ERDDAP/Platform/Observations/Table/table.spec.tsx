@@ -9,7 +9,6 @@ import { PlatformFeatureWithDatasets } from "../../types"
 
 import { ErddapObservationCards } from "../LatestObsCards/LatestObsCards"
 
-
 beforeEach(() => {
   vi.useFakeTimers()
   vi.setSystemTime(new Date("2018-12-20T15:00:00Z"))
