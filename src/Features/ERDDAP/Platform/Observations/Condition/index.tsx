@@ -1,7 +1,7 @@
 /**
  * Display all time series for a specific standard name
  */
-import { useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import { useRouter } from "@bprogress/next"
 import React, { useState } from "react"
 
@@ -36,9 +36,14 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const unitSystem = useUnitSystem()
   const searchParams = useSearchParams()
   const router = useRouter()
+  const path = usePathname()
 
   const handleBackClick = () => {
-    router.back()
+    // segs: ['', 'platform', '[platformID]', 'observations', '[standardName]']
+    const urlSegs = path.split('/')
+    if (urlSegs[1] === "platform"){
+      router.push("/" + urlSegs[1] + "/" + urlSegs[2])
+    }
   }
 
   const [startDate, setStartDate] = useState(
@@ -58,14 +63,14 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
 
     return (
       <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
-        {/* <div className="d-flex flex-row"> */}
-          <h2 className="d-flex gap-2 justify-content-center align-items-center order-2">
-            {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
-          </h2>
+        <div className="d-flex flex-column flex-md-row">
           <Button className="me-auto bg-white border-0" onClick={handleBackClick}>
             <ArrowLeftIcon className="text-info fa-2xl" />
           </Button>
-        {/* </div> */}
+          <h2 className="d-flex gap-2 text-center p-2 me-md-auto justify-content-center align-items-center">
+            {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+          </h2>
+        </div>
         <div>
           <div className="observation-timeframe-selector">
             {index === 0 && <TimeframeSelector graphFuture={false} />}
