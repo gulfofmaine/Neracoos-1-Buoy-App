@@ -1,10 +1,11 @@
 import { use } from "react"
-import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 
+import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
 import { Region, regionPageList } from "Shared/regions"
+import { useDecodedUrl } from "util/hooks"
 
 import { RegionList, NextRegion } from "./region"
-import { useDecodedUrl } from "util/hooks"
+import RegionIndexSidebar from "../page"
 
 export default function RegionSidebar(props: { params: Promise<{ regionId: string }> }) {
   const params = use(props.params)
@@ -13,7 +14,7 @@ export default function RegionSidebar(props: { params: Promise<{ regionId: strin
   let region: Region | undefined = regionPageList.find((r) => r.slug === regionId)
 
   if (typeof region === "undefined") {
-    return null
+    return <RegionIndexSidebar />
   }
 
   return (
