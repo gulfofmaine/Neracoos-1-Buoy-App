@@ -56,7 +56,7 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
                 type="date"
                 id="end"
                 name="end"
-                min={formatDate(start)}
+                min={formatDate(inputStart)}
                 max={graphFuture ? undefined : getToday()}
                 value={formatDate(inputEnd)}
                 onInput={(e) => setInputEnd(new Date((e.target as HTMLInputElement).value))}
