@@ -15,6 +15,9 @@ type TimeframePickerProps = {
 
 export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEnd }: TimeframePickerProps) => {
   const [validDateMessage, setValidDateMessage] = useState<string>("")
+  const [inputStart, setInputStart] = useState<Date>(start)
+  const [inputEnd, setInputEnd] = useState<Date>(end)
+
   useEffect(() => {
     const validateTimeframe = (start, end) => {
       if ((new Date(end).getTime() - new Date(start).getTime()) / YEAR > 1) {
@@ -41,22 +44,22 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
                 id="start"
                 name="start"
                 max={getToday()}
-                value={formatDate(start)}
-                onInput={(e) => handleStart(new Date((e.target as HTMLInputElement).value))}
+                value={formatDate(inputStart)}
+                onInput={(e) => setInputStart(new Date((e.target as HTMLInputElement).value))}
                 required={true}
               />
             </label>
 
             <label className="d-flex align-items-center">
-              <p style={{ marginBottom: 0, marginRight: "5px" }}>End:</p>
+              <p className="mb-0 pe-1">End:</p>
               <input
                 type="date"
                 id="end"
                 name="end"
                 min={formatDate(start)}
                 max={graphFuture ? undefined : getToday()}
-                value={formatDate(end)}
-                onInput={(e) => handleEnd(new Date((e.target as HTMLInputElement).value))}
+                value={formatDate(inputEnd)}
+                onInput={(e) => setInputEnd(new Date((e.target as HTMLInputElement).value))}
                 required={true}
               />
             </label>
@@ -64,12 +67,33 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
           <OverlayTrigger overlay={<Tooltip>Revert to default date</Tooltip>}>
             <Button
               onClick={() => {
-                handleStart(daysAgoRounded(7))
-                handleEnd(daysInFuture(0))
+                const revertStart = daysAgoRounded(7)
+                const revertEnd = daysInFuture(0)
+
+                setInputStart(revertStart)
+                setInputEnd(revertEnd)
+                handleStart(revertStart)
+                handleEnd(revertEnd)
               }}
               className="bg-info"
             >
               <Revert fill="#FFFFFF" />
+            </Button>
+          </OverlayTrigger>
+          <OverlayTrigger
+            overlay={(props) => {
+              return validDateMessage !== "" ? <Tooltip {...props}>{validDateMessage}</Tooltip> : <span />
+            }}
+          >
+            <Button
+              onClick={() => {
+                handleStart(inputStart)
+                handleEnd(inputEnd)
+              }}
+              disabled={!inputStart || !inputEnd || validDateMessage !== ""}
+              className="bg-info"
+            >
+              Plot
             </Button>
           </OverlayTrigger>
         </Col>
