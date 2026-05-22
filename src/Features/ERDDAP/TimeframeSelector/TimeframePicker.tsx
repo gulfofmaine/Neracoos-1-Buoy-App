@@ -15,6 +15,7 @@ type TimeframePickerProps = {
 
 export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEnd }: TimeframePickerProps) => {
   const [validDateMessage, setValidDateMessage] = useState<string>("")
+  const [invalidInput, setInvalidInput] = useState<Boolean>(false)
   const [inputStart, setInputStart] = useState<Date>(start)
   const [inputEnd, setInputEnd] = useState<Date>(end)
 
@@ -26,10 +27,11 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
       if (new Date(end).getTime() - new Date(start).getTime() < 0) {
         return "Please choose a date where the start is before the end"
       }
+      setInvalidInput(false)
       return ""
     }
     setValidDateMessage(validateTimeframe(inputStart, inputEnd))
-  }, [start, end])
+  }, [inputStart, inputEnd])
 
   return (
     <Card className="p-2">
@@ -89,12 +91,13 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
               onClick={() => {
                 if ((new Date(inputEnd).getTime() - new Date(inputStart).getTime()) / YEAR > 1) {
                   setValidDateMessage("Please choose a timeframe that spans less than one year")
+                  setInvalidInput(true)
                   return
                 }
                 handleStart(inputStart)
                 handleEnd(inputEnd)
               }}
-              disabled={!inputStart || !inputEnd || validDateMessage !== ""}
+              disabled={!inputStart || !inputEnd}
               className="bg-info"
             >
               Plot
