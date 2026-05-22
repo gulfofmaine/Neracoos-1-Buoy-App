@@ -28,7 +28,7 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
       }
       return ""
     }
-    setValidDateMessage(validateTimeframe(start, end))
+    setValidDateMessage(validateTimeframe(inputStart, inputEnd))
   }, [start, end])
 
   return (
@@ -87,6 +87,10 @@ export const TimeframePicker = ({ start, end, graphFuture, handleStart, handleEn
           >
             <Button
               onClick={() => {
+                if ((new Date(inputEnd).getTime() - new Date(inputStart).getTime()) / YEAR > 1) {
+                  setValidDateMessage("Please choose a timeframe that spans less than one year")
+                  return
+                }
                 handleStart(inputStart)
                 handleEnd(inputEnd)
               }}

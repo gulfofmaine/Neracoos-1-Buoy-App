@@ -62,35 +62,39 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
         <h2 className="d-flex gap-2 justify-content-center align-items-center">
           {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
         </h2>
-        <div className="d-none d-lg-flex flex-column flex-md-row gap-2 align-items-center">
-          <TimeframeButtonGroup
-            name="time-frame-group"
-            type="radio"
-            value={timeFrame ?? "7d"}
-            onChange={handleTimeframeChange}
-            className="order-2 order-md-1"
-          />
-          <div className="flex-row ms-auto order-1 order-md-2">
-            {index === 0 && timeFrame === "custom" && (
-              <TimeframePicker
-                start={startDate}
-                end={endDate}
-                handleStart={handleStartChoice}
-                handleEnd={handleEndChoice}
-                graphFuture={false}
-              />
-            )}
+        {index === 0 && (
+          <div className="d-none d-lg-flex flex-column flex-md-row gap-2 align-items-center">
+            <TimeframeButtonGroup
+              name="time-frame-group"
+              type="radio"
+              value={timeFrame ?? "7d"}
+              onChange={handleTimeframeChange}
+              className="order-2 order-md-1"
+            />
+            <div className="flex-row ms-auto order-1 order-md-2">
+              {timeFrame === "custom" && (
+                <TimeframePicker
+                  start={startDate}
+                  end={endDate}
+                  handleStart={handleStartChoice}
+                  handleEnd={handleEndChoice}
+                  graphFuture={false}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="d-flex d-lg-none justify-content-center justify-content-md-start">
-          <TimeframeDropdown
-            id="dropdown-timeframe"
-            value={timeFrame}
-            handleChange={handleTimeframeChange}
-            className="align-items-center"
-          />
-        </div>
+        {index === 0 && (
+          <div className="d-flex d-lg-none justify-content-center justify-content-md-start">
+            <TimeframeDropdown
+              id="dropdown-timeframe"
+              value={timeFrame}
+              handleChange={handleTimeframeChange}
+              className="align-items-center"
+            />
+          </div>
+        )}
 
         <UseDataset
           timeSeries={ts}
