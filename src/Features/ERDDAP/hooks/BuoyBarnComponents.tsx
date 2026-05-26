@@ -62,6 +62,8 @@ interface UsePlatformProps extends BaseProps {
   children: (props: UsePlatformRenderProps) => React.ReactNode
   /** Platform to try to render */
   platformId: string
+  /** Optional fallback if the platform is not found */
+  fallback?: React.ReactNode
 }
 
 export interface UsePlatformRenderProps {
@@ -76,8 +78,15 @@ export interface UsePlatformRenderProps {
  * @param platformId Platform ID string to try to load
  * @param loading Override default loading alert
  * @param error Override default error alert
+ * @param fallback Optional fallback if the platform is not found
  */
-export const UsePlatform: React.FunctionComponent<UsePlatformProps> = ({ children, loading, error, platformId }) => (
+export const UsePlatform: React.FunctionComponent<UsePlatformProps> = ({
+  children,
+  loading,
+  error,
+  platformId,
+  fallback,
+}) => (
   <UsePlatforms {...{ loading, error }}>
     {({ platforms }) => {
       const platform = platforms.find((p) => (p.id as string) === platformId)
@@ -88,6 +97,10 @@ export const UsePlatform: React.FunctionComponent<UsePlatformProps> = ({ childre
 
       if (error) {
         return error
+      }
+
+      if (fallback) {
+        return fallback
       }
 
       return <WarningAlert>Unable to load platform information for {decodeURIComponent(platformId)}.</WarningAlert>
