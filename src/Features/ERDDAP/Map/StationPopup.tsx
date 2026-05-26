@@ -140,8 +140,15 @@ const DataRenderer = ({ platform }: DataRendererProps) => {
   let { windTimeSeries, waveTimeSeries, nonGroupTimeSeries, allCurrentConditionsTimeseries } =
     currentConditionsTimeseries(platform, aDayAgoRounded())
 
-  // Aim to have no more than 4 metrics in the popup
-  const limit = windTimeSeries.length > 0 && waveTimeSeries.length > 0 ? 1 : 3
+  /**
+   * Aim to have no more than 4 metrics in the popup. If both wind and wave groups
+   * will be rendered then slice to allow two other metrics to come through.
+   * Otherwise, allow three to come through. This results in always having 3 - 4
+   * metrics in the popup.
+   */
+  const minNonGroupMetrics = 1
+  const maxNonGroupMetrics = 3
+  const limit = windTimeSeries.length > 0 && waveTimeSeries.length > 0 ? minNonGroupMetrics : maxNonGroupMetrics
   nonGroupTimeSeries = nonGroupTimeSeries.slice(0, limit)
 
   return (
