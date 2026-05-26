@@ -33,7 +33,7 @@ export function PlatformTabs() {
 
             <Navbar.Collapse>
               <Nav className="w-100 mid-page-nav">
-                <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={platformId} />
+                <Tab to={paths.platforms.platform} path={path} name="Last 24 Hours" id={platformId} />
                 <ErddapObservedDropdown {...platform_props} />
                 <ForecastDropdown platformId={platformId} />
                 <ErddapMoreInfoDropdown {...platform_props} />
