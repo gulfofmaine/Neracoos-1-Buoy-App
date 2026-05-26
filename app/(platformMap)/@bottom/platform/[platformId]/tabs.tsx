@@ -2,9 +2,7 @@
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
-import Col from "react-bootstrap/Col"
-import Row from "react-bootstrap/Row"
-import Nav from "react-bootstrap/Nav"
+import { Navbar, Nav, Button } from "react-bootstrap"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -27,18 +25,27 @@ export function PlatformTabs() {
   return (
     <UsePlatform platformId={id}>
       {(platform_props) => (
-        <React.Fragment>
-          <Row className="pb-4 px-0">
-            <Col>
-              <Nav variant="tabs">
+        <div className="d-flex flex-row mb-4 bg-black bg-opacity-5 mid-page-nav-container">
+          <Navbar collapseOnSelect expand="sm" className="w-100">
+            <Navbar.Toggle className="d-flex d-sm-none flex-row w-100 bg-info text-light align-items-center">
+              <span className="d-flex ">
+                <strong>Station Menu</strong>
+              </span>
+              <Button className="bg-white ms-auto">
+                <span className="navbar-toggler-icon " />
+              </Button>
+            </Navbar.Toggle>
+
+            <Navbar.Collapse>
+              <Nav className="w-100 mid-page-nav">
+                <Tab to={paths.platforms.platform} path={path} name="Last 24 Hours" id={platformId} />
                 <ErddapObservedDropdown {...platform_props} />
-                <Tab to={paths.platforms.platform} path={path} name="Latest Conditions" id={platformId} />
                 <ForecastDropdown platformId={platformId} />
                 <ErddapMoreInfoDropdown {...platform_props} />
               </Nav>
-            </Col>
-          </Row>
-        </React.Fragment>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
       )}
     </UsePlatform>
   )
@@ -57,16 +64,12 @@ interface TabProps {
 // tslint:disable-next-line:max-classes-per-file
 function Tab(props: TabProps) {
   const { to, name, path, id } = props
+  const linkTarget = urlPartReplacer(to, ":id", id)
 
   return (
     <Nav.Item>
-      <Nav.Link
-        as={Link}
-        href={urlPartReplacer(to, ":id", id)}
-        className={to === path ? "nav-link active" : "nav-link"}
-        active={to === path}
-      >
-        {name}
+      <Nav.Link as={Link} href={linkTarget} className={`${linkTarget === path && "mid-page-nav-active text-white"}`}>
+        <strong>{name}</strong>
       </Nav.Link>
     </Nav.Item>
   )

@@ -318,6 +318,42 @@ $dig-opacities: (
   padding: 0px 10px 20px;
 }
 
+.mid-page-nav-container {
+  border-radius: 8px;
+  justify-content: center;
+
+  @include media-breakpoint-up(sm) {
+    border-radius: 50rem;
+    justify-content: baseline;
+  }
+}
+
+.mid-page-nav .nav-link {
+  color: $primary;
+  padding-left: 1rem;
+}
+
+@include media-breakpoint-up(xl) {
+  .mid-page-nav .nav-link:hover {
+    color: $black-65;
+  }
+}
+
+.mid-page-nav .dropdown-menu .dropdown-item:active {
+  background-color: transparent;
+  color: inherit;
+}
+
+.mid-page-nav-active {
+  background-color: $primary;
+  border-radius: 50rem;
+
+  @include media-breakpoint-down(sm) {
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+}
+
 // ==== GENERAL STATION DETAILS END ====
 .superlatives-tooltip .tooltip-inner {
   max-width: none;

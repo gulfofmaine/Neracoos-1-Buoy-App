@@ -6,6 +6,7 @@ import * as React from "react"
 import Link from "next/link"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
+import { usePathname } from "next/navigation"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -56,6 +57,9 @@ interface BaseProps extends Props {
 //  * Dropdown menu with links to the available forecasts.
  */
 export function ForecastDropdownBase({ forecasts, platformId }: BaseProps) {
+  const path = usePathname()
+  const linkIsActive = path ? path.startsWith(`/platform/${platformId}/forecast`) : ""
+
   const forecastNames = Array.from(new Set(forecasts.map((forecast) => forecast.forecast_type)))
   forecastNames.sort()
 
@@ -75,8 +79,8 @@ export function ForecastDropdownBase({ forecasts, platformId }: BaseProps) {
 
   return (
     <Dropdown as={Nav.Item}>
-      <Dropdown.Toggle as={Nav.Link} id="forecast">
-        Forecasts
+      <Dropdown.Toggle as={Nav.Link} id="forecast" className={`${linkIsActive && "mid-page-nav-active text-white"}`}>
+        <strong>Forecasts</strong>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>{forecastItems}</Dropdown.Menu>

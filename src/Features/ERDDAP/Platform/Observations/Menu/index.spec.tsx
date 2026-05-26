@@ -10,10 +10,10 @@ describe("ErddapObservedDropdown", () => {
   it("Renders a menu for a platform", async () => {
     render(<ErddapObservedDropdown platform={platform} />)
 
-    expect(screen.getByRole("menu")).toHaveTextContent("Observations")
+    expect(screen.getByRole("menu")).toHaveTextContent("All Data")
 
     const user = userEvent.setup()
-    await user.click(screen.getByText("Observations"))
+    await user.click(screen.getByText("All Data"))
 
     const items = screen.getAllByRole("menuitem")
 

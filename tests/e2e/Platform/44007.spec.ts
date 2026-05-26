@@ -35,7 +35,7 @@ test.describe("Platfrom 44007", () => {
   test("Shows wind plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page.getByRole("menuitem", { name: "Wind" }).first().click()
@@ -122,7 +122,7 @@ test.describe("Platfrom 44007", () => {
   test.skip("Updated recently", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -145,7 +145,7 @@ test.describe("Platfrom 44007", () => {
   test("Can view all observations", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -157,7 +157,7 @@ test.describe("Platfrom 44007", () => {
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
