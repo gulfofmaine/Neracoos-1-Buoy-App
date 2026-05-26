@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Popover from "react-bootstrap/Popover"
@@ -65,7 +63,7 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
   return (
     <React.Fragment>
       <OverlayTrigger delay={{ show: 250, hide: 4000 }} overlay={renderToolTip} trigger={["click"]}>
-        <ExportIcon id={`tooltip-${id}-trigger`} className="export-icon-border bg-white p-1" />
+        <ExportIcon id={`tooltip-${id}-trigger`} className="export-icon-border bg-white p-1" role="button" />
       </OverlayTrigger>
     </React.Fragment>
   )
