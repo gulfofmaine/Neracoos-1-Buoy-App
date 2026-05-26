@@ -330,6 +330,7 @@ $dig-opacities: (
 
 .mid-page-nav .nav-link {
   color: $primary;
+  padding-left: 1rem;
 }
 
 @include media-breakpoint-up(xl) {

@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
-import { Dropdown, Navbar, Nav } from "react-bootstrap"
+import { Navbar, Nav, Button } from "react-bootstrap"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -27,8 +27,13 @@ export function PlatformTabs() {
       {(platform_props) => (
         <div className="d-flex flex-row mb-4 bg-black bg-opacity-5 mid-page-nav-container">
           <Navbar collapseOnSelect expand="sm" className="w-100">
-            <Navbar.Toggle className="dropdown-toggle w-100">
-              <strong>Station Options</strong>
+            <Navbar.Toggle className="d-flex d-sm-none flex-row w-100 bg-info text-light align-items-center">
+              <span className="d-flex ">
+                <strong>Station Menu</strong>
+              </span>
+              <Button className="bg-white ms-auto">
+                <span className="navbar-toggler-icon " />
+              </Button>
             </Navbar.Toggle>
 
             <Navbar.Collapse>
