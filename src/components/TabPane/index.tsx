@@ -8,10 +8,10 @@ import Nav from "react-bootstrap/Nav"
  */
 export const ContentTab = ({ name, index, setOpen, active }) => {
   return (
-      <Nav.Item key={index} style={{ cursor: "pointer" }}>
-        <Nav.Link key={index} onClick={() => setOpen(index)} active={active}>
-          {name}
-        </Nav.Link>
-      </Nav.Item>
+    <Nav.Item key={index} style={{ cursor: "pointer" }}>
+      <Nav.Link key={index} onClick={() => setOpen(index)} active={active}>
+        {name}
+      </Nav.Link>
+    </Nav.Item>
   )
 }
