@@ -9,6 +9,9 @@ import { currentConditionsTimeseries } from "../utils/currentConditionsTimeserie
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { DataTypeConversion } from "Features/Units/Converter/conversions"
 import { UnitSystem } from "Features/Units/types"
+import { getGroupData } from "../Platform/Observations/LatestObsCards/latestObs"
+import { LocationArrowIcon } from "Shared/icons/iconsMap"
+import { group } from "node:console"
 
 interface Props {
   platformId: string
@@ -57,6 +60,61 @@ const PopupMetric = ({ data }: { data: PlatformTimeSeries }) => {
   )
 }
 
+const MetricsWithGroups = ({ data }: { data: PlatformTimeSeries[] }) => {
+  const unitSystem = useUnitSystem()
+  console.log(data)
+
+  const groupName = data[0]?.data_type.long_name.match("Wave") ? "Waves" : "Wind"
+  if (!groupName) return null
+
+  const metricData = getGroupData(unitSystem, groupName, data).getWindOrWaveData()
+  if (!metricData) return null
+
+  // Degrees for direction icon
+  let rotationDeg = 0
+  if (metricData.directionDeg !== null) {
+    const iconBaseDegrees = 45
+    rotationDeg = (metricData.directionDeg + 90 + iconBaseDegrees) % 360
+  }
+
+  return (
+    <div className="caption d-flex flex-row gap-1">
+      <strong>{`${groupName}:`}</strong>
+      <span>{metricData.primary}</span>
+      <span>{metricData.primaryUnit}</span>
+
+      {/* Just for waves */}
+      {groupName === "Waves" && (
+        <span>
+          {metricData.secondary && metricData.secondaryUnit
+            ? `at ${metricData.secondary} ${metricData.secondaryUnit}`
+            : ""}
+        </span>
+      )}
+
+      {/* Just for wind */}
+      {groupName === "Wind" && (
+        <span>
+          {metricData.secondary && metricData.secondaryUnit
+            ? `(Gust ${metricData.secondary} ${metricData.secondaryUnit})`
+            : ""}
+        </span>
+      )}
+
+      {metricData.direction && (
+        <span>
+          {metricData.direction ? `, ${metricData.direction} ${metricData.directionUnit}` : ""}
+          <LocationArrowIcon
+            className="fa-sm text-info ms-1"
+            rotateBy
+            style={{ "--fa-rotate-angle": `${rotationDeg}deg` }}
+          />
+        </span>
+      )}
+    </div>
+  )
+}
+
 const LastUpdated = ({ allData }: { allData: PlatformTimeSeries[] }) => {
   const times = getTimes(allData)
   if (times.length <= 0) {
@@ -79,14 +137,19 @@ const LastUpdated = ({ allData }: { allData: PlatformTimeSeries[] }) => {
 }
 
 const DataRenderer = ({ platform }: DataRendererProps) => {
-  const limit = 2
-  let { allCurrentConditionsTimeseries } = currentConditionsTimeseries(platform, aDayAgoRounded())
-  //   Uncomment below to work on "top 2 conditions"
-  //   allCurrentConditionsTimeseries = allCurrentConditionsTimeseries.slice(0, limit)
+  let { windTimeSeries, waveTimeSeries, nonGroupTimeSeries, allCurrentConditionsTimeseries } =
+    currentConditionsTimeseries(platform, aDayAgoRounded())
+
+  // Aim to have no more than 4 metrics in the popup
+  const limit = windTimeSeries.length > 0 && waveTimeSeries.length > 0 ? 1 : 3
+  nonGroupTimeSeries = nonGroupTimeSeries.slice(0, limit)
+
   return (
     <React.Fragment>
       <LastUpdated allData={allCurrentConditionsTimeseries} />
-      {allCurrentConditionsTimeseries.map((timeSeries, index) => (
+      {windTimeSeries.length > 0 && <MetricsWithGroups data={windTimeSeries} />}
+      {waveTimeSeries.length > 0 && <MetricsWithGroups data={waveTimeSeries} />}
+      {nonGroupTimeSeries.map((timeSeries, index) => (
         <PopupMetric key={index} data={timeSeries} />
       ))}
     </React.Fragment>
