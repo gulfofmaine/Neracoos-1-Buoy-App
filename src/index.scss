@@ -332,17 +332,17 @@ $dig-opacities: (
   color: $primary;
 }
 
-// @include media-breakpoint-up(xl){
-.mid-page-nav .nav-link:hover {
-  color: $black-65;
+@include media-breakpoint-up(xl){
+    .mid-page-nav .nav-link:hover {
+    color: $black-65;
+  }
 }
-// }
 
 .mid-page-nav-active {
   background-color: $primary;
   border-radius: 50rem;
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(sm){
     border-radius: 8px;
     margin-top: 4px;
   }

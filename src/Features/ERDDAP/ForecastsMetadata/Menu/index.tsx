@@ -58,7 +58,7 @@ interface BaseProps extends Props {
  */
 export function ForecastDropdownBase({ forecasts, platformId }: BaseProps) {
   const path = usePathname()
-  const linkIsActive = path.startsWith(`/platform/${platformId}/forecast`)
+  const linkIsActive = path ? path.startsWith(`/platform/${platformId}/forecast`) : ""
 
   const forecastNames = Array.from(new Set(forecasts.map((forecast) => forecast.forecast_type)))
   forecastNames.sort()

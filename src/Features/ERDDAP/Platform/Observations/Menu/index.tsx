@@ -41,7 +41,7 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
   }
 
   const path = usePathname()
-  const linkIsActive = path.startsWith(`/platform/${platform.id}/observations`)
+  const linkIsActive = path ? path.startsWith(`/platform/${platform.id}/observations`) : ""
 
   const dropdownItems = Array.from(
     new Set(
