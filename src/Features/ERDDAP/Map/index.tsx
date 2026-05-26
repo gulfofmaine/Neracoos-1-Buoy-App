@@ -113,7 +113,7 @@ export const PlatformLayer = ({ platform, selected, activePopupId, old = false }
           router.push(url)
         }, [router, url])}
       >
-        <RPopup trigger={"hover"}>
+        <RPopup trigger={"hover"} offset={[7, 7]}>
           {activePopupId === platform.id ? (
             <Button
               variant="dark"

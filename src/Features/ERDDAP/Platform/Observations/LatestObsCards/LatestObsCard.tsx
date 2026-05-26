@@ -55,14 +55,7 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
   }
 
   return (
-    <Link
-      href={urlPartReplacer(
-        urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
-        ":type",
-        firstTs.data_type.standard_name,
-      )}
-      className="d-flex text-decoration-none text-info"
-    >
+    <Link href={linkTarget} className="d-flex text-decoration-none text-info">
       <Col className="d-flex latest-obs-card">
         <Sentry.ErrorBoundary fallback={<b>Error displaying {firstTs.data_type.long_name}</b>} showDialog={false}>
           <Card className="flex-fill card-drop-shadow">
@@ -71,7 +64,7 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
               <p className="text-black-65 mb-0">{groupName}</p>
 
               {/* Primary value and unit */}
-              <span className="d-flex flex-row align-items-end">
+              <span className="d-flex flex-row flex-wrap align-items-end">
                 <h1 className="mb-0">{cardData.primary}</h1>
                 <p className="text-black-65 ms-1 m-0">{cardData.primaryUnit}</p>
               </span>
