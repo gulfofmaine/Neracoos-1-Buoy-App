@@ -6,6 +6,7 @@ import * as React from "react"
 import Link from "next/link"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
+import { usePathname } from "next/navigation"
 
 import { paths } from "Shared/constants"
 import { urlPartReplacer } from "Shared/urlParams"
@@ -39,6 +40,9 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
     )
   }
 
+  const path = usePathname()
+  const linkIsActive = path.startsWith(`/platform/${platform.id}/observations`)
+
   const dropdownItems = Array.from(
     new Set(
       platform.properties.readings
@@ -70,7 +74,9 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
 
   return (
     <Dropdown as={Nav.Item} role="menu">
-      <Dropdown.Toggle as={Nav.Link}>Observations</Dropdown.Toggle>
+      <Dropdown.Toggle as={Nav.Link} className={`${linkIsActive && "mid-page-nav-active text-white"}`}>
+        <strong>All Data</strong>
+      </Dropdown.Toggle>
 
       <Dropdown.Menu>
         <Link
