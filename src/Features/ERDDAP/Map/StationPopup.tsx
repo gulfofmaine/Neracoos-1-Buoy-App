@@ -62,7 +62,6 @@ const PopupMetric = ({ data }: { data: PlatformTimeSeries }) => {
 
 const MetricsWithGroups = ({ data }: { data: PlatformTimeSeries[] }) => {
   const unitSystem = useUnitSystem()
-  console.log(data)
 
   const groupName = data[0]?.data_type.long_name.match("Wave") ? "Waves" : "Wind"
   if (!groupName) return null
