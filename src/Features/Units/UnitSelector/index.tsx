@@ -34,20 +34,21 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export class UnitSelectorBase extends React.Component<ReduxProps, object> {
   public render(): React.ReactNode {
     return (
-      <ButtonGroup className="unit-selector">
-        {this.unitButton(UnitSystem.metric)}
-        {this.unitButton(UnitSystem.english)}
+      <ButtonGroup className="d-flex">
+        {this.unitButton(UnitSystem.metric, true)}
+        {this.unitButton(UnitSystem.english, false)}
       </ButtonGroup>
     )
   }
 
-  private unitButton(buttonSystem: UnitSystem): React.ReactNode {
+  private unitButton(buttonSystem: UnitSystem, firstButton: boolean): React.ReactNode {
     const { system } = this.props
 
     return (
       <Button
-        variant={system === buttonSystem ? "primary" : "light"}
-        size="sm"
+        className={`border-0 text-black
+          ${firstButton ? "rounded-start-pill" : "rounded-end-pill"}
+          ${system === buttonSystem ? "bg-info text-white" : "bg-black bg-opacity-5"}`}
         id={buttonSystem}
         active={system === buttonSystem}
         onClick={this.setSystem(buttonSystem)}

@@ -13,9 +13,9 @@ test.describe("Platform A01", () => {
 
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
-    await page.getByRole("button", { name: "Station List" }).click()
-    await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
-    await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
+    await page.getByRole("button", { name: "Stations" }).click()
+    await page.getByRole("link", { name: "Massachusetts Bay", exact: true }).click()
+    await expect(await page.getByRole("heading", { name: "Platforms in Massachusetts Bay" })).toBeVisible()
     await page.getByRole("link", { name: "A01: Massachusetts Bay" }).click()
     await expect(await page.getByText("Station A01")).toBeVisible()
   })
@@ -27,9 +27,9 @@ test.describe("Platform A01", () => {
 
   test("Shows platform status", async ({ page }) => {
     await page.goto(platformUrl)
-    await expect(page.getByText(/Lat:/).first()).toBeVisible()
-    await expect(page.getByText(/Lon:/).first()).toBeVisible()
-    await expect(page.getByText(/Last updated at:/).first()).toBeVisible()
+    await expect(page.getByText(/Lat/).first()).toBeVisible()
+    await expect(page.getByText(/Lon/).first()).toBeVisible()
+    await expect(page.getByText(/Last updated/).first()).toBeVisible()
   })
 
   test("Shows current conditions", async ({ page }) => {
@@ -46,12 +46,12 @@ test.describe("Platform A01", () => {
   test("Shows air temp plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Air Temperature:/)
+      .getByText(/Air Temperature -/)
       .first()
       .click()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
@@ -66,7 +66,7 @@ test.describe("Platform A01", () => {
   test("Shows wind plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page.getByRole("menuitem", { name: "Wind" }).first().click()
@@ -148,21 +148,18 @@ test.describe("Platform A01", () => {
   test("Updated recently", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
       .getByText(/All Observations/)
       .first()
       .click()
+
     const element = page.locator("li", { has: page.locator('text="Last updated at:"') }).first()
     const text = await element.textContent()
-
-    const year = new Date().getFullYear()
-
-    let dateText = text!.split("Last updated at: ")[1] + ` ${year}`
+    let dateText = text!.split("Last updated at: ")[1]
     const date = new Date(dateText)
-
     const threeDaysAgo = new Date()
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3)
     expect(date.valueOf()).toBeGreaterThan(threeDaysAgo.valueOf())
@@ -171,7 +168,7 @@ test.describe("Platform A01", () => {
   test("Can view all observations", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -184,16 +181,17 @@ test.describe("Platform A01", () => {
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
+      .getByRole("menuitem")
       .getByText(/Air Temperature/)
       .first()
       .click()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
@@ -206,7 +204,7 @@ test.describe("Platform A01", () => {
     await page.reload()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()

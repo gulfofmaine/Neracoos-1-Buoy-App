@@ -2,8 +2,6 @@
 /**
  * Generalized single time series data card
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
@@ -16,10 +14,11 @@ import { ReadingTimeSeries } from "Shared/timeSeries"
 import { convertUnit } from "Shared/unitConversion"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
+import { ExpandIcon } from "Shared/icons/iconsMap"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 
-import { cardProps, cardUrl } from "./common_card"
+import { cardUrl } from "./common_card"
 
 interface DataCardDisplayProps {
   readings: ReadingTimeSeries[]
@@ -53,15 +52,19 @@ export function DataCardDisplay({
   }))
 
   return (
-    <Col {...cardProps}>
+    <Col>
       <Link href={url}>
-        <Card>
-          <Card.Header>
-            {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
-            {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+        <Card className="chart-card">
+          <Card.Header className="h-100 border-0">
+            <p className="chart-title">
+              <strong>
+                {timeSeries.data_type.long_name} - {round(dataConverter.convertToNumber(latest.reading, unitSystem), 1)}{" "}
+                {dataConverter.displayName(unitSystem)} {convertUnit(timeSeries.data_type.units, latest.reading)}
+              </strong>
+            </p>
           </Card.Header>
 
-          <Card.Body style={{ padding: ".2rem" }}>
+          <div className="p-1 pt-3">
             <SmallTimeSeriesChart
               name={timeSeries.data_type.standard_name}
               timeSeries={data}
@@ -71,8 +74,8 @@ export function DataCardDisplay({
               data_type={timeSeries.data_type.standard_name}
               {...{ unitSystem, startTime, endTime }}
             />
-            <FontAwesomeIcon icon={faExpand} pull="right" />
-          </Card.Body>
+          </div>
+          <ExpandIcon className="ms-auto mt-auto p-2" />
         </Card>
       </Link>
     </Col>

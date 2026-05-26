@@ -4,7 +4,7 @@ test.describe("Region: Long Island", () => {
   test("Can show Long Island", async ({ page }) => {
     await page.goto("/")
     await page
-      .getByText(/Station List/)
+      .getByText(/Stations/)
       .first()
       .click()
     await page
@@ -15,7 +15,7 @@ test.describe("Region: Long Island", () => {
   })
 
   test("Shows only a subset of platforms", async ({ page }) => {
-    await page.goto("/region/LONG")
+    await page.goto("/region/LISOUND")
     await expect(
       page
         .locator("h2")

@@ -3,9 +3,8 @@ import React from "react"
 
 import { PlatformAlerts } from "Features/ERDDAP/Platform/Alerts"
 import { ErddapPlatformInfoPanel } from "Features/ERDDAP/Platform/Info"
-import { ErddapObservationTable } from "Features/ERDDAP/Platform/Observations/Table/table"
+import { ErddapObservationCards } from "Features/ERDDAP/Platform/Observations/LatestObsCards/LatestObsCards"
 import { UsePlatform } from "Features/ERDDAP/hooks/BuoyBarnComponents"
-
 import { UnitSelector, useUnitSystem } from "Features/Units"
 import { aDayAgoRounded } from "Shared/time"
 
@@ -15,20 +14,19 @@ import { aDayAgoRounded } from "Shared/time"
 export const PlatformInfo = ({ id }: { id: string }) => {
   const unitSystem = useUnitSystem()
   const aDayAgo = aDayAgoRounded()
-
   return (
     <UsePlatform platformId={id}>
       {({ platform }) => (
-        <React.Fragment>
+        <div className="d-flex flex-column gap-2">
           <PlatformAlerts platform={platform} />
           <ErddapPlatformInfoPanel platform={platform} />
-          <ErddapObservationTable
+          <ErddapObservationCards
             platform={platform}
             unitSelector={<UnitSelector />}
             unitSystem={unitSystem}
             laterThan={aDayAgo}
           />
-        </React.Fragment>
+        </div>
       )}
     </UsePlatform>
   )

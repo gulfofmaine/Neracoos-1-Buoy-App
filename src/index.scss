@@ -1,3 +1,4 @@
+@use "sass:color";
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
@@ -37,6 +38,11 @@ $dig-colors: (
   "danger": $danger,
   "orange": $orange,
 );
+
+$black-5: transparentize($black, 0.05);
+$black-20: transparentize($black, 0.2);
+$black-65: transparentize($black, 0.65);
+$seaweed-10: transparentize($seaweed, 0.1);
 
 $font-family-base: "Montserrat", Arial, sans-serif;
 $theme-colors: map-merge($theme-colors, $dig-colors);
@@ -123,6 +129,19 @@ a {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+
+.h3-mimic {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.text-black-20 {
+  color: $black-20;
+}
+
+.text-black-65 {
+  color: $black-65;
+}
 // ========== TYPOGRAPHY END ==========
 
 // ========== OPACITIES START ==========
@@ -191,11 +210,20 @@ $dig-opacities: (
   }
 }
 
+.region-map-container {
+  height: 100%;
+  display: flex;
+  min-height: 85vh;
+}
+
 // Mobile landscape view
 @media (max-height: 500px) {
   @include media-breakpoint-up(md) {
     .sidebar-height {
       max-height: 75vh;
+    }
+    .region-map-container {
+      min-height: 75vh;
     }
   }
 }
@@ -234,9 +262,102 @@ $dig-opacities: (
   .sidebar-height {
     height: unset;
   }
+  .region-map-container {
+    height: unset;
+    min-height: unset;
+  }
 }
 
+.ol-touch .ol-control button {
+  font-size: 1.25rem;
+  height: 44px;
+  width: 44px;
+}
 // ========== MAP END ============
+.export-icon-border {
+  border: 1px solid $black-20;
+  border-radius: 6px;
+}
+
+// ==== LATEST CONDITIONS START ====
+.latest-obs-card {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+}
+
+@media (max-width: 400px) {
+  .latest-obs-card {
+    aspect-ratio: unset;
+    height: unset;
+  }
+}
+
+.black-65 {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.card-drop-shadow {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+}
+
+.chart-card {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
+  border: none;
+}
+
+.chart-title {
+  color: $primary;
+  margin-bottom: 0px;
+}
+// ==== LATEST CONDITIONS END ====
+// ==== GENERAL STATION DETAILS STARTT ====
+.seaweed-background {
+  background-color: $info;
+  margin: -20px -20px -0px -20px;
+  padding: 0px 10px 20px;
+}
+
+.mid-page-nav-container {
+  border-radius: 8px;
+  justify-content: center;
+
+  @include media-breakpoint-up(sm) {
+    border-radius: 50rem;
+    justify-content: baseline;
+  }
+}
+
+.mid-page-nav .nav-link {
+  color: $primary;
+  padding-left: 1rem;
+}
+
+@include media-breakpoint-up(xl) {
+  .mid-page-nav .nav-link:hover {
+    color: $black-65;
+  }
+}
+
+.mid-page-nav .dropdown-menu .dropdown-item:active {
+  background-color: transparent;
+  color: inherit;
+}
+
+.mid-page-nav-active {
+  background-color: $primary;
+  border-radius: 50rem;
+
+  @include media-breakpoint-down(sm) {
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+}
+
+// ==== GENERAL STATION DETAILS END ====
+.superlatives-tooltip .tooltip-inner {
+  max-width: none;
+}
 
 .condition-tooltip > div > div {
   background-color: $primary;
@@ -253,6 +374,37 @@ $dig-opacities: (
 
 .tooltip-inner a {
   color: $coastal-meadow;
+}
+
+.map .ol-zoom {
+  top: 10px;
+  left: auto;
+  right: 10px;
+}
+
+.map-key {
+  position: absolute;
+  z-index: 10;
+  top: 1rem;
+  left: 1rem;
+  color: $black-65;
+  border-color: $black-65;
+}
+
+.erddap-key-dot {
+  border-radius: 8px;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.erddap-dot-active {
+  background-color: rgba($orange, 0.65);
+  border: 2px solid $orange;
+}
+
+.erddap-dot-inactive {
+  background-color: rgba($secondary, 0.65);
 }
 
 .legend-item {
@@ -344,7 +496,7 @@ $dig-opacities: (
   align-items: center;
 }
 
-.timeframe-card {
+.timeframe-card-wl {
   width: fit-content;
   padding: 8px;
   margin-top: 5px;
@@ -352,26 +504,9 @@ $dig-opacities: (
   margin-bottom: 20px;
 }
 
-.observation-title-container {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-}
-
-.obervation-title {
-  grid-column: 2;
-  justify-self: center;
-}
-
 .observation-timeframe-selector {
   grid-column: 3;
   justify-self: end;
-}
-
-@media (max-width: 1300px) {
-  .timeframe-card {
-    margin-left: 20px;
-  }
 }
 
 @media (max-width: 1040px) {
@@ -389,15 +524,9 @@ $dig-opacities: (
     justify-self: center;
     grid-column: 1;
   }
-  .timeframe-card {
-    margin: 0;
-  }
 }
 
 @media (max-width: 500px) {
-  .timeframe-card .main {
-    width: 95%;
-  }
   .timeframe-label {
     flex-direction: column;
     margin: 0;

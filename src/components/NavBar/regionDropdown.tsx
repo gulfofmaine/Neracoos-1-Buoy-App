@@ -5,7 +5,7 @@ import * as React from "react"
 import NavDropdown from "react-bootstrap/NavDropdown"
 
 import { paths } from "Shared/constants"
-import { regionList } from "Shared/regions"
+import { regionMenuList } from "Shared/regions"
 import { urlPartReplacer } from "Shared/urlParams"
 
 export const NavLink = ({
@@ -45,7 +45,7 @@ export class RegionDropdown extends React.Component<Props, State> {
   }
 
   public render() {
-    const regions = regionList.map((region, key) => {
+    const regions = regionMenuList.map((region, key) => {
       const to = urlPartReplacer(paths.regions.region, ":id", region.slug)
       return (
         <NavDropdown.Item key={key} as={NavLink} href={to}>
@@ -55,7 +55,7 @@ export class RegionDropdown extends React.Component<Props, State> {
     })
 
     return (
-      <NavDropdown title="Station List" id="region-dropdown">
+      <NavDropdown title="Stations" id="region-dropdown">
         {regions}
       </NavDropdown>
     )
