@@ -31,9 +31,9 @@ export function PlatformTabs() {
               <span className="d-flex ">
                 <strong>Station Menu</strong>
               </span>
-              <Button className="bg-white ms-auto">
+              <div className="btn bg-white ms-auto">
                 <span className="navbar-toggler-icon " />
-              </Button>
+              </div>
             </Navbar.Toggle>
 
             <Navbar.Collapse>
