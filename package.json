@@ -39,7 +39,7 @@
     "sharp": "^0.34.5"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "NODE_ENV=development next dev --turbo",
     "start": "GENERATE_SOURCEMAP=false next dev",
     "start-production": "next start",
     "build": "next build",
