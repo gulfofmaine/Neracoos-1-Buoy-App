@@ -29,7 +29,7 @@ import { shortestDisplayIso } from "Shared/time"
 
 const plotOptions = {
   time: {
-    useUTC: false,
+    timezone: "UTC",
   },
 }
 

@@ -15,7 +15,7 @@ import { UnitSystem } from "Features/Units/types"
 
 const plotOptions = {
   time: {
-    useUTC: false,
+    timezone: "UTC",
   },
 }
 

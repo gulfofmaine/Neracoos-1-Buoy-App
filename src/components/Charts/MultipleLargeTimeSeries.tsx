@@ -36,7 +36,7 @@ function formatterWrapper(unit) {
 
 const plotOptions = {
   time: {
-    useUTC: false,
+    timezone: "UTC",
   },
 }
 

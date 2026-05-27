@@ -18,7 +18,7 @@ import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
 
 const plotOptions = {
   time: {
-    useUTC: false,
+    timezone: "UTC",
   },
 }
 

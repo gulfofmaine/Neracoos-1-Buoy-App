@@ -41,15 +41,17 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
    * @param this Highcharts position value
    */
   // eslint-disable-next-line
-  function pointFormatter(this: Highcharts.TooltipFormatterContextObject, tooltip: Highcharts.Tooltip): string {
+  function pointFormatter(this: Highcharts.Point, tooltip: Highcharts.Tooltip): string {
     return (
       `${this.x ? new Date(this.x).toLocaleString() : null}<br />` +
       this.points!.map((p) => {
         if (p.series.name === "Direction") {
-          const direction = compassDirection((p.point as unknown as DirectionPoint).direction)
-          return `<b>${p.series.name}:</b> ${Math.round((p.point as unknown as DirectionPoint).direction)} (${
+          const rawDir = (p as unknown as DirectionPoint).direction
+          const normalizedDir = ((rawDir % 360) + 360) % 360
+          const direction = compassDirection(normalizedDir)
+          return `<b>${p.series.name}:</b> ${Math.round((p as unknown as DirectionPoint).direction)} (${
             direction[1]
-          }) (${(p.point as unknown as DirectionPoint).beaufort})`
+          }) (${(p as unknown as DirectionPoint).beaufort})`
         }
 
         return `<b>${p.series.name}:</b> ${p.y ? round(p.y, 1) : null} ${dataConverter.displayName(unitSystem)}`
@@ -62,7 +64,7 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
 
 const plotOptions = {
   time: {
-    useUTC: false,
+    timezone: "UTC",
   },
 }
 
