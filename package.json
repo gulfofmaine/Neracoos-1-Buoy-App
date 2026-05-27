@@ -29,7 +29,7 @@
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "19.2.6",
-    "react-ga4": "^2.1.0",
+    "react-ga4": "^3.0.1",
     "react-jsx-highcharts": "^5.0.3",
     "react-redux": "^9.2.0",
     "react-select": "^5.10.2",
