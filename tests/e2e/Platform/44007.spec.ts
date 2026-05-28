@@ -43,13 +43,11 @@ test.describe("Platfrom 44007", () => {
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
     await page
-      .locator("svg.highcharts-root")
-      .getByText(/Wind Speed/)
+      .getByRole("button", { name: /Wind Speed/ })
       .first()
       .click()
     await page
-      .locator("svg.highcharts-root")
-      .getByText(/Direction/)
+      .getByRole("button", { name: /Direction/ })
       .first()
       .click()
     await expect(page.locator("svg.highcharts-root").getByText(/kts/).first()).toBeVisible()
