@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,17 +15,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
     "paths": {
-      "Shared/*": ["Shared/*"],
-      "components/*": ["components/*"],
-      "Pages/*": ["formerly_pages/*"],
-      "Features/*": ["Features/*"],
-      "stories/*": ["stories/*"],
-      "queryClient": ["queryClient"]
+      "Shared/*": ["./src/Shared/*"],
+      "components/*": ["./src/components/*"],
+      "Pages/*": ["./src/formerly_pages/*"],
+      "Features/*": ["./src/Features/*"],
+      "stories/*": ["./src/stories/*"],
+      "queryClient": ["./src/queryClient"],
+      "util/*": ["./src/util/*"]
     },
     "noFallthroughCasesInSwitch": true,
-    "downlevelIteration": true,
     "incremental": true,
     "plugins": [
       {

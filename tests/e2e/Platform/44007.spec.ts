@@ -35,7 +35,7 @@ test.describe("Platfrom 44007", () => {
   test("Shows wind plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page.getByRole("menuitem", { name: "Wind" }).first().click()
@@ -43,13 +43,11 @@ test.describe("Platfrom 44007", () => {
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
     await page
-      .locator("svg.highcharts-root")
-      .getByText(/Wind Speed/)
+      .getByRole("button", { name: /Wind Speed/ })
       .first()
       .click()
     await page
-      .locator("svg.highcharts-root")
-      .getByText(/Direction/)
+      .getByRole("button", { name: /Direction/ })
       .first()
       .click()
     await expect(page.locator("svg.highcharts-root").getByText(/kts/).first()).toBeVisible()
@@ -122,7 +120,7 @@ test.describe("Platfrom 44007", () => {
   test.skip("Updated recently", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -145,7 +143,7 @@ test.describe("Platfrom 44007", () => {
   test("Can view all observations", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -157,7 +155,7 @@ test.describe("Platfrom 44007", () => {
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page

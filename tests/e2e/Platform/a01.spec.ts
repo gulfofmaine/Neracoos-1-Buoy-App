@@ -60,17 +60,16 @@ test.describe("Platform A01", () => {
   test("Shows wind plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page.getByRole("menuitem", { name: "Wind" }).first().click()
     await expect(page.getByRole("heading", { name: "Wind" }).first()).toBeVisible({ timeout: 10000 })
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
-    await page.locator("svg.highcharts-root").getByText(/Gust/).first().click()
-    await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
+    await page.getByRole("button", { name: /Gust/ }).first().click()
+    await page.getByRole("button", { name: /Speed/ }).first().click()
     await page
-      .locator("svg.highcharts-root")
-      .getByText(/Direction/)
+      .getByRole("button", { name: /Direction/ })
       .first()
       .click()
     await expect(page.locator("svg.highcharts-root").getByText(/kts/).first()).toBeVisible()
@@ -142,7 +141,7 @@ test.describe("Platform A01", () => {
   test("Updated recently", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -162,7 +161,7 @@ test.describe("Platform A01", () => {
   test("Can view all observations", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -175,7 +174,7 @@ test.describe("Platform A01", () => {
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page

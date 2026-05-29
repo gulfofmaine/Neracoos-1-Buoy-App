@@ -318,6 +318,42 @@ $dig-opacities: (
   padding: 0px 10px 20px;
 }
 
+.mid-page-nav-container {
+  border-radius: 8px;
+  justify-content: center;
+
+  @include media-breakpoint-up(sm) {
+    border-radius: 50rem;
+    justify-content: baseline;
+  }
+}
+
+.mid-page-nav .nav-link {
+  color: $primary;
+  padding-left: 1rem;
+}
+
+@include media-breakpoint-up(xl) {
+  .mid-page-nav .nav-link:hover {
+    color: $black-65;
+  }
+}
+
+.mid-page-nav .dropdown-menu .dropdown-item:active {
+  background-color: transparent;
+  color: inherit;
+}
+
+.mid-page-nav-active {
+  background-color: $primary;
+  border-radius: 50rem;
+
+  @include media-breakpoint-down(sm) {
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+}
+
 // ==== GENERAL STATION DETAILS END ====
 .superlatives-tooltip .tooltip-inner {
   max-width: none;
@@ -460,7 +496,7 @@ $dig-opacities: (
   align-items: center;
 }
 
-.timeframe-card {
+.timeframe-card-wl {
   width: fit-content;
   padding: 8px;
   margin-top: 5px;
@@ -471,12 +507,6 @@ $dig-opacities: (
 .observation-timeframe-selector {
   grid-column: 3;
   justify-self: end;
-}
-
-@media (max-width: 1300px) {
-  .timeframe-card {
-    margin-left: 20px;
-  }
 }
 
 @media (max-width: 1040px) {
@@ -494,15 +524,9 @@ $dig-opacities: (
     justify-self: center;
     grid-column: 1;
   }
-  .timeframe-card {
-    margin: 0;
-  }
 }
 
 @media (max-width: 500px) {
-  .timeframe-card .main {
-    width: 95%;
-  }
   .timeframe-label {
     flex-direction: column;
     margin: 0;

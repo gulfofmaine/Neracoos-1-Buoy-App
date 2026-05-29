@@ -2,11 +2,21 @@ import { describe, it, expect } from "vitest"
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import { vi, beforeEach, afterEach } from "vitest"
 
 import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
 
 import { ErddapObservationCards } from "../LatestObsCards/LatestObsCards"
+
+beforeEach(() => {
+  vi.useFakeTimers()
+  vi.setSystemTime(new Date("2018-12-20T15:00:00Z"))
+})
+
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
