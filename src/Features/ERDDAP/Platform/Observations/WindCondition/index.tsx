@@ -12,7 +12,6 @@ import { useUnitSystem } from "Features/Units"
 import { UnitSystem } from "Features/Units/types"
 import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { BackToPlatformButton } from "../BackToPlatformButton"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
@@ -119,24 +118,13 @@ export const ErddapWindObservedConditionDisplay: React.FunctionComponent<Display
   const { speed, gust, direction } = pickWindDatasets(platform, datasets)
 
   return (
-    <div>
-      <div className="d-flex flex-column flex-md-row">
-        <BackToPlatformButton className="me-auto bg-white border-0" />
-        <h2 className="d-flex gap-2 text-center p-2 me-md-auto justify-content-center align-items-center">
-          Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
-        </h2>
-      </div>
-      <div className="observation-timeframe-selector">
-        <TimeframeSelector graphFuture={false} />
-      </div>
-      <WindTimeSeriesChart
-        barbsPerDay={5}
-        legend={true}
-        {...{ speed, gust, direction, unitSystem }}
-        startTime={startDate}
-        endTime={endDate}
-      />
-    </div>
+    <WindTimeSeriesChart
+      barbsPerDay={5}
+      legend={true}
+      {...{ speed, gust, direction, unitSystem }}
+      startTime={startDate}
+      endTime={endDate}
+    />
   )
 }
 

@@ -19,7 +19,10 @@ export const BackToPlatformButton = ({ ...props }: BackToPlatformButtonProps) =>
 
   return (
     <Button onClick={handleBackClick} {...props}>
-      <ArrowLeftIcon className="text-info fa-2xl" />
+      <span className="d-flex flex-row align-items-center gap-2">
+        <ArrowLeftIcon className="text-info fa-l" />
+        <a className="text-info">Back</a>
+      </span>
     </Button>
   )
 }
