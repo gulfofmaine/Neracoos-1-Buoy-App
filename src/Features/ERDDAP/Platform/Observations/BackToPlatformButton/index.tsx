@@ -3,7 +3,7 @@ import Link from "next/link"
 import { LinkProps } from "next/link"
 import { ArrowLeftIcon } from "Shared/icons/iconsMap"
 
-type BackToPlatformButtonProps = Omit<LinkProps, "href"> & {}
+type BackToPlatformButtonProps = Omit<LinkProps, "href" | "className"> & {}
 
 export const BackToPlatformButton = ({ ...props }: BackToPlatformButtonProps) => {
   const path = usePathname()
