@@ -1,6 +1,5 @@
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { LinkProps } from "next/link"
 import { ArrowLeftIcon } from "Shared/icons/iconsMap"
 
 type BackToPlatformButtonProps = {
