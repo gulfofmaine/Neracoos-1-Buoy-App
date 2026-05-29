@@ -18,6 +18,7 @@ import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
 import { Info } from "../Condition/Info"
 import { UseDatasets } from "Features/ERDDAP/hooks"
 import { TimeframePicker } from "Features/ERDDAP/TimeframeSelector/TimeframePicker"
+import { BackToPlatformButton } from "../BackToPlatformButton"
 import { useSearchParams } from "next/navigation"
 import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
 import { TimeframeButtonGroup, TimeframeDropdown } from "Features/ERDDAP/TimeframeButtonGroup"
@@ -62,9 +63,12 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
 
   return (
     <div>
-      <h2 className="d-flex gap-2 justify-content-center align-items-center">
-        Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
-      </h2>
+      <div className="d-flex flex-row p-2 position-relative align-items-start justify-content-end justify-content-sm-center">
+        <BackToPlatformButton className="d-flex position-absolute start-0 ps-0 bg-white border-0" />
+        <h2 className="d-flex gap-2 align-items-center">
+          Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
+        </h2>
+      </div>
       <div className="d-none d-lg-flex flex-column flex-md-row gap-2 align-items-center">
         <TimeframeButtonGroup
           name="time-frame-group"
