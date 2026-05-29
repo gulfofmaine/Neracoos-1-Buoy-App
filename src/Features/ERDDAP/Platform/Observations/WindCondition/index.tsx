@@ -63,9 +63,9 @@ export const ErddapWindObservedCondition: React.FunctionComponent<Props> = ({ pl
 
   return (
     <div>
-      <div className="d-flex flex-row p-2 position-relative align-items-start justify-content-end justify-content-sm-center">
-        <BackToPlatformButton className="d-flex position-absolute start-0 ps-0 bg-white border-0" />
-        <h2 className="d-flex gap-2 align-items-center">
+      <div className="d-flex flex-column flex-md-row gap-2 p-2 position-relative align-items-md-start justify-content-end justify-content-md-center">
+        <BackToPlatformButton className="d-flex back-button-positioning ps-0 bg-white border-0" />
+        <h2 className="d-flex gap-2 mx-auto align-items-center">
           Wind <Info timeSeries={timeSeries} id={0} startDate={startDate} />
         </h2>
       </div>
