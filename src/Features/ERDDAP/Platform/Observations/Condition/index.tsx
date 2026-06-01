@@ -18,6 +18,7 @@ import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
 import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
+import { read } from "node:fs"
 
 interface Props {
   /** Platform to display */
@@ -49,9 +50,14 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const handleStartChoice = (start: Date) => setStartDate(start)
   const handleEndChoice = (end: Date) => setEndDate(end)
 
-  const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
-    (reading) => reading.data_type.standard_name === standardName,
-  )
+  // Special case to handle grouped wave latest obs card
+  const timeSeries: PlatformTimeSeries[] =
+    standardName === "waves"
+      ? platform.properties.readings.filter((reading) => reading.data_type.long_name.match("Wave"))
+      : platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
+
+  console.log(standardName)
+  console.log(platform.properties.readings)
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
   const charts = timeSeries.map((ts: PlatformTimeSeries, index) => {

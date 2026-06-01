@@ -37,7 +37,7 @@ export const LatestObsCard = ({ unitSystem, timeSeries, platform }: CardDisplayP
   const linkTarget = urlPartReplacer(
     urlPartReplacer(paths.platforms.observations, ":id", platform.id as string),
     ":type",
-    groupName === "Wind" ? groupName.toLowerCase() : firstTs.data_type.standard_name,
+    groupName === "Wind" || groupName === "Waves" ? groupName.toLowerCase() : firstTs.data_type.standard_name,
   )
 
   const cardData = Array.isArray(timeSeries)
