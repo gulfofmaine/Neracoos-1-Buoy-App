@@ -49,7 +49,6 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const handleStartChoice = (start: Date) => setStartDate(start)
   const handleEndChoice = (end: Date) => setEndDate(end)
 
-  // Special case to handle grouped wave latest obs card
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,
   )
