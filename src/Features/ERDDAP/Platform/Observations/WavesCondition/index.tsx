@@ -22,16 +22,13 @@ import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGro
 interface Props {
   /** Platform to display */
   platform: PlatformFeature
-  /** Standard name to display */
-  standardName: string
 }
 
 /**
  *
  * @param platform
- * @param standardName
  */
-export const ErddapWavesObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
+export const ErddapWavesObservedCondition: React.FunctionComponent<Props> = ({ platform }: Props) => {
   const unitSystem = useUnitSystem()
   const [startDate, setStartDate] = useState(aWeekAgoRounded())
   const [endDate, setEndDate] = useState(daysInFuture(0))
@@ -57,6 +54,8 @@ export const ErddapWavesObservedCondition: React.FunctionComponent<Props> = ({ p
 
   const charts = timeSeries.map((ts: PlatformTimeSeries, index) => {
     const depth = ts.depth && ts.depth > 0 ? " at " + ts.depth + "m below" : ""
+
+    const name = ts.data_type.standard_name
 
     return (
       <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
@@ -105,7 +104,7 @@ export const ErddapWavesObservedCondition: React.FunctionComponent<Props> = ({ p
         >
           {({ dataset }) => (
             <ChartTimeSeriesDisplay
-              {...{ dataset, standardName, unitSystem }}
+              {...{ dataset, standardName: name, unitSystem }}
               timeSeries={ts}
               startTime={startDate}
               endTime={endDate}
