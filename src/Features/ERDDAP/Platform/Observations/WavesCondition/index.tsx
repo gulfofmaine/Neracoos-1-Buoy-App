@@ -16,7 +16,7 @@ import { aWeekAgoRounded, daysInFuture } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
-import { Info } from "./Info"
+import { Info } from "../Condition/Info"
 import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
 
 interface Props {
@@ -31,7 +31,7 @@ interface Props {
  * @param platform
  * @param standardName
  */
-export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
+export const ErddapWavesObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
   const [startDate, setStartDate] = useState(aWeekAgoRounded())
   const [endDate, setEndDate] = useState(daysInFuture(0))
@@ -49,9 +49,8 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
   const handleStartChoice = (start: Date) => setStartDate(start)
   const handleEndChoice = (end: Date) => setEndDate(end)
 
-  // Special case to handle grouped wave latest obs card
-  const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
-    (reading) => reading.data_type.standard_name === standardName,
+  const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter((reading) =>
+    reading.data_type.long_name.match("Wave"),
   )
 
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
