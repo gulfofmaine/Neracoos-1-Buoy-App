@@ -56,8 +56,6 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
       ? platform.properties.readings.filter((reading) => reading.data_type.long_name.match("Wave"))
       : platform.properties.readings.filter((reading) => reading.data_type.standard_name === standardName)
 
-  console.log(standardName)
-  console.log(platform.properties.readings)
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
   const charts = timeSeries.map((ts: PlatformTimeSeries, index) => {
