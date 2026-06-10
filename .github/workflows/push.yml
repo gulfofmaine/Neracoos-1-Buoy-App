@@ -333,7 +333,7 @@ jobs:
         run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
 
       - name: Create Sentry Release
-        uses: getsentry/action-release@v3.6.1
+        uses: getsentry/action-release@v3.7.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -417,7 +417,7 @@ jobs:
         run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
 
       - name: Create Sentry Release
-        uses: getsentry/action-release@v3.6.1
+        uses: getsentry/action-release@v3.7.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
