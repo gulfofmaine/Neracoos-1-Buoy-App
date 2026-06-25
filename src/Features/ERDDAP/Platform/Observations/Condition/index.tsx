@@ -12,7 +12,8 @@ import { TimeframePicker } from "Features/ERDDAP/TimeframeSelector/TimeframePick
 import { TimeframeButtonGroup, TimeframeDropdown } from "Features/ERDDAP/TimeframeButtonGroup"
 import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { aWeekAgoRounded, daysInFuture } from "Shared/time"
+import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
+import { BackToPlatformButton } from "../BackToPlatformButton"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
@@ -60,9 +61,12 @@ export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platfo
 
     return (
       <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
-        <h2 className="d-flex gap-2 justify-content-center align-items-center">
-          {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
-        </h2>
+        <div className="d-flex flex-column flex-md-row gap-2 p-2 position-relative align-items-md-start justify-content-end justify-content-md-center">
+          {index === 0 && <BackToPlatformButton className="d-flex back-button-positioning ps-0 bg-white border-0" />}
+          <h2 className="d-flex gap-2 mx-auto align-items-center">
+            {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+          </h2>
+        </div>
         {index === 0 && (
           <div className="d-none d-lg-flex flex-column flex-md-row gap-2 align-items-center">
             <TimeframeButtonGroup
