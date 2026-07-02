@@ -30,7 +30,7 @@
     "react-bootstrap": "^2.10.10",
     "react-dom": "19.2.7",
     "react-ga4": "^3.0.1",
-    "react-jsx-highcharts": "^5.0.3",
+    "react-jsx-highcharts": "^5.0.4",
     "react-redux": "^9.3.0",
     "react-select": "^5.10.2",
     "react-use": "^17.6.1",
