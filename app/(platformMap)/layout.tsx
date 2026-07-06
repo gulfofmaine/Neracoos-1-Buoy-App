@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { useMeasure } from "react-use"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import { SecondaryBanner } from "components/SecondaryBanner"
 
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 
@@ -43,6 +44,11 @@ export default function Layout({
 
   return (
     <React.Fragment>
+      <SecondaryBanner variant="warning">
+        <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
+          Try the updated <a href="https://mariners-dev.aws.neracoos.org/">Mariners' Dashboard (Beta)</a>
+        </p>
+      </SecondaryBanner>
       <Row>
         <Col xs={{ span: "12", order: "2" }} md={{ span: "6", order: "2" }}>
           <div ref={ref} style={{ marginBottom: ".5rem" }}>
