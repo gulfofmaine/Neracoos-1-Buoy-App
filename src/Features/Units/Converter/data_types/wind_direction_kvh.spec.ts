@@ -25,6 +25,6 @@ describe("wind_direction_kvh conversions", () => {
 
   it("display names", () => {
     expect(wind_direction_kvh.displayName(UnitSystem.english)).toBe("")
-    expect(wind_direction_kvh.displayName(UnitSystem.metric)).toBe("Degrees")
+    expect(wind_direction_kvh.displayName(UnitSystem.metric)).toBe("\u00B0")
   })
 })

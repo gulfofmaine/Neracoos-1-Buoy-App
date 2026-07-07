@@ -20,6 +20,6 @@ describe("significant_height_of_wind_and_swell_waves conversions", () => {
 
   it("display names", () => {
     expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.english)).toBe("ft")
-    expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.metric)).toBe("Meters")
+    expect(significant_height_of_wind_and_swell_waves.displayName(UnitSystem.metric)).toBe("m")
   })
 })

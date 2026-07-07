@@ -2,39 +2,51 @@ import { describe, it, expect } from "vitest"
 
 import * as React from "react"
 import { render, screen } from "@testing-library/react"
+import { vi, beforeEach, afterEach } from "vitest"
 
 import { UnitSystem } from "Features/Units/types"
 import { PlatformFeatureWithDatasets } from "../../types"
 
-import { ErddapObservationTable } from "./table"
+import { ErddapObservationCards } from "../LatestObsCards/LatestObsCards"
+
+beforeEach(() => {
+  vi.useFakeTimers()
+  vi.setSystemTime(new Date("2018-12-20T15:00:00Z"))
+})
+
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 describe("<ErddapObservationTable>", () => {
   it("Should show selected observations for appropriate platform", () => {
     render(
-      <ErddapObservationTable
+      <ErddapObservationCards
         platform={platform}
         unitSystem={UnitSystem.english}
         unitSelector={<b>Fake unit selector</b>}
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(3)
-    expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
-    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 3.9 Knots")
+    expect(screen.getAllByRole("link").length).toBe(2)
+    expect(screen.findByText("Last updated"))
+    expect(screen.findByText("Wind"))
+    expect(screen.findByText("3.9 kts"))
   })
 
   it("Should show selected observations in metric", () => {
     render(
-      <ErddapObservationTable
+      <ErddapObservationCards
         platform={platform}
         unitSystem={UnitSystem.metric}
         unitSelector={<b>Fake unit selector</b>}
       />,
     )
 
-    expect(screen.getAllByRole("link").length).toBe(3)
-    expect(screen.getByRole("list")).toHaveTextContent("Last updated at: ")
-    expect(screen.getByRole("list")).toHaveTextContent("Wind Speed: 2 Meters/Second")
+    expect(screen.getAllByRole("link").length).toBe(2)
+    expect(screen.findByText("Last updated"))
+    expect(screen.findByText("Wind"))
+    expect(screen.findByText("2 m/s"))
   })
 })
 

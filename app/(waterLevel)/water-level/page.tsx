@@ -8,7 +8,7 @@ import { ErddapWaterLevelSensorListBase } from "Features/ERDDAP/List/waterSensor
 import { usePlatforms } from "Features/ERDDAP/hooks"
 import { ErddapWaterLevelMapBase } from "Features/ERDDAP/waterLevel/map"
 import { filterForSensors } from "Features/ERDDAP/waterLevel/hooks"
-import { regionList } from "Shared/regions"
+import { regionMenuList } from "Shared/regions"
 
 export default function WaterLevelIndexPage() {
   const { data } = usePlatforms()
@@ -17,9 +17,9 @@ export default function WaterLevelIndexPage() {
 
   const regionCards =
     waterLevelPlatforms &&
-    regionList.map((r, index) => {
+    regionMenuList.map((r, index) => {
       return (
-        <Card style={{ marginBottom: "20px" }} key={`sensor-region-list-#${index}`}>
+        <Card className="mb-5" key={`sensor-region-list-#${index}`}>
           <Card.Header>{r.name}</Card.Header>
           <ErddapWaterLevelSensorListBase platforms={waterLevelPlatforms} boundingBox={r.bbox} />
         </Card>
@@ -28,11 +28,11 @@ export default function WaterLevelIndexPage() {
 
   return (
     <>
-      <Row>
-        <Col sm={{ order: "2" }} md={{ order: "1", span: "6" }}>
+      <Row className="g-5">
+        <Col xs={12} md={6}>
           {waterLevelPlatforms && <ErddapWaterLevelMapBase platforms={waterLevelPlatforms} height={"60vh"} />}
         </Col>
-        <Col sm={{ order: "1" }} md={{ order: "2", span: "6" }}>
+        <Col xs={12} md={6}>
           {regionCards}
         </Col>
       </Row>

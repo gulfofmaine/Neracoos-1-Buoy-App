@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import "ol/ol.css"
 /**
  * Map that shows all active platforms and can be focused on a specific bounding box.
@@ -10,30 +11,32 @@ import GeoJSON from "ol/format/GeoJSON"
 import { fromLonLat, transformExtent } from "ol/proj"
 import Button from "react-bootstrap/Button"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
+import * as Sentry from "@sentry/nextjs"
 
 import { colors } from "Shared/colors"
 import { paths } from "Shared/constants"
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
+import { BoundingBox, InitialRegion, regionMenuList } from "Shared/regions"
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { aDayAgoRounded, formatDate, threeDaysAgoRounded, weeksInFuture } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
 import { useParams } from "next/navigation"
 import { usePlatforms } from "../hooks"
 import { PlatformFeature } from "../types"
-import { platformName } from "../utils/platformName"
 import { Feature } from "ol"
+import { StationPopup } from "./StationPopup"
 
 export interface Props {
   // Bounding box for fitting to a region
   boundingBox?: BoundingBox | null
   //  Platform to highlight
   platformId?: string
-  // Height to adjust map to match sidebar
-  height?: number | string
   // Already filtered platforms
   platforms?: PlatformFeature[]
+  // Height to adjust map to match sidebar
+  height?: number | string
+  className?: string
 }
 
 export interface BaseProps extends Props {
@@ -55,10 +58,11 @@ interface PlatformLayerProps {
   selected: boolean
   // Is the platforms data outdated
   old: boolean
+  activePopupId?: string | null
 }
 
 // Build a RLayers feature for each platform
-export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayerProps) => {
+export const PlatformLayer = ({ platform, selected, activePopupId, old = false }: PlatformLayerProps) => {
   const router = useRouter()
   const path = usePathname()
   const waterLevelSensorPage = path.includes("water-level")
@@ -81,6 +85,19 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
   const fillColor = old ? "grey" : `#cf5c00${opacity}`
   const strokeColor = old ? "grey" : colors.whatOrange
 
+  const geometry = useMemo(() => {
+    const feature = new GeoJSON({
+      dataProjection: "EPSG:4326",
+      featureProjection: "EPSG:3857",
+    }).readFeature(platform)
+    return (feature as Feature).getGeometry()
+  }, [platform])
+
+  if (!geometry) {
+    Sentry.captureMessage(`Platform ${platform.id} has no geometry. Make sure the point is added in Buoy Barn`)
+    return null
+  }
+
   return (
     <RLayerVector>
       <RStyle.RStyle>
@@ -90,46 +107,67 @@ export const PlatformLayer = ({ platform, selected, old = false }: PlatformLayer
         </RStyle.RCircle>
       </RStyle.RStyle>
       <RFeature
-        geometry={useMemo(() => {
-          const feature = new GeoJSON({
-            dataProjection: "EPSG:4326",
-            featureProjection: "EPSG:3857",
-          }).readFeature(platform)
-          return (feature as Feature).getGeometry()
-        }, [platform])}
+        geometry={geometry}
+        properties={{ platform_id: platform.id, url: url }}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
       >
-        <RPopup trigger={"hover"}>
-          <Button
-            variant="dark"
-            size="sm"
-            href={url}
-            onClick={useCallback(
-              (event) => {
+        <RPopup trigger={"hover"} offset={[7, 7]}>
+          {activePopupId === platform.id ? (
+            <Button
+              variant="dark"
+              size="sm"
+              href={url}
+              onClick={(event) => {
                 event.preventDefault()
                 router.push(url)
-              },
-              [router, url],
-            )}
-          >
-            {platformName(platform)}
-          </Button>
+              }}
+            >
+              <StationPopup platformId={platform.id} />
+            </Button>
+          ) : null}
         </RPopup>
       </RFeature>
     </RLayerVector>
   )
 }
 
+// Legend items
+const LegendItem = ({ active }: { active: boolean }) => {
+  return (
+    <span className="caption d-flex flex-row align-items-center">
+      <div className={`erddap-key-dot ${active ? "erddap-dot-active" : "erddap-dot-inactive"}`}></div>
+      {active ? "Recent Data" : "Out of Date"}
+    </span>
+  )
+}
+
+// ERDDAP map legend
+const MapLegend = () => {
+  return (
+    <div className="map-key d-flex flex-column gap-1 bg-white border rounded-1 py-2 px-3">
+      <LegendItem active={true} />
+      <LegendItem active={false} />
+    </div>
+  )
+}
+
 // Initial view to display if one is not otherwise set
 const initial = { center: fromLonLat([-68.5, 43.5]), zoom: 6 }
 
-export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, height }: BaseProps) => {
+export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, className }: BaseProps) => {
   const mapRef = useRef<RMap>(null)
   const params: { regionId?: string; platformId?: string } = useParams()
-  const [view, setView] = useState<View>(initial)
   const path = usePathname()
+
+  // Make sure only one popup at a time is rendered
+  const [activePopupId, setActivePopupId] = useState<string | null>(null)
+  const onPointerMove = useCallback((event) => {
+    const feature = event.map.forEachFeatureAtPixel(event.pixel, (f) => f)
+    const id = feature?.get("platform_id") ?? null
+    setActivePopupId((prev) => (prev === id ? prev : id))
+  }, [])
 
   // Check if the route was navigated to using the back button
   // const isBackButtonUsed = router.asPath !== router.pathname;
@@ -139,7 +177,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
-      const region = regionList.find((r) => r.slug === regionId)
+      const region = regionMenuList.find((r) => r.slug === regionId)
       getView(region)
     }
     if (path === "/") {
@@ -147,7 +185,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       getView(region)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path, platforms])
+  }, [path, params.regionId])
 
   const getView = (region) => {
     const boundingBox = region?.bbox
@@ -155,33 +193,31 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
       const { north, south, east, west } = boundingBox
       const extent = transformExtent([west, south, east, north], "EPSG:4326", "EPSG:3857")
       mapRef?.current?.ol.getView().fit(extent)
-      const center = mapRef?.current?.ol.getView().getState().center
-      const zoom = mapRef?.current?.ol.getView().getState().zoom
-      center && zoom ? setView({ center, zoom }) : setView(initial)
     }
   }
-
-  // Make sure the height of the map gets updated when jumping
-  // from home to platform view
-  useLayoutEffect(() => {
-    mapRef?.current?.ol.updateSize()
-  }, [height])
 
   const { oldPlatforms, filteredPlatforms, selectedPlatforms } = filterPlatforms(platforms, platformId)
 
   return (
-    <RMap ref={mapRef} className="map" initial={initial} view={[view || initial, setView]} height={height}>
+    <RMap ref={mapRef} className={className} initial={initial} height="100%" onPointerMove={onPointerMove}>
       <EsriOceanBasemapLayer />
       <EsriOceanReferenceLayer />
+      <MapLegend />
 
       {oldPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={false} old={true} />
+        <PlatformLayer key={p.id} platform={p} selected={false} old={true} activePopupId={activePopupId} />
       ))}
       {filteredPlatforms.map((p) => (
-        <PlatformLayer key={p.id} platform={p} selected={false} old={false} />
+        <PlatformLayer key={p.id} platform={p} selected={false} old={false} activePopupId={activePopupId} />
       ))}
       {!!selectedPlatforms.length && (
-        <PlatformLayer key={selectedPlatforms[0].id} platform={selectedPlatforms[0]} selected={true} old={false} />
+        <PlatformLayer
+          key={selectedPlatforms[0].id}
+          platform={selectedPlatforms[0]}
+          selected={true}
+          old={false}
+          activePopupId={activePopupId}
+        />
       )}
     </RMap>
   )
@@ -190,7 +226,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
 /**
  * Map that is focused on the Gulf of Maine with the selected platform highlighted
  */
-export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Props) => {
+export const ErddapMap: React.FC<Props> = ({ platformId, platforms, className }: Props) => {
   const { isLoading, data } = usePlatforms()
   const [isClient, setIsClient] = useState(false)
 
@@ -199,7 +235,7 @@ export const ErddapMap: React.FC<Props> = ({ platformId, height, platforms }: Pr
   }, [])
 
   if (data?.features && isClient) {
-    return <ErddapMapBase platforms={platforms ?? data?.features} platformId={platformId} height={height} />
+    return <ErddapMapBase className={className} platforms={platforms ?? data?.features} platformId={platformId} />
   }
   return null
 }

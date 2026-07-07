@@ -28,10 +28,14 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
   const unitSystem = useUnitSystem()
 
   const halfDayAgo = halfADayAgoRounded()
-  const { before, windTimeSeries, timeSeries, after, allCurrentConditionsTimeseries } = currentConditionsTimeseries(
-    platform,
-    halfDayAgo,
-  )
+  const {
+    beforeWithoutGroups,
+    windTimeSeries,
+    waveTimeSeries,
+    timeSeries,
+    afterWithoutGroups,
+    allCurrentConditionsTimeseries,
+  } = currentConditionsTimeseries(platform, halfDayAgo)
 
   return (
     <UseDatasets timeSeries={allCurrentConditionsTimeseries} startTime={halfDayAgo} platformId={platform.id}>
@@ -46,9 +50,9 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
         const endTime = new Date(times[times.length - 1])
 
         return (
-          <Row>
+          <Row xs={1} md={3} className="g-5 align-items-stretch g-2">
             {datasets.map((dataset, index) => {
-              const datasetTimeSeries = before.find((ts) => ts.variable === dataset.name)
+              const datasetTimeSeries = beforeWithoutGroups.find((ts) => ts.variable === dataset.name)
               if (!datasetTimeSeries) {
                 return null
               }
@@ -63,6 +67,21 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
             })}
 
             <DisplayWindCard timeSeries={windTimeSeries} {...{ datasets, platform, unitSystem, startTime, endTime }} />
+
+            {datasets.map((dataset, index) => {
+              const datasetTimeSeries = waveTimeSeries.find((ts) => ts.variable === dataset.name)
+              if (!datasetTimeSeries) {
+                return null
+              }
+              return (
+                <DataCardDisplay
+                  key={index}
+                  timeSeries={datasetTimeSeries}
+                  readings={dataset.timeSeries}
+                  {...{ platform, unitSystem, startTime, endTime }}
+                />
+              )
+            })}
 
             {datasets.map((dataset, index) => {
               const datasetTimeSeries = timeSeries.find((ts) => ts.variable === dataset.name)
@@ -80,7 +99,7 @@ export const ErddapCurrentPlatformConditions: React.FunctionComponent<Props> = (
             })}
 
             {datasets.map((dataset, index) => {
-              const datasetTimeSeries = after.find((ts) => ts.variable === dataset.name)
+              const datasetTimeSeries = afterWithoutGroups.find((ts) => ts.variable === dataset.name)
               if (!datasetTimeSeries) {
                 return null
               }

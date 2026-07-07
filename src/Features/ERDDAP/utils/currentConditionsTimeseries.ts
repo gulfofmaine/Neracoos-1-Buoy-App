@@ -1,6 +1,7 @@
 import { conditions } from "./conditions"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
 import { pickWindTimeSeries } from "./wind"
+import { pickWaveTimeSeries } from "./waves"
 
 /// Filter to current observation time series for specified data types
 export function filterTimeSeries(timeSeries: PlatformTimeSeries[], dataTypes: string[], laterThan: Date) {
@@ -39,34 +40,46 @@ export function currentConditionsTimeseries(platform: PlatformFeature, laterThan
 
   const airTemp = filterTimeSeries(notHighlighted, conditions.airTemp, laterThan)
   const airPressure = filterTimeSeries(notHighlighted, conditions.airPressure, laterThan)
-  const waveHeight = filterTimeSeries(notHighlighted, conditions.waveHeight, laterThan)
-  const wavePeriod = filterTimeSeries(notHighlighted, conditions.wavePeriod, laterThan)
-  const waveDirection = filterTimeSeries(notHighlighted, conditions.waveDirection, laterThan)
   const waterTemp = filterTimeSeries(notHighlighted, conditions.waterTemp, laterThan)
   const waterLevel = filterTimeSeries(notHighlighted, conditions.waterLevel, laterThan)
   const visibility = filterTimeSeries(notHighlighted, conditions.visibility, laterThan)
 
   const { timeSeries: windTimeSeries } = pickWindTimeSeries(platform, laterThan)
+  const { timeSeries: waveTimeSeries } = pickWaveTimeSeries(platform, laterThan)
 
-  const timeSeriesWithNull = [
-    waveHeight,
-    wavePeriod,
-    waveDirection,
-    airPressure,
-    airTemp,
-    waterTemp,
-    waterLevel,
-    visibility,
-  ]
+  const timeSeriesWithNull = [waterTemp, airTemp, airPressure, waterLevel, visibility]
   const timeSeries = timeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
 
-  const allWithNull = [...before, ...windTimeSeries, ...timeSeries, ...after]
-  const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
+  const beforeWithoutGroups = before.filter((ts) => !waveTimeSeries.includes(ts) && !windTimeSeries.includes(ts))
+  const afterWithoutGroups = after.filter((ts) => !waveTimeSeries.includes(ts) && !windTimeSeries.includes(ts))
+  const nonGroupTimeSeriesWithNull = [
+    ...beforeWithoutGroups,
+    waterTemp,
+    airTemp,
+    airPressure,
+    waterLevel,
+    visibility,
+    ...afterWithoutGroups,
+  ]
+  const nonGroupTimeSeries = nonGroupTimeSeriesWithNull.filter((ts) => ts !== null) as PlatformTimeSeries[]
+
+  const allWithNull = [
+    ...beforeWithoutGroups,
+    ...windTimeSeries,
+    ...waveTimeSeries,
+    ...timeSeries,
+    ...afterWithoutGroups,
+  ]
+  const allCurrentConditionsTimeseries = allWithNull.filter((ts) => ts !== null)
 
   return {
     before,
     after,
+    beforeWithoutGroups,
+    afterWithoutGroups,
     windTimeSeries,
+    waveTimeSeries,
+    nonGroupTimeSeries,
     timeSeries,
     allCurrentConditionsTimeseries,
   }

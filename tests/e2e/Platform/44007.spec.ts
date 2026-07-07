@@ -7,9 +7,9 @@ const platformUrl = "/platform/44007"
 test.describe("Platfrom 44007", () => {
   test("Can get to from Home Page", async ({ page }) => {
     await page.goto("/")
-    await page.getByRole("button", { name: "Regions" }).click()
-    await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
-    await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
+    await page.getByRole("button", { name: "Stations" }).click()
+    await page.getByRole("link", { name: "Southern Maine Coast", exact: true }).click()
+    await expect(await page.getByRole("heading", { name: "Platforms in Southern Maine Coast" })).toBeVisible()
     await page.getByRole("link", { name: "Casco Bay" }).click()
     await expect(await page.getByText("Station 44007")).toBeVisible()
   })
@@ -35,20 +35,22 @@ test.describe("Platfrom 44007", () => {
   test("Shows wind plot", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page.getByRole("menuitem", { name: "Wind" }).first().click()
-    await expect(page.locator("h4").getByText(/Wind/).first()).toBeVisible()
+    await expect(page.locator("h2").getByText(/Wind/).first()).toBeVisible()
     await expect(page.locator("svg.highcharts-root")).toBeVisible()
     // cy.get("svg.highcharts-root").contains("Gust").click()
-    await page.locator("svg.highcharts-root").getByText(/Speed/).first().click()
     await page
-      .locator("svg.highcharts-root")
-      .getByText(/Direction/)
+      .getByRole("button", { name: /Wind Speed/ })
       .first()
       .click()
-    await expect(page.locator("svg.highcharts-root").getByText(/Knots/).first()).toBeVisible()
+    await page
+      .getByRole("button", { name: /Direction/ })
+      .first()
+      .click()
+    await expect(page.locator("svg.highcharts-root").getByText(/kts/).first()).toBeVisible()
     await expect(page.getByText(/Data access/).first()).not.toBeVisible()
     await page.locator("#tooltip-0-trigger").click()
     await expect(page.getByText(/Data access/).first()).toBeVisible()
@@ -118,7 +120,7 @@ test.describe("Platfrom 44007", () => {
   test.skip("Updated recently", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
@@ -141,28 +143,29 @@ test.describe("Platfrom 44007", () => {
   test("Can view all observations", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
       .getByText(/All Observations/)
       .first()
       .click()
-    await expect(page.getByText(/Wind Speed:/).first()).toBeVisible()
+    await expect(page.getByText(/Wind/).first()).toBeVisible()
   })
   test("Can perisist observation view on hard refresh", async ({ page }) => {
     await page.goto(platformUrl)
     await page
-      .getByText(/Observations/)
+      .getByText(/All Data/)
       .first()
       .click()
     await page
+      .getByRole("menuitem")
       .getByText(/Air Temperature/)
       .first()
       .click()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()
@@ -175,7 +178,7 @@ test.describe("Platfrom 44007", () => {
     await page.reload()
     await expect(
       page
-        .locator("h4")
+        .locator("h2")
         .getByText(/Air Temperature/)
         .first(),
     ).toBeVisible()

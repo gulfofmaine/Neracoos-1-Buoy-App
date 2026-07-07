@@ -55,14 +55,18 @@ export const ErddapPlatformListBase: React.FC<BaseProps> = ({ boundingBox, platf
             <Link
               key={id}
               href={urlPartReplacer(paths.platforms.platform, ":id", id as string)}
-              className="list-group-item list-group-item-action"
+              className="list-group-item list-group-item-action text-primary"
             >
               {platformName(platform)}
             </Link>
           )
         })
 
-      return <ListGroup as="ul">{listItems}</ListGroup>
+      return (
+        <ListGroup variant="flush" as="ul">
+          {listItems}
+        </ListGroup>
+      )
     }
   }
 

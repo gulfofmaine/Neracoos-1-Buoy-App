@@ -19,31 +19,31 @@ test("Home speed", async ({ page, performance }) => {
   performance.sampleStart("Home-Platforms")
   await page.goto("/")
   // await page.goto("https://mariners-dev.aws.neracoos.org")
-  await expect(await page.getByText("Home").first()).toBeVisible()
+  await expect(await page.getByText("Mariners' Dashboard").first()).toBeVisible()
   performance.sampleEnd("Home-startup")
   await expect(await page.getByText("Welcome to the NERACOOS Mariners").first()).toBeVisible()
   performance.sampleEnd("Home-Content")
-  await expect(await page.getByText("Latest Conditions").first()).toBeVisible()
+  await expect(await page.getByRole("heading", { name: "Top Wind & Waves - All Regions" }).first()).toBeVisible()
   performance.sampleEnd("Home-Platforms")
 })
 
 test("Platform speed", async ({ page, performance }) => {
   performance.sampleStart("Platform-startup")
   await page.goto("/platform/44007")
-  await expect(await page.getByText("Home").first()).toBeVisible()
+  await expect(await page.getByText("Mariners' Dashboard").first()).toBeVisible()
   performance.sampleEnd("Platform-startup")
 })
 
 test("Navigate speed", async ({ page, performance }) => {
   performance.sampleStart("Navigate-Startup")
   await page.goto("/")
-  await expect(await page.getByText("Home").first()).toBeVisible()
+  await expect(await page.getByText("Mariners' Dashboard").first()).toBeVisible()
   performance.sampleEnd("Navigate-Startup")
 
   performance.sampleStart("Navigate-Regions")
-  await page.getByRole("button", { name: "Regions" }).click()
-  await page.getByRole("link", { name: "Gulf Of Maine", exact: true }).click()
-  await expect(await page.getByRole("heading", { name: "Platforms in Gulf Of Maine" })).toBeVisible()
+  await page.getByRole("button", { name: "Stations" }).click()
+  await page.getByRole("link", { name: "Southern Maine Coast", exact: true }).click()
+  await expect(await page.getByRole("heading", { name: "Platforms in Southern Maine Coast" })).toBeVisible()
   performance.sampleEnd("Navigate-Regions")
 
   performance.sampleStart("Navigate-Platform")

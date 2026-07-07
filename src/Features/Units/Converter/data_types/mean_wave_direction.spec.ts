@@ -25,6 +25,6 @@ describe("mean_wave_direction conversions", () => {
 
   it("display names", () => {
     expect(mean_wave_direction.displayName(UnitSystem.english)).toBe("")
-    expect(mean_wave_direction.displayName(UnitSystem.metric)).toBe("Degrees")
+    expect(mean_wave_direction.displayName(UnitSystem.metric)).toBe("\u00B0")
   })
 })

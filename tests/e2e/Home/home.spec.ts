@@ -23,7 +23,6 @@ test.describe("Home page", function () {
     await page.goto("/")
     await expect(
       page
-        .locator(".footer")
         .getByText(/Copyright/)
         .first()
         .getByText(/NERACOOS/)
@@ -31,7 +30,6 @@ test.describe("Home page", function () {
     ).toBeVisible()
     await expect(
       page
-        .locator(".footer")
         .getByText(/Product of NERACOOS\.org - Developed and maintained by the Gulf of Maine Research Institute/)
         .first(),
     ).toBeVisible()
@@ -40,8 +38,8 @@ test.describe("Home page", function () {
   test("Has superlatives", async ({ page }) => {
     await page.goto("/")
     await expect(page.getByText(/Highest Winds/).first()).toBeVisible()
-    await expect(page.getByText(/Knots/).first()).toBeVisible()
+    await expect(page.getByText(/\d+\s+kts/)).toBeVisible()
     await expect(page.getByText(/Biggest Waves/).first()).toBeVisible()
-    await expect(page.getByText(/ft/).first()).toBeVisible()
+    await expect(page.getByText(/\d+\s+ft/).first()).toBeVisible()
   })
 })

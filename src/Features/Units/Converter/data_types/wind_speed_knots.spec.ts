@@ -25,7 +25,7 @@ describe("wind_speed_knots conversions", () => {
   })
 
   it("display names", () => {
-    expect(wind_speed_knots.displayName(UnitSystem.english)).toBe("Knots")
-    expect(wind_speed_knots.displayName(UnitSystem.metric)).toBe("Meters/Second")
+    expect(wind_speed_knots.displayName(UnitSystem.english)).toBe("kts")
+    expect(wind_speed_knots.displayName(UnitSystem.metric)).toBe("m/s")
   })
 })

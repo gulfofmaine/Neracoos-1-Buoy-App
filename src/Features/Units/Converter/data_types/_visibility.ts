@@ -15,7 +15,7 @@ export class Visibility extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
   ) {
-    super(data_type, display_name, "m", "km", "nMi", "Kilometers", "Nautical Miles")
+    super(data_type, display_name, "m", "km", "nMi", "Kilometers", "Nautical Miles", "km", "nMi")
   }
 
   public convertTo(value: number, unitSystem: UnitSystem): number {

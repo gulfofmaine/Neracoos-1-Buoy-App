@@ -20,6 +20,6 @@ describe("tidal_sea_surface_height_above_mean_sea_level conversions", () => {
 
   it("display names", () => {
     expect(tidal_sea_surface_height_above_mean_sea_level.displayName(UnitSystem.english)).toBe("ft")
-    expect(tidal_sea_surface_height_above_mean_sea_level.displayName(UnitSystem.metric)).toBe("Meters")
+    expect(tidal_sea_surface_height_above_mean_sea_level.displayName(UnitSystem.metric)).toBe("m")
   })
 })

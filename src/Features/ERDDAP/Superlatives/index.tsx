@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 import { WarningAlert } from "components/Alerts"
 import { useUnitSystem } from "Features/Units"
@@ -17,6 +18,7 @@ import { paths } from "Shared/constants"
 import { round } from "Shared/math"
 import { anHourAgoRounded, hoursBefore } from "Shared/time"
 import { urlPartReplacer } from "Shared/urlParams"
+import { InfoCircleIcon } from "Shared/icons/iconsMap"
 
 import { usePlatforms } from "../hooks/buoyBarn"
 import { PlatformFeature, PlatformTimeSeries } from "../types"
@@ -105,16 +107,38 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
       }
     }
   }, [platforms, searchStartTime])
+
+  const renderToolTip = (props) => {
+    if (windSuperlative?.timeSeries?.time && waveSuperlative?.timeSeries?.time) {
+      return (
+        <Tooltip {...props} id="superlatives-tooltip" className="superlatives-tooltip">
+          <div>{`Wind observation from: ${new Date(windSuperlative.timeSeries.time).toLocaleString()}`}</div>
+          <div>{`Wave observation from: ${new Date(waveSuperlative.timeSeries.time).toLocaleString()}`}</div>
+        </Tooltip>
+      )
+    } else {
+      return (
+        <Tooltip {...props} id="superlatives-tooltip">
+          Data not available.
+        </Tooltip>
+      )
+    }
+  }
   return (
-    <Card style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-      <Card.Header>
-        <h5>Latest Conditions</h5>
+    <Card className="mt-5">
+      <Card.Header className="d-flex flex-row gap-2 align-items-center bg-black bg-opacity-5">
+        <h3 className="d-flex m-0">Top Wind & Waves - All Regions</h3>
+        <OverlayTrigger placement="right" delay={{ show: 250, hide: 250 }} overlay={renderToolTip}>
+          <InfoCircleIcon className="fa-md" />
+        </OverlayTrigger>
       </Card.Header>
 
       <Card.Body>
         <Row>
           <Col>
-            <h6>Highest Winds</h6>
+            <p className="m-0">
+              <strong>Highest Winds</strong>
+            </p>
             {windSuperlative?.platform && windSuperlative?.timeSeries ? (
               <HighestConditions
                 platform={windSuperlative.platform}
@@ -127,7 +151,9 @@ export const ShowSuperlatives: React.FunctionComponent<ShowSuperlativesProps> = 
           </Col>
 
           <Col>
-            <h6>Biggest Waves</h6>
+            <p className="m-0">
+              <strong>Biggest Waves</strong>
+            </p>
             {waveSuperlative?.platform && waveSuperlative?.timeSeries ? (
               <HighestConditions
                 platform={waveSuperlative.platform}
@@ -202,12 +228,10 @@ const HighestConditions: React.FunctionComponent<HighestConditionsProps> = ({ pl
 
   return (
     <React.Fragment>
-      <div>
+      <p className="m-0">
         {round(dataConverter.convertToNumber(timeSeries.value!, unitSystem), 1)} {dataConverter.displayName(unitSystem)}
-      </div>
-      <Link href={url}>
-        <div>{platformName(platform)}</div>
-      </Link>
+      </p>
+      <Link href={url}>{platformName(platform)}</Link>
     </React.Fragment>
   )
 }

@@ -19,7 +19,7 @@ describe("dew_point_temperature conversions", () => {
   })
 
   it("display names", () => {
-    expect(dew_point_temperature.displayName(UnitSystem.english)).toBe("Fahrenheit")
-    expect(dew_point_temperature.displayName(UnitSystem.metric)).toBe("Celsius")
+    expect(dew_point_temperature.displayName(UnitSystem.english)).toBe("\u00B0F")
+    expect(dew_point_temperature.displayName(UnitSystem.metric)).toBe("\u00B0C")
   })
 })

@@ -64,45 +64,40 @@ export function TimeframeSelector({
   }, [searchParams, isWaterLevel, graphFuture, pathname, setEndTime, setStartTime])
 
   return (
-    <Card className={`${isWaterLevel ? "timeframe-card" : "timeframe-card main"}`}>
+    <Card className={`${isWaterLevel ? "timeframe-card-wl" : "p-2"}`}>
       {validDateMessage !== "" && <WarningAlert>{validDateMessage}</WarningAlert>}
       <div>
-        <Col
-          style={{
-            margin: 0,
-            padding: 0,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
-            <p style={{ marginBottom: 0, marginRight: "5px" }}>Start:</p>
-            <input
-              type="date"
-              id="start"
-              name="start"
-              max={getToday()}
-              value={formatDate(startTime)}
-              onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
-              required={true}
-            />
-          </label>
-          <label style={{ marginRight: "20px", display: "flex", alignItems: "center" }} className="timeframe-label">
-            <p style={{ marginBottom: 0, marginRight: "5px" }}>End:</p>
-            <input
-              type="date"
-              id="end"
-              name="end"
-              min={formatDate(startTime)}
-              max={graphFuture ? undefined : getToday()}
-              value={formatDate(endTime)}
-              onInput={(e) => setEndTime(formatDate(new Date((e.target as HTMLInputElement).value)))}
-              required={true}
-            />
-          </label>
+        <Col className="gap-2 w-100 d-flex flex-row align-items-center justify-content-around">
+          <div className="d-flex flex-column flex-lg-row align-items-lg-center align-items-end gap-2">
+            <label className="d-flex align-items-center">
+              <p style={{ marginBottom: 0, marginRight: "5px" }}>Start:</p>
+              <input
+                type="date"
+                id="start"
+                name="start"
+                max={getToday()}
+                value={formatDate(startTime)}
+                onInput={(e) => setStartTime((e.target as HTMLInputElement).value)}
+                required={true}
+              />
+            </label>
+
+            <label className="d-flex align-items-center">
+              <p style={{ marginBottom: 0, marginRight: "5px" }}>End:</p>
+              <input
+                type="date"
+                id="end"
+                name="end"
+                min={formatDate(startTime)}
+                max={graphFuture ? undefined : getToday()}
+                value={formatDate(endTime)}
+                onInput={(e) => setEndTime(formatDate(new Date((e.target as HTMLInputElement).value)))}
+                required={true}
+              />
+            </label>
+          </div>
           <OverlayTrigger overlay={<Tooltip>Revert to default date</Tooltip>}>
-            <Button variant="outline-light" size="sm" style={{ marginRight: "5px", border: "grey" }}>
+            <Button variant="outline-light" size="sm" className="border">
               <Link
                 href={
                   searchParams.get("datum")
@@ -126,7 +121,7 @@ export function TimeframeSelector({
               return validDateMessage !== "" ? <Tooltip {...props}>{validDateMessage}</Tooltip> : <span />
             }}
           >
-            <Button variant="primary" size="sm" disabled={!startTime || !endTime || validDateMessage !== ""}>
+            <Button variant="info" size="sm" disabled={!startTime || !endTime || validDateMessage !== ""}>
               <Link
                 href={{
                   pathname,
@@ -138,6 +133,7 @@ export function TimeframeSelector({
                   ),
                 }}
                 style={{ color: "white", textDecoration: "none", width: "100%", height: "100%" }}
+                onClick={window.location.reload}
               >
                 Plot Dates
               </Link>

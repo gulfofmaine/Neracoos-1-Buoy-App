@@ -16,7 +16,7 @@ export class CmsVelocity extends DataTypeConversion {
     public data_type: string,
     public display_name: string,
   ) {
-    super(data_type, display_name, "cm/s", "m/s", "knot", "Meters/Second", "Knots")
+    super(data_type, display_name, "cm/s", "m/s", "knot", "Meters/Second", "Knots", "m/s", "kts")
   }
 
   convertFrom(value: number | string): ConvertFrom {

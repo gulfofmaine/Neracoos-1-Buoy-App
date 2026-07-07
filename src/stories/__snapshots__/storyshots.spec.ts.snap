@@ -50,110 +50,140 @@ exports[`Storybook Snapshot Tests > Components/Alerts/Warning > Warning 1`] = `
 
 exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
 <div>
-  <div
-    class="footer"
-    style="position: absolute; bottom: 0px; width: 100%; padding-bottom: 10px; height: 110px;"
+  <footer
+    class="mt-auto caption py-6 px-auto bg-secondary bg-opacity-5"
   >
     <div
-      class="row"
-      style="font-size: 0.8rem; padding: 1rem 0.25rem 0.25rem;"
+      class="text-center g-1 row"
     >
       <div
-        class="mx-auto text-center col-md-10"
+        class="col-md-12 col-12"
       >
-        Copyright © 2021 ~ NERACOOS
+        Copyright © 2026 - NERACOOS
       </div>
-    </div>
-    <div
-      class="row"
-      style="font-size: 0.8rem; padding: 0.25rem;"
-    >
       <div
-        class="mx-auto text-center col-md-10"
+        class="col-md-12 col-12"
       >
-        Use
+        Send us
          
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
         >
-          this form
+          feedback/bug reports
         </a>
-         
-        to send us feedback or bug reports
       </div>
-    </div>
-    <div
-      class="row"
-      style="font-size: 0.8rem; padding: 0.25rem;"
-    >
       <div
-        class="mx-auto text-center col-md-10"
+        class="col-md-12 col-12"
       >
-        Product of 
+        Product of: 
         <a
           href="http://www.neracoos.org/"
         >
           NERACOOS.org
         </a>
-         - Developed and maintained by the
+         - Developed by:
          
         <a
           href="https://gmri.org/commitments/science/ocean-data-products/"
         >
-          Gulf of Maine Research Institute
+          GMRI
         </a>
       </div>
     </div>
-  </div>
+  </footer>
 </div>
 `;
 
 exports[`Storybook Snapshot Tests > ERDDAP/Info/Panel > platformInfo 1`] = `
 <div>
   <div
-    class="card"
+    class="p-2 card"
     role="complementary"
   >
     <div
-      class="card-body"
+      class="p-0 card-body"
     >
-      <div
-        class="card-title h5"
-        role="header"
+      <p
+        class="m-0 text-black-65"
+        role="header-id"
       >
         Station 
         M01
-      </div>
-      <p
-        class="card-text"
-      >
-        Jordan Basin
-        <br />
-        <b>
-          NDBC ID:
-        </b>
-         
-        44037
-        <br />
-        <b>
-          Lat:
-        </b>
-         
-        43.5
-         
-        <b>
-          Lon:
-        </b>
-         
-        -67.87
-        <br />
-        <a
-          href="http://gyre.umeoce.maine.edu/gomoos.php"
-        >
-          University of Maine
-        </a>
-        <br />
       </p>
+      <h2
+        class="text-primary pb-3"
+        role="header"
+      />
+      <div
+        class="d-flex flex-column gap-1"
+      >
+        <span
+          class="d-flex flex-row gap-2 align-items-baseline"
+        >
+          <h3
+            class="text-primary m-0"
+          >
+            NDBC ID
+          </h3>
+           
+          <p
+            class="text-black-65 m-0"
+          >
+            44037
+          </p>
+        </span>
+        <span
+          class="text-primary h3-mimic"
+        >
+          Jordan Basin
+        </span>
+        <span
+          class="d-flex flex-row gap-2 pb-5 align-items-baseline"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-location-pin text-primary"
+            data-icon="location-pin"
+            data-prefix="fas"
+            role="img"
+            viewBox="0 0 384 512"
+          >
+            <path
+              d="M192 0C86 0 0 84.4 0 188.6 0 307.9 120.2 450.9 170.4 505.4 182.2 518.2 201.8 518.2 213.6 505.4 263.8 450.9 384 307.9 384 188.6 384 84.4 298 0 192 0z"
+              fill="currentColor"
+            />
+          </svg>
+          <span
+            class="text-primary h3-mimic"
+          >
+            43.5
+          </span>
+          <span
+            class="text-black-65"
+          >
+            Lat
+          </span>
+          <span
+            class="text-primary h3-mimic"
+          >
+            -67.87
+          </span>
+          <span
+            class="text-black-65 m-0"
+          >
+            Lon
+          </span>
+        </span>
+        <span
+          class="mt-auto"
+        >
+          <a
+            href="http://gyre.umeoce.maine.edu/gomoos.php"
+          >
+            University of Maine
+          </a>
+        </span>
+      </div>
     </div>
   </div>
 </div>

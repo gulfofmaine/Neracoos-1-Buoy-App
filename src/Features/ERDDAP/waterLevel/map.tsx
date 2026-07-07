@@ -5,7 +5,7 @@ import { RMap } from "rlayers"
 
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
 import { WLLegend } from "Features/ERDDAP/waterLevel/WLLegend"
-import { InitialRegion, regionList } from "Shared/regions"
+import { InitialRegion, regionMenuList } from "Shared/regions"
 
 import { BaseProps, View, filterPlatforms } from "../Map"
 import { usePlatforms } from "../hooks"
@@ -28,7 +28,7 @@ export const ErddapWaterLevelMapBase: React.FC<Props> = ({ platforms, platformId
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
-      const region = regionList.find((r) => r.slug === regionId)
+      const region = regionMenuList.find((r) => r.slug === regionId)
       getView(region)
     }
     if (path === "/") {

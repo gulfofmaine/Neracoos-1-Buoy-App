@@ -19,7 +19,7 @@ describe("sea_surface_temperature conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_surface_temperature.displayName(UnitSystem.english)).toBe("Fahrenheit")
-    expect(sea_surface_temperature.displayName(UnitSystem.metric)).toBe("Celsius")
+    expect(sea_surface_temperature.displayName(UnitSystem.english)).toBe("\u00B0F")
+    expect(sea_surface_temperature.displayName(UnitSystem.metric)).toBe("\u00B0C")
   })
 })

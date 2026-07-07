@@ -1,8 +1,6 @@
 /**
  * Wind specific current conditions card
  */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faExpand } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
@@ -14,12 +12,13 @@ import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion/compassDirection"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
+import { ExpandIcon } from "Shared/icons/iconsMap"
 
 import { WindTimeSeriesChart } from "components/Charts/WindTimeSeries"
 
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { pickWindDatasets, pickWindTimeSeries } from "../../../utils/wind"
-import { cardProps, observationLink } from "./common_card"
+import { observationLink } from "./common_card"
 
 interface DisplayWindCardProps {
   platform: PlatformFeature
@@ -88,15 +87,19 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
   }
 
   return (
-    <Col {...cardProps}>
+    <Col>
       <Link href={observationLink(platform, "wind")}>
-        <Card>
-          <Card.Header>
-            Winds{speedTitle}
-            {gustTitle}
-            {directionTitle}
+        <Card className="chart-card">
+          <Card.Header className="h-100 border-0">
+            <p className="chart-title">
+              <strong>
+                Winds{speedTitle}
+                {gustTitle}
+                {directionTitle}
+              </strong>
+            </p>
           </Card.Header>
-          <Card.Body style={{ padding: ".2rem" }}>
+          <div className="p-1 pt-3">
             <WindTimeSeriesChart
               days={1}
               barbsPerDay={24}
@@ -104,8 +107,8 @@ export const DisplayWindCardInner: React.FC<DisplayWindCardProps> = ({
               height={150}
               {...{ speed, gust, direction, unitSystem, startTime, endTime }}
             />
-            <FontAwesomeIcon icon={faExpand} pull="right" />
-          </Card.Body>
+          </div>
+          <ExpandIcon className="ms-auto mt-auto p-2" />
         </Card>
       </Link>
     </Col>
@@ -121,7 +124,7 @@ interface OtherWindCardProps {
  * Card to display various information when the wind data is not avaliable or loaded
  */
 const OtherWindCard: React.FunctionComponent<OtherWindCardProps> = ({ platform, children }) => (
-  <Col {...cardProps}>
+  <Col>
     <Link href={observationLink(platform, "wind")}>
       <Card>
         <Card.Header>{children}</Card.Header>

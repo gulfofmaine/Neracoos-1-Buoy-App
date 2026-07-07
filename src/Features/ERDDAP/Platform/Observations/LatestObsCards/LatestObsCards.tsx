@@ -1,0 +1,76 @@
+/**
+ * Current observations table component
+ */
+import React from "react"
+import { Row, Col } from "react-bootstrap"
+import { UnitSystem } from "Features/Units/types"
+
+import { UsePlatformRenderProps } from "../../../hooks/BuoyBarnComponents"
+import { currentConditionsTimeseries } from "../../../utils/currentConditionsTimeseries"
+
+import { LatestObsCard } from "./LatestObsCard"
+import { platformName } from "Features/ERDDAP/utils/platformName"
+
+interface Props extends UsePlatformRenderProps {
+  unitSelector?: React.ReactNode
+  unitSystem: UnitSystem
+  laterThan: Date
+  children?: any
+}
+
+/**
+ * Recent platform observation values
+ * @param platform
+ */
+export const ErddapObservationCards: React.FC<Props> = ({
+  platform,
+  unitSelector,
+  unitSystem,
+  laterThan,
+  children,
+}: Props) => {
+  const { windTimeSeries, waveTimeSeries, nonGroupTimeSeries } = currentConditionsTimeseries(platform, laterThan)
+
+  const times = nonGroupTimeSeries.filter((d) => d.time !== null).map((d) => new Date(d.time as string))
+  times.sort((a, b) => a.valueOf() - b.valueOf())
+  return (
+    <div className="d-flex flex-column rounded-3 p-2 bg-white">
+      <h3>Latest Conditions</h3>
+      {times.length > 0 ? (
+        <span className="d-flex flex-row">
+          <p className="text-black-65 pe-1">Last updated</p>
+          <b>
+            {times[times.length - 1].toLocaleString(undefined, {
+              hour: "2-digit",
+              hour12: true,
+              minute: "2-digit",
+              month: "short",
+              day: "numeric",
+            })}
+          </b>
+        </span>
+      ) : (
+        <div>There is no recent data from {platformName(platform)}</div>
+      )}
+      <Row xs={2} sm={3} md={2} lg={3} xl={3} xxl={4} className="w-100 g-1">
+        {waveTimeSeries.length > 0 && (
+          <LatestObsCard key="wave" timeSeries={waveTimeSeries} platform={platform} unitSystem={unitSystem} />
+        )}
+        {windTimeSeries.length > 0 && (
+          <LatestObsCard key="wind" timeSeries={windTimeSeries} platform={platform} unitSystem={unitSystem} />
+        )}
+        {nonGroupTimeSeries.map((ts, index) => {
+          return <LatestObsCard key={index} timeSeries={ts} platform={platform} unitSystem={unitSystem} />
+        })}
+      </Row>
+
+      {unitSelector ? (
+        <div className="d-flex mt-4 gap-3 align-items-center justify-content-center justify-content-md-start">
+          <span className="d-flex text-nowrap justify-content-center text-black-65">Unit system</span>
+          {unitSelector}
+        </div>
+      ) : null}
+      {children && <>{children}</>}
+    </div>
+  )
+}

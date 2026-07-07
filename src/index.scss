@@ -1,22 +1,67 @@
+@use "sass:color";
 @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
 
-$old-neracoos-blue: #114a6e;
-
+// NERACOOS COLORS
 $neracoos-blue: #083d52;
 $metallic-seaweed: #178596;
 $coastal-meadow: #2ab78f;
 $buoy-yellow: #ffcb22;
 $what-orange: #ffae6d;
-$color: #72e400;
 
-$primary: $neracoos-blue;
-// $primary: $old-neracoos-blue;
+// DIG COLORS
+$blue: $neracoos-blue;
+$black: #212529;
+$white: #ffffff;
+$orange: $what-orange;
+$green: $coastal-meadow;
+$seaweed: $metallic-seaweed;
+$yellow: $buoy-yellow;
+$bootstrap-red: #dc3545;
 
-$secondary: $metallic-seaweed;
-$success: $coastal-meadow;
-$warning: $buoy-yellow;
-$danger: $what-orange;
-$info: $metallic-seaweed;
+// BS MAPPING
+$primary: $blue;
+$secondary: $black;
+$info: $seaweed;
+$success: $green;
+$warning: $yellow;
+$danger: $bootstrap-red;
+
+// THEME
+$dig-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "info": $info,
+  "success": $success,
+  "warning": $warning,
+  "danger": $danger,
+  "orange": $orange,
+);
+
+$black-5: transparentize($black, 0.05);
+$black-20: transparentize($black, 0.2);
+$black-65: transparentize($black, 0.65);
+$seaweed-10: transparentize($seaweed, 0.1);
+
+$font-family-base: "Montserrat", Arial, sans-serif;
+$theme-colors: map-merge($theme-colors, $dig-colors);
+
+$grid-gutter-width: 1.25rem;
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  7: 1.75rem,
+  8: 2rem,
+  9: 2.25rem,
+  10: 2.5rem,
+  20: 5rem,
+);
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/variables";
@@ -29,51 +74,294 @@ $info: $metallic-seaweed;
 // @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+// ========== TYPOGRAPHY START ==========
+
+h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
 }
 
+h2,
+h3 {
+  line-height: 1.875rem;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.25rem;
+  }
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+p {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+// Call this paragraph bold and caption bold
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: $primary;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-decoration: underline;
+}
+
+// Custom class for the caption font
+.caption {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.h3-mimic {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.text-black-20 {
+  color: $black-20;
+}
+
+.text-black-65 {
+  color: $black-65;
+}
+// ========== TYPOGRAPHY END ==========
+
+// ========== OPACITIES START ==========
+$dig-opacities: (
+  5: 0.05,
+  10: 0.1,
+  15: 0.15,
+  55: 0.55,
+  65: 0.65,
+);
+@each $k, $v in $dig-opacities {
+  .bg-opacity-#{$k} {
+    --bs-bg-opacity: #{$v};
+  }
+}
+// ========== OPACITIES END ==========
+// ========== ALERTS START ==========
 .App .alert-primary {
   color: $primary;
 }
 
-.App .navbar-brand .nav-link,
-.App .nav-tabs .nav-item {
+.secondary-alert {
+  margin-top: -16px;
+  margin-left: -42px;
+  margin-right: -42px;
+  font-size: 0.875rem;
+}
+
+// Preserve the original teal look for the default (secondary) variant.
+// Other variants (warning, etc.) fall through to Bootstrap's alert colors.
+.secondary-alert.alert-secondary {
+  background-color: #d1e7ea;
+  border-color: #a2ced5;
+}
+// ========== ALERTS END ==========
+
+// ========== NAV START ==========
+.nav-tabs .nav-link {
   color: $primary;
 }
 
-nav.navbar {
-  background-color: $primary;
-  margin-bottom: 1rem;
+.navbar.dark-nav-custom {
+  --bs-navbar-color: rgba(255, 255, 255, 0.55);
+  --bs-navbar-hover-color: white;
+  --bs-navbar-active-color: rgba(255, 255, 255, 0.55);
+}
 
-  .dropdown-menu {
-    background-color: white;
+.navbar.dark-nav-custom .dropdown-menu {
+  --bs-dropdown-bg: white;
+  --bs-dropdown-link-hover-bg: rgba(23, 133, 150, 0.1); // seaweed-10
+}
+// ========== NAV END ==========
+// ========== MAP START ==========
+.sidebar-height {
+  min-height: 0;
+  @include media-breakpoint-up(md) {
+    max-height: 85vh;
   }
-  .navbar-brand > img {
-    height: 30px;
+}
+
+.region-list {
+  @include media-breakpoint-up(md) {
+    overflow-y: auto;
   }
+}
 
-  a.nav-link {
-    color: rgba(255, 255, 255, 0.55);
+.region-list-container {
+  height: auto;
+  @include media-breakpoint-up(md) {
+    height: 100%;
+  }
+}
 
-    &.active {
-      color: white;
+.region-map-container {
+  height: 100%;
+  display: flex;
+  min-height: 85vh;
+}
+
+// Mobile landscape view
+@media (max-height: 500px) {
+  @include media-breakpoint-up(md) {
+    .sidebar-height {
+      max-height: 75vh;
     }
-
-    &.dropdown-item {
-      color: $primary;
-    }
-
-    &.dropdown-toggle.show {
-      color: rgba(255, 255, 255, 0.739);
+    .region-map-container {
+      min-height: 75vh;
     }
   }
 }
 
-.navbar-dark .navbar-nav .dropdown-menu .nav-link:hover {
-  color: black;
+.landing-min-height {
+  min-height: 590px;
+}
+
+.platform-map-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.map .ol-zoom {
+  top: 10px;
+  left: auto;
+  right: 10px;
+}
+
+// Control aspect ratio with height
+@include media-breakpoint-down(md) {
+  .map {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 50vh;
+  }
+  .landing-min-height {
+    min-height: 0;
+  }
+  .sidebar-height {
+    height: unset;
+  }
+  .region-map-container {
+    height: unset;
+    min-height: unset;
+  }
+}
+
+.ol-touch .ol-control button {
+  font-size: 1.25rem;
+  height: 44px;
+  width: 44px;
+}
+// ========== MAP END ============
+.export-icon-border {
+  border: 1px solid $black-20;
+  border-radius: 6px;
+}
+
+// ==== LATEST CONDITIONS START ====
+.latest-obs-card {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+}
+
+@media (max-width: 400px) {
+  .latest-obs-card {
+    aspect-ratio: unset;
+    height: unset;
+  }
+}
+
+.black-65 {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.card-drop-shadow {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+}
+
+.chart-card {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
+  border: none;
+}
+
+.chart-title {
+  color: $primary;
+  margin-bottom: 0px;
+}
+// ==== LATEST CONDITIONS END ====
+// ==== GENERAL STATION DETAILS STARTT ====
+.seaweed-background {
+  background-color: $info;
+  margin: -20px -20px -0px -20px;
+  padding: 0px 10px 20px;
+}
+
+.mid-page-nav-container {
+  border-radius: 8px;
+  justify-content: center;
+
+  @include media-breakpoint-up(sm) {
+    border-radius: 50rem;
+    justify-content: baseline;
+  }
+}
+
+.mid-page-nav .nav-link {
+  color: $primary;
+  padding-left: 1rem;
+}
+
+@include media-breakpoint-up(xl) {
+  .mid-page-nav .nav-link:hover {
+    color: $black-65;
+  }
+}
+
+.mid-page-nav .dropdown-menu .dropdown-item:active {
+  background-color: transparent;
+  color: inherit;
+}
+
+.mid-page-nav-active {
+  background-color: $primary;
+  border-radius: 50rem;
+
+  @include media-breakpoint-down(sm) {
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+}
+
+// ==== GENERAL STATION DETAILS END ====
+.superlatives-tooltip .tooltip-inner {
+  max-width: none;
 }
 
 .condition-tooltip > div > div {
@@ -99,11 +387,37 @@ nav.navbar {
   right: 10px;
 }
 
+.map-key {
+  position: absolute;
+  z-index: 10;
+  top: 1rem;
+  left: 1rem;
+  color: $black-65;
+  border-color: $black-65;
+}
+
+.erddap-key-dot {
+  border-radius: 8px;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.erddap-dot-active {
+  background-color: rgba($orange, 0.65);
+  border: 2px solid $orange;
+}
+
+.erddap-dot-inactive {
+  background-color: rgba($secondary, 0.65);
+}
+
 .legend-item {
+  position: relative;
   display: flex;
   align-items: center;
   font-size: 12px;
-  position: relative;
+  height: 15px;
 }
 
 .pred-legend-item {
@@ -187,7 +501,7 @@ nav.navbar {
   align-items: center;
 }
 
-.timeframe-card {
+.timeframe-card-wl {
   width: fit-content;
   padding: 8px;
   margin-top: 5px;
@@ -195,26 +509,9 @@ nav.navbar {
   margin-bottom: 20px;
 }
 
-.observation-title-container {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-}
-
-.obervation-title {
-  grid-column: 2;
-  justify-self: center;
-}
-
 .observation-timeframe-selector {
   grid-column: 3;
   justify-self: end;
-}
-
-@media (max-width: 1300px) {
-  .timeframe-card {
-    margin-left: 20px;
-  }
 }
 
 @media (max-width: 1040px) {
@@ -232,15 +529,9 @@ nav.navbar {
     justify-self: center;
     grid-column: 1;
   }
-  .timeframe-card {
-    margin: 0;
-  }
 }
 
 @media (max-width: 500px) {
-  .timeframe-card .main {
-    width: 95%;
-  }
   .timeframe-label {
     flex-direction: column;
     margin: 0;

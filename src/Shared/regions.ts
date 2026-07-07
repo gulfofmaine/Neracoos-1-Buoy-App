@@ -26,100 +26,181 @@ export const InitialRegion: Region = {
   slug: "initial",
 }
 
-const GulfOfMaine: Region = {
+const DowneastMaine: Region = {
   bbox: {
-    east: -65.375,
-    north: 45.125,
-    south: 40.375,
-    west: -70.975,
+    east: -66.0307,
+    north: 45.2496,
+    south: 42.9925,
+    west: -68.5832,
   },
-  name: "Gulf Of Maine",
-  slug: "GOM",
+  name: "Downeast Maine",
+  slug: "DOWNEAST",
 }
 
-const LongIslandSound: Region = {
+const PenobscotBay: Region = {
   bbox: {
-    east: -71.625,
-    north: 41.483,
-    south: 40.697,
-    west: -73.943,
+    east: -67.9132,
+    north: 44.7921,
+    south: 42.9798,
+    west: -69.4501,
   },
-  name: "Long Island Sound",
-  slug: "LONG",
+  name: "Penobscot Bay",
+  slug: "PENBAY",
 }
 
-const GreatBay: Region = {
+const MidcoastMaine: Region = {
   bbox: {
-    east: -70.637,
-    north: 43.158,
-    south: 43.012,
-    west: -70.881,
+    east: -69.1218,
+    north: 44.1782,
+    south: 43.0892,
+    west: -70.0485,
   },
-  name: "Great Bay, NH",
-  slug: "GREAT",
+  name: "Midcoast Maine",
+  slug: "MIDCOAST",
 }
 
-const Boston: Region = {
+const SouthernMaine: Region = {
   bbox: {
-    east: -70.809,
-    north: 42.443,
-    south: 42.211,
-    west: -71.145,
+    east: -69.49,
+    north: 44.2859,
+    south: 43.0702,
+    west: -70.7603,
   },
-  name: "Boston Harbor",
-  slug: "BOSTON",
+  name: "Southern Maine Coast",
+  slug: "SOUTHME",
 }
 
-const CapeCod: Region = {
+const SeacoastNH: Region = {
   bbox: {
-    east: -69.837,
-    north: 42.108,
-    south: 41.389,
-    west: -71.059,
+    east: -70.3676,
+    north: 43.2703,
+    south: 42.6959,
+    west: -71.0204,
   },
-  name: "Cape Cod / Buzzards Bay",
-  slug: "CAPE",
+  name: "Seacoast NH",
+  slug: "SEACOAST",
 }
 
-const NarragansettBay: Region = {
+const MassBay: Region = {
   bbox: {
-    east: -71.06,
-    north: 41.847,
-    south: 41.307,
-    west: -71.564,
+    east: -70.019,
+    north: 42.6618,
+    south: 41.6029,
+    west: -71.1897,
+  },
+  name: "Massachusetts Bay",
+  slug: "MASSBAY",
+}
+
+const OffshoreGOM: Region = {
+  bbox: {
+    east: -64.199,
+    north: 44.4165,
+    south: 39.162,
+    west: -70.4649,
+  },
+  name: "Offshore Gulf of Maine",
+  slug: "OFFSHOREGOM",
+}
+
+const SoutheastMA: Region = {
+  bbox: {
+    east: -69.3886,
+    north: 42.3492,
+    south: 40.8326,
+    west: -71.143,
+  },
+  name: "Southeast Massachusetts",
+  slug: "SOUTHEASTMA",
+}
+
+const NarraBay: Region = {
+  bbox: {
+    east: -70.9573,
+    north: 41.9614,
+    south: 41.3087,
+    west: -71.6696,
   },
   name: "Narragansett Bay",
-  slug: "NARRAGANSETT",
+  slug: "NARRBAY",
 }
 
-const Newfoundland: Region = {
+const RISound: Region = {
   bbox: {
-    east: -52.294,
-    north: 51.835,
-    south: 46.377,
-    west: -59.809,
+    east: -70.5495,
+    north: 41.516,
+    south: 40.5382,
+    west: -71.6805,
   },
-  name: "Newfoundland",
-  slug: "NEWFOUNDLAND",
+  name: "Rhode Island Sound",
+  slug: "RISOUND",
+}
+
+const LISound: Region = {
+  bbox: {
+    east: -72.0031,
+    north: 41.7588,
+    south: 40.1544,
+    west: -74.0863,
+  },
+  name: "Long Island Sound",
+  slug: "LISOUND",
+}
+
+const NYBight: Region = {
+  bbox: {
+    east: -71.3516,
+    north: 40.9116,
+    south: 38.5304,
+    west: -74.3516,
+  },
+  name: "New York Bight",
+  slug: "NYBIGHT",
 }
 
 export const regions = {
-  Boston,
-  CapeCod,
-  GreatBay,
-  GulfOfMaine,
-  InitialRegion,
-  LongIslandSound,
-  NarragansettBay,
-  Newfoundland,
+  DowneastMaine,
+  PenobscotBay,
+  MidcoastMaine,
+  SouthernMaine,
+  SeacoastNH,
+  MassBay,
+  OffshoreGOM,
+  SoutheastMA,
+  NarraBay,
+  RISound,
+  LISound,
+  NYBight,
 }
 
-export const regionList: Region[] = [
-  GulfOfMaine,
-  GreatBay,
-  Boston,
-  CapeCod,
-  NarragansettBay,
-  LongIslandSound,
-  Newfoundland,
+/** Ordered for display in the dropdown menu */
+export const regionMenuList: Region[] = [
+  DowneastMaine,
+  PenobscotBay,
+  MidcoastMaine,
+  SouthernMaine,
+  SeacoastNH,
+  MassBay,
+  OffshoreGOM,
+  SoutheastMA,
+  NarraBay,
+  RISound,
+  LISound,
+  NYBight,
+]
+
+/** Ordered for left/right display on region pages */
+export const regionPageList: Region[] = [
+  OffshoreGOM,
+  NYBight,
+  LISound,
+  RISound,
+  NarraBay,
+  SoutheastMA,
+  MassBay,
+  SeacoastNH,
+  SouthernMaine,
+  MidcoastMaine,
+  PenobscotBay,
+  DowneastMaine,
 ]

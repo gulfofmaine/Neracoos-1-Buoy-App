@@ -19,7 +19,7 @@ describe("northward_wind conversions", () => {
   })
 
   it("display names", () => {
-    expect(northward_wind.displayName(UnitSystem.english)).toBe("Knots")
-    expect(northward_wind.displayName(UnitSystem.metric)).toBe("Meters/Second")
+    expect(northward_wind.displayName(UnitSystem.english)).toBe("kts")
+    expect(northward_wind.displayName(UnitSystem.metric)).toBe("m/s")
   })
 })

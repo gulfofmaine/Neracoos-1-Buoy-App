@@ -12,9 +12,10 @@ import { fromLonLat, transformExtent } from "ol/proj"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { RFeature, RLayerVector, RMap, RPopup, RStyle } from "rlayers"
 import { RStyleArray } from "rlayers/style"
+import * as Sentry from "@sentry/nextjs"
 
 import { EsriOceanBasemapLayer, EsriOceanReferenceLayer } from "components/Map"
-import { BoundingBox, InitialRegion, regionList } from "Shared/regions"
+import { BoundingBox, InitialRegion, regionMenuList } from "Shared/regions"
 import { WATER_LEVEL_STANDARDS } from "Shared/constants/standards"
 import { aDayAgoRounded } from "Shared/time"
 import { waterLevelPath } from "Shared/urlParams"
@@ -156,6 +157,20 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
   useEffect(() => {
     setKey((prevKey) => prevKey + 1) // Increment key on state change
   }, [color])
+
+  const geometry = useMemo(() => {
+    const feature = new GeoJSON({
+      dataProjection: "EPSG:4326",
+      featureProjection: "EPSG:3857",
+    }).readFeature(platform)
+    return (feature as Feature).getGeometry()
+  }, [platform])
+
+  if (!geometry) {
+    Sentry.captureMessage(`Platform ${platform.id} has no geometry. Make sure the point is added in Buoy Barn`)
+    return null
+  }
+
   return (
     <RLayerVector zIndex={10} key={key}>
       {color && (
@@ -177,13 +192,7 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
       )}
 
       <RFeature
-        geometry={useMemo(() => {
-          const feature = new GeoJSON({
-            dataProjection: "EPSG:4326",
-            featureProjection: "EPSG:3857",
-          }).readFeature(platform)
-          return (feature as Feature).getGeometry()
-        }, [platform])}
+        geometry={geometry}
         onClick={useCallback(() => {
           router.push(url)
         }, [router, url])}
@@ -218,7 +227,7 @@ export const ErddapMapBase: React.FC<BaseProps> = ({ platforms, platformId, heig
   useEffect(() => {
     if (typeof params.regionId !== "undefined") {
       const regionId = decodeURIComponent(params.regionId)
-      const region = regionList.find((r) => r.slug === regionId)
+      const region = regionMenuList.find((r) => r.slug === regionId)
       getView(region)
     }
     if (path === "/") {

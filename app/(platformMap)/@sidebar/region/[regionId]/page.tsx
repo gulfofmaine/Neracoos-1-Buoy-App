@@ -1,34 +1,46 @@
 import { use } from "react"
+
 import { DehydratedPlatforms } from "Features/ERDDAP/hooks/DehydrateComponent"
-
-import { regionList } from "Shared/constants"
-import { Region } from "Shared/regions"
-
-import { RegionList } from "./region"
+import { Region, regionPageList } from "Shared/regions"
 import { useDecodedUrl } from "util/hooks"
+
+import { RegionList, NextRegion } from "./region"
+import RegionIndexSidebar from "../page"
 
 export default function RegionSidebar(props: { params: Promise<{ regionId: string }> }) {
   const params = use(props.params)
   const regionId = useDecodedUrl(params.regionId)
 
-  let region: Region | undefined = regionList.find((r) => r.slug === regionId)
+  let region: Region | undefined = regionPageList.find((r) => r.slug === regionId)
 
   if (typeof region === "undefined") {
-    return null
+    return <RegionIndexSidebar />
   }
 
   return (
-    <div>
+    <div className="d-flex flex-column region-list-container">
       <h2>Platforms in {region.name}</h2>
-      <DehydratedPlatforms>
-        <RegionList region={region} />
-      </DehydratedPlatforms>
+
+      <div className="d-flex flex-row mb-2 align-items-center">
+        <div className="d-flex col-6">
+          <NextRegion region={region} offset={-1} />
+        </div>
+        <div className="d-flex col-6 justify-content-end">
+          <NextRegion region={region} offset={1} />
+        </div>
+      </div>
+
+      <div className="region-list border border-1 rounded">
+        <DehydratedPlatforms>
+          <RegionList region={region} />
+        </DehydratedPlatforms>
+      </div>
     </div>
   )
 }
 
 // export async function generateStaticParams() {
-//   return regionList.map((region) => ({
+//   return regionPageList.map((region) => ({
 //     regionId: region.slug,
 //   }))
 // }

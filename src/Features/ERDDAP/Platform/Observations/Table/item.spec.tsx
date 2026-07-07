@@ -87,16 +87,17 @@ const platform: PlatformFeature = {
 
 describe("TableItem", () => {
   const windSpeed = platform.properties.readings.find((ts) => ts.data_type.standard_name === "wind_speed")
-
+  if (!windSpeed) return
   it("Selectes and renders correct data", () => {
     render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.english} />)
 
-    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed:")
+    expect(screen.getByText("Wind Speed:", { selector: "b" }))
   })
 
   it("Rounds the wind speed", () => {
     render(<TableItem platform={platform} timeSeries={windSpeed} unitSystem={UnitSystem.metric} />)
 
-    expect(screen.getByRole("link")).toHaveTextContent("Wind Speed: 4.3 Meters/Second")
+    const label = screen.getByText("Wind Speed:", { selector: "b" })
+    expect(label.parentElement?.textContent).toContain("4.3 m/s")
   })
 })

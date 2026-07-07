@@ -27,6 +27,8 @@ export class DataTypeConversion {
    * @param english_unit Unit type that convert-units understands as output
    * @param metric_unit_display Friendly unit name
    * @param english_unit_display Friendly unit name
+   * @param metric_unit_abbreviation_display Friendly abbreviation
+   * @param english_unit_abbreviation_display Friendly abbreviation
    */
   constructor(
     public data_type: string,
@@ -36,6 +38,8 @@ export class DataTypeConversion {
     protected english_unit: string,
     protected metric_unit_display?: string,
     protected english_unit_display?: string,
+    protected metric_unit_abbreviation_display?: string,
+    protected english_unit_abbreviation_display?: string,
   ) {}
 
   /**
@@ -82,15 +86,19 @@ export class DataTypeConversion {
   }
 
   /**
-   * Return the display name for the given unit system
+   * Return the abbreviated display name for the given unit system
    * @param unitSystem Unit system that the name should be displayed for
    */
   public displayName(unitSystem: UnitSystem): string {
     switch (unitSystem) {
       case UnitSystem.metric:
-        return this.metric_unit_display ? this.metric_unit_display : this.metric_unit
+        return this.metric_unit_abbreviation_display
+          ? this.metric_unit_abbreviation_display
+          : this.displayFullUnitName(unitSystem)
       default:
-        return this.english_unit_display ? this.english_unit_display : this.english_unit
+        return this.english_unit_abbreviation_display
+          ? this.english_unit_abbreviation_display
+          : this.displayFullUnitName(unitSystem)
     }
   }
 
@@ -100,6 +108,19 @@ export class DataTypeConversion {
         return this.metric_unit
       default:
         return this.english_unit
+    }
+  }
+
+  /**
+   * Return full unit display name.
+   * @param unitSystem
+   */
+  public displayFullUnitName(unitSystem: UnitSystem): string {
+    switch (unitSystem) {
+      case UnitSystem.metric:
+        return this.metric_unit_display ? this.metric_unit_display : this.metric_unit
+      default:
+        return this.english_unit_display ? this.english_unit_display : this.english_unit
     }
   }
 }

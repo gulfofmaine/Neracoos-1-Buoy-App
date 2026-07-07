@@ -24,7 +24,7 @@ describe("sea_water_velocity conversions", () => {
   })
 
   it("display names", () => {
-    expect(sea_water_velocity.displayName(UnitSystem.english)).toBe("Knots")
-    expect(sea_water_velocity.displayName(UnitSystem.metric)).toBe("Meters/Second")
+    expect(sea_water_velocity.displayName(UnitSystem.english)).toBe("kts")
+    expect(sea_water_velocity.displayName(UnitSystem.metric)).toBe("m/s")
   })
 })

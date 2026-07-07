@@ -3,10 +3,12 @@
  */
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import type { Point } from "geojson"
 import { useEffect, useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown"
 import Nav from "react-bootstrap/Nav"
+import { usePathname } from "next/navigation"
 
 import { UsePlatformRenderProps } from "../../hooks/BuoyBarnComponents"
 
@@ -47,7 +49,9 @@ export function ErddapMoreInfoDropdown({ platform }: UsePlatformRenderProps) {
 
   return (
     <Dropdown as={Nav.Item} role="menu">
-      <Dropdown.Toggle as={Nav.Link}>More info</Dropdown.Toggle>
+      <Dropdown.Toggle as={Nav.Link}>
+        <strong>More info</strong>
+      </Dropdown.Toggle>
 
       <Dropdown.Menu>
         {dynamicLinks}

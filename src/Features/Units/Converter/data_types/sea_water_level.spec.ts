@@ -20,6 +20,6 @@ describe("sea_water_level conversions", () => {
 
   it("display names", () => {
     expect(sea_water_level.displayName(UnitSystem.english)).toBe("ft")
-    expect(sea_water_level.displayName(UnitSystem.metric)).toBe("Meters")
+    expect(sea_water_level.displayName(UnitSystem.metric)).toBe("m")
   })
 })

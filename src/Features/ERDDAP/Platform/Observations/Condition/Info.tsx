@@ -1,11 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Popover from "react-bootstrap/Popover"
 import ListGroup from "react-bootstrap/ListGroup"
 
 import { tabledapProtocolUrl } from "Shared/erddap/tabledap"
+import { ExportIcon } from "Shared/icons/iconsMap"
 
 import { PlatformTimeSeries } from "../../../types"
 
@@ -64,11 +63,7 @@ export const Info: React.FC<InfoProps> = ({ timeSeries, id, startDate }: InfoPro
   return (
     <React.Fragment>
       <OverlayTrigger delay={{ show: 250, hide: 4000 }} overlay={renderToolTip} trigger={["click"]}>
-        <FontAwesomeIcon
-          id={`tooltip-${id}-trigger`}
-          icon={faInfoCircle}
-          style={{ fontSize: "1rem", verticalAlign: "middle" }}
-        />
+        <ExportIcon id={`tooltip-${id}-trigger`} className="export-icon-border bg-white p-1" role="button" />
       </OverlayTrigger>
     </React.Fragment>
   )

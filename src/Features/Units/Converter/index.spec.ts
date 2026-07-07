@@ -10,7 +10,7 @@ describe("Unit converter", () => {
     const dataConverter = converter(data_type)
 
     expect(dataConverter.convertTo(source_value, UnitSystem.english)).toBeCloseTo(19.4384)
-    expect(dataConverter.displayName(UnitSystem.english)).toBe("Knots")
+    expect(dataConverter.displayName(UnitSystem.english)).toBe("kts")
   })
 
   it("Does not explode and return an invalid data type silently", () => {

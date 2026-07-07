@@ -2,10 +2,9 @@
 import { useParams, usePathname } from "next/navigation"
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useMeasure } from "react-use"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
-import { SecondaryBanner } from "components/SecondaryBanner"
+import { SitewideBanner } from "components/SitewideBanner"
 
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 
@@ -22,18 +21,14 @@ export default function Layout({
 }) {
   const path = usePathname()
   const isPlatformView = path.startsWith("/platform")
+  const isRegionView = path.startsWith("/region")
   const params: { regionId?: string; platformId?: string } = useParams()
-  let [ref, { height }] = useMeasure<HTMLDivElement>()
   const platformId = params.platformId
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
-
-  if (height < 420) {
-    height = 420
-  }
 
   //Removing warning in console re:Highcharts library defaultProps. Not an active warning for us--until this issues is solved on Highcharts' end, keep this to remove huge console error
   const error = console.error
@@ -44,25 +39,35 @@ export default function Layout({
 
   return (
     <React.Fragment>
-      <SecondaryBanner variant="warning">
-        <p style={{ fontStyle: "italic", fontSize: "14px", marginBottom: "0px", textAlign: "center" }}>
-          Try the updated <a href="https://mariners-dev.aws.neracoos.org/">Mariners' Dashboard (Beta)</a>
-        </p>
-      </SecondaryBanner>
-      <Row>
-        <Col xs={{ span: "12", order: "2" }} md={{ span: "6", order: "2" }}>
-          <div ref={ref} style={{ marginBottom: ".5rem" }}>
-            {sidebar}
+      <SitewideBanner />
+      <Row className={`g-5 align-items-stretch ${isPlatformView ? "seaweed-background" : ""}`}>
+        <Col xs={12} md={6} className="order-2 d-flex">
+          <div className="platform-map-layout flex-fill">
+            {/* Second div layer decouples sidebar from map to allow for scrolling */}
+            <div className={isRegionView ? "sidebar-height" : ""}>{sidebar}</div>
           </div>
         </Col>
 
-        <Col xs={{ span: "12", order: `${isPlatformView ? "2" : "1"}` }} md={{ span: "6", order: "1" }}>
-          <ErddapMap height={params.regionId ? "80vh" : height} {...(isPlatformView && { platformId })} />
+        <Col xs={12} md={6} className="order-1 d-flex flex-column">
+          <div className="platform-map-layout flex-fill position-relative">
+            <div className={isRegionView ? "region-map-container" : "d-flex h-100"}>
+              <ErddapMap
+                // Pass minimum height requirement only on landing page
+                className={`${!(isPlatformView || isRegionView) ? "landing-min-height" : ""} map border-0 rounded-2 overflow-hidden`}
+                {...(isPlatformView && { platformId })}
+              />
+            </div>
+          </div>
+
+          {/* Below Map = Superlatives */}
           {belowMap ?? <React.Fragment>{belowMap}</React.Fragment>}
         </Col>
       </Row>
 
-      {(isPlatformView && isClient && bottom) ?? <Row>{bottom}</Row>}
+      {/* Bottom = Platform obs data */}
+      <Row className="mt-4 d-flex justify-content-center">
+        {(isPlatformView && isClient && bottom) ?? <React.Fragment>{bottom}</React.Fragment>}
+      </Row>
     </React.Fragment>
   )
 }

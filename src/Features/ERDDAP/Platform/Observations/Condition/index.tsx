@@ -3,21 +3,21 @@
  */
 import { useSearchParams } from "next/navigation"
 import React, { useState } from "react"
-import Col from "react-bootstrap/Col"
-import Row from "react-bootstrap/Row"
 
 import { PlatformLoadingAlert } from "components/Alerts"
 import { LargeTimeSeriesChart } from "components/Charts/LargeTimeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { useUnitSystem } from "Features/Units"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
+import { TimeframePicker } from "Features/ERDDAP/TimeframeSelector/TimeframePicker"
+import { TimeframeButtonGroup, TimeframeDropdown } from "Features/ERDDAP/TimeframeButtonGroup"
 import { naturalBounds } from "Shared/dataTypes"
 import { DataTimeSeries } from "Shared/timeSeries"
-import { aWeekAgoRounded, daysInFuture, manuallySetFullEODIso } from "Shared/time"
+import { aWeekAgoRounded, daysInFuture } from "Shared/time"
 
 import { UseDataset } from "../../../hooks"
 import { PlatformFeature, PlatformTimeSeries } from "../../../types"
 import { Info } from "./Info"
+import { getStartFunction, Timeframes } from "Features/ERDDAP/TimeframeButtonGroup/timeframes"
 
 interface Props {
   /** Platform to display */
@@ -33,54 +33,90 @@ interface Props {
  */
 export const ErddapObservedCondition: React.FunctionComponent<Props> = ({ platform, standardName }: Props) => {
   const unitSystem = useUnitSystem()
-  const searchParams = useSearchParams()
-  const [startDate, setStartDate] = useState(
-    searchParams.get("start") ? new Date(searchParams.get("start") as string) : aWeekAgoRounded(),
-  )
-  const [endDate, setEndDate] = useState(
-    searchParams.get("end") ? manuallySetFullEODIso(new Date(searchParams.get("end") as string)) : daysInFuture(0),
-  )
+  const [startDate, setStartDate] = useState(aWeekAgoRounded())
+  const [endDate, setEndDate] = useState(daysInFuture(0))
+
+  // Keep a timeframe to allow "unsetting" of the toggle
+  const [timeFrame, setTimeFrame] = useState<Timeframes>("7d")
+  const handleTimeframeChange = (val: Timeframes) => {
+    if (val === null) return // No val no set
+    setTimeFrame(val)
+    const start = getStartFunction(val)
+    setStartDate(start)
+    setEndDate(daysInFuture(0))
+  }
+
+  const handleStartChoice = (start: Date) => setStartDate(start)
+  const handleEndChoice = (end: Date) => setEndDate(end)
 
   const timeSeries: PlatformTimeSeries[] = platform.properties.readings.filter(
     (reading) => reading.data_type.standard_name === standardName,
   )
+
   timeSeries.sort((a, b) => (a.depth && b.depth ? a.depth - b.depth : 0))
 
   const charts = timeSeries.map((ts: PlatformTimeSeries, index) => {
     const depth = ts.depth && ts.depth > 0 ? " at " + ts.depth + "m below" : ""
 
     return (
-      <Row key={index}>
-        <Col>
-          <div className="observation-title-container">
-            <h4 className="obervation-title">
-              {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
-            </h4>
-            <div className="observation-timeframe-selector">
-              {index === 0 && <TimeframeSelector graphFuture={false} />}
+      <div key={ts.depth ? ts.depth : index} className="d-flex flex-column gap-2">
+        <h2 className="d-flex gap-2 justify-content-center align-items-center">
+          {ts.data_type.long_name} {depth} <Info timeSeries={[ts]} id={index} startDate={startDate} />
+        </h2>
+        {index === 0 && (
+          <div className="d-none d-lg-flex flex-column flex-md-row gap-2 align-items-center">
+            <TimeframeButtonGroup
+              name="time-frame-group"
+              type="radio"
+              value={timeFrame ?? "7d"}
+              onChange={handleTimeframeChange}
+              className="order-2 order-md-1"
+            />
+            <div className="flex-row ms-auto order-1 order-md-2">
+              {timeFrame === "custom" && (
+                <TimeframePicker
+                  start={startDate}
+                  end={endDate}
+                  handleStart={handleStartChoice}
+                  handleEnd={handleEndChoice}
+                  graphFuture={false}
+                />
+              )}
             </div>
           </div>
-          <UseDataset
-            timeSeries={ts}
-            startTime={startDate}
-            endTime={endDate}
-            loading={<PlatformLoadingAlert time_series={ts} />}
-          >
-            {({ dataset }) => (
-              <ChartTimeSeriesDisplay
-                {...{ dataset, standardName, unitSystem }}
-                timeSeries={ts}
-                startTime={startDate}
-                endTime={endDate}
-              />
-            )}
-          </UseDataset>
-        </Col>
-      </Row>
+        )}
+
+        {index === 0 && (
+          <div className="d-flex d-lg-none justify-content-center justify-content-md-start">
+            <TimeframeDropdown
+              id="dropdown-timeframe"
+              value={timeFrame}
+              handleChange={handleTimeframeChange}
+              className="align-items-center"
+            />
+          </div>
+        )}
+
+        <UseDataset
+          timeSeries={ts}
+          startTime={startDate}
+          endTime={endDate}
+          loading={<PlatformLoadingAlert time_series={ts} />}
+        >
+          {({ dataset }) => (
+            <ChartTimeSeriesDisplay
+              {...{ dataset, standardName, unitSystem }}
+              timeSeries={ts}
+              startTime={startDate}
+              endTime={endDate}
+            />
+          )}
+        </UseDataset>
+      </div>
     )
   })
 
-  return <div style={{ textAlign: "center" }}>{charts}</div>
+  return charts
 }
 
 interface ChartTimeSeriesDisplayProps {
