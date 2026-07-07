@@ -3,10 +3,15 @@ import React from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 
+import { SitewideBanner } from "components/SitewideBanner"
+
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Row>
-      <Col>{children}</Col>
-    </Row>
+    <>
+      <SitewideBanner />
+      <Row>
+        <Col>{children}</Col>
+      </Row>
+    </>
   )
 }

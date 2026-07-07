@@ -168,6 +168,11 @@ $dig-opacities: (
   margin-left: -42px;
   margin-right: -42px;
   font-size: 0.875rem;
+}
+
+// Preserve the original teal look for the default (secondary) variant.
+// Other variants (warning, etc.) fall through to Bootstrap's alert colors.
+.secondary-alert.alert-secondary {
   background-color: #d1e7ea;
   border-color: #a2ced5;
 }

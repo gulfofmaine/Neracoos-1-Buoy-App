@@ -64,31 +64,29 @@ exports[`Storybook Snapshot Tests > Components/Footer > footer 1`] = `
       <div
         class="col-md-12 col-12"
       >
-        Use
+        Send us
          
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSdzP90655d-ZuDGpdgcMmTvxW1sgR_Hg4KI1KCfQDFU8MMF0g/viewform?usp=sf_link"
         >
-          this form
+          feedback/bug reports
         </a>
-         
-        to send us feedback or bug reports
       </div>
       <div
         class="col-md-12 col-12"
       >
-        Product of 
+        Product of: 
         <a
           href="http://www.neracoos.org/"
         >
           NERACOOS.org
         </a>
-         - Developed and maintained by the
+         - Developed by:
          
         <a
           href="https://gmri.org/commitments/science/ocean-data-products/"
         >
-          Gulf of Maine Research Institute
+          GMRI
         </a>
       </div>
     </div>

@@ -4,6 +4,7 @@ import * as React from "react"
 import { useEffect, useState } from "react"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import { SitewideBanner } from "components/SitewideBanner"
 
 import { ErddapMap } from "../../src/Features/ERDDAP/Map"
 
@@ -38,6 +39,7 @@ export default function Layout({
 
   return (
     <React.Fragment>
+      <SitewideBanner />
       <Row className={`g-5 align-items-stretch ${isPlatformView ? "seaweed-background" : ""}`}>
         <Col xs={12} md={6} className="order-2 d-flex">
           <div className="platform-map-layout flex-fill">

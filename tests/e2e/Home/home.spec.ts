@@ -28,11 +28,7 @@ test.describe("Home page", function () {
         .getByText(/NERACOOS/)
         .first(),
     ).toBeVisible()
-    await expect(
-      page
-        .getByText(/Product of NERACOOS\.org - Developed and maintained by the Gulf of Maine Research Institute/)
-        .first(),
-    ).toBeVisible()
+    await expect(page.getByText(/Product of: NERACOOS\.org - Developed by: GMRI/).first()).toBeVisible()
   })
 
   test("Has superlatives", async ({ page }) => {
