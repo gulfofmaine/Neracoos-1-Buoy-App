@@ -261,6 +261,9 @@ jobs:
     needs: [unit_tests, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
+    outputs:
+      tag: ${{ steps.tagName.outputs.tag }}
+      image_digest: ${{ steps.push.outputs.digest }}
     if: |
       github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
       && github.event_name == 'release'
@@ -295,6 +298,7 @@ jobs:
 
       - name: Build and push Docker Image
         uses: docker/build-push-action@v7.3.0
+        id: push
         with:
           context: .
           push: true
@@ -303,24 +307,6 @@ jobs:
           build-args: |
             NEXT_PUBLIC_ERDDAP_SERVICE=https://buoybarn.neracoos.org
             NEXT_PUBLIC_SENTRY_DSN=${{ secrets.SENTRY_DSN_PROD }}
-
-      - name: Make GitOps directory
-        run: mkdir gitops
-
-      - name: Clone GitOps config repo
-        run: git clone "https://$GITOPS_TOKEN@github.com/gulfofmaine/neracoos-aws-cd.git"
-        working-directory: ./gitops
-        env:
-          GITOPS_TOKEN: ${{ secrets.GITOPS_TOKEN }}
-
-      - name: Update GitOps config repo
-        working-directory: ./gitops/neracoos-aws-cd
-        run: |
-          sed -i 's/?ref=.\+/?ref=${{ steps.tagName.outputs.tag }}/' overlays/mariners/kustomization.yaml
-          sed -i 's/newTag: .\+/newTag: ${{ steps.tagName.outputs.tag }}/' overlays/mariners/kustomization.yaml
-          git config --global user.email 'neracoos-mariners-ci@gmri.org'
-          git config --global user.name 'NERACOOS Mariners Dashboard CI'
-          git diff --exit-code && echo 'Already Deployed' || (git commit -am 'Upgrade Mariners Dashboard to ${{ steps.tagName.outputs.tag }}' && git push)
 
       - name: Copy Next.JS sourcemaps
         run: docker run -v $PWD:/opt/mount --rm --entrypoint cp gmri/neracoos-mariners-dashboard -r /app/.next /opt/mount/next-build
@@ -337,12 +323,36 @@ jobs:
           sourcemaps: ./next-build
           inject: false
 
+  release:
+    name: Notify deploy repo of new release
+    needs: [push_image]
+    uses: gulfofmaine/odp-releaser/.github/workflows/notify.yml@52b11709c1fb73c142b24b62ce7a11ecb37f7da3
+    permissions:
+      contents: read
+      pull-requests: read # ODP Releaser wants to figure out who made a PR
+    if: |
+      github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
+      && github.event_name == 'release'
+    with:
+      image_name: gmri/neracoos-mariners-dashboard
+      tag: ${{ needs.push_image.outputs.tag }}
+      digest: ${{ needs.push_image.outputs.image_digest }}
+      environment: notify # optional gate
+      # deploy_targets_path: .github/deploy_targets.yaml  # optional
+      verbosity: 3 # optional, default
+    secrets:
+      dispatch_app_id: ${{ secrets.GULFOFMAINE_ODP_DISPATCH_APP_ID }}
+      dispatch_app_private_key: ${{ secrets.GULFOFMAINE_ODP_DISPATCH_PRIVATE_KEY }}
+
   push_dev_image:
     name: Build and push dev image to Docker Hub
     runs-on: ubuntu-24.04
     needs: [unit_tests, playwright]
     timeout-minutes: 20
     environment: Deploy with ArgoCD
+    outputs:
+      tag: ${{ steps.tagName.outputs.tag }}
+      image_digest: ${{ steps.push.outputs.digest }}
     if: |
       github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
       && github.ref == 'refs/heads/main'
@@ -377,6 +387,7 @@ jobs:
 
       - name: Build and push Docker Image
         uses: docker/build-push-action@v7.3.0
+        id: push
         with:
           context: .
           push: true
@@ -418,3 +429,24 @@ jobs:
           release: ${{ steps.tagName.outputs.tag }}
           sourcemaps: ./next-build
           inject: false
+
+  release_dev:
+    name: Notify deploy repo of new dev
+    needs: [push_dev_image]
+    uses: gulfofmaine/odp-releaser/.github/workflows/notify.yml@52b11709c1fb73c142b24b62ce7a11ecb37f7da3
+    permissions:
+      contents: read
+      pull-requests: read # ODP Releaser wants to figure out who made a PR
+    if: |
+      github.repository == 'gulfofmaine/Neracoos-1-Buoy-App'
+      && github.ref == 'refs/heads/main'
+    with:
+      image_name: gmri/neracoos-mariners-dashboard
+      tag: ${{ needs.push_dev_image.outputs.tag }}
+      digest: ${{ needs.push_dev_image.outputs.image_digest }}
+      environment: notify # optional gate
+      # deploy_targets_path: .github/deploy_targets.yaml  # optional
+      verbosity: 3 # optional, default
+    secrets:
+      dispatch_app_id: ${{ secrets.GULFOFMAINE_ODP_DISPATCH_APP_ID }}
+      dispatch_app_private_key: ${{ secrets.GULFOFMAINE_ODP_DISPATCH_PRIVATE_KEY }}
