@@ -1,0 +1,10 @@
+rules:
+  cache-poisoning:
+    ignore:
+      # jdx/mise-action, actions/cache, and actions/setup-node caches in push.yml
+      # are low-confidence findings: these jobs only run trusted, non-forked
+      # push/main/release events and always run `npm install --frozen-lockfile`
+      # regardless of cache state, so a poisoned cache can't smuggle in
+      # unreviewed dependencies. Disabling caching entirely would remove real
+      # CI speedups for a low-severity, low-confidence risk.
+      - push.yml

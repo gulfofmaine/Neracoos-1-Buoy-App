@@ -1,0 +1,17 @@
+changelog:
+  categories:
+    - title: "Features"
+      labels:
+        - "feature"
+    - title: "Bug Fixes"
+      labels:
+        - "bug"
+    - title: "Other Changes"
+      labels:
+        - "*"
+      exclude:
+        labels:
+          - "dependencies"
+    - title: "Dependency Updates"
+      labels:
+        - "dependencies"
