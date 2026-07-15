@@ -80,3 +80,12 @@ updates:
       time: "10:00"
     cooldown:
       default-days: 7
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: daily
+      time: "10:00"
+    cooldown:
+      default-days: 7
