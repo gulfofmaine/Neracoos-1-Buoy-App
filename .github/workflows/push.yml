@@ -443,7 +443,7 @@ jobs:
   release_dev:
     name: Notify deploy repo of new dev
     needs: [push_dev_image]
-    uses: gulfofmaine/odp-releaser/.github/workflows/notify.yml@52b11709c1fb73c142b24b62ce7a11ecb37f7da3
+    uses: gulfofmaine/odp-releaser/.github/workflows/notify.yml@fef1724a2cdd7725a519ebb059a60aca71e24e68 # main
     permissions:
       contents: read
       pull-requests: read # ODP Releaser wants to figure out who made a PR
