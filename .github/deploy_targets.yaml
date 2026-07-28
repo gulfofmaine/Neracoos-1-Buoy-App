@@ -1,2 +1,3 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/gulfofmaine/odp-releaser/main/schemas/deploy_targets.schema.json
 - owner: gulfofmaine
   repo: neracoos-aws-cd
