@@ -78,6 +78,10 @@ updates:
     schedule:
       interval: daily
       time: "10:00"
+    groups:
+      codeql-action:
+        patterns:
+          - "github/codeql-action/*"
     cooldown:
       default-days: 7
 
