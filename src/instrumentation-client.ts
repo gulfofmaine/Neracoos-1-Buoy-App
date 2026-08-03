@@ -11,6 +11,21 @@ import * as Sentry from "@sentry/nextjs"
 // tslint:disable-next-line:no-var-requires
 const packageJson = require("../package.json")
 
+/**
+ * The browser can't resolve the "spotlight" Docker service hostname, and in
+ * forwarded-port dev environments (e.g. GitHub Codespaces) it may not even be
+ * on the same machine. Forwarded-port hosts expose each port under a
+ * "<name>-<port>.<domain>" hostname, so derive Spotlight's URL from whatever
+ * origin the page is actually being viewed from. Returns undefined when the
+ * current hostname doesn't match that pattern (e.g. local Docker Desktop),
+ * letting the SDK fall back to its "http://localhost:8969/stream" default.
+ */
+function spotlightSidecarUrl() {
+  const match = window.location.hostname.match(/^(.*)-\d+(\..+)$/)
+  if (!match) return undefined
+  return `${window.location.protocol}//${match[1]}-8969${match[2]}/stream`
+}
+
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
 
@@ -35,6 +50,9 @@ Sentry.init({
       maskAllText: true,
       blockAllMedia: true,
     }),
+    ...(process.env.NEXT_PUBLIC_SENTRY_SPOTLIGHT
+      ? [Sentry.spotlightBrowserIntegration({ sidecarUrl: spotlightSidecarUrl() })]
+      : []),
   ],
 })
 

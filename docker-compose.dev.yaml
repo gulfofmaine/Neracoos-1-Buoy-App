@@ -8,6 +8,8 @@ services:
       target: dev
     command: npm run dev
     stdin_open: true
+    ports:
+      - "0.0.0.0:6006:6006"
     volumes:
       - .:/app:cached
       - /app/node_modules/
@@ -16,12 +18,16 @@ services:
 
     environment:
       NEXT_PUBLIC_ERDDAP_SERVICE: https://buoybarn.neracoos.org
+      # The server runs inside the compose network, so it reaches Spotlight via
+      # the "spotlight" service hostname directly.
       SENTRY_SPOTLIGHT: http://spotlight:8969/stream
-      NEXT_PUBLIC_SENTRY_SPOTLIGHT: http://spotlight:8969/stream
-      NEXT_PUBLIC_SENTRY_DSN: http://spotlight@spotlight:8969/0
-      SENTRY_DSN: http://spotlight@spotlight:8969/0
+      # The browser can't resolve "spotlight" (it isn't on the compose network,
+      # and in Codespaces it may not even be on the same machine), so the client
+      # only gets an enable flag here; instrumentation-client.ts works out the
+      # right sidecar URL from the page's own origin at runtime.
+      NEXT_PUBLIC_SENTRY_SPOTLIGHT: "1"
 
   spotlight:
     image: ghcr.io/getsentry/spotlight:latest
     ports:
-      - "8969:8969"
+      - "0.0.0.0:8969:8969"

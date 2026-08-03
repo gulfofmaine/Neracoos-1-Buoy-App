@@ -1,0 +1,53 @@
+{
+  "name": "Mariner's Dashboard",
+  "dockerComposeFile": ["../docker-compose.yaml", "../docker-compose.dev.yaml"],
+  "service": "client",
+  "runServices": ["client", "spotlight"],
+  "workspaceFolder": "/app",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installOhMyZsh": true,
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "moby": false
+    }
+  },
+  "forwardPorts": [3000, 8969, 6006],
+  "portsAttributes": {
+    "3000": {
+      "label": "Next.js app",
+      "onAutoForward": "openBrowser"
+    },
+    "8969": {
+      "label": "Sentry Spotlight",
+      "onAutoForward": "silent"
+    },
+    "6006": {
+      "label": "Storybook",
+      "onAutoForward": "silent"
+    }
+  },
+  "mounts": [
+    "source=neracoos-buoy-app-claude-config,target=/root/.claude,type=volume",
+    "source=neracoos-buoy-app-gh-config,target=/root/.config/gh,type=volume"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/root/.claude"
+  },
+  "postCreateCommand": "git config --global --add safe.directory /app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "git.enabled": true,
+        "scm.diffDecorations": "all"
+      },
+      "extensions": ["vitest.explorer", "dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "editorconfig.editorconfig"]
+    }
+  }
+}

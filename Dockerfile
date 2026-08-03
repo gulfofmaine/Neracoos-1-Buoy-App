@@ -1,4 +1,4 @@
-#syntax=docker/dockerfile:1.2
+#syntax=docker/dockerfile:1.4
 FROM node:26.5.0-slim@sha256:715e55e4b84e4bb0ff48e49b398a848f08e55daed8eb6a0ea1839ae53bc57583 AS base
 
 # Install dependencies only when needed
@@ -16,6 +16,11 @@ FROM base as dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Playwright (e2e tests) and the Storybook vitest addon both need real browsers,
+# which aren't part of node_modules. Install them here so they're baked into the
+# dev image rather than lost every time the devcontainer is recreated.
+RUN npx playwright install --with-deps chromium firefox
 
 # Rebuild the source code only when needed
 FROM base AS builder
