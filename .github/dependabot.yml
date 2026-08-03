@@ -42,6 +42,10 @@ updates:
         patterns:
           - rlayers
           - ol
+      highcharts:
+        patterns:
+          - highcharts
+          - react-jsx-highcharts
       redux:
         patterns:
           - redux-devtools-extension
