@@ -1,12 +1,10 @@
-#syntax=docker/dockerfile:1.2
-FROM node:26.5.0-alpine@sha256:e88a35be04478413b7c71c455cd9865de9b9360e1f43456be5951032d7ac1a66 AS base
+#syntax=docker/dockerfile:1.4
+FROM node:26.5.0-slim@sha256:715e55e4b84e4bb0ff48e49b398a848f08e55daed8eb6a0ea1839ae53bc57583 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
 ARG NEXT_PUBLIC_SENTRY_DSN
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -18,6 +16,13 @@ FROM base as dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Playwright (e2e tests) and the Storybook vitest addon both need real browsers.
+# Only install the OS-level dependencies here (fast, ~seconds) - the browser
+# binaries themselves (~500MB) are downloaded by the devcontainer's
+# postCreateCommand instead, in the background, so they don't slow down every
+# image build or block time-to-interactivity when the container starts.
+RUN npx playwright install-deps chromium firefox
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -46,8 +51,8 @@ ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN groupadd --system --gid 1001 nodejs
+RUN useradd --system --uid 1001 --gid nodejs nextjs
 
 COPY --from=builder /app/public ./public
 

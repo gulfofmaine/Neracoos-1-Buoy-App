@@ -11,6 +11,9 @@ const nextConfig = {
     silenceDeprecations: ["color-functions", "global-builtin", "import", "if-function"],
   },
   serverExternalPackages: ["web-worker"],
+  // Devcontainer/Docker forward ports through 127.0.0.1 and localhost rather than
+  // the container's own hostname, which Next.js's dev server otherwise blocks as cross-origin.
+  allowedDevOrigins: ["localhost", "127.0.0.1"],
   experimental: {
     craCompat: false,
   },

@@ -1,25 +1,15 @@
 import * as Sentry from "@sentry/nextjs"
 
-/**
- * Load our package.json so that we can access the version
- * and allow Sentry to track errors in relation to the version used
- */
-// tslint:disable-next-line:no-var-requires
-const packageJson = require("../package.json")
-
-export function register() {
-  if (process.env.NEXT_RUNTIME === "nodejs" || process.env.NEXT_RUNTIME === "edge") {
-    Sentry.init({
-      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
-
-      release: `v${packageJson.version}`,
-
-      // Adjust this value in production, or use tracesSampler for greater control
-      tracesSampleRate: process.env.NODE_ENV === "development" ? 1 : 0.05,
-
-      // Setting this option to true will print useful information to the console while you're setting up Sentry.
-      debug: false,
-    })
+// The server and edge runtimes get bundled separately; importing each config
+// only from its matching branch keeps runtime-specific SDK code (like
+// spotlightIntegration, which the edge build doesn't export) out of the
+// wrong bundle. See sentry.server.config.ts / sentry.edge.config.ts.
+export async function register() {
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    await import("./sentry.server.config")
+  }
+  if (process.env.NEXT_RUNTIME === "edge") {
+    await import("./sentry.edge.config")
   }
 }
 
