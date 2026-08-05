@@ -17,10 +17,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Playwright (e2e tests) and the Storybook vitest addon both need real browsers,
-# which aren't part of node_modules. Install them here so they're baked into the
-# dev image rather than lost every time the devcontainer is recreated.
-RUN npx playwright install --with-deps chromium firefox
+# Playwright (e2e tests) and the Storybook vitest addon both need real browsers.
+# Only install the OS-level dependencies here (fast, ~seconds) - the browser
+# binaries themselves (~500MB) are downloaded by the devcontainer's
+# postCreateCommand instead, in the background, so they don't slow down every
+# image build or block time-to-interactivity when the container starts.
+RUN npx playwright install-deps chromium firefox
 
 # Rebuild the source code only when needed
 FROM base AS builder

@@ -35,12 +35,18 @@
   },
   "mounts": [
     "source=neracoos-buoy-app-claude-config,target=/root/.claude,type=volume",
-    "source=neracoos-buoy-app-gh-config,target=/root/.config/gh,type=volume"
+    "source=neracoos-buoy-app-gh-config,target=/root/.config/gh,type=volume",
+    "source=neracoos-buoy-app-playwright-browsers,target=/root/.cache/ms-playwright,type=volume"
   ],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/root/.claude"
   },
-  "postCreateCommand": "git config --global --add safe.directory /app",
+  // Playwright's browser binaries (~500MB) are downloaded here instead of during
+  // the image build, so they don't block time-to-interactivity. Backgrounded with
+  // nohup so postCreateCommand returns immediately; the persisted volume above
+  // means this only actually downloads once, and is a fast no-op after that.
+  // Check progress/completion with: cat /tmp/playwright-install.log
+  "postCreateCommand": "git config --global --add safe.directory /app; nohup npx playwright install chromium firefox > /tmp/playwright-install.log 2>&1 &",
   "customizations": {
     "vscode": {
       "settings": {
