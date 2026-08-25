@@ -24,7 +24,7 @@
     "next": "16.3.1",
     "ol": "^10.8.0",
     "prop-types": "^15.8.1",
-    "query-string": "^9.4.1",
+    "query-string": "^9.5.0",
     "react": "19.2.8",
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap": "^2.10.10",
