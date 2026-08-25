@@ -168,7 +168,7 @@ test.describe("Platform A01", () => {
       .getByText(/All Observations/)
       .first()
       .click()
-    await expect(page.getByText(/Sigma-T/).first()).toBeVisible()
+    await expect(page.getByText(/Salinity/).first()).toBeVisible()
   })
 
   test("Can perisist observation view on hard refresh", async ({ page }) => {
