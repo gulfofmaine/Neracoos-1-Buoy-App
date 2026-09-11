@@ -80,8 +80,8 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
-    "@vitest/browser-playwright": "^4.1.11",
-    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/browser-playwright": "^5.0.0",
+    "@vitest/coverage-v8": "^5.0.0",
     "eslint": "^10.9.1",
     "eslint-config-next": "16.3.4",
     "eslint-plugin-storybook": "^10.6.0",
@@ -92,7 +92,7 @@
     "storybook": "^10.4.6",
     "typescript": "^6.0.3",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.0.7",
+    "vitest": "^5.0.0",
     "wait-on": "9.1.0"
   },
   "prettier": {
