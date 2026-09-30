@@ -18,7 +18,7 @@ repos:
       - id: no-commit-to-branch
 
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: "5c9b20b95f2bc1c4d3d929b83a96d5c96a29e752" # frozen: v3.9.8
+    rev: "ef4a397f916211b4a39ccf9d3d9cbb6562157251" # frozen: v3.9.9
     hooks:
       - id: prettier
 
