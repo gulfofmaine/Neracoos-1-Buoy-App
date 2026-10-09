@@ -5,6 +5,8 @@
 
 import * as Sentry from "@sentry/nextjs"
 
+import { dataCollection } from "./sentry.dataCollection"
+
 // tslint:disable-next-line:no-var-requires
 const packageJson = require("../package.json")
 
@@ -12,6 +14,8 @@ Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "__dsn__",
 
   release: `v${packageJson.version}`,
+
+  dataCollection,
 
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: process.env.NODE_ENV === "development" ? 1 : 0.05,
