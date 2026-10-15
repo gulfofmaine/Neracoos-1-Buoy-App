@@ -1,5 +1,5 @@
 // Updated for Vitest - Storyshots testing for all story files
-import { describe, expect, test, beforeEach, vi } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 import type { Meta, StoryFn } from "@storybook/react"
 import { composeStories } from "@storybook/react"
 import { act, render } from "@testing-library/react"
@@ -28,18 +28,16 @@ const compose = (entry: StoryFile): ReturnType<typeof composeStories<StoryFile>>
 }
 
 // Mock Next.js router for components that use usePathname
-beforeEach(() => {
-  vi.mock("next/navigation", () => ({
-    usePathname: vi.fn(() => "/"),
-    useRouter: vi.fn(() => ({
-      push: vi.fn(),
-      back: vi.fn(),
-      forward: vi.fn(),
-      refresh: vi.fn(),
-    })),
-    useSearchParams: vi.fn(() => new URLSearchParams()),
-  }))
-})
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/"),
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+  })),
+  useSearchParams: vi.fn(() => new URLSearchParams()),
+}))
 
 // List of all story modules to test
 const storyModules = [
