@@ -45,7 +45,7 @@ const NeracoosNavBar = () => {
           <Navbar.Brand href={paths.home}>
             <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-4">
               <Image src={neracoosLogo} alt="NERACOOS" height={30} width={209} />
-              <p className="m-0 text-white">Mariners' Dashboard</p>
+              <p className="m-0 text-white">Mariners&apos; Dashboard</p>
             </div>
           </Navbar.Brand>
           <Navbar.Toggle />

@@ -166,6 +166,10 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
     return (feature as Feature).getGeometry()
   }, [platform])
 
+  const onClick = useCallback(() => {
+    router.push(url)
+  }, [router, url])
+
   if (!geometry) {
     Sentry.captureMessage(`Platform ${platform.id} has no geometry. Make sure the point is added in Buoy Barn`)
     return null
@@ -191,12 +195,7 @@ const Layer = ({ platform, url, router, radius, color, floodThreshold, predColor
         </RStyleArray>
       )}
 
-      <RFeature
-        geometry={geometry}
-        onClick={useCallback(() => {
-          router.push(url)
-        }, [router, url])}
-      >
+      <RFeature geometry={geometry} onClick={onClick}>
         <RPopup trigger={"hover"} autoPosition={true}>
           <Link href={url}>
             <div className="map-popup-custom">
