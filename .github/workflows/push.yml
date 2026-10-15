@@ -136,6 +136,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run types
+
       - name: Install Playwright
         run: npx playwright install chromium
 

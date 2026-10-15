@@ -32,6 +32,8 @@ const windStandardNames = new Set([
  * Dropdown menu for various types of observations
  */
 export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
+  const path = usePathname()
+
   if (platform.properties.readings.length === 0) {
     return (
       <Nav.Item>
@@ -40,7 +42,6 @@ export function ErddapObservedDropdown({ platform }: UsePlatformRenderProps) {
     )
   }
 
-  const path = usePathname()
   const linkIsActive = path ? path.startsWith(`/platform/${platform.id}/observations`) : ""
 
   const dropdownItems = Array.from(
