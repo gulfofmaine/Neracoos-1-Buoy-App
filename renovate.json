@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Renovate only manages the Node.js version, so that the Dockerfile base image and mise (used by GitHub Actions and local dev) are bumped together. Dependabot handles npm, GitHub Actions, and pre-commit.",
+  "enabledManagers": ["dockerfile", "mise"],
+  "dependencyDashboard": false,
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "description": "Keep Node.js in lockstep across the Dockerfile and .mise.toml",
+      "matchDepNames": ["node"],
+      "groupName": "Node.js",
+      "separateMajorMinor": false
+    }
+  ]
+}
