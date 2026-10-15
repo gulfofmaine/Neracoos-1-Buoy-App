@@ -66,14 +66,8 @@ updates:
     cooldown:
       default-days: 7
 
-  - package-ecosystem: docker
-    directory: "/"
-    schedule:
-      interval: daily
-      time: "10:00"
-    open-pull-requests-limit: 10
-    cooldown:
-      default-days: 7
+  # The Node.js Docker base image is updated by Renovate (renovate.json) instead,
+  # so it can be grouped with the matching .mise.toml bump.
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"

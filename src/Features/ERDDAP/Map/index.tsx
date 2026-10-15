@@ -93,6 +93,10 @@ export const PlatformLayer = ({ platform, selected, activePopupId, old = false }
     return (feature as Feature).getGeometry()
   }, [platform])
 
+  const onClick = useCallback(() => {
+    router.push(url)
+  }, [router, url])
+
   if (!geometry) {
     Sentry.captureMessage(`Platform ${platform.id} has no geometry. Make sure the point is added in Buoy Barn`)
     return null
@@ -106,13 +110,7 @@ export const PlatformLayer = ({ platform, selected, activePopupId, old = false }
           <RStyle.RStroke color={strokeColor} width={1.5} />
         </RStyle.RCircle>
       </RStyle.RStyle>
-      <RFeature
-        geometry={geometry}
-        properties={{ platform_id: platform.id, url: url }}
-        onClick={useCallback(() => {
-          router.push(url)
-        }, [router, url])}
-      >
+      <RFeature geometry={geometry} properties={{ platform_id: platform.id, url: url }} onClick={onClick}>
         <RPopup trigger={"hover"} offset={[7, 7]}>
           {activePopupId === platform.id ? (
             <Button
