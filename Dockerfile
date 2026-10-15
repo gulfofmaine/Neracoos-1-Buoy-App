@@ -1,5 +1,5 @@
 #syntax=docker/dockerfile:1.4
-FROM node:26.10.0-slim@sha256:ec7758ee051e457b468b32bde57b0879010b325bb9862718e9615225ce4aaae1 AS base
+FROM node:26.10.0-slim@sha256:930557a230abacbc3f4fd9b8648abf8f4bee1e17cb72195dcdfb2f709bc85b33 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
