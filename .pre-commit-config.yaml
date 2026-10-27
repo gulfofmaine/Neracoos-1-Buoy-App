@@ -30,7 +30,7 @@ repos:
         args: [--persona=pedantic]
 
   - repo: https://github.com/gulfofmaine/odp-releaser
-    rev: 2b22947ec4c21a696990c37ca908bd62822b4f81 # frozen: main
+    rev: 35fa7c77e61b22f0c69371bb981a7ecf661455a4 # frozen: main
     hooks:
       - id: validate-deploy-targets
 
