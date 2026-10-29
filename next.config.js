@@ -23,6 +23,10 @@ const nextConfig = {
   //   disableStaticImages: true
   // }
   output: "standalone",
+  // Bundle the fallback HTML content (src/Features/Content) into the standalone build
+  outputFileTracingIncludes: {
+    "/**": ["./content/**/*.html"],
+  },
   redirects: async () => {
     return [
       // Redirects for tide gauge signs https://github.com/gulfofmaine/Neracoos-1-Buoy-App/issues/3011

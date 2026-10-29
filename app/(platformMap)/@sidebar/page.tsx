@@ -1,5 +1,5 @@
-import { WagtailBlock } from "Features/WagtailApi/WagtailBlock"
+import { ContentPage } from "Features/Content"
 
 export default function HomeSidebar() {
-  return <WagtailBlock pageId="19" />
+  return <ContentPage name="sidebar" />
 }
