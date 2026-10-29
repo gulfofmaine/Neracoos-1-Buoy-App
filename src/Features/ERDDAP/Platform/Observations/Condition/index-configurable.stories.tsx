@@ -4,6 +4,7 @@ import { UnitSystem } from "Features/Units/types"
 
 import { ErddapObservedCondition, ChartTimeSeriesDisplay } from "./index"
 
+import { freezeTime } from "stories/chartFixtures"
 import { platform } from "stories/platform"
 
 export default {
@@ -13,7 +14,9 @@ export default {
     storyshots: {
       disable: true,
     },
+    screenshot: true,
   },
+  beforeEach: () => freezeTime(),
 }
 
 const standard_name = "visibility_in_air"

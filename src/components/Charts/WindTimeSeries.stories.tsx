@@ -2,6 +2,8 @@ import * as React from "react"
 
 import { UnitSystem } from "Features/Units/types"
 
+import { freezeTime } from "stories/chartFixtures"
+
 import { WindTimeSeriesChart } from "./WindTimeSeries"
 
 export default {
@@ -9,7 +11,10 @@ export default {
   title: "Components/Charts/WindTimeSeriesChart",
   parameters: {
     storyshots: { disable: true },
+    screenshot: true,
   },
+  // Freeze "now" shortly after the fixture data so `days` filtering is deterministic
+  beforeEach: () => freezeTime(new Date("2020-10-01T14:30:00.000Z")),
 }
 
 /** Must be manually tested. Does not snapshot correctly */
