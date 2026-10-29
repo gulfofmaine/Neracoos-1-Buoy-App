@@ -20,6 +20,7 @@ describe("fetchContent", () => {
 
   afterEach(() => {
     vi.unstubAllGlobals()
+    vi.unstubAllEnvs()
     vi.clearAllMocks()
     vi.restoreAllMocks()
   })
@@ -30,46 +31,60 @@ describe("fetchContent", () => {
     )
   })
 
-  it("returns the remote body when the fetch succeeds", async () => {
-    fetchMock.mockResolvedValue(new Response("<p>remote</p>", { status: 200 }))
+  it("uses the bundled content outside of production", async () => {
+    vi.stubEnv("NODE_ENV", "development")
 
-    expect(await fetchContent("about")).toBe("<p>remote</p>")
-    expect(fetchMock).toHaveBeenCalledWith(contentUrl("about"), {
-      next: { revalidate: 900 },
-      signal: expect.any(AbortSignal),
-    })
+    expect(await fetchContent("about")).toBe(bundled("about"))
+    expect(fetchMock).not.toHaveBeenCalled()
     expect(Sentry.captureException).not.toHaveBeenCalled()
   })
 
-  it("falls back to the bundled content on a non-ok response", async () => {
-    fetchMock.mockResolvedValue(new Response("Not Found", { status: 404 }))
-
-    expect(await fetchContent("about")).toBe(bundled("about"))
-    expect(Sentry.captureException).toHaveBeenCalledTimes(1)
-  })
-
-  it("falls back to the bundled content when fetch rejects", async () => {
-    const error = new Error("network down")
-    fetchMock.mockRejectedValue(error)
-
-    expect(await fetchContent("sidebar")).toBe(bundled("sidebar"))
-    expect(Sentry.captureException).toHaveBeenCalledWith(error, expect.objectContaining({ level: "warning" }))
-  })
-
-  it("falls back to the bundled content when GitHub doesn't respond in time", async () => {
-    // Hand back an already timed out signal rather than waiting for the real timeout
-    const timeoutSpy = vi
-      .spyOn(AbortSignal, "timeout")
-      .mockReturnValue(AbortSignal.abort(new DOMException("The operation timed out.", "TimeoutError")))
-    fetchMock.mockImplementation(async (_url: string, init: RequestInit) => {
-      throw init.signal?.reason
+  describe("in production", () => {
+    beforeEach(() => {
+      vi.stubEnv("NODE_ENV", "production")
     })
 
-    expect(await fetchContent("about")).toBe(bundled("about"))
-    expect(timeoutSpy).toHaveBeenCalledWith(FETCH_TIMEOUT_MS)
-    expect(Sentry.captureException).toHaveBeenCalledWith(
-      expect.objectContaining({ name: "TimeoutError" }),
-      expect.objectContaining({ level: "warning" }),
-    )
+    it("returns the remote body when the fetch succeeds", async () => {
+      fetchMock.mockResolvedValue(new Response("<p>remote</p>", { status: 200 }))
+
+      expect(await fetchContent("about")).toBe("<p>remote</p>")
+      expect(fetchMock).toHaveBeenCalledWith(contentUrl("about"), {
+        next: { revalidate: 900 },
+        signal: expect.any(AbortSignal),
+      })
+      expect(Sentry.captureException).not.toHaveBeenCalled()
+    })
+
+    it("falls back to the bundled content on a non-ok response", async () => {
+      fetchMock.mockResolvedValue(new Response("Not Found", { status: 404 }))
+
+      expect(await fetchContent("about")).toBe(bundled("about"))
+      expect(Sentry.captureException).toHaveBeenCalledTimes(1)
+    })
+
+    it("falls back to the bundled content when fetch rejects", async () => {
+      const error = new Error("network down")
+      fetchMock.mockRejectedValue(error)
+
+      expect(await fetchContent("sidebar")).toBe(bundled("sidebar"))
+      expect(Sentry.captureException).toHaveBeenCalledWith(error, expect.objectContaining({ level: "warning" }))
+    })
+
+    it("falls back to the bundled content when GitHub doesn't respond in time", async () => {
+      // Hand back an already timed out signal rather than waiting for the real timeout
+      const timeoutSpy = vi
+        .spyOn(AbortSignal, "timeout")
+        .mockReturnValue(AbortSignal.abort(new DOMException("The operation timed out.", "TimeoutError")))
+      fetchMock.mockImplementation(async (_url: string, init: RequestInit) => {
+        throw init.signal?.reason
+      })
+
+      expect(await fetchContent("about")).toBe(bundled("about"))
+      expect(timeoutSpy).toHaveBeenCalledWith(FETCH_TIMEOUT_MS)
+      expect(Sentry.captureException).toHaveBeenCalledWith(
+        expect.objectContaining({ name: "TimeoutError" }),
+        expect.objectContaining({ level: "warning" }),
+      )
+    })
   })
 })

@@ -31,10 +31,16 @@ export async function readBundledContent(name: ContentName): Promise<string> {
  *
  * Loads the latest content from GitHub, falling back to the bundled copy
  * (and reporting to Sentry) if the remote content can not be loaded.
+ * Outside of production the bundled copy is always used.
  *
  * @param name Name of content to load
  */
 export async function fetchContent(name: ContentName): Promise<string> {
+  // Outside production (next dev, vitest) render the local files, so edits show up on reload
+  if (process.env.NODE_ENV !== "production") {
+    return readBundledContent(name)
+  }
+
   const url = contentUrl(name)
 
   try {

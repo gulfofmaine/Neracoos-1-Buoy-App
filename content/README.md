@@ -13,6 +13,9 @@ without a dashboard release.
 
 The HTML is inserted into the page as-is, so Bootstrap classes are available for layout.
 
+To preview edits locally, run the dashboard with `make up` (or `npm run dev`). Outside of production the dashboard
+always uses these local files rather than fetching them from GitHub.
+
 ## Fallback
 
 A copy of these files is baked into each Docker image when it is built. If GitHub can't be reached, the dashboard
