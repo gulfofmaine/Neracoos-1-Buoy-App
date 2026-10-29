@@ -1,23 +1,19 @@
+"use client"
 /**
  * Small time series chart component (as seen on current conditions page)
  */
-import Highcharts from "highcharts"
-import "highcharts/modules/accessibility"
+import { Chart, Tooltip, XAxis, YAxis } from "@highcharts/react"
+import { Accessibility } from "@highcharts/react/modules/Accessibility"
+import { SplineSeries } from "@highcharts/react/series/Spline"
 import * as React from "react"
-import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
 
 import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { ReadingTimeSeries } from "Shared/timeSeries"
 
+import { noLegendChartOptions } from "./chartOptions"
 import { pointFormatMaker } from "./formatter"
 import { UnitSystem } from "Features/Units/types"
-
-const plotOptions = {
-  time: {
-    timezone: "UTC",
-  },
-}
 
 interface Props {
   /** Time series to display */
@@ -57,19 +53,18 @@ export function SmallTimeSeriesChart({
   let data = timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 2)])
 
   return (
-    <HighchartsProvider Highcharts={Highcharts}>
-      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-        <Chart height={150} />
+    <Chart height={150} colors={colorCycle} options={noLegendChartOptions}>
+      <Accessibility />
 
-        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
+      <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
-        <YAxis softMin={softMin} softMax={softMax}>
-          <YAxis.Title>{unit}</YAxis.Title>
-          <SplineSeries name={name} marker={{ enabled: false }} data={data} color={colors.coastalMeadow} />
-        </YAxis>
+      <YAxis softMin={softMin} softMax={softMax}>
+        {unit}
+      </YAxis>
 
-        <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
-      </HighchartsChart>
-    </HighchartsProvider>
+      <SplineSeries name={name} data={data} color={colors.coastalMeadow} options={{ marker: { enabled: false } }} />
+
+      <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
+    </Chart>
   )
 }
