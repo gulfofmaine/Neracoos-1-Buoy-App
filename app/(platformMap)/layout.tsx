@@ -30,13 +30,6 @@ export default function Layout({
     setIsClient(true)
   }, [])
 
-  //Removing warning in console re:Highcharts library defaultProps. Not an active warning for us--until this issues is solved on Highcharts' end, keep this to remove huge console error
-  const error = console.error
-  console.error = (...args: any) => {
-    if (/defaultProps/.test(args[0])) return
-    error(...args)
-  }
-
   return (
     <React.Fragment>
       <SitewideBanner />
