@@ -1,9 +1,9 @@
 import { Metadata } from "next"
 
-import { WagtailBlock } from "Features/WagtailApi/WagtailBlock"
+import { ContentPage } from "Features/Content"
 
 export default function About() {
-  return <WagtailBlock pageId="5" />
+  return <ContentPage name="about" />
 }
 
 export const metadata: Metadata = {

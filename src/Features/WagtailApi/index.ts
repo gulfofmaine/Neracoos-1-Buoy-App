@@ -1,1 +1,0 @@
-export { WagtailBlock } from "./WagtailBlock"

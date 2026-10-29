@@ -7,7 +7,7 @@ test.describe("About Page", () => {
     await expect(page.getByText(/Platform data provided by/).first()).toBeVisible()
   })
 
-  test("Loads Wagtail Content", async ({ page }) => {
+  test("Loads About content", async ({ page }) => {
     await page.goto("/about/")
     await expect(page.getByText(/Platform data provided by:/).first()).toBeVisible()
   })
