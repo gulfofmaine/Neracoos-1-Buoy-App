@@ -1,12 +1,13 @@
 import { test, expect } from "@playwright/test"
 
 test.describe("Home page", function () {
-  test("Loads Drupal content", async function ({ page }) {
+  test("Loads sidebar content", async function ({ page }) {
     await page.goto("/")
+    // A string (unlike a regex) matches with whitespace normalized, so line wrapping in content/sidebar.html doesn't matter
     await expect(
       page
         .getByText(
-          /Welcome to the NERACOOS Mariners' Dashboard, which delivers high-quality, timely data from a growing network of buoys and sensors into the hands of mariners heading to sea\./,
+          "Welcome to the NERACOOS Mariners' Dashboard, which delivers high-quality, timely data from a growing network of buoys and sensors into the hands of mariners heading to sea.",
         )
         .first(),
     ).toBeVisible()
