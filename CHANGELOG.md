@@ -10,6 +10,42 @@ Fixes:
 
 Dependency updates:
 
+# 1.2.0 - 10/30/2026
+
+Changes:
+
+- Replace Wagtail content service with content loaded from GitHub by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4512
+- Add Storybook screenshot regression tests for charts by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4514
+- Migrate charts from react-jsx-highcharts to @highcharts/react by @abkfenris in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4515
+
+Dependency updates:
+
+- Bump the codeql-action group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4492
+- Bump https://github.com/zizmorcore/zizmor-pre-commit from v1.30.1 to 1.31.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4491
+- Bump jsdom from 30.1.2 to 30.1.3 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4490
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4489
+- Bump jdx/mise-action from 5.1.2 to 5.2.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4495
+- Bump https://github.com/zizmorcore/zizmor-pre-commit from v1.31.0 to 1.31.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4494
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4496
+- Bump undici by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4500
+- Bump jdx/mise-action from 5.2.0 to 5.2.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4498
+- Bump eslint from 10.12.0 to 10.13.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4497
+- Bump j178/prek-action from 3.0.1 to 3.0.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4499
+- Bump https://github.com/gulfofmaine/odp-releaser from 2b22947ec4c21a696990c37ca908bd62822b4f81 to 35fa7c77e61b22f0c69371bb981a7ecf661455a4 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4504
+- Bump j178/prek-action from 3.0.2 to 3.1.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4503
+- Bump playwright-performance from 2.0.7 to 2.0.8 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4502
+- Bump the react-query group with 2 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4501
+- Bump query-string from 9.5.1 to 10.0.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4509
+- Bump getsentry/action-release from 3.7.1 to 3.7.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4508
+- Bump the codeql-action group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4506
+- Bump jdx/mise-action from 5.2.1 to 5.2.2 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4507
+- Bump sass from 1.103.1 to 1.106.1 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4510
+- Bump the next group with 3 updates by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4517
+- Bump @sentry/nextjs from 11.8.0 to 11.9.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4518
+- Bump docker/login-action from 4.6.0 to 4.7.0 by @dependabot[bot] in https://github.com/gulfofmaine/Neracoos-1-Buoy-App/pull/4513
+
+**Full Changelog**: https://github.com/gulfofmaine/Neracoos-1-Buoy-App/compare/v1.1.0...v1.2.0
+
 # 1.1.0 - 10/21/2026
 
 Additions:
