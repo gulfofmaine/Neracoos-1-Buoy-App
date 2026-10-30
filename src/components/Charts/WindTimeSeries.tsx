@@ -3,22 +3,16 @@
  * Wind time series chart component that can display steady and gust speeds
  * in addition to wind barbs for wind direction
  */
-import Highcharts from "highcharts"
-import "highcharts/modules/accessibility"
-import "highcharts/modules/datagrouping"
-import "highcharts/modules/windbarb"
+import { Chart, Legend, Tooltip, XAxis, YAxis } from "@highcharts/react"
+import { Accessibility } from "@highcharts/react/modules/Accessibility"
+import { SplineSeries } from "@highcharts/react/series/Spline"
+import { WindbarbSeries } from "@highcharts/react/series/Windbarb"
+// Modules must be registered on the same Highcharts instance `@highcharts/react` uses (the ES module build),
+// so load that core first and then datagrouping (which windbarb charts rely on) on top of it.
+import "highcharts/es-modules/masters/highcharts.src.js"
+import "highcharts/es-modules/masters/modules/datagrouping.src.js"
+import type Highcharts from "highcharts"
 import * as React from "react"
-import {
-  Chart,
-  HighchartsChart,
-  Legend,
-  SplineSeries,
-  Tooltip,
-  WindBarbSeries,
-  HighchartsProvider,
-  XAxis,
-  YAxis,
-} from "react-jsx-highcharts"
 
 import { converter } from "Features/Units/Converter"
 import { UnitSystem } from "Features/Units/types"
@@ -26,6 +20,8 @@ import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries } from "Shared/timeSeries"
 import { compassDirection } from "Shared/unitConversion/compassDirection"
+
+import { baseChartOptions, noLegendChartOptions } from "./chartOptions"
 
 const dataConverter = converter("wind_speed")
 
@@ -60,12 +56,6 @@ function pointFormatterMaker(unitSystem: UnitSystem) {
   }
 
   return pointFormatter
-}
-
-const plotOptions = {
-  time: {
-    timezone: "UTC",
-  },
 }
 
 interface Props {
@@ -140,7 +130,13 @@ export const WindTimeSeriesChart: React.FunctionComponent<Props> = ({
     const nameCaps = name[0].toUpperCase() + name.slice(1)
 
     return (
-      <SplineSeries key={index} name={nameCaps} marker={{ enabled: false }} data={data} color={colorCycle[index]} />
+      <SplineSeries
+        key={index}
+        name={nameCaps}
+        data={data}
+        color={colorCycle[index]}
+        options={{ marker: { enabled: false } }}
+      />
     )
   })
 
@@ -186,23 +182,20 @@ export const WindTimeSeriesChart: React.FunctionComponent<Props> = ({
   const pointFormatter = pointFormatterMaker(unitSystem)
 
   return (
-    <HighchartsProvider Highcharts={Highcharts}>
-      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-        <Chart height={height} />
+    <Chart height={height} colors={colorCycle} options={legend ? baseChartOptions : noLegendChartOptions}>
+      <Accessibility />
 
-        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
+      <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
-        <YAxis softMin={0}>
-          <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
-          {speedsSeries}
+      <YAxis softMin={0}>{dataConverter.displayName(unitSystem)}</YAxis>
 
-          {windData.length > 0 ? <WindBarbSeries name="Direction" color={colors.whatOrange} data={windData} /> : null}
-        </YAxis>
+      {speedsSeries}
 
-        {legend ? <Legend /> : null}
+      {windData.length > 0 ? <WindbarbSeries name="Direction" color={colors.whatOrange} data={windData} /> : null}
 
-        <Tooltip formatter={pointFormatter} shared={true} />
-      </HighchartsChart>
-    </HighchartsProvider>
+      {legend ? <Legend /> : null}
+
+      <Tooltip formatter={pointFormatter} shared={true} />
+    </Chart>
   )
 }

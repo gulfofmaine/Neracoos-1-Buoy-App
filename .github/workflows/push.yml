@@ -103,12 +103,36 @@ jobs:
           path: /tmp/prodimage.tar
           retention-days: 1
 
+  playwright_version:
+    name: Find locked Playwright version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Read Playwright version from package-lock.json
+        id: version
+        run: echo "version=$(jq -r '.packages["node_modules/@playwright/test"].version' package-lock.json)" >> "$GITHUB_OUTPUT"
+
   unit_tests:
     name: Unit tests, typecheck and coverage
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
+    needs: playwright_version
+    # Storybook screenshot baselines are rendered in this image (see `make update-screenshots`),
+    # whose version follows the locked @playwright/test version.
+    # Deliberately tag-pinned (not by digest) so it can follow the locked Playwright version.
+    container: mcr.microsoft.com/playwright:v${{ needs.playwright_version.outputs.version }}-noble # zizmor: ignore[unpinned-images]
 
     steps:
       - name: "Checkout"
@@ -142,9 +166,6 @@ jobs:
       - name: Typecheck
         run: npm run types
 
-      - name: Install Playwright
-        run: npx playwright install chromium
-
       - name: Run unit and Storybook tests and coverage
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -163,6 +184,15 @@ jobs:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         if: env.CODACY_PROJECT_TOKEN == null
         run: npm run test-ci
+
+      - name: Upload screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshot-diffs
+          path: .vitest/attachments/
+          retention-days: 14
+          if-no-files-found: ignore
 
       - name: npm run Build
         run: npm run build

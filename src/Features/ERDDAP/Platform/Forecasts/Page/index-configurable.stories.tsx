@@ -3,6 +3,7 @@ import * as React from "react"
 import { UnitSystem } from "Features/Units/types"
 import { ForecastChart } from "./index"
 import { data, forecast_type } from "./story-data"
+import { freezeTime } from "stories/chartFixtures"
 
 export default {
   component: ForecastChart,
@@ -11,7 +12,9 @@ export default {
     storyshots: {
       disable: true,
     },
+    screenshot: true,
   },
+  beforeEach: () => freezeTime(),
 }
 
 export const english = (args) => <ForecastChart {...args} />

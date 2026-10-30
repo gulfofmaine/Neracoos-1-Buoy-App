@@ -57,6 +57,8 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright({}),
+            // Fixed viewport so screenshot baselines are the same size everywhere
+            viewport: { width: 1280, height: 900 },
             instances: [{ browser: "chromium" }],
           },
           setupFiles: [".storybook/vitest.setup.ts"],

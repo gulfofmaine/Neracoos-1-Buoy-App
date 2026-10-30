@@ -2,25 +2,17 @@
 /**
  * Time series chart component for displaying multiple sets of time series data with current time line
  */
-import Highcharts from "highcharts"
-import "highcharts/modules/accessibility"
-import React, { useEffect, useState } from "react"
-import {
-  Chart,
-  HighchartsChart,
-  Legend,
-  PlotLine,
-  ScatterSeries,
-  SplineSeries,
-  Tooltip,
-  HighchartsProvider,
-  XAxis,
-  YAxis,
-} from "react-jsx-highcharts"
+import { Chart, Legend, Tooltip, XAxis, YAxis } from "@highcharts/react"
+import { Accessibility } from "@highcharts/react/modules/Accessibility"
+import { ScatterSeries } from "@highcharts/react/series/Scatter"
+import { SplineSeries } from "@highcharts/react/series/Spline"
+import { useEffect, useState } from "react"
 
 import { colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { StyledTimeSeries } from "Shared/timeSeries"
+
+import { baseChartOptions } from "./chartOptions"
 
 function formatterWrapper(unit) {
   return function pointFormatter(this: any) {
@@ -34,12 +26,6 @@ function formatterWrapper(unit) {
       this.points.map((p) => `<b style="color: ${p.series.color}">${p.series.name}:</b> ${p.y} ${unit}`).join("<br />")
     )
   }
-}
-
-const plotOptions = {
-  time: {
-    timezone: "UTC",
-  },
 }
 
 interface Props {
@@ -66,50 +52,33 @@ export const MultipleLargeTimeSeriesChartCurrent = ({ data, unit, scatter = fals
     const seriesData = d.timeSeries.map((r) => [r.time.valueOf(), round(r.reading, 1)])
 
     if (scatter) {
-      return (
-        <ScatterSeries
-          key={index}
-          name={d.name}
-          // marker={{
-          //   enabled: false,
-          // }}
-          data={seriesData}
-        />
-      )
+      return <ScatterSeries key={index} name={d.name} data={seriesData} />
     }
 
     return (
       <SplineSeries
         key={index}
         name={d.name}
-        marker={{
-          enabled: false,
-        }}
         color={d.color}
-        dashStyle={d.dashStyle}
         data={seriesData}
+        options={{ marker: { enabled: false }, dashStyle: d.dashStyle }}
       />
     )
   })
 
   return (
-    <HighchartsProvider Highcharts={Highcharts}>
-      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-        <Chart />
+    <Chart colors={colorCycle} options={baseChartOptions}>
+      <Accessibility />
 
-        <XAxis type="datetime">
-          <PlotLine value={date.valueOf()} id={"now-line"} />
-        </XAxis>
+      <XAxis type="datetime" plotLines={[{ id: "now-line", value: date.valueOf() }]} />
 
-        <YAxis>
-          <YAxis.Title>{unit}</YAxis.Title>
-          {series}
-        </YAxis>
+      <YAxis>{unit}</YAxis>
 
-        <Legend />
+      {series}
 
-        <Tooltip formatter={formatterWrapper(unit)} shared={true} />
-      </HighchartsChart>
-    </HighchartsProvider>
+      <Legend />
+
+      <Tooltip formatter={formatterWrapper(unit)} shared={true} />
+    </Chart>
   )
 }

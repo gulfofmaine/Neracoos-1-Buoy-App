@@ -1,0 +1,204 @@
+name: "Accept screenshots"
+
+# Comment `/accept-screenshots` on a pull request to regenerate the Storybook screenshot baselines and commit them
+# to the PR branch.
+#
+# Safety:
+# - only members, owners and collaborators can trigger it
+# - pull requests from forks are refused
+# - the PR head must still be the commit the screenshot report (screenshot-report.yml) described, so nothing
+#   unreviewed gets accepted
+# - PR code (npm ci, vitest) only ever runs in a job with a read-only token. A separate job with write access
+#   only takes validated PNGs from its output and pushes them.
+#
+# Pushes made with the default GITHUB_TOKEN do not trigger other workflows, so the checks must be re-run
+# afterwards (the reply says how).
+
+on:
+  issue_comment: # zizmor: ignore[dangerous-triggers] gated on author_association, and PR code only runs with a read-only token
+    types: [created]
+
+concurrency:
+  group: accept-screenshots-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  check:
+    name: Check the request
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    if: >-
+      github.event.issue.pull_request
+      && startsWith(github.event.comment.body, '/accept-screenshots')
+      && contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+    permissions:
+      contents: read
+      pull-requests: write # read the PR, reply, and react to the comment
+    outputs:
+      head_sha: ${{ steps.pr.outputs.head_sha }}
+      head_ref: ${{ steps.pr.outputs.head_ref }}
+      playwright_version: ${{ steps.version.outputs.version }}
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.issue.number }}
+      COMMENT_ID: ${{ github.event.comment.id }}
+
+    steps:
+      - name: Acknowledge
+        run: gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=eyes > /dev/null
+
+      - name: Validate the pull request
+        id: pr
+        run: |
+          set -euo pipefail
+          reply() {
+            gh api "repos/${REPO}/issues/${PR}/comments" -f body="$1" > /dev/null
+            echo "$1"
+            exit 1
+          }
+
+          pr_json="$(gh api "repos/${REPO}/pulls/${PR}")"
+          state="$(jq -r .state <<< "$pr_json")"
+          head_repo="$(jq -r .head.repo.full_name <<< "$pr_json")"
+          head_sha="$(jq -r .head.sha <<< "$pr_json")"
+          head_ref="$(jq -r .head.ref <<< "$pr_json")"
+
+          [ "$state" = "open" ] || reply "Cannot accept screenshots: this pull request is not open."
+          [ "$head_repo" = "$REPO" ] || reply "Cannot accept screenshots on a pull request from a fork. Run \`make update-screenshots\` locally and push the result."
+          git check-ref-format --branch "$head_ref" > /dev/null || reply "Cannot accept screenshots: unexpected branch name."
+
+          # The newest report comment says which commit was reviewed
+          reported_sha="$(gh api --paginate "repos/${REPO}/issues/${PR}/comments" \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("<!-- screenshot-report -->"))) | .body' \
+            | grep -o 'screenshot-report-sha: [0-9a-f]\{40\}' | head -n 1 | cut -d' ' -f2 || true)"
+          [ -n "$reported_sha" ] || reply "Cannot accept screenshots: there is no screenshot report on this pull request yet."
+          [ "$reported_sha" = "$head_sha" ] || reply "Cannot accept screenshots: the screenshot report is for \`${reported_sha:0:7}\` but the branch is now at \`${head_sha:0:7}\`. Wait for the checks to finish on the latest commit and review the new report."
+
+          echo "head_sha=${head_sha}" >> "$GITHUB_OUTPUT"
+          echo "head_ref=${head_ref}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout (to read the locked Playwright version)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.pr.outputs.head_sha }}
+          persist-credentials: false
+
+      - name: Read Playwright version from package-lock.json
+        id: version
+        run: echo "version=$(jq -r '.packages["node_modules/@playwright/test"].version' package-lock.json)" >> "$GITHUB_OUTPUT"
+
+  update:
+    name: Regenerate screenshots
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    needs: check
+    permissions:
+      contents: read
+    # Same image the baselines are normally rendered in (see `make update-screenshots`).
+    # Deliberately tag-pinned (not by digest) so it can follow the locked Playwright version.
+    container: mcr.microsoft.com/playwright:v${{ needs.check.outputs.playwright_version }}-noble # zizmor: ignore[unpinned-images]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.check.outputs.head_sha }}
+          persist-credentials: false
+
+      - name: mise action
+        uses: jdx/mise-action@8418fedb1110381a0d3ba51a7a415d7c1b884550 # v5.2.2
+        with:
+          cache: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Regenerate screenshot baselines
+        run: npx vitest run --project=storybook --update
+
+      - name: Collect changed baselines
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git ls-files --modified --others --exclude-standard -- '*__screenshots__/*.png' > changed.txt
+          cat changed.txt
+          tar -czf "${RUNNER_TEMP}/accepted-screenshots.tar.gz" -T changed.txt
+
+      - name: Upload changed baselines
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: accepted-screenshots
+          path: ${{ runner.temp }}/accepted-screenshots.tar.gz
+          retention-days: 1
+          if-no-files-found: error
+
+  commit:
+    name: Commit screenshots
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    needs: [check, update]
+    permissions:
+      contents: write # push to the PR branch
+      pull-requests: write # reply
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.issue.number }}
+      REQUESTER: ${{ github.event.comment.user.login }}
+      HEAD_SHA: ${{ needs.check.outputs.head_sha }}
+      HEAD_REF: ${{ needs.check.outputs.head_ref }}
+
+    steps:
+      - name: Checkout the reviewed commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.check.outputs.head_sha }}
+          # The default token is needed to push below. Nothing from the PR is executed in this job.
+          persist-credentials: true # zizmor: ignore[artipacked] push needs the token; no PR code runs in this job
+
+      - name: Download changed baselines
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: accepted-screenshots
+          path: ${{ runner.temp }}/accepted
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          archive="${RUNNER_TEMP}/accepted/accepted-screenshots.tar.gz"
+
+          # The artifact came from a job that ran PR code: only accept PNGs inside __screenshots__ directories
+          while IFS= read -r entry; do
+            if ! [[ "$entry" =~ ^[A-Za-z0-9._@+/-]+/__screenshots__/[A-Za-z0-9._@+/-]+\.png$ ]] || [[ "$entry" == *..* ]] || [[ "$entry" == /* ]]; then
+              echo "Refusing unexpected archive entry: ${entry}"
+              exit 1
+            fi
+          done < <(tar -tzf "$archive")
+
+          # Regular files only: a symlink entry could redirect later entries outside __screenshots__
+          if tar -tvzf "$archive" | cut -c1 | grep -qv '^-$'; then
+            echo "Refusing archive with non-regular-file entries"
+            exit 1
+          fi
+
+          tar -xzf "$archive" --no-same-owner --no-same-permissions
+          git add -- '*__screenshots__/*.png'
+
+          if git diff --cached --quiet; then
+            gh api "repos/${REPO}/issues/${PR}/comments" -f body="No screenshot changes to accept." > /dev/null
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit --quiet -m "Accept screenshot changes (requested by @${REQUESTER} in #${PR})"
+          # Fails (no force) if the branch moved since the report was reviewed
+          git push origin "HEAD:refs/heads/${HEAD_REF}"
+
+          sha="$(git rev-parse HEAD)"
+          gh api "repos/${REPO}/issues/${PR}/comments" -f body="Committed the accepted screenshots as ${sha}.
+
+          Pushes made by GitHub Actions do not start new checks. Close and reopen the pull request, or push another commit, to re-run them."  > /dev/null

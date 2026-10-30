@@ -2,20 +2,9 @@
 /**
  * Single large time series chart component
  */
-import Highcharts from "highcharts"
-import "highcharts/modules/accessibility"
-import {
-  Chart,
-  Legend,
-  HighchartsChart,
-  HighchartsProvider,
-  PlotBand,
-  SplineSeries,
-  Tooltip,
-  XAxis,
-  YAxis,
-  PlotLine,
-} from "react-jsx-highcharts"
+import { Chart, Legend, Tooltip, XAxis, YAxis } from "@highcharts/react"
+import { Accessibility } from "@highcharts/react/modules/Accessibility"
+import { SplineSeries } from "@highcharts/react/series/Spline"
 
 import { FloodThreshold } from "Features/ERDDAP/types"
 import { converter } from "Features/Units/Converter"
@@ -23,15 +12,17 @@ import { UnitSystem } from "Features/Units/types"
 import { colors, waterLevelChartColorCycle } from "Shared/colors"
 import { round } from "Shared/math"
 import { DataTimeSeries, ReadingTimeSeries } from "Shared/timeSeries"
+import { baseChartOptions } from "components/Charts/chartOptions"
 import { pointFormatMaker } from "components/Charts/formatter"
 import { getValueWithOffset } from "Features/Units/Converter/data_types/_tidal_level"
 import { shortestDisplayIso } from "Shared/time"
 
-const plotOptions = {
-  time: {
-    timezone: "UTC",
-  },
+const chartOptions = {
+  ...baseChartOptions,
+  chart: { style: { padding: "10px", border: "1px solid #d3d3d3" } },
 }
+
+const bandLabelStyle = { fontSize: "11px", color: "gray" }
 
 interface Props {
   /** Time series data to dispaly */
@@ -62,7 +53,6 @@ interface Props {
  * Single large time series chart component
  */
 export function LargeTimeSeriesWaterLevelChart({
-  name,
   softMax,
   softMin,
   timeSeries,
@@ -99,24 +89,62 @@ export function LargeTimeSeriesWaterLevelChart({
     ]),
   )
 
+  const unitName = dataConverter.unitName(unitSystem)
+
+  /** Flood threshold bands, only for the thresholds that are present */
+  const plotBands = floodThresholds
+    ? [
+        {
+          from: floodThresholds.Minor?.minValue,
+          to: floodThresholds.Minor?.maxValue,
+          color: `${colors.minorThreshold}30`,
+          text: `Minor Flooding ${round(floodThresholds.Minor?.minValue, 1)} ${unitName}`,
+        },
+        {
+          from: floodThresholds.Moderate?.minValue,
+          to: floodThresholds.Moderate?.maxValue,
+          color: `${colors.moderateThreshold}30`,
+          text: `Moderate Flooding ${round(floodThresholds.Moderate?.minValue, 1)} ${unitName}`,
+        },
+        {
+          from: floodThresholds.Major?.minValue,
+          to: floodThresholds.Major?.minValue + 3,
+          color: `${colors.majorThreshold}30`,
+          acrossPanes: false,
+          text: `Major Flooding: ${round(floodThresholds.Major?.minValue, 1)} ${unitName}`,
+        },
+        {
+          from: floodThresholds.Action?.minValue,
+          to: floodThresholds.Action?.maxValue,
+          color: `${colors.actionThreshold}30`,
+          text: `Action ${round(floodThresholds.Action?.minValue, 1)} ${unitName}`,
+        },
+      ]
+        .filter((band) => Number.isFinite(band.from) && Number.isFinite(band.to))
+        .map(({ text, ...band }) => ({
+          ...band,
+          label: { text, verticalAlign: "bottom" as const, y: -3, style: bandLabelStyle },
+        }))
+    : []
+
   return (
-    <HighchartsProvider Highcharts={Highcharts}>
-      <HighchartsChart time={plotOptions.time} colors={waterLevelChartColorCycle}>
-        <Chart height={"600px"} style={{ padding: "10px", border: "1px solid #d3d3d3" }} />
-        <XAxis
-          type="datetime"
-          min={startTime?.valueOf()}
-          max={endTime?.valueOf()}
-          crosshair={true}
-          gridLineWidth={0.5}
-          showLastLabel={true}
-          minTickInterval={24 * 3600 * 1000}
-        >
-          <PlotLine
-            color={"#a1a1a1"}
-            value={latestTime}
-            width={1.5}
-            label={{
+    <Chart height="600px" colors={waterLevelChartColorCycle} options={chartOptions}>
+      <Accessibility />
+
+      <XAxis
+        type="datetime"
+        min={startTime?.valueOf()}
+        max={endTime?.valueOf()}
+        crosshair={true}
+        gridLineWidth={0.5}
+        showLastLabel={true}
+        minTickInterval={24 * 3600 * 1000}
+        plotLines={[
+          {
+            color: "#a1a1a1",
+            value: latestTime,
+            width: 1.5,
+            label: {
               text: `Latest: ${shortestDisplayIso(new Date(latestTime))}`,
               rotation: 0,
               align: "right",
@@ -130,100 +158,51 @@ export function LargeTimeSeriesWaterLevelChart({
                 backgroundColor: "#d3d3d3",
                 border: "1px solid black",
               },
-            }}
-          />
-        </XAxis>
-        <YAxis
-          softMin={softMin}
-          softMax={
-            floodThresholds
-              ? floodThresholds?.Major?.minValue + dataConverter.convertToNumber(0.5, unitSystem)
-              : softMax
-          }
-          endOnTick={false}
-        >
-          {floodThresholds && (
-            <div>
-              <PlotBand
-                from={floodThresholds.Minor?.minValue}
-                to={floodThresholds.Minor?.maxValue}
-                color={`${colors.minorThreshold}30`}
-                label={{
-                  text: `Minor Flooding ${round(floodThresholds.Minor?.minValue, 1)} ${dataConverter.unitName(
-                    unitSystem,
-                  )}`,
-                  verticalAlign: "bottom",
-                  y: -3,
-                  style: { fontSize: "11px", color: "gray" },
-                }}
-              />
-              <PlotBand
-                from={floodThresholds.Moderate?.minValue}
-                to={floodThresholds.Moderate?.maxValue}
-                color={`${colors.moderateThreshold}30`}
-                label={{
-                  text: `Moderate Flooding ${round(floodThresholds.Moderate?.minValue, 1)} ${dataConverter.unitName(
-                    unitSystem,
-                  )}`,
-                  verticalAlign: "bottom",
-                  y: -3,
-                  style: { fontSize: "11px", color: "gray" },
-                }}
-              />
-              <PlotBand
-                from={floodThresholds.Major?.minValue}
-                to={floodThresholds?.Major?.minValue + 3}
-                color={`${colors.majorThreshold}30`}
-                acrossPanes={false}
-                label={{
-                  text: `Major Flooding: ${round(floodThresholds.Major?.minValue, 1)} ${dataConverter.unitName(
-                    unitSystem,
-                  )}`,
-                  verticalAlign: "bottom",
-                  y: -3,
-                  style: { fontSize: "11px", color: "gray" },
-                }}
-              />
-              <PlotBand
-                from={floodThresholds.Action?.minValue}
-                to={floodThresholds.Action?.maxValue}
-                color={`${colors.actionThreshold}30`}
-                label={{
-                  text: `Action ${round(floodThresholds.Action?.minValue, 1)} ${dataConverter.unitName(unitSystem)}`,
-                  verticalAlign: "bottom",
-                  y: -3,
-                  style: { fontSize: "11px", color: "gray" },
-                }}
-              />
-            </div>
-          )}
-          <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
-          <SplineSeries key="observed" name="Observed" marker={{ enabled: false }} data={data} lineWidth={1.5} />
+            },
+          },
+        ]}
+      />
 
-          {predictedDataset && (
-            <SplineSeries
-              key="predicted"
-              name={predictedDataset.displayName ?? "Predicted"}
-              marker={{ enabled: false }}
-              data={predictedTidesData}
-              color={colors.whatOrange}
-              dashStyle="Dash"
-            />
-          )}
-          {forecastedTidesDatasets &&
-            forecastedTidesDatasets.map((f, index) => (
-              <SplineSeries
-                key={`forecasted-${index}`}
-                name={f.displayName ?? "Forecast"}
-                marker={{ enabled: false }}
-                data={forecastedTidesData?.[index]}
-                dashStyle="ShortDot"
-              />
-            ))}
-        </YAxis>
-        <Legend layout="horizontal" />
-        <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
-      </HighchartsChart>
-    </HighchartsProvider>
+      <YAxis
+        softMin={softMin}
+        softMax={
+          floodThresholds ? floodThresholds?.Major?.minValue + dataConverter.convertToNumber(0.5, unitSystem) : softMax
+        }
+        endOnTick={false}
+        plotBands={plotBands}
+      >
+        {dataConverter.displayName(unitSystem)}
+      </YAxis>
+
+      <SplineSeries
+        key="observed"
+        name="Observed"
+        data={data}
+        options={{ marker: { enabled: false }, lineWidth: 1.5 }}
+      />
+
+      {predictedDataset && (
+        <SplineSeries
+          key="predicted"
+          name={predictedDataset.displayName ?? "Predicted"}
+          data={predictedTidesData}
+          color={colors.whatOrange}
+          options={{ marker: { enabled: false }, dashStyle: "Dash" }}
+        />
+      )}
+      {forecastedTidesDatasets &&
+        forecastedTidesDatasets.map((f, index) => (
+          <SplineSeries
+            key={`forecasted-${index}`}
+            name={f.displayName ?? "Forecast"}
+            data={forecastedTidesData?.[index]}
+            options={{ marker: { enabled: false }, dashStyle: "ShortDot" }}
+          />
+        ))}
+
+      <Legend layout="horizontal" />
+
+      <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
+    </Chart>
   )
 }

@@ -2,10 +2,9 @@
 /**
  * Single large time series chart component
  */
-import Highcharts from "highcharts"
-import "highcharts/modules/accessibility"
-import * as React from "react"
-import { Chart, HighchartsChart, SplineSeries, Tooltip, HighchartsProvider, XAxis, YAxis } from "react-jsx-highcharts"
+import { Chart, Tooltip, XAxis, YAxis } from "@highcharts/react"
+import { Accessibility } from "@highcharts/react/modules/Accessibility"
+import { SplineSeries } from "@highcharts/react/series/Spline"
 
 import { colors, colorCycle } from "Shared/colors"
 import { round } from "Shared/math"
@@ -13,14 +12,8 @@ import { ReadingTimeSeries } from "Shared/timeSeries"
 import { UnitSystem } from "Features/Units/types"
 import { converter } from "Features/Units/Converter"
 
+import { noLegendChartOptions } from "./chartOptions"
 import { pointFormatMaker } from "./formatter"
-import { TimeframeSelector } from "Features/ERDDAP/TimeframeSelector"
-
-const plotOptions = {
-  time: {
-    timezone: "UTC",
-  },
-}
 
 interface Props {
   /** Time series data to dispaly */
@@ -60,18 +53,18 @@ export function LargeTimeSeriesChart({
   ])
 
   return (
-    <HighchartsProvider Highcharts={Highcharts}>
-      <HighchartsChart time={plotOptions.time} colors={colorCycle}>
-        <Chart />
-        <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
+    <Chart colors={colorCycle} options={noLegendChartOptions}>
+      <Accessibility />
 
-        <YAxis softMin={softMin} softMax={softMax}>
-          <YAxis.Title>{dataConverter.displayName(unitSystem)}</YAxis.Title>
-          <SplineSeries name={name} marker={{ enabled: false }} data={data} color={colors.coastalMeadow} />
-        </YAxis>
+      <XAxis type="datetime" min={startTime?.valueOf()} max={endTime?.valueOf()} />
 
-        <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
-      </HighchartsChart>
-    </HighchartsProvider>
+      <YAxis softMin={softMin} softMax={softMax}>
+        {dataConverter.displayName(unitSystem)}
+      </YAxis>
+
+      <SplineSeries name={name} data={data} color={colors.coastalMeadow} options={{ marker: { enabled: false } }} />
+
+      <Tooltip formatter={pointFormatMaker(unitSystem, data_type)} />
+    </Chart>
   )
 }

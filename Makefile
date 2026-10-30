@@ -1,6 +1,8 @@
-.PHONY: up, down, build, build-prod, deploy, serve-build, sentry, prune, patch, release-patch
+.PHONY: up, down, build, build-prod, deploy, serve-build, sentry, prune, patch, release-patch, update-screenshots, test-screenshots
 
 VERSION := $(shell python3 -c "import json; print(json.load(open('package.json'))['version'])")
+PLAYWRIGHT_VERSION := $(shell python3 -c "import json; print(json.load(open('node_modules/@playwright/test/package.json'))['version'])" 2>/dev/null)
+PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v$(PLAYWRIGHT_VERSION)-noble
 
 up: down
 	# rm -r node_modules/ || true
@@ -51,3 +53,19 @@ lint:
 
 types:
 	docker compose exec client npm run types
+
+# Screenshot baselines are OS specific, so they are generated and checked in the Playwright Docker image
+# that CI also uses. The anonymous /work/node_modules volume keeps the Linux install off the host.
+#
+# In a pull request, a failing screenshot test gets a comment with the expected/actual/diff images
+# (.github/workflows/screenshot-report.yml). A maintainer can comment `/accept-screenshots` to have CI
+# regenerate and commit the baselines (.github/workflows/accept-screenshots.yml), then re-run the checks.
+update-screenshots:
+	docker run --rm -v $(PWD):/work -v /work/node_modules -w /work \
+		$(PLAYWRIGHT_IMAGE) \
+		sh -c "npm ci && npx vitest run --project=storybook --update"
+
+test-screenshots:
+	docker run --rm -v $(PWD):/work -v /work/node_modules -w /work \
+		$(PLAYWRIGHT_IMAGE) \
+		sh -c "npm ci && npx vitest run --project=storybook"

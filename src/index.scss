@@ -540,3 +540,11 @@ $dig-opacities: (
     margin-left: -20px;
   }
 }
+
+// Highcharts 13.1 started setting an inline `pointer-events: none` on its accessibility proxy elements (the
+// transparent buttons laid over legend items, etc.), so pointer clicks and Playwright's actionability checks
+// land on the SVG underneath instead. Restore the 13.0 behavior where the proxy elements receive the click and
+// forward it to the chart element they stand in for.
+.highcharts-a11y-proxy-element {
+  pointer-events: auto !important;
+}

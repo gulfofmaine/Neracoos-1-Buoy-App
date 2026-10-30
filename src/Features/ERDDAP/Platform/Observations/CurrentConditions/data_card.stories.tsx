@@ -3,6 +3,7 @@ import * as React from "react"
 import { DataCardDisplay } from "./data_card"
 import { UnitSystem } from "Features/Units/types"
 
+import { freezeTime } from "stories/chartFixtures"
 import { platform } from "stories/platform"
 
 export default {
@@ -12,7 +13,9 @@ export default {
     storyshots: {
       disable: true,
     },
+    screenshot: true,
   },
+  beforeEach: () => freezeTime(),
 }
 
 export const configurable = (args) => <DataCardDisplay {...args} />

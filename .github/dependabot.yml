@@ -45,7 +45,7 @@ updates:
       highcharts:
         patterns:
           - highcharts
-          - react-jsx-highcharts
+          - "@highcharts/react"
       redux:
         patterns:
           - redux-devtools-extension
