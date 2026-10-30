@@ -1,7 +1,7 @@
 import * as a11yAddonAnnotations from "@storybook/addon-a11y/preview"
 import type { Preview } from "@storybook/react"
 import { setProjectAnnotations } from "@storybook/nextjs-vite"
-import Highcharts from "highcharts"
+import { getHighcharts } from "@highcharts/react"
 import { expect } from "vitest"
 import { page } from "vitest/browser"
 import * as projectAnnotations from "./preview"
@@ -16,8 +16,9 @@ import * as projectAnnotations from "./preview"
  */
 // Stories freeze the global Date (see freezeTime), but Highcharts' animation clock (Fx) reads Date, so entry
 // animations and animated resizes (e.g. a chart's `height`) never progress and screenshots capture half-drawn
-// charts. Disable animation so the first frame is the final frame.
-Highcharts.setOptions({ chart: { animation: false }, plotOptions: { series: { animation: false } } })
+// charts. Disable animation so the first frame is the final frame. Set it on the Highcharts instance
+// @highcharts/react renders with (the ES-module build), not the UMD `highcharts` import.
+getHighcharts().setOptions({ chart: { animation: false }, plotOptions: { series: { animation: false } } })
 
 const screenshotAnnotations: Preview = {
   afterEach: async ({ canvasElement, parameters, id }) => {
