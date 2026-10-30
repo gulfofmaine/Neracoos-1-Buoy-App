@@ -1,0 +1,207 @@
+name: "Screenshot report"
+
+# Comments on a PR with the Storybook screenshot diffs from the "Push" workflow, so they can be reviewed in the PR.
+#
+# This runs from `workflow_run` so it has a write token without ever running the PR's code. It only treats the
+# uploaded `screenshot-diffs` artifact (see push.yml) as data: PNGs are validated by path, copied to the orphan
+# `screenshot-diffs` branch, and linked from one comment per PR.
+#
+# Comment `/accept-screenshots` on the PR to commit the new screenshots (see accept-screenshots.yml).
+
+on:
+  workflow_run: # zizmor: ignore[dangerous-triggers] never checks out or runs PR code; the artifact is validated as data
+    workflows: ["Push"]
+    types: [completed]
+
+# Pushes to the screenshot-diffs branch must not race
+concurrency:
+  group: screenshot-diffs-branch
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  report:
+    name: Comment with screenshot diffs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    if: github.event.workflow_run.event == 'pull_request'
+    permissions:
+      actions: read # download the artifact from the triggering run
+      contents: write # push to the screenshot-diffs branch
+      pull-requests: write # create and update the report comment
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      RUN_ID: ${{ github.event.workflow_run.id }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+      PR_FROM_EVENT: ${{ github.event.workflow_run.pull_requests[0].number }}
+
+    steps:
+      - name: Find the pull request
+        id: pr
+        run: |
+          set -euo pipefail
+          pr="${PR_FROM_EVENT}"
+          if [ -z "$pr" ]; then
+            # `pull_requests` is empty for PRs from forks
+            pr="$(gh api "repos/${REPO}/commits/${HEAD_SHA}/pulls" --jq '.[0].number // empty')"
+          fi
+          if ! [[ "$pr" =~ ^[0-9]+$ ]]; then
+            echo "No pull request found for ${HEAD_SHA}"
+            echo "number=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "number=${pr}" >> "$GITHUB_OUTPUT"
+
+      - name: Download screenshot diffs
+        id: download
+        if: steps.pr.outputs.number != '' && env.CONCLUSION == 'failure'
+        continue-on-error: true # there is no artifact when the failure was not a screenshot mismatch
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: screenshot-diffs
+          path: ${{ runner.temp }}/attachments
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - name: Update the report comment
+        if: steps.pr.outputs.number != ''
+        env:
+          PR: ${{ steps.pr.outputs.number }}
+          DOWNLOADED: ${{ steps.download.outcome }}
+          ATTACHMENTS: ${{ runner.temp }}/attachments
+          WORK: ${{ runner.temp }}/diffs-repo
+        run: |
+          set -euo pipefail
+          marker='<!-- screenshot-report -->'
+
+          existing_comment="$(gh api --paginate "repos/${REPO}/issues/${PR}/comments" \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("'"${marker}"'"))) | .id' | head -n 1)"
+
+          post_comment() {
+            if [ -n "$existing_comment" ]; then
+              gh api -X PATCH "repos/${REPO}/issues/comments/${existing_comment}" -F body=@"$1" > /dev/null
+            else
+              gh api "repos/${REPO}/issues/${PR}/comments" -F body=@"$1" > /dev/null
+            fi
+          }
+
+          body="${RUNNER_TEMP}/body.md"
+
+          if [ "$CONCLUSION" = "success" ]; then
+            if [ -n "$existing_comment" ]; then
+              {
+                echo "$marker"
+                echo "<!-- screenshot-report-sha: ${HEAD_SHA} -->"
+                echo "### Screenshot report"
+                echo
+                echo "Screenshots match the committed baselines at ${HEAD_SHA}."
+              } > "$body"
+              post_comment "$body"
+            fi
+            exit 0
+          fi
+
+          if [ "$DOWNLOADED" != "success" ]; then
+            echo "No screenshot diffs to report"
+            exit 0
+          fi
+
+          # Set up a clone of the (possibly not yet existing) orphan branch, with the PR head fetched so the
+          # committed baselines can be read as data. Nothing from the PR is checked out or executed.
+          auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          echo "::add-mask::${auth}"
+          git_remote() {
+            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${auth}" "$@"
+          }
+
+          git init --quiet "$WORK"
+          cd "$WORK"
+          git remote add origin "https://github.com/${REPO}.git"
+          git_remote fetch --quiet --depth 1 origin "+refs/pull/${PR}/head:refs/pr-head"
+          if [ "$(git rev-parse refs/pr-head)" != "$HEAD_SHA" ]; then
+            echo "The pull request has moved on from ${HEAD_SHA}; a newer run will report."
+            exit 0
+          fi
+          if git_remote fetch --quiet --depth 1 origin screenshot-diffs; then
+            git checkout --quiet -b screenshot-diffs FETCH_HEAD
+          else
+            git checkout --quiet --orphan screenshot-diffs
+          fi
+
+          # Only keep the images for the commit being reported
+          rm -rf "pr-${PR}"
+          out="pr-${PR}/${HEAD_SHA}"
+          mkdir -p "$out"
+
+          rows="${RUNNER_TEMP}/rows.md"
+          : > "$rows"
+          count=0
+          while IFS= read -r -d '' actual; do
+            rel="${actual#"${ATTACHMENTS}"/}"
+            # The artifact is untrusted: only accept plain, relative PNG paths
+            if ! [[ "$rel" =~ ^[A-Za-z0-9._@+/-]+$ ]] || [[ "$rel" == *..* ]]; then
+              echo "Skipping unexpected path: ${rel}"
+              continue
+            fi
+            dir="$(dirname "$rel")"
+            file="$(basename "$rel")"
+            name="${file%%-actual-*}"
+            suffix="${file#*-actual-}"
+            # vitest writes <story file>/<name>-actual-<project>.png next to a <name>-diff-<project>.png, and the
+            # baseline lives in <story dir>/__screenshots__/<story file>/<name>-<project>.png
+            expected_path="$(dirname "$dir")/__screenshots__/$(basename "$dir")/${name}-${suffix}"
+            diff_file="${ATTACHMENTS}/${dir}/${name}-diff-${suffix}"
+
+            slug="$(echo "${dir}/${name}" | tr '/' '_')"
+            cp "$actual" "${out}/${slug}.actual.png"
+            expected_cell="_new screenshot_"
+            if git cat-file -e "refs/pr-head:${expected_path}" 2> /dev/null; then
+              git show "refs/pr-head:${expected_path}" > "${out}/${slug}.expected.png"
+              expected_cell="EXPECTED_${slug}"
+            fi
+            diff_cell="_no diff (size changed or new)_"
+            if [ -f "$diff_file" ]; then
+              cp "$diff_file" "${out}/${slug}.diff.png"
+              diff_cell="DIFF_${slug}"
+            fi
+            printf '%s\n' "${dir}|${name}|${slug}|${expected_cell}|${diff_cell}" >> "$rows"
+            count=$((count + 1))
+          done < <(find "$ATTACHMENTS" -type f -name '*-actual-*.png' -print0 | sort -z)
+
+          if [ "$count" -eq 0 ]; then
+            echo "No actual screenshots in the artifact"
+            exit 0
+          fi
+
+          git add -A
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit --quiet -m "Screenshot diffs for #${PR} at ${HEAD_SHA}"
+          git_remote push --quiet origin HEAD:refs/heads/screenshot-diffs
+          pinned="$(git rev-parse HEAD)"
+          raw="https://raw.githubusercontent.com/${REPO}/${pinned}/${out}"
+
+          {
+            echo "$marker"
+            echo "<!-- screenshot-report-sha: ${HEAD_SHA} -->"
+            echo "### Screenshot report"
+            echo
+            echo "${count} screenshot(s) differ from the committed baselines at \`${HEAD_SHA:0:7}\`."
+            echo
+            echo "| Story | Expected | Actual | Diff |"
+            echo "| --- | --- | --- | --- |"
+            while IFS='|' read -r dir name slug expected_cell diff_cell; do
+              expected="$expected_cell"
+              case "$expected_cell" in EXPECTED_*) expected="<img src=\"${raw}/${slug}.expected.png\" width=\"300\">" ;; esac
+              diffcell="$diff_cell"
+              case "$diff_cell" in DIFF_*) diffcell="<img src=\"${raw}/${slug}.diff.png\" width=\"300\">" ;; esac
+              echo "| \`${name}\` | ${expected} | <img src=\"${raw}/${slug}.actual.png\" width=\"300\"> | ${diffcell} |"
+            done < "$rows"
+            echo
+            echo "If these changes are intended, a maintainer can comment \`/accept-screenshots\` to commit the new"
+            echo "baselines to this branch. Otherwise fix the regression and push."
+          } > "$body"
+          post_comment "$body"

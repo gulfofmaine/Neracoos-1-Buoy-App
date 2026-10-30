@@ -1,0 +1,53 @@
+name: "Screenshot diffs cleanup"
+
+# Removes a closed pull request's images from the screenshot-diffs branch (see screenshot-report.yml).
+# Nothing from the pull request is checked out or executed.
+
+on:
+  pull_request_target: # zizmor: ignore[dangerous-triggers] never checks out or runs PR code, only deletes pr-<number>/
+    types: [closed]
+
+concurrency:
+  group: screenshot-diffs-branch
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  cleanup:
+    name: Remove screenshot diffs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write # push to the screenshot-diffs branch
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+
+    steps:
+      - name: Remove pr directory
+        run: |
+          set -euo pipefail
+          auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          echo "::add-mask::${auth}"
+          git_remote() {
+            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${auth}" "$@"
+          }
+
+          git init --quiet "${RUNNER_TEMP}/diffs-repo"
+          cd "${RUNNER_TEMP}/diffs-repo"
+          git remote add origin "https://github.com/${REPO}.git"
+          if ! git_remote fetch --quiet --depth 1 origin screenshot-diffs; then
+            echo "No screenshot-diffs branch"
+            exit 0
+          fi
+          git checkout --quiet -b screenshot-diffs FETCH_HEAD
+          if [ ! -d "pr-${PR}" ]; then
+            exit 0
+          fi
+          git rm -rq "pr-${PR}"
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit --quiet -m "Remove screenshot diffs for closed #${PR}"
+          git_remote push --quiet origin HEAD:refs/heads/screenshot-diffs
