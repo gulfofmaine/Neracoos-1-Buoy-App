@@ -15,3 +15,21 @@ export const getPlatforms = async () => {
 }
 
 export const usePlatformsQueryKey = ["buoybarn-platforms"]
+
+/**
+ * Check if a platform is known to Buoy Barn.
+ *
+ * Returns `undefined` if platforms could not be loaded,
+ * so callers can avoid treating an outage as a missing platform.
+ */
+export const platformExists = async (platformId: string): Promise<boolean | undefined> => {
+  try {
+    const platforms = await getPlatforms()
+    if (!Array.isArray(platforms?.features)) {
+      return undefined
+    }
+    return platforms.features.some((p) => p.id === platformId)
+  } catch {
+    return undefined
+  }
+}
