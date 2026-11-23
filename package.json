@@ -81,7 +81,7 @@
     "@vitejs/plugin-react": "^6.3.0",
     "@vitest/browser-playwright": "^5.1.0",
     "@vitest/coverage-v8": "^5.0.5",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "eslint-config-next": "16.4.6",
     "eslint-plugin-storybook": "^10.6.7",
     "jsdom": "^31.0.1",
